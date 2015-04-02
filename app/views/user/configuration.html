@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+{{ successMessage }}
+{{ errorMessage }}
+
+<form action="/user/update">
+    <div>
+        <label>username</label>
+        <input type="text" name="username" value="{{ user.username }}"/>
+    </div>
+    {#TODO allow upload photo#}
+    <div>
+        <label>city</label>
+        <input type="text" name="city" value="{{ user.city }}"/>
+    </div>
+    <div>
+        <label>country</label>
+        <input type="text" name="country" value="{{ user.country }}"/>
+    </div>
+    <div>
+        <label>bigraphy</label>
+        <input type="text" name="biography" value="{{ user.biography }}"/>
+    </div>
+    <div>
+        <label>date of birthday</label>
+        <input type="date" name="birthday" value="{{ user.birthday }}"/>
+    </div>
+    {% if user.isArtist %}
+        <div>
+            <label>specialties</label>
+            <select name="specialties" id="specialties">
+                {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label>school</label>
+            <input type="text" name="school" value="{{ user.school }}"/>
+        </div>
+        <div>
+            <label>facebook</label>
+            <input type="text" name="facebook" value="{{ user.facebook }}"/>
+        </div>
+        <div>
+            <label>twitter</label>
+            <input type="text" name="twitter" value="{{ user.twitter }}"/>
+        </div>
+        <div>
+            <label>instagram</label>
+            <input type="text" name="instagram" value="{{ user.instagram }}"/>
+        </div>
+        <div>
+            <label>tumblr</label>
+            <input type="text" name="tumblr" value="{{ user.tumblr }}"/>
+        </div>
+        <div>
+            <label>behance</label>
+            <input type="text" name="behance" value="{{ user.behance }}"/>
+        </div>
+        <div>
+            <label>web</label>
+            <input type="text" name="web" value="{{ user.web }}"/>
+        </div>
+    {% endif %}
+    <div>
+        <label>interests</label>
+        <select name="interests" id="interests">
+            {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</form>
+
+</body>
+</html>
