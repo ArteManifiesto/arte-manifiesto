@@ -5,7 +5,84 @@
     <title>AM</title>
 </head>
 <body>
+{{ successMessage }}
+{{ errorMessage }}
 <h1>Arte Manifiesto</h1>
-<a href="/auth/facebook">facebook</a>
+
+<form id="login">
+    <div>
+        <label>correo : </label>
+        <input type="email" name="email"/>
+    </div>
+    <div>
+        <label>contraseña : </label>
+        <input type="password" name="password"/>
+    </div>
+    <br/>
+    <div>
+        <input type="submit" value="iniciar sesion"/>
+    </div>
+
+    <br/>
+    <a href="/auth/forgot">olvidaste tu contraseña ? </a>
+</form>
+
+<script src="/js/lib/jquery.min.js"></script>
+<script>
+    var loginForm = $("#login");
+
+    loginForm.submit(function () {
+        $.ajax({
+            type: "POST",
+            url: "/auth/login",
+            data: loginForm.serialize(),
+            success: loginSuccessHandler
+        });
+        return false;
+    });
+
+    function loginSuccessHandler(response) {
+        console.log("login response : ", response);
+        if (response.code == 202) {
+            location.href = '/dashboard';
+        }
+    }
+</script>
+
+{#<a href="/auth/facebook">facebook</a>
+<input type="file" id="files"/>
+
+<p id="status">Subir archivo</p>
+<script type="text/javascript" src="/js/s3upload.js"></script>
+<script>
+    function s3_upload() {
+        var status_elem = document.getElementById("status");
+        var url_elem = document.getElementById("avatar_url");
+        var preview_elem = document.getElementById("preview");
+        var s3upload = new S3Upload({
+            file_dom_selector: 'files',
+            s3_sign_put_url: '/sign_s3',
+            onProgress: function (percent, message) {
+                status_elem.innerHTML = 'Upload progress: ' + percent + '% ' + message;
+            },
+            onFinishS3Put: function (public_url) {
+                console.log(public_url);
+                status_elem.innerHTML = 'Upload completed. Uploaded to: <a  target="_blank" href="' + public_url + '">image</a>';
+                url_elem.value = public_url;
+                preview_elem.innerHTML = '<img src="' + public_url + '" style="width:300px;" />';
+            },
+            onError: function (status) {
+                status_elem.innerHTML = 'Upload error: ' + status;
+            }
+        });
+    }
+    /*
+     * Listen for file selection:
+     */
+    (function () {
+        var input_element = document.getElementById("files");
+        input_element.onchange = s3_upload;
+    })();
+</script>#}
 </body>
 </html>
