@@ -23,6 +23,7 @@ exports.profile = function (req, res) {
                 collections: collections,
                 likes: likes
             };
+
             if (!owner)
                 dataToView.userProfile = user;
             return res.render(basePath + view, dataToView);
@@ -91,8 +92,8 @@ exports.configuration = function (req, res) {
 };
 
 exports.follow = function (req, res) {
-    console.log("follow id : ", req.params.idUser);
-    global.db.User.find(req.params.idUser).then(function (user) {
+    console.log("follow id : ", req.body.idUser);
+    global.db.User.find(req.body.idUser).then(function (user) {
         req.user.addFollowing(user).then(function () {
             return res.json({
                 code: 202,
@@ -103,8 +104,8 @@ exports.follow = function (req, res) {
 };
 
 exports.unfollow = function (req, res) {
-    console.log("unfollow id : ", req.params.idUser);
-    global.db.User.find(req.params.idUser).then(function (user) {
+    console.log("unfollow id : ", req.body.idUser);
+    global.db.User.find(req.body.idUser).then(function (user) {
         req.user.removeFollowing(user).then(function () {
             return res.json({
                 code: 202,
@@ -154,9 +155,9 @@ exports.postUpload = function (req, res) {
 
 
 exports.like = function (req, res) {
-    console.log("like id : ", req.params.idWork);
+    console.log("like id : ", req.body.idWork);
 
-    global.db.Work.find(req.params.idWork).then(function (work) {
+    global.db.Work.find(req.body.idWork).then(function (work) {
         req.user.addLike(work).then(function () {
             return res.json({
                 code: 202,
@@ -167,8 +168,8 @@ exports.like = function (req, res) {
 };
 
 exports.unlike = function (req, res) {
-    console.log("unlike id : ", req.params.idWork);
-    global.db.Work.find(req.params.idWork).then(function (work) {
+    console.log("unlike id : ", req.body.idWork);
+    global.db.Work.find(req.body.idWork).then(function (work) {
         req.user.removeLike(work).then(function () {
             return res.json({
                 code: 202,

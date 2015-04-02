@@ -6,19 +6,24 @@ var controller = require(config.controllersDir + "/user");
 var middlewares = require(config.middlewaresDir + '/app');
 
 router.get('/:username', controller.profile);
-router.post('/:username/update', controller.update);
 router.get('/:username/configuration', controller.configuration);
-
 router.get('/:username/portfolio/upload', controller.upload);
-router.post('/:username/portfolio/upload', controller.postUpload);
 
-//router.get('/profile', controller.profile);
+router.post('/update', controller.update);
 
-//router.get('/store', controller.configuration);
+router.post('/portfolio/upload', controller.postUpload);
 
-router.post('/follow/:idUser', controller.follow);
-router.post('/unfollow/:idUser', controller.unfollow);
-router.post('/like/:idWork', controller.like);
-router.post('/unlike/:idWork', controller.unlike);
+router.post('/collection/add', controller.collectionAddWork);
+router.post('/collection/remove', controller.collectionRemoveWork);
+router.post('/collection/switch', controller.collectionSwitchWork);
+
+
+router.post('/collection/create', controller.collectionCreate);
+router.post('/collection/remove', controller.collectionRemove);
+
+router.post('/follow', controller.follow);
+router.post('/unfollow', controller.unfollow);
+router.post('/like', controller.like);
+router.post('/unlike', controller.unlike);
 
 module.exports = router;
