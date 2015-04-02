@@ -48,41 +48,5 @@
         }
     }
 </script>
-
-{#<a href="/auth/facebook">facebook</a>
-<input type="file" id="files"/>
-
-<p id="status">Subir archivo</p>
-<script type="text/javascript" src="/js/s3upload.js"></script>
-<script>
-    function s3_upload() {
-        var status_elem = document.getElementById("status");
-        var url_elem = document.getElementById("avatar_url");
-        var preview_elem = document.getElementById("preview");
-        var s3upload = new S3Upload({
-            file_dom_selector: 'files',
-            s3_sign_put_url: '/sign_s3',
-            onProgress: function (percent, message) {
-                status_elem.innerHTML = 'Upload progress: ' + percent + '% ' + message;
-            },
-            onFinishS3Put: function (public_url) {
-                console.log(public_url);
-                status_elem.innerHTML = 'Upload completed. Uploaded to: <a  target="_blank" href="' + public_url + '">image</a>';
-                url_elem.value = public_url;
-                preview_elem.innerHTML = '<img src="' + public_url + '" style="width:300px;" />';
-            },
-            onError: function (status) {
-                status_elem.innerHTML = 'Upload error: ' + status;
-            }
-        });
-    }
-    /*
-     * Listen for file selection:
-     */
-    (function () {
-        var input_element = document.getElementById("files");
-        input_element.onchange = s3_upload;
-    })();
-</script>#}
 </body>
 </html>
