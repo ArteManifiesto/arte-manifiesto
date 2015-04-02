@@ -46,4 +46,13 @@ module.exports = function (app, passport) {
      */
     app.use(passport.initialize());
     app.use(passport.session());
+
+    app.use(function (req, res, next) {
+        res.locals = {
+            user: req.user,
+            successMessage: req.flash('successMessage'),
+            errorMessage: req.flash('errorMessage')
+        };
+        next();
+    });
 };
