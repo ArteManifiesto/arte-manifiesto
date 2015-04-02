@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .follow {
+            background-color: green;
+        }
+
+        .unfollow {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+<ul>
+    {% for user in users %}
+        <li>{{ user.firstname }}</li>
+        <button id="{{ user.id }}" class="follow">Seguir</button>
+    {% endfor %}
+</ul>
+<script src="/js/lib/jquery.min.js"></script>
+<script>
+    $(function () {
+
+        var users = {{ users|json|safe }};
+        var followings = {{ followings|json|safe }};
+
+        var i, following, followingName;
+        for (i = 0; i < followings.length; i++) {
+            following = $('#' + followings[i].id);
+            following.text('Dejar de seguir');
+            following.removeClass('follow').addClass('unfollow');
+        }
+
+        $(document).on("click", ".follow", function (event) {
+            var scope = $(this);
+            $.ajax({
+                type: "POST",
+                url: "/user/follow/" + scope.attr('id'),
+                success: function (data) {
+                    if (data.code == 202) {
+                        scope.text('Dejar de seguir');
+                        scope.removeClass('follow').addClass('unfollow');
+                    }
+                    console.log(data);
+                }
+            });
+            return false;
+        });
+
+        $(document).on("click", ".unfollow", function (event) {
+            var scope = $(this);
+            $.ajax({
+                type: "POST",
+                url: "/user/unfollow/" + scope.attr('id'),
+                success: function (data) {
+                    if (data.code == 202) {
+                        scope.text('Seguir');
+                        scope.removeClass('unfollow').addClass('follow');
+                    }
+                    console.log(data);
+                }
+            });
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>
