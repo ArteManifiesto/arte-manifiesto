@@ -7,6 +7,7 @@ var FacebookStrategy = require('passport-facebook').Strategy;
  * Serialize Sessions
  */
 passport.serializeUser(function (user, done) {
+    console.log("serialized id : ", user.id);
     done(null, user.id);
 });
 
@@ -14,6 +15,7 @@ passport.serializeUser(function (user, done) {
  * Deserialize user data
  */
 passport.deserializeUser(function (id, done) {
+    console.log("user id : ", id);
     global.db.User.find(id).then(function (user) {
         done(null, user);
     })
@@ -43,18 +45,16 @@ passport.use(new LocalStrategy(localStrategyData, localStrategyHandler));
  * Authentication by Facebook strategy
  */
 var fbStrategyHandler = function (accessToken, refreshToken, profile, done) {
-    console.log(profile, profile.first_name, profile.last_name);
     global.db.User.find({where: {facebookUserId: profile.id}}).then(function (user) {
         if (!user) {
+            var firstname = profile.name.givenName + " " + profile.name.middleName;
             var userData = {
-                username: profile.displayName,
                 email: profile.emails[0].value,
-                firstname: profile.name.givenName + " " + profile.name.middleName,
+                firstname: firstname,
                 lastname: profile.name.familyName,
                 gender: profile.gender,
                 provider: 'facebook',
-                facebookUserId: profile.id,
-                facebookUrlProfile: profile.profileUrl,
+                facebook: profile.profileUrl,
                 photo: '//graph.facebook.com/' + profile.id + '/picture?type=large'
             };
             global.db.User.create(userData).then(function (user) {
