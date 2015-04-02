@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .like {
+            background-color: green;
+        }
+
+        .unlike {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+
+<ul>
+    {% for work in works %}
+        <li>{{ work.name }}</li>
+        <button id="{{ work.id }}" class="like">Like</button>
+    {% endfor %}
+</ul>
+<script src="/js/lib/jquery.min.js"></script>
+<script>
+    $(function () {
+        var works = {{ works|json|safe }};
+        var likes ={{ likes|json|safe }};
+
+        var i, like;
+        for (i = 0; i < likes.length; i++) {
+            like = $('#' + likes[i].id);
+            like.text('Unlike');
+            like.removeClass('like').addClass('unlike');
+        }
+
+        $(document).on("click", ".like", function (event) {
+            var scope = $(this);
+            $.ajax({
+                type: "POST",
+                url: "/user/like/" + scope.attr('id'),
+                success: function (data) {
+                    if (data.code == 202) {
+                        scope.text('Unlike');
+                        scope.removeClass('like').addClass('unlike');
+                    }
+                    console.log(data);
+                }
+            });
+            return false;
+        });
+
+        $(document).on("click", ".unlike", function (event) {
+            var scope = $(this);
+            $.ajax({
+                type: "POST",
+                url: "/user/unlike/" + scope.attr('id'),
+                success: function (data) {
+                    if (data.code == 202) {
+                        scope.text('Like');
+                        scope.removeClass('unlike').addClass('like');
+                    }
+                    console.log(data);
+                }
+            });
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>
