@@ -6,5 +6,7 @@ var controller = require(config.controllersDir + "/static");
 var middlewares = require(config.middlewaresDir + '/app');
 
 router.get('/', controller.index);
-
+router.get('/users', controller.users);
+router.get('/works', controller.works);
+//router.get('/sign_s3', controller.signS3);
 module.exports = router;
