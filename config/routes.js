@@ -22,6 +22,6 @@ var middlewares = require(config.middlewaresDir + '/app');
 exports.init = function (app) {
     app.use('/', staticRouter);
     app.use('/auth', authRouter);
-    app.use('/dashboard', dashboardRouter);
+    app.use('/dashboard', middlewares.shouldLogged, dashboardRouter);
     app.use('/user', userRouter);
 };
