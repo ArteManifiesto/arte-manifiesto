@@ -23,7 +23,8 @@ if (process.env.NODE_ENV == 'production') {
     });
 } else {
     sequelize = new Sequelize(config.db.name, config.db.username, config.db.password, {
-        dialect: config.db.dialect
+        dialect: config.db.dialect,
+        timezone: '-05:00'
     });
 }
 
