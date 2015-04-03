@@ -20,7 +20,6 @@ exports.profile = function (req, res) {
         ];
         global.db.Sequelize.Promise.all(promises).then(function (data) {
             var followings = data[0], followers = data[1], collections = data[2], likes = data[3];
-
             var view = owner ? 'owner' : 'profile';
 
             var dataToView = {
@@ -210,18 +209,6 @@ exports.workRemove = function (req, res) {
                 message: "Collection don't exits"
             })
         }
-        /*global.db.Work.find(req.body.idWork).then(function (work) {
-         if (work) {
-         work.destroy().then(function () {
-         return res.json({
-         code: 202,
-         message: 'Work deleted ' + work.name
-         })
-         })
-         } else {
-
-         }
-         });*/
     });
 };
 
@@ -278,8 +265,6 @@ exports.workUpdate = function (req, res) {
         photo: 'http://i.imgur.com/QPACTzF.png',
         private: _.sample([0, 1])
     };
-
-
 };
 
 
