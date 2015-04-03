@@ -9,7 +9,13 @@ exports.profile = function (req, res) {
         var promises = [
             user.getFollowings(),
             user.getFollowers(),
-            user.getCollections({include: [{model: global.db.Work, include: [global.db.Category, global.db.Tag]}]}),
+            user.getCollections({
+                order: [[global.db.Work, 'order']],
+                include: [{
+                    model: global.db.Work,
+                    include: [global.db.Category, global.db.Tag]
+                }]
+            }),
             user.getLikes()
         ];
         global.db.Sequelize.Promise.all(promises).then(function (data) {
@@ -132,28 +138,71 @@ exports.workCreate = function (req, res) {
         private: _.sample([0, 1])
     };
     promises.push(global.db.Work.create(workPayload));
-
     promises.push(global.db.Tag.findAll());
+    promises.push(req.user.getCollections());
 
     global.db.Sequelize.Promise.all(promises).then(function (data) {
         var categories = _.sample(_.shuffle(data[0]), _.random(1, 3));
         var collection = data[1];
         var work = data[2];
         var tags = _.sample(_.shuffle(data[3]), _.random(1, 3));
+        collection.getWorks({attributes: ['order'], order: '`order` DESC', limit: 1}).then(function (works) {
+            var maxOrder = 0;
+            if (works.length > 0)
+                maxOrder = works[0].order;
+            work.order = maxOrder + 1;
+            if (collection) {
+                promises = [
+                    work.save(),
+                    work.setCollection(collection),
+                    work.setCategories(categories),
+                    work.setTags(tags)
+                ];
 
-        if (collection) {
-            promises = [
-                work.setCollection(collection),
-                work.setCategories(categories),
-                work.setTags(tags)
-            ];
-
-            global.db.Sequelize.Promise.all(promises).then(function () {
+                global.db.Sequelize.Promise.all(promises).then(function () {
+                    return res.json({
+                        code: 202,
+                        message: 'Work created ' + work.name,
+                        work: work
+                    })
+                });
+            } else {
                 return res.json({
-                    code: 202,
-                    message: 'Work created ' + work.name,
-                    work: work
+                    code: 203,
+                    message: "Collection don't exits"
                 })
+            }
+        });
+    });
+};
+
+exports.workRemove = function (req, res) {
+    global.db.Collection.find(req.body.idCollection).then(function (collection) {
+        if (collection) {
+            collection.getWorks({where: {id: req.body.idWork}, limit: 1}).then(function (works) {
+                var work = works[0];
+                if (work) {
+                    collection.getWorks({where: {order: {gte: work.order}}}).then(function (works) {
+                        var i, workToUpdate, promises = [work.destroy()];
+                        for (i = 0; i < works.length; i++) {
+                            workToUpdate = works[i];
+                            workToUpdate.order = work.order;
+                            work.order += i;
+                            promises.push(workToUpdate.save());
+                        }
+                        global.db.Sequelize.Promise.all(promises).then(function () {
+                            return res.json({
+                                code: 202,
+                                message: 'Work deleted ' + work.name
+                            })
+                        });
+                    });
+                } else {
+                    return res.json({
+                        code: 203,
+                        message: "Work don't exits"
+                    })
+                }
             });
         } else {
             return res.json({
@@ -161,24 +210,18 @@ exports.workCreate = function (req, res) {
                 message: "Collection don't exits"
             })
         }
-    });
-};
+        /*global.db.Work.find(req.body.idWork).then(function (work) {
+         if (work) {
+         work.destroy().then(function () {
+         return res.json({
+         code: 202,
+         message: 'Work deleted ' + work.name
+         })
+         })
+         } else {
 
-exports.workRemove = function (req, res) {
-    global.db.Work.find(req.body.idWork).then(function (work) {
-        if (work) {
-            work.destroy().then(function () {
-                return res.json({
-                    code: 202,
-                    message: 'Work deleted ' + work.name
-                })
-            })
-        } else {
-            return res.json({
-                code: 203,
-                message: "Work don't exits"
-            })
-        }
+         }
+         });*/
     });
 };
 
@@ -193,9 +236,7 @@ exports.workUpdate = function (req, res) {
             promises.push(global.db.Tag.findAll());
 
             global.db.Sequelize.Promise.all(promises).then(function (data) {
-                if (req.body.name)
-                    work.updateAttributes(req.body);
-
+                work.updateAttributes(req.body);
                 var categories = _.sample(_.shuffle(data[0]), _.random(1, 3));
                 var collection = data[1];
                 var tags = _.sample(_.shuffle(data[2]), _.random(1, 3));
@@ -267,18 +308,6 @@ exports.unlike = function (req, res) {
     })
 };
 
-exports.unlike = function (req, res) {
-    console.log("unlike id : ", req.body.idWork);
-    global.db.Work.find(req.body.idWork).then(function (work) {
-        req.user.removeLike(work).then(function () {
-            return res.json({
-                code: 202,
-                message: 'unlike to ' + work.name
-            });
-        });
-    })
-};
-
 exports.collectionCreate = function (req, res) {
     global.db.Collection.create(req.body).then(function (collection) {
         req.user.addCollection(collection).then(function () {
@@ -316,25 +345,83 @@ exports.collectionUpdate = function (req, res) {
 exports.collectionRemove = function (req, res) {
     global.db.Collection.find(req.body.idCollection).then(function (collection) {
         if (collection) {
-            collection.getWorks().then(function (works) {
-                req.user.getCollections({where: {name: 'General'}}).then(function (generalCollections) {
-                    var generalCollection = generalCollections[0];
-                    generalCollection.addWorks(works).then(function () {
-                        collection.destroy().then(function () {
-                            return res.json({
-                                code: 202,
-                                message: 'Collection delete ' + collection.name,
-                                collection: collection
-                            })
-                        });
-                    });
+            if (collection.name == 'Wish list' || collection.name == 'General')
+                return res.json({
+                    code: 203,
+                    message: 'The ' + collection.name + ' collection is unable to deleted'
                 });
+
+            collection.destroy().then(function () {
+                return res.json({
+                    code: 202,
+                    message: 'Collection delete ' + collection.name,
+                    collection: collection
+                })
             });
+            //TODO when delete the collection pass works to general collection
+            /*
+             collection.getWorks().then(function (works) {
+             req.user.getCollections({where: {name: 'General'}}).then(function (generalCollections) {
+             var generalCollection = generalCollections[0];
+             generalCollection.getWorks({
+             attributes: ['order'],
+             order: '`order` DESC',
+             limit: 1
+             }).then(function (generalCollectionWorks) {
+             var maxOrder = generalCollectionWorks[0].order;
+             var i, work, promises = [];
+             for (i = 0; i < works.length; i++) {
+             work = works[i];
+             work.order = ++maxOrder;
+             promises.push(work.save())
+             }
+             global.db.Sequelize.Promise.all(promises).then(function (works) {
+             generalCollection.addWorks(works).then(function () {
+             collection.destroy().then(function () {
+             return res.json({
+             code: 202,
+             message: 'Collection delete ' + collection.name,
+             collection: collection
+             })
+             });
+             });
+             });
+             });
+             });
+             });*/
         } else {
             return res.json({
                 code: 203,
                 message: "Collection don't exits"
             })
         }
+    });
+};
+
+exports.collectionReOrder = function (req, res) {
+    var worksOrder = req.body.worksOrder;
+    global.db.Collection.find(req.body.idCollection).then(function (collection) {
+        collection.getWorks().then(function (works) {
+            var i, j, workOrder, promises = [];
+            var changeOrder = function (work) {
+                for (j = 0; j < worksOrder.length; j++) {
+                    workOrder = worksOrder[i];
+                    if (work.id == workOrder.id) {
+                        work.order = workOrder.order;
+                        return work.save();
+                    }
+                }
+            };
+
+            for (i = 0; i < works.length; i++)
+                promises.push(changeOrder(works[i]));
+
+            global.db.Sequelize.Promise.all(promises).then(function () {
+                return res.json({
+                    code: 202,
+                    message: 'Collection ReOrder'
+                })
+            });
+        });
     });
 };
