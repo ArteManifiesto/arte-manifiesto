@@ -115,11 +115,11 @@ exports.unfollow = function (req, res) {
     })
 };
 
-exports.upload = function (req, res) {
-    return res.render(basePath + 'upload');
+exports.workCreateView = function (req, res) {
+    return res.render(basePath + 'work-create');
 };
 
-exports.postUpload = function (req, res) {
+exports.workCreate = function (req, res) {
     var promises = [global.db.Category.findAll()];
     if (req.body.idCollection)
         promises.push(global.db.Collection.find(req.body.idCollection));
@@ -141,16 +141,104 @@ exports.postUpload = function (req, res) {
         var work = data[2];
         var tags = _.sample(_.shuffle(data[3]), _.random(1, 3));
 
-        promises = [
-            collection.addWork(work),
-            work.addCategories(categories),
-            work.setTags(tags)
-        ];
+        if (collection) {
+            promises = [
+                work.setCollection(collection),
+                work.setCategories(categories),
+                work.setTags(tags)
+            ];
 
-        global.db.Sequelize.Promise.all(promises).then(function () {
-            return res.redirect('/user/' + req.user.username);
-        });
+            global.db.Sequelize.Promise.all(promises).then(function () {
+                return res.json({
+                    code: 202,
+                    message: 'Work created ' + work.name,
+                    work: work
+                })
+            });
+        } else {
+            return res.json({
+                code: 203,
+                message: "Collection don't exits"
+            })
+        }
     });
+};
+
+exports.workRemove = function (req, res) {
+    global.db.Work.find(req.body.idWork).then(function (work) {
+        if (work) {
+            work.destroy().then(function () {
+                return res.json({
+                    code: 202,
+                    message: 'Work deleted ' + work.name
+                })
+            })
+        } else {
+            return res.json({
+                code: 203,
+                message: "Work don't exits"
+            })
+        }
+    });
+};
+
+exports.workUpdate = function (req, res) {
+    global.db.Work.find(req.body.idWork).then(function (work) {
+        if (work) {
+            var promises = [global.db.Category.findAll()];
+            if (req.body.idCollection)
+                promises.push(global.db.Collection.find(req.body.idCollection));
+            else
+                promises.push(global.db.Collection.find(1));
+            promises.push(global.db.Tag.findAll());
+
+            global.db.Sequelize.Promise.all(promises).then(function (data) {
+                if (req.body.name)
+                    work.updateAttributes(req.body);
+
+                var categories = _.sample(_.shuffle(data[0]), _.random(1, 3));
+                var collection = data[1];
+                var tags = _.sample(_.shuffle(data[2]), _.random(1, 3));
+
+                if (collection) {
+                    promises = [
+                        work.save(),
+                        work.setCollection(collection),
+                        work.setCategories(categories),
+                        work.setTags(tags)
+                    ];
+
+                    global.db.Sequelize.Promise.all(promises).then(function () {
+                        return res.json({
+                            code: 202,
+                            message: 'Work updated ' + work.name,
+                            work: work
+                        })
+                    });
+                } else {
+                    return res.json({
+                        code: 203,
+                        message: "Collection don't exits"
+                    })
+                }
+            });
+
+        } else {
+            return res.json({
+                code: 203,
+                message: "Work don't exits"
+            })
+        }
+    });
+
+
+    var workPayload = {
+        name: chance.name(),
+        photo: 'http://i.imgur.com/QPACTzF.png',
+        private: _.sample([0, 1])
+    };
+
+
 };
 
 
@@ -177,4 +265,76 @@ exports.unlike = function (req, res) {
             });
         });
     })
+};
+
+exports.unlike = function (req, res) {
+    console.log("unlike id : ", req.body.idWork);
+    global.db.Work.find(req.body.idWork).then(function (work) {
+        req.user.removeLike(work).then(function () {
+            return res.json({
+                code: 202,
+                message: 'unlike to ' + work.name
+            });
+        });
+    })
+};
+
+exports.collectionCreate = function (req, res) {
+    global.db.Collection.create(req.body).then(function (collection) {
+        req.user.addCollection(collection).then(function () {
+            return res.json({
+                code: 202,
+                message: 'Collection created ' + collection.name,
+                collection: collection
+            })
+        })
+    });
+};
+
+exports.collectionUpdate = function (req, res) {
+    global.db.Collection.find(req.body.idCollection).then(function (collection) {
+        if (collection) {
+            collection.name = req.body.name;
+            collection.save().then(function () {
+                req.user.addCollection(collection).then(function () {
+                    return res.json({
+                        code: 202,
+                        message: 'Collection updated ' + collection.name,
+                        collection: collection
+                    })
+                })
+            });
+        } else {
+            return res.json({
+                code: 203,
+                message: "Collection don't exits"
+            })
+        }
+    });
+};
+
+exports.collectionRemove = function (req, res) {
+    global.db.Collection.find(req.body.idCollection).then(function (collection) {
+        if (collection) {
+            collection.getWorks().then(function (works) {
+                req.user.getCollections({where: {name: 'General'}}).then(function (generalCollections) {
+                    var generalCollection = generalCollections[0];
+                    generalCollection.addWorks(works).then(function () {
+                        collection.destroy().then(function () {
+                            return res.json({
+                                code: 202,
+                                message: 'Collection delete ' + collection.name,
+                                collection: collection
+                            })
+                        });
+                    });
+                });
+            });
+        } else {
+            return res.json({
+                code: 203,
+                message: "Collection don't exits"
+            })
+        }
+    });
 };
