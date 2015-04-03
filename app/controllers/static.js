@@ -32,7 +32,7 @@ exports.works = function (req, res) {
         var used = _.map(_.pluck(collections, 'Works')[0], 'id');
         used.length < 1 && (used = [0]);
         var promises = [
-            global.db.Work.findAll({where: {id: {not: used}}}),
+            global.db.Work.findAll(/*{where: {id: {not: used}}}*/),
             req.user.getLikes({attributes: ['id']})
         ];
 
