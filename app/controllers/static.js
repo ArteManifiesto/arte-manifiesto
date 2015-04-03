@@ -28,16 +28,20 @@ exports.users = function (req, res) {
 };
 
 exports.works = function (req, res) {
-    var promises = [
-        global.db.Work.findAll(),
-        req.user.getLikes({attributes: ['id']})
-    ];
+    req.user.getCollections({include: [global.db.Work]}).then(function (collections) {
+        var used = _.map(_.pluck(collections, 'Works')[0], 'id');
+        used.length < 1 && (used = [0]);
+        var promises = [
+            global.db.Work.findAll({where: {id: {not: used}}}),
+            req.user.getLikes({attributes: ['id']})
+        ];
 
-    global.db.Sequelize.Promise.all(promises).then(function (data) {
-        var works = data[0], likes = data[1];
-        return res.render(basePath + 'works', {
-            works: works,
-            likes: likes
+        global.db.Sequelize.Promise.all(promises).then(function (data) {
+            var works = data[0], likes = data[1];
+            return res.render(basePath + 'works', {
+                works: works,
+                likes: likes
+            });
         });
     });
 };
