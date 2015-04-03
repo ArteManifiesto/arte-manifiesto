@@ -7,19 +7,22 @@ var middlewares = require(config.middlewaresDir + '/app');
 
 router.get('/:username', controller.profile);
 router.get('/:username/configuration', controller.configuration);
-router.get('/:username/portfolio/upload', controller.upload);
+
+router.get('/:username/work/create', controller.workCreateView);
 
 router.post('/update', controller.update);
 
-router.post('/portfolio/upload', controller.postUpload);
-
-router.post('/collection/add', controller.collectionAddWork);
-router.post('/collection/remove', controller.collectionRemoveWork);
-router.post('/collection/switch', controller.collectionSwitchWork);
-
-
 router.post('/collection/create', controller.collectionCreate);
+router.post('/collection/update', controller.collectionUpdate);
 router.post('/collection/remove', controller.collectionRemove);
+
+router.post('/work/create', controller.workCreate);
+router.post('/work/remove', controller.workRemove);
+router.post('/work/update', controller.workUpdate);
+
+/*
+ router.post('/collection/switch', controller.collectionSwitchWork);
+ */
 
 router.post('/follow', controller.follow);
 router.post('/unfollow', controller.unfollow);
