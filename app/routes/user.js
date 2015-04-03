@@ -20,10 +20,6 @@ router.post('/work/create', controller.workCreate);
 router.post('/work/remove', controller.workRemove);
 router.post('/work/update', controller.workUpdate);
 
-/*
- router.post('/collection/switch', controller.collectionSwitchWork);
- */
-
 router.post('/follow', controller.follow);
 router.post('/unfollow', controller.unfollow);
 router.post('/like', controller.like);
