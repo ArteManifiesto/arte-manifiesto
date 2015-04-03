@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <title></title>
     <style>
+
+        .rounded {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
         .like {
             background-color: green;
         }
@@ -18,6 +25,8 @@
 <ul>
     {% for work in works %}
         <li>{{ work.name }}</li>
+        <img class="rounded" src="{{ work.photo }}" alt="{{ work.name }}"/>
+        <br/>
         <button id="{{ work.id }}" class="like">Like</button>
     {% endfor %}
 </ul>
@@ -38,7 +47,8 @@
             var scope = $(this);
             $.ajax({
                 type: "POST",
-                url: "/user/like/" + scope.attr('id'),
+                url: "/user/like/",
+                data: {idWork: scope.attr('id')},
                 success: function (data) {
                     if (data.code == 202) {
                         scope.text('Unlike');
@@ -54,7 +64,8 @@
             var scope = $(this);
             $.ajax({
                 type: "POST",
-                url: "/user/unlike/" + scope.attr('id'),
+                url: "/user/unlike/",
+                data: {idWork: scope.attr('id')},
                 success: function (data) {
                     if (data.code == 202) {
                         scope.text('Like');
