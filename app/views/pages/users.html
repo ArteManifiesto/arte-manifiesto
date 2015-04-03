@@ -38,7 +38,8 @@
             var scope = $(this);
             $.ajax({
                 type: "POST",
-                url: "/user/follow/" + scope.attr('id'),
+                url: "/user/follow/",
+                data: {idUser: scope.attr('id')},
                 success: function (data) {
                     if (data.code == 202) {
                         scope.text('Dejar de seguir');
@@ -54,7 +55,8 @@
             var scope = $(this);
             $.ajax({
                 type: "POST",
-                url: "/user/unfollow/" + scope.attr('id'),
+                url: "/user/unfollow/",
+                data: {idUser: scope.attr('id')},
                 success: function (data) {
                     if (data.code == 202) {
                         scope.text('Seguir');
