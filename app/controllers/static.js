@@ -45,3 +45,46 @@ exports.works = function (req, res) {
         });
     });
 };
+
+exports.searchWork = function (req, res) {
+    /*
+     global.db.Action.findAndCountAll({where: {meta: {in: [1, 2]}}}).then(function (actions) {
+     return res.json(actions);
+     });
+     */
+    global.db.Category.find({
+        where: {name: req.query.category},
+        include: [
+            {
+                model: global.db.Work,
+                where: {private: false}
+                /*attributes: [
+                 [global.db.sequelize.fn('SUM', global.db.sequelize.col('Works.id')), 'amount']
+                 ],*/
+            }
+        ]
+    }).then(function (category) {
+        return res.json(category);
+    });
+
+    /*
+     global.db.Work.findAll({
+     order: [[global.db.Action, 'order']],
+     include: [
+     {
+     model: global.Category,
+     where: {name: req.query.name}
+     }
+     ]
+     });*/
+
+    /*
+     var limit = 30;
+     var page = req.query.page || 0;
+     if (req.query.category) {
+     if (req.query.page) {
+
+     }
+
+     }*/
+};
