@@ -42,9 +42,14 @@ module.exports = function (sequelize, DataTypes) {
                 associate: function (models) {
                     User.belongsToMany(models.Category, {as: 'Specialties', through: 'Specialties'});
                     User.belongsToMany(models.Category, {as: 'Interests', through: 'Interests'});
+
                     User.belongsToMany(models.User, {as: 'Followers', foreignKey: 'FollowingId', through: 'Followers'});
                     User.belongsToMany(models.User, {as: 'Followings', foreignKey: 'FollowerId', through: 'Followers'});
+
+                    User.belongsToMany(models.Work, {as: 'Views', through: 'Views'});
                     User.belongsToMany(models.Work, {as: 'Likes', through: 'Likes'});
+                    User.belongsToMany(models.Work, {as: 'Collects', through: 'Collects'});
+
                     User.hasMany(models.Collection);
                 }
             },
@@ -77,7 +82,7 @@ module.exports = function (sequelize, DataTypes) {
                     var promises = [
                         user.save(),
                         global.db.Collection.create({name: 'General'}),
-                        global.db.Collection.create({name: 'Wish list'})
+                        global.db.Collection.create({name: 'WishList'})
                     ];
 
                     return global.db.Sequelize.Promise.all(promises).then(function (data) {
