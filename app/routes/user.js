@@ -21,6 +21,9 @@ router.post('/work/create', controller.workCreate);
 router.post('/work/remove', controller.workRemove);
 router.post('/work/update', controller.workUpdate);
 
+router.post('/work/add/collection', controller.workAddCollection);
+router.post('/work/switch/collection', controller.workSwitchCollection);
+
 
 router.post('/follow', controller.follow);
 router.post('/unfollow', controller.unfollow);
