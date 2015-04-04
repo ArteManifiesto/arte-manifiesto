@@ -4,8 +4,13 @@ module.exports = function (sequelize, DataTypes) {
         }, {
             classMethods: {
                 associate: function (models) {
-                    Collection.hasMany(models.Work);
                     Collection.belongsTo(models.User, {onDelete: 'cascade'});
+                    Collection.belongsToMany(models.Work);
+                }
+            },
+            instanceMethods: {
+                isRemovable: function () {
+                    return ['General', 'WishList'].indexOf(this.name) == -1;
                 }
             }
         }
