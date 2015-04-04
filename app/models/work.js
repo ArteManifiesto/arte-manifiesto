@@ -7,10 +7,16 @@ module.exports = function (sequelize, DataTypes) {
         }, {
             classMethods: {
                 associate: function (models) {
-                    Work.belongsTo(models.Collection, {onDelete: 'cascade'});
-                    Work.hasMany(models.Product);
+                    Work.belongsToMany(models.Collection);
+
                     Work.belongsToMany(models.Tag);
                     Work.belongsToMany(models.Category);
+
+                    Work.belongsToMany(models.User, {as: 'Views', through: 'Views', onDelete: 'cascade'});
+                    Work.belongsToMany(models.User, {as: 'Likes', through: 'Likes', onDelete: 'cascade'});
+                    Work.belongsToMany(models.User, {as: 'Collects', through: 'Collects', onDelete: 'cascade'});
+
+                    Work.hasMany(models.Product);
                 }
             }
         }
