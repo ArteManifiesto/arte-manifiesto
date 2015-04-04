@@ -10,6 +10,12 @@ var config = require('./config/config');
 var db = require('./config/sequelize');
 var passport = require('./config/passport');
 var _ = require('lodash');
+
+/**
+ * configuration lodash
+ */
+_.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
+
 /**
  * Start APP
  * ====================================================
@@ -82,6 +88,13 @@ global.db.sequelize.sync({force: dev}).then(function () {
                 biography: chance.paragraph({sentences: 2})
             }));
         }
+
+/*
+        var actionsData = [];
+
+        for (i = 0; i < 20; i++)
+            actionsData.push({meta: _.random(1, 2)})
+        promises.push(global.db.Action.bulkCreate(actionsData));*/
 
         global.db.Sequelize.Promise.all(promises).then(function () {
 
