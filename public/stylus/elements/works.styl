@@ -1,0 +1,34 @@
+/*------------------------------------*
+	$VARIABLES
+*------------------------------------*/
+work-width = 150px
+// work-width = 130px
+columns = 7
+works-max-width = 1200px
+
+/*------------------------------------*
+	$WORKS LAYOUT
+*------------------------------------*/
+.works
+	padding 0 .5em
+	max-width works-max-width
+	margin auto
+	overflow hidden
+	.work
+		margin 1em .5em
+
+for i in (1..(columns - 1))
+	@media screen and (min-width: work-width*i+1) and (max-width: work-width*(i+1))
+		.works[data-columns]::before
+			content str(i) + ' .column.size-1of' + str(i)
+	
+@media screen and (min-width: work-width*(columns)+1)
+	.works[data-columns]::before
+		content str(columns) + ' .column.size-1of' + str(columns)
+
+.column
+	float left
+
+for i in (1..columns)
+	.size-1of{i}
+		width: (100/i)*1%

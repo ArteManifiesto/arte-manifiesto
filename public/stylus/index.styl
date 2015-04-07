@@ -1,0 +1,33 @@
+@import 'nib'
+
+@import 'lib/reset.styl'
+@import 'lib/mixins.styl'
+@import 'lib/carousel.styl'
+
+@import 'elements/fonts.styl'
+@import 'elements/menus.styl'
+@import 'elements/slogans.styl'
+@import 'elements/buttons.styl'
+@import 'elements/works.styl'
+
+
+breakpoint3 = 920px
+
+html
+	font-size 16px
+
+@media (min-width: breakpoint3)
+	html
+		font-size 18px
+
+body
+	font-family 'Zurich'
+		
+.home-slider
+	max-width 800px
+	margin 0 auto
+	
+.slogan
+	.button1
+		display inline-block
+		margin .25em .5em
