@@ -12,7 +12,7 @@ exports.profile = function (req, res) {
             user.getFollowings(),
             user.getFollowers(),
             user.getCollections({
-                order: [[global.db.Work, 'order']],
+                order: [[global.db.Work, global.db.CollectionWork, 'order']],
                 include: [{
                     model: global.db.Work,
                     include: [global.db.Category, global.db.Tag]
@@ -49,8 +49,6 @@ exports.profile = function (req, res) {
         });
     }
 };
-
-
 exports.update = function (req, res) {
     var specialtiesData = JSON.parse(req.body.specialties);
     var interestsData = JSON.parse(req.body.interests);
@@ -79,7 +77,6 @@ exports.update = function (req, res) {
         });
     });
 };
-
 exports.configuration = function (req, res) {
     var promises = [
         global.db.Category.findAll(),
@@ -97,7 +94,6 @@ exports.configuration = function (req, res) {
         });
     });
 };
-
 exports.follow = function (req, res) {
     console.log("follow id : ", req.body.idUser);
     global.db.User.find(req.body.idUser).then(function (user) {
@@ -109,7 +105,6 @@ exports.follow = function (req, res) {
         });
     })
 };
-
 exports.unfollow = function (req, res) {
     console.log("unfollow id : ", req.body.idUser);
     global.db.User.find(req.body.idUser).then(function (user) {
@@ -126,92 +121,174 @@ exports.workCreateView = function (req, res) {
     return res.render(basePath + 'work-create');
 };
 
+/**
+ * Work Create
+ * ====================================================================
+ * When a work is created this is added to a portfolio collection
+ * too the work is reordered automatically in the collection
+ * finally the work is added to the current user and set
+ * the categories and tags
+ * @param categories ids of the cotegories
+ * @param tags ids of the tags
+ * @param work data
+ */
 exports.workCreate = function (req, res) {
-    var promises = [global.db.Category.findAll()];
-    if (req.body.idCollection)
-        promises.push(global.db.Collection.find(req.body.idCollection));
-    else
-        promises.push(global.db.Collection.find(1));
+    global.getPortfolioCollection(req.user).then(function (collection) {
+        var promises = [
+            global.db.Category.findAll({where: {id: {in: req.body.categories}}, attributes: ['id']}),
+            global.db.Tag.findAll({where: {id: {in: req.body.tags}}, attributes: ['id']}),
+            global.db.Work.create(req.body.work)
+        ];
 
-    var workPayload = {
-        name: chance.name(),
-        photo: 'http://i.imgur.com/QPACTzF.png',
-        private: _.sample([0, 1])
-    };
-    promises.push(global.db.Work.create(workPayload));
-    promises.push(global.db.Tag.findAll());
-    promises.push(req.user.getCollections());
+        global.db.Sequelize.Promise.all(promises).then(function (data) {
+            var categories = data[0], tags = data[1], work = data[2];
 
-    global.db.Sequelize.Promise.all(promises).then(function (data) {
-        var categories = _.sample(_.shuffle(data[0]), _.random(1, 3));
-        var collection = data[1];
-        var work = data[2];
-        var tags = _.sample(_.shuffle(data[3]), _.random(1, 3));
-        collection.getWorks({attributes: ['order'], order: '`order` DESC', limit: 1}).then(function (works) {
-            var maxOrder = 0;
-            if (works.length > 0)
-                maxOrder = works[0].order;
-            work.order = maxOrder + 1;
-            if (collection) {
-                promises = [
-                    work.save(),
-                    work.setCollections([collection]),
+            collection.addWork(work).then(function () {
+                var promises = [
+                    collection.reorderAfterWorkAdded([work]),
+                    work.setUser(req.user),
                     work.setCategories(categories),
                     work.setTags(tags)
                 ];
 
                 global.db.Sequelize.Promise.all(promises).then(function () {
-                    return res.json({
-                        code: 202,
-                        message: 'Work created ' + work.name,
-                        work: work
-                    })
-                });
-            } else {
-                return res.json({
-                    code: 203,
-                    message: "Collection don't exits"
+                    return res.json(responses.workCreated(work));
                 })
-            }
+            })
         });
     });
 };
 
-exports.workRemove = function (req, res) {
-    global.db.Collection.find(req.body.idCollection).then(function (collection) {
-        if (collection) {
-            collection.getWorks({where: {id: req.body.idWork}, limit: 1}).then(function (works) {
-                var work = works[0];
-                if (work) {
-                    collection.getWorks({where: {order: {gte: work.order}}}).then(function (works) {
-                        var i, workToUpdate, promises = [work.destroy()];
-                        for (i = 0; i < works.length; i++) {
-                            workToUpdate = works[i];
-                            workToUpdate.order = work.order;
-                            work.order += i;
-                            promises.push(workToUpdate.save());
-                        }
-                        global.db.Sequelize.Promise.all(promises).then(function () {
-                            return res.json({
-                                code: 202,
-                                message: 'Work deleted ' + work.name
-                            })
-                        });
-                    });
-                } else {
-                    return res.json({
-                        code: 203,
-                        message: "Work don't exits"
-                    })
-                }
+exports.workDelete = function (req, res) {
+    var getWorkQuery = {
+        where: {id: req.body.idWork},
+        attributes: ['id', 'name'],
+        include: [{
+            model: global.db.Collection,
+            attributes: ['id', 'name'],
+            through: {attributes: ['order']}
+        }]
+    };
+
+    var reorderCollection = function (work, collection) {
+        collection.reorderAfterWorkRemoved().then(function () {
+            return res.json(responses.workDeleted(work, collection));
+        });
+    };
+
+    if (!req.body.idCollection) {
+        global.getPortfolioCollection(req.user).then(function (collection) {
+            getWorkQuery.include[0].where = {id: collection.id, meta: collection.meta};
+            global.db.Work.find(getWorkQuery).then(function (work) {
+                if (!work)
+                    return res.json(responses.workDontExists(req.body.idWork));
+
+                collection = work.Collections[0];
+                work.destroy().then(function () {
+                    reorderCollection(work, collection);
+                });
             });
-        } else {
-            return res.json({
-                code: 203,
-                message: "Collection don't exits"
-            })
-        }
-    });
+        });
+    } else {
+        getWorkQuery.include[0].where = {id: req.body.idCollection, meta: 'work'};
+        global.db.Work.find(getWorkQuery).then(function (work) {
+            if (!work)
+                return res.json(responses.workDontExists(req.body.idWork));
+
+            var collection = work.Collections[0];
+            collection.removeWork(work).then(function () {
+                reorderCollection(work, collection);
+            });
+        });
+    }
+
+    /*
+     global.db.Work.find(getWorkQuery).then(function (work) {
+     var collection = work.Collections[0];
+     collection.removeWork(work).then(function () {
+     reorderCollection(collection);
+     });
+     });
+
+     if (req.body.idCollection) {
+     getWorkQuery.include[0].where.id =;
+
+     } else {
+     global.getPortfolioCollection(req.user).then(function (collection) {
+     getWorkQuery.include[0].where.id = collection.id;
+
+     global.db.Work.find(getWorkQuery).then(function (work) {
+     if (!work)
+
+     collection = work.Collections[0];
+     work.destroy().then(function () {
+     reorderCollection(collection);
+     });
+     });
+     });
+     }
+
+     global.db.Work.find(req.body.idWork).then(function (work) {
+     if (!work)
+     return res.json(responses.workDontExists(req.body.idWork));
+
+     var reorderCollection = function (collection) {
+     collection.reorderAfterWorkRemoved(work).then(function () {
+     return res.json(responses.workDeleted(work));
+     });
+     };
+
+     if (work.UserId != req.user.id) {
+     global.db.Work.find(getCollectionOfWork).then(function (work) {
+     var collection = work.Collections[0];
+     collection.removeWork(work).then(function () {
+     reorderCollection(collection);
+     });
+     });
+     } else {
+     global.getPortfolioCollection(req.user).then(function (collection) {
+     work.destroy().then(function () {
+     reorderCollection(collection);
+     });
+     });
+     }
+     });
+     */
+    /*
+     global.db.Collection.find(req.body.idCollection).then(function (collection) {
+     if (collection) {
+     collection.getWorks({where: {id: req.body.idWork}, limit: 1}).then(function (works) {
+     var work = works[0];
+     if (work) {
+     collection.getWorks({where: {order: {gte: work.order}}}).then(function (works) {
+     var i, workToUpdate, promises = [work.destroy()];
+     for (i = 0; i < works.length; i++) {
+     workToUpdate = works[i];
+     workToUpdate.order = work.order;
+     work.order += i;
+     promises.push(workToUpdate.save());
+     }
+     global.db.Sequelize.Promise.all(promises).then(function () {
+     return res.json({
+     code: 202,
+     message: 'Work deleted ' + work.name
+     })
+     });
+     });
+     } else {
+     return res.json({
+     code: 203,
+     message: "Work don't exits"
+     })
+     }
+     });
+     } else {
+     return res.json({
+     code: 203,
+     message: "Collection don't exits"
+     })
+     }
+     });*/
 };
 
 exports.workUpdate = function (req, res) {
@@ -272,30 +349,47 @@ exports.workUpdate = function (req, res) {
 
 exports.like = function (req, res) {
     console.log("like id : ", req.body.idWork);
-
     global.db.Work.find(req.body.idWork).then(function (work) {
-        req.user.addLike(work).then(function () {
-            return res.json({
-                code: 202,
-                message: 'like to ' + work.name
+        global.db.Like.create().then(function (like) {
+            var promises = [
+                work.addLike(like),
+                req.user.addLike(like)
+            ];
+            global.db.Sequelize.Promise.all(promises).then(function () {
+                return res.json({
+                    code: 202,
+                    message: 'like to ' + work.name
+                });
             });
         });
     })
 };
 
 exports.unlike = function (req, res) {
-    console.log("unlike id : ", req.body.idWork);
     global.db.Work.find(req.body.idWork).then(function (work) {
-        req.user.removeLike(work).then(function () {
-            return res.json({
-                code: 202,
-                message: 'unlike to ' + work.name
+        work.getLikes({where: {UserId: req.user.id}, limit: 1}).then(function (likes) {
+
+            like.destroy().then(function () {
+                return res.json({
+                    code: 202,
+                    message: 'unlike to ' + work.name
+                });
             });
         });
-    })
+    });
 };
 
+
+/**
+ * Collection create
+ * ====================================================================
+ * create a collection passing data for that
+ * @param * all paramaters for creation
+ */
 exports.collectionCreate = function (req, res) {
+    if (['work', 'product'].indexOf(req.body.meta) == -1)
+        return res.json(responses.collectionCannotCreate(req.body.meta));
+
     global.db.Collection.create(req.body).then(function (collection) {
         req.user.addCollection(collection).then(function () {
             return res.json(responses.collectionCreated(collection));
@@ -303,119 +397,152 @@ exports.collectionCreate = function (req, res) {
     });
 };
 
-exports.collectionUpdate = function (req, res) {
-    global.db.Collection.find(req.body.idCollection).then(function (collection) {
-        if (collection) {
-            collection.name = req.body.name;
-            collection.save().then(function () {
-                req.user.addCollection(collection).then(function () {
-                    return res.json({
-                        code: 202,
-                        message: 'Collection updated ' + collection.name,
-                        collection: collection
-                    })
-                })
-            });
-        } else {
-            return res.json({
-                code: 203,
-                message: "Collection don't exits"
-            })
-        }
-    });
-};
-
-exports.collectionRemove = function (req, res) {
-    var idPassCollection = parseInt(req.body.idPassCollection, 10);
-
+/**
+ * Collection read
+ * ====================================================================
+ * read a collection from the current user
+ * @param idCollection
+ */
+exports.collectionRead = function (req, res) {
     var query = {where: {id: req.body.idCollection}, limit: 1};
 
     req.user.getCollections(query).then(function (collections) {
         var collection = collections[0];
 
         if (!collection)
-            return res.json(responses.collectionDontExists(req.body.idCollection));
+            return res.json(responses.collectionNotExists(req.body.idCollection));
 
-        if (!collection.isRemovable())
-            return res.json(responses.collectionNotRemovable(collection));
-
-        if (!idPassCollection)
-            idPassCollection = 'General';
-
-        if (idPassCollection == collection.id)
-            return res.json(responses.collectionDontRemove(collection));
-
-        collection.getWorks().then(function (works) {
-            var deleteHandler = function () {
-                collection.destroy().then(function () {
-                    return res.json(responses.collectionRemoved(collection));
-                });
-            };
-
-            if (!(works.length > 1))
-                return deleteHandler();
-
-            if (_.isNumber(idPassCollection))
-                query = {attributes: ['id'], where: {id: idPassCollection}, limit: 1};
-            else
-                query = {attributes: ['id'], where: {name: idPassCollection}, limit: 1};
-
-            req.user.getCollections(query).then(function (collections) {
-                var passCollection = collections[0];
-                if (!passCollection)
-                    return res.json(responses.collectionDontRemove(collection));
-
-                query = {attributes: ['order'], order: '`order` DESC', limit: 1};
-                
-                passCollection.getWorks(query).then(function (passCollectionWorks) {
-                    var maxOrder = !(passCollectionWorks.length > 0) ? 0 : passCollectionWorks[0].order;
-
-                    var i, work, promises = [];
-                    for (i = 0; i < works.length; i++) {
-                        work = works[i];
-                        work.order = ++maxOrder;
-                        promises.push(work.save())
-                    }
-
-                    global.db.Sequelize.Promise.all(promises).then(function (works) {
-                        collection.setWorks(null).then(function () {
-                            passCollection.addWorks(works).then(deleteHandler);
-                        });
-                    });
-                });
-            });
-        });
-    });
+        return res.json(collection);
+    })
 };
-exports.collectionReOrder = function (req, res) {
-    var worksOrder = req.body.worksOrder;
-    global.db.Collection.find(req.body.idCollection).then(function (collection) {
+
+/**
+ * Collection update
+ * ====================================================================
+ * pass all parameters that need update
+ * @param idCollection the collection that will update
+ * @param * all parameters for update
+ */
+exports.collectionUpdate = function (req, res) {
+    var query = {where: {id: req.body.idCollection}, limit: 1};
+
+    req.user.getCollections(query).then(function (collections) {
+        var collection = collections[0];
 
         if (!collection)
-            return res.json(responses.collectionDontExists());
+            return res.json(responses.collectionNotExists(req.body.idCollection));
+
+        if (!collection.isMutable())
+            return res.json(responses.collectionIsInmutable(collection));
+
+        collection.updateAttributes(req.body).then(function () {
+            return res.json(responses.collectionUpdated(collection));
+        });
+    });
+};
+
+/**
+ * Collection remove
+ * ====================================================================
+ * if collection not have works is deleted instantly
+ * if collection have works , the user can pass to another collection
+ * where the works is automatically reorder
+ * @param idCollection the collection to delete
+ * @param idPassCollection where the works will pass
+ * from the deleted collection by default is the 'General' collection
+ * ==> General and WishList collection cannot delete
+ */
+exports.collectionDelete = function (req, res) {
+    var idPassCollection = parseInt(req.body.idPassCollection, 10);
+
+    var getCollectionToDeleteQuery = {where: {id: req.body.idCollection}, limit: 1};
+
+    req.user.getCollections(getCollectionToDeleteQuery).then(function (collections) {
+        var collection = collections[0];
+
+        var deleteCollection = function () {
+            collection.destroy().then(function () {
+                return res.json(responses.collectionDeleted(collection));
+            })
+        };
+
+        if (!collection)
+            return res.json(responses.collectionNotExists(req.body.idCollection));
+
+        if (!collection.isMutable())
+            return res.json(responses.collectionIsInmutable(collection));
+
+        if (!idPassCollection)
+            return deleteCollection();
 
         collection.getWorks().then(function (works) {
-            var i, j, workOrder, promises = [];
-            var changeOrder = function (work) {
-                for (j = 0; j < worksOrder.length; j++) {
-                    workOrder = worksOrder[i];
-                    if (work.id == workOrder.id) {
-                        work.order = workOrder.order;
-                        return work.save();
-                    }
-                }
-            };
+            if (works.length < 1)
+                return deleteCollection();
 
-            for (i = 0; i < works.length; i++)
-                promises.push(changeOrder(works[i]));
+            var getPassCollectionQuery = {attributes: ['id'], where: {id: idPassCollection}, limit: 1};
 
-            global.db.Sequelize.Promise.all(promises).then(function () {
-                return res.json(responses.collectionReOrdered(collection));
+            req.user.getCollections(getPassCollectionQuery).then(function (collections) {
+                var passCollection = collections[0];
+                if (!passCollection)
+                    return res.json(responses.collectionCannotDelete(collection));
+
+                getCollectionToDeleteQuery = {attributes: ['order'], order: '`order` DESC', limit: 1};
+
+                passCollection.addWorks(works).then(function () {
+                    passCollection.reorderAfterWorkAdded(works).then(deleteCollection);
+                });
             });
         });
     });
 };
 
+/**
+ * Collection reorder
+ * ====================================================================
+ * This execute only if the collection have more than one work
+ * @param idCollection the collection where the works will reorder
+ * @param orderWorks indicate the new order of the all works
+ */
+exports.collectionReOrder = function (req, res) {
+    var orderWorks = req.body.orderWorks;
+
+    var query = {attributes: ['id'], where: {id: req.body.idCollection}, limit: 1};
+
+    req.user.getCollections(query).then(function (collections) {
+        var collection = collections[0];
+
+        if (!collection)
+            return res.json(responses.collectionNotExists());
+
+        query = {attributes: ['id', 'order']};
+
+        collection.getWorks().then(function (works) {
+            var getOrderByWork = function (work) {
+                return _.result(_.findWhere(orderWorks, {id: work.id}), 'order');
+            };
+
+            var i, work, promises = [];
+            for (i = 0; i < works.length; i++) {
+                work = works[i];
+                work.order = getOrderByWork(work);
+                promises.push(work.save());
+            }
+
+            global.db.Sequelize.Promise.all(promises).then(function () {
+                return res.json(responses.collectionReordered(collection));
+            });
+        });
+    });
+};
+
+/**
+ * Add work to collection
+ * ====================================================================
+ * Works belongs to many collections then this is added but maintaining
+ * the user owner
+ * @param idWork the work for added
+ * @param idCollection the collection container
+ */
 exports.workAddCollection = function (req, res) {
     var promises = [
         global.db.Work.find(req.body.idWork),
@@ -426,17 +553,28 @@ exports.workAddCollection = function (req, res) {
         var work = data[0], collection = data[1];
 
         if (!collection)
-            responses.collectionDontExists(req.body.idCollection);
+            responses.collectionNotExists(req.body.idCollection);
 
         if (!work)
             responses.workDontExists(req.body.idWork);
 
-        collection.addWork(work).then(function () {
-            responses.workAddedToCollection(work, collection);
-        });
+        collection
+            .reorderAfterWorkAdded([work])
+            .addWork(work).then(function () {
+                responses.workAddedToCollection(work, collection);
+            });
     });
 };
 
+/**
+ * Switch work from a collection to another collection
+ * ====================================================================
+ * when an work pass to another collection this is deleted
+ * from the old collection
+ * @param idWork the work that will switch
+ * @param idOldCollection the collection that currently belong the work
+ * @param idNewCollection the collection container for the work
+ */
 exports.workSwitchCollection = function (req, res) {
     var promises = [
         global.db.Collection.find(req.body.idOldCollection),
@@ -447,33 +585,91 @@ exports.workSwitchCollection = function (req, res) {
         var oldCollection = data[0], newCollection = data[1];
 
         if (!oldCollection)
-            return res.json(responses.collectionDontExists(req.body.idOldCollection));
+            return res.json(responses.collectionNotExists(req.body.idOldCollection));
 
         if (!newCollection)
-            return res.json(responses.collectionDontExists(req.body.idNewCollection));
+            return res.json(responses.collectionNotExists(req.body.idNewCollection));
 
-        oldCollection.getWork(req.body.idWork).then(function (work) {
-            if (!work) {
+        var query = {where: {id: req.body.idWork}, limit: 1};
+
+        oldCollection.getWorks(query).then(function (works) {
+            var work = works[0];
+
+            if (!work)
                 return res.json(responses.workNotBelongToCollection(req.body.idWork, oldCollection));
-            }
 
-            promises = [
-                oldCollection.removeWork(work),
-                newCollection.addWork(work)
-            ];
-
-            global.db.Sequelize.Promise.all(promises).then(function (data) {
-                return res.json(responses.workSwitchedOfCollection(work, oldCollection, newCollection));
+            reorderInCollection(work, newCollection).then(function () {
+                promises = [
+                    oldCollection.removeWork(work),
+                    newCollection.addWork(work)
+                ];
+                global.db.Sequelize.Promise.all(promises).then(function (data) {
+                    return res.json(responses.workSwitchedOfCollection(work, oldCollection, newCollection));
+                });
             });
         });
     });
 };
 
+
 var responses = {
-    workDontExists: function (idWork) {
-        var message = "Work with id {{ idWork }} don't exits";
+
+    message: function (code, message) {
+        return {
+            code: code,
+            message: message
+        }
+    },
+    successMessage: function () {
         return {
             code: 202,
+            message: _.template(message)({
+                work: work.name
+            })
+        };
+    },
+
+    workCreated: function (work) {
+        var message = "Work {{ work }} created";
+        return {
+            code: 202,
+            message: _.template(message)({
+                work: work.name
+            })
+        };
+    },
+    workDeleted: function (work, collection) {
+        var message = "Work {{ work }} deleted from {{ collection }} collection";
+        return {
+            code: 202,
+            message: _.template(message)({
+                work: work.name,
+                collection: collection.name
+            })
+        };
+    },
+    workNeedCategories: function (collection) {
+        var message = "Work {{ work }} need categories";
+        return {
+            code: 202,
+            message: _.template(message)({
+                work: work.name
+            })
+        };
+    },
+    workNeedTags: function (collection) {
+        var message = "Work {{ work }} need tags";
+        return {
+            code: 202,
+            message: _.template(message)({
+                work: work.name
+            })
+        };
+    },
+    workDontExists: function (idWork) {
+        var message = "Work with id {{ idWork }} not exists";
+        return {
+            code: 203,
             message: _.template(message)({
                 idWork: idWork
             })
@@ -489,18 +685,17 @@ var responses = {
             collection: collection
         }
     },
-    collectionNotRemovable: function (collection) {
-        var message = "Collection  {{ collection }} cannot be remove";
+    collectionCannotCreate: function (meta) {
+        var message = "Cannot create a collection with meta {{ meta }}";
         return {
-            code: 203,
+            code: 202,
             message: _.template(message)({
-                collection: collection.name
-            }),
-            collection: collection
+                meta: meta
+            })
         }
     },
-    collectionRemoved: function (collection) {
-        var message = "Collection  {{ collection }} removed";
+    collectionUpdated: function (collection) {
+        var message = "Collection  {{ collection }} updated";
         return {
             code: 202,
             message: _.template(message)({
@@ -509,7 +704,36 @@ var responses = {
             collection: collection
         }
     },
-    collectionDontExists: function (idCollection) {
+    collectionIsInmutable: function (collection) {
+        var message = "Collection  {{ collection }} is inmutable";
+        return {
+            code: 203,
+            message: _.template(message)({
+                collection: collection.name
+            })
+        }
+    },
+    collectionNotHaveWorks: function (collection) {
+        var message = "Collection  {{ collection }} not have works";
+        return {
+            code: 203,
+            message: _.template(message)({
+                collection: collection.name
+            }),
+            collection: collection
+        }
+    },
+    collectionDeleted: function (collection) {
+        var message = "Collection  {{ collection }} deleted";
+        return {
+            code: 202,
+            message: _.template(message)({
+                collection: collection.name
+            }),
+            collection: collection
+        }
+    },
+    collectionNotExists: function (idCollection) {
         var message = "Collection with id {{ idCollection }} don't exits";
         return {
             code: 203,
@@ -518,8 +742,8 @@ var responses = {
             })
         }
     },
-    collectionReOrdered: function (collection) {
-        var message = "Collection {{ collection }} reOrdered";
+    collectionReordered: function (collection) {
+        var message = "Collection {{ collection }} reordered";
         return {
             code: 202,
             message: _.template(message)({
@@ -528,7 +752,7 @@ var responses = {
             collection: collection
         }
     },
-    collectionDontRemove: function (collection) {
+    collectionCannotDelete: function (collection) {
         var message = "Collection {{ collection }} dont remove because " +
             "pass collection dont exists are equals";
         return {

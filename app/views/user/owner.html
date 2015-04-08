@@ -30,6 +30,7 @@
 
 
 <h3>followers</h3>
+
 {% if followers.length > 0 %}
     <ul>
         {% for follower in followers %}
@@ -40,7 +41,7 @@
         {% endfor %}
     </ul>
 {% else %}
-    <em>no tienes ningun seguidor  </em>
+    <em>no tienes ningun seguidor </em>
 {% endif %}
 
 <h1>Portfolio</h1>
@@ -56,7 +57,7 @@
         {% endfor %}
     </ul>
 {% else %}
-    <em>no le has dado like a ninguna obra  </em>
+    <em>no le has dado like a ninguna obra </em>
 {% endif %}
 <h3>collections</h3>
 <ul>
@@ -65,24 +66,26 @@
             <ul>
                 {% if collection.Works.length > 0 %}
                     {% for work in collection.Works %}
-                        <li>{{ work.name }} <span><strong>
-                                    {% if work.private %}
-                                        private
-                                    {% else %}
-                                        public
-                                    {% endif %}
-                                </strong></span></li>
-                        <img class="rounded" src="{{ work.photo }}"><br/>
-                        <span><strong>tags</strong> </span>
-                        {% for tag in work.Tags %}
-                            <a href="#">{{ tag.name }}</a>
-                        {% endfor %}
-                        <br/>
-                        <span><strong>categories</strong> </span>
-                        {% for category in work.Categories %}
-                            <a href="#">{{ category.name }}</a>
-                        {% endfor %}
-                        <br/>
+                        <div style="margin: 10px;width: 200px;">
+                            <li>{{ work.name }} <span><strong>
+                                        {% if work.private %}
+                                            private
+                                        {% else %}
+                                            public
+                                        {% endif %}
+                                    </strong></span></li>
+                            <img class="rounded" src="{{ work.photo }}"><br/>
+                            <span><strong>tags</strong> </span>
+                            {% for tag in work.Tags %}
+                                <a href="#">{{ tag.name }}</a>
+                            {% endfor %}
+                            <br/>
+                            <span><strong>categories</strong> </span>
+                            {% for category in work.Categories %}
+                                <a href="#">{{ category.name }}</a>
+                            {% endfor %}
+                            <br/>
+                        </div>
                     {% endfor %}
                 {% else %}
                     <em>coleccion sin obras</em>
@@ -103,7 +106,7 @@
         $(document).on("click", ".addToCollection", function (event) {
             $('.quad').show();
         });
-        
+
         $('.addCollection').click(function () {
             $('.quad').hide();
         });

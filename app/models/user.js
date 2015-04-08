@@ -46,11 +46,13 @@ module.exports = function (sequelize, DataTypes) {
                     User.belongsToMany(models.User, {as: 'Followers', foreignKey: 'FollowingId', through: 'Followers'});
                     User.belongsToMany(models.User, {as: 'Followings', foreignKey: 'FollowerId', through: 'Followers'});
 
-                    User.belongsToMany(models.Work, {as: 'Views', through: 'Views'});
-                    User.belongsToMany(models.Work, {as: 'Likes', through: 'Likes'});
-                    User.belongsToMany(models.Work, {as: 'Collects', through: 'Collects'});
-
+                    User.hasMany(models.Action);
                     User.hasMany(models.Collection);
+
+                    User.hasMany(models.Work);
+
+                    User.hasMany(models.Like);
+                    User.hasMany(models.Collect);
                 }
             },
             instanceMethods: {
@@ -67,7 +69,7 @@ module.exports = function (sequelize, DataTypes) {
                 },
                 makeTokenResetPassword: function () {
                     this.tokenResetPassword = uuid.v4();
-                    this.tokenResetPasswordExpires = moment().add(60, 'minutes');
+                    this.tokenResetPasswordExpires = moment().add(1, 'hour');
                     return this.save();
                 }
             },
@@ -81,13 +83,14 @@ module.exports = function (sequelize, DataTypes) {
 
                     var promises = [
                         user.save(),
-                        global.db.Collection.create({name: 'General'}),
-                        global.db.Collection.create({name: 'WishList'})
+                        global.db.Collection.create({name: 'Portafolio', meta: 'portfolio'}),
+                        global.db.Collection.create({name: 'Favoritos', meta: 'work'}),
+                        global.db.Collection.create({name: 'Deseos', meta: 'product'}),
+                        global.db.Collection.create({name: 'Regalos', meta: 'product'})
                     ];
 
                     return global.db.Sequelize.Promise.all(promises).then(function (data) {
-                        var generalCollection = data[1], wishListCollection = data[2];
-                        return user.addCollections([generalCollection, wishListCollection]);
+                        return user.addCollections(data.slice(1, data.length));
                     });
                 }
             }

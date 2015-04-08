@@ -12,11 +12,15 @@
         }
 
         .like {
-            background-color: green;
+            background-color: deepskyblue;
+        }
+
+        .collect {
+            background-color: #90EE90;
         }
 
         .unlike {
-            background-color: red;
+            background-color: aquamarine;
         }
     </style>
 </head>
@@ -24,10 +28,14 @@
 
 <ul>
     {% for work in works %}
-        <li>{{ work.name }}</li>
-        <img class="rounded" src="{{ work.photo }}" alt="{{ work.name }}"/>
-        <br/>
-        <button id="{{ work.id }}" class="like">Like</button>
+        {{ work.lel }}
+        <div style="margin: 10px;width: 200px;">
+            <li> - {{ work.name }}</li>
+            <li><strong>{{ work.likes }}</strong> <em>likes</em></li>
+            <img class="rounded" src="{{ work.photo }}"><br/>
+            <button id="{{ work.id }}" class="like">Like</button>
+            <button id="{{ work.id }}" class="collect">Collect</button>
+        </div>
     {% endfor %}
 </ul>
 <script src="/js/lib/jquery.min.js"></script>
@@ -35,7 +43,7 @@
     $(function () {
         var works = {{ works|json|safe }};
         var likes ={{ likes|json|safe }};
-
+        console.log(works);
         var i, like;
         for (i = 0; i < likes.length; i++) {
             like = $('#' + likes[i].id);
@@ -72,6 +80,20 @@
                         scope.removeClass('unlike').addClass('like');
                     }
                     console.log(data);
+                }
+            });
+            return false;
+        });
+
+        $(document).on("click", ".collect", function (event) {
+            alert('collect');
+            return false;
+            var scope = $(this);
+            $.ajax({
+                type: "POST",
+                url: "/user/collects/",
+                data: {meta: 'works'},
+                success: function (data) {
                 }
             });
             return false;

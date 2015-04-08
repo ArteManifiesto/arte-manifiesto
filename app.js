@@ -50,7 +50,7 @@ global.db = db;
 
 
 var dev = !(process.env.NODE_ENV == 'production');
-dev = true;
+dev = false;
 global.db.sequelize.sync({force: dev}).then(function () {
     if (dev) {
         var Chance = require('chance');
@@ -89,12 +89,12 @@ global.db.sequelize.sync({force: dev}).then(function () {
             }));
         }
 
-/*
-        var actionsData = [];
+        /*
+         var actionsData = [];
 
-        for (i = 0; i < 20; i++)
-            actionsData.push({meta: _.random(1, 2)})
-        promises.push(global.db.Action.bulkCreate(actionsData));*/
+         for (i = 0; i < 20; i++)
+         actionsData.push({meta: _.random(1, 2)})
+         promises.push(global.db.Action.bulkCreate(actionsData));*/
 
         global.db.Sequelize.Promise.all(promises).then(function () {
 

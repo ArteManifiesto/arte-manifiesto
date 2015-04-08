@@ -2,19 +2,18 @@ module.exports = function (sequelize, DataTypes) {
     var Work = sequelize.define('Work', {
             name: DataTypes.STRING,
             photo: DataTypes.STRING,
-            private: {type: DataTypes.BOOLEAN, defaultValue: false},
-            order: {type: DataTypes.INTEGER, defaultValue: 0}
+            public: {type: DataTypes.BOOLEAN, defaultValue: true}
         }, {
             classMethods: {
                 associate: function (models) {
-                    Work.belongsToMany(models.Collection);
+                    Work.belongsTo(models.User, {onDelete: 'cascade'});
 
+                    Work.belongsToMany(models.Collection, {through: models.CollectionWork});
                     Work.belongsToMany(models.Tag);
                     Work.belongsToMany(models.Category);
 
-                    Work.belongsToMany(models.User, {as: 'Views', through: 'Views', onDelete: 'cascade'});
-                    Work.belongsToMany(models.User, {as: 'Likes', through: 'Likes', onDelete: 'cascade'});
-                    Work.belongsToMany(models.User, {as: 'Collects', through: 'Collects', onDelete: 'cascade'});
+                    Work.hasMany(models.Like);
+                    Work.hasMany(models.Collect);
 
                     Work.hasMany(models.Product);
                 }

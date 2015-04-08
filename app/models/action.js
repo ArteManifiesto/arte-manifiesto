@@ -4,7 +4,7 @@ module.exports = function (sequelize, DataTypes) {
         }, {
             classMethods: {
                 associate: function (models) {
-                    Action.belongsTo(models.Work, {onDelete: 'cascade'});
+                    Action.belongsTo(models.User, {onDelete: 'cascade'});
                 }
             }
         }

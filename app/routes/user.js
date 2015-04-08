@@ -13,12 +13,14 @@ router.get('/:username/work/create', controller.workCreateView);
 router.post('/update', controller.update);
 
 router.post('/collection/create', controller.collectionCreate);
+router.post('/collection/read', controller.collectionRead);
 router.post('/collection/update', controller.collectionUpdate);
-router.post('/collection/remove', controller.collectionRemove);
+router.post('/collection/delete', controller.collectionDelete);
+
 router.post('/collection/reorder', controller.collectionReOrder);
 
 router.post('/work/create', controller.workCreate);
-router.post('/work/remove', controller.workRemove);
+router.post('/work/delete', controller.workDelete);
 router.post('/work/update', controller.workUpdate);
 
 router.post('/work/add/collection', controller.workAddCollection);
