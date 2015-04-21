@@ -8,24 +8,31 @@ var async = require('async');
 
 exports.profile = function (req, res) {
     var showProfile = function (user, owner) {
-        var promises = [
-            user.getFollowings(),
-            user.getFollowers(),
+        var promises = [/*
+         user.getFollowings({attributes: ['username', 'photo']}),*/
+            user.getFollowers({attributes: ['username', 'photo']}),
             user.getCollections({
+                attributes: ['name', 'meta'],
                 order: [[global.db.Work, global.db.CollectionWork, 'order']],
+                group: ['meta', 'id', 'Works.id'],
                 include: [{
                     model: global.db.Work,
-                    include: [global.db.Category, global.db.Tag]
+                    attributes: ['name', 'nameSlugify', 'photo', 'public'],
+                    include: [
+                        {model: global.db.Tag, attributes: ['name']},
+                        {model: global.db.Category, attributes: ['name']}
+                    ]
                 }]
             }),
             user.getLikes()
         ];
         global.db.Sequelize.Promise.all(promises).then(function (data) {
-            var followings = data[0], followers = data[1], collections = data[2], likes = data[3];
+            var /*followings = data[0], */followers = data[0], collections = data[1], likes = data[2];
             var view = owner ? 'owner' : 'profile';
 
             var dataToView = {
-                followings: followings,
+                /*
+                 followings: followings,*/
                 followers: followers,
                 collections: collections,
                 likes: likes
@@ -94,10 +101,11 @@ exports.configuration = function (req, res) {
         });
     });
 };
+
 exports.follow = function (req, res) {
     console.log("follow id : ", req.body.idUser);
     global.db.User.find(req.body.idUser).then(function (user) {
-        req.user.addFollowing(user).then(function () {
+        user.addFollower(req.user).then(function () {
             return res.json({
                 code: 202,
                 message: 'follow to ' + user.firstname
@@ -105,10 +113,11 @@ exports.follow = function (req, res) {
         });
     })
 };
+
 exports.unfollow = function (req, res) {
     console.log("unfollow id : ", req.body.idUser);
     global.db.User.find(req.body.idUser).then(function (user) {
-        req.user.removeFollowing(user).then(function () {
+        user.removeFollower(req.user).then(function () {
             return res.json({
                 code: 202,
                 message: 'unfollow to ' + user.firstname
@@ -116,6 +125,62 @@ exports.unfollow = function (req, res) {
         });
     })
 };
+
+exports.work = function (req, res) {
+    var getWorkQuery = {
+        where: {nameSlugify: req.params.nameWork},
+        include: [
+            {
+                model: global.db.User,
+                attributes: ['id'],
+                include: [
+                    {model: global.db.User, as: 'Followers', attributes: [], through: {attributes: []}}
+                ]
+            },
+            {model: global.db.User, as: 'Collects'}
+        ]
+    };
+
+    global.db.Work.find(getWorkQuery).then(function (work) {
+        var query = {
+            where: {id: work.User.id},
+            attributes: [],
+            include: [
+                {
+                    model: global.db.Work,
+                    where: {id: {not: [work.id]}}
+                }
+            ]
+        };
+        global.db.User.find(query).then(function (otherWorks) {
+            if (req.user) {
+                req.user.getInterests().then(function (interests) {
+                    var ids = [0].concat(_.pluck(interests, 'id'));
+
+                    var que = {
+                        where: {id: {in: ids}},
+                        include: [global.db.Work]
+                    };
+                    global.db.Category.findAll(que).then(function (worksforme) {
+                        return res.json(worksforme);
+                    });
+                });
+            } else {
+                return res.json({
+                    work: work,
+                    otherWorks: otherWorks
+                });
+            }
+        });
+
+        /*
+         return res.render('user/work', {
+         work: work
+         })
+         */
+    });
+};
+
 
 exports.workCreateView = function (req, res) {
     return res.render(basePath + 'work-create');
@@ -350,16 +415,10 @@ exports.workUpdate = function (req, res) {
 exports.like = function (req, res) {
     console.log("like id : ", req.body.idWork);
     global.db.Work.find(req.body.idWork).then(function (work) {
-        global.db.Like.create().then(function (like) {
-            var promises = [
-                work.addLike(like),
-                req.user.addLike(like)
-            ];
-            global.db.Sequelize.Promise.all(promises).then(function () {
-                return res.json({
-                    code: 202,
-                    message: 'like to ' + work.name
-                });
+        work.addLike(req.user).then(function () {
+            return res.json({
+                code: 202,
+                message: 'like to ' + work.name
             });
         });
     })
@@ -367,13 +426,10 @@ exports.like = function (req, res) {
 
 exports.unlike = function (req, res) {
     global.db.Work.find(req.body.idWork).then(function (work) {
-        work.getLikes({where: {UserId: req.user.id}, limit: 1}).then(function (likes) {
-
-            like.destroy().then(function () {
-                return res.json({
-                    code: 202,
-                    message: 'unlike to ' + work.name
-                });
+        req.user.removeLike(work).then(function () {
+            return res.json({
+                code: 202,
+                message: 'unlike to ' + work.name
             });
         });
     });
@@ -607,6 +663,52 @@ exports.workSwitchCollection = function (req, res) {
                     return res.json(responses.workSwitchedOfCollection(work, oldCollection, newCollection));
                 });
             });
+        });
+    });
+};
+
+
+exports.workFeatured = function (req, res) {
+    global.db.Work.find(req.body.idWork).then(function (work) {
+        work.featured().then(function () {
+            return res.json({
+                code: 202,
+                message: 'Work featured'
+            })
+        });
+    });
+};
+
+exports.workUnFeatured = function (req, res) {
+    global.db.Work.find(req.body.idWork).then(function (work) {
+        work.unFeatured().then(function () {
+            return res.json({
+                code: 202,
+                message: 'Work unFeatured'
+            })
+        });
+    });
+};
+
+
+exports.userFeatured = function (req, res) {
+    global.db.User.find(req.body.idUser).then(function (user) {
+        user.featured().then(function () {
+            return res.json({
+                code: 202,
+                message: 'User featured'
+            })
+        });
+    });
+};
+
+exports.userUnFeatured = function (req, res) {
+    global.db.User.find(req.body.idUser).then(function (user) {
+        user.unFeatured().then(function () {
+            return res.json({
+                code: 202,
+                message: 'User unFeatured'
+            })
         });
     });
 };
