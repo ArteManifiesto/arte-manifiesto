@@ -1,0 +1,14 @@
+SELECT SQL_CALC_FOUND_ROWS `Works`.`id`, `Works`.`name`, `Works`.`nameSlugify`, `Works`.`photo`,
+count(DISTINCT `Works.Likes`.`id`) AS `likes`,
+count(DISTINCT `Works.Collects`.`id`) AS `collects`,
+count(DISTINCT `Works.Viewers`.`id`) AS `views`,
+((count(DISTINCT `Works.Likes`.`id`) * 1) + (count(DISTINCT `Works.Collects`.`id`) * 3)) AS `popularity`,
+case `Works`.`UserId` when 0 then true else false end AS `owner`,
+case `Likes`.`UserId` when 0 then true else false end AS `liked`,
+case `Collects`.`UserId` when 0 then true else false end AS `collected`,
+case `WorkViewers`.`UserId` when 0 then true else false end AS `viewed`,
+case `WorkFeatureds`.`featured` when true then true else false end AS `featured`,
+`User`.`username` AS `User.username`, `User`.`firstname` AS `User.firstname`,
+`User`.`lastname` AS `User.lastname`
+FROM `Categories` AS `Category` INNER JOIN (`WorkCategories`  INNER JOIN `Works` AS `Works` ON `Works`.`id` = `WorkCategories`.`WorkId`) ON `Category`.`id` = `WorkCategories`.`CategoryId` AND `Works`.`public` = TRUE LEFT OUTER JOIN `Users` AS `User` ON `Works`.`UserId` = `User`.`id` LEFT OUTER JOIN (`Likes` INNER JOIN `Users` AS `Works.Likes` ON `Works.Likes`.`id` = `Likes`.`UserId`) ON `Works`.`id` = `Likes`.`WorkId` LEFT OUTER JOIN (`Collects` INNER JOIN `Users` AS `Works.Collects` ON `Works.Collects`.`id` = `Collects`.`UserId`) ON `Works`.`id` = `Collects`.`WorkId` LEFT OUTER JOIN (`WorkViewers` INNER JOIN `Users` AS `Works.Viewers` ON `Works.Viewers`.`id` = `WorkViewers`.`UserId`) ON `Works`.`id` = `WorkViewers`.`WorkId` LEFT OUTER JOIN `WorkFeatureds` ON `Works`.`id` = `WorkFeatureds`.`WorkId` AND `WorkFeatureds`.`featured` = TRUE GROUP BY `Works`.`id` ORDER BY 8 DESC LIMIT 0,3
+Executing (default): SELECT FOUND_ROWS() AS count;
