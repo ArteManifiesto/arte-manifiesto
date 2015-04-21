@@ -41,7 +41,6 @@ exports.search = function (req, res) {
             delete req.query[item];
 
     var searchable = _.capitalize(req.params.entity);
-    console.log("searchable : ", searchable);
     global["search" + searchable](req).then(function (data) {
         data.url = global.generateUrlWithParams(data.pagination, req);
         return res.json(data);
@@ -50,6 +49,7 @@ exports.search = function (req, res) {
 
 var searchBridge = function (req) {
     var idUser = req.user ? req.user.id : 0;
+    console.log(req.url);
     var options = {
         method: 'POST',
         body: {idUser: idUser},
