@@ -148,41 +148,9 @@
 	<script type="text/javascript" src="js/vendor/salvattore.js"></script>
 	<script src="/js/vendor/jquery.min.js"></script>
 
-	<script type="text/javascript" src="js/login.js"></script>
+	<script type="text/javascript" src="js/lib/login.js"></script>
 
-<script>
-  var loginForm = $(".js-signInForm");
-
-  loginForm.submit(function () {
-      $.ajax({
-          type: "POST",
-          url: "/auth/login",
-          data: loginForm.serialize(),
-          success: loginSuccessHandler
-      });
-      return false;
-  });
-
-  function loginSuccessHandler(response) {
-      console.log("login response : ", response);
-      if (response.code == 202) {
-          location.href = '/dashboard';
-      }
-  }
-
-  // var registerForm = $(".js-signInForm");
-
-  // loginForm.submit(function () {
-  //     $.ajax({
-  //         type: "POST",
-  //         url: "/auth/singup",
-  //         data: loginForm.serialize(),
-  //         success: loginSuccessHandler
-  //     });
-  //     return false;
-  // });
-
-</script>
+	<script type="text/javascript" src="js/index.js"></script>
 
 </body>
 </html>

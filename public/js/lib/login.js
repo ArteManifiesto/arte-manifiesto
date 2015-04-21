@@ -4,14 +4,15 @@ function Login (container, data) {
 	var openSignUpButton = document.querySelector('.' + data.signUpButtonClass)
 	var openSignInButton = document.querySelector('.' + data.signInButtonClass)
 
-	var signUpFormButton = container.querySelector('.' + data.signUpFormButtonClass)
-	var signInFormButton = container.querySelector('.' + data.signInFormButtonClass)
-	
-	var signUpForm = container.querySelector('.' + data.signUpFormClass)
-	var signInForm = container.querySelector('.' + data.signInFormClass)
-
-	var html = document.querySelector('html');
 	var loginBox = container.querySelector('.' + data.loginBoxClass)
+
+	var signUpFormButton = loginBox.querySelector('.' + data.signUpFormButtonClass)
+	var signInFormButton = loginBox.querySelector('.' + data.signInFormButtonClass)
+	
+	var signUpForm = loginBox.querySelector('.' + data.signUpFormClass)
+	var signInForm = loginBox.querySelector('.' + data.signInFormClass)
+
+	var html = document.querySelector('html')
 
 	function setup () {
 
@@ -66,14 +67,3 @@ function Login (container, data) {
 		closed: closed
 	}
 }
-
-
-window.login = new Login(document.querySelector('.login-modal'), {
-	signUpButtonClass: 'js-signUpButton',
-	signInButtonClass: 'js-signInButton',
-	signUpFormButtonClass: 'js-signUpFormButton',
-	signInFormButtonClass: 'js-signInFormButton',
-	signUpFormClass: 'js-signUpForm',
-	signInFormClass: 'js-signInForm',
-	loginBoxClass: 'js-loginBox'
-})
