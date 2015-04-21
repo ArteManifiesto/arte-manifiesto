@@ -5,7 +5,7 @@ module.exports = function (sequelize, DataTypes) {
             classMethods: {
                 associate: function (models) {
                     //TODO maybe tag need delete when the work is deleted?
-                    Tag.belongsToMany(models.Work);
+                    Tag.belongsToMany(models.Work , {through: 'WorkTags'});
                 }
             }
         }
