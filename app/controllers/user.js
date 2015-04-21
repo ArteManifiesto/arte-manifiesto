@@ -8,8 +8,8 @@ var async = require('async');
 
 exports.profile = function (req, res) {
     var showProfile = function (user, owner) {
-        var promises = [/*
-         user.getFollowings({attributes: ['username', 'photo']}),*/
+        var promises = [
+            user.getFollowings({attributes: ['username', 'photo']}),
             user.getFollowers({attributes: ['username', 'photo']}),
             user.getCollections({
                 attributes: ['name', 'meta'],
@@ -27,6 +27,7 @@ exports.profile = function (req, res) {
             user.getLikes()
         ];
         global.db.Sequelize.Promise.all(promises).then(function (data) {
+            return res.json(data);
             var /*followings = data[0], */followers = data[0], collections = data[1], likes = data[2];
             var view = owner ? 'owner' : 'profile';
 
