@@ -74,6 +74,7 @@
                                             public
                                         {% endif %}
                                     </strong></span></li>
+                            <a href="/user/work/{{ work.nameSlugify }}">ir</a>
                             <img class="rounded" src="{{ work.photo }}"><br/>
                             <span><strong>tags</strong> </span>
                             {% for tag in work.Tags %}
@@ -101,7 +102,8 @@
     $(function () {
         var followings = {{ followings|json|safe }};
         var followers = {{ followers|json|safe }};
-
+        var likes = {{ likes|json|safe }};
+        console.log(likes);
         $('.quad').hide();
         $(document).on("click", ".addToCollection", function (event) {
             $('.quad').show();
