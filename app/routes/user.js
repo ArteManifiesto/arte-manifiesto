@@ -26,10 +26,17 @@ router.post('/work/update', controller.workUpdate);
 router.post('/work/add/collection', controller.workAddCollection);
 router.post('/work/switch/collection', controller.workSwitchCollection);
 
+router.post('/work/featured', controller.workFeatured);
+router.post('/work/unfeatured', controller.workUnFeatured);
+
+router.post('/featured', controller.userFeatured);
+router.post('/unfeatured', controller.userUnFeatured);
 
 router.post('/follow', controller.follow);
 router.post('/unfollow', controller.unfollow);
 router.post('/like', controller.like);
 router.post('/unlike', controller.unlike);
+
+router.get('/work/:nameWork', controller.work);
 
 module.exports = router;
