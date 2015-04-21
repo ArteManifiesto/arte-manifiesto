@@ -1,6 +1,9 @@
 var crypto = require('crypto');
 var uuid = require('node-uuid');
 var moment = require('moment');
+var _ = require('lodash');
+var Chance = require('chance');
+var chance = new Chance();
 
 module.exports = function (sequelize, DataTypes) {
     var User = sequelize.define('User', {
@@ -46,13 +49,21 @@ module.exports = function (sequelize, DataTypes) {
                     User.belongsToMany(models.User, {as: 'Followers', foreignKey: 'FollowingId', through: 'Followers'});
                     User.belongsToMany(models.User, {as: 'Followings', foreignKey: 'FollowerId', through: 'Followers'});
 
+                    User.belongsToMany(models.User, {as: 'UserViewers', foreignKey: 'UserViewingId', through: 'UserViewers'});
+                    User.belongsToMany(models.User, {as: 'UserViewings', foreignKey: 'UserViewerId', through: 'UserViewers'});
+
+                    User.belongsToMany(models.Work, {as: 'Likes', through: 'Likes'});
+                    User.belongsToMany(models.Work, {as: 'Collects', through: 'Collects'});
+
+                    User.belongsToMany(models.Work, {as: 'WorkViewers', through: 'WorkViewers'});
+                    User.belongsToMany(models.Product, {as: 'ProductViewers', through: 'ProductViewers'});
+
                     User.hasMany(models.Action);
                     User.hasMany(models.Collection);
 
-                    User.hasMany(models.Work);
+                    User.hasMany(models.UserFeatured);
 
-                    User.hasMany(models.Like);
-                    User.hasMany(models.Collect);
+                    User.hasMany(models.Work);
                 }
             },
             instanceMethods: {
@@ -71,6 +82,23 @@ module.exports = function (sequelize, DataTypes) {
                     this.tokenResetPassword = uuid.v4();
                     this.tokenResetPasswordExpires = moment().add(1, 'hour');
                     return this.save();
+                },
+                featured: function () {
+                    var scope = this;
+                    return global.db.UserFeatured.create().then(function (userFeatured) {
+                        return scope.addUserFeatured(userFeatured);
+                    })
+                },
+                unFeatured: function () {
+                    var query = {
+                        where: {featured: true},
+                        order: '`UserFeatured`.`createdAt` DESC',
+                        limit: 1
+                    };
+                    return this.getUserFeatureds(query).then(function (userFeatureds) {
+                        var userFeatured = userFeatureds[0];
+                        return userFeatured.updateAttributes({featured: false});
+                    });
                 }
             },
             hooks: {
@@ -81,17 +109,62 @@ module.exports = function (sequelize, DataTypes) {
                     user.hashedPassword = user.encryptPassword(options.password, user.salt);
                     user.tokenVerifyEmail = uuid.v4();
 
-                    var promises = [
-                        user.save(),
-                        global.db.Collection.create({name: 'Portafolio', meta: 'portfolio'}),
-                        global.db.Collection.create({name: 'Favoritos', meta: 'work'}),
-                        global.db.Collection.create({name: 'Deseos', meta: 'product'}),
-                        global.db.Collection.create({name: 'Regalos', meta: 'product'})
-                    ];
+                    var query = {
+                        limit: _.random(1, 4),
+                        order: [sequelize.fn('RAND', '')]
+                    };
+                    return global.db.Category.findAll(query).then(function (categories) {
+                        var promises = [
+                            user.save(),
+                            global.db.Collection.create({name: 'Portafolio', meta: 'portfolio'}),
+                            global.db.Collection.create({name: 'Favoritos', meta: 'work'}),
+                            global.db.Collection.create({name: 'Deseos', meta: 'product'}),
+                            global.db.Collection.create({name: 'Regalos', meta: 'product'}),
+                            //TODO only in development enviroment
+                            user.setSpecialties(categories),
+                            user.setInterests(categories)
+                        ];
 
-                    return global.db.Sequelize.Promise.all(promises).then(function (data) {
-                        return user.addCollections(data.slice(1, data.length));
+                        return global.db.Sequelize.Promise.all(promises).then(function (data) {
+                            return user.addCollections(data.slice(1, data.length - 2)).then(function () {
+                                var collection = data[1];
+
+                                var ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+                                promises = [
+                                    global.db.Category.findAll({
+                                        where: {id: {in: _.take(ids, _.random(1, 5))}},
+                                        attributes: ['id']
+                                    }),
+                                    global.db.Tag.findAll({
+                                        where: {id: {in: _.take(ids, _.random(1, 5))}},
+                                        attributes: ['id']
+                                    }),
+                                    global.db.Work.create({
+                                        name: chance.name(),
+                                        photo: 'http://i.imgur.com/QPACTzF.png',
+                                        public: true
+                                    })
+                                ];
+
+                                return global.db.Sequelize.Promise.all(promises).then(function (data) {
+                                    var categories = data[0], tags = data[1], work = data[2];
+
+                                    return collection.addWork(work).then(function () {
+                                        promises = [
+                                            collection.reorderAfterWorkAdded([work]),
+                                            work.setUser(user),
+                                            work.setCategories(categories),
+                                            work.setTags(tags)
+                                        ];
+                                        return global.db.Sequelize.Promise.all(promises);
+                                    })
+                                });
+
+                            });
+                        });
                     });
+
                 }
             }
         }
