@@ -2,14 +2,12 @@ var _ = require('lodash');
 module.exports = function (sequelize, DataTypes) {
     var Collection = sequelize.define('Collection', {
             name: DataTypes.STRING,
-            //meta portfolio,work,product,store
             meta: DataTypes.STRING
         }, {
             classMethods: {
                 associate: function (models) {
                     Collection.belongsTo(models.User, {onDelete: 'cascade'});
-
-                    Collection.belongsToMany(models.Work, {through: models.CollectionWork});
+                    Collection.belongsToMany(models.Work, {through: models.CollectionWork, onDelete: 'cascade'});
                 }
             },
             instanceMethods: {
