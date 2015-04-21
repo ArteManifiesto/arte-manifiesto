@@ -16,6 +16,7 @@ passport.serializeUser(function (user, done) {
  */
 passport.deserializeUser(function (id, done) {
     console.log("user id : ", id);
+    var query = {attributes: ['id', 'photo', 'firstname']};
     global.db.User.find(id).then(function (user) {
         done(null, user);
     })
