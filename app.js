@@ -14,7 +14,7 @@ var _ = require('lodash');
 /**
  * configuration lodash
  */
-_.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
+
 
 /**
  * Start APP
@@ -71,33 +71,36 @@ global.db.sequelize.sync({force: dev}).then(function () {
         promises.push(global.db.Category.bulkCreate(categoriesData));
         promises.push(global.db.Tag.bulkCreate(tagsData));
 
-        for (i = 0; i < 20; i++) {
-            promises.push(global.db.User.create({
-                username: i == 0 ? 'juliocanares' : chance.twitter().replace('@', ''),
-                email: i == 0 ? 'juliocanares@gmail.com' : chance.email(),
-                firstname: i == 0 ? 'Julio César' : chance.first(),
-                lastname: i == 0 ? 'Canares García' : chance.last(),
-                gender: i == 0 ? 'Male' : chance.gender(),
-                provider: 'local',
-                photo: 'http://i.imgur.com/kVjGqJ7.png',
-                isArtist: _.sample(_.shuffle([0, 1])),
-                city: chance.city(),
-                country: chance.country({full: true}),
-                school: chance.name(),
-                birthday: chance.birthday(),
-                biography: chance.paragraph({sentences: 2})
-            }));
-        }
-
-        /*
-         var actionsData = [];
-
-         for (i = 0; i < 20; i++)
-         actionsData.push({meta: _.random(1, 2)})
-         promises.push(global.db.Action.bulkCreate(actionsData));*/
 
         global.db.Sequelize.Promise.all(promises).then(function () {
+            promises = [];
+            var products = ['prints', 'tazas', 'polos', 'carteras', 'gorras', 'tatuajes'];
+            for (var j = 0; j < products.length; j++) {
+                var product = products[j];
+                promises.push(global.db.ProductType.create({name: product}));
+            }
 
+            
+            for (i = 0; i < 20; i++) {
+                promises.push(global.db.User.create({
+                    username: i == 0 ? 'juliocanares' : chance.twitter().replace('@', ''),
+                    email: i == 0 ? 'juliocanares@gmail.com' : chance.email(),
+                    firstname: i == 0 ? 'Julio César' : chance.first(),
+                    lastname: i == 0 ? 'Canares García' : chance.last(),
+                    gender: i == 0 ? 'Male' : chance.gender(),
+                    provider: 'local',
+                    photo: 'http://i.imgur.com/kVjGqJ7.png',
+                    isArtist: _.sample(_.shuffle([0, 1])),
+                    city: chance.city(),
+                    country: chance.country({full: true}),
+                    school: chance.name(),
+                    birthday: chance.birthday(),
+                    biography: chance.paragraph({sentences: 2})
+                }));
+            }
+
+            global.db.Sequelize.Promise.all(promises).then(function () {
+            });
         });
     }
     var server = app.listen(app.get('port'), function () {
