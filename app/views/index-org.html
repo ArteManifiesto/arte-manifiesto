@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>AM</title>
+    <style>
+
+        .rounded {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+    </style>
 </head>
 <body>
 {{ successMessage }}
@@ -27,6 +35,16 @@
     <a href="/auth/forgot">olvidaste tu contraseña ? </a>
 
     <a href="/works/search?p=10&pe=30&lel=hola k ase">lel</a>
+
+
+    <h3>trabajos destacados</h3>
+    <ul>
+    {% for workFeatured in workFeatureds %}
+        <img class="rounded" src="{{ workFeatured.photo }}"/>
+        <li>{{ workFeatured.name }}</li>
+    {% endfor %}
+    </ul>
+
 </form>
 
 <script src="/js/lib/jquery.min.js"></script>
