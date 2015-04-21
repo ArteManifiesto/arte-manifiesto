@@ -1,12 +1,88 @@
-.button1
-	// background rgba(#5794db, .85)
-	background #5794db
+/*------------------------------------*
+	$ BUTTON SOLID
+*------------------------------------*/
+.button-solid
 	color white
-	font-size .9rem
+	cursor pointer
+	font-size 1rem
 	padding .5em 1em
-	font-weight bold
+	background #3000ff
+	display table-cell
+	text-transform uppercase
+	font-family 'Roboto Condensed'
+	
+	&[data-size='small']
+		font-size .85rem
+	&[data-size='large']
+		font-size 1.15rem
+		
+	&[data-color='red']
+		background #f54545
+		
+	&[data-expand='true']
+		display block
+		text-align center
+		width 100%
+
+
+/*------------------------------------*
+	$ BUTTON LINER
+*------------------------------------*/
+.button-liner
+	color #000
+	cursor pointer
+	font-size 1rem
+	letter-spacing 1px
+	display table-cell
+	border 1px solid #bbb
+	text-transform uppercase
+	font-family 'Roboto Condensed'
+	&__action
+		padding .5em .75em
+		display table-cell
+	&__number
+		padding .5em
+		display table-cell
+		border-left 1px solid #bbb
+	
+	&[data-size='small']
+		font-size .85rem
+	&[data-size='large']
+		font-size 1.15rem
+	
+.button-liner.disabled
+	color #aaa
+	border-color #ccc
+	.button-liner__number
+		border-color #bbb
+
+
+/*------------------------------------*
+	$ FACEBOOK
+*------------------------------------*/
+.facebook-button
+	color white
+	display table-cell
+	padding .75rem
+	font-weight 600
+	font-size .9rem
 	border-radius 4px
-	// margin-top: .5em;
-	// font-family 'Futura'
-	// &:hover
-	// 	background #5794db
+	letter-spacing 1px
+	font-family 'Roboto Condensed'
+	background linear-gradient(#4e69a2,#3b5998)
+	i
+		font-size 1.25em
+	&[data-expand='true']
+		display block
+		text-align center
+		
+
+/*------------------------------------*
+	$ BUTTON LINK
+*------------------------------------*/
+.button-link
+	color #3000ff
+	font-size .8em
+	letter-spacing 1px
+	text-transform uppercase
+	font-family 'Roboto Condensed'

@@ -1,82 +1,37 @@
 /*------------------------------------*
-	$NAV-MENU
+	$ SKINNY MENU
 *------------------------------------*/
-breakpoint1 = 340px
-breakpoint2 = 500px
-max-width = 1200px
-
-.nav-menu
+.skinny-menu
 	display flex
-	align-items stretch
-	max-width max-width
-	margin auto
-	// font-family 'Zurich'
-	&__logo
-		flex 1
-		padding .5rem 1rem
-	&__item
-		padding 0 1rem
-		color rgba(#222, .75)
-		font-size .8rem
-		display flex
-		align-items center
-		&:hover
-			color #222			
-
-.logo--small
-	max-width 2rem
-
-.logo
-	max-width 10rem
-
-.logo
-.nav-menu__item__text
-	display none
-
-@media (min-width breakpoint1)
-	.logo
-		display block
-	.logo--small
+	font-size .8rem
+	letter-spacing 2px
+	font-family 'Raleway'
+	text-transform uppercase
+	 &__item
+		color #000
+		padding .5em 1rem
+		&.active
+			border-bottom .25em solid #000
+	
+.skinny-menu[data-icon='true']
+	.skinny-menu__item__text
 		display none
 
-@media (min-width breakpoint2)
-	.nav-menu__item__text
-		display block
-	.nav-menu__item__icon
-		display none
-
+@media (min-width tablet)
+	.skinny-menu[data-icon='true']
+		.skinny-menu__item__text
+			display inline
 
 
 /*------------------------------------*
-	$CATEGORY-MENU
+	$ THICK-MENU
 *------------------------------------*/
-.category-menu
-	// border-top: 1px solid #cbcbcb;
-	// border-bottom: 1px solid #cbcbcb;
-	border-top: solid 1px #e1e3ea;
-	border-bottom: solid 1px #e1e3ea;
-	// border-top: 1px solid #f5f5f5;
-	// border-bottom: 1px solid #f5f5f5;
-	// box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+.thick-menu
 	display flex
-	background #efefef
-	// background rgba(#515151, .5)
-	// background: linear-gradient(left, #fff, #f5f5f5, #fff);
-	padding 0 .25rem
-	// margin-bottom .25rem
-	.carousel
-		max-width 1000px
-		margin auto
-
-.category-menu__item
-	font-family 'Futura'
-	// font-weight bold
-	color rgba(#222, .75)
-	// color #7f8586
-	// color #585858
-	// color white
-	// font-size .85rem
-	display block
-	padding .5rem .75em
-	// &:hover
-		// color #5794db
+	font-weight 600
+	letter-spacing 2px
+	font-family 'Raleway'
+	text-transform uppercase
+	&__item
+		color #000
+		padding .5rem 1rem

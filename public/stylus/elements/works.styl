@@ -1,21 +1,19 @@
 /*------------------------------------*
-	$VARIABLES
+	$ WORKS
 *------------------------------------*/
+columns = 6
 work-width = 150px
-// work-width = 130px
-columns = 7
-works-max-width = 1200px
 
-/*------------------------------------*
-	$WORKS LAYOUT
-*------------------------------------*/
 .works
-	padding 0 .5em
-	max-width works-max-width
-	margin auto
+	padding 0 .5rem
 	overflow hidden
 	.work
-		margin 1em .5em
+		display block
+		margin 1rem .5rem
+		border 1px solid #eee
+		transition box-shadow ease-in-out 125ms
+		&:hover
+			box-shadow rgba(0,0,0,0.35) 0 0 10px
 
 for i in (1..(columns - 1))
 	@media screen and (min-width: work-width*i+1) and (max-width: work-width*(i+1))
@@ -31,4 +29,4 @@ for i in (1..(columns - 1))
 
 for i in (1..columns)
 	.size-1of{i}
-		width: (100/i)*1%
+		width (100/i)*1%

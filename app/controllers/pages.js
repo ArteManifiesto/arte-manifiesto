@@ -18,7 +18,7 @@ exports.index = function (req, res) {
 
     global.db.WorkFeatured.findAll(getWorkFeaturedQuery).then(function (workFeatureds) {
         workFeatureds = _.pluck(workFeatureds, 'Work');
-        return res.render('index-org', {
+        return res.render('index', {
             workFeatureds: workFeatureds
         })
     });

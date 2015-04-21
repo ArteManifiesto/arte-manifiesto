@@ -3,129 +3,186 @@
 <head>
 
 	<title>Arte Manifiesto</title>
-
+	
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">	<link rel="stylesheet" type="text/css" href="css/index.css">
+
+	<link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700|Roboto+Condensed:400,300,700|Raleway:400,100,200,300,500,700,600,800,900|Oswald:400,300,700|Hammersmith+One' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" type="text/css" href="css/index.css">
 
 </head>
 <body>
 
-	<header class="header">	
-		<nav class="nav-menu">
-			<div class="nav-menu__logo">
-				<figure class="logo--small">
-					<a href="#"> <img src="img/logo-small.png"> </a>
-				</figure>
-				<figure class="logo">
-					<a href="#"> <img src="img/logo.png"> </a>
-				</figure>					
-			</div>
-			<a href="#" class="nav-menu__item">
-				<span class="nav-menu__item__icon"><i class="fa fa-search"></i></span>&nbsp;
-				<span class="nav-menu__item__text">Descubre</span>
+	<header class="header">
+		<a class="logo" href="#">
+			<img class="logo__small" src="img/logo-small.png">
+			<img class="logo__normal" src="img/logo.png">
+		</a>
+		<nav class="skinny-menu" data-icon='true'>
+			<a href="#" class="skinny-menu__item">
+				<i class="skinny-menu__item__icon fa fa-search"></i>
+				<span class="skinny-menu__item__text">Descubre</span>
 			</a>
-			<a href="#" class="nav-menu__item">
-				<span class="nav-menu__item__icon"><i class="fa fa-diamond"></i></span>&nbsp;
-				<span class="nav-menu__item__text">Market</span>
+			<a href="#" class="skinny-menu__item">
+				<i class="skinny-menu__item__icon fa fa-diamond"></i>
+				<span class="skinny-menu__item__text">Market</span>
 			</a>
-			<a href="#" class="nav-menu__item">
-				<span class="nav-menu__item__icon"><i class="fa fa-user"></i></span>&nbsp;
-				<span class="nav-menu__item__text">Sign in</span>
+			<a href="#" class="skinny-menu__item">
+				<i class="skinny-menu__item__icon fa fa-user"></i>
+				<span class="skinny-menu__item__text">Sign in</span>
 			</a>
 		</nav>
-
-		<div class="category-menu">		
-			<ul class="carousel">
-				<li class="carousel__item">
-					<a href="#" class="category-menu__item">Womens</a>
-				</li>
-				<li class="carousel__item">
-					<a href="#" class="category-menu__item">Mens</a>
-				</li>
-				<li class="carousel__item">
-					<a href="#" class="category-menu__item">Art</a>
-				</li>
-				<li class="carousel__item">
-					<a href="#" class="category-menu__item">Home</a>
-				</li>
-				<li class="carousel__item">
-					<a href="#" class="category-menu__item">Kids</a>
-				</li>
-				<li class="carousel__item">
-					<a href="#" class="category-menu__item">Music</a>
-				</li>
-				<li class="carousel__item">
-					<a href="#" class="category-menu__item">Womens</a>
-				</li>
-				<li class="carousel__item">
-					<a href="#" class="category-menu__item">Mens</a>
-				</li>
-				<li class="carousel__item">
-					<a href="#" class="category-menu__item">Art</a>
-				</li>
-				<li class="carousel__item">
-					<a href="#" class="category-menu__item">Home</a>
-				</li>
-				<li class="carousel__item">
-					<a href="#" class="category-menu__item">Kids</a>
-				</li>
-				<li class="carousel__item">
-					<a href="#" class="category-menu__item">Music</a>
-				</li>
-			</ul>
-		</div>
 	</header>
 
+	<section class="category-menu">
+		<div class="thick-menu">
+			<a href="#" class="thick-menu__item">Womens</a>
+			<a href="#" class="thick-menu__item">Mens</a>
+			<a href="#" class="thick-menu__item">Art</a>
+			<a href="#" class="thick-menu__item">Home</a>
+			<a href="#" class="thick-menu__item">Kids</a>
+			<a href="#" class="thick-menu__item">Music</a>
+		</div>
+	</section>
+
 	<section class="slogan">
-		Geniales Diseños en Increibles Productos <a href="#" class="button1">Sign Up</a>
+		<span class="slogan-text">Descubre Geniales Diseños en Increibles Productos</span>
+		<button class="button-solid js-signUpButton" data-size='large'>Sign Up</button>
 	</section>
 
-	<section class="home-slider">
-		<img src="img/slide.jpg">
+	<section class="works-menu">
+		<p class="medium-text">Obras recomendadas</p>
+		<a class="button-link" href="#">ver todas <i class="fa fa-angle-right"></i></a>
 	</section>
 
-	<div class="works" data-columns>
-		<div class="work">
+	<section class="works" data-columns>
+		<a href="#" class="work">
 			<img src="img/works/obra1.jpg">
-		</div>
-		<div class="work">
+		</a>
+		<a href="#" class="work">
 			<img src="img/works/obra2.jpg">
-		</div>
-		<div class="work">
+		</a>
+		<a href="#" class="work">
 			<img src="img/works/obra3.jpg">
-		</div>
-		<div class="work">
+		</a>
+		<a href="#" class="work">
 			<img src="img/works/obra4.jpg">
-		</div>
-		<div class="work">
+		</a>
+		<a href="#" class="work">
 			<img src="img/works/obra5.jpg">
-		</div>
-		<div class="work">
+		</a>
+		<a href="#" class="work">
 			<img src="img/works/obra6.jpg">
-		</div>
-		<div class="work">
+		</a>
+		<a href="#" class="work">
 			<img src="img/works/obra7.jpg">
-		</div>
-		<div class="work">
+		</a>
+		<a href="#" class="work">
 			<img src="img/works/obra8.jpg">
-		</div>
-		<div class="work">
+		</a>
+		<a href="#" class="work">
 			<img src="img/works/obra9.jpg">
-		</div>
-		<div class="work">
+		</a>
+		<a href="#" class="work">
 			<img src="img/works/obra10.jpg">
-		</div>
-		<div class="work">
+		</a>
+		<a href="#" class="work">
 			<img src="img/works/obra11.jpg">
-		</div>
-		<div class="work">
+		</a>
+		<a href="#" class="work">
 			<img src="img/works/obra12.jpg">
+		</a>
+	</section>
+
+	<section class="login-modal">
+		<div class="login-box js-loginBox">
+
+			<header class="login-box__header">			
+				<div class="skinny-menu">
+					<a href="#" class="skinny-menu__item js-signInFormButton">
+						Ingresar
+					</a>
+					<a href="#" class="skinny-menu__item js-signUpFormButton">
+						Registrarme
+					</a>
+				</div>
+			</header>
+
+			<form class="register-form js-signUpForm">
+		 		<a href="#" class="facebook-button" data-expand='true'>
+					<i class="fa fa-facebook-official"></i>&nbsp; Registrarme con Facebook
+				</a>
+				<div class="separator-text">
+					<span class="line"></span>
+					<span class="text">Con email</span>
+					<span class="line"></span>
+				</div>
+				<input class="input" data-size='large' name="username" placeholder="Username" type="text" autofocus>
+				<input class="input" data-size='large' name="email" placeholder="Email" type="email">
+				<input class="input" data-size='large' name="password" placeholder="Password" type="password">
+				<input class="input" data-size='large' name="first-name" placeholder="First Name" type="text">
+				<input class="input" data-size='large' name="last-name" placeholder="Last Name" type="text">
+				<input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Sign Up" type="submit">
+			</form>
+
+			<form class="login-form js-signInForm">
+		 		<a href="#" class="facebook-button" data-expand='true'>
+					<i class="fa fa-facebook-official"></i>&nbsp; Ingresar con Facebook
+				</a>
+				<div class="separator-text">
+					<span class="line"></span>
+					<span class="text">Con email</span>
+					<span class="line"></span>
+				</div>
+				<input class="input" data-size='large' name="email" placeholder="Email" type="text" autofocus>
+				<input class="input" data-size='large' name="password" placeholder="Password" type="password">
+				<input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Login" type="submit">
+			</form>
+
 		</div>
-	</div>
+	</section>
 
 	<script type="text/javascript" src="js/vendor/salvattore.js"></script>
+	<script src="/js/vendor/jquery.min.js"></script>
+
+	<script type="text/javascript" src="js/login.js"></script>
+
+<script>
+  var loginForm = $(".js-signInForm");
+
+  loginForm.submit(function () {
+      $.ajax({
+          type: "POST",
+          url: "/auth/login",
+          data: loginForm.serialize(),
+          success: loginSuccessHandler
+      });
+      return false;
+  });
+
+  function loginSuccessHandler(response) {
+      console.log("login response : ", response);
+      if (response.code == 202) {
+          location.href = '/dashboard';
+      }
+  }
+
+  // var registerForm = $(".js-signInForm");
+
+  // loginForm.submit(function () {
+  //     $.ajax({
+  //         type: "POST",
+  //         url: "/auth/singup",
+  //         data: loginForm.serialize(),
+  //         success: loginSuccessHandler
+  //     });
+  //     return false;
+  // });
+
+</script>
 
 </body>
 </html>

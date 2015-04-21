@@ -78,14 +78,6 @@ global.searchWorks = function (req) {
         "LEFT OUTER JOIN `Users` AS `User` ON `Works`.`UserId` = `User`.`id` " +
         "LEFT OUTER JOIN (`Likes` INNER JOIN `Users` AS `Works.Likes` ON `Works.Likes`.`id` = `Likes`.`UserId`) " +
         "ON `Works`.`id` = `Likes`.`WorkId`" +
-        "" +
-        "" +
-        "" +
-        "" +
-        "" +
-
-
-        \ " +
         "LEFT OUTER JOIN (`Collects` INNER JOIN `Users` AS `Works.Collects` ON `Works.Collects`.`id` = `Collects`.`UserId`) " +
         " ON `Works`.`id` = `Collects`.`WorkId` " +
         "LEFT OUTER JOIN (`WorkViewers` INNER JOIN `Users` AS `Works.Viewers` ON `Works.Viewers`.`id` = `WorkViewers`.`UserId`) " +

@@ -1,0 +1,14 @@
+.logo
+	padding .5rem 1rem
+	display table-cell
+	&__small
+		max-width 2rem
+	&__normal
+		max-width 10rem
+		display none
+
+@media (min-width mobile-medium)
+	.logo__small
+		display none
+	.logo__normal
+		display block
