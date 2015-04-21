@@ -13,9 +13,10 @@ module.exports = function (sequelize, DataTypes) {
         }, {
             classMethods: {
                 associate: function (models) {
-                    Category.belongsToMany(models.User, {as: 'Users', through: 'Specialties', onDelete: 'destroy'});
-                    Category.belongsToMany(models.User, {as: 'Users', through: 'Interests', onDelete: 'destroy'});
-                    Category.belongsToMany(models.Work);
+                    Category.belongsToMany(models.User, {as: 'Specialties', through: 'Specialties'});
+                    Category.belongsToMany(models.User, {as: 'Interests', through: 'Interests'});
+
+                    Category.belongsToMany(models.Work, {through: 'WorkCategories'});
                 }
             }
         }
