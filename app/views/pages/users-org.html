@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+
+        .rounded {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .follow {
+            background-color: deepskyblue;
+        }
+
+        .collect {
+            background-color: #90EE90;
+        }
+
+        .featured {
+            background-color: #2a83ed;
+        }
+
+        .unfeatured {
+            background-color: cornflowerblue;
+        }
+
+        .unfollow {
+            background-color: aquamarine;
+        }
+    </style>
+</head>
+<body>
+
+
+<h3>categories</h3>
+<ul class="categoriesContainer">
+</ul>
+
+<h3>ordenar por</h3>
+<ul class="orderContainer">
+</ul>
+
+<h3>tiempo</h3>
+<ul class="timeContainer">
+</ul>
+
+
+<h3>users</h3>
+
+{% if users.length > 0 %}
+    <ul>
+        {% for user in users %}
+            <div style="margin: 10px;width: 200px;">
+                <li>{{ user.id }} - {{ user.username }}</li>
+                <img class="rounded" src="{{ user.photo }}"><br/>
+
+                {% if user.owner %}
+                    <span><strong>owner</strong></span>
+                {% endif %}
+                {% if user.viewed %}
+                    <span style="color: #5794db"><strong><em>viewed</em></strong></span>
+                {% endif %}
+
+                <p>
+                    followers <span class="follows">{{ user.followers }}</span>
+                    <span>views {{ user.views }}</span>
+                    <br/>
+                        <span class="featuredlogo"
+                                {% if user.featured %}
+                                    style="display: block;"
+                                {% else %}
+                                    style="display: none;"
+                                {% endif %}
+                                >usuario destacado</span>
+                </p>
+
+                {% if user.following %}
+                    <button id="{{ user.id }}" class="unfollow">UnFollow</button>
+                {% else %}
+                    <button id="{{ user.id }}" class="follow">Follow</button>
+                {% endif %}
+
+                {% if user.featured %}
+                    <button id="{{ user.id }}" class="unfeatured">Unfeatured</button>
+                {% else %}
+                    <button id="{{ user.id }}" class="featured">Featured</button>
+                {% endif %}
+
+            </div>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>no hay obras para <strong>{{ currentCategory }}</strong></p>
+{% endif %}
+
+<ul class="pagination">
+
+</ul>
+<script src="/js/lib/jquery.min.js"></script>
+<script>
+    var pagination = {{ pagination|json|safe }};
+    var user = {{ user|json|safe }};
+    var works = {{ works|json|safe }};
+    var categories = {{ categories|json|safe }};
+    var url = {{ url|json|safe }};
+
+    console.log(pagination);
+    categories.push({name: 'all', nameSlugify: 'all'});
+
+    //window.history.pushState({}, "", url);
+
+    var categoriesContainer = $('.categoriesContainer');
+
+    var href = location.href.split('/');
+    for (var i = 0; i < categories.length; i++) {
+        var category = categories[i];
+        href[5] = category.nameSlugify;
+        var p = $('<span style="padding-right: 20px;">');
+        var a = $('<a>', {
+            href: href.join('/').replace('page-' + pagination.page, 'page-1')
+        }).html(category.name);
+        p.append(a);
+        categoriesContainer.append(p);
+    }
+
+    var index = location.href.indexOf('&');
+
+    function getUrlParameter(sParam) {
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        for (var i = 0; i < sURLVariables.length; i++) {
+            var sParameterName = sURLVariables[i].split('=');
+            if (sParameterName[0] == sParam) {
+                return sParameterName[1];
+            }
+        }
+    }
+    var order = getUrlParameter('order');
+
+    var orders = ['popularity', 'views', 'newest'];
+
+    if (order != undefined) {
+        for (var i = 0; i < orders.length; i++) {
+            var od = orders[i];
+            var p = $('<span style="padding-right: 20px;">');
+            var a = $('<a>', {
+                href: location.href.replace(order, od)
+            }).html(od);
+            p.append(a);
+            $('.orderContainer').append(p);
+        }
+    }
+    var time = getUrlParameter('time');
+
+    var times = ['day', 'week', 'month', 'year'];
+
+    if (time != undefined) {
+        for (var i = 0; i < times.length; i++) {
+            var od = times[i];
+            var p = $('<span style="padding-right: 20px;">');
+            var a = $('<a>', {
+                href: location.href.replace(time, od)
+            }).html(od);
+            p.append(a);
+            $('.timeContainer').append(p);
+        }
+    } else {
+        for (var i = 0; i < times.length; i++) {
+            var od = times[i];
+            var p = $('<span style="padding-right: 20px;">');
+            var a = $('<a>', {
+                href: location.href + "&time=" + od
+            }).html(od);
+            p.append(a);
+            $('.timeContainer').append(p);
+        }
+    }
+
+    for (var i = 0; i < pagination.pages; i++) {
+        console.log('lel');
+        $('.pagination').append($('<a>', {
+            href: location.href.replace('page-' + pagination.page, 'page-' + (i + 1))
+        }).html(String(i + 1 + "")));
+    }
+    $(function () {
+        var works = {{ works|json|safe }}
+                console.log(works);
+
+        $(document).on("click", ".follow", function (event) {
+            if (user.length < 1)
+                return alert('necesitas logearte');
+
+            var scope = $(this);
+            $.ajax({
+                type: "POST",
+                url: "/user/follow/",
+                data: {idUser: scope.attr('id')},
+                success: function (data) {
+                    if (data.code == 202) {
+                        scope.text('UnFollow');
+                        var likes = scope.parent().find('.follows');
+                        var numLikes = parseInt(likes.text(), 10);
+                        likes.text(++numLikes);
+                        scope.removeClass('follow').addClass('unfollow');
+                    }
+                    console.log(data);
+                }
+            });
+            return false;
+        });
+
+        $(document).on("click", ".featured", function (event) {
+            var scope = $(this);
+            $.ajax({
+                type: "POST",
+                url: "/user/featured/",
+                data: {idUser: scope.attr('id')},
+                success: function (data) {
+                    if (data.code == 202) {
+                        scope.parent().find('.featuredlogo').show();
+                        scope.text('Unfeatured');
+                        scope.removeClass('featured').addClass('unfeatured');
+                    }
+                    console.log(data);
+                }
+            });
+            return false;
+        });
+        $(document).on("click", ".unfeatured", function (event) {
+            var scope = $(this);
+            $.ajax({
+                type: "POST",
+                url: "/user/unfeatured/",
+                data: {idUser: scope.attr('id')},
+                success: function (data) {
+                    if (data.code == 202) {
+                        scope.parent().find('.featuredlogo').hide();
+                        scope.text('Featured');
+                        scope.removeClass('unfeatured').addClass('featured');
+                    }
+                    console.log(data);
+                }
+            });
+            return false;
+        });
+
+        $(document).on("click", ".unfollow", function (event) {
+            var scope = $(this);
+            $.ajax({
+                type: "POST",
+                url: "/user/unfollow/",
+                data: {idUser: scope.attr('id')},
+                success: function (data) {
+                    if (data.code == 202) {
+                        var likes = scope.parent().find('.follows');
+                        var numLikes = parseInt(likes.text(), 10);
+                        likes.text(--numLikes);
+                        scope.text('Follow');
+                        scope.removeClass('unfollow').addClass('follow');
+                    }
+                    console.log(data);
+                }
+            });
+            return false;
+        });
+
+        $(document).on("click", ".collect", function (event) {
+            alert('collect');
+            return false;
+            var scope = $(this);
+            $.ajax({
+                type: "POST",
+                url: "/user/collects/",
+                data: {meta: 'works'},
+                success: function (data) {
+                }
+            });
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>

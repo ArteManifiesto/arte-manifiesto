@@ -47,3 +47,18 @@ html {
     font-size: 100%;
   }
 }
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0.5rem auto;
+}
+.category-menu {
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+.category-menu .thick-menu {
+  max-width: 1100px;
+  margin: auto;
+}

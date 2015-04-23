@@ -1,295 +1,144 @@
 <!DOCTYPE html>
 <html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-    <style>
+<head>
 
-        .rounded {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-        }
+	<title>Arte Manifiesto | Obras</title>
+	
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        .like {
-            background-color: deepskyblue;
-        }
+	<link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700|Roboto+Condensed:400,300,700|Raleway:400,100,200,300,500,700,600,800,900|Oswald:400,300,700|Hammersmith+One' rel='stylesheet' type='text/css'>
 
-        .collect {
-            background-color: #90EE90;
-        }
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
-        .featured {
-            background-color: #2a83ed;
-        }
+	<link rel="stylesheet" type="text/css" href="/css/discover-works.css">
 
-        .unfeatured {
-            background-color: cornflowerblue;
-        }
-
-        .unlike {
-            background-color: aquamarine;
-        }
-    </style>
 </head>
 <body>
 
+	{% include "../partial/header.html"%}
 
-<h3>categories</h3>
-<ul class="categoriesContainer">
-</ul>
+	{% if !user %}
+		<section class="slogan">
+			<span class="slogan-text">Descubre Geniales Diseños en Increibles Productos</span>
+			<button class="button-solid js-signUpButton" data-size='large'>Sign Up</button>
+		</section>
+	{% endif %}
 
-<h3>ordenar por</h3>
-<ul class="orderContainer">
-</ul>
+	<section class="filters">
+		<div class="filters__search">
+			<div class="search">
+				<input type="text" placeholder="Busca Obras, Artistas y Productos">
+				<i class="fa fa-search"></i>
+			</div>
+		</div>
+		<div class="filters__category js-leftFiltersButton">
+			<button class="button-filter"><i class="fa fa-caret-left"></i> &nbsp Categoría</button>
+		</div>
+		<div class="filters__order js-rightFiltersButton">
+			<button class="button-filter">Ordenar &nbsp <i class="fa fa-caret-right"></i></button>
+		</div>
+	</section>
 
-<h3>tiempo</h3>
-<ul class="timeContainer">
-</ul>
+	<section class="works-container">
+		<div class="works-container__left-filters js-leftFilters">
+			<div class="categories">
+				<div class="categories__title">
+					<p class="" data-size=''>Categoria</p>
+				</div>
+				<div class="categorie">
+					<p class="" data-size=''>Dibujo</p>
+				</div>
+				<div class="categorie">
+					<p class="" data-size=''>Ilustración</p>
+				</div>
+				<div class="categorie">
+					<p class="" data-size=''>Pintura</p>
+				</div>
+				<div class="categorie selected">
+					<p class="" data-size=''>Arte</p>
+				</div>
+				<div class="categorie">
+					<p class="" data-size=''>Fotografía</p>
+				</div>
+				<div class="categorie">
+					<p class="" data-size=''>Escultura</p>
+				</div>
+				<div class="categorie">
+					<p class="" data-size=''>Instalación</p>
+				</div>
+				<div class="categorie">
+					<p class="" data-size=''>Técnica Mixta</p>
+				</div>
+				<div class="categorie">
+					<p class="" data-size=''>Grabado</p>
+				</div>
+			</div>
+		</div>
+		<div class="works-container__works">
+			<div class="works" data-columns>
+				{% for work in works %}
+					<a href="#" class="work">
+						<img src="/img/works/obra1.jpg">
+					</a>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="works-container__right-filters js-rightFilters">
+			<div class="categories">
+				<div class="categories__title">Orden</div>
+				<div class="categorie selected" data-value="popularity">Más popular</div>
+				<div class="categorie" data-value="views">Más visto</div>
+				<div class="categorie" data-value="newest">Más reciente</div>
+			</div>
+			<div class="categories">
+				<div class="categories__title">Tiempo</div>
+				<div class="categorie" data-value="day">Día</div>
+				<div class="categorie selected" data-value="week">Semana</div>
+				<div class="categorie" data-value="month">Mes</div>
+				<div class="categorie" data-value="year">Año</div>
+			</div>
+		</div>
+	</section>
 
-
-<h3>works</h3>
-
-{% if works.length > 0 %}
-    <ul>
-        {% for work in works %}
-            <div style="margin: 10px;width: 200px;">
-                <li>{{ work.id }} - {{ work.name }}</li>
-                <img class="rounded" src="{{ work.photo }}"><br/>
-
-
-                {% if work.owner %}
-                    <span><strong>owner</strong></span>
-                {% endif %}
-                {% if work.viewed %}
-                    <span style="color: #5794db"><strong><em>viewed</em></strong></span>
-                {% endif %}
-
-                <p>
-                    likes <span class="likes">{{ work.likes }}</span>
-                    <span>views {{ work.views }}</span>
-                    <span>collects {{ work.collects }}</span>
-                    <br/>
-                        <span class="featuredlogo"
-                                {% if work.featured %}
-                                    style="display: block;"
-                                {% else %}
-                                    style="display: none;"
-                                {% endif %}
-                                >producto destacado</span>
-                </p>
-
-                <p>{{ work.User.firstname }}</p>
-                <br/>
-
-
-
-                {% if work.liked %}
-                    <button id="{{ work.id }}" class="unlike">Unlike</button>
-                {% else %}
-                    <button id="{{ work.id }}" class="like">Like</button>
-                {% endif %}
-
-                <button id="{{ work.id }}" class="collect">Collect</button>
-                {% if work.featured %}
-                    <button id="{{ work.id }}" class="unfeatured">Unfeatured</button>
-                {% else %}
-                    <button id="{{ work.id }}" class="featured">Featured</button>
-                {% endif %}
-            </div>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>no hay obras para <strong>{{ currentCategory }}</strong></p>
-{% endif %}
-
-<ul class="pagination">
-
-</ul>
-<script src="/js/lib/jquery.min.js"></script>
-<script>
-    var pagination = {{ pagination|json|safe }};
-    var user = {{ user|json|safe }};
-    var works = {{ works|json|safe }};
-    var categories = {{ categories|json|safe }};
-    var url = {{ url|json|safe }};
-
-    console.log(pagination);
-    categories.push({name: 'all', nameSlugify: 'all'});
-
-    window.history.pushState({}, "", url);
-    var categoriesContainer = $('.categoriesContainer');
-
-    var href = location.href.split('/');
-    for (var i = 0; i < categories.length; i++) {
-        var category = categories[i];
-        href[5] = category.nameSlugify;
-        var p = $('<span style="padding-right: 20px;">');
-        var a = $('<a>', {
-            href: href.join('/').replace('page-' + pagination.page, 'page-1')
-        }).html(category.name);
-        p.append(a);
-        categoriesContainer.append(p);
-    }
+	<section class="more-works">
+		<button class="button-solid js-moreButton" data-size='small' data-color='red'>Ver mas</button>
+	</section>
 
 
-    var index = location.href.indexOf('&');
+	<script type="text/template" id="work-template">
+		<a href="#" class="work">
+			<img src="<%= photo %>">
+		</a>
+	</script>
 
-    function getUrlParameter(sParam) {
-        var sPageURL = window.location.search.substring(1);
-        var sURLVariables = sPageURL.split('&');
-        for (var i = 0; i < sURLVariables.length; i++) {
-            var sParameterName = sURLVariables[i].split('=');
-            if (sParameterName[0] == sParam) {
-                return sParameterName[1];
-            }
-        }
-    }
-    var order = getUrlParameter('order');
 
-    var orders = ['popularity', 'views', 'newest'];
+	<script src="/js/vendor/salvattore.js"></script>
+	<script src="/js/vendor/jquery.min.js"></script>
+	<script src="/js/vendor/underscore-min.js"></script>
 
-    if (order != undefined) {
-        for (var i = 0; i < orders.length; i++) {
-            var od = orders[i];
-            var p = $('<span style="padding-right: 20px;">');
-            var a = $('<a>', {
-                href: location.href.replace(order, od)
-            }).html(od);
-            p.append(a);
-            $('.orderContainer').append(p);
-        }
-    }
-    var time = getUrlParameter('time');
+	<script src="/js/lib/filters.js"></script>
 
-    var times = ['day', 'week', 'month', 'year'];
+	<script>
 
-    if (time != undefined) {
-        for (var i = 0; i < times.length; i++) {
-            var od = times[i];
-            var p = $('<span style="padding-right: 20px;">');
-            var a = $('<a>', {
-                href: location.href.replace(time, od)
-            }).html(od);
-            p.append(a);
-            $('.timeContainer').append(p);
-        }
-    } else {
-        for (var i = 0; i < times.length; i++) {
-            var od = times[i];
-            var p = $('<span style="padding-right: 20px;">');
-            var a = $('<a>', {
-                href: location.href + "&time=" + od
-            }).html(od);
-            p.append(a);
-            $('.timeContainer').append(p);
-        }
-    }
+		window.pagination = {{ pagination|json|safe }};
+		// console.log('pagination: ', pagination)
 
-    for (var i = 0; i < pagination.pages; i++) {
-        console.log('lel');
-        $('.pagination').append($('<a>', {
-            href: location.href.replace('page-' + pagination.page, 'page-' + (i + 1))
-        }).html(String(i + 1 + "")));
-    }
-    $(function () {
-        var works = {{ works|json|safe }}
-                console.log(works);
+		var user = {{ user|json|safe }};
+		// console.log('user: ', user)
 
-        $(document).on("click", ".like", function (event) {
-            if (user.length < 1)
-                return alert('necesitas logearte');
-            
-            var scope = $(this);
-            $.ajax({
-                type: "POST",
-                url: "/user/like/",
-                data: {idWork: scope.attr('id')},
-                success: function (data) {
-                    if (data.code == 202) {
-                        scope.text('Unlike');
-                        var likes = scope.parent().find('.likes');
-                        var numLikes = parseInt(likes.text(), 10);
-                        likes.text(++numLikes);
-                        scope.removeClass('like').addClass('unlike');
-                    }
-                    console.log(data);
-                }
-            });
-            return false;
-        });
+		var works = {{ works|json|safe }};
+		// console.log('works: ', works)
 
-        $(document).on("click", ".featured", function (event) {
-            var scope = $(this);
-            $.ajax({
-                type: "POST",
-                url: "/user/work/featured/",
-                data: {idWork: scope.attr('id')},
-                success: function (data) {
-                    if (data.code == 202) {
-                        scope.parent().find('.featuredlogo').show();
-                        scope.text('Unfeatured');
-                        scope.removeClass('featured').addClass('unfeatured');
-                    }
-                    console.log(data);
-                }
-            });
-            return false;
-        });
-        $(document).on("click", ".unfeatured", function (event) {
-            var scope = $(this);
-            $.ajax({
-                type: "POST",
-                url: "/user/work/unfeatured/",
-                data: {idWork: scope.attr('id')},
-                success: function (data) {
-                    if (data.code == 202) {
-                        scope.parent().find('.featuredlogo').hide();
-                        scope.text('Featured');
-                        scope.removeClass('unfeatured').addClass('featured');
-                    }
-                    console.log(data);
-                }
-            });
-            return false;
-        });
+		var categories = {{ categories|json|safe }};
+		// console.log('categories: ', categories)
 
-        $(document).on("click", ".unlike", function (event) {
-            var scope = $(this);
-            $.ajax({
-                type: "POST",
-                url: "/user/unlike/",
-                data: {idWork: scope.attr('id')},
-                success: function (data) {
-                    if (data.code == 202) {
-                        var likes = scope.parent().find('.likes');
-                        var numLikes = parseInt(likes.text(), 10);
-                        likes.text(--numLikes);
+		window.url = {{ url|json|safe }};
+		// console.log('url: ', url)
 
-                        scope.text('Like');
-                        scope.removeClass('unlike').addClass('like');
-                    }
-                    console.log(data);
-                }
-            });
-            return false;
-        });
+	</script>
 
-        $(document).on("click", ".collect", function (event) {
-            alert('collect');
-            return false;
-            var scope = $(this);
-            $.ajax({
-                type: "POST",
-                url: "/user/collects/",
-                data: {meta: 'works'},
-                success: function (data) {
-                }
-            });
-            return false;
-        });
-    });
+	<!-- // <script src="/js/works.js"></script> -->
 
-</script>
 </body>
 </html>
