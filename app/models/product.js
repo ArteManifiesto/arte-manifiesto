@@ -13,7 +13,9 @@ module.exports = function (sequelize, DataTypes) {
                 }
             },
             nameSlugify: DataTypes.STRING,
-            price: DataTypes.INTEGER
+            price: DataTypes.INTEGER,
+            photo: DataTypes.STRING,
+            description: DataTypes.TEXT
         }, {
             classMethods: {
                 associate: function (models) {
@@ -22,7 +24,6 @@ module.exports = function (sequelize, DataTypes) {
                     Product.belongsTo(models.ProductType);
 
                     Product.hasMany(models.ProductFeatured);
-
 
 
                 }
