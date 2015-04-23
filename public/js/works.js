@@ -1,8 +1,8 @@
 
 function Works () {
 	
-	var worksContainer = document.querySelector('.works')
-	var workTemplate = _.template( $( "#work-template" ).html() )
+	var worksContainer = document.querySelector('.works'),
+			workTemplate = _.template( $( "#work-template" ).html() );
 
 	var category = 'all',
 			orderValue = 'popularity',
@@ -11,94 +11,63 @@ function Works () {
 
 	var idUser = user.id || 0
 
-	var categoryList = document.querySelectorAll('.js-category')
-	console.log('categoryList: ', categoryList)
-
-	var orderList = document.querySelectorAll('.js-order')
-	console.log('orderList: ', orderList)
-
-	var timeList = document.querySelectorAll('.js-time')
-	console.log('timeList: ', timeList)
-
-	// var orderFilter = document.querySelector('.order-filter')
-	// console.log('orderFilter: ', orderFilter)
-
-	// var timeFilter = document.querySelector('.time-filter')
-	// console.log('timeFilter: ', timeFilter)
-
-	// var moreButton = document.querySelector('.js-moreButton')
-	// console.log('moreButton: ', moreButton)
+	var categoryList = document.querySelectorAll('.js-category'),
+			orderList = document.querySelectorAll('.js-order'),
+			timeList = document.querySelectorAll('.js-time'),
+			moreButton = document.querySelector('.js-moreButton');
 
 	function setup () {
 
-		for (var i = 0; i < categoryList.length; i++) {
+		for (var i = 0; i < categoryList.length; i++)
 			categoryList[i].addEventListener('click', function () {
 				changeCategory(this.getAttribute("data-value"))
 			})
-		}
 
-		for (var i = 0; i < orderList.length; i++) {
+		for (var i = 0; i < orderList.length; i++)
 			orderList[i].addEventListener('click', function () {
 				changeOrder(this.getAttribute("data-value"))
 			})
-		}
 
-		for (var i = 0; i < timeList.length; i++) {
+		for (var i = 0; i < timeList.length; i++)
 			timeList[i].addEventListener('click', function () {
 				changeTime(this.getAttribute("data-value"))
 			})
-		}
 
-		// orderFilter.addEventListener('change', function () {
-		// 	changeOrder()
-		// })
-		
-		// timeFilter.addEventListener('change', function () {
-		// 	changeTime()
-		// })
-
-		// moreButton.addEventListener('click', function () {
-		// 	more()
-		// })
+		moreButton.addEventListener('click', function () {
+			more()
+		})
 	}
 
 	function more () {
-
-		page++
-
-		// var url = '/search/works/category/' + category + '/page-' + page + '/?order=' + order + '&time=' +  time
-
-		// $.post( url, {idUser: idUser}, function( data ) {
-		// 	add(data.works)
-		// })
+		url = url.replace('page-' + pagination.page, 'page-' + ++pagination.page)
+		getData(true)
 	}
 
 	function changeCategory (value) {
-		// category = categoryFilter.value
 		category = value
 		var currentCategory = url.split('/')[5]
 		url =	url.replace(currentCategory, category)
 		url = url.replace('page-' + pagination.page, 'page-1')
-		getData();
+		getData(false)
 	}
 
 	function changeOrder(value) {
-		// orderValue = orderFilter.value
 		orderValue = value
-    var order = getUrlParameter('order');
-		url = url.replace(order, orderValue);
-		getData();
+    var order = getUrlParameter('order')
+		url = url.replace(order, orderValue)
+		url = url.replace('page-' + pagination.page, 'page-1')
+		getData(false)
 	}
 
 	function changeTime (value) {
-		// timeValue = timeFilter.value
 		timeValue = value
 		var time = getUrlParameter('time');
 		if (time != undefined)
 			url = url.replace(time, timeValue);
 		else
 			url += '&time='+timeValue;
-		getData();
+		url = url.replace('page-' + pagination.page, 'page-1')
+		getData(false)
 	}
 
 	function render (works) {
@@ -115,16 +84,15 @@ function Works () {
 		}
 	}
 
-	function getData(){
-		url = url.replace('works' , 'search/works');
-		console.log('url: ', url)
-		
+	function getData(isAdd){
+		url = url.replace('works' , 'search/works')
 		$.post( url, {idUser: idUser}, function( data ) {
-			console.log('data: ', data)
-
-			url = data.url;
-			window.history.pushState({}, "", url);
-			render(data.works)
+			url = data.url
+			if(isAdd) add(data.works)
+			else {
+				window.history.pushState({}, "", url)
+				render(data.works)	
+			}
 		})
 	}
 	
@@ -133,9 +101,8 @@ function Works () {
 		var sURLVariables = sPageURL.split('&')
 		for (var i = 0; i < sURLVariables.length; i++) {
 			var sParameterName = sURLVariables[i].split('=')
-			if (sParameterName[0] == sParam) {
+			if (sParameterName[0] == sParam)
 				return sParameterName[1]
-			}
 		}
 	}
 
