@@ -100,3 +100,88 @@ exports.products = function (req, res) {
 
     });
 };
+
+exports.storeProduct = function (req, res) {
+    /*
+     var getProductQuery = {
+     where: {nameSlugify: req.params.nameProduct},
+     attributes:[],
+     include: [{
+     model: global.db.Work,
+     attributes: ['id'],
+     include: [{
+     model: global.db.User,
+     include: [{model: global.db.User, as: 'Followers', attributes: [], through: {attributes: []}}]
+     }]
+     }]
+     };
+     return global.db.Product.find(getProductQuery).then(function (product) {
+     return res.json(product);
+     */
+    /*
+     var query = {
+     where: {id: work.User.id},
+     attributes: [],
+     include: [
+     {
+     model: global.db.Work,
+     where: {id: {not: [work.id]}}
+     }
+     ]
+     };
+     global.db.User.find(query).then(function (otherWorks) {
+     if (req.user) {
+     req.user.getInterests().then(function (interests) {
+     var ids = [0].concat(_.pluck(interests, 'id'));
+
+     var que = {
+     where: {id: {in: ids}},
+     include: [global.db.Work]
+     };
+     global.db.Category.findAll(que).then(function (worksforme) {
+     return res.json(worksforme);
+     });
+     });
+     } else {
+     return res.json({
+     work: work,
+     otherWorks: otherWorks
+     });
+     }
+     });
+     */
+    /*
+     */
+    /*
+     return res.render('user/work', {
+     work: work
+     })
+     */
+    /*
+     });*/
+
+
+    var query = {where: {nameSlugify: req.params.nameProduct}};
+    global.db.Product.find(query).then(function (product) {
+        return res.render('store/product', {product: product});
+    });
+};
+
+exports.productPay = function (req, res) {
+    global.db.Product.find(req.params.idProduct).then(function (product) {
+        var username = 'luis.augusto-facilitator_api1.funka.pe';
+        var password = 'DA2FKBDA969MC9FG';
+        var signature = 'AFcWxV21C7fd0v3bYYYRCpSSRl31AVe8WaAZb1aHHZTwqH86Cv8a7XhB';
+        var returnUrl = 'http://localhost:3000';
+        var paypal = require('paypal-express-checkout').init(username, password, signature, returnUrl, returnUrl, true);
+        paypal.pay('20130001', product.price, product.name, 'USD', function (err, url) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            // redirect to paypal webpage
+            res.redirect(url);
+        });
+
+    });
+};
