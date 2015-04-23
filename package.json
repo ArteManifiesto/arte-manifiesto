@@ -35,6 +35,7 @@
     "passport": "^0.2.1",
     "passport-facebook": "1.0.3",
     "passport-local": "^1.0.0",
+    "paypal-express-checkout": "^1.0.3",
     "pg": "^4.3.0",
     "pg-hstore": "^2.3.1",
     "request": "^2.55.0",
