@@ -80,7 +80,7 @@ global.db.sequelize.sync({force: dev}).then(function () {
                 promises.push(global.db.ProductType.create({name: product}));
             }
 
-            
+
             for (i = 0; i < 20; i++) {
                 promises.push(global.db.User.create({
                     username: i == 0 ? 'juliocanares' : chance.twitter().replace('@', ''),
@@ -89,7 +89,7 @@ global.db.sequelize.sync({force: dev}).then(function () {
                     lastname: i == 0 ? 'Canares García' : chance.last(),
                     gender: i == 0 ? 'Male' : chance.gender(),
                     provider: 'local',
-                    photo: 'http://i.imgur.com/kVjGqJ7.png',
+                    photo: '/img/artists/artist' + (_.random(1, 4).toString()) + '.jpg',
                     isArtist: _.sample(_.shuffle([0, 1])),
                     city: chance.city(),
                     country: chance.country({full: true}),
