@@ -18,73 +18,161 @@
 
     {% include "../partial/header.html"%}
 
-    <section class="artists" data-columns>
+    {% if !user %}
+        <section class="slogan">
+            <span class="slogan-text">Descubre Geniales Diseños en Increibles Productos</span>
+            <button class="button-solid js-signUpButton" data-size='large'>Sign Up</button>
+        </section>
+    {% endif %}
 
-        {% for user in users %}
-            <article class="artist">
-                <a class="artist-header" href="#">
-                    <div class="avatar">
-                        <img src="/img/artists/artist1.jpg">
-                    </div>
-                    <div class="info">
-                        <!-- <p class="high-text" data-size='small'>{{ user.username }}</p> -->
-                        <p class="high-text" data-size='small'>Hans Evangelista</p>
-                        <p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
-                    </div>
-                </a>
-                <div class="artist-works">
-                        <div class="work work1"></div>
-                        <div class="work work2"></div>
-                        <div class="work work3"></div>
-                        <div class="work work4"></div>
-                        <div class="work work5"></div>
-                        <div class="work work6"></div>                  
-                </div>
-                <div class="artist-follow">
-                    {% if user.following %}
-                        <button class="button-liner disabled" href="#">
-                            <span class="button-liner__action"><i class="fa fa-check"></i> Siguiendo</span>
-                            <span class="button-liner__number">13,2k</span>
-                        </button>
-                    {% else %}
-                        <button class="button-liner" data-size='small'>
-                            <span class="button-liner__action">Seguir</span>
-                            <span class="button-liner__number">13,2k</span>
-                        </button>
-                    {% endif %}
-                </div>
-            </article>
-        {% endfor %}
-
+    <section class="filters-menu">
+        <div class="filters-menu__search">
+            <div class="search">
+                <input type="text" placeholder="Busca Obras, Artistas y Productos">
+                <i class="fa fa-search"></i>
+            </div>
+        </div>
+        <div class="filters-menu__category js-leftFiltersButton">
+            <button class="button-filter"><i class="fa fa-caret-left"></i> &nbsp Categoría</button>
+        </div>
+        <div class="filters-menu__order js-rightFiltersButton">
+            <button class="button-filter">Ordenar &nbsp <i class="fa fa-caret-right"></i></button>
+        </div>
     </section>
+
+    <section class="artists-container">
+        <div class="artists-container__left-filters js-leftFilters">
+            <div class="filters">
+                <div class="filters__title">
+                    <p class="" data-size=''>Categoria</p>
+                </div>
+                {% for category in categories %}
+                    <div class="filter js-category" data-value="{{ category.nameSlugify }}">{{ category.name }}</div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="artists-container__artists">
+            <div class="artists" data-columns>
+                {% for user in users %}
+                    <article class="artist">
+                        <a class="artist-header" href="#">
+                            <div class="avatar">
+                                <img src="/img/artists/artist1.jpg">
+                            </div>
+                            <div class="info">
+                                <p class="high-text" data-size='small'>{{ user.username }}</p>
+                                <p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
+                            </div>
+                        </a>
+                        <div class="artist-works">
+                            <div class="work work1"></div>
+                            <div class="work work2"></div>
+                            <div class="work work3"></div>
+                            <div class="work work4"></div>
+                            <div class="work work5"></div>
+                            <div class="work work6"></div>                  
+                        </div>
+                        <div class="artist-follow">
+                        {% if user.following %}
+                            <button class="button-liner disabled js-followButton" data-following="true" data-userId="{{ user.id }}" data-size='small'>
+                        {% else %}
+                            <button class="button-liner js-followButton" data-following="false" data-userId="{{ user.id }}" data-size='small'>
+                        {% endif %}
+                                <span class="button-liner__action folllow">Seguir</span>
+                                <span class="button-liner__action following"><i class="fa fa-check"></i> Siguiendo</span>
+                                <span class="button-liner__action cancel"><i class="fa fa-times-circle"></i> Cancelar</span>
+                                <span class="button-liner__number">13,2k</span>
+                            </button>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="artists-container__right-filters js-rightFilters">
+            <div class="filters">
+                <div class="filters__title">Orden</div>
+                <div class="filter js-order" data-value="popularity">Más popular</div>
+                <div class="filter js-order" data-value="views">Más visto</div>
+                <div class="filter js-order" data-value="newest">Más reciente</div>
+            </div>
+            <div class="filters">
+                <div class="filters__title">Tiempo</div>
+                <div class="filter js-time" data-value="day">Día</div>
+                <div class="filter js-time" data-value="week">Semana</div>
+                <div class="filter js-time" data-value="month">Mes</div>
+                <div class="filter js-time" data-value="year">Año</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="more-artists">
+        <button class="button-solid js-moreButton" data-size='small' data-color='red'>Ver mas</button>
+    </section>
+
+    <script type="text/template" id="artist-template">
+        <article class="artist">
+            <a class="artist-header" href="#">
+                <div class="avatar">
+                    <img src="/img/artists/artist1.jpg">
+                </div>
+                <div class="info">
+                    <p class="high-text" data-size='small'><%= firstname %></p>
+                    <p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
+                </div>
+            </a>
+            <div class="artist-works">
+                <div class="work work1"></div>
+                <div class="work work2"></div>
+                <div class="work work3"></div>
+                <div class="work work4"></div>
+                <div class="work work5"></div>
+                <div class="work work6"></div>                  
+            </div>
+            <div class="artist-follow">
+            <% if (following) { %>
+                <button class="button-liner disabled js-followButton" data-following="true" data-userId="<%= id %>" data-size='small'>
+            <% } else { %>
+                <button class="button-liner js-followButton" data-following="false" data-userId="<%= id %>" data-size='small'>
+            <% } %>
+                    <span class="button-liner__action folllow">Seguir</span>
+                    <span class="button-liner__action following"><i class="fa fa-check"></i> Siguiendo</span>
+                    <span class="button-liner__action cancel"><i class="fa fa-times-circle"></i> Cancelar</span>
+                    <span class="button-liner__number">13,2k</span>
+                </button>
+            </div>
+        </article>
+    </script>
 
     <script src="/js/vendor/salvattore.js"></script>
     <script src="/js/vendor/jquery.min.js"></script>
     <script src="/js/vendor/underscore-min.js"></script>
 
-    <!-- // <script src="/js/works.js"></script> -->
+    <script src="/js/lib/filters.js"></script>
+    <script src="/js/lib/follow.js"></script>
 
     <script>
 
         var users = {{ users|json|safe }}
         console.log('users: ', users)
 
-        // var pagination = {{ pagination|json|safe }};
-        // console.log('pagination: ', pagination)
+        var pagination = {{ pagination|json|safe }};
+        console.log('pagination: ', pagination)
 
-        // var user = {{ user|json|safe }};
-        // console.log('user: ', user)
+        var user = {{ user|json|safe }};
+        console.log('user: ', user)
 
-        // var works = {{ works|json|safe }};
-        // console.log('works: ', works)
+        var works = {{ works|json|safe }};
+        console.log('works: ', works)
 
-        // var categories = {{ categories|json|safe }};
-        // console.log('categories: ', categories)
+        var categories = {{ categories|json|safe }};
+        console.log('categories: ', categories)
 
-        // var url = {{ url|json|safe }};
-        // console.log('url: ', url)
+        var url = {{ url|json|safe }};
+        console.log('url: ', url)
 
     </script>
+
+    <script src="/js/discover-artists.js"></script>
 
 </body>
 </html>

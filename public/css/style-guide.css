@@ -265,6 +265,10 @@ html {
   padding: 0.5em 0.75em;
   display: table-cell;
 }
+.button-liner__action.following,
+.button-liner__action.cancel {
+  display: none;
+}
 .button-liner__number {
   padding: 0.5em;
   display: table-cell;
@@ -282,6 +286,18 @@ html {
 }
 .button-liner.disabled .button-liner__number {
   border-color: #bbb;
+}
+.button-liner.disabled .button-liner__action.folllow {
+  display: none;
+}
+.button-liner.disabled .button-liner__action.following {
+  display: table-cell;
+}
+.button-liner.disabled:hover .button-liner__action.following {
+  display: none;
+}
+.button-liner.disabled:hover .button-liner__action.cancel {
+  display: table-cell;
 }
 .facebook-button {
   color: #fff;

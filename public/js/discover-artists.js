@@ -1,8 +1,8 @@
 
-function Works () {
+function Artists () {
 	
-	var worksContainer = document.querySelector('.works'),
-			workTemplate = _.template( $( "#work-template" ).html() );
+	var artistsContainer = document.querySelector('.artists'),
+			artistTemplate = _.template( $( "#artist-template" ).html() );
 
 	var category = 'all',
 			orderValue = 'popularity',
@@ -70,28 +70,43 @@ function Works () {
 		getData(false)
 	}
 
-	function render (works) {
-		var currentWorks = worksContainer.querySelectorAll('.work')
-		for (var i = 0; i < currentWorks.length; i++)
-			currentWorks[i].remove()
-		add(works)
+	function render (artists) {
+		var currentArtists = artistsContainer.querySelectorAll('.artist')
+		for (var i = 0; i < currentArtists.length; i++)
+			currentArtists[i].remove()
+		add(artists)
 	}
 
-	function add (works) {
-		for (var i = 0; i < works.length; i++) {
-			var work = makeWork(workTemplate, works[i])
-			salvattore['append_elements'](worksContainer, [work])
+	function add (artists) {
+		for (var i = 0; i < artists.length; i++) {
+			var artist = makeArtist(artistTemplate, artists[i])
+
+			var buttonFollow = artist.querySelector('.js-followButton')
+			console.log('buttonFollow: ', buttonFollow)
+		
+			var state = buttonFollow.getAttribute('data-following')
+			console.log('state == "true": ', (state == "true"))
+
+			window.follow = new Follow(buttonFollow, {
+				following: (state == "true")
+			})
+
+			salvattore['append_elements'](artistsContainer, [artist])
 		}
 	}
 
 	function getData(isAdd){
-		url = url.replace('works' , 'search/works')
+		url = url.replace('users' , 'search/users')
+		console.log('url: ', url)
+
 		$.post( url, {idUser: idUser}, function( data ) {
+			console.log('data: ', data)
+
 			url = data.url
-			if(isAdd) add(data.works)
+			if(isAdd) add(data.users)
 			else {
 				window.history.pushState({}, "", url)
-				render(data.works)	
+				render(data.users)
 			}
 		})
 	}
@@ -114,11 +129,28 @@ function Works () {
 	}
 }
 
-function makeWork (workTemplate, workData) {
-	var workString = workTemplate(workData)
+function makeArtist (artistTemplate, artistData) {
+	var artistString = artistTemplate(artistData)
 	var div = document.createElement('div')
-	div.innerHTML = workString
+	div.innerHTML = artistString
 	return div.children[0]
 }
 
-window.work = new Works()
+window.artist = new Artists()
+
+
+function Artist () {
+
+	// Model
+	var followers,
+			following
+
+	function follow () {
+		// Update model
+	}
+
+	function unfollow () {
+		// UPdate model
+	}
+
+}

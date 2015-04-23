@@ -40,6 +40,9 @@
 	&__action
 		padding .5em .75em
 		display table-cell
+		&.following
+		&.cancel
+			display none
 	&__number
 		padding .5em
 		display table-cell
@@ -55,7 +58,17 @@
 	border-color #ccc
 	.button-liner__number
 		border-color #bbb
-
+	.button-liner__action
+		&.folllow
+			display none
+		&.following
+			display table-cell
+	&:hover
+		.button-liner__action
+			&.following
+				display none
+			&.cancel
+				display table-cell
 
 /*------------------------------------*
 	$ FACEBOOK
