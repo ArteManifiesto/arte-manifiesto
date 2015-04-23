@@ -25,78 +25,54 @@
 		</section>
 	{% endif %}
 
-	<section class="filters">
-		<div class="filters__search">
+	<section class="filters-menu">
+		<div class="filters-menu__search">
 			<div class="search">
 				<input type="text" placeholder="Busca Obras, Artistas y Productos">
 				<i class="fa fa-search"></i>
 			</div>
 		</div>
-		<div class="filters__category js-leftFiltersButton">
+		<div class="filters-menu__category js-leftFiltersButton">
 			<button class="button-filter"><i class="fa fa-caret-left"></i> &nbsp Categoría</button>
 		</div>
-		<div class="filters__order js-rightFiltersButton">
+		<div class="filters-menu__order js-rightFiltersButton">
 			<button class="button-filter">Ordenar &nbsp <i class="fa fa-caret-right"></i></button>
 		</div>
 	</section>
 
 	<section class="works-container">
 		<div class="works-container__left-filters js-leftFilters">
-			<div class="categories">
-				<div class="categories__title">
+			<div class="filters">
+				<div class="filters__title">
 					<p class="" data-size=''>Categoria</p>
 				</div>
-				<div class="categorie">
-					<p class="" data-size=''>Dibujo</p>
-				</div>
-				<div class="categorie">
-					<p class="" data-size=''>Ilustración</p>
-				</div>
-				<div class="categorie">
-					<p class="" data-size=''>Pintura</p>
-				</div>
-				<div class="categorie selected">
-					<p class="" data-size=''>Arte</p>
-				</div>
-				<div class="categorie">
-					<p class="" data-size=''>Fotografía</p>
-				</div>
-				<div class="categorie">
-					<p class="" data-size=''>Escultura</p>
-				</div>
-				<div class="categorie">
-					<p class="" data-size=''>Instalación</p>
-				</div>
-				<div class="categorie">
-					<p class="" data-size=''>Técnica Mixta</p>
-				</div>
-				<div class="categorie">
-					<p class="" data-size=''>Grabado</p>
-				</div>
+				{% for category in categories %}
+					<div class="filter js-category" data-value="{{ category.nameSlugify }}">{{ category.name }}</div>
+				{% endfor %}
 			</div>
 		</div>
 		<div class="works-container__works">
 			<div class="works" data-columns>
 				{% for work in works %}
 					<a href="#" class="work">
-						<img src="/img/works/obra1.jpg">
+						<img src="{{work.photo}}">
 					</a>
 				{% endfor %}
 			</div>
 		</div>
 		<div class="works-container__right-filters js-rightFilters">
-			<div class="categories">
-				<div class="categories__title">Orden</div>
-				<div class="categorie selected" data-value="popularity">Más popular</div>
-				<div class="categorie" data-value="views">Más visto</div>
-				<div class="categorie" data-value="newest">Más reciente</div>
+			<div class="filters">
+				<div class="filters__title">Orden</div>
+				<div class="filter js-order" data-value="popularity">Más popular</div>
+				<div class="filter js-order" data-value="views">Más visto</div>
+				<div class="filter js-order" data-value="newest">Más reciente</div>
 			</div>
-			<div class="categories">
-				<div class="categories__title">Tiempo</div>
-				<div class="categorie" data-value="day">Día</div>
-				<div class="categorie selected" data-value="week">Semana</div>
-				<div class="categorie" data-value="month">Mes</div>
-				<div class="categorie" data-value="year">Año</div>
+			<div class="filters">
+				<div class="filters__title">Tiempo</div>
+				<div class="filter js-time" data-value="day">Día</div>
+				<div class="filter js-time" data-value="week">Semana</div>
+				<div class="filter js-time" data-value="month">Mes</div>
+				<div class="filter js-time" data-value="year">Año</div>
 			</div>
 		</div>
 	</section>
@@ -105,13 +81,11 @@
 		<button class="button-solid js-moreButton" data-size='small' data-color='red'>Ver mas</button>
 	</section>
 
-
 	<script type="text/template" id="work-template">
 		<a href="#" class="work">
 			<img src="<%= photo %>">
 		</a>
 	</script>
-
 
 	<script src="/js/vendor/salvattore.js"></script>
 	<script src="/js/vendor/jquery.min.js"></script>
@@ -138,7 +112,17 @@
 
 	</script>
 
-	<!-- // <script src="/js/works.js"></script> -->
+	<script src="/js/works.js"></script>
 
 </body>
 </html>
+
+<!-- <div class="categorie js-category" data-value="holi!">Dibujo</div>
+<div class="categorie js-category" data-value="holi!">Ilustración</div>
+<div class="categorie js-category" data-value="holi!">Pintura</div>
+<div class="categorie js-category selected" data-value="holi!">Arte</div>
+<div class="categorie js-category" data-value="holi!">Fotografía</div>
+<div class="categorie js-category" data-value="holi!">Escultura</div>
+<div class="categorie js-category" data-value="holi!">Instalación</div>
+<div class="categorie js-category" data-value="holi!">Técnica Mixta</div>
+<div class="categorie js-category" data-value="holi!">Grabado</div> -->

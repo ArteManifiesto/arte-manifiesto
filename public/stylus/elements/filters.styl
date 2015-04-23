@@ -1,7 +1,7 @@
 
-.filters
+.filters-menu
 	margin auto
-	margin-top 3rem
+	// margin-top 3rem
 	display flex
 	flex-wrap wrap
 	max-width max-width
@@ -15,7 +15,7 @@
 		margin 0 1rem
 
 @media (min-width: 720px)
-	.filters
+	.filters-menu
 		&__category
 			order 1
 		&__search
@@ -29,7 +29,9 @@
 		max-width 400px
 		margin auto
 
-.categories
+
+
+.filters
 	margin 1rem .5rem
 	// width 100%
 	border solid 1px #ddd
@@ -40,28 +42,11 @@
 	&__title
 		padding .5rem 1rem
 		font-weight 600
-	.categorie
+		border-bottom solid 1px #ddd
+		// background rgba(black, .1)
+	.filter
 		padding .5rem 1rem
 		cursor pointer
 		&.selected
 			background rgba(black, .1)
-			
-.works-container
-	display flex
-	max-width max-width
-	margin auto
-	padding 0 .5rem
-	&__works
-		flex 1
-	&__left-filters
-	&__right-filters
-		// width 50px
-		// width 0
-		// width auto
-		// display flex
-		overflow hidden
-		transition width .5s
-	&__left-filters.visible
-	&__right-filters.visible
-		width auto
-		// width 150px
+			// font-weight bold

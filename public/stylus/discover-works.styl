@@ -59,6 +59,26 @@
 // .works
 // 	max-width max-width
 // 	margin auto
+	
+.works-container
+	display flex
+	max-width max-width
+	margin auto
+	padding 0 .5rem
+	&__works
+		flex 1
+	&__left-filters
+	&__right-filters
+		// width 50px
+		width 0
+		// width auto
+		// display flex
+		overflow hidden
+		transition width .5s
+	&__left-filters.visible
+	&__right-filters.visible
+		width auto
+		// width 150px
 
 .more-works
 	max-width max-width

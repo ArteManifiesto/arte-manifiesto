@@ -1,16 +1,16 @@
-// console.log('filters')
+console.log('filters')
 
 function Filters (container, data) {
 
 	var leftFiltersButton = document.querySelector('.' + data.leftFiltersButtonClass)
 	var rightFiltersButton = document.querySelector('.' + data.rightFiltersButtonClass)
-	// console.log('leftFiltersButton: ', leftFiltersButton)
-	// console.log('rightFiltersButton: ', rightFiltersButton)
+	console.log('leftFiltersButton: ', leftFiltersButton)
+	console.log('rightFiltersButton: ', rightFiltersButton)
 
 	var leftFilters = document.querySelector('.' + data.leftFiltersClass)
 	var rightFilters = document.querySelector('.' + data.rightFiltersClass)
-	// console.log('leftFilters: ', leftFilters)
-	// console.log('rightFilters: ', rightFilters)
+	console.log('leftFilters: ', leftFilters)
+	console.log('rightFilters: ', rightFilters)
 
 	var leftVisible = false
 	var rightVisible = false
@@ -38,7 +38,6 @@ function Filters (container, data) {
 			rightVisible = true
 		}
 	})
-
 }
 
 window.filters = new Filters({}, {

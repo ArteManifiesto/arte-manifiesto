@@ -1,72 +1,4 @@
 
-// function Works () {
-	
-// 	var works = document.querySelector('.works')
-// 	var workTemplate = _.template( $( "#work-template" ).html() )
-
-// 	var currentPage = 1
-
-// 	var moreButton = document.querySelector('.js-moreButton')
-// 	// console.log('moreButton: ', moreButton)
-
-// 	var timeFilter = document.querySelector('.time-filter')
-// 	console.log('timeFilter: ', timeFilter)
-
-// 	function setup () {
-		
-// 		timeFilter.addEventListener('change', function () {
-// 			console.log('change', this.value)
-
-// 		})
-
-// 		moreButton.addEventListener('click', next)
-
-// 	}
-
-// 	function next () {
-		
-// 		console.log('next')
-
-// 		currentPage++
-
-// 		var url = '/search/works/category/all/page-' + currentPage + '/?order=popularity'
-// 		// var url = '/search/works/category/all/page-2/?order=popularity'
-// 		console.log('url: ', url)
-
-// 		var idUser = user.id || 0
-
-// 		$.post( url, {idUser: idUser}, function( data ) {
-// 			console.log('data.works: ', data.works)
-
-// 			add(data.works)
-
-// 		})
-
-// 	}
-
-// 	function add (data) {
-
-// 		for (var i = 0; i < data.length; i++) {
-
-// 			var workString = workTemplate(data[i])
-
-// 			var div = document.createElement('div')
-// 			div.innerHTML = workString
-			
-// 			var work = div.children[0]
-
-// 			salvattore['append_elements'](works, [work])
-			
-// 		}
-// 	}
-
-// 	setup()
-
-// 	return this
-
-// }
-
-
 function Works () {
 	
 	var worksContainer = document.querySelector('.works')
@@ -79,35 +11,55 @@ function Works () {
 
 	var idUser = user.id || 0
 
-	var categoryFilter = document.querySelector('.category-filter')
-	// console.log('categoryFilter: ', categoryFilter)
+	var categoryList = document.querySelectorAll('.js-category')
+	console.log('categoryList: ', categoryList)
 
-	var orderFilter = document.querySelector('.order-filter')
+	var orderList = document.querySelectorAll('.js-order')
+	console.log('orderList: ', orderList)
+
+	var timeList = document.querySelectorAll('.js-time')
+	console.log('timeList: ', timeList)
+
+	// var orderFilter = document.querySelector('.order-filter')
 	// console.log('orderFilter: ', orderFilter)
 
-	var timeFilter = document.querySelector('.time-filter')
+	// var timeFilter = document.querySelector('.time-filter')
 	// console.log('timeFilter: ', timeFilter)
 
-	var moreButton = document.querySelector('.js-moreButton')
+	// var moreButton = document.querySelector('.js-moreButton')
 	// console.log('moreButton: ', moreButton)
 
 	function setup () {
-		
-		categoryFilter.addEventListener('change', function () {
-			changeCategory()
-		})
-		
-		orderFilter.addEventListener('change', function () {
-			changeOrder()
-		})
-		
-		timeFilter.addEventListener('change', function () {
-			changeTime()
-		})
 
-		moreButton.addEventListener('click', function () {
-			more()
-		})
+		for (var i = 0; i < categoryList.length; i++) {
+			categoryList[i].addEventListener('click', function () {
+				changeCategory(this.getAttribute("data-value"))
+			})
+		}
+
+		for (var i = 0; i < orderList.length; i++) {
+			orderList[i].addEventListener('click', function () {
+				changeOrder(this.getAttribute("data-value"))
+			})
+		}
+
+		for (var i = 0; i < timeList.length; i++) {
+			timeList[i].addEventListener('click', function () {
+				changeTime(this.getAttribute("data-value"))
+			})
+		}
+
+		// orderFilter.addEventListener('change', function () {
+		// 	changeOrder()
+		// })
+		
+		// timeFilter.addEventListener('change', function () {
+		// 	changeTime()
+		// })
+
+		// moreButton.addEventListener('click', function () {
+		// 	more()
+		// })
 	}
 
 	function more () {
@@ -116,29 +68,31 @@ function Works () {
 
 		// var url = '/search/works/category/' + category + '/page-' + page + '/?order=' + order + '&time=' +  time
 
-
 		// $.post( url, {idUser: idUser}, function( data ) {
 		// 	add(data.works)
 		// })
 	}
 
-	function changeCategory () {
-		category = categoryFilter.value
+	function changeCategory (value) {
+		// category = categoryFilter.value
+		category = value
 		var currentCategory = url.split('/')[5]
 		url =	url.replace(currentCategory, category)
 		url = url.replace('page-' + pagination.page, 'page-1')
 		getData();
 	}
 
-	function changeOrder() {
-		orderValue = orderFilter.value
+	function changeOrder(value) {
+		// orderValue = orderFilter.value
+		orderValue = value
     var order = getUrlParameter('order');
 		url = url.replace(order, orderValue);
 		getData();
 	}
 
-	function changeTime () {
-		timeValue = timeFilter.value
+	function changeTime (value) {
+		// timeValue = timeFilter.value
+		timeValue = value
 		var time = getUrlParameter('time');
 		if (time != undefined)
 			url = url.replace(time, timeValue);
@@ -163,7 +117,11 @@ function Works () {
 
 	function getData(){
 		url = url.replace('works' , 'search/works');
+		console.log('url: ', url)
+		
 		$.post( url, {idUser: idUser}, function( data ) {
+			console.log('data: ', data)
+
 			url = data.url;
 			window.history.pushState({}, "", url);
 			render(data.works)
