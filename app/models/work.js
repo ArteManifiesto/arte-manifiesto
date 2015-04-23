@@ -58,7 +58,9 @@ module.exports = function (sequelize, DataTypes) {
                     for (var i = 0; i < 2; i++) {
                         promises.push(global.db.Product.create({
                             name: chance.name(),
-                            price: _.random(0, 1000)
+                            price: _.random(0, 1000),
+                            photo: '/img/products/product' + (_.random(1, 20).toString()) + '.jpg',
+                            description: chance.paragraph({sentences: 2})
                         }))
                     }
                     return global.db.Sequelize.Promise.all(promises).then(function (products) {
