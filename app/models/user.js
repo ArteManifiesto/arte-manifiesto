@@ -142,7 +142,7 @@ module.exports = function (sequelize, DataTypes) {
                                     }),
                                     global.db.Work.create({
                                         name: chance.name(),
-                                        photo: 'http://i.imgur.com/QPACTzF.png',
+                                        photo: '/img/works/obra' + (_.random(1, 15).toString()) + '.jpg',
                                         public: true
                                     })
                                 ];
