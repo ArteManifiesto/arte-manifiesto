@@ -8,9 +8,17 @@ var async = require('async');
 
 exports.profile = function (req, res) {
     var showProfile = function (user, owner) {
+
+        return global.db.User.find({
+            where: {id: user.id}, include: [
+                {model: global.db.User, as: 'Followers'}
+            ]
+        });
+
         var promises = [
-            user.getFollowings({attributes: ['username', 'photo']}),
-            user.getFollowers({attributes: ['username', 'photo']}),
+            user.getFollowers({where: {id: user.id}}),
+            //user.getFollowings(),
+            user.getFollowers(),
             user.getCollections({
                 attributes: ['name', 'meta'],
                 order: [[global.db.Work, global.db.CollectionWork, 'order']],
@@ -141,7 +149,6 @@ exports.work = function (req, res) {
             {model: global.db.User, as: 'Collects'}
         ]
     };
-
     global.db.Work.find(getWorkQuery).then(function (work) {
         var query = {
             where: {id: work.User.id},
@@ -714,9 +721,7 @@ exports.userUnFeatured = function (req, res) {
     });
 };
 
-
 var responses = {
-
     message: function (code, message) {
         return {
             code: code,
