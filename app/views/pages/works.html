@@ -18,6 +18,17 @@
 
 	{% include "../partial/header.html"%}
 
+	<section class="category-menu">
+		<div class="thick-menu">
+			<a href="#" class="thick-menu__item">Descubrir Artistas</a>
+			<a href="#" class="thick-menu__item">Descubrir Obras</a>
+			<!-- <a href="#" class="thick-menu__item">Art</a>
+			<a href="#" class="thick-menu__item">Home</a>
+			<a href="#" class="thick-menu__item">Kids</a>
+			<a href="#" class="thick-menu__item">Music</a> -->
+		</div>
+	</section>
+
 	{% if !user %}
 		<section class="slogan">
 			<span class="slogan-text">Descubre Geniales Diseños en Increibles Productos</span>
@@ -59,6 +70,9 @@
 					</a>
 				{% endfor %}
 			</div>
+			<div class="more-works">
+				<button class="button-solid js-moreButton" data-size='small' data-color='red'>Ver mas</button>
+			</div>
 		</div>
 		<div class="works-container__right-filters js-rightFilters">
 			<div class="filters">
@@ -75,10 +89,6 @@
 				<div class="filter js-time" data-value="year">Año</div>
 			</div>
 		</div>
-	</section>
-
-	<section class="more-works">
-		<button class="button-solid js-moreButton" data-size='small' data-color='red'>Ver mas</button>
 	</section>
 
 	<script type="text/template" id="work-template">

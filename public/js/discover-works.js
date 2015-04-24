@@ -1,3 +1,4 @@
+console.log('welcome to works')
 
 function Works () {
 	
@@ -15,6 +16,8 @@ function Works () {
 			orderList = document.querySelectorAll('.js-order'),
 			timeList = document.querySelectorAll('.js-time'),
 			moreButton = document.querySelector('.js-moreButton');
+
+	console.log('moreButton: ', moreButton)
 
 	function setup () {
 
@@ -86,6 +89,8 @@ function Works () {
 
 	function getData(isAdd){
 		url = url.replace('works' , 'search/works')
+		console.log('url: ', url)
+
 		$.post( url, {idUser: idUser}, function( data ) {
 			url = data.url
 			if(isAdd) add(data.works)
@@ -121,4 +126,4 @@ function makeWork (workTemplate, workData) {
 	return div.children[0]
 }
 
-window.work = new Works()
+window.works = new Works()

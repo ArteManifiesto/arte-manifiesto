@@ -1,0 +1,38 @@
+/*------------------------------------------------------------------------------------------------------------*
+	$ DEPURADO---------------------------------------------------------------------------------------------------
+*------------------------------------------------------------------------------------------------------------*/
+
+/*------------------------------------*
+	$ WORKS
+*------------------------------------*/
+columns = 6
+work-width = 150px
+
+.works
+	padding 0 .5rem
+	overflow hidden
+	max-width max-width
+	margin auto
+	.work
+		display block
+		margin 1rem .5rem
+		border 1px solid #eee
+		transition box-shadow ease-in-out 125ms
+		&:hover
+			box-shadow rgba(0,0,0,0.35) 0 0 10px
+
+for i in (1..(columns - 1))
+	@media screen and (min-width: work-width*i+1) and (max-width: work-width*(i+1))
+		.works[data-columns]::before
+			content str(i) + ' .column.size-1of' + str(i)
+	
+@media screen and (min-width: work-width*(columns)+1)
+	.works[data-columns]::before
+		content str(columns) + ' .column.size-1of' + str(columns)
+
+.column
+	float left
+
+for i in (1..columns)
+	.size-1of{i}
+		width (100/i)*1%

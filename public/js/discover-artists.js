@@ -153,4 +153,6 @@ function Artist () {
 		// UPdate model
 	}
 
+	// Update View
+
 }

@@ -1,0 +1,54 @@
+
+/*------------------------------------------------------------------------------------------------------------*
+	$ DEPURADO---------------------------------------------------------------------------------------------------
+*------------------------------------------------------------------------------------------------------------*/
+
+/*------------------------------------*
+	$ SLIDER SMALL
+*------------------------------------*/
+.slider-small
+	max-width 600px
+	margin auto
+	&__nav
+		display flex
+		justify-content center
+		padding .5rem
+		&__item
+			font-size .6rem
+			color #ddd
+			margin .25rem
+			padding .25rem
+			cursor pointer
+			&.active
+				color #bbb
+	&__items
+		white-space nowrap
+		font-size 0
+		overflow hidden
+	&__item
+		display inline-block
+		vertical-align top
+		width 100%
+		white-space normal
+		transition transform 700ms ease-out
+		
+
+/*------------------------------------*
+	$ SLIDER LARGE
+*------------------------------------*/
+.slider-large
+	display none
+	max-width max-width
+	margin auto
+	&__items
+		padding .5rem
+		display flex
+	&__item
+		margin .5rem
+
+
+@media (min-width: tablet-medium)
+	.slider-small
+		display none
+	.slider-large
+		display block
