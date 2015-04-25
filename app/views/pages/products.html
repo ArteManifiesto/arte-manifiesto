@@ -1,49 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
+{% extends '../partial/base.html' %}
+{% set path = 'products' %}
+{% set title = 'Arte Manifiesto | Market' %}
+{% set css = 'market' %}
 
-	<title>Arte Manifiesto | Market</title>
-
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-	<link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700|Roboto+Condensed:400,300,700|Raleway:400,100,200,300,500,700,600,800,900|Oswald:400,300,700|Hammersmith+One' rel='stylesheet' type='text/css'>
-
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-
-	<link rel="stylesheet" type="text/css" href="/css/market.css">
-
-</head>
-<body>
-
-	<!-- ********************************************************************
-		$ HEADER
-	********************************************************************* -->
-	<header class="header">
-		<a class="logo" href="/">
-			<img class="logo__small" src="/img/logo-small.png">
-			<img class="logo__normal" src="/img/logo.png">
-		</a>
-		<nav class="skinny-menu" data-icon='true'>
-			<a class="skinny-menu__item" href="/works/category/all/page-1">
-				<i class="skinny-menu__item__icon fa fa-paint-brush"></i>
-				<span class="skinny-menu__item__text">Obras</span>
-			</a>
-			<a class="skinny-menu__item" href="/users/specialty/all/page-1">
-				<i class="skinny-menu__item__icon fa fa-heart-o"></i>
-				<span class="skinny-menu__item__text">Artistas</span>
-			</a>
-			<a class="skinny-menu__item active" href="/products/type/all/page-1/">
-				<i class="skinny-menu__item__icon fa fa-diamond"></i>
-				<span class="skinny-menu__item__text">Market</span>
-			</a>
-			<a class="skinny-menu__item js-signInButton">
-				<i class="skinny-menu__item__icon fa fa-user"></i>
-				<span class="skinny-menu__item__text">Sign in</span>
-			</a>
-		</nav>
-	</header>
-	
+{% block content %}
 
 	<!-- ********************************************************************
 		$ CATEGORY MENU
@@ -309,6 +269,4 @@
 	<script src="/js/lib/products.js"></script>
 
 	<script src="/js/market.js"></script>
-
-</body>
-</html>
+{% endblock %}

@@ -1,73 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
+{% extends '../partial/base.html' %}
+{% set path = 'works' %}
+{% set title = 'Arte Manifiesto | Obras' %}
+{% set css = 'discover-works' %}
 
-	<title>Arte Manifiesto | Obras</title>
-	
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-	<link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700|Roboto+Condensed:400,300,700|Raleway:400,100,200,300,500,700,600,800,900|Oswald:400,300,700|Hammersmith+One' rel='stylesheet' type='text/css'>
-
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-
-	<link rel="stylesheet" type="text/css" href="/css/discover-works.css">
-
-</head>
-<body>
-
-	<!-- ********************************************************************
-		$ HEADER
-	********************************************************************* -->
-	<!-- <header class="header">
-		<a class="logo" href="/">
-			<img class="logo__small" src="/img/logo-small.png">
-			<img class="logo__normal" src="/img/logo.png">
-		</a>
-		<nav class="skinny-menu" data-icon='true'>
-			<a class="skinny-menu__item" href="/works/category/all/page-1">
-				<i class="skinny-menu__item__icon fa fa-paint-brush"></i>
-				<span class="skinny-menu__item__text">Obras</span>
-			</a>
-			<a class="skinny-menu__item" href="/users/specialty/all/page-1">
-				<i class="skinny-menu__item__icon fa fa-heart-o"></i>
-				<span class="skinny-menu__item__text">Artistas</span>
-			</a>
-			<a class="skinny-menu__item active" href="/products/type/all/page-1/">
-				<i class="skinny-menu__item__icon fa fa-diamond"></i>
-				<span class="skinny-menu__item__text">Market</span>
-			</a>
-			<a class="skinny-menu__item js-signInButton">
-				<i class="skinny-menu__item__icon fa fa-user"></i>
-				<span class="skinny-menu__item__text">Sign in</span>
-			</a>
-		</nav>
-	</header> -->
-	<header class="header">
-		<a class="logo" href="/">
-			<img class="logo__small" src="/img/logo-small.png">
-			<img class="logo__normal" src="/img/logo.png">
-		</a>
-		<nav class="skinny-menu" data-icon='true'>
-			<a class="skinny-menu__item active" href="/works/category/all/page-1">
-				<i class="skinny-menu__item__icon fa fa-paint-brush"></i>
-				<span class="skinny-menu__item__text">Obras</span>
-			</a>
-			<a class="skinny-menu__item" href="/users/specialty/all/page-1">
-				<i class="skinny-menu__item__icon fa fa-heart-o"></i>
-				<span class="skinny-menu__item__text">Artistas</span>
-			</a>
-			<a class="skinny-menu__item" href="/products/type/all/page-1/">
-				<i class="skinny-menu__item__icon fa fa-diamond"></i>
-				<span class="skinny-menu__item__text">Market</span>
-			</a>
-			<a class="skinny-menu__item js-signInButton">
-				<i class="skinny-menu__item__icon fa fa-user"></i>
-				<span class="skinny-menu__item__text">Sign in</span>
-			</a>
-		</nav>
-	</header>
-
+{% block content %}
 
 	<!-- ********************************************************************
 		$ SLOGAN
@@ -107,15 +43,6 @@
 				{% for category in categories %}
 					<div class="filter js-category" data-value="{{ category.nameSlugify }}">{{ category.name }}</div>
 				{% endfor %}
-	<!-- <div class="filter js-category" data-value="holi!">Dibujo</div>
-				<div class="filter js-category" data-value="holi!">Ilustración</div>
-				<div class="filter js-category" data-value="holi!">Pintura</div>
-				<div class="filter js-category" data-value="holi!">Arte</div>
-				<div class="filter js-category" data-value="holi!">Fotografía</div>
-				<div class="filter js-category" data-value="holi!">Escultura</div>
-				<div class="filter js-category" data-value="holi!">Instalación</div>
-				<div class="filter js-category" data-value="holi!">Técnica Mixta</div>
-				<div class="filter js-category" data-value="holi!">Grabado</div> -->
 			</div>
 		</div>
 		<div class="works-container__filters right js-rightFilters">
@@ -200,7 +127,6 @@
 	<section class="slogan">
 		<span class="slogan-text">Muestra tu talento artístico!</span>
 		<button class="button-solid js-signUpButton" data-size='large'>Sign Up</button>
-		<!-- <button class="button-solid js-signUpButton" data-size='large'>Regístrate</button> -->
 	</section>
 
 
@@ -337,123 +263,4 @@
 	<script src="/js/lib/filters.js"></script>
 	<script src="/js/discover-works.js"></script>
 
-
-</body>
-</html>
-
-	<!-- <script type="text/template" id="work-template">
-		// <a href="#" class="work">
-		// 	<img src="<%= photo %>">
-		// </a>
-	</script>
-
-	<script>
-
-		// window.pagination = {{ pagination|json|safe }};
-		// // console.log('pagination: ', pagination)
-
-		// var user = {{ user|json|safe }};
-		// // console.log('user: ', user)
-
-		// var works = {{ works|json|safe }};
-		// // console.log('works: ', works)
-
-		// var categories = {{ categories|json|safe }};
-		// // console.log('categories: ', categories)
-
-		// window.url = {{ url|json|safe }};
-		// // console.log('url: ', url)
-
-	</script> -->
-
-	<!-- // <script src="/js/discover-works.js"></script> -->
-
-<!-- 	// <script src="/js/vendor/salvattore.js"></script>
-	// <script src="/js/vendor/jquery.min.js"></script>
-	// <script src="/js/vendor/underscore-min.js"></script>
-
-	// <script src="/js/lib/filters.js"></script>
- -->
-
-<!-- <div class="categorie js-category" data-value="holi!">Dibujo</div>
-<div class="categorie js-category" data-value="holi!">Ilustración</div>
-<div class="categorie js-category" data-value="holi!">Pintura</div>
-<div class="categorie js-category selected" data-value="holi!">Arte</div>
-<div class="categorie js-category" data-value="holi!">Fotografía</div>
-<div class="categorie js-category" data-value="holi!">Escultura</div>
-<div class="categorie js-category" data-value="holi!">Instalación</div>
-<div class="categorie js-category" data-value="holi!">Técnica Mixta</div>
-<div class="categorie js-category" data-value="holi!">Grabado</div> -->
-
-	<!-- {% include "../partial/header.html"%} -->
-
-<!-- 	{% if !user %}
-		<section class="slogan">
-			<span class="slogan-text">Descubre Geniales Diseños en Increibles Productos</span>
-			<button class="button-solid js-signUpButton" data-size='large'>Sign Up</button>
-		</section>
-	{% endif %} -->
-
-
-	<!-- <section class="category-menu">
-		<div class="thick-menu">
-			<a href="#" class="thick-menu__item">Descubrir Artistas</a>
-			<a href="#" class="thick-menu__item">Descubrir Obras</a>
-		</div>
-	</section> -->
-
-
-		<!-- <section class="filters-menu">
-		<div class="filters-menu__search">
-			<div class="search">
-				<input type="text" placeholder="Busca Obras, Artistas y Productos">
-				<i class="fa fa-search"></i>
-			</div>
-		</div>
-		<div class="filters-menu__category js-leftFiltersButton">
-			<button class="button-filter"><i class="fa fa-caret-left"></i> &nbsp Categoría</button>
-		</div>
-		<div class="filters-menu__order js-rightFiltersButton">
-			<button class="button-filter">Ordenar &nbsp <i class="fa fa-caret-right"></i></button>
-		</div>
-	</section> -->
-
-	<!-- <section class="works-container">
-		<div class="works-container__left-filters js-leftFilters">
-			<div class="filters">
-				<div class="filters__title">
-					<p class="" data-size=''>Categoria</p>
-				</div>
-				{% for category in categories %}
-					<div class="filter js-category" data-value="{{ category.nameSlugify }}">{{ category.name }}</div>
-				{% endfor %}
-			</div>
-		</div>
-		<div class="works-container__works">
-			<div class="works" data-columns>
-				{% for work in works %}
-					<a href="#" class="work">
-						<img src="{{work.photo}}">
-					</a>
-				{% endfor %}
-			</div>
-			<div class="more-works">
-				<button class="button-solid js-moreButton" data-size='small' data-color='red'>Ver mas</button>
-			</div>
-		</div>
-		<div class="works-container__right-filters js-rightFilters">
-			<div class="filters">
-				<div class="filters__title">Orden</div>
-				<div class="filter js-order" data-value="popularity">Más popular</div>
-				<div class="filter js-order" data-value="views">Más visto</div>
-				<div class="filter js-order" data-value="newest">Más reciente</div>
-			</div>
-			<div class="filters">
-				<div class="filters__title">Tiempo</div>
-				<div class="filter js-time" data-value="day">Día</div>
-				<div class="filter js-time" data-value="week">Semana</div>
-				<div class="filter js-time" data-value="month">Mes</div>
-				<div class="filter js-time" data-value="year">Año</div>
-			</div>
-		</div>
-	</section> -->
+{% endblock %}

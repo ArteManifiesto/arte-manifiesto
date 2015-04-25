@@ -10,9 +10,9 @@ function Artist (el, data) {
 
 
 	function setup () {
-		
-		buttonFollow.addEventListener('click', function () {
 
+		buttonFollow.addEventListener('click', function () {
+			
 			if(!following) follow()
 			else unFollow()
 		})
@@ -21,8 +21,7 @@ function Artist (el, data) {
 	function follow () {
 
 		$.post( '/user/follow/', {idUser: id}, function( data ) {
-			// console.log(data)
-			
+			console.log(data)
 			if (data.code == 202) {
 				buttonFollow.classList.add('disabled')
 				following = true
@@ -33,8 +32,7 @@ function Artist (el, data) {
 	function unFollow () {
 
 		$.post( '/user/unfollow/', {idUser: id}, function( data ) {
-			// console.log(data)
-
+			console.log(data)
 			if (data.code == 202) {
 				buttonFollow.classList.remove('disabled')
 				following = false
