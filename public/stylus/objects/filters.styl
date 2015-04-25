@@ -1,0 +1,89 @@
+
+/*------------------------------------------------------------------------------------------------------------*
+	$ DEPURADO---------------------------------------------------------------------------------------------------
+*------------------------------------------------------------------------------------------------------------*/
+
+/*------------------------------------*
+	$ FILTERS MENU
+*------------------------------------*/
+.filters-menu
+	margin auto
+	display flex
+	flex-wrap wrap
+	max-width max-width
+	justify-content space-between
+	align-items: center;
+	&__search
+		flex 100%
+		padding .5rem 1rem
+	&__category
+	&__order
+		margin 0 1rem
+
+@media (min-width: tablet-medium)
+	.filters-menu
+		&__category
+			order 1
+		&__search
+			order 2
+			flex auto
+		&__order
+			order 3
+
+@media (min-width: tablet-medium)
+	.search
+		max-width 400px
+		margin auto
+		
+
+/*------------------------------------*
+	$ WORKS CONTAINER
+*------------------------------------*/
+.works-container
+	position relative
+	overflow-x hidden
+	max-width max-width
+	margin auto
+	&__filters
+		position absolute
+		background white
+		transition transform .5s
+		&.right
+			right 0
+			transform translate(100%, 0)
+			&.visible
+				transform translate(0%, 0)
+		&.left
+			left 0
+			transform translate(-100%, 0)
+			&.visible
+				transform translate(0%, 0)
+				
+@media (min-width: max-width)
+	.works-container
+		&__works
+			transition padding .5s
+			&.moveLeft
+				padding-left 10rem
+			&.moveRight
+				padding-right 10rem
+
+
+/*------------------------------------*
+	$ FILTERS
+*------------------------------------*/
+.filters
+	margin 1rem
+	border solid 1px #ddd
+	font-family 'Raleway'
+	font-size .85rem
+	width 9rem
+	&__title
+		padding .5rem 1rem
+		font-weight 600
+		border-bottom solid 1px #ddd
+	.filter
+		padding .5rem 1rem
+		cursor pointer
+		&.selected
+			background rgba(black, .1)

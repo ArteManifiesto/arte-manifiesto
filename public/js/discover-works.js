@@ -1,4 +1,4 @@
-console.log('welcome to works')
+// console.log('welcome to works')
 
 function Works () {
 	
@@ -17,7 +17,7 @@ function Works () {
 			timeList = document.querySelectorAll('.js-time'),
 			moreButton = document.querySelector('.js-moreButton');
 
-	console.log('moreButton: ', moreButton)
+	// console.log('moreButton: ', moreButton)
 
 	function setup () {
 
@@ -89,7 +89,7 @@ function Works () {
 
 	function getData(isAdd){
 		url = url.replace('works' , 'search/works')
-		console.log('url: ', url)
+		// console.log('url: ', url)
 
 		$.post( url, {idUser: idUser}, function( data ) {
 			url = data.url
