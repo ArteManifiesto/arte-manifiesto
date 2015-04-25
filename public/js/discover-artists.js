@@ -137,22 +137,3 @@ function makeArtist (artistTemplate, artistData) {
 }
 
 window.artist = new Artists()
-
-
-function Artist () {
-
-	// Model
-	var followers,
-			following
-
-	function follow () {
-		// Update model
-	}
-
-	function unfollow () {
-		// UPdate model
-	}
-
-	// Update View
-
-}

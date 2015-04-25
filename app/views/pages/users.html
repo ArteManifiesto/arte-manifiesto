@@ -2,176 +2,627 @@
 <html>
 <head>
 
-    <title>Arte Manifiesto | Artistas</title>
-    
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Arte Manifiesto | Artistas</title>
 
-    <link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700|Roboto+Condensed:400,300,700|Raleway:400,100,200,300,500,700,600,800,900|Oswald:400,300,700|Hammersmith+One' rel='stylesheet' type='text/css'>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700|Roboto+Condensed:400,300,700|Raleway:400,100,200,300,500,700,600,800,900|Oswald:400,300,700|Hammersmith+One' rel='stylesheet' type='text/css'>
 
-    <link rel="stylesheet" type="text/css" href="/css/discover-artists.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" type="text/css" href="/css/discover-artists.css">
 
 </head>
 <body>
 
-    {% include "../partial/header.html"%}
+	<!-- ********************************************************************
+		$ HEADER
+	********************************************************************* -->
+	<header class="header">
+		<a class="logo" href="/">
+			<img class="logo__small" src="/img/logo-small.png">
+			<img class="logo__normal" src="/img/logo.png">
+		</a>
+		<nav class="skinny-menu" data-icon='true'>
+			<a  class="skinny-menu__item active" href="/works/category/all/page-1">
+				<i class="skinny-menu__item__icon fa fa-search"></i>
+				<span class="skinny-menu__item__text">Descubre</span>
+			</a>
+			<a href="#" class="skinny-menu__item">
+				<i class="skinny-menu__item__icon fa fa-diamond"></i>
+				<span class="skinny-menu__item__text">Market</span>
+			</a>
+			<a class="skinny-menu__item js-signInButton">
+				<i class="skinny-menu__item__icon fa fa-user"></i>
+				<span class="skinny-menu__item__text">Sign in</span>
+			</a>
+		</nav>
+	</header>
 
-    {% if !user %}
-        <section class="slogan">
-            <span class="slogan-text">Descubre Geniales Diseños en Increibles Productos</span>
-            <button class="button-solid js-signUpButton" data-size='large'>Sign Up</button>
-        </section>
-    {% endif %}
 
-    <section class="filters-menu">
-        <div class="filters-menu__search">
-            <div class="search">
-                <input type="text" placeholder="Busca Obras, Artistas y Productos">
-                <i class="fa fa-search"></i>
-            </div>
-        </div>
-        <div class="filters-menu__category js-leftFiltersButton">
-            <button class="button-filter"><i class="fa fa-caret-left"></i> &nbsp Categoría</button>
-        </div>
-        <div class="filters-menu__order js-rightFiltersButton">
-            <button class="button-filter">Ordenar &nbsp <i class="fa fa-caret-right"></i></button>
-        </div>
-    </section>
+	<!-- ********************************************************************
+		$ SLOGAN
+	********************************************************************* -->
+	<section class="slogan">
+		<span class="slogan-text">Descubre Geniales Diseños en Increibles Productos</span>
+		<button class="button-solid js-signUpButton" data-size='large'>Sign Up</button>
+	</section>
 
-    <section class="artists-container">
-        <div class="artists-container__left-filters js-leftFilters">
-            <div class="filters">
-                <div class="filters__title">
-                    <p class="" data-size=''>Categoria</p>
-                </div>
-                {% for category in categories %}
-                    <div class="filter js-category" data-value="{{ category.nameSlugify }}">{{ category.name }}</div>
-                {% endfor %}
-            </div>
-        </div>
-        <div class="artists-container__artists">
-            <div class="artists" data-columns>
-                {% for user in users %}
-                    <article class="artist">
-                        <a class="artist-header" href="#">
-                            <div class="avatar">
-                                <img src="/img/artists/artist1.jpg">
-                            </div>
-                            <div class="info">
-                                <p class="high-text" data-size='small'>{{ user.username }}</p>
-                                <p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
-                            </div>
-                        </a>
-                        <div class="artist-works">
-                            <div class="work work1"></div>
-                            <div class="work work2"></div>
-                            <div class="work work3"></div>
-                            <div class="work work4"></div>
-                            <div class="work work5"></div>
-                            <div class="work work6"></div>                  
-                        </div>
-                        <div class="artist-follow">
-                        {% if user.following %}
-                            <button class="button-liner disabled js-followButton" data-following="true" data-userId="{{ user.id }}" data-size='small'>
-                        {% else %}
-                            <button class="button-liner js-followButton" data-following="false" data-userId="{{ user.id }}" data-size='small'>
-                        {% endif %}
-                                <span class="button-liner__action folllow">Seguir</span>
-                                <span class="button-liner__action following"><i class="fa fa-check"></i> Siguiendo</span>
-                                <span class="button-liner__action cancel"><i class="fa fa-times-circle"></i> Cancelar</span>
-                                <span class="button-liner__number">13,2k</span>
-                            </button>
-                        </div>
-                    </article>
-                {% endfor %}
-            </div>
-            <div class="more-artists">
-                <button class="button-solid js-moreButton" data-size='small' data-color='red'>Ver mas</button>
-            </div>
-        </div>
-        <div class="artists-container__right-filters js-rightFilters">
-            <div class="filters">
-                <div class="filters__title">Orden</div>
-                <div class="filter js-order" data-value="popularity">Más popular</div>
-                <div class="filter js-order" data-value="views">Más visto</div>
-                <div class="filter js-order" data-value="newest">Más reciente</div>
-            </div>
-            <div class="filters">
-                <div class="filters__title">Tiempo</div>
-                <div class="filter js-time" data-value="day">Día</div>
-                <div class="filter js-time" data-value="week">Semana</div>
-                <div class="filter js-time" data-value="month">Mes</div>
-                <div class="filter js-time" data-value="year">Año</div>
-            </div>
-        </div>
-    </section>
 
-    <script type="text/template" id="artist-template">
-        <article class="artist">
-            <a class="artist-header" href="#">
-                <div class="avatar">
-                    <img src="/img/artists/artist1.jpg">
-                </div>
-                <div class="info">
-                    <p class="high-text" data-size='small'><%= firstname %></p>
-                    <p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
-                </div>
-            </a>
-            <div class="artist-works">
-                <div class="work work1"></div>
-                <div class="work work2"></div>
-                <div class="work work3"></div>
-                <div class="work work4"></div>
-                <div class="work work5"></div>
-                <div class="work work6"></div>                  
-            </div>
-            <div class="artist-follow">
-            <% if (following) { %>
-                <button class="button-liner disabled js-followButton" data-following="true" data-userId="<%= id %>" data-size='small'>
-            <% } else { %>
-                <button class="button-liner js-followButton" data-following="false" data-userId="<%= id %>" data-size='small'>
-            <% } %>
-                    <span class="button-liner__action folllow">Seguir</span>
-                    <span class="button-liner__action following"><i class="fa fa-check"></i> Siguiendo</span>
-                    <span class="button-liner__action cancel"><i class="fa fa-times-circle"></i> Cancelar</span>
-                    <span class="button-liner__number">13,2k</span>
-                </button>
-            </div>
-        </article>
-    </script>
+	<!-- ********************************************************************
+		$ FILTERS MENU
+	********************************************************************* -->
+	<section class="filters-menu">
+		<div class="filters-menu__search">
+			<div class="search">
+				<input type="text" placeholder="Busca Obras, Artistas y Productos">
+				<i class="fa fa-search"></i>
+			</div>
+		</div>
+		<div class="filters-menu__category js-leftFiltersButton">
+			<button class="button-filter js-leftFiltersButton"><i class="fa fa-caret-left"></i> &nbsp Categorías</button>
+		</div>
+		<div class="filters-menu__order js-rightFiltersButton">
+			<button class="button-filter js-rightFiltersButton">Ordenar &nbsp <i class="fa fa-caret-right"></i></button>
+		</div>
+	</section>
 
-    <script src="/js/vendor/salvattore.js"></script>
-    <script src="/js/vendor/jquery.min.js"></script>
-    <script src="/js/vendor/underscore-min.js"></script>
+	<!-- ********************************************************************
+		$ WORKS CONTAINER
+	********************************************************************* -->
+	<div class="works-container">
+		<div class="works-container__filters left js-leftFilters">
+			<div class="filters">
+				<div class="filters__title">Categorías</div>
+				{% for category in categories %}
+					<div class="filter js-category" data-value="{{ category.nameSlugify }}">{{ category.name }}</div>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="works-container__filters right js-rightFilters">
+			<div class="filters">
+				<div class="filters__title">Orden</div>
+				<div class="filter js-order" data-value="popularity">Más popular</div>
+				<div class="filter js-order" data-value="views">Más visto</div>
+				<div class="filter js-order" data-value="newest">Más reciente</div>
+			</div>
+			<div class="filters">
+				<div class="filters__title">Tiempo</div>
+				<div class="filter js-time" data-value="day">Día</div>
+				<div class="filter js-time" data-value="week">Semana</div>
+				<div class="filter js-time" data-value="month">Mes</div>
+				<div class="filter js-time" data-value="year">Año</div>
+			</div>
+		</div>
+		<div class="works-container__works js-works">
+			<!-- ********************************************************************
+				$ ARTISTS
+			********************************************************************* -->
+			<section class="artists" data-columns>
 
-    <script src="/js/lib/filters.js"></script>
-    <script src="/js/lib/follow.js"></script>
+				{% for user in users %}
+				<article class="artist">
+					<a class="artist-header" href="#"> 
+						<div class="avatar">
+							<img src="/img/artists/artist1.jpg">
+						</div>
+						<div class="info">
+							<p class="high-text" data-size='small'>{{ user.username }}</p>
+							<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
+						</div>
+					</a>
+					<div class="artist-works">
+						<div class="work work1"></div>
+						<div class="work work2"></div>
+						<div class="work work3"></div>
+						<div class="work work4"></div>
+						<div class="work work5"></div>
+						<div class="work work6"></div>                  
+					</div>
+					<div class="artist-follow">
+					{% if user.following %}
+						<button class="button-liner disabled js-followButton" data-following="true" data-userId="{{ user.id }}" data-size='small'>
+					{% else %}
+						<button class="button-liner js-followButton" data-following="false" data-userId="{{ user.id }}" data-size='small'>
+					{% endif %}
+							<span class="button-liner__action folllow">Seguir</span>
+							<span class="button-liner__action following"><i class="fa fa-check"></i> Siguiendo</span>
+							<span class="button-liner__action cancel"><i class="fa fa-times-circle"></i> Cancelar</span>
+							<span class="button-liner__number">13,2k</span>
+						</button>
+					</div>
+				</article>
+				{% endfor %}
 
-    <script>
+			<!-- 
+				<article class="artist">
+					<a class="artist-header" href="#">
+						<div class="avatar">
+							<img src="/img/artists/artist1.jpg">
+						</div>
+						<div class="info">
+							<p class="high-text" data-size='small'>keri Russell</p>
+							<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
+						</div>
+					</a>
+					<div class="artist-works">
+							<div class="work work1"></div>
+							<div class="work work2"></div>
+							<div class="work work3"></div>
+							<div class="work work4"></div>
+							<div class="work work5"></div>
+							<div class="work work6"></div>					
+					</div>
+					<div class="artist-follow">
+						<button class="button-liner" data-size='small'>
+							<span class="button-liner__action">Seguir</span>
+							<span class="button-liner__number">13,2k</span>
+						</button>
+					</div>
+				</article>
+				<article class="artist">
+					<a class="artist-header" href="#">
+						<div class="avatar">
+							<img src="/img/artists/artist2.jpg">
+						</div>
+						<div class="info">
+							<p class="high-text" data-size='small'>keri Russell</p>
+							<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
+						</div>
+					</a>
+					<div class="artist-works">
+							<div class="work work7"></div>
+							<div class="work work8"></div>
+							<div class="work work9"></div>
+							<div class="work work10"></div>
+							<div class="work work11"></div>
+							<div class="work work12"></div>					
+					</div>
+					<div class="artist-follow">
+						<a class="button-liner disabled" data-size='small' href="#">
+							<span class="button-liner__action"><i class="fa fa-check"></i> Siguiendo</span>
+							<span class="button-liner__number">13,2k</span>
+						</a>
+					</div>
+				</article>
+				<article class="artist">
+					<a class="artist-header" href="#">
+						<div class="avatar">
+							<img src="/img/artists/artist3.jpg">
+						</div>
+						<div class="info">
+							<p class="high-text" data-size='small'>keri Russell</p>
+							<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
+						</div>
+					</a>
+					<div class="artist-works">
+							<div class="work work1"></div>
+							<div class="work work2"></div>
+							<div class="work work3"></div>
+							<div class="work work4"></div>
+							<div class="work work5"></div>
+							<div class="work work6"></div>					
+					</div>
+					<div class="artist-follow">
+						<div class="button-liner disabled" data-size='small'>
+							<span class="button-liner__action"><i class="fa fa-times-circle"></i> Cancelar</span>
+							<span class="button-liner__number">13,2k</span>
+						</div>
+					</div>
+				</article>
+				<article class="artist">
+					<a class="artist-header" href="#">
+						<div class="avatar">
+							<img src="/img/artists/artist4.jpg">
+						</div>
+						<div class="info">
+							<p class="high-text" data-size='small'>keri Russell</p>
+							<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
+						</div>
+					</a>
+					<div class="artist-works">
+							<div class="work work7"></div>
+							<div class="work work8"></div>
+							<div class="work work9"></div>
+							<div class="work work10"></div>
+							<div class="work work11"></div>
+							<div class="work work12"></div>					
+					</div>
+					<div class="artist-follow">
+						<button class="button-liner" data-size='small'>
+							<span class="button-liner__action">Seguir</span>
+							<span class="button-liner__number">13,2k</span>
+						</button>
+					</div>
+				</article>
+				<article class="artist">
+					<a class="artist-header" href="#">
+						<div class="avatar">
+							<img src="/img/artists/artist1.jpg">
+						</div>
+						<div class="info">
+							<p class="high-text" data-size='small'>keri Russell</p>
+							<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
+						</div>
+					</a>
+					<div class="artist-works">
+							<div class="work work1"></div>
+							<div class="work work2"></div>
+							<div class="work work3"></div>
+							<div class="work work4"></div>
+							<div class="work work5"></div>
+							<div class="work work6"></div>					
+					</div>
+					<div class="artist-follow">
+						<button class="button-liner" data-size='small'>
+							<span class="button-liner__action">Seguir</span>
+							<span class="button-liner__number">13,2k</span>
+						</button>
+					</div>
+				</article>
+				<article class="artist">
+					<a class="artist-header" href="#">
+						<div class="avatar">
+							<img src="/img/artists/artist2.jpg">
+						</div>
+						<div class="info">
+							<p class="high-text" data-size='small'>keri Russell</p>
+							<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
+						</div>
+					</a>
+					<div class="artist-works">
+							<div class="work work7"></div>
+							<div class="work work8"></div>
+							<div class="work work9"></div>
+							<div class="work work10"></div>
+							<div class="work work11"></div>
+							<div class="work work12"></div>					
+					</div>
+					<div class="artist-follow">
+						<a class="button-liner disabled" data-size='small' href="#">
+							<span class="button-liner__action"><i class="fa fa-check"></i> Siguiendo</span>
+							<span class="button-liner__number">13,2k</span>
+						</a>
+					</div>
+				</article>
+				<article class="artist">
+					<a class="artist-header" href="#">
+						<div class="avatar">
+							<img src="/img/artists/artist3.jpg">
+						</div>
+						<div class="info">
+							<p class="high-text" data-size='small'>keri Russell</p>
+							<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
+						</div>
+					</a>
+					<div class="artist-works">
+							<div class="work work1"></div>
+							<div class="work work2"></div>
+							<div class="work work3"></div>
+							<div class="work work4"></div>
+							<div class="work work5"></div>
+							<div class="work work6"></div>					
+					</div>
+					<div class="artist-follow">
+						<div class="button-liner disabled" data-size='small'>
+							<span class="button-liner__action"><i class="fa fa-times-circle"></i> Cancelar</span>
+							<span class="button-liner__number">13,2k</span>
+						</div>
+					</div>
+				</article>
+				<article class="artist">
+					<a class="artist-header" href="#">
+						<div class="avatar">
+							<img src="/img/artists/artist4.jpg">
+						</div>
+						<div class="info">
+							<p class="high-text" data-size='small'>keri Russell</p>
+							<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
+						</div>
+					</a>
+					<div class="artist-works">
+							<div class="work work7"></div>
+							<div class="work work8"></div>
+							<div class="work work9"></div>
+							<div class="work work10"></div>
+							<div class="work work11"></div>
+							<div class="work work12"></div>					
+					</div>
+					<div class="artist-follow">
+						<button class="button-liner" data-size='small'>
+							<span class="button-liner__action">Seguir</span>
+							<span class="button-liner__number">13,2k</span>
+						</button>
+					</div>
+				</article>
+				<article class="artist">
+					<a class="artist-header" href="#">
+						<div class="avatar">
+							<img src="/img/artists/artist1.jpg">
+						</div>
+						<div class="info">
+							<p class="high-text" data-size='small'>keri Russell</p>
+							<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
+						</div>
+					</a>
+					<div class="artist-works">
+							<div class="work work1"></div>
+							<div class="work work2"></div>
+							<div class="work work3"></div>
+							<div class="work work4"></div>
+							<div class="work work5"></div>
+							<div class="work work6"></div>					
+					</div>
+					<div class="artist-follow">
+						<button class="button-liner" data-size='small'>
+							<span class="button-liner__action">Seguir</span>
+							<span class="button-liner__number">13,2k</span>
+						</button>
+					</div>
+				</article>
+				<article class="artist">
+					<a class="artist-header" href="#">
+						<div class="avatar">
+							<img src="/img/artists/artist2.jpg">
+						</div>
+						<div class="info">
+							<p class="high-text" data-size='small'>keri Russell</p>
+							<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
+						</div>
+					</a>
+					<div class="artist-works">
+							<div class="work work7"></div>
+							<div class="work work8"></div>
+							<div class="work work9"></div>
+							<div class="work work10"></div>
+							<div class="work work11"></div>
+							<div class="work work12"></div>					
+					</div>
+					<div class="artist-follow">
+						<a class="button-liner disabled" data-size='small' href="#">
+							<span class="button-liner__action"><i class="fa fa-check"></i> Siguiendo</span>
+							<span class="button-liner__number">13,2k</span>
+						</a>
+					</div>
+				</article>
+				<article class="artist">
+					<a class="artist-header" href="#">
+						<div class="avatar">
+							<img src="/img/artists/artist3.jpg">
+						</div>
+						<div class="info">
+							<p class="high-text" data-size='small'>keri Russell</p>
+							<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
+						</div>
+					</a>
+					<div class="artist-works">
+							<div class="work work1"></div>
+							<div class="work work2"></div>
+							<div class="work work3"></div>
+							<div class="work work4"></div>
+							<div class="work work5"></div>
+							<div class="work work6"></div>					
+					</div>
+					<div class="artist-follow">
+						<div class="button-liner disabled" data-size='small'>
+							<span class="button-liner__action"><i class="fa fa-times-circle"></i> Cancelar</span>
+							<span class="button-liner__number">13,2k</span>
+						</div>
+					</div>
+				</article>
+				<article class="artist">
+					<a class="artist-header" href="#">
+						<div class="avatar">
+							<img src="/img/artists/artist4.jpg">
+						</div>
+						<div class="info">
+							<p class="high-text" data-size='small'>keri Russell</p>
+							<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
+						</div>
+					</a>
+					<div class="artist-works">
+							<div class="work work7"></div>
+							<div class="work work8"></div>
+							<div class="work work9"></div>
+							<div class="work work10"></div>
+							<div class="work work11"></div>
+							<div class="work work12"></div>					
+					</div>
+					<div class="artist-follow">
+						<button class="button-liner" data-size='small'>
+							<span class="button-liner__action">Seguir</span>
+							<span class="button-liner__number">13,2k</span>
+						</button>
+					</div>
+				</article> -->
+			</section>
+		</div>
+	</div>
 
-        var users = {{ users|json|safe }}
-        console.log('users: ', users)
 
-        var pagination = {{ pagination|json|safe }};
-        console.log('pagination: ', pagination)
+	<!-- ********************************************************************
+		$ MORE
+	********************************************************************* -->
+	<div class="more">
+		<button class="button-solid js-moreButton" data-size='small' data-color='red'>Ver más</button>
+	</div>
 
-        var user = {{ user|json|safe }};
-        console.log('user: ', user)
 
-        var works = {{ works|json|safe }};
-        console.log('works: ', works)
+	<!-- ********************************************************************
+		$ SLOGAN
+	********************************************************************* -->
+	<section class="slogan">
+		<span class="slogan-text">Muestra tu talento artístico!</span>
+		<button class="button-solid js-signUpButton" data-size='large'>Sign Up</button>
+		<!-- <button class="button-solid js-signUpButton" data-size='large'>Regístrate</button> -->
+	</section>
 
-        var categories = {{ categories|json|safe }};
-        console.log('categories: ', categories)
 
-        var url = {{ url|json|safe }};
-        console.log('url: ', url)
+	<!-- ********************************************************************
+		$ FOOTER
+	********************************************************************* -->
+	<div class="footer-container">
+		<footer class="footer">
+			<div class="footer__logo">
+				<a class="logo" href="#">
+					<img class="logo__small" src="/img/logo-small-white.png">
+					<img class="logo__normal" src="/img/logo-white.png">
+				</a>
+			</div>
+			<div class="footer__sections">
+				<div class="footer__section copyright">
+					<p class="skinny-text" data-size='small' data-color='light'>COPYRIGHT © 2015 - ALL RIGHTS RESERVED.</p>
+				</div>
+				<div class="footer__section links">
+					<p class="medium-text">Blog</p>
+					<p class="medium-text">Terminos</p>
+					<p class="medium-text">Condiciones</p>
+				</div>
+				<div class="footer__section social">
+					<i class="fa fa-facebook"></i>
+					<i class="fa fa-twitter"></i>
+					<i class="fa fa-google-plus"></i>
+				</div>			
+			</div>
+		</footer>
+	</div>
 
-    </script>
 
-    <script src="/js/discover-artists.js"></script>
+	<!-- ********************************************************************
+		$ LOGIN
+	********************************************************************* -->
+	<section class="login-modal">
+		<div class="login-box js-loginBox">
+			<header class="login-box__header">			
+				<div class="skinny-menu">
+					<a href="#" class="skinny-menu__item js-signInFormButton">
+						Ingresar
+					</a>
+					<a href="#" class="skinny-menu__item js-signUpFormButton">
+						Registrarme
+					</a>
+				</div>
+			</header>
+			<form class="login-box__form js-signUpForm">
+		 		<a href="#" class="facebook-button" data-expand='true'>
+					<i class="fa fa-facebook-official"></i>&nbsp; Registrarme con Facebook
+				</a>
+				<div class="separator-text">
+					<span class="line"></span>
+					<span class="text">Con email</span>
+					<span class="line"></span>
+				</div>
+				<input class="input" data-size='large' name="username" placeholder="Username" type="text">
+				<input class="input" data-size='large' name="email" placeholder="Email" type="email">
+				<input class="input" data-size='large' name="password" placeholder="Password" type="password">
+				<input class="input" data-size='large' name="first-name" placeholder="First Name" type="text">
+				<input class="input" data-size='large' name="last-name" placeholder="Last Name" type="text">
+				<select class="input" name="gender">
+					<option selected disabled>Género</option>
+					<option value="Male">Masculino</option>
+					<option value="Female">Femenino</option>
+				</select>
+				<div class="question">
+					<input name="question" type="checkbox" id="question">
+					<label for="question" class="medium-text">¿Eres Artista profesional?</label>
+				</div>
+				<input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Registrarme" type="submit">
+				<p class="high-text note" data-size="small">Al registrarte estas aceptando los <strong>terminos y condiciones</strong> de Arte Manifiesto</p>
+			</form>
+			<form class="login-box__form js-signInForm">
+		 		<a href="#" class="facebook-button" data-expand='true'>
+					<i class="fa fa-facebook-official"></i>&nbsp; Ingresar con Facebook
+				</a>
+				<div class="separator-text">
+					<span class="line"></span>
+					<span class="text">Con email</span>
+					<span class="line"></span>
+				</div>
+				<input class="input" data-size='large' name="email" placeholder="Email" type="text">
+				<input class="input" data-size='large' name="password" placeholder="Password" type="password">
+				<input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Ingresar" type="submit">
+				<p class="high-text note js-rememberFormButton" data-size="small">Recordar contraseña</p>
+			</form>
+			<form class="login-box__form js-rememberForm">
+				<div class="separator-text">
+					<span class="line"></span>
+					<span class="text">Recordar contraseña</span>
+					<span class="line"></span>
+				</div>
+				<input class="input" data-size='large' name="email" placeholder="Email" type="text">
+				<input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Recordar" type="submit">
+				<p class="high-text note js-rememberBackButton" data-size="small">Ingresar</p>
+			</form>
+			<div class="login-box__closed js-loginClosed"><i class="fa fa-times"></i></div>
+		</div>
+	</section>
+
+
+	<script type="text/template" id="artist-template">
+		<article class="artist">
+			<a class="artist-header" href="#">
+			<div class="avatar">
+				<img src="/img/artists/artist1.jpg">
+			</div>
+			<div class="info">
+				<p class="high-text" data-size='small'><%= firstname %></p>
+				<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
+			</div>
+			</a>
+			<div class="artist-works">
+				<div class="work work1"></div>
+				<div class="work work2"></div>
+				<div class="work work3"></div>
+				<div class="work work4"></div>
+				<div class="work work5"></div>
+				<div class="work work6"></div>                  
+			</div>
+			<div class="artist-follow">
+			<% if (following) { %>
+				<button class="button-liner disabled js-followButton" data-following="true" data-userId="<%= id %>" data-size='small'>
+			<% } else { %>
+				<button class="button-liner js-followButton" data-following="false" data-userId="<%= id %>" data-size='small'>
+			<% } %>
+					<span class="button-liner__action folllow">Seguir</span>
+					<span class="button-liner__action following"><i class="fa fa-check"></i> Siguiendo</span>
+					<span class="button-liner__action cancel"><i class="fa fa-times-circle"></i> Cancelar</span>
+					<span class="button-liner__number">13,2k</span>
+				</button>
+			</div>
+		</article>
+	</script>
+
+	<script>
+
+		var users = {{ users|json|safe }}
+		console.log('users: ', users)
+
+		var pagination = {{ pagination|json|safe }};
+		console.log('pagination: ', pagination)
+
+		var user = {{ user|json|safe }};
+		console.log('user: ', user)
+
+		var works = {{ works|json|safe }};
+		console.log('works: ', works)
+
+		var categories = {{ categories|json|safe }};
+		console.log('categories: ', categories)
+
+		var url = {{ url|json|safe }};
+		console.log('url: ', url)
+
+	</script>
+
+	<script src="/js/vendor/jquery.min.js"></script>
+	<script src="/js/vendor/salvattore.js"></script>
+	<script src="/js/vendor/underscore-min.js"></script>
+
+	<script src="/js/lib/login.js"></script>
+	<script src="/js/lib/filters.js"></script>
+	<script src="/js/lib/follow.js"></script>
+	<script src="/js/discover-artists.js"></script>
 
 </body>
 </html>

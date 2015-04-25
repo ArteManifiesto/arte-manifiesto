@@ -41,13 +41,15 @@
 *------------------------------------*/
 .works-container
 	position relative
-	overflow-x hidden
+	// overflow-x hidden
+	overflow hidden
 	max-width max-width
 	margin auto
 	&__filters
 		position absolute
 		background white
 		transition transform .5s
+		z-index 1
 		&.right
 			right 0
 			transform translate(100%, 0)
