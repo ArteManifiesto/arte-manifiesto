@@ -546,128 +546,81 @@ html {
 .filters .filter.selected {
   background: rgba(0,0,0,0.1);
 }
-.artists {
-  padding: 0 0.5rem;
+.products {
+  padding: 0 0.5em;
+  max-width: 1100px;
+  margin: auto;
   overflow: hidden;
   min-height: 700px;
 }
-.artist {
-  margin: 1rem 0.5rem;
+.products .product {
+  margin: 1em 0.5em;
   border: 1px solid #ddd;
-  -webkit-transition: box-shadow ease-in-out 125ms;
-  -moz-transition: box-shadow ease-in-out 125ms;
-  -o-transition: box-shadow ease-in-out 125ms;
-  -ms-transition: box-shadow ease-in-out 125ms;
-  transition: box-shadow ease-in-out 125ms;
 }
-.artist .artist-header {
+.products .product .product-info {
+  border-bottom: 1px dashed #e6e8ec;
+  padding: 0.5em 1em;
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: box;
   display: flex;
-  margin: 0.5em;
+  -webkit-box-pack: justify;
+  -moz-box-pack: justify;
+  -o-box-pack: justify;
+  -ms-flex-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
 }
-.artist .artist-header .avatar {
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -o-box-flex: 1;
-  box-flex: 1;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  max-width: 56.25px;
-  padding: 0.5em;
+.products .product .product-info .title {
+  font-size: 0.8em;
+  letter-spacing: 1px;
+  font-family: 'Raleway';
 }
-.artist .artist-header .avatar img {
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
+.products .product .product-info .price {
+  font-size: 0.9em;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  font-family: 'Raleway';
 }
-.artist .artist-header .info {
+.products .product .product-social {
+  padding: 0.5em 1em;
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: box;
   display: flex;
-  padding: 0.25em;
-  -webkit-box-orient: vertical;
-  -moz-box-orient: vertical;
-  -o-box-orient: vertical;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-pack: center;
-  -moz-box-pack: center;
-  -o-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
+  -webkit-box-pack: justify;
+  -moz-box-pack: justify;
+  -o-box-pack: justify;
+  -ms-flex-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
 }
-.artist .artist-works {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: box;
-  display: flex;
-  -webkit-box-lines: multiple;
-  -moz-box-lines: multiple;
-  -o-box-lines: multiple;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-.artist .artist-works .work {
-  width: 33.333333%;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
-  height: 75px;
-  background-position: center center;
-}
-.artist .artist-follow {
-  padding: 1em;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: box;
-  display: flex;
-  -webkit-box-pack: center;
-  -moz-box-pack: center;
-  -o-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-}
-.artist:hover {
-  -webkit-box-shadow: rgba(0,0,0,0.35) 0 0 10px;
-  box-shadow: rgba(0,0,0,0.35) 0 0 10px;
-}
-@media screen and (min-width: 226px) and (max-width: 450px) {
-  .artists[data-columns]::before {
+@media screen and (min-width: 201px) and (max-width: 400px) {
+  .products[data-columns]::before {
     content: '1 .column.size-1of1';
   }
 }
-@media screen and (min-width: 451px) and (max-width: 675px) {
-  .artists[data-columns]::before {
+@media screen and (min-width: 401px) and (max-width: 600px) {
+  .products[data-columns]::before {
     content: '2 .column.size-1of2';
   }
 }
-@media screen and (min-width: 676px) and (max-width: 900px) {
-  .artists[data-columns]::before {
+@media screen and (min-width: 601px) and (max-width: 800px) {
+  .products[data-columns]::before {
     content: '3 .column.size-1of3';
   }
 }
-@media screen and (min-width: 901px) and (max-width: 1125px) {
-  .artists[data-columns]::before {
+@media screen and (min-width: 801px) and (max-width: 1000px) {
+  .products[data-columns]::before {
     content: '4 .column.size-1of4';
   }
 }
-@media screen and (min-width: 1126px) {
-  .artists[data-columns]::before {
+@media screen and (min-width: 1001px) {
+  .products[data-columns]::before {
     content: '5 .column.size-1of5';
   }
 }
@@ -688,42 +641,6 @@ html {
 }
 .size-1of5 {
   width: 20%;
-}
-.work1 {
-  background-image: url("../img/works/obra1.jpg");
-}
-.work2 {
-  background-image: url("../img/works/obra2.jpg");
-}
-.work3 {
-  background-image: url("../img/works/obra3.jpg");
-}
-.work4 {
-  background-image: url("../img/works/obra4.jpg");
-}
-.work5 {
-  background-image: url("../img/works/obra5.jpg");
-}
-.work6 {
-  background-image: url("../img/works/obra6.jpg");
-}
-.work7 {
-  background-image: url("../img/works/obra7.jpg");
-}
-.work8 {
-  background-image: url("../img/works/obra8.jpg");
-}
-.work9 {
-  background-image: url("../img/works/obra9.jpg");
-}
-.work10 {
-  background-image: url("../img/works/obra10.jpg");
-}
-.work11 {
-  background-image: url("../img/works/obra11.jpg");
-}
-.work12 {
-  background-image: url("../img/works/obra12.jpg");
 }
 .more {
   max-width: 1100px;
@@ -874,4 +791,12 @@ html {
   font-size: 1.25rem;
   padding: 0.5rem;
   cursor: pointer;
+}
+.category-menu {
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+.category-menu .thick-menu {
+  max-width: 1100px;
+  margin: auto;
 }

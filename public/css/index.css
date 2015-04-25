@@ -210,6 +210,18 @@ html {
 .button-liner.disabled:hover .button-liner__action.cancel {
   display: table-cell;
 }
+.button-like,
+.button-wish-list {
+  color: #444;
+  font-weight: 100;
+  font-size: 0.85em;
+  letter-spacing: 1px;
+  font-family: 'Roboto Condensed';
+}
+.button-like.active,
+.button-wish-list.active {
+  color: #ccc;
+}
 .separator-text {
   text-transform: uppercase;
   color: #aaa;

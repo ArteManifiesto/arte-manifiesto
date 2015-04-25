@@ -1,51 +1,50 @@
-// console.log('filters')
 
-function Filters (container, data) {
+function LayoutFilters (data) {
 
-	var leftFiltersButton = document.querySelector('.' + data.leftFiltersButtonClass)
-	var rightFiltersButton = document.querySelector('.' + data.rightFiltersButtonClass)
-	// console.log('leftFiltersButton: ', leftFiltersButton)
-	// console.log('rightFiltersButton: ', rightFiltersButton)
+	var leftFiltersButton 	= document.querySelector('.' + data.leftFiltersButtonClass),
+			rightFiltersButton 	= document.querySelector('.' + data.rightFiltersButtonClass),
 
-	var leftFilters = document.querySelector('.' + data.leftFiltersClass)
-	var rightFilters = document.querySelector('.' + data.rightFiltersClass)
-	// console.log('leftFilters: ', leftFilters)
-	// console.log('rightFilters: ', rightFilters)
+			leftFilters 	= document.querySelector('.' + data.leftFiltersClass),
+			rightFilters  = document.querySelector('.' + data.rightFiltersClass),
+			works 				= document.querySelector('.' + data.worksClass),
 
-	var works = document.querySelector('.' + data.worksClass)
-	// console.log('works: ', works)
-
-	var leftVisible = false
-	var rightVisible = false
+			leftVisible = false,
+			rightVisible = false;
 
 	leftFiltersButton.addEventListener('click', function () {
-		if(leftVisible){
-			leftFilters.classList.remove('visible')
-			works.classList.remove('moveLeft')
-			leftVisible = false
-		} else {
-			leftFilters.classList.add('visible')
-			works.classList.add('moveLeft')
-			leftVisible = true
-		}
+		if(leftVisible) hideLeft()
+		else showLeft()
 	})
 
 	rightFiltersButton.addEventListener('click', function () {
-		if(rightVisible){
-			// hideRightFilters()
-			rightFilters.classList.remove('visible')
-			works.classList.remove('moveRight')
-			rightVisible = false
-		} else {
-			// showRightFilters()
-			rightFilters.classList.add('visible')
-			works.classList.add('moveRight')
-			rightVisible = true
-		}
+		if(rightVisible) hideRight()
+		else showRight()
 	})
+
+	function hideLeft () {		
+		leftFilters.classList.remove('visible')
+		works.classList.remove('moveLeft')
+		leftVisible = false
+	}
+	function showLeft () {
+		leftFilters.classList.add('visible')
+		works.classList.add('moveLeft')
+		leftVisible = true
+	}
+
+	function hideRight () {
+		rightFilters.classList.remove('visible')
+		works.classList.remove('moveRight')
+		rightVisible = false
+	}
+	function showRight () {
+		rightFilters.classList.add('visible')
+		works.classList.add('moveRight')
+		rightVisible = true
+	}
 }
 
-window.filters = new Filters({}, {
+new LayoutFilters({
 	leftFiltersButtonClass: 'js-leftFiltersButton',
 	rightFiltersButtonClass: 'js-rightFiltersButton',
 	leftFiltersClass: 'js-leftFilters',
@@ -54,36 +53,26 @@ window.filters = new Filters({}, {
 })
 
 
-function Filter (el, data) {
+function Filters (el, data) {
 	
-	var filterItems = el.querySelectorAll('.' + data.filterItemsClass)
-	// console.log('filterItems: ', filterItems)
+	var filterItems = el.querySelectorAll('.' + data.filterItemsClass),
+			pos = data.pos || 0
 
-	var pos = data.pos || 0
-
-	for (var i = 0; i < filterItems.length; i++) {
+	for (var i = 0; i < filterItems.length; i++)
 		filterItems[i].setAttribute('index', i)
-	};
 
-	for (var i = 0; i < filterItems.length; i++) {
+	for (var i = 0; i < filterItems.length; i++)
 		filterItems[i].addEventListener('click', function () {
 			var index = this.getAttribute('index')
-			// console.log('index: ', index)
-
 			filterItems[pos].classList.remove('selected')
 			pos = index
 			filterItems[pos].classList.add('selected')
-
 		})
-	};
-
 }
 
 var filterList = document.querySelectorAll('.filters')
 
-for (var i = 0; i < filterList.length; i++) {
-	
-	window.filter = new Filter(filterList[i], {
+for (var i = 0; i < filterList.length; i++)
+	new Filters(filterList[i], {
 		filterItemsClass: 'filter'
 	})
-}

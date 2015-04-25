@@ -1,9 +1,10 @@
-// console.log('welcome to works')
 
-function Works () {
+function Products (data) {
 	
-	var worksContainer = document.querySelector('.works'),
-			workTemplate = _.template( $( "#work-template" ).html() );
+	var	makeObject = data.makeObject;
+
+	var productsContainer = document.querySelector('.products'),
+			productTemplate = _.template( $( "#product-template" ).html() );
 
 	var category = 'all',
 			orderValue = 'popularity',
@@ -16,8 +17,6 @@ function Works () {
 			orderList = document.querySelectorAll('.js-order'),
 			timeList = document.querySelectorAll('.js-time'),
 			moreButton = document.querySelector('.js-moreButton');
-
-	// console.log('moreButton: ', moreButton)
 
 	function setup () {
 
@@ -49,7 +48,7 @@ function Works () {
 	function changeCategory (value) {
 		category = value
 		var currentCategory = url.split('/')[5]
-		url =	url.replace('category/'+currentCategory, 'category/'+category)
+		url =	url.replace('type/'+currentCategory, 'type/'+category)
 		url = url.replace('page-' + pagination.page, 'page-1')
 		getData(false)
 	}
@@ -73,30 +72,35 @@ function Works () {
 		getData(false)
 	}
 
-	function render (works) {
-		var currentWorks = worksContainer.querySelectorAll('.work')
-		for (var i = 0; i < currentWorks.length; i++)
-			currentWorks[i].remove()
-		add(works)
+	function render (products) {
+		var currentProducts = productsContainer.querySelectorAll('.product')
+		for (var i = 0; i < currentProducts.length; i++)
+			currentProducts[i].remove()
+		add(products)
 	}
 
-	function add (works) {
-		for (var i = 0; i < works.length; i++) {
-			var work = makeWork(workTemplate, works[i])
-			salvattore['append_elements'](worksContainer, [work])
+	function add (products) {
+		for (var i = 0; i < products.length; i++) {
+			var product = makeProduct(productTemplate, products[i])
+			salvattore['append_elements'](productsContainer, [product])
+
+			makeObject(product, products[i])
 		}
 	}
 
 	function getData(isAdd){
-		url = url.replace('works' , 'search/works')
-		// console.log('url: ', url)
+		url = url.replace('products' , 'search/products')
+		console.log('url: ', url)
+		console.log('idUser: ', idUser)
 
 		$.post( url, {idUser: idUser}, function( data ) {
+			console.log('data: ', data)
+
 			url = data.url
-			if(isAdd) add(data.works)
+			if(isAdd) add(data.products)
 			else {
 				window.history.pushState({}, "", url)
-				render(data.works)
+				render(data.products)
 			}
 		})
 	}
@@ -119,11 +123,9 @@ function Works () {
 	}
 }
 
-function makeWork (workTemplate, workData) {
-	var workString = workTemplate(workData)
+function makeProduct (productTemplate, productData) {
+	var productString = productTemplate(productData)
 	var div = document.createElement('div')
-	div.innerHTML = workString
+	div.innerHTML = productString
 	return div.children[0]
 }
-
-window.works = new Works()
