@@ -85,14 +85,16 @@ function Artists (data) {
 	}
 
 	function render (artists) {
-		removeEntities('artist')
+		removeEntities('artist-wrapper')
 		add(artists)
 	}
 
 	function add (artists) {
 		for (var i = 0; i < artists.length; i++) {
 			var artist = makeEl(artistTemplate, artists[i])
-			salvattore['append_elements'](artistsContainer, [artist])
+			// salvattore['append_elements'](artistsContainer, [artist])
+
+			artistsContainer.appendChild(artist)
 
 			makeObject(artist, artists[i])
 		}

@@ -1,7 +1,9 @@
 
 var loginForm = $(".js-signInForm");
+console.log('loginForm: ', loginForm)
 
 loginForm.submit(function () {
+		console.log('submit')
     $.ajax({
         type: "POST",
         url: "/auth/login",
@@ -12,7 +14,7 @@ loginForm.submit(function () {
 });
 
 function loginSuccessHandler(response) {
-    // console.log("login response : ", response);
+    console.log("login response : ", response);
     if (response.code == 202) {
         location.href = '/dashboard';
     }
@@ -80,7 +82,6 @@ function Login (container, data) {
 		loginBox.addEventListener('click', function (e) { e.stopPropagation() } )
 		container.addEventListener('click', closed)
 		loginClosed.addEventListener('click', closed)
-		
 	}
 
 	function openSignUp () {

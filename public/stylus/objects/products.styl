@@ -1,59 +1,148 @@
 
+/*------------------------------------------------------------------------------------------------------------*
+	$ DEPURADO---------------------------------------------------------------------------------------------------
+*------------------------------------------------------------------------------------------------------------*/
+
+/*------------------------------------*
+	$ PRODUCTS
+*------------------------------------*/
+.products
+	min-height 500px
+	margin .5rem
+	// padding 0 .5em
+	// max-width max-width
+	// margin auto
+	// overflow hidden
+		
+.product-wrapper
+	padding .5rem
+
+.product
+	// margin 1em .5em
+	// border-radius 0 0 4px 4px
+	// box-shadow rgba(0,0,0,0.15) 0 1px 5px
+	border 1px solid #ddd
+	.product-info
+		border-bottom: 1px dashed #e6e8ec
+		padding .5em 1em
+		display flex
+		justify-content space-between
+		.title
+			font-size .8em
+			letter-spacing 1px
+			font-family 'Raleway'
+		.price
+			font-size .9em
+			font-weight 500
+			letter-spacing .5px
+			font-family 'Raleway'
+			// color #5794db
+	.product-social
+		padding .5em 1em
+		display flex
+		justify-content space-between
+
+
+// product-width = 200px
+product-width = 180px
+
+@media screen and (min-width: product-width*2)
+	.products
+		display flex
+		flex-wrap wrap
+		.product-wrapper
+			flex 1 50%
+			max-width 50%
+			
+@media screen and (min-width: product-width*3)
+	.products
+		.product-wrapper
+			flex 1 33.333%
+			max-width 33.333%
+			
+@media screen and (min-width: product-width*4)
+	.products
+		.product-wrapper
+			flex 1 25%
+			max-width 25%
+
+@media screen and (min-width: product-width*5)
+	.products
+		.product-wrapper
+			flex 1 20%
+			max-width 20%
+			
+	.products.smallLeft
+		.product-wrapper
+			flex 1 25%
+			max-width 25%
+			
+	.products.smallRight
+		.product-wrapper
+			flex 1 25%
+			max-width 25%
+			
+	// .products.smallLeft.smallRight
+	// 	.product-wrapper
+	// 		flex 1 33.333%
+	// 		max-width 33.333%
+
+
 /*------------------------------------*
 	$VARIABLES
 *------------------------------------*/
-product-width = 200px
-// columns = 6
-columns = 5
-// products-max-width = 1200px
+// product-width = 200px
+// // columns = 6
+// columns = 5
+// // products-max-width = 1200px
 
-/*------------------------------------*
-	$PRODUCTS LAYOUT
-*------------------------------------*/
-.products
-	padding 0 .5em
-	max-width max-width
-	margin auto
-	overflow hidden
-	min-height 700px
-	.product
-		margin 1em .5em
-		// border-radius 0 0 4px 4px
-		// box-shadow rgba(0,0,0,0.15) 0 1px 5px
-		border 1px solid #ddd
-		.product-info
-			border-bottom: 1px dashed #e6e8ec
-			padding .5em 1em
-			display flex
-			justify-content space-between
-			.title
-				font-size .8em
-				letter-spacing 1px
-				font-family 'Raleway'
-			.price
-				font-size .9em
-				font-weight 500
-				letter-spacing .5px
-				font-family 'Raleway'
-				// color #5794db
-		.product-social
-			padding .5em 1em
-			display flex
-			justify-content space-between
+// /*------------------------------------*
+// 	$PRODUCTS LAYOUT
+// *------------------------------------*/
+// .products
+// 	padding 0 .5em
+// 	max-width max-width
+// 	margin auto
+// 	overflow hidden
+// 	min-height 700px
+// 	.product
+// 		margin 1em .5em
+// 		// border-radius 0 0 4px 4px
+// 		// box-shadow rgba(0,0,0,0.15) 0 1px 5px
+// 		border 1px solid #ddd
+// 		.product-info
+// 			border-bottom: 1px dashed #e6e8ec
+// 			padding .5em 1em
+// 			display flex
+// 			justify-content space-between
+// 			.title
+// 				font-size .8em
+// 				letter-spacing 1px
+// 				font-family 'Raleway'
+// 			.price
+// 				font-size .9em
+// 				font-weight 500
+// 				letter-spacing .5px
+// 				font-family 'Raleway'
+// 				// color #5794db
+// 		.product-social
+// 			padding .5em 1em
+// 			display flex
+// 			justify-content space-between
 
-for i in (1..(columns - 1))
-	@media screen and (min-width: product-width*i+1) and (max-width: product-width*(i+1))
-		.products[data-columns]::before
-			content str(i) + ' .column.size-1of' + str(i)
+// for i in (1..(columns - 1))
+// 	@media screen and (min-width: product-width*i+1) and (max-width: product-width*(i+1))
+// 		.products[data-columns]::before
+// 			content str(i) + ' .column.size-1of' + str(i)
 	
-@media screen and (min-width: product-width*(columns)+1)
-	.products[data-columns]::before
-		content str(columns) + ' .column.size-1of' + str(columns)
+// @media screen and (min-width: product-width*(columns)+1)
+// 	.products[data-columns]::before
+// 		content str(columns) + ' .column.size-1of' + str(columns)
 
-.column
-	float left
+// .column
+// 	float left
 
-for i in (1..columns)
-	.size-1of{i}
-		width: (100/i)*1%
+// for i in (1..columns)
+// 	.size-1of{i}
+// 		width: (100/i)*1%
 

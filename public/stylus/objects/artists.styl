@@ -6,16 +6,15 @@
 /*------------------------------------*
 	$ ARTISTS
 *------------------------------------*/
-columns = 5
-artist-width = 225px
-
 .artists
-	padding 0 .5rem
-	overflow hidden
-	min-height 700px
+	margin .5rem
+	// min-height 500px
+
+.artist-wrapper
+	padding .5rem
 
 .artist
-	margin 1rem .5rem
+	// margin 1rem
 	border 1px solid #ddd
 	transition box-shadow ease-in-out 125ms
 	.artist-header
@@ -23,7 +22,8 @@ artist-width = 225px
 		margin .5em
 		.avatar
 			flex 1
-			max-width (artist-width/4)
+			// max-width 60px
+			max-width 3.75rem
 			padding .5em
 			img
 				border-radius 50%
@@ -38,30 +38,61 @@ artist-width = 225px
 		.work
 			width 33.333333%
 			background-size cover
-			height (artist-width/3)
+			// height 100px
+			height 80px
 			background-position center center
 	.artist-follow
-		padding 1em
+		padding 1em .5rem
 		display flex
 		justify-content center
 	&:hover
 		box-shadow rgba(0,0,0,0.35) 0 0 10px
+		
+		
+// artist-width = 200px
+artist-width = 180px
+
+@media screen and (min-width: artist-width*2)
+	.artists
+		display flex
+		flex-wrap wrap
+		.artist-wrapper
+			flex 1 50%
+			max-width 50%
 			
-for i in (1..(columns - 1))
-	@media screen and (min-width: artist-width*i+1) and (max-width: artist-width*(i+1))
-		.artists[data-columns]::before
-			content str(i) + ' .column.size-1of' + str(i)
-	
-@media screen and (min-width: artist-width*(columns)+1)
-	.artists[data-columns]::before
-		content str(columns) + ' .column.size-1of' + str(columns)
+@media screen and (min-width: artist-width*3)
+	.artists
+		.artist-wrapper
+			flex 1 33.333%
+			max-width 33.333%
+			
+@media screen and (min-width: artist-width*4)
+	.artists
+		.artist-wrapper
+			flex 1 25%
+			max-width 25%
 
-.column
-	float left
+@media screen and (min-width: artist-width*5)
+	.artists
+		.artist-wrapper
+			flex 1 20%
+			max-width 20%
+			
+	.artists.smallLeft
+		.artist-wrapper
+			flex 1 25%
+			max-width 25%
+			
+	.artists.smallRight
+		.artist-wrapper
+			flex 1 25%
+			max-width 25%
+			
+	.artists.smallLeft.smallRight
+		.artist-wrapper
+			flex 1 33.333%
+			max-width 33.333%
 
-for i in (1..columns)
-	.size-1of{i}
-		width: (100/i)*1%
 
 .work1
 	background-image url("../img/works/obra1.jpg")
@@ -87,3 +118,60 @@ for i in (1..columns)
 	background-image url("../img/works/obra11.jpg")
 .work12
 	background-image url("../img/works/obra12.jpg")
+
+// columns = 5
+// artist-width = 225px
+
+// .artists
+// 	padding 0 .5rem
+// 	overflow hidden
+// 	min-height 700px
+
+// .artist
+// 	margin 1rem .5rem
+// 	border 1px solid #ddd
+// 	transition box-shadow ease-in-out 125ms
+// 	.artist-header
+// 		display flex
+// 		margin .5em
+// 		.avatar
+// 			flex 1
+// 			max-width (artist-width/4)
+// 			padding .5em
+// 			img
+// 				border-radius 50%
+// 		.info
+// 			display flex
+// 			padding .25em
+// 			flex-direction column
+// 			justify-content center
+// 	.artist-works
+// 		display flex
+// 		flex-wrap wrap
+// 		.work
+// 			width 33.333333%
+// 			background-size cover
+// 			height (artist-width/3)
+// 			background-position center center
+// 	.artist-follow
+// 		padding 1em
+// 		display flex
+// 		justify-content center
+// 	&:hover
+// 		box-shadow rgba(0,0,0,0.35) 0 0 10px
+			
+// for i in (1..(columns - 1))
+// 	@media screen and (min-width: artist-width*i+1) and (max-width: artist-width*(i+1))
+// 		.artists[data-columns]::before
+// 			content str(i) + ' .column.size-1of' + str(i)
+	
+// @media screen and (min-width: artist-width*(columns)+1)
+// 	.artists[data-columns]::before
+// 		content str(columns) + ' .column.size-1of' + str(columns)
+
+// .column
+// 	float left
+
+// for i in (1..columns)
+// 	.size-1of{i}
+// 		width: (100/i)*1%

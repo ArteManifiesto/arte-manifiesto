@@ -173,7 +173,7 @@ html {
   font-family: 'Roboto Condensed';
 }
 .button-liner__action {
-  padding: 0.5em 0.75em;
+  padding: 0.5em;
   display: table-cell;
 }
 .button-liner__action.following,
@@ -360,7 +360,7 @@ html {
   max-width: 2rem;
 }
 .logo__normal {
-  max-width: 15rem;
+  max-width: 14rem;
   display: none;
 }
 @media (min-width: 350px) {

@@ -97,7 +97,7 @@ function Products (data) {
 	}
 
 	function render (products) {
-		var currentProducts = productsContainer.querySelectorAll('.product')
+		var currentProducts = productsContainer.querySelectorAll('.product-wrapper')
 		for (var i = 0; i < currentProducts.length; i++)
 			currentProducts[i].remove()
 		add(products)
@@ -106,7 +106,8 @@ function Products (data) {
 	function add (products) {
 		for (var i = 0; i < products.length; i++) {
 			var product = makeProduct(productTemplate, products[i])
-			salvattore['append_elements'](productsContainer, [product])
+			// salvattore['append_elements'](productsContainer, [product])
+			productsContainer.appendChild(product)
 
 			makeObject(product, products[i])
 		}

@@ -11,6 +11,9 @@ function LayoutFilters (data) {
 			leftVisible = false,
 			rightVisible = false;
 
+	var artistList = document.querySelector('.artists')
+	var productList = document.querySelector('.products')
+
 	leftFiltersButton.addEventListener('click', function () {
 		if(leftVisible) hideLeft()
 		else showLeft()
@@ -24,22 +27,38 @@ function LayoutFilters (data) {
 	function hideLeft () {		
 		leftFilters.classList.remove('visible')
 		works.classList.remove('moveLeft')
+		
+		if(artistList) artistList.classList.remove('smallLeft')
+		if(productList) productList.classList.remove('smallLeft')
+
 		leftVisible = false
 	}
 	function showLeft () {
 		leftFilters.classList.add('visible')
 		works.classList.add('moveLeft')
+		
+		if(artistList) artistList.classList.add('smallLeft')
+		if(productList) productList.classList.add('smallLeft')
+
 		leftVisible = true
 	}
 
 	function hideRight () {
 		rightFilters.classList.remove('visible')
 		works.classList.remove('moveRight')
+		
+		if(artistList) artistList.classList.remove('smallRight')
+		if(productList) productList.classList.remove('smallRight')
+
 		rightVisible = false
 	}
 	function showRight () {
 		rightFilters.classList.add('visible')
 		works.classList.add('moveRight')
+
+		if(artistList) artistList.classList.add('smallRight')
+		if(productList) productList.classList.add('smallRight')
+
 		rightVisible = true
 	}
 }
