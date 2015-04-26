@@ -18,9 +18,17 @@ function Products (data) {
 	var categoryList = document.querySelectorAll('.js-category'),
 			orderList = document.querySelectorAll('.js-order'),
 			timeList = document.querySelectorAll('.js-time'),
-			moreButton = document.querySelector('.js-moreButton');
+			moreButton = document.querySelector('.js-moreButton'),
+			featuredButton = document.querySelector('input[name="question"]');
+			console.log('featuredButton: ', featuredButton)
 
 	function setup () {
+
+		featuredButton.addEventListener('change', function () {
+			// console.log('change')
+			// console.log(featuredButton.checked)
+			changeFeatured(featuredButton.checked)
+		})
 
 		for (var i = 0; i < categoryList.length; i++)
 			categoryList[i].addEventListener('click', function () {
@@ -45,6 +53,19 @@ function Products (data) {
 	function more () {
 		url = url.replace('page-' + pagination.page, 'page-' + ++pagination.page)
 		getData(true)
+	}
+
+	function changeFeatured (featuredValue) {
+
+		var featured = getUrlParameter('featured')
+    console.log('featured: ', featured)
+		
+		url = url.replace(featured, featuredValue)
+		console.log(url)
+		url = url.replace('page-' + pagination.page, 'page-1')
+		console.log(url)
+
+		// getData(false)
 	}
 
 	function changeCategory (value) {

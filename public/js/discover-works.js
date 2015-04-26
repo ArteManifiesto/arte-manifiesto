@@ -15,11 +15,16 @@ function Works () {
 	var categoryList = document.querySelectorAll('.js-category'),
 			orderList = document.querySelectorAll('.js-order'),
 			timeList = document.querySelectorAll('.js-time'),
-			moreButton = document.querySelector('.js-moreButton');
+			moreButton = document.querySelector('.js-moreButton'),
+			featuredButton = document.querySelector('input[name="question"]');
+			console.log('featuredButton: ', featuredButton)
 
-	// console.log('moreButton: ', moreButton)
 
 	function setup () {
+
+		featuredButton.addEventListener('change', function () {
+			changeFeatured(featuredButton.checked)
+		})
 
 		for (var i = 0; i < categoryList.length; i++)
 			categoryList[i].addEventListener('click', function () {
@@ -46,6 +51,23 @@ function Works () {
 		getData(true)
 	}
 
+	function changeFeatured (featuredValue) {
+
+		var featured = getUrlParameter('featured')
+		console.log('featured: ', featured)
+
+		if(featured == undefined) {
+			url = url + '&featured'
+		} else {
+			// console.log('holi!')
+			if(!featuredValue)
+				url = url.replace("&featured=", "")
+		}
+		// console.log(url)
+		
+		getData(false)
+	}
+	
 	function changeCategory (value) {
 		category = value
 		var currentCategory = url.split('/')[5]
@@ -92,6 +114,7 @@ function Works () {
 		// console.log('url: ', url)
 
 		$.post( url, {idUser: idUser}, function( data ) {
+			console.log(data)
 			url = data.url
 			if(isAdd) add(data.works)
 			else {

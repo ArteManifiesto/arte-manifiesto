@@ -56,6 +56,14 @@
 	<div class="works-container">
 		<div class="works-container__filters left js-leftFilters">
 			<div class="filters">
+				<div class="filters__title">Featured</div>
+				<!-- <div class="filter js-category" data-value="{{ category.nameSlugify }}">{{ category.name }}</div> -->
+				<div class="filters__fueatured">
+					<input name="question" type="checkbox" id="question">
+					<label for="question" class="">Recomendados</label>
+				</div>
+			</div>
+			<div class="filters">
 				<div class="filters__title">Categorías</div>
 				{% for category in productTypes %}
 					<div class="filter js-category" data-value="{{ category.nameSlugify }}">{{ category.name }}</div>
@@ -149,316 +157,16 @@
 							</div>
 						</div>
 					</article>
+
+				{% if product.featured %}
+					<button id="{{ product.id }}" class="unfeatured">Unfeatured</button>
+				{% else %}
+					<button id="{{ product.id }}" class="featured">Featured</button>
+				{% endif %}
+
 				</div>
 				{% endfor %}
 			</section>
-
-			<!-- <section class="products">
-				<div class="product-wrapper">			
-					<article class="product">
-						<div class="product-image">
-							<img src="/img/products/product1.jpg">
-						</div>
-						<div class="product-info">
-							<div class="title">Amanecer</div>
-							<div class="price">$15.00</div>
-						</div>
-						<div class="product-social">
-							<div class="like">
-								<span class="button-like"> <i class="fa fa-heart-o"></i> 2,3k </span>
-							</div>
-							<div class="wish-list">
-								<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
-							</div>
-						</div>
-					</article>
-				</div>	
-				<div class="product-wrapper">			
-					<article class="product">
-						<div class="product-image">
-							<img src="/img/products/product2.jpg">
-						</div>
-						<div class="product-info">
-							<div class="title">Amanecer</div>
-							<div class="price">$15.00</div>
-						</div>
-						<div class="product-social">
-							<div class="like">
-								<span class="button-like active"> <i class="fa fa-heart"></i> 2,3k </span>
-							</div>
-							<div class="wish-list">
-								<span class="button-wish-list active"> <i class="fa fa-check-square-o"></i> 500 </span>
-							</div>
-						</div>
-					</article>
-				</div>	
-				<div class="product-wrapper">			
-					<article class="product">
-						<div class="product-image">
-							<img src="/img/products/product3.jpg">
-						</div>
-						<div class="product-info">
-							<div class="title">Amanecer</div>
-							<div class="price">$15.00</div>
-						</div>
-						<div class="product-social">
-							<div class="like">
-								<span class="button-like"> <i class="fa fa-heart-o"></i> 2,3k </span>
-							</div>
-							<div class="wish-list">
-								<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
-							</div>
-						</div>
-					</article>
-				</div>	
-				<div class="product-wrapper">			
-					<article class="product">
-						<div class="product-image">
-							<img src="/img/products/product4.jpg">
-						</div>
-						<div class="product-info">
-							<div class="title">Amanecer</div>
-							<div class="price">$15.00</div>
-						</div>
-						<div class="product-social">
-							<div class="like">
-								<span class="button-like active"> <i class="fa fa-heart"></i> 2,3k </span>
-							</div>
-							<div class="wish-list">
-								<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
-							</div>
-						</div>
-					</article>
-				</div>	
-				<div class="product-wrapper">			
-					<article class="product">
-						<div class="product-image">
-							<img src="/img/products/product5.jpg">
-						</div>
-						<div class="product-info">
-							<div class="title">Amanecer</div>
-							<div class="price">$15.00</div>
-						</div>
-						<div class="product-social">
-							<div class="like">
-								<span class="button-like"> <i class="fa fa-heart-o"></i> 2,3k </span>
-							</div>
-							<div class="wish-list">
-								<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
-							</div>
-						</div>
-					</article>
-				</div>	
-				<div class="product-wrapper">			
-					<article class="product">
-						<div class="product-image">
-							<img src="/img/products/product6.jpg">
-						</div>
-						<div class="product-info">
-							<div class="title">Amanecer</div>
-							<div class="price">$15.00</div>
-						</div>
-						<div class="product-social">
-							<div class="like">
-								<span class="button-like"> <i class="fa fa-heart-o"></i> 2,3k </span>
-							</div>
-							<div class="wish-list">
-								<span class="button-wish-list active"> <i class="fa fa-check-square-o"></i> 500 </span>
-							</div>
-						</div>
-					</article>
-				</div>	
-				<div class="product-wrapper">			
-					<article class="product">
-						<div class="product-image">
-							<img src="/img/products/product7.jpg">
-						</div>
-						<div class="product-info">
-							<div class="title">Amanecer</div>
-							<div class="price">$15.00</div>
-						</div>
-						<div class="product-social">
-							<div class="like">
-								<span class="button-like"> <i class="fa fa-heart-o"></i> 2,3k </span>
-							</div>
-							<div class="wish-list">
-								<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
-							</div>
-						</div>
-					</article>
-				</div>	
-				<div class="product-wrapper">			
-					<article class="product">
-						<div class="product-image">
-							<img src="/img/products/product8.jpg">
-						</div>
-						<div class="product-info">
-							<div class="title">Amanecer</div>
-							<div class="price">$15.00</div>
-						</div>
-						<div class="product-social">
-							<div class="like">
-								<span class="button-like active"> <i class="fa fa-heart"></i> 2,3k </span>
-							</div>
-							<div class="wish-list">
-								<span class="button-wish-list active"> <i class="fa fa-check-square-o"></i> 500 </span>
-							</div>
-						</div>
-					</article>
-				</div>	
-				<div class="product-wrapper">			
-					<article class="product">
-						<div class="product-image">
-							<img src="/img/products/product9.jpg">
-						</div>
-						<div class="product-info">
-							<div class="title">Amanecer</div>
-							<div class="price">$15.00</div>
-						</div>
-						<div class="product-social">
-							<div class="like">
-								<span class="button-like"> <i class="fa fa-heart-o"></i> 2,3k </span>
-							</div>
-							<div class="wish-list">
-								<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
-							</div>
-						</div>
-					</article>
-				</div>	
-				<div class="product-wrapper">			
-					<article class="product">
-						<div class="product-image">
-							<img src="/img/products/product10.jpg">
-						</div>
-						<div class="product-info">
-							<div class="title">Amanecer</div>
-							<div class="price">$15.00</div>
-						</div>
-						<div class="product-social">
-							<div class="like">
-								<span class="button-like active"> <i class="fa fa-heart"></i> 2,3k </span>
-							</div>
-							<div class="wish-list">
-								<span class="button-wish-list active"> <i class="fa fa-check-square-o"></i> 500 </span>
-							</div>
-						</div>
-					</article>
-				</div>	
-				<div class="product-wrapper">			
-					<article class="product">
-						<div class="product-image">
-							<img src="/img/products/product11.jpg">
-						</div>
-						<div class="product-info">
-							<div class="title">Amanecer</div>
-							<div class="price">$15.00</div>
-						</div>
-						<div class="product-social">
-							<div class="like">
-								<span class="button-like"> <i class="fa fa-heart-o"></i> 2,3k </span>
-							</div>
-							<div class="wish-list">
-								<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
-							</div>
-						</div>
-					</article>
-				</div>	
-				<div class="product-wrapper">			
-					<article class="product">
-						<div class="product-image">
-							<img src="/img/products/product12.jpg">
-						</div>
-						<div class="product-info">
-							<div class="title">Amanecer</div>
-							<div class="price">$15.00</div>
-						</div>
-						<div class="product-social">
-							<div class="like">
-								<span class="button-like active"> <i class="fa fa-heart"></i> 2,3k </span>
-							</div>
-							<div class="wish-list">
-								<span class="button-wish-list active"> <i class="fa fa-check-square-o"></i> 500 </span>
-							</div>
-						</div>
-					</article>
-				</div>	
-				<div class="product-wrapper">			
-					<article class="product">
-						<div class="product-image">
-							<img src="/img/products/product13.jpg">
-						</div>
-						<div class="product-info">
-							<div class="title">Amanecer</div>
-							<div class="price">$15.00</div>
-						</div>
-						<div class="product-social">
-							<div class="like">
-								<span class="button-like"> <i class="fa fa-heart-o"></i> 2,3k </span>
-							</div>
-							<div class="wish-list">
-								<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
-							</div>
-						</div>
-					</article>
-				</div>	
-				<div class="product-wrapper">			
-					<article class="product">
-						<div class="product-image">
-							<img src="/img/products/product14.jpg">
-						</div>
-						<div class="product-info">
-							<div class="title">Amanecer</div>
-							<div class="price">$15.00</div>
-						</div>
-						<div class="product-social">
-							<div class="like">
-								<span class="button-like active"> <i class="fa fa-heart"></i> 2,3k </span>
-							</div>
-							<div class="wish-list">
-								<span class="button-wish-list active"> <i class="fa fa-check-square-o"></i> 500 </span>
-							</div>
-						</div>
-					</article>
-				</div>	
-				<div class="product-wrapper">			
-					<article class="product">
-						<div class="product-image">
-							<img src="/img/products/product15.jpg">
-						</div>
-						<div class="product-info">
-							<div class="title">Amanecer</div>
-							<div class="price">$15.00</div>
-						</div>
-						<div class="product-social">
-							<div class="like">
-								<span class="button-like"> <i class="fa fa-heart-o"></i> 2,3k </span>
-							</div>
-							<div class="wish-list">
-								<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
-							</div>
-						</div>
-					</article>
-				</div>	
-				<div class="product-wrapper">			
-					<article class="product">
-						<div class="product-image">
-							<img src="/img/products/product16.jpg">
-						</div>
-						<div class="product-info">
-							<div class="title">Amanecer</div>
-							<div class="price">$15.00</div>
-						</div>
-						<div class="product-social">
-							<div class="like">
-								<span class="button-like active"> <i class="fa fa-heart"></i> 2,3k </span>
-							</div>
-							<div class="wish-list">
-								<span class="button-wish-list active"> <i class="fa fa-check-square-o"></i> 500 </span>
-							</div>
-						</div>
-					</article>
-				</div>	
-			</section> -->
 
 		</div>
 	</div>
@@ -636,4 +344,349 @@
 
 	<script src="/js/market.js"></script>
 
+	<script>
+        $(document).on("click", ".featured", function (event) {
+            var scope = $(this);
+            $.ajax({
+                type: "POST",
+                url: "/user/work/featured/",
+                data: {idWork: scope.attr('id')},
+                success: function (data) {
+                    if (data.code == 202) {
+                        // scope.parent().find('.featuredlogo').show();
+                        scope.text('Unfeatured');
+                        scope.removeClass('featured').addClass('unfeatured');
+                    }
+                    console.log(data);
+                }
+            });
+            return false;
+        });
+        $(document).on("click", ".unfeatured", function (event) {
+            var scope = $(this);
+            $.ajax({
+                type: "POST",
+                url: "/user/work/unfeatured/",
+                data: {idWork: scope.attr('id')},
+                success: function (data) {
+                    if (data.code == 202) {
+                        // scope.parent().find('.featuredlogo').hide();
+                        scope.text('Featured');
+                        scope.removeClass('unfeatured').addClass('featured');
+                    }
+                    console.log(data);
+                }
+            });
+            return false;
+        });
+	</script>
+
 {% endblock %}
+
+
+	<!-- <section class="products">
+		<div class="product-wrapper">			
+			<article class="product">
+				<div class="product-image">
+					<img src="/img/products/product1.jpg">
+				</div>
+				<div class="product-info">
+					<div class="title">Amanecer</div>
+					<div class="price">$15.00</div>
+				</div>
+				<div class="product-social">
+					<div class="like">
+						<span class="button-like"> <i class="fa fa-heart-o"></i> 2,3k </span>
+					</div>
+					<div class="wish-list">
+						<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
+					</div>
+				</div>
+			</article>
+		</div>	
+		<div class="product-wrapper">			
+			<article class="product">
+				<div class="product-image">
+					<img src="/img/products/product2.jpg">
+				</div>
+				<div class="product-info">
+					<div class="title">Amanecer</div>
+					<div class="price">$15.00</div>
+				</div>
+				<div class="product-social">
+					<div class="like">
+						<span class="button-like active"> <i class="fa fa-heart"></i> 2,3k </span>
+					</div>
+					<div class="wish-list">
+						<span class="button-wish-list active"> <i class="fa fa-check-square-o"></i> 500 </span>
+					</div>
+				</div>
+			</article>
+		</div>	
+		<div class="product-wrapper">			
+			<article class="product">
+				<div class="product-image">
+					<img src="/img/products/product3.jpg">
+				</div>
+				<div class="product-info">
+					<div class="title">Amanecer</div>
+					<div class="price">$15.00</div>
+				</div>
+				<div class="product-social">
+					<div class="like">
+						<span class="button-like"> <i class="fa fa-heart-o"></i> 2,3k </span>
+					</div>
+					<div class="wish-list">
+						<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
+					</div>
+				</div>
+			</article>
+		</div>	
+		<div class="product-wrapper">			
+			<article class="product">
+				<div class="product-image">
+					<img src="/img/products/product4.jpg">
+				</div>
+				<div class="product-info">
+					<div class="title">Amanecer</div>
+					<div class="price">$15.00</div>
+				</div>
+				<div class="product-social">
+					<div class="like">
+						<span class="button-like active"> <i class="fa fa-heart"></i> 2,3k </span>
+					</div>
+					<div class="wish-list">
+						<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
+					</div>
+				</div>
+			</article>
+		</div>	
+		<div class="product-wrapper">			
+			<article class="product">
+				<div class="product-image">
+					<img src="/img/products/product5.jpg">
+				</div>
+				<div class="product-info">
+					<div class="title">Amanecer</div>
+					<div class="price">$15.00</div>
+				</div>
+				<div class="product-social">
+					<div class="like">
+						<span class="button-like"> <i class="fa fa-heart-o"></i> 2,3k </span>
+					</div>
+					<div class="wish-list">
+						<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
+					</div>
+				</div>
+			</article>
+		</div>	
+		<div class="product-wrapper">			
+			<article class="product">
+				<div class="product-image">
+					<img src="/img/products/product6.jpg">
+				</div>
+				<div class="product-info">
+					<div class="title">Amanecer</div>
+					<div class="price">$15.00</div>
+				</div>
+				<div class="product-social">
+					<div class="like">
+						<span class="button-like"> <i class="fa fa-heart-o"></i> 2,3k </span>
+					</div>
+					<div class="wish-list">
+						<span class="button-wish-list active"> <i class="fa fa-check-square-o"></i> 500 </span>
+					</div>
+				</div>
+			</article>
+		</div>	
+		<div class="product-wrapper">			
+			<article class="product">
+				<div class="product-image">
+					<img src="/img/products/product7.jpg">
+				</div>
+				<div class="product-info">
+					<div class="title">Amanecer</div>
+					<div class="price">$15.00</div>
+				</div>
+				<div class="product-social">
+					<div class="like">
+						<span class="button-like"> <i class="fa fa-heart-o"></i> 2,3k </span>
+					</div>
+					<div class="wish-list">
+						<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
+					</div>
+				</div>
+			</article>
+		</div>	
+		<div class="product-wrapper">			
+			<article class="product">
+				<div class="product-image">
+					<img src="/img/products/product8.jpg">
+				</div>
+				<div class="product-info">
+					<div class="title">Amanecer</div>
+					<div class="price">$15.00</div>
+				</div>
+				<div class="product-social">
+					<div class="like">
+						<span class="button-like active"> <i class="fa fa-heart"></i> 2,3k </span>
+					</div>
+					<div class="wish-list">
+						<span class="button-wish-list active"> <i class="fa fa-check-square-o"></i> 500 </span>
+					</div>
+				</div>
+			</article>
+		</div>	
+		<div class="product-wrapper">			
+			<article class="product">
+				<div class="product-image">
+					<img src="/img/products/product9.jpg">
+				</div>
+				<div class="product-info">
+					<div class="title">Amanecer</div>
+					<div class="price">$15.00</div>
+				</div>
+				<div class="product-social">
+					<div class="like">
+						<span class="button-like"> <i class="fa fa-heart-o"></i> 2,3k </span>
+					</div>
+					<div class="wish-list">
+						<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
+					</div>
+				</div>
+			</article>
+		</div>	
+		<div class="product-wrapper">			
+			<article class="product">
+				<div class="product-image">
+					<img src="/img/products/product10.jpg">
+				</div>
+				<div class="product-info">
+					<div class="title">Amanecer</div>
+					<div class="price">$15.00</div>
+				</div>
+				<div class="product-social">
+					<div class="like">
+						<span class="button-like active"> <i class="fa fa-heart"></i> 2,3k </span>
+					</div>
+					<div class="wish-list">
+						<span class="button-wish-list active"> <i class="fa fa-check-square-o"></i> 500 </span>
+					</div>
+				</div>
+			</article>
+		</div>	
+		<div class="product-wrapper">			
+			<article class="product">
+				<div class="product-image">
+					<img src="/img/products/product11.jpg">
+				</div>
+				<div class="product-info">
+					<div class="title">Amanecer</div>
+					<div class="price">$15.00</div>
+				</div>
+				<div class="product-social">
+					<div class="like">
+						<span class="button-like"> <i class="fa fa-heart-o"></i> 2,3k </span>
+					</div>
+					<div class="wish-list">
+						<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
+					</div>
+				</div>
+			</article>
+		</div>	
+		<div class="product-wrapper">			
+			<article class="product">
+				<div class="product-image">
+					<img src="/img/products/product12.jpg">
+				</div>
+				<div class="product-info">
+					<div class="title">Amanecer</div>
+					<div class="price">$15.00</div>
+				</div>
+				<div class="product-social">
+					<div class="like">
+						<span class="button-like active"> <i class="fa fa-heart"></i> 2,3k </span>
+					</div>
+					<div class="wish-list">
+						<span class="button-wish-list active"> <i class="fa fa-check-square-o"></i> 500 </span>
+					</div>
+				</div>
+			</article>
+		</div>	
+		<div class="product-wrapper">			
+			<article class="product">
+				<div class="product-image">
+					<img src="/img/products/product13.jpg">
+				</div>
+				<div class="product-info">
+					<div class="title">Amanecer</div>
+					<div class="price">$15.00</div>
+				</div>
+				<div class="product-social">
+					<div class="like">
+						<span class="button-like"> <i class="fa fa-heart-o"></i> 2,3k </span>
+					</div>
+					<div class="wish-list">
+						<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
+					</div>
+				</div>
+			</article>
+		</div>	
+		<div class="product-wrapper">			
+			<article class="product">
+				<div class="product-image">
+					<img src="/img/products/product14.jpg">
+				</div>
+				<div class="product-info">
+					<div class="title">Amanecer</div>
+					<div class="price">$15.00</div>
+				</div>
+				<div class="product-social">
+					<div class="like">
+						<span class="button-like active"> <i class="fa fa-heart"></i> 2,3k </span>
+					</div>
+					<div class="wish-list">
+						<span class="button-wish-list active"> <i class="fa fa-check-square-o"></i> 500 </span>
+					</div>
+				</div>
+			</article>
+		</div>	
+		<div class="product-wrapper">			
+			<article class="product">
+				<div class="product-image">
+					<img src="/img/products/product15.jpg">
+				</div>
+				<div class="product-info">
+					<div class="title">Amanecer</div>
+					<div class="price">$15.00</div>
+				</div>
+				<div class="product-social">
+					<div class="like">
+						<span class="button-like"> <i class="fa fa-heart-o"></i> 2,3k </span>
+					</div>
+					<div class="wish-list">
+						<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
+					</div>
+				</div>
+			</article>
+		</div>	
+		<div class="product-wrapper">			
+			<article class="product">
+				<div class="product-image">
+					<img src="/img/products/product16.jpg">
+				</div>
+				<div class="product-info">
+					<div class="title">Amanecer</div>
+					<div class="price">$15.00</div>
+				</div>
+				<div class="product-social">
+					<div class="like">
+						<span class="button-like active"> <i class="fa fa-heart"></i> 2,3k </span>
+					</div>
+					<div class="wish-list">
+						<span class="button-wish-list active"> <i class="fa fa-check-square-o"></i> 500 </span>
+					</div>
+				</div>
+			</article>
+		</div>	
+	</section> -->

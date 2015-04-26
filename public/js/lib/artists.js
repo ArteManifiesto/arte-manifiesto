@@ -14,9 +14,16 @@ function Artists (data) {
 	var categorys = document.querySelectorAll('.js-category'),
 			orders = document.querySelectorAll('.js-order'),
 			times = document.querySelectorAll('.js-time'),
-			moreButton = document.querySelector('.js-moreButton');
+			moreButton = document.querySelector('.js-moreButton')
+			featuredButton = document.querySelector('input[name="question"]');
+			console.log('featuredButton: ', featuredButton)
+
 
 	function setup () {
+
+		featuredButton.addEventListener('change', function () {
+			changeFeatured(featuredButton.checked)
+		})
 
 		for (var i = 0; i < categorys.length; i++)
 			categorys[i].addEventListener('click', function () {
@@ -41,6 +48,23 @@ function Artists (data) {
 	function more () {
 		url = url.replace('page-' + pagination.page, 'page-' + ++pagination.page)
 		getData(true)
+	}
+	
+	function changeFeatured (featuredValue) {
+
+		var featured = getUrlParameter('featured')
+		console.log('featured: ', featured)
+
+		if(featured == undefined) {
+			url = url + '&featured'
+		} else {
+			// console.log('holi!')
+			if(!featuredValue)
+				url = url.replace("&featured=", "")
+		}
+		// console.log(url)
+		
+		getData(false)
 	}
 
 	function changeCategory (categoryValue) {

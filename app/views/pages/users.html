@@ -40,7 +40,10 @@
 		<div class="works-container__filters left js-leftFilters">
 			<div class="filters">
 				<div class="filters__title">Featured</div>
-				<!-- <div class="filter js-category" data-value="{{ category.nameSlugify }}">{{ category.name }}</div> -->
+				<div class="filters__fueatured">
+					<input name="question" type="checkbox" id="question">
+					<label for="question" class="">Recomendados</label>
+				</div>
 			</div>
 			<div class="filters">
 				<div class="filters__title">Categorías</div>
@@ -103,6 +106,11 @@
 							</button>
 						</div>
 					</article>
+								{% if user.featured %}
+                    <button id="{{ user.id }}" class="unfeatured">Unfeatured</button>
+                {% else %}
+                    <button id="{{ user.id }}" class="featured">Featured</button>
+                {% endif %}
 				</div>
 				{% endfor %}
 			</section>
@@ -626,5 +634,42 @@
 	<script src="/js/lib/artists.js"></script>
 
 	<script src="/js/discover-artists.js"></script>
+
+	<script>
+        $(document).on("click", ".featured", function (event) {
+            var scope = $(this);
+            $.ajax({
+                type: "POST",
+                url: "/user/featured/",
+                data: {idUser: scope.attr('id')},
+                success: function (data) {
+                    if (data.code == 202) {
+                        scope.parent().find('.featuredlogo').show();
+                        scope.text('Unfeatured');
+                        scope.removeClass('featured').addClass('unfeatured');
+                    }
+                    console.log(data);
+                }
+            });
+            return false;
+        });
+        $(document).on("click", ".unfeatured", function (event) {
+            var scope = $(this);
+            $.ajax({
+                type: "POST",
+                url: "/user/unfeatured/",
+                data: {idUser: scope.attr('id')},
+                success: function (data) {
+                    if (data.code == 202) {
+                        scope.parent().find('.featuredlogo').hide();
+                        scope.text('Featured');
+                        scope.removeClass('unfeatured').addClass('featured');
+                    }
+                    console.log(data);
+                }
+            });
+            return false;
+        });
+	</script>
 
 {% endblock %}
