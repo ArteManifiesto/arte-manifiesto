@@ -335,6 +335,23 @@ html {
   left: 0.75em;
   color: #808080;
 }
+.double-range__slider {
+  padding-bottom: 0.25rem;
+}
+.double-range__values {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-pack: justify;
+  -moz-box-pack: justify;
+  -o-box-pack: justify;
+  -ms-flex-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
 .logo {
   padding: 0.5rem 1rem;
   display: table-cell;

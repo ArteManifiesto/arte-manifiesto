@@ -5,6 +5,10 @@
 
 {% block content %}
 
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <!-- // <script src="//code.jquery.com/jquery-1.10.2.js"></script> -->
+  <!-- // <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> -->
+
 	<!-- ********************************************************************
 		$ CATEGORY MENU
 	********************************************************************* -->
@@ -56,6 +60,33 @@
 				{% for category in productTypes %}
 					<div class="filter js-category" data-value="{{ category.nameSlugify }}">{{ category.name }}</div>
 				{% endfor %}
+			</div>
+			<div class="filters">
+				<div class="filters__title">Precio</div>
+				
+					<!-- <p>
+					  <label for="amount">Price range:</label>
+					  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+					</p>
+					 
+					<div id="slider-range"></div> -->
+
+				<div class="filters__price">
+					<div class="double-range js-price">
+						<div class="double-range__slider">
+							<div id="slider-range"></div>
+						</div>
+						<div class="double-range__values">
+							<span class="double-range__value js-minPrice">0</span>
+							<span class="double-range__value js-maxPrice">140</span>
+						</div>
+					</div>
+				</div>
+ 
+<!-- 				<div class="filter js-order" data-value="popularity">
+				</div> -->
+<!-- 				<div class="filter js-order" data-value="views">Más visto</div>
+				<div class="filter js-order" data-value="newest">Más reciente</div> -->
 			</div>
 		</div>
 		<div class="works-container__filters right js-rightFilters">
@@ -259,14 +290,17 @@
 	</script>
 
 	<script src="/js/vendor/jquery.min.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
 	<script src="/js/vendor/salvattore.js"></script>
 	<script src="/js/vendor/underscore-min.js"></script>
 
 	<script src="/js/lib/login.js"></script>
 	<script src="/js/lib/filters.js"></script>
-	<!-- // <script src="/js/lib/follow.js"></script> -->
+
 	<script src="/js/lib/product.js"></script>
 	<script src="/js/lib/products.js"></script>
 
 	<script src="/js/market.js"></script>
+
 {% endblock %}

@@ -1,7 +1,7 @@
 
 function Product (el, data) {
-	console.log('el: ', el)
-	console.log('data: ', data)
+	// console.log('el: ', el)
+	// console.log('data: ', data)
 
 	var id = data.id,
 
@@ -10,7 +10,7 @@ function Product (el, data) {
 
 			buttonLike = el.querySelector('.' + data.buttonLikeClass),
 			likesEl = buttonLike.querySelector('span');
-			console.log('buttonLike: ', buttonLike)
+			// console.log('buttonLike: ', buttonLike)
 
 
 	function setup () {

@@ -1,6 +1,8 @@
 
 function Products (data) {
 	
+	window.history.pushState({}, "", url)
+
 	var	makeObject = data.makeObject;
 
 	var productsContainer = document.querySelector('.products'),
@@ -53,11 +55,33 @@ function Products (data) {
 		getData(false)
 	}
 
+	function changePrice (values) {
+		// console.log('changePrice: ', values)
+
+    var lo_p = getUrlParameter('lo_p')
+    // console.log('lo_p: ', lo_p)
+
+		url = url.replace('lo_p=' + lo_p, 'lo_p=' + values[0])
+		url = url.replace('page-' + pagination.page, 'page-1')
+
+    var hi_p = getUrlParameter('hi_p')
+    // console.log('hi_p: ', hi_p)
+
+		url = url.replace('hi_p=' + hi_p, 'hi_p=' + values[1])
+		url = url.replace('page-' + pagination.page, 'page-1')
+
+		getData(false)
+	}
+
 	function changeOrder(value) {
 		orderValue = value
-    var order = getUrlParameter('order')
+
+		var order = getUrlParameter('order')
+    console.log('order: ', order)
+		
 		url = url.replace(order, orderValue)
 		url = url.replace('page-' + pagination.page, 'page-1')
+
 		getData(false)
 	}
 
@@ -118,8 +142,7 @@ function Products (data) {
 	setup()
 
 	return {
-		add: add,
-		render: render
+		changePrice: changePrice
 	}
 }
 
