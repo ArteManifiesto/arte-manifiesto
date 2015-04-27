@@ -26,18 +26,19 @@ router.use(function (req, res, next) {
         return next();
     });
 });
-router.get('/', controller.profilePage);
+
+router.get('/', controller.profile);
 
 router.use('/work', workRouter);
 
-router.get('/likes', controller.profilePage);
-router.get('/store', controller.profilePage);
+router.get('/likes', controller.profile);
+router.get('/store', controller.profile);
 
-router.post('/collections/works', controller.profilePage);
-router.post('/collections/products', controller.profilePage);
+router.post('/collections/works', controller.profile);
+router.post('/collections/products', controller.profile);
 
-router.get('/followers', controller.profilePage);
-router.get('/followings', controller.profilePage);
+router.get('/followers', controller.profile);
+router.get('/followings', controller.profile);
 
 router.post('/:page', controller.portfolio);
 router.post('/likes/:page', controller.likes);
@@ -59,17 +60,6 @@ router.post('/collection/delete', controller.collectionDelete);
 
 router.post('/collection/reorder', controller.collectionReOrder);
 
-
-router.post('/work/create', controller.workCreate);
-router.post('/work/delete', controller.workDelete);
-router.post('/work/update', controller.workUpdate);
-
-router.post('/work/add/collection', controller.workAddCollection);
-router.post('/work/switch/collection', controller.workSwitchCollection);
-
-router.post('/work/featured', controller.workFeatured);
-router.post('/work/unfeatured', controller.workUnFeatured);
-
 router.post('/featured', controller.userFeatured);
 router.post('/unfeatured', controller.userUnFeatured);
 
@@ -77,7 +67,5 @@ router.post('/follow', controller.follow);
 router.post('/unfollow', controller.unfollow);
 router.post('/like', controller.like);
 router.post('/unlike', controller.unlike);
-
-router.get('/work/:nameWork', controller.work);
 
 module.exports = router;
