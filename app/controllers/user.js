@@ -7,7 +7,7 @@ var chance = new Chance();
 var async = require('async');
 var cloudinary = require('cloudinary').v2;
 var Promise = require('bluebird');
-exports.profilePage = function (req, res) {
+exports.profile = function (req, res) {
 
 
     var optionsFollowers = {
