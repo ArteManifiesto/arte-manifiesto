@@ -15,8 +15,10 @@ loginForm.submit(function () {
 
 function loginSuccessHandler(response) {
     console.log("login response : ", response);
-    if (response.code == 202) {
-        location.href = '/dashboard';
+    if (response.status == 200) {
+    	console.log('response.status == 200')
+        // location.href = '/dashboard';
+        location.href = '/';
     }
 }
 
@@ -36,8 +38,9 @@ registerForm.submit(function () {
 function registerSuccessHandler(response) {
     // console.log('registerSuccessHandler')
     // console.log("register response : ", response);
-    if (response.code == 202) {
-        location.href = '/dashboard';
+    if (response.code == 200) {
+        // location.href = '/dashboard';
+        location.href = '/';
     }
 }
 
@@ -49,27 +52,33 @@ console.log('LOGIN!')
 
 function Login (container, data) {
 
+	var modal = document.querySelector('.' + data.modalClass)
+
 	var openSignUpButton = document.querySelector('.' + data.signUpButtonClass)
 	var openSignInButton = document.querySelector('.' + data.signInButtonClass)
 
-	var loginBox = container.querySelector('.' + data.loginBoxClass)
+	// var loginBox = modal.querySelector('.' + data.loginBoxClass)
+	var loginBox = document.querySelector('.' + data.loginBoxClass)
 
 	var signUpFormButton = loginBox.querySelector('.' + data.signUpFormButtonClass)
 	var signInFormButton = loginBox.querySelector('.' + data.signInFormButtonClass)
 	var rememberFormButton = loginBox.querySelector('.' + data.rememberFormButtonClass)
 	var rememberBackButton = loginBox.querySelector('.' + data.rememberBackButtonClass)
-	// console.log('signInFormButton: ', signInFormButton)
 	
 	var signUpForm = loginBox.querySelector('.' + data.signUpFormClass)
 	var signInForm = loginBox.querySelector('.' + data.signInFormClass)
 	var rememberForm = loginBox.querySelector('.' + data.rememberFormClass)
 
 	var loginClosed = loginBox.querySelector('.' + data.loginClosedClass)
-	console.log('loginClosed: ', loginClosed)
+	// console.log('loginClosed: ', loginClosed)
 
 	var html = document.querySelector('html')
 
 	function setup () {
+
+		signUpForm.style.display = 'none'
+		rememberForm.style.display = 'none'
+		signInFormButton.classList.add('active')
 
 		if(openSignUpButton) openSignUpButton.addEventListener('click', openSignUp)
 		if(openSignInButton) openSignInButton.addEventListener('click', openSignIn)
@@ -80,17 +89,17 @@ function Login (container, data) {
 		rememberBackButton.addEventListener('click', openSignInForm)
 		
 		loginBox.addEventListener('click', function (e) { e.stopPropagation() } )
-		container.addEventListener('click', closed)
-		loginClosed.addEventListener('click', closed)
+		if(modal) modal.addEventListener('click', closed)
+		if(loginClosed) loginClosed.addEventListener('click', closed)
 	}
 
 	function openSignUp () {
-		container.style.display = 'block'
+		if(modal) modal.style.display = 'block'
 		html.style.overflow = 'hidden'
 		openSignUpForm()
 	}
 	function openSignIn () {
-		container.style.display = 'block'
+		if(modal) modal.style.display = 'block'
 		html.style.overflow = 'hidden'
 		openSignInForm()
 	}
@@ -115,13 +124,10 @@ function Login (container, data) {
 		// signUpForm.style.display = 'none'
 		signInForm.style.display = 'none'
 		rememberForm.style.display = 'block'
-
-		// signInFormButton.classList.add('active')
-		// signUpFormButton.classList.remove('active')
 	}
 
 	function closed () {
-		container.style.display = 'none'
+		modal.style.display = 'none'
 		html.style.overflow = 'auto'
 	}
 
@@ -135,17 +141,3 @@ function Login (container, data) {
 		closed: closed
 	}
 }
-
-window.login = new Login(document.querySelector('.login-modal'), {
-	signUpButtonClass: 'js-signUpButton',
-	signInButtonClass: 'js-signInButton',
-	signUpFormButtonClass: 'js-signUpFormButton',
-	signInFormButtonClass: 'js-signInFormButton',
-	rememberFormButtonClass: 'js-rememberFormButton',
-	rememberBackButtonClass: 'js-rememberBackButton',
-	signUpFormClass: 'js-signUpForm',
-	signInFormClass: 'js-signInForm',
-	rememberFormClass: 'js-rememberForm',
-	loginBoxClass: 'js-loginBox',
-	loginClosedClass: 'js-loginClosed'
-})

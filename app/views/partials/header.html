@@ -1,3 +1,4 @@
+
 	<!-- ********************************************************************
 		$ HEADER
 	********************************************************************* -->
@@ -19,9 +20,18 @@
 				<i class="skinny-menu__item__icon fa fa-diamond"></i>
 				<span class="skinny-menu__item__text">Market</span>
 			</a>
-			<a class="skinny-menu__item js-signInButton">
-				<i class="skinny-menu__item__icon fa fa-user"></i>
-				<span class="skinny-menu__item__text">Sign in</span>
-			</a>
+			{% if user %}
+				<div class="skinny-menu__avatar">
+					<div class="button-avatar">
+						<img src="{{ user.photo }}">
+						<!-- jojo -->
+					</div>
+				</div>
+			{% else %}
+				<a class="skinny-menu__item" href="/login">
+					<i class="skinny-menu__item__icon fa fa-user"></i>
+					<span class="skinny-menu__item__text">Sign in</span>
+				</a>
+			{% endif %}
 		</nav>
 	</header>

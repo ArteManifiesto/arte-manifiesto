@@ -1,3 +1,4 @@
+
 {% extends 'partials/base.html' %}
 
 	{% set path = 'index' %}
@@ -123,7 +124,7 @@
 	<!-- ********************************************************************
 		$ LOGIN
 	********************************************************************* -->
-	<section class="login-modal">
+	<section class="login-modal js-modal">
 		<div class="login-box js-loginBox">
 			<header class="login-box__header">
 				<div class="skinny-menu">
@@ -187,16 +188,20 @@
 
 
 	<script src="/js/vendor/jquery.min.js"></script>
-	<script src="js/vendor/salvattore.js"></script>
-	<script src="js/vendor/hammer.min.js"></script>
+	<script src="/js/vendor/salvattore.js"></script>
+	<script src="/js/vendor/hammer.min.js"></script>
 
 	<script src="js/lib/login.js"></script>
-	<script src="js/lib/slider.js"></script>
+	<script src="/js/lib/slider.js"></script>
+
+	<script src="/js/index.js"></script>
 
 	<script>
 		var workFeatureds = {{ workFeatureds|json|safe }}
 		console.log('workFeatureds: ', workFeatureds)
 
+		var user = {{ user|json|safe }}
+		console.log('user: ', user)
 	</script>
 
 {% endblock %}

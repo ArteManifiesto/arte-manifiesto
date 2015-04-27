@@ -8,11 +8,12 @@
 *------------------------------------*/
 .skinny-menu
 	display flex
+	align-items center
 	font-size .8rem
 	letter-spacing 2px
 	font-family 'Raleway'
 	text-transform uppercase
-	 &__item
+	&__item
 		color #000
 		padding .5em 1rem
 		cursor pointer
@@ -20,6 +21,9 @@
 			font-size .9rem
 		&.active
 			border-bottom .25em solid #000
+	&__avatar
+		padding 0 1rem
+		cursor pointer
 	
 .skinny-menu[data-icon='true']
 	.skinny-menu__item__text
