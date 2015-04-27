@@ -6,6 +6,9 @@ var config = require('../../config/config');
 
 var controller = require(config.controllersDir + "/user");
 
+var workRouter = require(config.routesDir + "/user-work");
+
+
 router.use(function (req, res, next) {
     if (req.user && req.user.username == req.params.username) {
         req.profile = req.user;
@@ -13,17 +16,19 @@ router.use(function (req, res, next) {
         req.owner = true;
         return next();
     }
-    global.db.User.find({where: {username: req.params.username}}).then(function (user) {
+    var query = {where: {username: req.params.username}};
+    global.db.User.find(query).then(function (user) {
         if (!user)
-            return res.redirect('/');
+            return res.redirect('/auth/login');
         req.profile = user;
         req.viewer = req.user ? req.user.id : 0;
         req.owner = false;
         return next();
     });
 });
-
 router.get('/', controller.profilePage);
+
+router.use('/work', workRouter);
 
 router.get('/likes', controller.profilePage);
 router.get('/store', controller.profilePage);
@@ -53,6 +58,7 @@ router.post('/collection/update', controller.collectionUpdate);
 router.post('/collection/delete', controller.collectionDelete);
 
 router.post('/collection/reorder', controller.collectionReOrder);
+
 
 router.post('/work/create', controller.workCreate);
 router.post('/work/delete', controller.workDelete);

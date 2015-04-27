@@ -1,44 +1,42 @@
+function Artist(el, data) {
 
-function Artist (el, data) {
+    var id = data.id,
 
-	var id = data.id,
+        followers = data.followers,
+        following = data.following,
 
-			followers = data.followers,
-			following = data.following,
-
-			buttonFollow = el.querySelector('.' + data.buttonFollowClass);
+        buttonFollow = el.querySelector('.' + data.buttonFollowClass);
 
 
-	function setup () {
+    function setup() {
 
-		buttonFollow.addEventListener('click', function () {
-			
-			if(!following) follow()
-			else unFollow()
-		})
-	}
+        buttonFollow.addEventListener('click', function () {
 
-	function follow () {
+            if (!following) follow()
+            else unFollow()
+        })
+    }
 
-		$.post( '/user/follow/', {idUser: id}, function( data ) {
-			console.log(data)
-			if (data.code == 202) {
-				buttonFollow.classList.add('disabled')
-				following = true
-			}
-		})
-	}
+    function follow() {
+        $.post('/user/follow/', {idUser: id}, function (data) {
+            console.log(data)
+            if (data.code == 202) {
+                buttonFollow.classList.add('disabled')
+                following = true
+            }
+        })
+    }
 
-	function unFollow () {
+    function unFollow() {
 
-		$.post( '/user/unfollow/', {idUser: id}, function( data ) {
-			console.log(data)
-			if (data.code == 202) {
-				buttonFollow.classList.remove('disabled')
-				following = false
-			}
-		})
-	}
+        $.post('/user/unfollow/', {idUser: id}, function (data) {
+            console.log(data)
+            if (data.code == 202) {
+                buttonFollow.classList.remove('disabled')
+                following = false
+            }
+        })
+    }
 
-	setup()
+    setup()
 }
