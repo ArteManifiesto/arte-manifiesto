@@ -1,42 +1,46 @@
-function Artist(el, data) {
+	function Artist(el, data) {
 
-    var id = data.id,
+	var id = data.id,
 
-        followers = data.followers,
-        following = data.following,
+	followers = data.followers,
+	following = data.following,
 
-        buttonFollow = el.querySelector('.' + data.buttonFollowClass);
+	buttonFollow = el.querySelector('.' + data.buttonFollowClass),
+	followersEl = buttonFollow.querySelector('.button-liner__number');
+
+	followersEl.innerHTML = followers
 
 
-    function setup() {
+	function setup() {
+		buttonFollow.addEventListener('click', function () {
+			if (!following) follow()
+			else unFollow()
+		})
+	}
 
-        buttonFollow.addEventListener('click', function () {
+	function follow() {
+		$.post('/' + user.username + '/follow/', {idUser: id}, function (data) {
+			console.log(data)
+			if (data.status == 200) {
+				following = true
+				buttonFollow.classList.add('disabled')
+				followers = data.data.followers
+				followersEl.innerHTML = followers
+			}
+		})
+	}
 
-            if (!following) follow()
-            else unFollow()
-        })
-    }
+	function unFollow() {
+		$.post('/' + user.username + '/unfollow/', {idUser: id}, function (data) {
+			console.log(data)
+			if (data.status == 200) {
+				buttonFollow.classList.remove('disabled')
+				following = false
+				followers = data.data.followers
+				followersEl.innerHTML = followers
+			}
+		})
+	}
 
-    function follow() {
-        $.post('/user/follow/', {idUser: id}, function (data) {
-            console.log(data)
-            if (data.code == 202) {
-                buttonFollow.classList.add('disabled')
-                following = true
-            }
-        })
-    }
-
-    function unFollow() {
-
-        $.post('/user/unfollow/', {idUser: id}, function (data) {
-            console.log(data)
-            if (data.code == 202) {
-                buttonFollow.classList.remove('disabled')
-                following = false
-            }
-        })
-    }
-
-    setup()
-}
+	setup()
+	}

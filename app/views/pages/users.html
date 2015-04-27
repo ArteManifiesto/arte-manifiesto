@@ -80,7 +80,7 @@
 					<article class="artist">
 						<a class="artist-header" href="#"> 
 							<div class="avatar">
-								<img src="/img/artists/artist1.jpg">
+								<img src="{{ artist.photo }}">
 							</div>
 							<div class="info">
 								<p class="high-text" data-size='small'>{{ artist.firstname }}</p>
@@ -232,10 +232,10 @@
 			<article class="artist">
 				<a class="artist-header" href="#"> 
 					<div class="avatar">
-						<img src="/img/artists/artist1.jpg">
+						<img src="<%= photo %>">
 					</div>
 					<div class="info">
-						<p class="high-text" data-size='small'>{{ user.firstname }}</p>
+						<p class="high-text" data-size='small'><%= firstname %></p>
 						<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
 					</div>
 				</a>
@@ -260,28 +260,17 @@
 					</button>
 				</div>
 				<div class="artist__featured">
-					<% if (featured) { %>
-						<span id="<%= id %>" class="button-featured admin unfeatured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
+					<% if (user) { %>
+						<% if (featured) { %>
+							<span id="<%= id %>" class="button-featured admin unfeatured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
+						<% } else { %>
+							<span id="<%= id %>" class="button-featured admin disabled featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendar </span>
+						<% } %>
 					<% } else { %>
-						<span id="<%= id %>" class="button-featured admin disabled featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendar </span>
+						<% if (featured) { %>
+							<span id="<%= id %>" class="button-featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
+						<% } %>
 					<% } %>
-
-				<% if (user) { %>
-					
-					<% if (featured) { %>
-						<span id="<%= id %>" class="button-featured admin unfeatured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
-					<% } else { %>
-						<span id="<%= id %>" class="button-featured admin disabled featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendar </span>
-					<% } %>
-
-				<% } else { %>
-
-					<% if (featured) { %>
-						<span id="<%= id %>" class="button-featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
-					<% } %>
-
-				<% } %>
-
 				</div>
 			</article>
 		</div>
@@ -328,10 +317,10 @@
 			var scope = $(this);
 			$.ajax({
 				type: "POST",
-				url: "/juliocanares/featured/",
+				url: "/" + user.username + "/featured/",
 				data: {idUser: scope.attr('id')},
 				success: function (data) {
-					if (data.code == 202) {
+					if (data.status == 200) {
 						scope.html('<i class="fa fa-star"></i>&nbsp;Recomendado');
 						scope.removeClass('featured').addClass('unfeatured').removeClass('disabled');
 					}
@@ -344,10 +333,10 @@
 			var scope = $(this);
 			$.ajax({
 				type: "POST",
-				url: "/user/unfeatured/",
+				url: "/" + user.username + "/unfeatured/",
 				data: {idUser: scope.attr('id')},
 				success: function (data) {
-					if (data.code == 202) {
+					if (data.status == 200) {
 						// scope.parent().find('.featuredlogo').hide();
 						// scope.text('Featured');
 						// scope.removeClass('unfeatured').addClass('featured');
