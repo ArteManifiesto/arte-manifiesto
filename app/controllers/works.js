@@ -17,17 +17,6 @@ exports.add = function (req, res) {
     return res.render(basePath + 'work-create');
 };
 
-/**
- * Work Create
- * ====================================================================
- * When a work is created this is added to a portfolio collection
- * too the work is reordered automatically in the collection
- * finally the work is added to the current user and set
- * the categories and tags
- * @param categories ids of the cotegories
- * @param tags ids of the tags
- * @param work data
- */
 exports.workCreate = function (req, res) {
     global.getPortfolioCollection(req.user).then(function (collection) {
         var promises = [

@@ -12,12 +12,15 @@ router.post('/create', controller.workCreate);
 router.post('/delete', controller.workDelete);
 router.post('/update', controller.workUpdate);
 
+//TODO add middleware for check if work exists
 router.post('/featured', controller.featured);
 router.post('/unfeatured', controller.unFeatured);
+router.post('/like', controller.like);
+router.post('/unlike', controller.unlike);
 
 /*
-router.post('/work/add/collection', controller.workAddCollection);
-router.post('/work/switch/collection', controller.workSwitchCollection);
-*/
+ router.post('/work/add/collection', controller.workAddCollection);
+ router.post('/work/switch/collection', controller.workSwitchCollection);
+ */
 
 module.exports = router;

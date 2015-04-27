@@ -19,9 +19,11 @@ var fbPermissions = [
 ];
 
 router.get('/login', controller.loginPage);
+router.get('/signup', controller.signupPage);
+router.get('/logout', controller.logout);
+
 router.post('/login', controller.login);
 router.post('/signup', controller.signup);
-router.get('/logout', controller.logout);
 
 router.get('/verify/:token', controller.verify);
 router.get('/success', controller.verifySuccess);

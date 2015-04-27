@@ -35,11 +35,17 @@ module.exports = function (sequelize, DataTypes) {
                 }
             },
             instanceMethods: {
+                like: function (user) {
+                    return user.addLike(work);
+                },
+                unLike: function (user) {
+                    return user.removeLike(work);
+                },
                 featured: function () {
                     var scope = this;
                     return global.db.WorkFeatured.create().then(function (workFeatured) {
                         return scope.addWorkFeatured(workFeatured);
-                    })
+                    });
                 },
                 unFeatured: function () {
                     var query = {

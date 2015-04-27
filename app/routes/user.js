@@ -65,7 +65,5 @@ router.post('/unfeatured', controller.userUnFeatured);
 
 router.post('/follow', controller.follow);
 router.post('/unfollow', controller.unfollow);
-router.post('/like', controller.like);
-router.post('/unlike', controller.unlike);
 
 module.exports = router;

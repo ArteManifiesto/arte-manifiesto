@@ -1,6 +1,14 @@
 var passport = require('passport');
 var moment = require('moment');
 
+
+/**
+ * Show the view page for signup
+ */
+exports.signupPage = function (req, res) {
+    return res.render('auth/signup');
+};
+
 /**
  * User signup
  */

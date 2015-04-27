@@ -23,5 +23,6 @@ exports.init = function (app) {
     app.use('/auth', authRouter);
     app.use('/dashboard', middlewares.shouldLogged, dashboardRouter);
     app.use('/account', middlewares.shouldLogged, accountRouter);
+
     app.use('/:username', userRouter);
 };

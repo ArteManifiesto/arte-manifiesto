@@ -8,8 +8,6 @@ var async = require('async');
 var cloudinary = require('cloudinary').v2;
 var Promise = require('bluebird');
 exports.profile = function (req, res) {
-
-
     var optionsFollowers = {
         viewer: undefined,
         user: req.profile.id,
