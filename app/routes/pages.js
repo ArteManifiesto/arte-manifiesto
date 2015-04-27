@@ -12,7 +12,10 @@ router.get('/works/category/:value/:page', controller.works);
 router.get('/users/specialty/:value/:page', controller.users);
 router.get('/products/type/:value/:page', controller.products);
 
-router.get('/store/:nameProduct/' , controller.storeProduct);
-router.get('/pay/:idProduct' , controller.productPay);
+router.get('/store/:nameProduct/', controller.storeProduct);
+router.get('/pay/:idProduct', controller.productPay);
 
+
+router.get('/photo', controller.photos);
+router.post('/photos', controller.photosCreate);
 module.exports = router;

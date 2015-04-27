@@ -8,6 +8,7 @@ module.exports = function (sequelize, DataTypes) {
                 associate: function (models) {
                     Collection.belongsTo(models.User, {onDelete: 'cascade'});
                     Collection.belongsToMany(models.Work, {through: models.CollectionWork, onDelete: 'cascade'});
+                    Collection.belongsToMany(models.Product, {through: models.CollectionProduct, onDelete: 'cascade'});
                 }
             },
             instanceMethods: {
@@ -18,7 +19,7 @@ module.exports = function (sequelize, DataTypes) {
                     var idWorks = _.pluck(works, 'id');
 
                     var getMaxOrderQuery = {
-                        where: {WorkId: {not: idWorks}},
+                        where: {WorkId: {not: idWorks}, CollectionId: this.id},
                         attributes: ['order'],
                         order: '`order` DESC',
                         limit: 1

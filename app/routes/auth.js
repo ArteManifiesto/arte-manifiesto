@@ -18,6 +18,7 @@ var fbPermissions = [
     'user_interests'
 ];
 
+router.get('/login', controller.loginPage);
 router.post('/login', controller.login);
 router.post('/signup', controller.signup);
 router.get('/logout', controller.logout);

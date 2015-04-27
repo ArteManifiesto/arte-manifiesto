@@ -9,6 +9,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var flash = require('connect-flash');
+var multer = require('multer');
 var swig = require('swig');
 
 /**
@@ -40,6 +41,14 @@ module.exports = function (app, passport) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: false}));
     app.use(express.static(config.publicDir));
+
+    app.use(multer({
+        dest: './public/uploads/',
+        rename: function (fieldname, filename) {
+            return Date.now()
+        }
+    }));
+
 
     /**
      * Passport initialize

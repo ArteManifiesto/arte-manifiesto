@@ -15,7 +15,6 @@ passport.serializeUser(function (user, done) {
  * Deserialize user data
  */
 passport.deserializeUser(function (id, done) {
-    console.log("user id : ", id);
     var query = {attributes: ['id', 'photo', 'firstname']};
     global.db.User.find(id).then(function (user) {
         done(null, user);
@@ -27,13 +26,12 @@ passport.deserializeUser(function (id, done) {
  */
 var localStrategyHandler = function (email, password, done) {
     global.db.User.find({where: {email: email}}).success(function (user) {
-        if (!user) {
-            done(null, false, {message: 'Unknown user'});
-        } else if (!user.authenticate(password)) {
-            done(null, false, {message: 'Invalid password'});
-        } else {
+        if (!user)
+            done(null, false, 'Unknown user');
+        else if (!user.authenticate(password))
+            done(null, false, 'Invalid password');
+        else
             done(null, user);
-        }
     }).error(function (err) {
         done(err);
     });
@@ -56,6 +54,7 @@ var fbStrategyHandler = function (accessToken, refreshToken, profile, done) {
                 gender: profile.gender,
                 provider: 'facebook',
                 facebook: profile.profileUrl,
+                facebookUserId: profile.id,
                 photo: '//graph.facebook.com/' + profile.id + '/picture?type=large'
             };
             global.db.User.create(userData).then(function (user) {

@@ -13,6 +13,7 @@ module.exports = function (sequelize, DataTypes) {
                 }
             },
             nameSlugify: DataTypes.STRING,
+            description: DataTypes.TEXT,
             photo: DataTypes.STRING,
             public: {type: DataTypes.BOOLEAN, defaultValue: true}
         }, {
@@ -56,9 +57,11 @@ module.exports = function (sequelize, DataTypes) {
                 afterCreate: function (work, options) {
                     var promises = [];
                     for (var i = 0; i < 2; i++) {
+
                         promises.push(global.db.Product.create({
                             name: chance.name(),
                             price: _.random(0, 1000),
+                            UserId: options.user,
                             photo: '/img/products/product' + (_.random(1, 20).toString()) + '.jpg',
                             description: chance.paragraph({sentences: 2})
                         }))

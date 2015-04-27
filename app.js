@@ -22,6 +22,8 @@ var _ = require('lodash');
  */
 var app = express();
 
+require('json-response');
+
 /**
  * Initialize expres configuration
  * ====================================================
@@ -50,7 +52,7 @@ global.db = db;
 
 
 var dev = !(process.env.NODE_ENV == 'production');
-dev = true;
+dev = false;
 global.db.sequelize.sync({force: dev}).then(function () {
     if (dev) {
         var Chance = require('chance');
@@ -79,7 +81,6 @@ global.db.sequelize.sync({force: dev}).then(function () {
                 var product = products[j];
                 promises.push(global.db.ProductType.create({name: product}));
             }
-
 
             for (i = 0; i < 20; i++) {
                 promises.push(global.db.User.create({

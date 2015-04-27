@@ -1,27 +1,35 @@
 var basePath = 'pages/';
 var redirectPath = '/';
-
+var email = require('./email');
 var Promise = require('bluebird');
 var _ = require('lodash');
 var moment = require('moment');
 var request = require('request');
+var cloudinary = require('cloudinary').v2;
 
 exports.index = function (req, res) {
-    var getWorkFeaturedQuery = {
-        where: {featured: true},
-        attributes: [],
-        include: [{
-            model: global.db.Work,
-            attributes: ['name', 'photo']
-        }]
-    };
+    return res.render('index');
+    /*
+     var mandrill = require('mandrill-api/mandrill');
+     var mandrill_client = new mandrill.Mandrill('YOUR_API_KEY');
+     */
+    /*
+     var getWorkFeaturedQuery = {
+     where: {featured: true},
+     attributes: [],
+     include: [{
+     model: global.db.Work,
+     attributes: ['name', 'photo']
+     }]
+     };
 
-    global.db.WorkFeatured.findAll(getWorkFeaturedQuery).then(function (workFeatureds) {
-        workFeatureds = _.pluck(workFeatureds, 'Work');
-        return res.render('index', {
-            workFeatureds: workFeatureds
-        })
-    });
+     global.db.WorkFeatured.findAll(getWorkFeaturedQuery).then(function (workFeatureds) {
+     workFeatureds = _.pluck(workFeatureds, 'Work');
+     return res.render('index', {
+     workFeatureds: workFeatureds
+     })
+     });
+     */
 };
 
 exports.search = function (req, res) {
@@ -97,7 +105,6 @@ exports.products = function (req, res) {
             data.productTypes = productTypes;
             return res.render('pages/products', data);
         });
-
     });
 };
 
@@ -184,4 +191,42 @@ exports.productPay = function (req, res) {
         });
 
     });
+};
+
+exports.photos = function (req, res) {
+    return res.render('photo');
+};
+
+exports.photosCreate = function (req, res) {
+    var imageFile = req.files.file.path;
+
+    cloudinary.config({
+        cloud_name: 'hackdudes',
+        api_key: '337494525976864',
+        api_secret: 'RQ2MXJev18AjVuf-mSNzdmu2Jsc'
+    });
+
+    cloudinary.uploader.upload(imageFile)
+        .then(function (image) {
+            console.dir(image);
+            global.getPortfolioCollection(req.user).then(function (collection) {
+                global.db.Work.create({
+                    name: req.body.name,
+                    photo: image.url
+                }).then(function (work) {
+                    collection.addWork(work).then(function () {
+                        var promises = [
+                            collection.reorderAfterWorkAdded([work]),
+                            work.setUser(req.user)
+                        ];
+                        global.db.Sequelize.Promise.all(promises).then(function () {
+                            return res.redirect('back');
+                        })
+                    });
+                })
+            });
+        })
+        .then(function (photo) {
+            console.log('** photo saved')
+        });
 };

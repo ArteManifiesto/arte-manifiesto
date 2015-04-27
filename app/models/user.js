@@ -13,7 +13,7 @@ module.exports = function (sequelize, DataTypes) {
             lastname: DataTypes.STRING,
             gender: DataTypes.STRING,
             photo: DataTypes.STRING,
-            isArtist: DataTypes.BOOLEAN,
+            isArtist: {type: DataTypes.BOOLEAN, defaultValue: false},
 
             city: DataTypes.STRING,
             country: DataTypes.STRING,
@@ -23,18 +23,20 @@ module.exports = function (sequelize, DataTypes) {
             school: DataTypes.STRING,
 
             //TODO maybe need other table association for social ?
-            /* facebook: DataTypes.STRING,
-             twitter: DataTypes.STRING,
-             instagram: DataTypes.STRING,
-             tumblr: DataTypes.STRING,
-             behance: DataTypes.STRING,
-             web: DataTypes.STRING,*/
+            facebook: DataTypes.STRING,
+            facebookUserId: DataTypes.BIGINT(30),
+            twitter: DataTypes.STRING,
+            instagram: DataTypes.STRING,
+            tumblr: DataTypes.STRING,
+            behance: DataTypes.STRING,
+            web: DataTypes.STRING,
 
             // interests in associations
             hashedPassword: DataTypes.STRING,
             salt: DataTypes.STRING,
             provider: DataTypes.STRING,
 
+            filled: {type: DataTypes.BOOLEAN, defaultValue: false},
             verified: {type: DataTypes.BOOLEAN, defaultValue: false},
             tokenVerifyEmail: DataTypes.STRING,
             tokenResetPassword: DataTypes.STRING,
@@ -49,8 +51,16 @@ module.exports = function (sequelize, DataTypes) {
                     User.belongsToMany(models.User, {as: 'Followers', foreignKey: 'FollowingId', through: 'Followers'});
                     User.belongsToMany(models.User, {as: 'Followings', foreignKey: 'FollowerId', through: 'Followers'});
 
-                    User.belongsToMany(models.User, {as: 'UserViewers', foreignKey: 'UserViewingId', through: 'UserViewers'});
-                    User.belongsToMany(models.User, {as: 'UserViewings', foreignKey: 'UserViewerId', through: 'UserViewers'});
+                    User.belongsToMany(models.User, {
+                        as: 'UserViewers',
+                        foreignKey: 'UserViewingId',
+                        through: 'UserViewers'
+                    });
+                    User.belongsToMany(models.User, {
+                        as: 'UserViewings',
+                        foreignKey: 'UserViewerId',
+                        through: 'UserViewers'
+                    });
 
                     User.belongsToMany(models.Work, {as: 'Likes', through: 'Likes'});
                     User.belongsToMany(models.Work, {as: 'Collects', through: 'Collects'});
@@ -64,6 +74,7 @@ module.exports = function (sequelize, DataTypes) {
                     User.hasMany(models.UserFeatured);
 
                     User.hasMany(models.Work);
+                    User.hasMany(models.Product);
                 }
             },
             instanceMethods: {
@@ -118,6 +129,7 @@ module.exports = function (sequelize, DataTypes) {
                             user.save(),
                             global.db.Collection.create({name: 'Portafolio', meta: 'portfolio'}),
                             global.db.Collection.create({name: 'Favoritos', meta: 'work'}),
+                            global.db.Collection.create({name: 'Tienda', meta: 'store'}),
                             global.db.Collection.create({name: 'Deseos', meta: 'product'}),
                             global.db.Collection.create({name: 'Regalos', meta: 'product'}),
                             //TODO only in development enviroment
@@ -142,9 +154,10 @@ module.exports = function (sequelize, DataTypes) {
                                     }),
                                     global.db.Work.create({
                                         name: chance.name(),
-                                        photo: '/img/works/obra' + (_.random(1, 15).toString()) + '.jpg',
+                                        description: chance.paragraph(),
+                                        photo: '/img/works/obra' + (_.random(1, 12).toString()) + '.jpg',
                                         public: true
-                                    })
+                                    }, {user: user.id})
                                 ];
 
                                 return global.db.Sequelize.Promise.all(promises).then(function (data) {

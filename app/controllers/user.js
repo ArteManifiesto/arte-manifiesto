@@ -5,66 +5,126 @@ var _ = require('lodash');
 var chance = new Chance();
 
 var async = require('async');
+var cloudinary = require('cloudinary').v2;
+var Promise = require('bluebird');
+exports.profilePage = function (req, res) {
 
-exports.profile = function (req, res) {
-    var showProfile = function (user, owner) {
 
-        return global.db.User.find({
-            where: {id: user.id}, include: [
-                {model: global.db.User, as: 'Followers'}
-            ]
-        });
-
-        var promises = [
-            user.getFollowers({where: {id: user.id}}),
-            //user.getFollowings(),
-            user.getFollowers(),
-            user.getCollections({
-                attributes: ['name', 'meta'],
-                order: [[global.db.Work, global.db.CollectionWork, 'order']],
-                group: ['meta', 'id', 'Works.id'],
-                include: [{
-                    model: global.db.Work,
-                    attributes: ['name', 'nameSlugify', 'photo', 'public'],
-                    include: [
-                        {model: global.db.Tag, attributes: ['name']},
-                        {model: global.db.Category, attributes: ['name']}
-                    ]
-                }]
-            }),
-            user.getLikes()
-        ];
-        global.db.Sequelize.Promise.all(promises).then(function (data) {
-            return res.json(data);
-            var /*followings = data[0], */followers = data[0], collections = data[1], likes = data[2];
-            var view = owner ? 'owner' : 'profile';
-
-            var dataToView = {
-                /*
-                 followings: followings,*/
-                followers: followers,
-                collections: collections,
-                likes: likes
-            };
-
-            if (!owner)
-                dataToView.userProfile = user;
-            return res.render(basePath + view, dataToView);
-        });
+    var optionsFollowers = {
+        viewer: undefined,
+        user: req.profile.id,
+        page: undefined,
+        limit: undefined,
+        type: 'followers'
     };
+    var countFollowersQuery = global.queries['followers'](optionsFollowers, true);
 
-    if (req.user.username == req.params.username) {
-        showProfile(req.user, true);
-    } else {
-        global.db.User.find({where: {username: req.params.username}}).then(function (user) {
-            if (user) {
-                showProfile(user, false);
-            } else {
-                return res.redirect('back');
-            }
-        });
-    }
+    var optionsFollowings = {
+        viewer: undefined,
+        user: req.profile.id,
+        page: undefined,
+        limit: undefined,
+        type: 'followings'
+    };
+    var countFollowingsQuery = global.queries['followers'](optionsFollowings, true);
+
+    var promises = [
+        global.db.sequelize.query(countFollowersQuery, {nest: true, raw: true}),
+        global.db.sequelize.query(countFollowingsQuery, {nest: true, raw: true})
+    ];
+
+    global.db.Sequelize.Promise.all(promises).then(function (data) {
+        return res.json(data);
+    })
 };
+
+var getPaginationData = function (nameQuery, options, record) {
+    var tempPagination = global.getPagination(options.page, options.limit);
+
+    options.offset = tempPagination.offset;
+    options.limit = tempPagination.limit;
+
+    var recordsQuery = global.queries[nameQuery](options);
+    var countQuery = global.queries[nameQuery](options, true);
+
+    var promises = [
+        global.db.sequelize.query(recordsQuery, {nest: true, raw: true}),
+        global.db.sequelize.query(countQuery, {nest: true, raw: true})
+    ];
+
+    return global.db.Sequelize.Promise.all(promises).then(function (data) {
+        var records = data[0], total = data[1][0].total;
+        var pagination = {
+            total: total,
+            page: tempPagination.page,
+            limit: tempPagination.limit,
+            pages: Math.ceil(total / tempPagination.limit)
+        };
+        return {records: records, pagination: pagination};
+    });
+};
+
+exports.portfolio = function (req, res) {
+    global.getPortfolioCollection(req.profile).then(function (collection) {
+        var options = {collection: collection.id, page: req.params.page, limit: 10};
+        getPaginationData('getWorksOfPortfolio', options).then(function (data) {
+            return res.json(data);
+        });
+    });
+};
+
+exports.likes = function (req, res) {
+    req.profile.getLikes({offset: 1, limit: 2, where: {public: true}}).then(function (likes) {
+        return res.json(likes);
+    });
+};
+
+
+exports.store = function (req, res) {
+    global.getStoreCollection(req.profile).then(function (collection) {
+        var options = {collection: collection.id, page: req.params.page, limit: 10};
+        getPaginationData('getProductsOfStore', options).then(function (data) {
+            return res.json(data);
+        });
+    });
+};
+
+exports.collectionsWorks = function (req, res) {
+    var options = {user: req.profile.id, meta: 'work', page: req.params.page, limit: 1};
+    getPaginationData('getCollectionsByMeta', options).then(function (data) {
+        return res.json(data);
+    });
+};
+
+exports.collectionsProducts = function (req, res) {
+    var options = {user: req.profile.id, meta: 'product', page: req.params.page, limit: 1};
+    getPaginationData('getCollectionsByMeta', options).then(function (data) {
+        return res.json(data);
+    });
+};
+
+exports.followers = function (req, res) {
+    var options = {viewer: req.viewer, user: req.profile.id, page: req.params.page, limit: 10, type: 'followers'};
+    getPaginationData('followers', options).then(function (data) {
+        var records = global.mergeEntity(data.records, ['Works']);
+        _.map(records, function (value, key) {
+            value['Works'] = _.slice(value['Works'], 0, 6);
+        });
+        return res.json({followers: records, pagination: data.pagination});
+    });
+};
+
+exports.followings = function (req, res) {
+    var options = {viewer: req.viewer, user: req.profile.id, page: req.params.page, limit: 10, type: 'followings'};
+    getPaginationData('followers', options).then(function (data) {
+        var records = global.mergeEntity(data.records, ['Works']);
+        _.map(records, function (value, key) {
+            value['Works'] = _.slice(value['Works'], 0, 6);
+        });
+        return res.json({followings: records, pagination: data.pagination});
+    });
+};
+
 exports.update = function (req, res) {
     var specialtiesData = JSON.parse(req.body.specialties);
     var interestsData = JSON.parse(req.body.interests);
@@ -84,7 +144,6 @@ exports.update = function (req, res) {
             req.user.setSpecialties(specialties),
             req.user.setInterests(interests)
         ];
-
         global.db.Sequelize.Promise.all(promises).then(function () {
             return res.json({
                 code: 203,
@@ -188,7 +247,6 @@ exports.work = function (req, res) {
          */
     });
 };
-
 
 exports.workCreateView = function (req, res) {
     return res.render(basePath + 'work-create');
@@ -904,4 +962,28 @@ var responses = {
             work: work
         };
     }
+};
+
+exports.image = function (req, res) {
+    cloudinary.config({
+        cloud_name: 'hackdudes',
+        api_key: '337494525976864',
+        api_secret: 'RQ2MXJev18AjVuf-mSNzdmu2Jsc'
+    });
+
+    cloudinary.uploader.upload('https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-xfa1/v/t1.0-9/10923216_10153009435556052_7682154786681906287_n.jpg?oh=cea4a6f9dd5429a5182146cc71ec81f7&oe=55D1138B&__gda__=1440007014_7ed8413772ff4f0a8c206c4c7329e354', {
+        "width": 500,
+        "height": 500,
+        "crop": "thumb",
+        gravity: "face",
+        "effect": "saturation:-70"
+    }, function (err, image) {
+        console.log();
+        console.log("** Remote Url");
+        if (err) {
+            console.warn(err);
+        }
+        console.log("* " + image.public_id);
+        console.log("* " + image.url);
+    });
 };

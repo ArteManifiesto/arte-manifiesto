@@ -1,6 +1,7 @@
 var _ = require('lodash');
 var moment = require('moment');
-
+var email = require('../app/controllers/email');
+var Promise = require('bluebird');
 
 //works/category/urban/page-1/?order=(newest,popularity,views)&time=(day,week,month,year)&featured&tag=amazing&title=art
 //users/specialty/paint/page-1/?order=(newest,popularity,views)&time=(day,week,month,year)&featured&name=julio&username=juliocanares
@@ -36,7 +37,17 @@ global.getPortfolioCollection = function (user) {
         attributes: ['id', 'meta'],
         limit: 1
     };
+    return user.getCollections(query).then(function (collections) {
+        return collections[0];
+    });
+};
 
+global.getStoreCollection = function (user) {
+    var query = {
+        where: {meta: 'store'},
+        attributes: ['id', 'meta'],
+        limit: 1
+    };
     return user.getCollections(query).then(function (collections) {
         return collections[0];
     });
@@ -52,9 +63,13 @@ global.slugify = function (text) {
 };
 
 global.searchWorks = function (req) {
-    var pagination = global.getPagination(req.params.page, 3);
+    var pagination = global.getPagination(req.params.page, 10);
     var queryTemplate =
-        "SELECT SQL_CALC_FOUND_ROWS `Works`.`id`, `Works`.`name`, `Works`.`nameSlugify`, `Works`.`photo`, " +
+        "SELECT " +
+        "<% if (count != undefined) { %> " +
+        "COUNT(DISTINCT `Works`.`id`) AS `total`" +
+        "<% } else { %>" +
+        "`Works`.`id`, `Works`.`name`, `Works`.`nameSlugify`, `Works`.`photo`, " +
         "count(DISTINCT `Works.Likes`.`id`) AS `likes`, " +
         "count(DISTINCT `Works.Collects`.`id`) AS `collects`, " +
         "count(DISTINCT `Works.Viewers`.`id`) AS `views`, " +
@@ -64,9 +79,23 @@ global.searchWorks = function (req) {
         "case `Collects`.`UserId` when <%= user %> then true else false end AS `collected`, " +
         "case `WorkViewers`.`UserId` when <%= user %> then true else false end AS `viewed`, " +
         "case `WorkFeatureds`.`featured` when true then true else false end AS `featured`, " +
-        "`User`.`username` AS `User.username`, `User`.`firstname` AS `User.firstname`, `User`.`lastname` AS `User.lastname` " +
+        "`User`.`username` AS `User.username`, `User`.`firstname` AS `User.firstname`, `User`.`lastname` AS `User.lastname`, " +
+        "`User`.`country`  AS `User.country`, `User`.`city` AS `User.city` " +
+            /*
+             "`Works.Tags`.`id` AS `Tags.id`, " +
+             "`Works.Tags`.`name` AS `Tags.name`, " +
+             "`Works.Categories`.`id` AS `Categories.id`, " +
+             "`Works.Categories`.`name` AS `Categories.name`, " +
+             "`Works.Categories`.`nameSlugify` AS `Categories.nameSlugify` " +
+             */
+        "<% } %>" +
         "FROM `Categories` AS `Category` " +
-        "INNER JOIN (`WorkCategories`  INNER JOIN `Works` AS `Works` ON `Works`.`id` = `WorkCategories`.`WorkId`) " +
+        "INNER JOIN (`WorkCategories`  INNER JOIN (SELECT * FROM `Works` " +
+        "<% if (count == undefined) { %> " +
+        "LIMIT <%= offset %>,<%= limit %>" +
+        "<% } %>" +
+        ") AS `Works` " +
+        "ON `Works`.`id` = `WorkCategories`.`WorkId`) " +
         "ON `Category`.`id` = `WorkCategories`.`CategoryId` " +
         "AND `Works`.`public` = TRUE " +
         "<% if (time != undefined) { %> " +
@@ -89,17 +118,26 @@ global.searchWorks = function (req) {
         "<% } %>" +
         "`WorkFeatureds` " +
         "ON `Works`.`id` = `WorkFeatureds`.`WorkId` AND `WorkFeatureds`.`featured` = TRUE " +
-        "<% if (tag != undefined) { %> " +
-        "INNER JOIN (`WorkTags` INNER JOIN `Tags` AS `Works.Tags` ON `Works.Tags`.`id` = `WorkTags`.`TagId`) " +
+        "LEFT OUTER JOIN (`WorkTags` INNER JOIN `Tags` AS `Works.Tags` ON `Works.Tags`.`id` = `WorkTags`.`TagId`) " +
         "ON `Works`.`id` = `WorkTags`.`WorkId` " +
+        "<% if (tag != undefined) { %> " +
         "AND `Works.Tags`.`name` LIKE '<%= tag %>'  " +
         "<% } %>" +
         "<% if (category != undefined) { %> " +
         "WHERE `Category`.`id` = <%= category %> " +
         "<% } %>" +
+            /*
+             "LEFT OUTER JOIN (`WorkCategories` AS `Work.Category`" +
+             "INNER JOIN `Categories` AS `Works.Categories` ON `Works.Categories`.`id` = `Work.Category`.`CategoryId`)" +
+             "ON `Works`.`id` = `Work.Category`.`WorkId` " +
+             */
+        "<% if (count == undefined) { %> " +
         "GROUP BY `Works`.`id` " +
-        "ORDER BY <%= order %> " +
-        "LIMIT <%= offset %>,<%= limit %>;";
+            /*
+             ", `Works.Tags`.`id`, `Works.Categories`.`id` " +
+             */
+        "ORDER BY <%= order %>" +
+        "<% } %>";
 
     var params = {
         offset: pagination.offset,
@@ -110,7 +148,8 @@ global.searchWorks = function (req) {
         title: req.query.title,
         time: undefined,
         user: req.body.idUser,
-        featured: req.query.featured
+        featured: req.query.featured,
+        count: undefined
     };
 
     if (req.query.time)
@@ -131,12 +170,11 @@ global.searchWorks = function (req) {
 
         var query = _.template(queryTemplate)(params);
         return global.db.sequelize.query(query, {nest: true, raw: true}).then(function (works) {
-
-            return global.db.sequelize.query("SELECT FOUND_ROWS() AS count;", {
-                nest: true,
-                raw: true
-            }).then(function (data) {
-                var total = data[0].count;
+            params.count = true;
+            var query = _.template(queryTemplate)(params);
+            return global.db.sequelize.query(query, {nest: true, raw: true}).then(function (data) {
+                var total = data[0].total;
+                //works = mergeEntity(works, ['Tags', 'Categories']);
                 return {
                     currentCategory: req.params.value,
                     works: works,
@@ -152,15 +190,29 @@ global.searchWorks = function (req) {
     });
 };
 
-var mergeEntity = function (data, entity) {
+global.mergeEntity = function (data, entity) {
     var ids = [], result = [];
     _.map(data, function (d) {
         if (ids.indexOf(d.id) == -1) {
-            d[entity] = [d[entity]];
+            _.map(d, function (value, key) {
+                if (entity.indexOf(key) > -1) {
+                    console.log(d[key].id);
+                    if (d[key].id != null)
+                        d[key] = [d[key]];
+                    else
+                        d[key] = [];
+                }
+            });
             ids.push(d.id);
             result.push(d);
         } else {
-            _.findWhere(result, {id: d.id})[entity].push(d[entity]);
+            var currentData = _.findWhere(result, {id: d.id});
+            _.map(currentData, function (value, key) {
+                if (entity.indexOf(key) > -1) {
+                    if (_.findWhere(currentData[key], {id: d[key].id}) == undefined)
+                        currentData[key].push(d[key]);
+                }
+            });
         }
     });
     return result;
@@ -254,7 +306,8 @@ global.searchUsers = function (req) {
             });
         });
     });
-    /*var query = {
+    /*
+     var query = {
      where: {nameSlugify: 'omeebofef'},
      attributes: ['name', 'nameSlugify'],
      group: [
@@ -324,7 +377,8 @@ global.searchProducts = function (req) {
     req.query.hi_p = req.query.hi_p || 3000;
 
     var queryTemplate =
-        "SELECT SQL_CALC_FOUND_ROWS Products.id, Products.name, Products.nameSlugify, Products.price, " +
+        "SELECT SQL_CALC_FOUND_ROWS Products.id, Products.name, Products.nameSlugify, " +
+        "Products.photo, Products.price, " +
         "COUNT(DISTINCT WorkLikes.id) AS likes, " +
         "COUNT(DISTINCT Viewers.id) AS views, " +
         "(COUNT(DISTINCT WorkLikes.id) + COUNT(DISTINCT Viewers.id)) AS popularity, " +
@@ -398,55 +452,6 @@ global.searchProducts = function (req) {
             });
         });
     });
-    /*
-     req.query.lo_p = req.query.lo_p || 0;
-     req.query.hi_p = req.query.hi_p || 3000;
-
-     var query = {
-     where: {nameSlugify: req.params.value},
-     attributes: [],
-     order: [[global.db.Product, 'price', 'DESC']],
-     include: [
-     {
-     model: global.db.Product,
-     attributes: ['id', 'name', 'nameSlugify', 'price'],
-     where: {
-     price: {between: [req.query.lo_p, req.query.hi_p]},
-     createdAt: {
-     between: [
-     moment().startOf(req.query.time).toDate(),
-     moment().toDate()
-     ]
-     }
-     },
-     include: [
-     {model: global.db.ProductFeatured, attributes: ['id'], where: {featured: true}},
-     {
-     model: global.db.Work,
-     attributes: ['id', 'name', 'nameSlugify'],
-     include: [
-     {model: global.db.User, as: 'Likes', attributes: ['id']}
-     ]
-     },
-     {model: global.db.User, as: 'ProductViewers', attributes: ['id']}
-     ]
-     }
-     ]
-     };
-
-     return global.db.ProductType.findAll(query).then(function (products) {
-     var total = 20;
-     return {
-     currentProductType: req.params.value,
-     products: products,
-     pagination: {
-     total: total,
-     page: pagination.page,
-     limit: pagination.limit,
-     pages: Math.ceil(total / pagination.limit)
-     }
-     };
-     });*/
 };
 
 global.getPagination = function (page, limit) {
@@ -529,4 +534,149 @@ global.generateUrlWithParams = function (pagination, req) {
             .join('/');
 
     return req.protocol + '://' + req.get('host') + path + '/?' + global.encodeToQuery(req.query);
+};
+
+global.emails = {
+    verify: function (options) {
+        var params = {
+            from: 'Arte Manifiesto <contacto@artemanifiesto.com>',
+            to: options.to,
+            user: options.user,
+            url: options.url,
+            subject: 'Arte Manifiesto - Confirmación de email'
+        };
+        return email.send(params, 'verify').then();
+    },
+    forgot: function (options) {
+        var params = {
+            from: 'Arte Manifiesto <contacto@artemanifiesto.com>',
+            to: options.to,
+            user: options.user,
+            url: options.url,
+            subject: 'Arte Manifiesto - Cambio de contraseña'
+        };
+        return email.send(params, 'forgot').then();
+    }
+};
+
+global.queries = {
+    /**
+     * Get all works of a portfolio
+     * @param options(collection)
+     * @param options(offset)
+     * @param options(limit)
+     * @returns query
+     */
+    getWorksOfPortfolio: function (options, count) {
+        options.count = count;
+        var queryTemplate =
+            "SELECT " +
+            "<% if (count != undefined) { %>" +
+            "COUNT(DISTINCT Work.id) AS total " +
+            "<% } else { %>" +
+            "Work.id, Work.name, Work.nameSlugify, Work.photo, Work.public, " +
+            "CollectionWork.order " +
+            "<% } %>" +
+            "FROM Works AS Work INNER JOIN CollectionWorks AS CollectionWork " +
+            "ON Work.id = CollectionWork.WorkId AND CollectionWork.CollectionId = <%= collection %> " +
+            "<% if (count == undefined) { %> " +
+            "ORDER BY CollectionWork.order ASC " +
+            "LIMIT <%= offset %>,<%= limit %>" +
+            "<% } %>";
+        return _.template(queryTemplate)(options)
+    },
+    getProductsOfStore: function (options, count) {
+        options.count = count;
+        var queryTemplate =
+            "SELECT " +
+            "<% if (count != undefined) { %>" +
+            "COUNT(DISTINCT Work.id) AS total " +
+            "<% } else { %>" +
+            "Work.id, Work.name, Work.nameSlugify, Work.photo, Work.public, " +
+            "CollectionWork.order " +
+            "<% } %>" +
+            "FROM Works AS Work INNER JOIN CollectionWorks AS CollectionWork " +
+            "ON Work.id = CollectionWork.WorkId AND CollectionWork.CollectionId = <%= collection %> " +
+            "<% if (count == undefined) { %> " +
+            "ORDER BY CollectionWork.order ASC " +
+            "LIMIT <%= offset %>,<%= limit %>" +
+            "<% } %>";
+        return _.template(queryTemplate)(options)
+    },
+    getCollectionsProduct: function (options, count) {
+        options.count = count;
+        var queryTemplate =
+            "SELECT " +
+            "<% if (count != undefined) { %>" +
+            "COUNT(DISTINCT Collection.id) AS total " +
+            "<% } else { %>" +
+            "id, name " +
+            "<% } %>" +
+            "FROM Collections AS Collection " +
+            "WHERE (Collection.UserId = <%= user %> AND Collection.meta = 'product') " +
+            "<% if (count == undefined) { %> " +
+            "ORDER BY Collection.createdAt ASC " +
+            "LIMIT <%= offset %>,<%= limit %>" +
+            "<% } %>";
+        return _.template(queryTemplate)(options)
+    },
+    followers: function (options, count) {
+        options.count = count;
+        var queryTemplate =
+            "SELECT " +
+            "<% if (count != undefined) { %>" +
+            "COUNT(DISTINCT User.id) AS total " +
+            "<% } else { %>" +
+            "`User`.id, `User`.username, `User`.firstname, `User`.lastname, `User`.photo, `User`.country, `User`.city, " +
+            "CASE WHEN COUNT(DISTINCT CurrentUser.id) > 0 " +
+            "THEN TRUE ELSE FALSE END AS `following`, " +
+            "COUNT(DISTINCT `Followers`.id) AS `followers`, " +
+            "CASE UserFeatureds.`featured` WHEN TRUE THEN TRUE ELSE FALSE END AS `featured`, " +
+            "`Works`.`id` AS `Works.id`, `Works`.`name` AS `Works.name`, `Works`.`nameSlugify` AS `Works.nameSlugify`, " +
+            "`Works`.`photo` AS `Works.photo` " +
+            "<% } %>" +
+            "FROM (SELECT `User`.* FROM `Users` AS `User` INNER JOIN `Followers` AS `Followers` " +
+            "<% if (type == 'followers') { %>" +
+            "ON `User`.`id` = `Followers`.`FollowerId` AND `Followers`.`FollowingId` = <%= user %> " +
+            "<% } %>" +
+            "<% if (type == 'followings') { %>" +
+            "ON `User`.`id` = `Followers`.`FollowingId` AND `Followers`.`FollowerId` = <%= user %> " +
+            "<% } %>" +
+            "<% if (count == undefined) { %>" +
+            "LIMIT <%= offset %>,<%= limit %>" +
+            "<% } %>" +
+            ") AS `User` " +
+            "<% if (viewer != undefined) { %>" +
+            "LEFT OUTER JOIN (`Followers` AS `CurrentUser.Followers` INNER JOIN `Users` AS CurrentUser " +
+            "ON CurrentUser.`id` = `CurrentUser.Followers`.`FollowerId`)" +
+            "ON `User`.`id` = `CurrentUser.Followers`.`FollowingId` AND CurrentUser.`id` = <%= viewer %> " +
+            "<% } %>" +
+            "LEFT OUTER JOIN (`Followers` AS `Followers.Followers` INNER JOIN `Users` AS `Followers` " +
+            "ON `Followers`.`id` = `Followers.Followers`.`FollowerId`) " +
+            "ON `User`.`id` = `Followers.Followers`.`FollowingId` " +
+            "LEFT OUTER JOIN `Works` AS `Works` ON `User`.`id` = `Works`.`UserId` AND `Works`.`public` = TRUE " +
+            "LEFT OUTER JOIN `UserFeatureds` AS `UserFeatureds` ON `User`.`id` = `UserFeatureds`.`UserId` " +
+            "AND `UserFeatureds`.`featured` = TRUE " +
+            "<% if (count == undefined) { %>" +
+            "GROUP BY User.id , Works.id " +
+            "<% } %>";
+
+        return _.template(queryTemplate)(options)
+    },
+    getCollectionsByMeta: function (options, count) {
+        options.count = count;
+        var queryTemplate =
+            "SELECT " +
+            "<% if (count != undefined) { %>" +
+            "COUNT(DISTINCT Collection.id) AS total " +
+            "<% } else { %>" +
+            "`id`, `name` " +
+            "<% } %>" +
+            "FROM `Collections` AS `Collection` " +
+            "WHERE (`Collection`.`UserId` = <%= user %> AND `Collection`.`meta` = '<%= meta %>') " +
+            "<% if (count == undefined) { %>" +
+            "LIMIT <%= offset %>,<%= limit %>" +
+            "<% } %>";
+        return _.template(queryTemplate)(options)
+    }
 };

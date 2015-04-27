@@ -20,12 +20,12 @@ module.exports = function (sequelize, DataTypes) {
             classMethods: {
                 associate: function (models) {
                     Product.belongsToMany(models.User, {as: 'ProductViewers', through: 'ProductViewers'});
+                    Product.belongsToMany(models.Collection, {through: models.CollectionProduct});
+                    
                     Product.belongsTo(models.Work, {onDelete: 'cascade'});
+                    Product.belongsTo(models.User);
                     Product.belongsTo(models.ProductType);
-
                     Product.hasMany(models.ProductFeatured);
-
-
                 }
             },
             hooks: {
