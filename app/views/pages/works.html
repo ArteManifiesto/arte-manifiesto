@@ -87,12 +87,23 @@
 
 						<!-- if isAdmin -->
 						<div class="work__featured">
-							{% if work.featured %}
-								<span id="{{ work.id }}" class="button-featured admin unfeatured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
-								<!-- <button id="{{ work.id }}" class="unfeatured">Unfeatured</button> -->
+							{% if user %}
+								
+								<!-- is Admin -->
+								{% if work.featured %}
+									<span id="{{ work.id }}" class="button-featured admin unfeatured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
+								{% else %}
+									<span id="{{ work.id }}" class="button-featured admin disabled featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendar </span>
+								{% endif %}
+
+								<!-- else is User -->
+
 							{% else %}
-								<span id="{{ work.id }}" class="button-featured admin disabled featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendar </span>
-								<!-- <button id="{{ work.id }}" class="featured">Featured</button> -->
+
+								{% if work.featured %}
+									<span id="{{ work.id }}" class="button-featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
+								{% endif %}
+
 							{% endif %}
 						</div>
 
@@ -187,19 +198,29 @@
 			<div class="login-box__closed js-loginClosed"><i class="fa fa-times"></i></div>
 		</div>
 	</section>
-
-
 	<script type="text/template" id="work-template">
 
 		<article class="work">
 			<img src="<%= photo %>">
 
 			<div class="work__featured">
-				<% if (featured) { %>
-					<span id="<%= id %>" class="button-featured admin unfeatured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
+
+				<% if (user) { %>
+
+					<% if (featured) { %>
+						<span id="<%= id %>" class="button-featured admin unfeatured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
+					<% } else { %>
+						<span id="<%= id %>" class="button-featured admin disabled featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendar </span>
+					<% } %>
+
 				<% } else { %>
-					<span id="<%= id %>" class="button-featured admin disabled featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendar </span>
+
+					<% if (featured) { %>
+						<span id="<%= id %>" class="button-featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
+					<% } %>
+
 				<% } %>
+
 			</div>
 		</article>
 
@@ -235,16 +256,18 @@
 	<script>
         $(document).on("click", ".featured", function (event) {
             var scope = $(this);
+            // console.log('scope: ', scope)
+
             $.ajax({
                 type: "POST",
-                url: "/user/work/featured/",
+                url: "/" + user.username + "/work/featured/",
                 data: {idWork: scope.attr('id')},
                 success: function (data) {
-                    if (data.code == 202) {
-                        // scope.parent().find('.featuredlogo').show();
-                        // scope.text('<i class="fa fa-star"></i>&nbsp;Recomendado');
+                    if (data.status == 200) {
                         scope.html('<i class="fa fa-star"></i>&nbsp;Recomendado');
                         scope.removeClass('featured').addClass('unfeatured').removeClass('disabled');
+
+            						// console.log('scope: ', scope)
                     }
                     console.log(data);
                 }
@@ -255,12 +278,10 @@
             var scope = $(this);
             $.ajax({
                 type: "POST",
-                url: "/user/work/unfeatured/",
+                url: "/" + user.username + "/work/unfeatured/",
                 data: {idWork: scope.attr('id')},
                 success: function (data) {
-                    if (data.code == 202) {
-                        // scope.parent().find('.featuredlogo').hide();
-                        // scope.text('Featured');
+                    if (data.status == 200) {
                         scope.html('<i class="fa fa-star"></i>&nbsp;Recomendar');
                         scope.removeClass('unfeatured').addClass('featured').addClass('disabled');
                     }
@@ -272,42 +293,3 @@
 	</script>
 
 {% endblock %}
-
-			<!-- 
-				<a href="#" class="work">
-					<img src="/img/works/obra1.jpg">
-				</a>
-				<a href="#" class="work">
-					<img src="/img/works/obra2.jpg">
-				</a>
-				<a href="#" class="work">
-					<img src="/img/works/obra3.jpg">
-				</a>
-				<a href="#" class="work">
-					<img src="/img/works/obra4.jpg">
-				</a>
-				<a href="#" class="work">
-					<img src="/img/works/obra5.jpg">
-				</a>
-				<a href="#" class="work">
-					<img src="/img/works/obra6.jpg">
-				</a>
-				<a href="#" class="work">
-					<img src="/img/works/obra7.jpg">
-				</a>
-				<a href="#" class="work">
-					<img src="/img/works/obra8.jpg">
-				</a>
-				<a href="#" class="work">
-					<img src="/img/works/obra9.jpg">
-				</a>
-				<a href="#" class="work">
-					<img src="/img/works/obra10.jpg">
-				</a>
-				<a href="#" class="work">
-					<img src="/img/works/obra11.jpg">
-				</a>
-				<a href="#" class="work">
-					<img src="/img/works/obra12.jpg">
-				</a>
-			 -->
