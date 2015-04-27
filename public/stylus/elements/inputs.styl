@@ -89,10 +89,16 @@
 .double-range
 	// background rgba(green, .5)
 	&__slider
-		padding-bottom .25rem
+		// padding-bottom .25rem
+		font-size 1.25rem
+		padding-top 1rem
 	&__values
 		// background rgba(yellow, .5)
 		display flex
 		justify-content space-between
-	// &__value
-		// padding .5rem
+		
+
+@media (min-width: max-width)
+	.double-range
+		&__slider
+			font-size .8rem

@@ -9,7 +9,7 @@ columns = 6
 work-width = 150px
 
 .works
-	min-height 700px
+	// min-height 700px
 	padding 0 .5rem
 	overflow hidden
 	max-width max-width
@@ -19,8 +19,14 @@ work-width = 150px
 		margin 1rem .5rem
 		border 1px solid #eee
 		transition box-shadow ease-in-out 125ms
+		position relative
 		&:hover
 			box-shadow rgba(0,0,0,0.35) 0 0 10px
+		&__featured
+			position absolute
+			top 0
+			left 50%
+			transform translate(-50%, -50%)
 
 for i in (1..(columns - 1))
 	@media screen and (min-width: work-width*i+1) and (max-width: work-width*(i+1))

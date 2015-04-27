@@ -37,11 +37,29 @@
 	$ THICK-MENU
 *------------------------------------*/
 .thick-menu
-	display flex
+	// display flex
 	font-weight 600
 	letter-spacing 2px
 	font-family 'Raleway'
 	text-transform uppercase
+	white-space nowrap
+	overflow auto
+	&::-webkit-scrollbar
+		display none	
 	&__item
 		color #000
-		padding .5rem 1rem
+		padding-top .5rem
+		padding-bottom .5rem
+		display table-cell
+		&:not(:first-child)
+			padding-left 1rem
+		&:not(:last-child)
+			padding-right 1rem
+		// padding .5rem 1rem
+			
+.carousel
+	height 2rem
+	overflow hidden
+	max-width max-width
+	margin auto
+	padding 0 1rem

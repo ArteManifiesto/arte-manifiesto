@@ -1,7 +1,7 @@
-{% extends '../partial/base.html' %}
-{% set path = 'products' %}
-{% set title = 'Arte Manifiesto | Market' %}
-{% set css = 'market' %}
+{% extends '../partials/base.html' %}
+	{% set path = 'products' %}
+	{% set title = 'Arte Manifiesto | Market' %}
+	{% set css = 'market' %}
 
 {% block content %}
 
@@ -9,26 +9,14 @@
   <!-- // <script src="//code.jquery.com/jquery-1.10.2.js"></script> -->
   <!-- // <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> -->
 
-	<!-- ********************************************************************
-		$ CATEGORY MENU
-	********************************************************************* -->
-	<section class="category-menu">
-		<div class="thick-menu">
-			<a href="#" class="thick-menu__item">Womens</a>
-			<a href="#" class="thick-menu__item">Mens</a>
-			<a href="#" class="thick-menu__item">Art</a>
-			<a href="#" class="thick-menu__item">Home</a>
-			<a href="#" class="thick-menu__item">Kids</a>
-		</div>
-	</section>
+	{% include '../partials/category-menu.html' %}
 
 
 	<!-- ********************************************************************
-		$ SLOGAN
+		$ NAVIGATION
 	********************************************************************* -->
-	<section class="slogan">
-		<span class="slogan-text">Descubre Geniales Diseños en Increibles Productos</span>
-		<button class="button-solid js-signUpButton" data-size='large'>Sign Up</button>
+	<section class="navigation">
+		<span class="navigation-text">Productos</span>
 	</section>
 
 
@@ -71,30 +59,18 @@
 			</div>
 			<div class="filters">
 				<div class="filters__title">Precio</div>
-				
-					<!-- <p>
-					  <label for="amount">Price range:</label>
-					  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-					</p>
-					 
-					<div id="slider-range"></div> -->
 
 				<div class="filters__price">
 					<div class="double-range js-price">
-						<div class="double-range__slider">
-							<div id="slider-range"></div>
-						</div>
 						<div class="double-range__values">
 							<span class="double-range__value js-minPrice">0</span>
 							<span class="double-range__value js-maxPrice">140</span>
 						</div>
+						<div class="double-range__slider">
+							<div id="slider-range"></div>
+						</div>
 					</div>
 				</div>
- 
-<!-- 				<div class="filter js-order" data-value="popularity">
-				</div> -->
-<!-- 				<div class="filter js-order" data-value="views">Más visto</div>
-				<div class="filter js-order" data-value="newest">Más reciente</div> -->
 			</div>
 		</div>
 		<div class="works-container__filters right js-rightFilters">
@@ -171,52 +147,19 @@
 		</div>
 	</div>
 
-
-	<!-- ********************************************************************
-		$ MORE
-	********************************************************************* -->
-	<div class="more">
-		<button class="button-solid js-moreButton" data-size='small' data-color='red'>Ver más</button>
-	</div>
+	{% include '../partials/more.html' %}
 
 
 	<!-- ********************************************************************
 		$ SLOGAN
 	********************************************************************* -->
-	<section class="slogan">
+	<!-- <section class="slogan">
 		<span class="slogan-text">Muestra tu talento artístico!</span>
 		<button class="button-solid js-signUpButton" data-size='large'>Sign Up</button>
-	</section>
+	</section> -->
 
 
-	<!-- ********************************************************************
-		$ FOOTER
-	********************************************************************* -->
-	<div class="footer-container">
-		<footer class="footer">
-			<div class="footer__logo">
-				<a class="logo" href="#">
-					<img class="logo__small" src="/img/logo-small-white.png">
-					<img class="logo__normal" src="/img/logo-white.png">
-				</a>
-			</div>
-			<div class="footer__sections">
-				<div class="footer__section copyright">
-					<p class="skinny-text" data-size='small' data-color='light'>COPYRIGHT © 2015 - ALL RIGHTS RESERVED.</p>
-				</div>
-				<div class="footer__section links">
-					<p class="medium-text">Blog</p>
-					<p class="medium-text">Terminos</p>
-					<p class="medium-text">Condiciones</p>
-				</div>
-				<div class="footer__section social">
-					<i class="fa fa-facebook"></i>
-					<i class="fa fa-twitter"></i>
-					<i class="fa fa-google-plus"></i>
-				</div>			
-			</div>
-		</footer>
-	</div>
+	{% include '../partials/footer.html' %}
 
 
 	<!-- ********************************************************************
@@ -332,6 +275,7 @@
 
 	<script src="/js/vendor/jquery.min.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<script src="/js/vendor/jquery.ui.touch-punch.min.js"></script>
 
 	<script src="/js/vendor/salvattore.js"></script>
 	<script src="/js/vendor/underscore-min.js"></script>

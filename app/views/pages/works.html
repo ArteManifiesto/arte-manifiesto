@@ -1,16 +1,18 @@
-{% extends '../partial/base.html' %}
-{% set path = 'works' %}
-{% set title = 'Arte Manifiesto | Obras' %}
-{% set css = 'discover-works' %}
+{% extends '../partials/base.html' %}
+	{% set path = 'works' %}
+	{% set title = 'Arte Manifiesto | Obras' %}
+	{% set css = 'discover-works' %}
 
 {% block content %}
 
+	{% include '../partials/category-menu.html' %}
+
+
 	<!-- ********************************************************************
-		$ SLOGAN
+		$ NAVIGATION
 	********************************************************************* -->
-	<section class="slogan">
-		<span class="slogan-text">Descubre Geniales Diseños en Increibles Productos</span>
-		<button class="button-solid js-signUpButton" data-size='large'>Sign Up</button>
+	<section class="navigation">
+		<span class="navigation-text">Obras</span>
 	</section>
 
 
@@ -73,103 +75,47 @@
 			********************************************************************* -->
 			<section class="works" data-columns>
 				{% for work in works %}
-					<a href="#" class="work">
+					<article class="work">
 						<img src="{{work.photo}}">
-						    {% if work.featured %}
-                    <button id="{{ work.id }}" class="unfeatured">Unfeatured</button>
-                {% else %}
-                    <button id="{{ work.id }}" class="featured">Featured</button>
-                {% endif %}
-					</a>
+						
+						<!-- if isUser 
+						{% if work.featured %}
+							<div class="work__featured">
+								<span class="button-featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
+							</div>
+						{% endif %} -->
+
+						<!-- if isAdmin -->
+						<div class="work__featured">
+							{% if work.featured %}
+								<span id="{{ work.id }}" class="button-featured admin unfeatured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
+								<!-- <button id="{{ work.id }}" class="unfeatured">Unfeatured</button> -->
+							{% else %}
+								<span id="{{ work.id }}" class="button-featured admin disabled featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendar </span>
+								<!-- <button id="{{ work.id }}" class="featured">Featured</button> -->
+							{% endif %}
+						</div>
+
+					</article>
 				{% endfor %}
-			<!-- 
-				<a href="#" class="work">
-					<img src="/img/works/obra1.jpg">
-				</a>
-				<a href="#" class="work">
-					<img src="/img/works/obra2.jpg">
-				</a>
-				<a href="#" class="work">
-					<img src="/img/works/obra3.jpg">
-				</a>
-				<a href="#" class="work">
-					<img src="/img/works/obra4.jpg">
-				</a>
-				<a href="#" class="work">
-					<img src="/img/works/obra5.jpg">
-				</a>
-				<a href="#" class="work">
-					<img src="/img/works/obra6.jpg">
-				</a>
-				<a href="#" class="work">
-					<img src="/img/works/obra7.jpg">
-				</a>
-				<a href="#" class="work">
-					<img src="/img/works/obra8.jpg">
-				</a>
-				<a href="#" class="work">
-					<img src="/img/works/obra9.jpg">
-				</a>
-				<a href="#" class="work">
-					<img src="/img/works/obra10.jpg">
-				</a>
-				<a href="#" class="work">
-					<img src="/img/works/obra11.jpg">
-				</a>
-				<a href="#" class="work">
-					<img src="/img/works/obra12.jpg">
-				</a>
-			 -->
 			</section>
 		</div>
 	</div>
 
+	<div class="loading"><i class="fa fa-spinner"></i></div>
 
-	<!-- ********************************************************************
-		$ MORE
-	********************************************************************* -->
-	<div class="more">
-		<button class="button-solid js-moreButton" data-size='small' data-color='red'>Ver más</button>
-	</div>
-
+	{% include '../partials/more.html' %}
 
 	<!-- ********************************************************************
 		$ SLOGAN
 	********************************************************************* -->
-	<section class="slogan">
+	<!-- <section class="slogan">
 		<span class="slogan-text">Muestra tu talento artístico!</span>
 		<button class="button-solid js-signUpButton" data-size='large'>Sign Up</button>
-	</section>
+	</section> -->
 
 
-	<!-- ********************************************************************
-		$ FOOTER
-	********************************************************************* -->
-	<div class="footer-container">
-		<footer class="footer">
-			<div class="footer__logo">
-				<a class="logo" href="#">
-					<img class="logo__small" src="/img/logo-small-white.png">
-					<img class="logo__normal" src="/img/logo-white.png">
-				</a>
-			</div>
-			<div class="footer__sections">
-				<div class="footer__section copyright">
-					<p class="skinny-text" data-size='small' data-color='light'>COPYRIGHT © 2015 - ALL RIGHTS RESERVED.</p>
-				</div>
-				<div class="footer__section links">
-					<p class="medium-text">Blog</p>
-					<p class="medium-text">Terminos</p>
-					<p class="medium-text">Condiciones</p>
-				</div>
-				<div class="footer__section social">
-					<i class="fa fa-facebook"></i>
-					<i class="fa fa-twitter"></i>
-					<i class="fa fa-google-plus"></i>
-				</div>			
-			</div>
-		</footer>
-	</div>
+	{% include '../partials/footer.html' %}
 
 
 	<!-- ********************************************************************
@@ -243,9 +189,19 @@
 
 
 	<script type="text/template" id="work-template">
-		<a href="#" class="work">
+
+		<article class="work">
 			<img src="<%= photo %>">
-		</a>
+
+			<div class="work__featured">
+				<% if (featured) { %>
+					<span id="<%= id %>" class="button-featured admin unfeatured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
+				<% } else { %>
+					<span id="<%= id %>" class="button-featured admin disabled featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendar </span>
+				<% } %>
+			</div>
+		</article>
+
 	</script>
 
 	<script>
@@ -256,8 +212,8 @@
 		var user = {{ user|json|safe }};
 		console.log('user: ', user)
 
-		// var works = {{ works|json|safe }};
-		// // console.log('works: ', works)
+		var works = {{ works|json|safe }};
+		console.log('works: ', works)
 
 		// var categories = {{ categories|json|safe }};
 		// // console.log('categories: ', categories)
@@ -285,8 +241,9 @@
                 success: function (data) {
                     if (data.code == 202) {
                         // scope.parent().find('.featuredlogo').show();
-                        scope.text('Unfeatured');
-                        scope.removeClass('featured').addClass('unfeatured');
+                        // scope.text('<i class="fa fa-star"></i>&nbsp;Recomendado');
+                        scope.html('<i class="fa fa-star"></i>&nbsp;Recomendado');
+                        scope.removeClass('featured').addClass('unfeatured').removeClass('disabled');
                     }
                     console.log(data);
                 }
@@ -302,8 +259,9 @@
                 success: function (data) {
                     if (data.code == 202) {
                         // scope.parent().find('.featuredlogo').hide();
-                        scope.text('Featured');
-                        scope.removeClass('unfeatured').addClass('featured');
+                        // scope.text('Featured');
+                        scope.html('<i class="fa fa-star"></i>&nbsp;Recomendar');
+                        scope.removeClass('unfeatured').addClass('featured').addClass('disabled');
                     }
                     console.log(data);
                 }
@@ -313,3 +271,42 @@
 	</script>
 
 {% endblock %}
+
+			<!-- 
+				<a href="#" class="work">
+					<img src="/img/works/obra1.jpg">
+				</a>
+				<a href="#" class="work">
+					<img src="/img/works/obra2.jpg">
+				</a>
+				<a href="#" class="work">
+					<img src="/img/works/obra3.jpg">
+				</a>
+				<a href="#" class="work">
+					<img src="/img/works/obra4.jpg">
+				</a>
+				<a href="#" class="work">
+					<img src="/img/works/obra5.jpg">
+				</a>
+				<a href="#" class="work">
+					<img src="/img/works/obra6.jpg">
+				</a>
+				<a href="#" class="work">
+					<img src="/img/works/obra7.jpg">
+				</a>
+				<a href="#" class="work">
+					<img src="/img/works/obra8.jpg">
+				</a>
+				<a href="#" class="work">
+					<img src="/img/works/obra9.jpg">
+				</a>
+				<a href="#" class="work">
+					<img src="/img/works/obra10.jpg">
+				</a>
+				<a href="#" class="work">
+					<img src="/img/works/obra11.jpg">
+				</a>
+				<a href="#" class="work">
+					<img src="/img/works/obra12.jpg">
+				</a>
+			 -->

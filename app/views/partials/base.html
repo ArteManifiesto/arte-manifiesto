@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>{{title}}</title>
+	
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700|Roboto+Condensed:400,300,700|Raleway:400,100,200,300,500,700,600,800,900|Oswald:400,300,700|Hammersmith+One' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+	<!-- <link rel="stylesheet" type="text/css" href="css/index.css"> -->
+	<link rel="stylesheet" type="text/css" href="/css/{{css}}.css">
+</head>
+<body>
+
+	
+	{% include 'header.html' %}
+
+
+	{% block content %}{% endblock %}
+
+</body>
+</html>

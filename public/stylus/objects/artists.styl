@@ -17,6 +17,7 @@
 	// margin 1rem
 	border 1px solid #ddd
 	transition box-shadow ease-in-out 125ms
+	position relative
 	.artist-header
 		display flex
 		margin .5em
@@ -47,7 +48,11 @@
 		justify-content center
 	&:hover
 		box-shadow rgba(0,0,0,0.35) 0 0 10px
-		
+	&__featured
+		position absolute
+		top 0
+		left 50%
+		transform translate(-50%, -50%)
 		
 // artist-width = 200px
 artist-width = 180px

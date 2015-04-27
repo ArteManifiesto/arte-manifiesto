@@ -1,5 +1,7 @@
 
 function Artists (data) {
+
+	window.history.pushState({}, "", url)
 	
 	var prefix = data.prefix,
 			makeObject = data.makeObject;
@@ -18,6 +20,11 @@ function Artists (data) {
 			featuredButton = document.querySelector('input[name="question"]');
 			console.log('featuredButton: ', featuredButton)
 
+	var looking = false
+	var scrollMode = false
+
+	var loading = document.querySelector('.loading')
+	var moreContainer = document.querySelector('.more')
 
 	function setup () {
 
@@ -42,11 +49,28 @@ function Artists (data) {
 
 		moreButton.addEventListener('click', function () {
 			more()
+			moreContainer.classList.add('hide')
+			scrollMode = true
 		})
+
+		window.onscroll = function(ev) {
+			console.log('onscroll!')
+			if(looking) return
+			if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+				console.log('bottom!')
+				if(scrollMode) more()
+			}
+		}
+
 	}
 
 	function more () {
+		console.log('more')
+		if(pagination.page == pagination.pages) return
+
 		url = url.replace('page-' + pagination.page, 'page-' + ++pagination.page)
+		console.log('url: ', url)
+		
 		getData(true)
 	}
 	
@@ -63,7 +87,7 @@ function Artists (data) {
 				url = url.replace("&featured=", "")
 		}
 		// console.log(url)
-		
+		url = url.replace('page-' + pagination.page, 'page-1')
 		getData(false)
 	}
 
@@ -111,6 +135,13 @@ function Artists (data) {
 	function render (artists) {
 		removeEntities('artist-wrapper')
 		add(artists)
+
+		if(pagination.page < pagination.pages){
+			moreContainer.classList.remove('hide')
+			scrollMode = false
+		} else {
+			moreContainer.classList.add('hide')
+		}
 	}
 
 	function add (artists) {
@@ -127,12 +158,23 @@ function Artists (data) {
 	function getData(isAdd){
 		// url = url.replace('users' , 'search/users')
 		url = url.replace(prefix , 'search/' + prefix)
-		console.log('url: ', url)
 
+		looking = true
+		loading.style.display = 'block'
+		
+		console.log('url: ', url)
 		$.post( url, {idUser: idUser}, function( data ) {
 			console.log('data: ', data)
 
+			loading.style.display = 'none'
+
+			looking = false
+
 			url = data.url
+
+			// console.log('data.pagination: ', data.pagination)
+			pagination = data.pagination
+
 			if(isAdd) add(data.users)
 			else {
 				window.history.pushState({}, "", url)

@@ -1,32 +1,17 @@
-{% extends 'partial/base.html' %}
-{% set path = 'index' %}
-{% set title = 'Arte Manifiesto' %}
-{% set css = 'index' %}
+{% extends 'partials/base.html' %}
+
+	{% set path = 'index' %}
+	{% set title = 'Arte Manifiesto' %}
+	{% set css = 'index' %}
+
+	{% set moreLink = '/works/category/all/page-1/?order=popularity&featured' %}
+	
 
 {% block content %}
 
-	<!-- ********************************************************************
-		$ CATEGORY MENU
-	********************************************************************* -->
-	<section class="category-menu">
-		<div class="thick-menu">
-			<a href="#" class="thick-menu__item">Womens</a>
-			<a href="#" class="thick-menu__item">Mens</a>
-			<a href="#" class="thick-menu__item">Art</a>
-			<a href="#" class="thick-menu__item">Home</a>
-			<a href="#" class="thick-menu__item">Kids</a>
-		</div>
-	</section>
+	{% include 'partials/category-menu.html' %}
 
-
-	<!-- ********************************************************************
-		$ SLOGAN
-	********************************************************************* -->
-	<section class="slogan">
-		<span class="slogan-text">Descubre Geniales Diseños en Increibles Productos</span>
-		<button class="button-solid js-signUpButton" data-size='large'>Sign Up</button>
-		<!-- <button class="button-solid js-signUpButton" data-size='large'>Regístrate</button> -->
-	</section>
+	{% include 'partials/slogan.html' %}
 
 
 	<!-- ********************************************************************
@@ -74,7 +59,7 @@
 	<!-- ********************************************************************
 		$ WORKS
 	********************************************************************* -->
-	<section class="works" data-columns>
+	<!-- <section class="works" data-columns>
 		<a href="#" class="work">
 			<img src="img/works/obra1.jpg">
 		</a>
@@ -111,56 +96,28 @@
 		<a href="#" class="work">
 			<img src="img/works/obra12.jpg">
 		</a>
+	</section> -->
+
+	<section class="works" data-columns>
+		{% for work in workFeatureds %}
+			<article class="work">
+				<img src="{{work.photo}}">
+			</article>
+		{% endfor %}
 	</section>
 
-
-	<!-- ********************************************************************
-		$ MORE
-	********************************************************************* -->
-	<div class="more">
-		<button class="button-solid js-moreButton" data-size='small' data-color='red'>Ver más</button>
-		<!-- <button class="button-solid js-moreButton" data-color='red'>Ver más</button> -->
-	</div>
-
+	{% include 'partials/more.html' %}
 
 	<!-- ********************************************************************
 		$ SLOGAN
 	********************************************************************* -->
-	<section class="slogan">
+	<!-- <section class="slogan">
 		<span class="slogan-text">Muestra tu talento artístico!</span>
 		<button class="button-solid js-signUpButton" data-size='large'>Sign Up</button>
-		<!-- <button class="button-solid js-signUpButton" data-size='large'>Regístrate</button> -->
-	</section>
+	</section> -->
 
 
-	<!-- ********************************************************************
-		$ FOOTER
-	********************************************************************* -->
-	<div class="footer-container">
-		<footer class="footer">
-			<div class="footer__logo">
-				<a class="logo" href="#">
-					<img class="logo__small" src="/img/logo-small-white.png">
-					<img class="logo__normal" src="/img/logo-white.png">
-				</a>
-			</div>
-			<div class="footer__sections">
-				<div class="footer__section copyright">
-					<p class="skinny-text" data-size='small' data-color='light'>COPYRIGHT © 2015 - ALL RIGHTS RESERVED.</p>
-				</div>
-				<div class="footer__section links">
-					<p class="medium-text">Blog</p>
-					<p class="medium-text">Terminos</p>
-					<p class="medium-text">Condiciones</p>
-				</div>
-				<div class="footer__section social">
-					<i class="fa fa-facebook"></i>
-					<i class="fa fa-twitter"></i>
-					<i class="fa fa-google-plus"></i>
-				</div>			
-			</div>
-		</footer>
-	</div>
+	{% include 'partials/footer.html' %}
 
 
 	<!-- ********************************************************************
@@ -235,5 +192,11 @@
 
 	<script src="js/lib/login.js"></script>
 	<script src="js/lib/slider.js"></script>
+
+	<script>
+		var workFeatureds = {{ workFeatureds|json|safe }}
+		console.log('workFeatureds: ', workFeatureds)
+
+	</script>
 
 {% endblock %}
