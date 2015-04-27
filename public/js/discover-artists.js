@@ -16,4 +16,4 @@ function makeArtistObject(el, model) {
 var artistEls = document.querySelectorAll('.artist')
 
 for (var i = 0; i < artistEls.length; i++)
-	makeArtistObject(artistEls[i], users[i])
+	makeArtistObject(artistEls[i], artists[i])

@@ -3,5 +3,7 @@
 	********************************************************************* -->
 	<section class="slogan">
 		<span class="slogan-text">Geniales Obras de Arte en Increibles Productos</span>
-		<button class="button-solid js-signUpButton" data-size='large'>Sign Up</button>
+		{% if !user %}
+			<button class="button-solid js-signUpButton" data-size='large'>Sign Up</button>
+		{% endif %}
 	</section>
