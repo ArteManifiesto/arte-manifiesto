@@ -143,8 +143,7 @@ exports.followings = function (req, res) {
 //TODO make middlewate for check if user exists
 exports.follow = function (req, res) {
     global.db.User.find(req.body.idUser).then(function (user) {
-        user.follow(user).then(function (followers) {
-            console.log(followers);
+        user.follow(req.user).then(function (followers) {
             return res.ok(followers, 'User followed');
         });
     });
@@ -152,10 +151,8 @@ exports.follow = function (req, res) {
 
 exports.unfollow = function (req, res) {
     global.db.User.find(req.body.idUser).then(function (user) {
-        user.removeFollower(req.user).then(function () {
-            user.getFollowers().then(function (followers) {
-                return res.json(followers);
-            });
+        user.unFollow(req.user).then(function (followers) {
+            return res.ok(followers, 'User unFollowed');
         });
     });
 };

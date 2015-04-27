@@ -725,7 +725,7 @@ global.getTotalFollowers = function (options) {
         "AND `Followers`.`FollowingId` = <%= user %>;";
     var query = _.template(queryTemplate)(options);
     return global.db.sequelize.query(query, {nest: true, raw: true}).then(function (data) {
-        return data[0].total;
+        return data[0];
     });
 };
 

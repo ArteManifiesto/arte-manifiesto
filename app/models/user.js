@@ -98,12 +98,16 @@ module.exports = function (sequelize, DataTypes) {
                 follow: function (user) {
                     var scope = this;
                     return this.addFollower(user).then(function () {
-                        console.log("user id : ", scope.id);
                         return global.getTotalFollowers({user: scope.id});
                     });
-
                 },
-
+                unFollow: function (user) {
+                    var scope = this;
+                    return this.removeFollower(user).then(function () {
+                        console.log(this.id, scope.id);
+                        return global.getTotalFollowers({user: scope.id});
+                    });
+                },
                 featured: function () {
                     var scope = this;
                     return global.db.UserFeatured.create().then(function (userFeatured) {
