@@ -96,10 +96,10 @@ global.db.sequelize.sync({force: dev}).then(function () {
                     country: chance.country({full: true}),
                     school: chance.name(),
                     birthday: chance.birthday(),
-                    biography: chance.paragraph({sentences: 2})
+                    biography: chance.paragraph({sentences: 2}),
+                    isAdmin: i == 0
                 }));
             }
-
             global.db.Sequelize.Promise.all(promises).then(function () {
             });
         });

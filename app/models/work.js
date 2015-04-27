@@ -36,10 +36,16 @@ module.exports = function (sequelize, DataTypes) {
             },
             instanceMethods: {
                 like: function (user) {
-                    return user.addLike(work);
+                    var scope = this;
+                    return user.addLike(this).then(function () {
+                        return global.getLikesOfWork({work: scope.id});
+                    });
                 },
                 unLike: function (user) {
-                    return user.removeLike(work);
+                    var scope = this;
+                    return user.removeLike(this).then(function () {
+                        return global.getLikesOfWork({work: scope.id});
+                    });
                 },
                 featured: function () {
                     var scope = this;
@@ -57,19 +63,12 @@ module.exports = function (sequelize, DataTypes) {
                         var workFeatured = workFeatureds[0];
                         return workFeatured.updateAttributes({featured: false});
                     });
-                },
-                followers: function () {
-
-                },
-                followings: function () {
-
                 }
             },
             hooks: {
                 afterCreate: function (work, options) {
                     var promises = [];
                     for (var i = 0; i < 2; i++) {
-
                         promises.push(global.db.Product.create({
                             name: chance.name(),
                             price: _.random(0, 1000),

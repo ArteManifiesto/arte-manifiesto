@@ -40,7 +40,8 @@ module.exports = function (sequelize, DataTypes) {
             verified: {type: DataTypes.BOOLEAN, defaultValue: false},
             tokenVerifyEmail: DataTypes.STRING,
             tokenResetPassword: DataTypes.STRING,
-            tokenResetPasswordExpires: DataTypes.DATE
+            tokenResetPasswordExpires: DataTypes.DATE,
+            isAdmin: {type: DataTypes.BOOLEAN, defaultValue: false}
         },
         {
             classMethods: {
@@ -94,18 +95,16 @@ module.exports = function (sequelize, DataTypes) {
                     this.tokenResetPasswordExpires = moment().add(1, 'hour');
                     return this.save();
                 },
-
                 follow: function (user) {
                     var scope = this;
                     return this.addFollower(user).then(function () {
-                        return global.getTotalFollowers({user: scope.id});
+                        return global.getFollowersOfUser({user: scope.id});
                     });
                 },
                 unFollow: function (user) {
                     var scope = this;
                     return this.removeFollower(user).then(function () {
-                        console.log(this.id, scope.id);
-                        return global.getTotalFollowers({user: scope.id});
+                        return global.getFollowersOfUser({user: scope.id});
                     });
                 },
                 featured: function () {

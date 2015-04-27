@@ -717,15 +717,27 @@ global.queries = {
 };
 
 
-global.getTotalFollowers = function (options) {
+global.getFollowersOfUser = function (options) {
     var queryTemplate =
         "SELECT COUNT(DISTINCT `User`.`id`) AS `followers` " +
         "FROM `Users` AS `User` INNER JOIN `Followers` AS `Followers` " +
         "ON `User`.`id` = `Followers`.`FollowerId` " +
         "AND `Followers`.`FollowingId` = <%= user %>;";
+    return getCount(queryTemplate , options);
+};
+
+global.getLikesOfWork = function (options) {
+    var queryTemplate =
+        "SELECT COUNT(DISTINCT `User`.`id`) AS `likes` " +
+        "FROM `Users` AS `User` INNER JOIN `Likes` AS `Likes` " +
+        "ON `User`.`id` = `Likes`.`UserId` " +
+        "AND `Likes`.`WorkId` = <%= work %>;";
+    return getCount(queryTemplate , options);
+};
+
+global.getCount = function (queryTemplate, options) {
     var query = _.template(queryTemplate)(options);
     return global.db.sequelize.query(query, {nest: true, raw: true}).then(function (data) {
         return data[0];
     });
 };
-

@@ -137,7 +137,6 @@ exports.workUpdate = function (req, res) {
                     })
                 }
             });
-
         } else {
             return res.json({
                 code: 203,
@@ -145,8 +144,6 @@ exports.workUpdate = function (req, res) {
             })
         }
     });
-
-
     var workPayload = {
         name: chance.name(),
         photo: 'http://i.imgur.com/QPACTzF.png',
@@ -157,15 +154,17 @@ exports.workUpdate = function (req, res) {
 exports.like = function (req, res) {
     global.db.Work.find(req.body.idWork).then(function (work) {
         req.user.addLike(work).then(function () {
-            return res.ok('Work liked');
+            work.like(req.user).then(function (likes) {
+                return res.ok(likes, 'User unLiked');
+            });
         });
     })
 };
 
 exports.unlike = function (req, res) {
     global.db.Work.find(req.body.idWork).then(function (work) {
-        req.user.removeLike(work).then(function () {
-            return res.ok('Work unLiked');
+        work.unLike(req.user).then(function (likes) {
+            return res.ok(likes, 'User unLiked');
         });
     });
 };
