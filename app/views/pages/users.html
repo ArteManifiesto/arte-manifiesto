@@ -265,6 +265,23 @@
 					<% } else { %>
 						<span id="<%= id %>" class="button-featured admin disabled featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendar </span>
 					<% } %>
+
+				<% if (user) { %>
+					
+					<% if (featured) { %>
+						<span id="<%= id %>" class="button-featured admin unfeatured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
+					<% } else { %>
+						<span id="<%= id %>" class="button-featured admin disabled featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendar </span>
+					<% } %>
+
+				<% } else { %>
+
+					<% if (featured) { %>
+						<span id="<%= id %>" class="button-featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
+					<% } %>
+
+				<% } %>
+
 				</div>
 			</article>
 		</div>
