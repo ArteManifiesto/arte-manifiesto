@@ -723,7 +723,7 @@ global.getFollowersOfUser = function (options) {
         "FROM `Users` AS `User` INNER JOIN `Followers` AS `Followers` " +
         "ON `User`.`id` = `Followers`.`FollowerId` " +
         "AND `Followers`.`FollowingId` = <%= user %>;";
-    return getCount(queryTemplate , options);
+    return getCount(queryTemplate, options);
 };
 
 global.getLikesOfWork = function (options) {
@@ -732,7 +732,7 @@ global.getLikesOfWork = function (options) {
         "FROM `Users` AS `User` INNER JOIN `Likes` AS `Likes` " +
         "ON `User`.`id` = `Likes`.`UserId` " +
         "AND `Likes`.`WorkId` = <%= work %>;";
-    return getCount(queryTemplate , options);
+    return getCount(queryTemplate, options);
 };
 
 global.getCount = function (queryTemplate, options) {

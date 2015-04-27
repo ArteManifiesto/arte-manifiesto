@@ -8,28 +8,25 @@ var request = require('request');
 var cloudinary = require('cloudinary').v2;
 
 exports.index = function (req, res) {
-    return res.render('index');
     /*
      var mandrill = require('mandrill-api/mandrill');
      var mandrill_client = new mandrill.Mandrill('YOUR_API_KEY');
      */
-    /*
-     var getWorkFeaturedQuery = {
-     where: {featured: true},
-     attributes: [],
-     include: [{
-     model: global.db.Work,
-     attributes: ['name', 'photo']
-     }]
-     };
+    var getWorkFeaturedQuery = {
+        where: {featured: true},
+        attributes: [],
+        include: [{
+            model: global.db.Work,
+            attributes: ['name', 'photo']
+        }]
+    };
 
-     global.db.WorkFeatured.findAll(getWorkFeaturedQuery).then(function (workFeatureds) {
-     workFeatureds = _.pluck(workFeatureds, 'Work');
-     return res.render('index', {
-     workFeatureds: workFeatureds
-     })
-     });
-     */
+    global.db.WorkFeatured.findAll(getWorkFeaturedQuery).then(function (workFeatureds) {
+        workFeatureds = _.pluck(workFeatureds, 'Work');
+        return res.render('index', {
+            workFeatureds: workFeatureds
+        })
+    });
 };
 
 exports.search = function (req, res) {
