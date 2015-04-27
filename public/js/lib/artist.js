@@ -13,6 +13,11 @@
 
 	function setup() {
 		buttonFollow.addEventListener('click', function () {
+			if (!user) {
+				console.log('falta usuario')
+				location.href = '/auth/login'
+				return
+			}
 			if (!following) follow()
 			else unFollow()
 		})
