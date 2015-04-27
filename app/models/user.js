@@ -94,6 +94,16 @@ module.exports = function (sequelize, DataTypes) {
                     this.tokenResetPasswordExpires = moment().add(1, 'hour');
                     return this.save();
                 },
+
+                follow: function (user) {
+                    var scope = this;
+                    return this.addFollower(user).then(function () {
+                        console.log("user id : ", scope.id);
+                        return global.getTotalFollowers({user: scope.id});
+                    });
+
+                },
+
                 featured: function () {
                     var scope = this;
                     return global.db.UserFeatured.create().then(function (userFeatured) {

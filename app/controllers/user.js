@@ -76,9 +76,22 @@ exports.portfolio = function (req, res) {
 };
 
 exports.likes = function (req, res) {
-    req.profile.getLikes({offset: 1, limit: 2, where: {public: true}}).then(function (likes) {
-        return res.json(likes);
+    var options = {viewer: req.viewer, user: req.profile.id, page: req.params.page, limit: 2};
+    getPaginationData('getLikes', options).then(function (data) {
+        return res.json(data);
     });
+
+    /*var query = {
+     limit: 2,
+     where: {public: true},
+     include: [
+     {model: global.db.User, as: 'Likes'},
+     {model: global.db.User}
+     ]
+     };
+     req.profile.getLikes(query).then(function (likes) {
+     return res.json(likes);
+     });*/
 };
 
 
@@ -130,8 +143,9 @@ exports.followings = function (req, res) {
 //TODO make middlewate for check if user exists
 exports.follow = function (req, res) {
     global.db.User.find(req.body.idUser).then(function (user) {
-        user.addFollower(req.user).then(function () {
-            return res.ok('User follow');
+        user.follow(user).then(function (followers) {
+            console.log(followers);
+            return res.ok(followers, 'User followed');
         });
     });
 };
@@ -139,7 +153,25 @@ exports.follow = function (req, res) {
 exports.unfollow = function (req, res) {
     global.db.User.find(req.body.idUser).then(function (user) {
         user.removeFollower(req.user).then(function () {
-            return res.ok('User unFollow');
+            user.getFollowers().then(function (followers) {
+                return res.json(followers);
+            });
+        });
+    });
+};
+
+exports.featured = function (req, res) {
+    global.db.User.find(req.body.idUser).then(function (user) {
+        user.featured().then(function () {
+            return res.ok('User featured');
+        });
+    });
+};
+
+exports.unfeatured = function (req, res) {
+    global.db.User.find(req.body.idUser).then(function (user) {
+        user.unFeatured().then(function () {
+            return res.ok('User unFeatured');
         });
     });
 };

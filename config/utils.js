@@ -587,6 +587,38 @@ global.queries = {
     },
     getLikes: function (options, count) {
         options.count = count;
+        var queryTemplate =
+            "SELECT " +
+            "<% if (count != undefined) { %>" +
+            "COUNT(DISTINCT Work.id) AS total " +
+            "<% } else { %>" +
+            "`Work`.`id`, `Work`.`name`, `Work`.`nameSlugify`, `Work`.`photo`, " +
+            "`User`.id AS `User.id`, `User`.username AS `User.username`, " +
+            "`User`.firstname AS `User.firstname`, `User`.lastname AS `User.lastname`, " +
+            "`User`.photo AS `User.photo`, `User`.country AS `User.country`, " +
+            "`User`.city AS `User.city`, " +
+            "COUNT(DISTINCT `Likes`.id) AS `likes`, " +
+            "CASE WHEN COUNT(DISTINCT CurrentUser.id) > 0 THEN TRUE ELSE FALSE END AS `liked` " +
+            "<% } %>" +
+            "FROM (SELECT `Work`.* FROM `Works` AS `Work` INNER JOIN `Likes` AS `Likes` " +
+            "ON `Work`.`id` = `Likes`.`WorkId` AND `Likes`.`UserId` = <%= user %> " +
+            "WHERE (`Work`.`public` = TRUE) " +
+            "<% if (count == undefined) { %>" +
+            "LIMIT <%= offset %>,<%= limit %>" +
+            "<% } %>" +
+            ") AS `Work` " +
+            "LEFT OUTER JOIN (`Likes` AS `Likes.Likes` INNER JOIN `Users` AS `Likes` " +
+            "ON `Likes`.`id` = `Likes.Likes`.`UserId`) " +
+            "ON `Work`.`id` = `Likes.Likes`.`WorkId` " +
+            "LEFT OUTER JOIN (`Likes` AS `CurrentUser.Likes` INNER JOIN `Users` AS CurrentUser " +
+            "ON CurrentUser.`id` = `CurrentUser.Likes`.`UserId`) " +
+            "ON `Work`.`id` = `CurrentUser.Likes`.`WorkId` AND CurrentUser.`id` = <%= viewer %> " +
+            "LEFT OUTER JOIN `Users` AS `User` ON `Work`.`UserId` = `User`.`id` " +
+            "<% if (count == undefined) { %>" +
+            "GROUP BY WORK.id;" +
+            "<% } %>";
+
+        return _.template(queryTemplate)(options)
     },
     getProductsOfStore: function (options, count) {
         options.count = count;
@@ -683,3 +715,17 @@ global.queries = {
         return _.template(queryTemplate)(options)
     }
 };
+
+
+global.getTotalFollowers = function (options) {
+    var queryTemplate =
+        "SELECT COUNT(DISTINCT `User`.`id`) AS `followers` " +
+        "FROM `Users` AS `User` INNER JOIN `Followers` AS `Followers` " +
+        "ON `User`.`id` = `Followers`.`FollowerId` " +
+        "AND `Followers`.`FollowingId` = <%= user %>;";
+    var query = _.template(queryTemplate)(options);
+    return global.db.sequelize.query(query, {nest: true, raw: true}).then(function (data) {
+        return data[0].total;
+    });
+};
+

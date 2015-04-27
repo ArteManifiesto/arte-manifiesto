@@ -38,6 +38,9 @@ router.use('/work', workRouter);
 router.post('/follow', controller.follow);
 router.post('/unfollow', controller.unfollow);
 
+router.post('/featured', controller.featured);
+router.post('/unfeatured', controller.unfeatured);
+
 router.post('/:page', controller.portfolio);
 router.post('/likes/:page', controller.likes);
 router.post('/products/:page', controller.products);

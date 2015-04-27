@@ -156,7 +156,7 @@ exports.workUpdate = function (req, res) {
 
 exports.like = function (req, res) {
     global.db.Work.find(req.body.idWork).then(function (work) {
-        work.like().then(function () {
+        req.user.addLike(work).then(function () {
             return res.ok('Work liked');
         });
     })
@@ -164,7 +164,7 @@ exports.like = function (req, res) {
 
 exports.unlike = function (req, res) {
     global.db.Work.find(req.body.idWork).then(function (work) {
-        work.unLiked(req.user).then(function () {
+        req.user.removeLike(work).then(function () {
             return res.ok('Work unLiked');
         });
     });
@@ -180,9 +180,8 @@ exports.featured = function (req, res) {
 
 exports.unFeatured = function (req, res) {
     global.db.Work.find(req.body.idWork).then(function (work) {
-        work.featured().then(function () {
+        work.unFeatured().then(function () {
             return res.ok('Work unFeatured');
         });
     });
 };
-
