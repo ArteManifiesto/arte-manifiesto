@@ -11,7 +11,10 @@
 
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
-	<!-- <link rel="stylesheet" type="text/css" href="css/index.css"> -->
+	{% if includeJqueryUiCss == true %}
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	{% endif %}
+
 	<link rel="stylesheet" type="text/css" href="/css/{{css}}.css">
 </head>
 <body>

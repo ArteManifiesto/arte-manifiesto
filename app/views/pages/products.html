@@ -2,12 +2,9 @@
 	{% set path = 'products' %}
 	{% set title = 'Arte Manifiesto | Market' %}
 	{% set css = 'market' %}
+	{% set includeJqueryUiCss = true %}
 
 {% block content %}
-
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <!-- // <script src="//code.jquery.com/jquery-1.10.2.js"></script> -->
-  <!-- // <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> -->
 
 	{% include '../partials/category-menu.html' %}
 
@@ -92,27 +89,6 @@
 			<!-- ********************************************************************
 				$ PRODUCTS
 			********************************************************************* -->
-			<!-- <section class="products" data-columns>
-				{% for product in products %}
-					<article class="product">
-						<div class="product-image">
-							<img src="/img/products/product1.jpg">
-						</div>
-						<div class="product-info">
-							<div class="title">{{product.name}}</div>
-							<div class="price">${{product.price}}</div>
-						</div>
-						<div class="product-social">
-							<div class="like">
-								<span class="button-like"> <i class="fa fa-heart-o"></i> <span>{{product.likes}}</span> </span>
-							</div>
-							<div class="wish-list">
-								<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
-							</div>
-						</div>
-					</article>
-				{% endfor %}
-			</section> -->
 			<section class="products">
 				{% for product in products %}
 				<div class="product-wrapper">					
@@ -132,22 +108,28 @@
 								<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
 							</div>
 						</div>
+
+						<div class="product__featured">
+							{% if product.featured %}
+								<span id="{{ product.id }}" class="button-featured admin unfeatured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
+							{% else %}
+								<span id="{{ product.id }}" class="button-featured admin disabled featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendar </span>
+							{% endif %}
+						</div>
+
 					</article>
-
-				{% if product.featured %}
-					<button id="{{ product.id }}" class="unfeatured">Unfeatured</button>
-				{% else %}
-					<button id="{{ product.id }}" class="featured">Featured</button>
-				{% endif %}
-
 				</div>
 				{% endfor %}
 			</section>
 
+
+			<div class="loading"><i class="fa fa-spinner"></i></div>
+			
+			{% include '../partials/more.html' %}
+
 		</div>
 	</div>
 
-	{% include '../partials/more.html' %}
 
 
 	<!-- ********************************************************************
@@ -233,7 +215,8 @@
 
 
 	<script type="text/template" id="product-template">
-		<div class="product-wrapper">
+
+		<div class="product-wrapper">					
 			<article class="product">
 				<div class="product-image">
 					<img src="/img/products/product1.jpg">
@@ -244,12 +227,21 @@
 				</div>
 				<div class="product-social">
 					<div class="like">
-						<span class="button-like"> <i class="fa fa-heart-o"></i> <span><%= likes %></span> </span>
+						<span class="button-like"> <i class="fa fa-heart-o"></i> <span>{{product.likes}}</span> </span>
 					</div>
 					<div class="wish-list">
 						<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
 					</div>
 				</div>
+
+				<div class="product__featured">
+					<% if (featured) { %>
+						<span id="<%= id %>" class="button-featured admin unfeatured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
+					<% } else { %>
+						<span id="<%= id %>" class="button-featured admin disabled featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendar </span>
+					<% } %>
+				</div>
+
 			</article>
 		</div>
 	</script>
@@ -298,8 +290,10 @@
                 success: function (data) {
                     if (data.code == 202) {
                         // scope.parent().find('.featuredlogo').show();
-                        scope.text('Unfeatured');
-                        scope.removeClass('featured').addClass('unfeatured');
+                        // scope.text('Unfeatured');
+                        // scope.removeClass('featured').addClass('unfeatured');
+												scope.html('<i class="fa fa-star"></i>&nbsp;Recomendado');
+												scope.removeClass('featured').addClass('unfeatured').removeClass('disabled');
                     }
                     console.log(data);
                 }
@@ -315,8 +309,10 @@
                 success: function (data) {
                     if (data.code == 202) {
                         // scope.parent().find('.featuredlogo').hide();
-                        scope.text('Featured');
-                        scope.removeClass('unfeatured').addClass('featured');
+                        // scope.text('Featured');
+                        // scope.removeClass('unfeatured').addClass('featured');
+												scope.html('<i class="fa fa-star"></i>&nbsp;Recomendar');
+												scope.removeClass('unfeatured').addClass('featured').addClass('disabled');
                     }
                     console.log(data);
                 }

@@ -22,6 +22,12 @@ function Products (data) {
 			featuredButton = document.querySelector('input[name="question"]');
 			console.log('featuredButton: ', featuredButton)
 
+	var looking = false
+	var scrollMode = false
+
+	var loading = document.querySelector('.loading')
+	var moreContainer = document.querySelector('.more')
+
 	function setup () {
 
 		featuredButton.addEventListener('change', function () {
@@ -47,10 +53,24 @@ function Products (data) {
 
 		moreButton.addEventListener('click', function () {
 			more()
+			moreContainer.classList.add('hide')
+			scrollMode = true
 		})
+
+		window.onscroll = function(ev) {
+			console.log('onscroll!')
+			if(looking) return
+			if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+				console.log('bottom!')
+				if(scrollMode) more()
+			}
+		}
 	}
 
 	function more () {
+		
+		if(pagination.page == pagination.pages) return
+
 		url = url.replace('page-' + pagination.page, 'page-' + ++pagination.page)
 		getData(true)
 	}
@@ -60,10 +80,22 @@ function Products (data) {
 		var featured = getUrlParameter('featured')
     console.log('featured: ', featured)
 		
-		url = url.replace(featured, featuredValue)
-		console.log(url)
+		if(featured == undefined) {
+			url = url + '&featured'
+		} else {
+			// console.log('holi!')
+			if(!featuredValue)
+				url = url.replace("&featured=", "")
+		}
+		// console.log(url)
 		url = url.replace('page-' + pagination.page, 'page-1')
-		console.log(url)
+		getData(false)
+
+
+		// url = url.replace(featured, featuredValue)
+		// console.log(url)
+		// url = url.replace('page-' + pagination.page, 'page-1')
+		// console.log(url)
 
 		// getData(false)
 	}
@@ -122,6 +154,13 @@ function Products (data) {
 		for (var i = 0; i < currentProducts.length; i++)
 			currentProducts[i].remove()
 		add(products)
+
+		if(pagination.page < pagination.pages){
+			moreContainer.classList.remove('hide')
+			scrollMode = false
+		} else {
+			moreContainer.classList.add('hide')
+		}
 	}
 
 	function add (products) {
@@ -136,18 +175,36 @@ function Products (data) {
 
 	function getData(isAdd){
 		url = url.replace('products' , 'search/products')
-		console.log('url: ', url)
-		console.log('idUser: ', idUser)
+		// console.log('idUser: ', idUser)
 
+		looking = true
+		loading.style.display = 'block'
+		
+		console.log('url: ', url)
 		$.post( url, {idUser: idUser}, function( data ) {
 			console.log('data: ', data)
 
+			loading.style.display = 'none'
+
+			looking = false
+
 			url = data.url
+
+			// console.log('data.pagination: ', data.pagination)
+			pagination = data.pagination
+
 			if(isAdd) add(data.products)
 			else {
 				window.history.pushState({}, "", url)
 				render(data.products)
 			}
+
+			// url = data.url
+			// if(isAdd) add(data.products)
+			// else {
+			// 	window.history.pushState({}, "", url)
+			// 	render(data.products)
+			// }
 		})
 	}
 	

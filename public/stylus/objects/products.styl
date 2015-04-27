@@ -22,6 +22,7 @@
 	// border-radius 0 0 4px 4px
 	// box-shadow rgba(0,0,0,0.15) 0 1px 5px
 	border 1px solid #ddd
+	position relative
 	.product-info
 		border-bottom: 1px dashed #e6e8ec
 		padding .5em 1em
@@ -41,7 +42,11 @@
 		padding .5em 1em
 		display flex
 		justify-content space-between
-
+	&__featured
+		position absolute
+		top 0
+		left 50%
+		transform translate(-50%, -50%)
 
 // product-width = 200px
 product-width = 180px

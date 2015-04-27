@@ -593,7 +593,7 @@ html {
   transform: translate(0%, 0);
 }
 .works-container__works {
-  min-height: 700px;
+  min-height: 500px;
 }
 @media (min-width: 1100px) {
   .works-container__works.moveLeft {
