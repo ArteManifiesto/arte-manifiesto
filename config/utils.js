@@ -585,6 +585,9 @@ global.queries = {
             "<% } %>";
         return _.template(queryTemplate)(options)
     },
+    getLikes: function (options, count) {
+        options.count = count;
+    },
     getProductsOfStore: function (options, count) {
         options.count = count;
         var queryTemplate =

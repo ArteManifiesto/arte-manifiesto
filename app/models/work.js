@@ -57,6 +57,12 @@ module.exports = function (sequelize, DataTypes) {
                         var workFeatured = workFeatureds[0];
                         return workFeatured.updateAttributes({featured: false});
                     });
+                },
+                followers: function () {
+
+                },
+                followings: function () {
+
                 }
             },
             hooks: {
