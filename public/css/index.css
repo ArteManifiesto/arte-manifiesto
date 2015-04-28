@@ -407,6 +407,27 @@ html {
   left: 0.75em;
   color: #808080;
 }
+.search-options {
+  display: none;
+  font-family: 'Raleway';
+  border-left: solid 1px #ddd;
+  border-right: solid 1px #ddd;
+  border-bottom: solid 1px #ddd;
+  color: #333;
+}
+.search-options .search-option {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+.search-options .search-option .search-text {
+  font-weight: 600;
+}
+.search-options .search-option:not(:last-child) {
+  border-bottom: solid 1px #ddd;
+}
+.search-options .search-option:hover {
+  background: #ededed;
+}
 .double-range__slider {
   font-size: 1.25rem;
   padding-top: 1rem;

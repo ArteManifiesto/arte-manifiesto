@@ -20,13 +20,56 @@ function Works () {
 			featuredButton = document.querySelector('input[name="question"]');
 			console.log('featuredButton: ', featuredButton)
 
+	var searcher = document.querySelector('.js-searcher')
+	var searchOptions = document.querySelector('.js-search-options')
+	var optionsEl = searchOptions.querySelectorAll('.search-text')
 	var looking = false
 	var scrollMode = false
 
 	var loading = document.querySelector('.loading')
 	var moreContainer = document.querySelector('.more')
 
+	var text = null
+
 	function setup () {
+
+		searcher.addEventListener('keypress', function (e) {
+			var keyCode = e.keyCode || e.which;
+			if (keyCode == '13'){
+				changeTag(text)
+			}
+		})
+
+		searcher.addEventListener('focusin', function () {
+			console.log('focusin')
+
+			var text = searcher.value
+
+			if(text != '') 
+				searchOptions.style.display = 'block'
+			// searchOptions.style.display = 'none'
+		})
+
+		searcher.addEventListener('focusout', function () {
+			// console.log('focusout')
+			searchOptions.style.display = 'none'
+		})
+
+		searcher.addEventListener('input', function() {
+			// console.log('searcher changed to: ', searcher.value);
+			text = searcher.value
+			if(text!='') {
+				// console.log('completar')
+				searchOptions.style.display = 'block'
+				for (var i = 0; i < optionsEl.length; i++) {
+					optionsEl[i].innerHTML = text
+				};
+			}
+			else {
+				// console.log('retirar')
+				searchOptions.style.display = 'none'
+			}
+		});
 
 		featuredButton.addEventListener('change', function () {
 			changeFeatured(featuredButton.checked)
@@ -59,8 +102,8 @@ function Works () {
 				if(scrollMode) more()
 			}
 		}
-
 	}
+
 
 	function more () {
 
@@ -71,6 +114,17 @@ function Works () {
 
 		url = url.replace('page-' + pagination.page, 'page-' + ++pagination.page)
 		getData(true)
+	}
+
+	function changeTag (value) {
+
+		var tag = getUrlParameter('tag');
+		if (tag != undefined)
+			url = url.replace('tag=' + tag, 'tag=' + value);
+		else
+			url += '&tag='+value;
+		url = url.replace('page-' + pagination.page, 'page-1')
+		getData(false)
 	}
 
 	function changeFeatured (featuredValue) {
@@ -101,6 +155,7 @@ function Works () {
 	function changeOrder(value) {
 		orderValue = value
     var order = getUrlParameter('order')
+    console.log('order: ', order)
 		url = url.replace(order, orderValue)
 		url = url.replace('page-' + pagination.page, 'page-1')
 		getData(false)
