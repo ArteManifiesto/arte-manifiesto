@@ -3,9 +3,12 @@ var router = express.Router();
 router.mergeParams = true;
 
 var config = require('../../config/config');
-
 var controller = require(config.controllersDir + "/user");
+
+var accountRouter = require(config.routesDir + "/user-account");
 var workRouter = require(config.routesDir + "/user-work");
+var productRouter = require(config.routesDir + "/user-product");
+var collectionRouter = require(config.routesDir + "/user-collection");
 
 router.use(function (req, res, next) {
     if (req.user && req.user.username == req.params.username) {
@@ -28,14 +31,16 @@ router.use(function (req, res, next) {
 router.get(['/', '/portfolio'], controller.profile);
 router.get('/likes', controller.profile);
 router.get('/products', controller.profile);
-
 router.get('/collections/works', controller.profile);
 router.get('/collections/products', controller.profile);
-
 router.get('/followers', controller.profile);
 router.get('/followings', controller.profile);
 
+router.use('/account', accountRouter);
+
 router.use('/work', workRouter);
+router.use('/product', productRouter);
+router.use('/collection', collectionRouter);
 
 router.post('/follow', controller.follow);
 router.post('/unfollow', controller.unfollow);

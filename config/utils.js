@@ -568,54 +568,43 @@ global.queries = {
      * @returns query
      */
 
-    /*getWorksOfPortfolio: function (options, count) {
-     options.count = count;
-     var queryTemplate =
-     "SELECT " +
-     "<% if (count != undefined) { %>" +
-     "COUNT(DISTINCT Work.id) AS total " +
-     "<% } else { %>" +
-     "Work.id, Work.name, Work.nameSlugify, Work.photo, Work.public, " +
-     "CollectionWork.order " +
-     "<% } %>" +
-     "FROM Works AS Work INNER JOIN CollectionWorks AS CollectionWork " +
-     "ON Work.id = CollectionWork.WorkId AND CollectionWork.CollectionId = <%= collection %> " +
-     "<% if (count == undefined) { %> " +
-     "ORDER BY CollectionWork.order ASC " +
-     "LIMIT <%= offset %>,<%= limit %>" +
-     "<% } %>";
-     return _.template(queryTemplate)(options)
-     }*/
-    getLikes: function (options, count) {
+    getWorksOfPortfolio: function (options, count) {
         options.count = count;
         var queryTemplate =
             "SELECT " +
             "<% if (count != undefined) { %>" +
             "COUNT(DISTINCT Work.id) AS total " +
             "<% } else { %>" +
-            "`Work`.`id`, `Work`.`name`, `Work`.`nameSlugify`, `Work`.`photo`, " +
-            "`User`.id AS `User.id`, `User`.username AS `User.username`, " +
-            "`User`.firstname AS `User.firstname`, `User`.lastname AS `User.lastname`, " +
-            "`User`.photo AS `User.photo`, `User`.country AS `User.country`, " +
-            "`User`.city AS `User.city`, " +
+            "Work.id, Work.name, Work.nameSlugify, Work.photo, Work.public, " +
+            "CollectionWork.order " +
+            "<% } %>" +
+            "FROM Works AS Work INNER JOIN CollectionWorks AS CollectionWork " +
+            "ON Work.id = CollectionWork.WorkId AND CollectionWork.CollectionId = <%= collection %> " +
+            "<% if (count == undefined) { %> " +
+            "ORDER BY CollectionWork.order ASC " +
+            "LIMIT <%= offset %>,<%= limit %>" +
+            "<% } %>";
+        return _.template(queryTemplate)(options)
+    },
+    getLikes: function (options, count) {
+        options.count = count;
+        var queryTemplate =
+            "<% if (count == undefined) { %>" +
+            "SELECT `Work`.`id`, `Work`.`name`, `Work`.`nameSlugify`, `Work`.`photo`, `Work`.`featured`, " +
             "COUNT(DISTINCT `Likes`.id) AS `likes`, " +
             "CASE WHEN COUNT(DISTINCT CurrentUser.id) > 0 THEN TRUE ELSE FALSE END AS `liked` " +
+            "<% } else { %>" +
+            "SELECT COUNT(DISTINCT Work.id) AS total " +
             "<% } %>" +
             "FROM (SELECT `Work`.* FROM `Works` AS `Work` INNER JOIN `Likes` AS `Likes` " +
-            "ON `Work`.`id` = `Likes`.`WorkId` AND `Likes`.`UserId` = <%= user %> " +
-            "WHERE (`Work`.`public` = TRUE) " +
+            "ON `Work`.`id` = `Likes`.`WorkId` AND `Likes`.`UserId` = <%= user %> WHERE (`Work`.`public` = TRUE)" +
+            "<% if (count == undefined) { %> LIMIT <%= offset %>,<%= limit %> <% } %>) AS `Work` " +
             "<% if (count == undefined) { %>" +
-            "LIMIT <%= offset %>,<%= limit %>" +
-            "<% } %>" +
-            ") AS `Work` " +
             "LEFT OUTER JOIN (`Likes` AS `Likes.Likes` INNER JOIN `Users` AS `Likes` " +
-            "ON `Likes`.`id` = `Likes.Likes`.`UserId`) " +
-            "ON `Work`.`id` = `Likes.Likes`.`WorkId` " +
+            "ON `Likes`.`id` = `Likes.Likes`.`UserId`) ON `Work`.`id` = `Likes.Likes`.`WorkId` " +
             "LEFT OUTER JOIN (`Likes` AS `CurrentUser.Likes` INNER JOIN `Users` AS CurrentUser " +
-            "ON CurrentUser.`id` = `CurrentUser.Likes`.`UserId`) " +
-            "ON `Work`.`id` = `CurrentUser.Likes`.`WorkId` AND CurrentUser.`id` = <%= viewer %> " +
-            "LEFT OUTER JOIN `Users` AS `User` ON `Work`.`UserId` = `User`.`id` " +
-            "<% if (count == undefined) { %>" +
+            "ON CurrentUser.`id` = `CurrentUser.Likes`.`UserId`)ON `Work`.`id` = `CurrentUser.Likes`.`WorkId` " +
+            "AND CurrentUser.`id` = <%= viewer %>  " +
             "GROUP BY WORK.id;" +
             "<% } %>";
         return _.template(queryTemplate)(options)
@@ -654,65 +643,8 @@ global.queries = {
             "LIMIT <%= offset %>,<%= limit %>" +
             "<% } %>";
         return _.template(queryTemplate)(options)
-    },
-    followers: function (options, count) {
-        options.count = count;
-        var queryTemplate =
-            "SELECT " +
-            "<% if (count != undefined) { %>" +
-            "COUNT(DISTINCT User.id) AS total " +
-            "<% } else { %>" +
-            "`User`.id, `User`.username, `User`.firstname, `User`.lastname, `User`.photo, `User`.country, `User`.city, " +
-            "CASE WHEN COUNT(DISTINCT CurrentUser.id) > 0 " +
-            "THEN TRUE ELSE FALSE END AS `following`, " +
-            "COUNT(DISTINCT `Followers`.id) AS `followers`, " +
-            "CASE UserFeatureds.`featured` WHEN TRUE THEN TRUE ELSE FALSE END AS `featured`, " +
-            "`Works`.`id` AS `Works.id`, `Works`.`name` AS `Works.name`, `Works`.`nameSlugify` AS `Works.nameSlugify`, " +
-            "`Works`.`photo` AS `Works.photo` " +
-            "<% } %>" +
-            "FROM (SELECT `User`.* FROM `Users` AS `User` INNER JOIN `Followers` AS `Followers` " +
-            "<% if (type == 'followers') { %>" +
-            "ON `User`.`id` = `Followers`.`FollowerId` AND `Followers`.`FollowingId` = <%= user %> " +
-            "<% } %>" +
-            "<% if (type == 'followings') { %>" +
-            "ON `User`.`id` = `Followers`.`FollowingId` AND `Followers`.`FollowerId` = <%= user %> " +
-            "<% } %>" +
-            "<% if (count == undefined) { %>" +
-            "LIMIT <%= offset %>,<%= limit %>" +
-            "<% } %>" +
-            ") AS `User` " +
-            "<% if (viewer != undefined) { %>" +
-            "LEFT OUTER JOIN (`Followers` AS `CurrentUser.Followers` INNER JOIN `Users` AS CurrentUser " +
-            "ON CurrentUser.`id` = `CurrentUser.Followers`.`FollowerId`)" +
-            "ON `User`.`id` = `CurrentUser.Followers`.`FollowingId` AND CurrentUser.`id` = <%= viewer %> " +
-            "<% } %>" +
-            "LEFT OUTER JOIN (`Followers` AS `Followers.Followers` INNER JOIN `Users` AS `Followers` " +
-            "ON `Followers`.`id` = `Followers.Followers`.`FollowerId`) " +
-            "ON `User`.`id` = `Followers.Followers`.`FollowingId` " +
-            "LEFT OUTER JOIN `Works` AS `Works` ON `User`.`id` = `Works`.`UserId` AND `Works`.`public` = TRUE " +
-            "LEFT OUTER JOIN `UserFeatureds` AS `UserFeatureds` ON `User`.`id` = `UserFeatureds`.`UserId` " +
-            "AND `UserFeatureds`.`featured` = TRUE " +
-            "<% if (count == undefined) { %>" +
-            "GROUP BY User.id , Works.id " +
-            "<% } %>";
-        return _.template(queryTemplate)(options)
-    },
-    getCollectionsByMeta: function (options, count) {
-        options.count = count;
-        var queryTemplate =
-            "SELECT " +
-            "<% if (count != undefined) { %>" +
-            "COUNT(DISTINCT Collection.id) AS total " +
-            "<% } else { %>" +
-            "`id`, `name` " +
-            "<% } %>" +
-            "FROM `Collections` AS `Collection` " +
-            "WHERE (`Collection`.`UserId` = <%= user %> AND `Collection`.`meta` = '<%= meta %>') " +
-            "<% if (count == undefined) { %>" +
-            "LIMIT <%= offset %>,<%= limit %>" +
-            "<% } %>";
-        return _.template(queryTemplate)(options)
     }
+
 };
 
 global.getNumFollowersOfUser = function (options) {
@@ -760,27 +692,139 @@ global.getNumLikesOfWork = function (options) {
     return getCount(queryTemplate, options);
 };
 
-global.getWorksOfCollection = function (options) {
-    var queryTemplate =
-        "SELECT `Work`.`id`, `Work`.`name`, `Work`.`nameSlugify`, `Work`.`description`, `Work`.`photo`, " +
-        "CASE WHEN COUNT(DISTINCT CurrentUser.id) > 0 THEN TRUE ELSE FALSE END AS `liked`, " +
-        "COUNT(DISTINCT `Likes`.`id`) AS `likes` " +
-        "FROM `Works` AS `Work` " +
-        "LEFT OUTER JOIN (`Likes` AS `Likes.Likes` INNER JOIN `Users` AS `Likes` " +
-        "ON `Likes`.`id` = `Likes.Likes`.`UserId`) " +
-        "ON `Work`.`id` = `Likes.Likes`.`WorkId` " +
-        "LEFT OUTER JOIN (`Likes` AS `CurrentUser.Likes` INNER JOIN `Users` AS `CurrentUser` " +
-        "ON `CurrentUser`.`id` = `CurrentUser.Likes`.`UserId`) " +
-        "ON `Work`.`id` = `CurrentUser.Likes`.WorkId AND `CurrentUser`.id = <%= viewer %> " +
-        "INNER JOIN `CollectionWorks` AS `CollectionWork` ON `Work`.`id` = `CollectionWork`.`WorkId` " +
-        "AND `CollectionWork`.`CollectionId` = <%= collection %> " +
-        "GROUP BY Work.id;";
-    return _.template(queryTemplate)(options)
-};
 
 global.getCount = function (queryTemplate, options) {
     var query = _.template(queryTemplate)(options);
     return global.db.sequelize.query(query, {nest: true, raw: true}).then(function (data) {
         return data[0];
+    });
+};
+
+global.getWorksOfCollection = function (options, count) {
+    options.count = count;
+    var queryTemplate =
+        "<% if (count == undefined) { %>" +
+        "SELECT `Work`.`id`, `Work`.`name`, `Work`.`nameSlugify`, `Work`.`photo`, " +
+        "COUNT(DISTINCT `Likes`.id) AS `likes`, " +
+        "CASE WHEN COUNT(DISTINCT CurrentUser.id) > 0 THEN TRUE ELSE FALSE END AS `liked` " +
+        "<% } else { %>" +
+        "SELECT COUNT(DISTINCT Work.id) AS total " +
+        "<% } %>" +
+        "FROM (SELECT `Work`.*, `CollectionWork`.`order` AS `CollectionWork.order` " +
+        "FROM `Works` AS `Work` INNER JOIN `CollectionWorks` AS `CollectionWork` " +
+        "ON `Work`.`id` = `CollectionWork`.`WorkId` AND `CollectionWork`.`CollectionId` = <%= collection %> " +
+        "<% if (count == undefined) { %> LIMIT <%= offset %>,<%= limit %> <% } %>) AS `Work` " +
+        "<% if (count == undefined) { %>" +
+        "LEFT OUTER JOIN (`Likes` AS `Likes.Likes` INNER JOIN `Users` AS `Likes` " +
+        "ON `Likes`.`id` = `Likes.Likes`.`UserId`) ON `Work`.`id` = `Likes.Likes`.`WorkId` " +
+        "LEFT OUTER JOIN (`Likes` AS `CurrentUser.Likes` INNER JOIN `Users` AS CurrentUser " +
+        "ON CurrentUser.`id` = `CurrentUser.Likes`.`UserId`) ON `Work`.`id` = `CurrentUser.Likes`.`WorkId` " +
+        "AND CurrentUser.`id` = <%=viewer%> " +
+        "GROUP BY Work.id ORDER BY `CollectionWork.order` ASC;" +
+        "<% } %>";
+    return _.template(queryTemplate)(options)
+};
+
+global.getLikesOfUser = function (options, count) {
+    options.count = count;
+    var queryTemplate =
+        "<% if (count == undefined) { %>" +
+        "SELECT `Work`.`id`, `Work`.`name`, `Work`.`nameSlugify`, `Work`.`photo`, `Work`.`featured`, " +
+        "COUNT(DISTINCT `Likes`.id) AS `likes`, " +
+        "CASE WHEN COUNT(DISTINCT CurrentUser.id) > 0 THEN TRUE ELSE FALSE END AS `liked` " +
+        "<% } else { %>" +
+        "SELECT COUNT(DISTINCT Work.id) AS total " +
+        "<% } %>" +
+        "FROM (SELECT `Work`.* FROM `Works` AS `Work` INNER JOIN `Likes` AS `Likes` " +
+        "ON `Work`.`id` = `Likes`.`WorkId` AND `Likes`.`UserId` = <%= user %> WHERE (`Work`.`public` = TRUE)" +
+        "<% if (count == undefined) { %> LIMIT <%= offset %>,<%= limit %> <% } %>) AS `Work` " +
+        "<% if (count == undefined) { %>" +
+        "LEFT OUTER JOIN (`Likes` AS `Likes.Likes` INNER JOIN `Users` AS `Likes` " +
+        "ON `Likes`.`id` = `Likes.Likes`.`UserId`) ON `Work`.`id` = `Likes.Likes`.`WorkId` " +
+        "LEFT OUTER JOIN (`Likes` AS `CurrentUser.Likes` INNER JOIN `Users` AS CurrentUser " +
+        "ON CurrentUser.`id` = `CurrentUser.Likes`.`UserId`)ON `Work`.`id` = `CurrentUser.Likes`.`WorkId` " +
+        "AND CurrentUser.`id` = <%= viewer %>  " +
+        "GROUP BY WORK.id;" +
+        "<% } %>";
+    return _.template(queryTemplate)(options)
+};
+
+global.getCollectionsByMeta = function (options, count) {
+    options.count = count;
+    var queryTemplate =
+        "<% if (count == undefined) { %>" +
+        "SELECT `id`, `name` " +
+        "<% } else { %>" +
+        "SELECT COUNT(DISTINCT Collection.id) AS total " +
+        "<% } %>" +
+        "FROM `Collections` AS `Collection` " +
+        "WHERE (`Collection`.`UserId` = <%= user %> " +
+        "AND `Collection`.`meta` = '<%= meta %>') " +
+        "<% if (count == undefined) { %>" +
+        "LIMIT <%= offset %>,<%= limit %>" +
+        "<% } %>";
+    return _.template(queryTemplate)(options)
+};
+
+global.relations = function (options, count) {
+    options.count = count;
+    var queryTemplate =
+        "<% if (count == undefined) { %>" +
+        "SELECT `User`.id, `User`.username, `User`.firstname, `User`.lastname, " +
+        "`User`.photo, `User`.country, `User`.city, `User`.featured, " +
+        "CASE WHEN COUNT(DISTINCT CurrentUser.id) > 0 THEN TRUE ELSE FALSE END AS `following`, " +
+        "COUNT(DISTINCT `Followers`.id) AS `followers`, " +
+        "`Works`.`id` AS `Works.id`, `Works`.`name` AS `Works.name`, " +
+        "`Works`.`nameSlugify` AS `Works.nameSlugify`, `Works`.`photo` AS `Works.photo` " +
+        "<% } else { %>" +
+        "SELECT COUNT(DISTINCT User.id) AS total " +
+        "<% } %>" +
+        "FROM (SELECT `User`.* FROM `Users` AS `User` INNER JOIN `Followers` AS `Followers` " +
+        "<% if (relation == 'followers') { %>" +
+        "ON `User`.`id` = `Followers`.`FollowerId` AND `Followers`.`FollowingId` = <%=user%> " +
+        "<% } else { %>" +
+        "ON `User`.`id` = `Followers`.`FollowingId` AND `Followers`.`FollowerId` = <%=user%> " +
+        "<% } %>" +
+        "<% if (count == undefined) { %> LIMIT <%=offset%>,<%=limit%> <% } %>) AS `User` " +
+        "<% if (count == undefined) { %>" +
+        "LEFT OUTER JOIN (`Followers` AS `CurrentUser.Followers` INNER JOIN `Users` AS CurrentUser " +
+        "ON CurrentUser.`id` = `CurrentUser.Followers`.`FollowerId`)" +
+        "ON `User`.`id` = `CurrentUser.Followers`.`FollowingId` AND CurrentUser.`id` = <%=viewer%> " +
+        "LEFT OUTER JOIN (`Followers` AS `Followers.Followers` INNER JOIN `Users` AS `Followers` " +
+        "ON `Followers`.`id` = `Followers.Followers`.`FollowerId`) " +
+        "ON `User`.`id` = `Followers.Followers`.`FollowingId` " +
+        "LEFT OUTER JOIN `Works` AS `Works` ON `User`.`id` = `Works`.`UserId` " +
+        "AND `Works`.`public` = TRUE " +
+        "GROUP BY User.id, Works.id;" +
+        "<% } %>";
+    return _.template(queryTemplate)(options)
+};
+
+
+global.getPaginationData = function (options) {
+    var pages = global.getPagination(options.page, options.limit);
+
+    options.offset = pages.offset;
+    options.limit = pages.limit;
+
+    var recordsQuery = global[options.query](options);
+    var countQuery = global[options.query](options, true);
+
+    var promises = [
+        global.db.sequelize.query(recordsQuery, {nest: true, raw: true}),
+        global.db.sequelize.query(countQuery, {nest: true, raw: true})
+    ];
+
+    return global.db.Sequelize.Promise.all(promises).then(function (data) {
+        var records = data[0], total = data[1][0].total, result = {};
+        var pagination = {
+            total: total,
+            page: pages.page,
+            limit: pages.limit,
+            pages: Math.ceil(total / pages.limit)
+        };
+        result[options.name] = records;
+        result.pagination = pagination;
+        return result;
     });
 };

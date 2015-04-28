@@ -16,7 +16,10 @@ router.post('/update', controller.workUpdate);
 router.post('/featured', controller.featured);
 router.post('/unfeatured', controller.unFeatured);
 router.post('/like', controller.like);
-router.post('/unlike', controller.unlike);
+router.post('/unlike', controller.unLike);
+
+router.post('/public' , controller.public);
+router.post('/private' , controller.private);
 
 /*
  router.post('/work/add/collection', controller.workAddCollection);

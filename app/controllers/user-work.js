@@ -159,7 +159,7 @@ exports.like = function (req, res) {
     })
 };
 
-exports.unlike = function (req, res) {
+exports.unLike = function (req, res) {
     global.db.Work.find(req.body.idWork).then(function (work) {
         work.unLike(req.user).then(function (likes) {
             return res.ok(likes, 'User unLiked');
@@ -169,7 +169,7 @@ exports.unlike = function (req, res) {
 
 exports.featured = function (req, res) {
     global.db.Work.find(req.body.idWork).then(function (work) {
-        work.featured().then(function () {
+        work.updateAttributes({featured: true}).then(function () {
             return res.ok('Work featured');
         });
     });
@@ -177,8 +177,24 @@ exports.featured = function (req, res) {
 
 exports.unFeatured = function (req, res) {
     global.db.Work.find(req.body.idWork).then(function (work) {
-        work.unFeatured().then(function () {
+        work.updateAttributes({featured: false}).then(function () {
             return res.ok('Work unFeatured');
+        });
+    });
+};
+
+exports.public = function (req, res) {
+    global.db.Work.find(req.body.idWork).then(function (work) {
+        work.updateAttributes({public: true}).then(function () {
+            return res.ok('Work published');
+        });
+    });
+};
+
+exports.private = function (req, res) {
+    global.db.Work.find(req.body.idWork).then(function (work) {
+        work.updateAttributes({public: false}).then(function () {
+            return res.ok('Work unPublished');
         });
     });
 };

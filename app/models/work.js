@@ -49,23 +49,6 @@ module.exports = function (sequelize, DataTypes) {
                     return user.removeLike(this).then(function () {
                         return global.getNumLikesOfWork({work: scope.id});
                     });
-                },
-                featured: function () {
-                    var scope = this;
-                    return global.db.WorkFeatured.create().then(function (workFeatured) {
-                        return scope.addWorkFeatured(workFeatured);
-                    });
-                },
-                unFeatured: function () {
-                    var query = {
-                        where: {featured: true},
-                        order: '`WorkFeatured`.`createdAt` DESC',
-                        limit: 1
-                    };
-                    return this.getWorkFeatureds(query).then(function (workFeatureds) {
-                        var workFeatured = workFeatureds[0];
-                        return workFeatured.updateAttributes({featured: false});
-                    });
                 }
             },
             hooks: {

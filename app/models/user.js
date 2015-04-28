@@ -108,23 +108,6 @@ module.exports = function (sequelize, DataTypes) {
                     return this.removeFollower(user).then(function () {
                         return global.getNumFollowersOfUser({user: scope.id});
                     });
-                },
-                featured: function () {
-                    var scope = this;
-                    return global.db.UserFeatured.create().then(function (userFeatured) {
-                        return scope.addUserFeatured(userFeatured);
-                    })
-                },
-                unFeatured: function () {
-                    var query = {
-                        where: {featured: true},
-                        order: '`UserFeatured`.`createdAt` DESC',
-                        limit: 1
-                    };
-                    return this.getUserFeatureds(query).then(function (userFeatureds) {
-                        var userFeatured = userFeatureds[0];
-                        return userFeatured.updateAttributes({featured: false});
-                    });
                 }
             },
             hooks: {
