@@ -113,7 +113,7 @@ exports.followings = function (req, res) {
 exports.follow = function (req, res) {
     global.db.User.find(req.body.idUser).then(function (user) {
         user.follow(req.user).then(function (followers) {
-            return res.ok({followers: followers}, 'User Followed');
+            return res.ok(followers, 'User Followed');
         });
     });
 };
@@ -121,7 +121,7 @@ exports.follow = function (req, res) {
 exports.unfollow = function (req, res) {
     global.db.User.find(req.body.idUser).then(function (user) {
         user.unFollow(req.user).then(function (followers) {
-            return res.ok({followers: followers}, 'User unFollowed');
+            return res.ok(followers, 'User unFollowed');
         });
     });
 };
