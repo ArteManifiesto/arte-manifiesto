@@ -21,12 +21,12 @@
 				<span class="skinny-menu__item__text">Market</span>
 			</a>
 			{% if user %}
-				<div class="skinny-menu__avatar">
+				<a class="skinny-menu__avatar" href="/juliocanares">
 					<div class="button-avatar">
 						<img src="{{ user.photo }}">
 						<!-- jojo -->
 					</div>
-				</div>
+				</a>
 			{% else %}
 				<a class="skinny-menu__item" href="/login">
 					<i class="skinny-menu__item__icon fa fa-user"></i>

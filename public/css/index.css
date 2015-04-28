@@ -132,20 +132,30 @@ html {
   color: #333;
   white-space: nowrap;
   overflow: auto;
+  font-size: 0.9rem;
+}
+.square-menu::-webkit-scrollbar {
+  display: none;
 }
 .square-menu__element {
   display: table-cell;
 }
 .square-menu__item {
-  margin: 0.25rem 0.5rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
   padding: 0.5rem;
   border: solid 1px #ddd;
 }
+.square-menu__element:not(:first-child) .square-menu__item {
+  margin-left: 0.5rem;
+}
+.square-menu__element:not(:last-child) .square-menu__item {
+  margin-right: 0.5rem;
+}
 .carousel-square-menu {
-  font-family: 'Oswald';
-  max-width: 1100px;
   overflow: hidden;
   height: 3rem;
+  padding: 0 1rem;
 }
 .facebook-button {
   color: #fff;
@@ -396,6 +406,13 @@ html {
   font-family: 'Raleway';
   font-weight: 600;
   letter-spacing: 1px;
+}
+.profile-text {
+  font-family: 'Oswald';
+  font-size: 1.5rem;
+  color: #585858;
+  letter-spacing: 0.5px;
+  line-height: 1em;
 }
 .input {
   font-size: 1rem;
