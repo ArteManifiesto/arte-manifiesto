@@ -247,25 +247,39 @@ html {
   color: #ccc;
 }
 .button-featured {
-  color: #fff;
-  background: #ff6e40;
-  border: solid 1px #ff6e40;
-  font-size: 0.6rem;
-  padding: 0.75em 0.25em 0.5em 0.25em;
-  -webkit-border-radius: 0 0 5px 5px;
-  border-radius: 0 0 5px 5px;
+  padding: 0.5rem;
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: box;
   display: flex;
+}
+.button-featured__inner {
+  color: #fff;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  font-size: 0.7rem;
+  background: #ff6e40;
   -webkit-box-pack: center;
   -moz-box-pack: center;
   -o-box-pack: center;
   -ms-flex-pack: center;
   -webkit-justify-content: center;
   justify-content: center;
+  -webkit-border-radius: 0 0 5px 5px;
+  border-radius: 0 0 5px 5px;
+  padding: 0.75em 0.25em 0.5em 0.25em;
+}
+.button-featured.admin {
+  cursor: pointer;
+}
+.button-featured.disabled .button-featured__inner {
+  background: #aaa;
 }
 .button-avatar {
   max-width: 2.5rem;
@@ -668,12 +682,12 @@ html {
 .works .work__featured {
   position: absolute;
   top: 0;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  right: 0;
+  -webkit-transform: translate(-12.5%, -37.5%);
+  -moz-transform: translate(-12.5%, -37.5%);
+  -o-transform: translate(-12.5%, -37.5%);
+  -ms-transform: translate(-12.5%, -37.5%);
+  transform: translate(-12.5%, -37.5%);
 }
 @media screen and (min-width: 151px) and (max-width: 300px) {
   .works[data-columns]::before {

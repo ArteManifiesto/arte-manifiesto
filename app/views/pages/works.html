@@ -81,7 +81,7 @@
 						<!-- if isUser 
 						{% if work.featured %}
 							<div class="work__featured">
-								<span class="button-featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
+								<span class="button-featured" data-size='small'> <i class="fa fa-star"></i> </span>
 							</div>
 						{% endif %} -->
 
@@ -91,9 +91,17 @@
 								
 								<!-- is Admin -->
 								{% if work.featured %}
-									<span id="{{ work.id }}" class="button-featured admin unfeatured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
+									<span id="{{ work.id }}" class="button-featured admin unfeatured" data-size='small'>
+										<div class="button-featured__inner">
+											<i class="fa fa-star"></i>
+										</div>
+									</span>
 								{% else %}
-									<span id="{{ work.id }}" class="button-featured admin disabled featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendar </span>
+									<span id="{{ work.id }}" class="button-featured admin disabled featured" data-size='small'>
+										<div class="button-featured__inner">
+											<i class="fa fa-star"></i>
+										</div>
+									</span>
 								{% endif %}
 
 								<!-- else is User -->
@@ -101,7 +109,11 @@
 							{% else %}
 
 								{% if work.featured %}
-									<span id="{{ work.id }}" class="button-featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
+									<span id="{{ work.id }}" class="button-featured" data-size='small'>
+										<div class="button-featured__inner">
+											<i class="fa fa-star"></i>
+										</div>
+									</span>
 								{% endif %}
 
 							{% endif %}
@@ -208,15 +220,21 @@
 				<% if (user) { %>
 
 					<% if (featured) { %>
-						<span id="<%= id %>" class="button-featured admin unfeatured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
+						<span id="<%= id %>" class="button-featured admin unfeatured" data-size='small'>
+							<div class="button-featured__inner"><i class="fa fa-star"></i></div>
+						</span>
 					<% } else { %>
-						<span id="<%= id %>" class="button-featured admin disabled featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendar </span>
+						<span id="<%= id %>" class="button-featured admin disabled featured" data-size='small'>
+							<div class="button-featured__inner"><i class="fa fa-star"></i></div>
+						</span>
 					<% } %>
 
 				<% } else { %>
 
 					<% if (featured) { %>
-						<span id="<%= id %>" class="button-featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
+						<span id="<%= id %>" class="button-featured" data-size='small'>
+							<div class="button-featured__inner"><i class="fa fa-star"></i></div>
+						</span>
 					<% } %>
 
 				<% } %>
@@ -264,7 +282,7 @@
                 data: {idWork: scope.attr('id')},
                 success: function (data) {
                     if (data.status == 200) {
-                        scope.html('<i class="fa fa-star"></i>&nbsp;Recomendado');
+                        // scope.html('<i class="fa fa-star"></i>');
                         scope.removeClass('featured').addClass('unfeatured').removeClass('disabled');
 
             						// console.log('scope: ', scope)
@@ -282,7 +300,7 @@
                 data: {idWork: scope.attr('id')},
                 success: function (data) {
                     if (data.status == 200) {
-                        scope.html('<i class="fa fa-star"></i>&nbsp;Recomendar');
+                        // scope.html('<i class="fa fa-star"></i>');
                         scope.removeClass('unfeatured').addClass('featured').addClass('disabled');
                     }
                     console.log(data);

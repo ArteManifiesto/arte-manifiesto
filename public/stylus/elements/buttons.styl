@@ -252,14 +252,21 @@
 	$ BUTTON FEATURED
 *------------------------------------*/
 .button-featured
-	color white
-	background #FF6E40
-	border solid 1px #FF6E40
-	font-size .6rem
-	padding .75em .25em .5em .25em
-	border-radius 0 0 5px 5px
+	padding .5rem
 	display flex
-	justify-content center
+	&__inner
+		color white
+		display flex
+		font-size .7rem
+		background #FF6E40
+		justify-content center
+		border-radius 0 0 5px 5px
+		padding .75em .25em .5em .25em
+	&.admin
+		cursor pointer
+	&.disabled
+		.button-featured__inner
+			background #aaa
 
 
 /*------------------------------------*
@@ -269,4 +276,3 @@
 	max-width 2.5rem
 	img
 		border-radius 50%
-	
