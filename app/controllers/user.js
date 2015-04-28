@@ -7,36 +7,29 @@ var chance = new Chance();
 var async = require('async');
 var cloudinary = require('cloudinary').v2;
 var Promise = require('bluebird');
+var request = require('request');
 
 exports.profile = function (req, res) {
-    var currentPath = req.path.replace('/', '');
-    if (currentPath.length === "") currentPath = "portfolio";
-
-    var optionsFollowers = {
-        viewer: undefined,
-        user: req.profile.id,
-        page: undefined,
-        limit: undefined,
-        type: 'followers'
-    };
-    var countFollowersQuery = global.queries['followers'](optionsFollowers, true);
-
-    var optionsFollowings = {
-        viewer: undefined,
-        user: req.profile.id,
-        page: undefined,
-        limit: undefined,
-        type: 'followings'
-    };
-    var countFollowingsQuery = global.queries['followers'](optionsFollowings, true);
+    var path = req.path.replace('/', '');
+    if (path.length == '') path = 'portfolio';
 
     var promises = [
-        global.db.sequelize.query(countFollowersQuery, {nest: true, raw: true}),
-        global.db.sequelize.query(countFollowingsQuery, {nest: true, raw: true})
+        global.getNumCollectionsOfUser({user: req.profile.id, meta: 'portfolio'}),
+        global.getNumLikesOfUser({user: req.profile.id}),
+        global.getNumCollectionsOfUser({user: req.profile.id, meta: 'store'}),
+        global.getNumCollectionsOfUser({user: req.profile.id, meta: 'works'}),
+        global.getNumCollectionsOfUser({user: req.profile.id, meta: 'products'}),
+        global.getNumFollowersOfUser({user: req.profile.id}),
+        global.getNumFollowingsOfUser({user: req.profile.id})
     ];
 
-    global.db.Sequelize.Promise.all(promises).then(function (data) {
-        return res.json({currentPath: currentPath, data: data});
+    global.db.sequelize.Promise.all(promises).then(function (data) {
+        return res.render('user/profile', {
+            path: path,
+            profile: req.profile,
+            owner: req.owner,
+            data: data
+        });
     });
 };
 
@@ -68,20 +61,34 @@ var getPaginationData = function (nameQuery, options, record) {
 
 exports.portfolio = function (req, res) {
     global.getPortfolioCollection(req.profile).then(function (collection) {
-        var options = {collection: collection.id, page: req.params.page, limit: 10};
-        getPaginationData('getWorksOfPortfolio', options).then(function (data) {
+        var params = {viewer: req.viewer, collection: collection.id};
+        global.getWorksOfCollection(params).then(function (data) {
             return res.json(data);
         });
     });
+
+    /*global.getPortfolioCollection(req.profile).then(function (collection) {
+     var options = {collection: collection.id, page: req.params.page, limit: 10};
+     getPaginationData('getWorksOfPortfolio', options).then(function (data) {
+     return res.json(data);
+     });
+     });*/
 };
 
 exports.likes = function (req, res) {
-    var options = {viewer: req.viewer, user: req.profile.id, page: req.params.page, limit: 2};
-    getPaginationData('getLikes', options).then(function (data) {
-        return res.json(data);
-    });
-
-    /*var query = {
+    /*
+     req.profile.getLikes().then(function (likes) {
+     return res.json(likes);
+     });
+     */
+    /*
+     var options = {viewer: req.viewer, user: req.profile.id, page: req.params.page, limit: 2};
+     getPaginationData('getLikes', options).then(function (data) {
+     return res.json(data);
+     });
+     */
+    /*
+     var query = {
      limit: 2,
      where: {public: true},
      include: [
@@ -91,16 +98,22 @@ exports.likes = function (req, res) {
      };
      req.profile.getLikes(query).then(function (likes) {
      return res.json(likes);
-     });*/
+     });
+     */
 };
 
 
 exports.products = function (req, res) {
     global.getStoreCollection(req.profile).then(function (collection) {
-        var options = {collection: collection.id, page: req.params.page, limit: 10};
-        getPaginationData('getProductsOfStore', options).then(function (data) {
-            return res.json(data);
+        collection.getWorks().then(function (works) {
+
         });
+        /*
+         var options = {collection: collection.id, page: req.params.page, limit: 10};
+         getPaginationData('getProductsOfStore', options).then(function (data) {
+         return res.json(data);
+         });
+         */
     });
 };
 
@@ -130,21 +143,27 @@ exports.followers = function (req, res) {
 };
 
 exports.followings = function (req, res) {
-    var options = {viewer: req.viewer, user: req.profile.id, page: req.params.page, limit: 10, type: 'followings'};
-    getPaginationData('followers', options).then(function (data) {
-        var records = global.mergeEntity(data.records, ['Works']);
-        _.map(records, function (value, key) {
-            value['Works'] = _.slice(value['Works'], 0, 6);
-        });
-        return res.json({followings: records, pagination: data.pagination});
+    req.profile.getFollowings().then(function (followings) {
+        res.json(followings.length);
     });
+
+    /*
+     var options = {viewer: req.viewer, user: req.profile.id, page: req.params.page, limit: 10, type: 'followings'};
+     getPaginationData('followers', options).then(function (data) {
+     var records = global.mergeEntity(data.records, ['Works']);
+     _.map(records, function (value, key) {
+     value['Works'] = _.slice(value['Works'], 0, 6);
+     });
+     return res.json({followings: records, pagination: data.pagination});
+     });
+     */
 };
 
 //TODO make middlewate for check if user exists
 exports.follow = function (req, res) {
     global.db.User.find(req.body.idUser).then(function (user) {
         user.follow(req.user).then(function (followers) {
-            return res.ok(followers, 'User followed');
+            return res.ok({followers: followers}, 'User Followed');
         });
     });
 };
@@ -152,7 +171,7 @@ exports.follow = function (req, res) {
 exports.unfollow = function (req, res) {
     global.db.User.find(req.body.idUser).then(function (user) {
         user.unFollow(req.user).then(function (followers) {
-            return res.ok(followers, 'User unFollowed');
+            return res.ok({followers: followers}, 'User unFollowed');
         });
     });
 };

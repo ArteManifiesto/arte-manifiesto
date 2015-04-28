@@ -1,91 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
+<!doctype html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
-    <title>owner</title>
-    <style>
-        .rounded {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-        }
-    </style>
+    <title>Document</title>
 </head>
 <body>
-<h1>{{ userProfile.firstname }}</h1>
 
-<p>following</p>
-<ul>
-    {% for following in followings %}
-        <li>{{ following.firstname }}<a href="/user/{{ following.username }}"><img class="rounded"
-                                                                                   src="{{ following.photo }}"
-                                                                                   alt="{{ following.username }}"/></a>
-        </li>
-    {% endfor %}
-</ul>
+{% if owner %}
+    <h1>OWNER</h1>
+{% else %}
+    <h1>VIEWER</h1>
+{% endif %}
 
-<p>followers</p>
-<ul>
-    {% for follower in followers %}
-        <li>{{ follower.firstname }}<a href="/user/{{ follower.username }}"><img class="rounded"
-                                                                                 src="{{ follower.photo }}"
-                                                                                 alt="{{ follower.username }}"/></a>
-        </li>
-    {% endfor %}
-</ul>
-
-<p>Portfolio</p>
-<ul>
-    {% for collection in collections %}
-        <li>{{ collection.name }}
-            <ul>
-                {% for work in collection.Works %}
-                    {% if !work.private %}
-                    <li>{{ work.name }}</li>
-                    <img class="rounded" src="{{ work.photo }}"><br/>
-                    <span><strong>tags</strong> </span>
-                    {% for tag in work.Tags %}
-                        <a href="#">{{ tag.name }}</a>
-                        {% endfor %}
-                        <br/>
-                        <span><strong>categories</strong> </span>
-                        {% for category in work.Categories %}
-                            <a href="#">{{ category.name }}</a>
-                        {% endfor %}
-                        <br/>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        </li>
-    {% endfor %}
-</ul>
-<p>Store</p>
-
-<script src="/js/lib/jquery.min.js"></script>
+<script src="/js/vendor/jquery.min.js"></script>
 <script>
-    $(function () {
-        var followings = {{ followings|json|safe }};
-        var followers = {{ followers|json|safe }};
+    var path = {{ path|json|safe }};
+    var profile = {{ profile|json|safe }};
+    var url = '/' + profile.username + '/' + path + '/page-1';
 
-        $('.quad').hide();
-        $(document).on("click", ".addToCollection", function (event) {
-            $('.quad').show();
-        });
-
-
-        $('.addCollection').click(function () {
-            $('.quad').hide();
-        });
-
-        $('.close').click(function () {
-            $('.quad').hide();
-        });
+    $.ajax({
+        type: "POST",
+        url: url,
+        success: function (data) {
+            console.log(data);
+        }
     });
-
-
-    console.log(followings);
-    console.log(followers);
-
 </script>
 </body>
 </html>

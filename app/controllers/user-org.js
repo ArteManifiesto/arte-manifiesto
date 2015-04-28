@@ -281,7 +281,7 @@ exports.workCreate = function (req, res) {
                 ];
 
                 global.db.Sequelize.Promise.all(promises).then(function () {
-                    return res.json(responses.workCreated(work));
+                    return res.ok('work created');
                 })
             })
         });

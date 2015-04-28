@@ -41,6 +41,7 @@ module.exports = function (sequelize, DataTypes) {
             tokenVerifyEmail: DataTypes.STRING,
             tokenResetPassword: DataTypes.STRING,
             tokenResetPasswordExpires: DataTypes.DATE,
+            featured: {type: DataTypes.BOOLEAN, defaultValue: false},
             isAdmin: {type: DataTypes.BOOLEAN, defaultValue: false}
         },
         {
@@ -64,6 +65,7 @@ module.exports = function (sequelize, DataTypes) {
                     });
 
                     User.belongsToMany(models.Work, {as: 'Likes', through: 'Likes'});
+                    User.belongsToMany(models.Product, {as: 'ProductLikes', through: 'ProductLikes'});
                     User.belongsToMany(models.Work, {as: 'Collects', through: 'Collects'});
 
                     User.belongsToMany(models.Work, {as: 'WorkViewers', through: 'WorkViewers'});
@@ -98,13 +100,13 @@ module.exports = function (sequelize, DataTypes) {
                 follow: function (user) {
                     var scope = this;
                     return this.addFollower(user).then(function () {
-                        return global.getFollowersOfUser({user: scope.id});
+                        return global.getNumFollowersOfUser({user: scope.id});
                     });
                 },
                 unFollow: function (user) {
                     var scope = this;
                     return this.removeFollower(user).then(function () {
-                        return global.getFollowersOfUser({user: scope.id});
+                        return global.getNumFollowersOfUser({user: scope.id});
                     });
                 },
                 featured: function () {
@@ -141,10 +143,10 @@ module.exports = function (sequelize, DataTypes) {
                         var promises = [
                             user.save(),
                             global.db.Collection.create({name: 'Portafolio', meta: 'portfolio'}),
-                            global.db.Collection.create({name: 'Favoritos', meta: 'work'}),
+                            global.db.Collection.create({name: 'Favoritos', meta: 'works'}),
                             global.db.Collection.create({name: 'Tienda', meta: 'store'}),
-                            global.db.Collection.create({name: 'Deseos', meta: 'product'}),
-                            global.db.Collection.create({name: 'Regalos', meta: 'product'}),
+                            global.db.Collection.create({name: 'Deseos', meta: 'products'}),
+                            global.db.Collection.create({name: 'Regalos', meta: 'products'}),
                             //TODO only in development enviroment
                             user.setSpecialties(categories),
                             user.setInterests(categories)

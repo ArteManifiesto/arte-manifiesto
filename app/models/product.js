@@ -15,13 +15,16 @@ module.exports = function (sequelize, DataTypes) {
             nameSlugify: DataTypes.STRING,
             price: DataTypes.INTEGER,
             photo: DataTypes.STRING,
-            description: DataTypes.TEXT
+            description: DataTypes.TEXT,
+            featured: {type: DataTypes.BOOLEAN, defaultValue: false}
         }, {
             classMethods: {
                 associate: function (models) {
                     Product.belongsToMany(models.User, {as: 'ProductViewers', through: 'ProductViewers'});
+                    Product.belongsToMany(models.User, {as: 'ProductLikes', through: 'ProductLikes'});
+
                     Product.belongsToMany(models.Collection, {through: models.CollectionProduct});
-                    
+
                     Product.belongsTo(models.Work, {onDelete: 'cascade'});
                     Product.belongsTo(models.User);
                     Product.belongsTo(models.ProductType);

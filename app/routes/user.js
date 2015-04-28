@@ -25,11 +25,13 @@ router.use(function (req, res, next) {
     });
 });
 
-router.get('/', controller.profile);
+router.get(['/', '/portfolio'], controller.profile);
 router.get('/likes', controller.profile);
 router.get('/products', controller.profile);
+
 router.get('/collections/works', controller.profile);
 router.get('/collections/products', controller.profile);
+
 router.get('/followers', controller.profile);
 router.get('/followings', controller.profile);
 
@@ -37,11 +39,10 @@ router.use('/work', workRouter);
 
 router.post('/follow', controller.follow);
 router.post('/unfollow', controller.unfollow);
-
 router.post('/featured', controller.featured);
 router.post('/unfeatured', controller.unfeatured);
 
-router.post('/:page', controller.portfolio);
+router.post(['/:page', '/portfolio/:page'], controller.portfolio);
 router.post('/likes/:page', controller.likes);
 router.post('/products/:page', controller.products);
 router.post('/collections/works/:page', controller.collectionsWorks);
@@ -49,20 +50,20 @@ router.post('/collections/products/:page', controller.collectionsProducts);
 router.post('/followers/:page', controller.followers);
 router.post('/followings/:page', controller.followings);
 
-//router.use('/collection/', collectionRouter);
-//router.use('/product/', productRouter);
+/*
+ router.use('/collection/', collectionRouter);
+ router.use('/product/', productRouter);
+ */
 
-/*router.post('/update', controller.update);
-
+/*
+ router.post('/update', controller.update);
  router.post('/collection/create', controller.collectionCreate);
  router.post('/collection/read', controller.collectionRead);
  router.post('/collection/update', controller.collectionUpdate);
  router.post('/collection/delete', controller.collectionDelete);
  router.post('/collection/reorder', controller.collectionReOrder);
-
  router.post('/featured', controller.userFeatured);
  router.post('/unfeatured', controller.userUnFeatured);
-
  */
 
 module.exports = router;

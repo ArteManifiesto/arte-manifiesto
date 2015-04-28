@@ -8,7 +8,7 @@ var controller = require(config.controllersDir + "/user-work");
 router.get('/add', controller.add);
 router.get('/:nameWork', controller.work);
 
-router.post('/create', controller.workCreate);
+router.post('/create', controller.create);
 router.post('/delete', controller.workDelete);
 router.post('/update', controller.workUpdate);
 

@@ -28,7 +28,7 @@ exports.add = function (req, res) {
  * @param tags ids of the tags
  * @param work data
  */
-exports.workCreate = function (req, res) {
+exports.create = function (req, res) {
     global.getPortfolioCollection(req.user).then(function (collection) {
         var promises = [
             global.db.Category.findAll({where: {id: {in: req.body.categories}}, attributes: ['id']}),
@@ -48,7 +48,7 @@ exports.workCreate = function (req, res) {
                 ];
 
                 global.db.Sequelize.Promise.all(promises).then(function () {
-                    return res.json(responses.workCreated(work));
+                    return res.ok({work: work}, 'Work created');
                 })
             })
         });
@@ -153,10 +153,8 @@ exports.workUpdate = function (req, res) {
 
 exports.like = function (req, res) {
     global.db.Work.find(req.body.idWork).then(function (work) {
-        req.user.addLike(work).then(function () {
-            work.like(req.user).then(function (likes) {
-                return res.ok(likes, 'User unLiked');
-            });
+        work.like(req.user).then(function (likes) {
+            return res.ok(likes, 'User liked');
         });
     })
 };

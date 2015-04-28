@@ -15,13 +15,16 @@ module.exports = function (sequelize, DataTypes) {
             nameSlugify: DataTypes.STRING,
             description: DataTypes.TEXT,
             photo: DataTypes.STRING,
-            public: {type: DataTypes.BOOLEAN, defaultValue: true}
+            public: {type: DataTypes.BOOLEAN, defaultValue: true},
+            featured: {type: DataTypes.BOOLEAN, defaultValue: false}
+            //dimension: DataTypes.TEXT
         }, {
             classMethods: {
                 associate: function (models) {
                     Work.belongsTo(models.User, {onDelete: 'cascade'});
 
                     Work.belongsToMany(models.Collection, {through: models.CollectionWork});
+
                     Work.belongsToMany(models.Tag, {through: 'WorkTags'});
                     Work.belongsToMany(models.Category, {through: 'WorkCategories'});
 
@@ -38,13 +41,13 @@ module.exports = function (sequelize, DataTypes) {
                 like: function (user) {
                     var scope = this;
                     return user.addLike(this).then(function () {
-                        return global.getLikesOfWork({work: scope.id});
+                        return global.getNumLikesOfWork({work: scope.id});
                     });
                 },
                 unLike: function (user) {
                     var scope = this;
                     return user.removeLike(this).then(function () {
-                        return global.getLikesOfWork({work: scope.id});
+                        return global.getNumLikesOfWork({work: scope.id});
                     });
                 },
                 featured: function () {
