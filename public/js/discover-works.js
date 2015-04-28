@@ -33,6 +33,7 @@ function Works () {
 
 	function setup () {
 
+		// Enter event in search
 		searcher.addEventListener('keypress', function (e) {
 			var keyCode = e.keyCode || e.which;
 			if (keyCode == '13'){
@@ -40,14 +41,9 @@ function Works () {
 			}
 		})
 
+		// Open options
 		searcher.addEventListener('focusin', function () {
-			console.log('focusin')
-
-			var text = searcher.value
-
-			if(text != '') 
-				searchOptions.style.display = 'block'
-			// searchOptions.style.display = 'none'
+			if(text != '') searchOptions.style.display = 'block'
 		})
 
 		searcher.addEventListener('focusout', function () {
