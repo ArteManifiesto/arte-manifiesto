@@ -1,39 +1,113 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-</head>
-<body>
+{% extends '../partials/base.html' %}
+	{% set path = 'profile' %}
+	{% set title = 'Arte Manifiesto | Profile' %}
+	{% set css = 'profile' %}
 
-{% if owner %}
-    <h1>OWNER</h1>
-{% else %}
-    <h1>VIEWER</h1>
-{% endif %}
+{% block content %}
 
-<script src="/js/vendor/jquery.min.js"></script>
-<script>
-    var data = {{ data|json|safe }};
-    console.log(data);
-    var path = {{ path|json|safe }};
-    console.log(path);
+	<div class="profile">
+		<div class="profile__avatar">
+			<img src="">
+		</div>
+	</div>
 
-    var owner = {{ owner|json|safe }};
-    console.log(owner);
+	<div class="carousel-square-menu">
+		
+		<div class="square-menu">
+			<div class="square-menu__element">
+				<div class="square-menu__item">Portafolio <span class="number">{{data[0].portfolio}}</span></div>
+			</div>
+			<div class="square-menu__element">
+				<div class="square-menu__item">Likes <span class="number">{{data[1].likes}}</span></div>
+			</div>
+			<div class="square-menu__element">
+				<div class="square-menu__item">Tienda <span class="number">{{data[2].store}}</span></div>
+			</div>
+			<div class="square-menu__element">
+				<div class="square-menu__item">Coleccion Obras <span class="number">{{data[3].works}}</span></div>
+			</div>
+			<div class="square-menu__element">
+				<div class="square-menu__item">Coleccion Productos <span class="number">{{data[4].products}}</span></div>
+			</div>
+			<div class="square-menu__element">
+				<div class="square-menu__item">Siguiendo <span class="number">{{data[5].followers}}</span></div>
+			</div>
+			<div class="square-menu__element">
+				<div class="square-menu__item">Seguidores <span class="number">{{data[6].followings}}</span></div>
+			</div>
+		</div>
 
-    var profile = {{ profile|json|safe }};
-    console.log(profile);
+	</div>
 
-    var url = '/' + profile.username + '/' + path + '/page-1';
+	<script type="text/template" id="product-template">
 
-    $.ajax({
-        type: "POST",
-        url: url,
-        success: function (data) {
-            console.log(data);
-        }
-    });
-</script>
-</body>
-</html>
+		<div class="product-wrapper">					
+			<article class="product">
+				<div class="product-image">
+					<img src="<%= photo %>">
+				</div>
+				<div class="product-info">
+					<div class="title"><%= name %></div>
+					<div class="price">$<%= price %></div>
+				</div>
+				<div class="product-social">
+					<div class="like">
+						<span class="button-like"> <i class="fa fa-heart-o"></i> <span>{{product.likes}}</span> </span>
+					</div>
+					<div class="wish-list">
+						<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
+					</div>
+				</div>
+
+				<div class="product__featured">
+					<% if (user) { %>
+						<% if (featured) { %>
+							<span id="<%= id %>" class="button-featured admin unfeatured" data-size='small'>
+							<div class="button-featured__inner"><i class="fa fa-star"></i></div>
+							</span>
+						<% } else { %>
+							<span id="<%= id %>" class="button-featured admin disabled featured" data-size='small'>
+							<div class="button-featured__inner"><i class="fa fa-star"></i></div>
+							</span>
+						<% } %>
+					<% } else { %>
+						<% if (featured) { %>
+							<span id="<%= id %>" class="button-featured" data-size='small'>
+							<div class="button-featured__inner"><i class="fa fa-star"></i></div>
+							</span>
+						<% } %>
+					<% } %>
+				</div>
+
+			</article>
+		</div>
+	</script>
+
+	<script src="/js/vendor/jquery.min.js"></script>
+
+	<script>
+		var data = {{ data|json|safe }};
+		console.log('data: ', data);
+
+		var path = {{ path|json|safe }};
+		console.log('path: ', path);
+
+		var owner = {{ owner|json|safe }};
+		console.log('owner: ', owner);
+
+		var profile = {{ profile|json|safe }};
+		console.log('profile: ', profile);
+
+		var url = '/' + profile.username + '/' + path + '/page-1';
+
+		$.ajax({
+			type: "POST",
+			url: url,
+			success: function (data) {
+				console.log(data);
+			}
+		});
+	</script>
+
+
+{% endblock %}
