@@ -110,10 +110,23 @@
 						</div>
 
 						<div class="product__featured">
-							{% if product.featured %}
-								<span id="{{ product.id }}" class="button-featured admin unfeatured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
+							{% if user %}
+								
+								<!-- is Admin -->
+								{% if product.featured %}
+									<span id="{{ product.id }}" class="button-featured admin unfeatured" data-size='small'> <i class="fa fa-star"></i><!-- &nbsp;Recomendado --> </span>
+								{% else %}
+									<span id="{{ product.id }}" class="button-featured admin disabled featured" data-size='small'> <i class="fa fa-star"></i><!-- &nbsp;Recomendar  --></span>
+								{% endif %}
+
+								<!-- else is User -->
+
 							{% else %}
-								<span id="{{ product.id }}" class="button-featured admin disabled featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendar </span>
+
+								{% if product.featured %}
+									<span id="{{ product.id }}" class="button-featured" data-size='small'> <i class="fa fa-star"></i><!-- &nbsp;Recomendado --> </span>
+								{% endif %}
+
 							{% endif %}
 						</div>
 
@@ -235,10 +248,16 @@
 				</div>
 
 				<div class="product__featured">
-					<% if (featured) { %>
-						<span id="<%= id %>" class="button-featured admin unfeatured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
+					<% if (user) { %>
+						<% if (featured) { %>
+							<span id="<%= id %>" class="button-featured admin unfeatured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
+						<% } else { %>
+							<span id="<%= id %>" class="button-featured admin disabled featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendar </span>
+						<% } %>
 					<% } else { %>
-						<span id="<%= id %>" class="button-featured admin disabled featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendar </span>
+						<% if (featured) { %>
+							<span id="<%= id %>" class="button-featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
+						<% } %>
 					<% } %>
 				</div>
 
@@ -289,9 +308,6 @@
                 data: {idWork: scope.attr('id')},
                 success: function (data) {
                     if (data.code == 202) {
-                        // scope.parent().find('.featuredlogo').show();
-                        // scope.text('Unfeatured');
-                        // scope.removeClass('featured').addClass('unfeatured');
 												scope.html('<i class="fa fa-star"></i>&nbsp;Recomendado');
 												scope.removeClass('featured').addClass('unfeatured').removeClass('disabled');
                     }
@@ -308,9 +324,6 @@
                 data: {idWork: scope.attr('id')},
                 success: function (data) {
                     if (data.code == 202) {
-                        // scope.parent().find('.featuredlogo').hide();
-                        // scope.text('Featured');
-                        // scope.removeClass('unfeatured').addClass('featured');
 												scope.html('<i class="fa fa-star"></i>&nbsp;Recomendar');
 												scope.removeClass('unfeatured').addClass('featured').addClass('disabled');
                     }
