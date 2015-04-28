@@ -89,8 +89,8 @@
 		var data = {{ data|json|safe }};
 		console.log('data: ', data);
 
-		var path = {{ path|json|safe }};
-		console.log('path: ', path);
+		var currentPath = {{ currentPath|json|safe }};
+		console.log('path: ', currentPath);
 
 		var owner = {{ owner|json|safe }};
 		console.log('owner: ', owner);
@@ -98,7 +98,7 @@
 		var profile = {{ profile|json|safe }};
 		console.log('profile: ', profile);
 
-		var url = '/' + profile.username + '/' + path + '/page-1';
+		var url = '/' + profile.username + '/' + currentPath + '/page-1';
 
 		$.ajax({
 			type: "POST",

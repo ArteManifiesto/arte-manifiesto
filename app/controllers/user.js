@@ -10,8 +10,8 @@ var Promise = require('bluebird');
 var request = require('request');
 
 exports.profile = function (req, res) {
-    var path = req.path.replace('/', '');
-    if (path.length == '') path = 'portfolio';
+    var currentPath = req.path.replace('/', '');
+    if (currentPath.length == '') currentPath = 'portfolio';
 
     var promises = [
         global.getNumCollectionsOfUser({user: req.profile.id, meta: 'portfolio'}),
@@ -24,8 +24,8 @@ exports.profile = function (req, res) {
     ];
 
     global.db.sequelize.Promise.all(promises).then(function (data) {
-        return res.render('user/profile', {
-            path: path,
+        return res.render('user/index', {
+            currentPath: currentPath,
             profile: req.profile,
             owner: req.owner,
             data: data
