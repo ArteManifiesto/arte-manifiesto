@@ -14,8 +14,17 @@
 
 <script src="/js/vendor/jquery.min.js"></script>
 <script>
+    var data = {{ data|json|safe }};
+    console.log(data);
     var path = {{ path|json|safe }};
+    console.log(path);
+
+    var owner = {{ owner|json|safe }};
+    console.log(owner);
+
     var profile = {{ profile|json|safe }};
+    console.log(profile);
+
     var url = '/' + profile.username + '/' + path + '/page-1';
 
     $.ajax({
