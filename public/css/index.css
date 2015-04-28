@@ -363,11 +363,18 @@ html {
   color: #585858;
   letter-spacing: 0.5px;
 }
-.navigation-text {
+.section-title-text {
   font-family: 'Oswald';
   font-size: 1.5rem;
   color: #585858;
   letter-spacing: 0.5px;
+}
+.navigation-text {
+  font-family: 'Oswald';
+  color: #585858;
+  font-family: 'Raleway';
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 .input {
   font-size: 1rem;
@@ -410,9 +417,7 @@ html {
 .search-options {
   display: none;
   font-family: 'Raleway';
-  border-left: solid 1px #ddd;
-  border-right: solid 1px #ddd;
-  border-bottom: solid 1px #ddd;
+  border: solid 1px #ddd;
   color: #333;
 }
 .search-options .search-option {
@@ -487,7 +492,6 @@ html {
 }
 .login-cover {
   padding: 2rem 1rem;
-  min-height: 500px;
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;
@@ -591,6 +595,7 @@ html {
 }
 .slogan .button-solid {
   margin: 0.5rem;
+  display: inline-block;
 }
 .slider-small {
   max-width: 600px;

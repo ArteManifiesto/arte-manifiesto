@@ -29,7 +29,7 @@
 			if (data.status == 200) {
 				following = true
 				buttonFollow.classList.add('disabled')
-				followers = data.data.followers
+				followers = data.data.followers.followers
 				followersEl.innerHTML = followers
 			}
 		})
@@ -41,7 +41,7 @@
 			if (data.status == 200) {
 				buttonFollow.classList.remove('disabled')
 				following = false
-				followers = data.data.followers
+				followers = data.data.followers.followers
 				followersEl.innerHTML = followers
 			}
 		})

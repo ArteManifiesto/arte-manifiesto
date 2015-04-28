@@ -22,13 +22,65 @@ function Products (data) {
 			featuredButton = document.querySelector('input[name="question"]');
 			console.log('featuredButton: ', featuredButton)
 
+	var searcher = document.querySelector('.js-searcher')
+	var searchOptions = document.querySelector('.js-search-options')
+	var optionsEl = searchOptions.querySelectorAll('.search-option')
+	console.log('optionsEl: ', optionsEl)
+	var optionTextsEl = searchOptions.querySelectorAll('.search-text')
+	var navigation = document.querySelector('.navigation')
+	var navigationTexts = document.querySelectorAll('.navigation-text')
+
 	var looking = false
 	var scrollMode = false
 
 	var loading = document.querySelector('.loading')
 	var moreContainer = document.querySelector('.more')
 
+	var text = ''
+	var type = null
+
 	function setup () {
+
+		// Selected option
+		for (var i = 0; i < optionsEl.length; i++)
+			optionsEl[i].addEventListener('click', function () {
+				type = this.getAttribute('data-search')
+				// console.log('type: ', type)
+				if(type == 'title') changeTitle(text)
+				if(type == 'tag') changeTag(text)
+			})
+
+		// Enter event in search
+		searcher.addEventListener('keypress', function (e) {
+			var keyCode = e.keyCode || e.which;
+			if (keyCode == '13') changeTag(text)
+			// return false;
+		})
+
+		// Open options
+		searcher.addEventListener('focusin', function () {
+			if(text != '') searchOptions.style.display = 'block'
+		})
+
+		// Closed options
+		searcher.addEventListener('focusout', function () {
+			console.log('focusout')
+			setTimeout(function () {
+				searchOptions.style.display = 'none'
+			}, 150)
+		})
+
+		// Change tex
+		searcher.addEventListener('input', function() {
+			text = searcher.value
+			if(text!='') {
+				searchOptions.style.display = 'block'
+				for (var i = 0; i < optionTextsEl.length; i++)
+					optionTextsEl[i].innerHTML = text
+			}
+			else searchOptions.style.display = 'none'
+		});
+
 
 		featuredButton.addEventListener('change', function () {
 			// console.log('change')
@@ -73,6 +125,55 @@ function Products (data) {
 
 		url = url.replace('page-' + pagination.page, 'page-' + ++pagination.page)
 		getData(true)
+	}
+	
+	function changeTitle (value) {
+
+		var tag = getUrlParameter('tag');
+		if (tag != undefined)
+			url = url.replace('tag=' + tag, '');
+
+		var title = getUrlParameter('title');
+		if (title != undefined)
+			url = url.replace('title=' + title, 'title=' + value);
+		else
+			url += '&title='+value;
+
+		url = url.replace('page-' + pagination.page, 'page-1')
+		navigation.style.display = 'block'
+
+		navigationTexts[0].innerHTML = 'Título'
+		navigationTexts[1].innerHTML = value
+
+		getData(false)
+	}
+
+	function changeTag (value) {
+
+		var title = getUrlParameter('title');
+		if (title != undefined)
+			url = url.replace('title=' + title, '');
+
+		var tag = getUrlParameter('tag');
+		if (tag != undefined)
+			url = url.replace('tag=' + tag, 'tag=' + value);
+		else
+			url += '&tag='+value;
+
+		url = url.replace('page-' + pagination.page, 'page-1')
+		navigation.style.display = 'block'
+
+		if (value == ''){
+			navigation.style.display = 'none'
+			url = url.replace('&tag=', '');
+		}
+
+		searcher.blur()
+
+		navigationTexts[0].innerHTML = 'Tag'
+		navigationTexts[1].innerHTML = value
+
+		getData(false)
 	}
 
 	function changeFeatured (featuredValue) {

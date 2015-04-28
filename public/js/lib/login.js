@@ -50,7 +50,10 @@ function registerSuccessHandler(response) {
 *------------------------------------------------------------------------------------------------------------*/
 console.log('LOGIN!')
 
-function Login (container, data) {
+function Login (data) {
+
+	var mode = data.mode
+	console.log('mode: ', mode)
 
 	var modal = document.querySelector('.' + data.modalClass)
 
@@ -77,8 +80,17 @@ function Login (container, data) {
 	function setup () {
 
 		signUpForm.style.display = 'none'
+		signInForm.style.display = 'none'
 		rememberForm.style.display = 'none'
-		signInFormButton.classList.add('active')
+
+		if(mode == 'signin'){
+			signInForm.style.display = 'block'
+			signInFormButton.classList.add('active')
+		}
+		if(mode == 'signup'){
+			signUpForm.style.display = 'block'
+			signUpFormButton.classList.add('active')
+		}
 
 		if(openSignUpButton) openSignUpButton.addEventListener('click', openSignUp)
 		if(openSignInButton) openSignInButton.addEventListener('click', openSignIn)

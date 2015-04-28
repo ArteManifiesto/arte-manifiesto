@@ -20,13 +20,65 @@ function Artists (data) {
 			featuredButton = document.querySelector('input[name="question"]');
 			console.log('featuredButton: ', featuredButton)
 
+	var searcher = document.querySelector('.js-searcher')
+	var searchOptions = document.querySelector('.js-search-options')
+	var optionsEl = searchOptions.querySelectorAll('.search-option')
+	console.log('optionsEl: ', optionsEl)
+	var optionTextsEl = searchOptions.querySelectorAll('.search-text')
+	var navigation = document.querySelector('.navigation')
+	var navigationTexts = document.querySelectorAll('.navigation-text')
+
 	var looking = false
 	var scrollMode = false
 
 	var loading = document.querySelector('.loading')
 	var moreContainer = document.querySelector('.more')
 
+	var text = ''
+	var type = null
+
 	function setup () {
+
+		// Selected option
+		for (var i = 0; i < optionsEl.length; i++)
+			optionsEl[i].addEventListener('click', function () {
+				type = this.getAttribute('data-search')
+				// console.log('type: ', type)
+				if(type == 'name') changeName(text)
+				if(type == 'username') changeUsername(text)
+			})
+
+		// Enter event in search
+		searcher.addEventListener('keypress', function (e) {
+			var keyCode = e.keyCode || e.which;
+			if (keyCode == '13') changeUsername(text)
+			// return false;
+		})
+
+		// Open options
+		searcher.addEventListener('focusin', function () {
+			if(text != '') searchOptions.style.display = 'block'
+		})
+
+		// Closed options
+		searcher.addEventListener('focusout', function () {
+			console.log('focusout')
+			setTimeout(function () {
+				searchOptions.style.display = 'none'
+			}, 150)
+		})
+
+		// Change tex
+		searcher.addEventListener('input', function() {
+			text = searcher.value
+			if(text!='') {
+				searchOptions.style.display = 'block'
+				for (var i = 0; i < optionTextsEl.length; i++)
+					optionTextsEl[i].innerHTML = text
+			}
+			else searchOptions.style.display = 'none'
+		});
+
 
 		featuredButton.addEventListener('change', function () {
 			changeFeatured(featuredButton.checked)
@@ -73,7 +125,56 @@ function Artists (data) {
 		
 		getData(true)
 	}
-	
+
+	function changeName (value) {
+
+		var username = getUrlParameter('username');
+		if (username != undefined)
+			url = url.replace('username=' + username, '');
+
+		var name = getUrlParameter('name');
+		if (name != undefined)
+			url = url.replace('name=' + name, 'name=' + value);
+		else
+			url += '&name='+value;
+
+		url = url.replace('page-' + pagination.page, 'page-1')
+		navigation.style.display = 'block'
+
+		navigationTexts[0].innerHTML = 'Nombre'
+		navigationTexts[1].innerHTML = value
+
+		getData(false)
+	}
+
+	function changeUsername (value) {
+
+		var name = getUrlParameter('name');
+		if (name != undefined)
+			url = url.replace('name=' + name, '');
+
+		var username = getUrlParameter('username');
+		if (username != undefined)
+			url = url.replace('username=' + username, 'username=' + value);
+		else
+			url += '&username='+value;
+
+		url = url.replace('page-' + pagination.page, 'page-1')
+		navigation.style.display = 'block'
+
+		if (value == ''){
+			navigation.style.display = 'none'
+			url = url.replace('&username=', '');
+		}
+
+		searcher.blur()
+
+		navigationTexts[0].innerHTML = 'Username'
+		navigationTexts[1].innerHTML = value
+
+		getData(false)
+	}
+
 	function changeFeatured (featuredValue) {
 
 		var featured = getUrlParameter('featured')
@@ -92,16 +193,9 @@ function Artists (data) {
 	}
 
 	function changeCategory (categoryValue) {
-		// console.log('changeCategory: ', categoryValue, url)
-		// console.log('url: ', url)
-		// category = value
 		var currentCategory = url.split('/')[5]
-		// console.log('currentCategory: ', currentCategory)
 		url =	url.replace('specialty/'+currentCategory, 'specialty/'+categoryValue)
-		// console.log('url replace: ', url)
-		// url =	url.replace(currentCategory, value)
 		url = url.replace('page-' + pagination.page, 'page-1')
-		// console.log('url chage page: ', url)
 		getData(false)
 	}
 

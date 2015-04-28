@@ -6,13 +6,21 @@
 {% block content %}
 
 	{% include '../partials/category-menu.html' %}
+	
 
+	<!-- ********************************************************************
+		$ SECTION TITLE
+	********************************************************************* -->
+	<section class="section-title">
+		<span class="section-title-text">Artístas</span>
+	</section>
+	
 
 	<!-- ********************************************************************
 		$ NAVIGATION
 	********************************************************************* -->
 	<section class="navigation">
-		<span class="navigation-text">Artístas</span>
+		<span class="navigation-text">Username</span>&nbsp; <i class="fa fa-angle-right"></i>&nbsp; <span class="navigation-text"></span>
 	</section>
 
 
@@ -22,9 +30,13 @@
 	<section class="filters-menu">
 		<div class="filters-menu__search">
 			<div class="search">
-				<input class="js-searcher" type="text" placeholder="Busca Obras, Artistas y Productos">
+				<input class="js-searcher" type="text" placeholder="Busca Artístas por Nombre o Username">
 				<i class="fa fa-search"></i>
 			</div>
+			<ul class="search-options js-search-options">
+				<li class="search-option" data-search='username'>Buscar Username: <span class="search-text"></span></li>
+				<li class="search-option" data-search='name'>Buscar Nombre: <span class="search-text"></span></li>
+			</ul>
 		</div>
 		<div class="filters-menu__category js-leftFiltersButton">
 			<button class="button-filter js-leftFiltersButton"><i class="fa fa-caret-left"></i> &nbsp Categorías</button>

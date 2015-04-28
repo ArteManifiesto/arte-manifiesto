@@ -9,10 +9,18 @@
 
 
 	<!-- ********************************************************************
+		$ SECTION TITLE
+	********************************************************************* -->
+	<section class="section-title">
+		<span class="section-title-text">Obras</span>
+	</section>
+	
+
+	<!-- ********************************************************************
 		$ NAVIGATION
 	********************************************************************* -->
 	<section class="navigation">
-		<span class="navigation-text">Obras</span>
+		<span class="navigation-text">Tag</span>&nbsp; <i class="fa fa-angle-right"></i>&nbsp; <span class="navigation-text">Cats</span>
 	</section>
 
 
@@ -23,18 +31,18 @@
 		<div class="filters-menu__search">
 			<div class="search">
 				<i class="fa fa-search"></i>
-				<input class="js-searcher" type="text" placeholder="Busca Obras por Título y Tag">
+				<input class="js-searcher" type="text" placeholder="Busca Obras por Título o Tag">
 			</div>
 			<ul class="search-options js-search-options">
-				<li class="search-option">Título <span class="search-text">oli!</span></li>
-				<li class="search-option">Tag <span class="search-text">oli!</span></li>
+				<li class="search-option" data-search='title'>Buscar Título: <span class="search-text"></span></li>
+				<li class="search-option" data-search='tag'>Buscar Tag: <span class="search-text"></span></li>
 			</ul>
 		</div>
 		<div class="filters-menu__category js-leftFiltersButton">
-			<button class="button-filter js-leftFiltersButton"><i class="fa fa-caret-left"></i> &nbsp Categorías</button>
+			<button class="button-filter js-leftFiltersButton"><i class="fa fa-caret-left"></i> &nbsp; Categorías</button>
 		</div>
 		<div class="filters-menu__order js-rightFiltersButton">
-			<button class="button-filter js-rightFiltersButton">Ordenar &nbsp <i class="fa fa-caret-right"></i></button>
+			<button class="button-filter js-rightFiltersButton">Ordenar &nbsp; <i class="fa fa-caret-right"></i></button>
 		</div>
 	</section>
 

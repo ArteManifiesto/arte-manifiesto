@@ -10,6 +10,22 @@
 
 
 	<!-- ********************************************************************
+		$ SECTION TITLE
+	********************************************************************* -->
+	<section class="section-title">
+		<span class="section-title-text">Products</span>
+	</section>
+	
+
+	<!-- ********************************************************************
+		$ NAVIGATION
+	********************************************************************* -->
+	<section class="navigation">
+		<span class="navigation-text">Username</span>&nbsp; <i class="fa fa-angle-right"></i>&nbsp; <span class="navigation-text"></span>
+	</section>
+
+
+	<!-- ********************************************************************
 		$ NAVIGATION
 	********************************************************************* -->
 	<section class="navigation">
@@ -23,17 +39,22 @@
 	<section class="filters-menu">
 		<div class="filters-menu__search">
 			<div class="search">
-				<input type="text" placeholder="Busca Obras, Artistas y Productos">
 				<i class="fa fa-search"></i>
+				<input class="js-searcher" type="text" placeholder="Busca Productos por Titulo o Tag">
 			</div>
+			<ul class="search-options js-search-options">
+				<li class="search-option" data-search='title'>Buscar Titulo: <span class="search-text"></span></li>
+				<li class="search-option" data-search='tag'>Buscar Tag: <span class="search-text"></span></li>
+			</ul>
 		</div>
 		<div class="filters-menu__category js-leftFiltersButton">
-			<button class="button-filter js-leftFiltersButton"><i class="fa fa-caret-left"></i> &nbsp Categorías</button>
+			<button class="button-filter js-leftFiltersButton"><i class="fa fa-caret-left"></i> &nbsp; Categorías</button>
 		</div>
 		<div class="filters-menu__order js-rightFiltersButton">
-			<button class="button-filter js-rightFiltersButton">Ordenar &nbsp <i class="fa fa-caret-right"></i></button>
+			<button class="button-filter js-rightFiltersButton">Ordenar &nbsp; <i class="fa fa-caret-right"></i></button>
 		</div>
 	</section>
+
 
 	<!-- ********************************************************************
 		$ WORKS CONTAINER
@@ -42,7 +63,6 @@
 		<div class="works-container__filters left js-leftFilters">
 			<div class="filters">
 				<div class="filters__title">Featured</div>
-				<!-- <div class="filter js-category" data-value="{{ category.nameSlugify }}">{{ category.name }}</div> -->
 				<div class="filters__fueatured">
 					<input name="question" type="checkbox" id="question">
 					<label for="question" class="">Recomendados</label>
@@ -94,7 +114,7 @@
 				<div class="product-wrapper">					
 					<article class="product">
 						<div class="product-image">
-							<img src="/img/products/product1.jpg">
+							<img src="{{ product.photo }}">
 						</div>
 						<div class="product-info">
 							<div class="title">{{product.name}}</div>
@@ -238,7 +258,7 @@
 		<div class="product-wrapper">					
 			<article class="product">
 				<div class="product-image">
-					<img src="/img/products/product1.jpg">
+					<img src="<%= photo %>">
 				</div>
 				<div class="product-info">
 					<div class="title"><%= name %></div>

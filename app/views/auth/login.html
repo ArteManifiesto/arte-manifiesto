@@ -80,7 +80,8 @@
 
 	<script>
 
-		window.login = new Login(document.querySelector('.login-modal'), {
+		window.login = new Login({
+			mode: 'signin',
 			modalClass: 'js-modal',
 			loginBoxClass: 'js-loginBox',
 			signUpButtonClass: 'js-signUpButton',
