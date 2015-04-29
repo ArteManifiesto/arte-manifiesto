@@ -53,29 +53,18 @@ module.exports = function (sequelize, DataTypes) {
                     User.belongsToMany(models.User, {as: 'Followers', foreignKey: 'FollowingId', through: 'Followers'});
                     User.belongsToMany(models.User, {as: 'Followings', foreignKey: 'FollowerId', through: 'Followers'});
 
-                    User.belongsToMany(models.User, {
-                        as: 'UserViewers',
-                        foreignKey: 'UserViewingId',
-                        through: 'UserViewers'
-                    });
-                    User.belongsToMany(models.User, {
-                        as: 'UserViewings',
-                        foreignKey: 'UserViewerId',
-                        through: 'UserViewers'
-                    });
+                    User.belongsToMany(models.User, {as: 'Viewers', foreignKey: 'ViewingId', through: 'UserViewers'});
+                    User.belongsToMany(models.User, {as: 'Viewings', foreignKey: 'ViewerId', through: 'UserViewers'});
 
-                    User.belongsToMany(models.Work, {as: 'Likes', through: 'Likes'});
-                    User.belongsToMany(models.Product, {as: 'ProductLikes', through: 'ProductLikes'});
-                    User.belongsToMany(models.Work, {as: 'Collects', through: 'Collects'});
-
+                    User.belongsToMany(models.Work, {as: 'WorkLikes', through: 'WorkLikes'});
                     User.belongsToMany(models.Work, {as: 'WorkViewers', through: 'WorkViewers'});
+                    User.belongsToMany(models.Work, {as: 'WorkCollects', through: 'WorkCollects'});
+                    
+                    User.belongsToMany(models.Product, {as: 'ProductLikes', through: 'ProductLikes'});
                     User.belongsToMany(models.Product, {as: 'ProductViewers', through: 'ProductViewers'});
+                    User.belongsToMany(models.Product, {as: 'ProductCollects', through: 'ProductCollects'});
 
-                    User.hasMany(models.Action);
                     User.hasMany(models.Collection);
-
-                    User.hasMany(models.UserFeatured);
-
                     User.hasMany(models.Work);
                     User.hasMany(models.Product);
                 }

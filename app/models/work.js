@@ -21,18 +21,17 @@ module.exports = function (sequelize, DataTypes) {
         }, {
             classMethods: {
                 associate: function (models) {
+                    Work.belongsToMany(models.User, {as: 'WorkLikes', through: 'WorkLikes'});
+                    Work.belongsToMany(models.User, {as: 'WorkViewers', through: 'WorkViewers'});
+                    Work.belongsToMany(models.User, {as: 'WorkCollects', through: 'WorkCollects'});
+
                     Work.belongsTo(models.User, {onDelete: 'cascade'});
 
                     Work.belongsToMany(models.Collection, {through: models.CollectionWork});
 
-                    Work.belongsToMany(models.Tag, {through: 'WorkTags'});
                     Work.belongsToMany(models.Category, {through: 'WorkCategories'});
 
-                    Work.belongsToMany(models.User, {as: 'Likes', through: 'Likes'});
-                    Work.belongsToMany(models.User, {as: 'Collects', through: 'Collects'});
-                    Work.belongsToMany(models.User, {as: 'WorkViewers', through: 'WorkViewers'});
-
-                    Work.hasMany(models.WorkFeatured);
+                    Work.belongsToMany(models.Tag, {through: 'WorkTags'});
 
                     Work.hasMany(models.Product);
                 }
@@ -40,13 +39,13 @@ module.exports = function (sequelize, DataTypes) {
             instanceMethods: {
                 like: function (user) {
                     var scope = this;
-                    return user.addLike(this).then(function () {
+                    return user.addWorkLike(this).then(function () {
                         return global.getNumLikesOfWork({work: scope.id});
                     });
                 },
                 unLike: function (user) {
                     var scope = this;
-                    return user.removeLike(this).then(function () {
+                    return user.removeWorkLike(this).then(function () {
                         return global.getNumLikesOfWork({work: scope.id});
                     });
                 }

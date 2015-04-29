@@ -8,8 +8,6 @@ var request = require('request');
 var cloudinary = require('cloudinary').v2;
 
 exports.index = function (req, res) {
-
-
     global.db.Work.findAll({
         where: {featured: true},
         limit: 10
@@ -73,7 +71,6 @@ var discover = function (req) {
 
 exports.works = function (req, res) {
     discover(req).then(function (data) {
-        //return res.json(data);
         return res.render('pages/works', data);
     });
 };

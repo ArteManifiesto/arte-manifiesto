@@ -1,45 +1,57 @@
 var basePath = 'account/';
 var redirectPath = '/' + basePath;
 
-exports.index = function (req, res) {
-    var promises = [
-        global.db.Category.findAll(),
-        req.user.getSpecialties(),
-        req.user.getInterests()
-    ];
-    global.db.Sequelize.Promise.all(promises).then(function (data) {
-        var categories = data[0], specialties = data[1], interests = data[2];
-        
-        return res.render(basePath + 'index', {
-            categories: categories,
-            specialties: specialties,
-            interests: interests
+
+
+exports.add = function (req, res) {
+    return res.render(basePath + 'work-create');
+};
+
+exports.product = function (req, res) {
+    return res.json({lel: 10});
+};
+
+
+exports.create = function (req, res) {
+};
+
+exports.delete = function (req, res) {
+
+};
+
+exports.update = function (req, res) {
+
+};
+
+exports.like = function (req, res) {
+    global.db.Work.find(req.body.idWork).then(function (work) {
+        work.like(req.user).then(function (likes) {
+            return res.ok(likes, 'User liked');
+        });
+    })
+};
+
+exports.unLike = function (req, res) {
+    global.db.Work.find(req.body.idWork).then(function (work) {
+        work.unLike(req.user).then(function (likes) {
+            return res.ok(likes, 'User unLiked');
         });
     });
 };
 
-exports.update = function (req, res) {
-    var specialtiesData = JSON.parse(req.body.specialties);
-    var interestsData = JSON.parse(req.body.interests);
 
-    var promises = [
-        global.db.Category.findAll({where: {id: {in: specialtiesData}}}),
-        global.db.Category.findAll({where: {id: {in: interestsData}}})
-    ];
+exports.featured = function (req, res) {
+    global.db.Product.find(req.body.idProduct).then(function (product) {
+        product.updateAttributes({featured: true}).then(function () {
+            return res.ok('Product featured');
+        });
+    });
+};
 
-    global.db.Sequelize.Promise.all(promises).then(function (result) {
-        var specialties = result[0], interests = result[1];
-        promises = [
-            req.user.updateAttributes(req.body),
-            req.user.setSpecialties(specialties),
-            req.user.setInterests(interests)
-        ];
-
-        global.db.Sequelize.Promise.all(promises).then(function () {
-            return res.json({
-                code: 203,
-                message: 'User updated'
-            });
+exports.unFeatured = function (req, res) {
+    global.db.Product.find(req.body.idProduct).then(function (product) {
+        product.updateAttributes({featured: false}).then(function () {
+            return res.ok('Product unFeatured');
         });
     });
 };

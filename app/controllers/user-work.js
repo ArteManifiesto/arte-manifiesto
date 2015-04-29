@@ -154,7 +154,7 @@ exports.workUpdate = function (req, res) {
 exports.like = function (req, res) {
     global.db.Work.find(req.body.idWork).then(function (work) {
         work.like(req.user).then(function (likes) {
-            return res.ok(likes, 'User liked');
+            return res.ok({work: work, likes: likes.likes}, 'User liked');
         });
     })
 };
@@ -162,7 +162,7 @@ exports.like = function (req, res) {
 exports.unLike = function (req, res) {
     global.db.Work.find(req.body.idWork).then(function (work) {
         work.unLike(req.user).then(function (likes) {
-            return res.ok(likes, 'User unLiked');
+            return res.ok({work: work, likes: likes.likes}, 'User unLiked');
         });
     });
 };
@@ -170,7 +170,7 @@ exports.unLike = function (req, res) {
 exports.featured = function (req, res) {
     global.db.Work.find(req.body.idWork).then(function (work) {
         work.updateAttributes({featured: true}).then(function () {
-            return res.ok('Work featured');
+            return res.ok({work: work}, 'Work featured');
         });
     });
 };
@@ -178,7 +178,7 @@ exports.featured = function (req, res) {
 exports.unFeatured = function (req, res) {
     global.db.Work.find(req.body.idWork).then(function (work) {
         work.updateAttributes({featured: false}).then(function () {
-            return res.ok('Work unFeatured');
+            return res.ok({work: work}, 'Work unFeatured');
         });
     });
 };
@@ -186,7 +186,7 @@ exports.unFeatured = function (req, res) {
 exports.public = function (req, res) {
     global.db.Work.find(req.body.idWork).then(function (work) {
         work.updateAttributes({public: true}).then(function () {
-            return res.ok('Work published');
+            return res.ok({work: work}, 'Work published');
         });
     });
 };
@@ -194,7 +194,7 @@ exports.public = function (req, res) {
 exports.private = function (req, res) {
     global.db.Work.find(req.body.idWork).then(function (work) {
         work.updateAttributes({public: false}).then(function () {
-            return res.ok('Work unPublished');
+            return res.ok({work: work}, 'Work unPublished');
         });
     });
 };
