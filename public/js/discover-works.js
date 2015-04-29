@@ -286,11 +286,4 @@ function Works () {
 	}
 }
 
-function makeWork (workTemplate, workData) {
-	var workString = workTemplate(workData)
-	var div = document.createElement('div')
-	div.innerHTML = workString
-	return div.children[0]
-}
-
 window.works = new Works()

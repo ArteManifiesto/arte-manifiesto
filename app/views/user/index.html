@@ -7,32 +7,34 @@
 
 	{% include '../partials/category-menu.html' %}
 
-	<div class="profile">
-		<div class="profile__avatar">
-			<img src="{{ profile.photo }}">
-		</div>
-		<div class="profile__data">
-			<div class="profile__name">
-				<p class="profile-text" >{{ profile.firstname }} {{ profile.lastname }}</p>
+	<div class="profile-container">
+		<div class="profile">
+			<div class="profile__avatar">
+				<img src="{{ profile.photo }}">
 			</div>
-			<div class="profile__info">
-				<div class="profile__city">
-					<p class="skinny-text" data-color='light'><i class="fa fa-map-marker"></i> {{ profile.city }}</p>
+			<div class="profile__data">
+				<div class="profile__name">
+					<p class="profile-text" >{{ profile.firstname }} {{ profile.lastname }}</p>
 				</div>
-				<div class="profile__follow">
+				<div class="profile__info">
+					<div class="profile__city">
+						<p class="skinny-text" data-color='light'><i class="fa fa-map-marker"></i> {{ profile.city }}</p>
+					</div>
+					<div class="profile__follow">
 
-					{% if profile.following %}
-						<button class="button-liner disabled js-followButton" data-following="true" data-userId="{{ profile.id }}">
-					{% else %}
-						<button class="button-liner js-followButton" data-following="false" data-userId="{{ profile.id }}">
-					{% endif %}
-						<span class="button-liner__action folllow">Seguir</span>
-						<span class="button-liner__action following"><i class="fa fa-check"></i> Siguiendo</span>
-						<span class="button-liner__action cancel"><i class="fa fa-times-circle"></i> Cancelar</span>
-						<span class="button-liner__number">13,2k</span>
-					</button>
+						{% if profile.following %}
+							<button class="button-liner disabled js-followButton" data-following="true" data-userId="{{ profile.id }}">
+						{% else %}
+							<button class="button-liner js-followButton" data-following="false" data-userId="{{ profile.id }}">
+						{% endif %}
+							<span class="button-liner__action folllow">Seguir</span>
+							<span class="button-liner__action following"><i class="fa fa-check"></i> Siguiendo</span>
+							<span class="button-liner__action cancel"><i class="fa fa-times-circle"></i> Cancelar</span>
+							<span class="button-liner__number">{{ data[5].followers }}</span>
+						</button>
 
-				</div>			
+					</div>			
+				</div>
 			</div>
 		</div>
 	</div>
@@ -50,10 +52,7 @@
 					<div class="square-menu__item">Likes <span class="number">{{data[1].likes}}</span></div>
 				</div>
 				<div class="square-menu__element">
-					<div class="square-menu__item">Coleccion Obras <span class="number">{{data[3].works}}</span></div>
-				</div>
-				<div class="square-menu__element">
-					<div class="square-menu__item">Coleccion Productos <span class="number">{{data[4].products}}</span></div>
+					<div class="square-menu__item">Colecciones <span class="number">{{data[3].works + data[4].products}}</span></div>
 				</div>
 				<div class="square-menu__element">
 					<div class="square-menu__item">Siguiendo <span class="number">{{data[5].followers}}</span></div>
@@ -65,10 +64,53 @@
 		</div>
 	</div>
 
+	<div class="profile-content">
+		<div class="profile-content__works">
+			<!-- ********************************************************************
+				$ WORKS
+			********************************************************************* -->
+			<section class="works" data-columns>
 
-	<script src="/js/vendor/jquery.min.js"></script>
+			</section>
+		</div>
+	</div>
+
+	<script type="text/template" id="work-template">
+
+		<article class="work">
+			<img src="<%= photo %>">
+
+			<div class="work__featured">
+
+				<% if (user) { %>
+
+					<% if (featured) { %>
+						<span id="<%= id %>" class="button-featured admin unfeatured" data-size='small'>
+							<div class="button-featured__inner"><i class="fa fa-star"></i></div>
+						</span>
+					<% } else { %>
+						<span id="<%= id %>" class="button-featured admin disabled featured" data-size='small'>
+							<div class="button-featured__inner"><i class="fa fa-star"></i></div>
+						</span>
+					<% } %>
+
+				<% } else { %>
+
+					<% if (featured) { %>
+						<span id="<%= id %>" class="button-featured" data-size='small'>
+							<div class="button-featured__inner"><i class="fa fa-star"></i></div>
+						</span>
+					<% } %>
+
+				<% } %>
+
+			</div>
+		</article>
+
+	</script>
 
 	<script>
+
 		var data = {{ data|json|safe }};
 		console.log('data: ', data);
 
@@ -80,24 +122,19 @@
 
 		var profile = {{ profile|json|safe }};
 		console.log('profile: ', profile);
+		
+		var user = {{ user|json|safe }};
+		console.log('user: ', user);
 
-<<<<<<< HEAD:app/views/user/index.html
-		var url = '/' + profile.username + '/' + currentPath + '/page-1';
-
-		$.ajax({
-=======
-		console.log(profile.username);
-		var url = '/' + profile.username + '/' + path + '/page-1';
-		console.log(url);
-		$.ajax({	
->>>>>>> add user profile:app/views/user/profile.html
-			type: "POST",
-			url: url,
-			success: function (data) {
-				console.log(data);
-			}
-		});
 	</script>
+
+	<script src="/js/vendor/jquery.min.js"></script>
+	<script src="/js/vendor/salvattore.js"></script>
+	<script src="/js/vendor/underscore-min.js"></script>
+
+	<script src="js/lib/utils.js"></script>
+
+	<script src="js/profile.js"></script>
 
 
 {% endblock %}

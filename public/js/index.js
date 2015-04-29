@@ -1,3 +1,4 @@
+console.log('index')
 
 // window.login = new Login(document.querySelector('.login-modal'), {
 // 	modalClass: 'js-modal',

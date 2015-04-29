@@ -73,9 +73,10 @@
 	$ SQUARE-MENU
 *------------------------------------*/
 .square-menu
-	letter-spacing: 1px;
+	letter-spacing: 1.5px;
 	font-family: 'Oswald';
-	color #333
+	line-height .8em
+	color #585858
 	white-space nowrap
 	overflow auto
 	font-size .9rem
@@ -86,8 +87,9 @@
 	&__item
 		margin-top .25rem
 		margin-bottom .25rem
-		padding .5rem
+		padding .75rem
 		border solid 1px #ddd
+		background white
 
 .square-menu__element:not(:first-child)
 	.square-menu__item
@@ -97,8 +99,9 @@
 	.square-menu__item
 		margin-right .5rem
 
-
 .carousel-square-menu
 	overflow hidden
 	height 3rem
 	padding 0 1rem
+	max-width max-width
+	margin auto
