@@ -46,7 +46,7 @@ exports.portfolio = function (req, res) {
     });
 };
 
-exports.likes = function (req, res) {
+exports.likesWorks = function (req, res) {
     var options = {
         query: 'getLikesOfUser', name: 'likes', viewer: req.viewer,
         user: req.profile.id, page: req.params.page, limit: 1

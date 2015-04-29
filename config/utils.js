@@ -704,7 +704,8 @@ global.getWorksOfCollection = function (options, count) {
     options.count = count;
     var queryTemplate =
         "<% if (count == undefined) { %>" +
-        "SELECT `Work`.`id`, `Work`.`name`, `Work`.`nameSlugify`, `Work`.`photo`,`Work`.`public`, `Work`.`featured`, " +
+        "SELECT `Work`.`id`, `Work`.`name`, `Work`.`nameSlugify`, `Work`.`photo`, " +
+        "`Work`.`public`, `Work`.`featured`, " +
         "COUNT(DISTINCT `Likes`.id) AS `likes`, " +
         "CASE WHEN COUNT(DISTINCT CurrentUser.id) > 0 THEN TRUE ELSE FALSE END AS `liked` " +
         "<% } else { %>" +
@@ -744,7 +745,7 @@ global.getLikesOfUser = function (options, count) {
         "LEFT OUTER JOIN (`Likes` AS `CurrentUser.Likes` INNER JOIN `Users` AS CurrentUser " +
         "ON CurrentUser.`id` = `CurrentUser.Likes`.`UserId`)ON `Work`.`id` = `CurrentUser.Likes`.`WorkId` " +
         "AND CurrentUser.`id` = <%= viewer %>  " +
-        "GROUP BY WORK.id;" +
+        "GROUP BY Work.id;" +
         "<% } %>";
     return _.template(queryTemplate)(options)
 };
