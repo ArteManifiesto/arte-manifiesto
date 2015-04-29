@@ -704,7 +704,7 @@ global.getWorksOfCollection = function (options, count) {
     options.count = count;
     var queryTemplate =
         "<% if (count == undefined) { %>" +
-        "SELECT `Work`.`id`, `Work`.`name`, `Work`.`nameSlugify`, `Work`.`photo`, " +
+        "SELECT `Work`.`id`, `Work`.`name`, `Work`.`nameSlugify`, `Work`.`photo`, `Work`.`featured`, " +
         "COUNT(DISTINCT `Likes`.id) AS `likes`, " +
         "CASE WHEN COUNT(DISTINCT CurrentUser.id) > 0 THEN TRUE ELSE FALSE END AS `liked` " +
         "<% } else { %>" +

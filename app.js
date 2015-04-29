@@ -59,13 +59,32 @@ global.db.sequelize.sync({force: dev}).then(function () {
         var chance = new Chance();
         var i;
 
-        var categoriesData = [];
+        var categoriesData = [{
+            name: 'Arte Urbano'
+        }, {
+            name: 'Collage'
+        }, {
+            name: 'Dibujo'
+        }, {
+            name: 'Digital'
+        }, {
+            name: 'Escultura'
+        }, {
+            name: 'Fotografía'
+        }, {
+            name: 'Grabado'
+        }, {
+            name: 'Ilustración'
+        }, {
+            name: 'Instalación'
+        }, {
+            name: 'Pintura'
+        }, {
+            name: 'Técnica Mixta'
+        }];
         var tagsData = [];
 
         var promises = [];
-
-        for (i = 0; i < 20; i++)
-            categoriesData.push({name: chance.word()});
 
         for (i = 0; i < 20; i++)
             tagsData.push({name: chance.word()});
