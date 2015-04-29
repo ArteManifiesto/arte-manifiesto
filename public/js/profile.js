@@ -40,7 +40,7 @@ function Profile () {
 		currentPath = 'likes'
 		url = '/' + profile.username + '/' + currentPath + '/page-1';
 		
-		console.log('url: ', url)
+		console.log('url holi: ', url)
 		$.post( url, function( data ) {
 				console.log(data);
 
