@@ -7,24 +7,15 @@ function Profile () {
 
 	var profileMenuItems = document.querySelectorAll('.square-menu__item')
 
-	var url = null,
-			path = null;
+	var url = null;
 
 	function setup () {
-		// url = '/' + profile.username + '/' + currentPath + '/page-1';
-		// // console.log('url: ', url)
 
-		// $.ajax({
-		// 	type: "POST",
-		// 	url: url,
-		// 	success: function (data) {
-		// 		// console.log(data);
-		// 	}
-		// });
+		if(currentPath == 'portfolio') rederPortfolio()
 		
 		profileMenuItems[0].addEventListener('click', rederPortfolio)
 		// profileMenuItems[1].addEventListener('click', rederMarket)
-		// profileMenuItems[2].addEventListener('click', rederLikes)
+		profileMenuItems[2].addEventListener('click', rederLikes)
 		// profileMenuItems[3].addEventListener('click', rederCollections)
 		// profileMenuItems[4].addEventListener('click', rederFollowing)
 		// profileMenuItems[5].addEventListener('click', rederFollowers)
@@ -41,6 +32,19 @@ function Profile () {
 				console.log(data);
 
 				addWorks(data.works)
+		});
+	}
+
+	function rederLikes () {
+		
+		currentPath = 'likes'
+		url = '/' + profile.username + '/' + currentPath + '/page-1';
+		
+		console.log('url: ', url)
+		$.post( url, function( data ) {
+				console.log(data);
+
+				// addWorks(data.works)
 		});
 	}
 
