@@ -89,37 +89,43 @@
 				{% for work in works %}
 					<article class="work">
 						<img src="{{work.photo}}">
-						
-						<!-- if isUser 
-						{% if work.featured %}
-							<div class="work__featured">
-								<span class="button-featured" data-size='small'> <i class="fa fa-star"></i> </span>
-							</div>
-						{% endif %} -->
 
-						<!-- if isAdmin -->
 						<div class="work__featured">
 							{% if user %}
-								
-								<!-- is Admin -->
-								{% if work.featured %}
-									<span id="{{ work.id }}" class="button-featured admin unfeatured" data-size='small'>
-										<div class="button-featured__inner">
-											<i class="fa fa-star"></i>
-										</div>
-									</span>
+								<!-- Logged User -->
+								{% if user.isAdmin %}
+									<!-- is Admin -->
+									{% if work.featured %}
+										<span id="{{ work.id }}" class="button-featured admin unfeatured" data-size='small'>
+											<div class="button-featured__inner">
+												<i class="fa fa-star"></i>
+											</div>
+										</span>
+									{% else %}
+										<span id="{{ work.id }}" class="button-featured admin disabled featured" data-size='small'>
+											<div class="button-featured__inner">
+												<i class="fa fa-star"></i>
+											</div>
+										</span>
+									{% endif %}
 								{% else %}
-									<span id="{{ work.id }}" class="button-featured admin disabled featured" data-size='small'>
-										<div class="button-featured__inner">
-											<i class="fa fa-star"></i>
-										</div>
-									</span>
+									<!-- else is User -->
+									{% if work.featured %}
+										<span id="{{ work.id }}" class="button-featured unfeatured" data-size='small'>
+											<div class="button-featured__inner">
+												<i class="fa fa-star"></i>
+											</div>
+										</span>
+									{% else %}
+										<span id="{{ work.id }}" class="button-featured disabled featured" data-size='small'>
+											<div class="button-featured__inner">
+												<i class="fa fa-star"></i>
+											</div>
+										</span>
+									{% endif %}
 								{% endif %}
-
-								<!-- else is User -->
-
 							{% else %}
-
+								<!-- No logged User -->
 								{% if work.featured %}
 									<span id="{{ work.id }}" class="button-featured" data-size='small'>
 										<div class="button-featured__inner">
@@ -128,6 +134,14 @@
 									</span>
 								{% endif %}
 
+							{% endif %}
+						</div>
+
+						<div class="work__like">
+							{% if work.liked %}
+								<button class="button-liked"><i class="fa fa-heart"></i></button>
+							{% else %}
+								<button class="button-liked hidden"><i class="fa fa-heart"></i></button>
 							{% endif %}
 						</div>
 
@@ -268,9 +282,6 @@
 		var works = {{ works|json|safe }};
 		console.log('works: ', works)
 
-		// var categories = {{ categories|json|safe }};
-		// // console.log('categories: ', categories)
-
 		var url = {{ url|json|safe }};
 		console.log('url: ', url)
 
@@ -280,47 +291,57 @@
 	<script src="/js/vendor/salvattore.js"></script>
 	<script src="/js/vendor/underscore-min.js"></script>
 
+	<script src="/js/lib/utils.js"></script>
 	<script src="/js/lib/login.js"></script>
 	<script src="/js/lib/filters.js"></script>
+	<script src="/js/lib/work.js"></script>
+	<script src="/js/lib/works.js"></script>
 	<script src="/js/discover-works.js"></script>
 
 	<script>
-        $(document).on("click", ".featured", function (event) {
-            var scope = $(this);
-            // console.log('scope: ', scope)
 
-            $.ajax({
-                type: "POST",
-                url: "/" + user.username + "/work/featured/",
-                data: {idWork: scope.attr('id')},
-                success: function (data) {
-                    if (data.status == 200) {
-                        // scope.html('<i class="fa fa-star"></i>');
-                        scope.removeClass('featured').addClass('unfeatured').removeClass('disabled');
+        // $(document).on("click", ".featured", function (event) {
+        // 		event.preventDefault()
+        // 		event.stopPropagation()
+        // 		// window.cosita = event
+        //     var scope = $(this);
+        //     // console.log('scope: ', scope)
 
-            						// console.log('scope: ', scope)
-                    }
-                    console.log(data);
-                }
-            });
-            return false;
-        });
-        $(document).on("click", ".unfeatured", function (event) {
-            var scope = $(this);
-            $.ajax({
-                type: "POST",
-                url: "/" + user.username + "/work/unfeatured/",
-                data: {idWork: scope.attr('id')},
-                success: function (data) {
-                    if (data.status == 200) {
-                        // scope.html('<i class="fa fa-star"></i>');
-                        scope.removeClass('unfeatured').addClass('featured').addClass('disabled');
-                    }
-                    console.log(data);
-                }
-            });
-            return false;
-        });
+        //     $.ajax({
+        //         type: "POST",
+        //         url: "/" + user.username + "/work/featured/",
+        //         data: {idWork: scope.attr('id')},
+        //         success: function (data) {
+        //             if (data.status == 200) {
+        //                 // scope.html('<i class="fa fa-star"></i>');
+        //                 scope.removeClass('featured').addClass('unfeatured').removeClass('disabled');
+
+        //     						// console.log('scope: ', scope)
+        //             }
+        //             console.log(data);
+        //         }
+        //     });
+        //     return false;
+        // });
+        // $(document).on("click", ".unfeatured", function (event) {
+        // 		event.preventDefault()
+        // 		event.stopPropagation()
+        // 		// window.cosita = event
+        //     var scope = $(this);
+        //     $.ajax({
+        //         type: "POST",
+        //         url: "/" + user.username + "/work/unfeatured/",
+        //         data: {idWork: scope.attr('id')},
+        //         success: function (data) {
+        //             if (data.status == 200) {
+        //                 // scope.html('<i class="fa fa-star"></i>');
+        //                 scope.removeClass('unfeatured').addClass('featured').addClass('disabled');
+        //             }
+        //             console.log(data);
+        //         }
+        //     });
+        //     return false;
+        // });
 	</script>
 
 {% endblock %}

@@ -281,6 +281,14 @@ html {
 .button-wish-list.active {
   color: #ccc;
 }
+.button-liked {
+  color: rgba(170,170,170,0.5);
+  font-size: 1.25rem;
+  background: transparent;
+}
+.button-liked.hidden {
+  display: none;
+}
 .button-featured {
   padding: 0.5rem;
   display: -webkit-box;
@@ -314,7 +322,7 @@ html {
   cursor: pointer;
 }
 .button-featured.disabled .button-featured__inner {
-  background: #aaa;
+  background: rgba(170,170,170,0.5);
 }
 .button-avatar {
   max-width: 2.5rem;
@@ -749,6 +757,16 @@ html {
   -o-transform: translate(-12.5%, -37.5%);
   -ms-transform: translate(-12.5%, -37.5%);
   transform: translate(-12.5%, -37.5%);
+}
+.works .work__like {
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-transform: translate(50%, -35%);
+  -moz-transform: translate(50%, -35%);
+  -o-transform: translate(50%, -35%);
+  -ms-transform: translate(50%, -35%);
+  transform: translate(50%, -35%);
 }
 @media screen and (min-width: 151px) and (max-width: 300px) {
   .works[data-columns]::before {

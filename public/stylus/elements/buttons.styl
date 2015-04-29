@@ -246,7 +246,19 @@
 .button-wish-list
 	&.active
 		color #ccc
-		
+
+
+/*------------------------------------*
+	$ BUTTON LIKED
+*------------------------------------*/
+.button-liked
+	// color #aaa
+	color rgba(#aaa, .5)
+	font-size 1.25rem
+	background transparent
+	&.hidden
+		display none
+	
 
 /*------------------------------------*
 	$ BUTTON FEATURED
@@ -256,6 +268,7 @@
 	display flex
 	&__inner
 		color white
+		// color rgba(white, .5)
 		display flex
 		font-size .7rem
 		background #FF6E40
@@ -266,7 +279,8 @@
 		cursor pointer
 	&.disabled
 		.button-featured__inner
-			background #aaa
+			// background #aaa
+			background rgba(#aaa, .5)
 
 
 /*------------------------------------*

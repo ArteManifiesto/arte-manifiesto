@@ -400,6 +400,14 @@ html {
 .button-wish-list.active {
   color: #ccc;
 }
+.button-liked {
+  color: rgba(170,170,170,0.5);
+  font-size: 1.25rem;
+  background: transparent;
+}
+.button-liked.hidden {
+  display: none;
+}
 .button-featured {
   padding: 0.5rem;
   display: -webkit-box;
@@ -433,7 +441,7 @@ html {
   cursor: pointer;
 }
 .button-featured.disabled .button-featured__inner {
-  background: #aaa;
+  background: rgba(170,170,170,0.5);
 }
 .button-avatar {
   max-width: 2.5rem;

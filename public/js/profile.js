@@ -11,7 +11,7 @@ function Profile () {
 
 	function setup () {
 
-		if(currentPath == 'portfolio') rederPortfolio()
+		// if(currentPath == 'portfolio') rederPortfolio()
 		
 		profileMenuItems[0].addEventListener('click', rederPortfolio)
 		// profileMenuItems[1].addEventListener('click', rederMarket)
@@ -37,7 +37,7 @@ function Profile () {
 
 	function rederLikes () {
 		
-		currentPath = 'likes'
+		currentPath = 'likes/works'
 		url = '/' + profile.username + '/' + currentPath + '/page-1';
 		
 		console.log('url holi: ', url)
