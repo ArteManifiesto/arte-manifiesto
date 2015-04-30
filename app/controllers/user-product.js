@@ -32,6 +32,10 @@ exports.product = function (req, res) {
     });
 };
 
+exports.checkout = function (req, res) {
+
+}
+
 
 exports.create = function (req, res) {
 };
@@ -43,7 +47,6 @@ exports.delete = function (req, res) {
 exports.update = function (req, res) {
 
 };
-
 
 exports.featured = function (req, res) {
     global.db.Product.find(req.body.idProduct).then(function (product) {
