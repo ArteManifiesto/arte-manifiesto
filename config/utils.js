@@ -1,4 +1,3 @@
-var _ = require('lodash');
 var moment = require('moment');
 var email = require('../app/controllers/email');
 var Promise = require('bluebird');
@@ -13,7 +12,6 @@ global.config = {
             works: ['popularity', 'views', 'newest'],
             users: ['popularity', 'views', 'newest'],
             products: ['popularity', 'views', 'newest', 'price_asc', 'price_desc']
-        },
         times: ['day', 'week', 'month', 'year'],
         params: {
             works: ['order', 'time', 'featured', 'name', 'tag'],
