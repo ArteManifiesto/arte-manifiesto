@@ -109,8 +109,8 @@ html {
 }
 .thick-menu__item {
   color: #000;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
   display: table-cell;
 }
 .thick-menu__item:not(:first-child) {
@@ -120,7 +120,7 @@ html {
   padding-right: 1rem;
 }
 .carousel-thick-menu {
-  height: 2rem;
+  height: 2.5rem;
   overflow: hidden;
   max-width: 1100px;
   margin: auto;
@@ -276,10 +276,20 @@ html {
   font-size: 0.85em;
   letter-spacing: 1px;
   font-family: 'Roboto Condensed';
+  cursor: pointer;
 }
-.button-like.active,
-.button-wish-list.active {
-  color: #ccc;
+.button-like .fa-heart,
+.button-wish-list .fa-heart {
+  color: #f54545;
+  display: none;
+}
+.button-like.active .fa-heart,
+.button-wish-list.active .fa-heart {
+  display: inline;
+}
+.button-like.active .fa-heart-o,
+.button-wish-list.active .fa-heart-o {
+  display: none;
 }
 .button-liked {
   color: rgba(170,170,170,0.5);

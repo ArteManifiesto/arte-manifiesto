@@ -7,6 +7,8 @@ function Product (el, data) {
 
 			likes = data.likes,
 			liked = data.liked,
+			// username = data.username,
+			// nameSlugify = data.nameSlugify,
 
 			buttonLike = el.querySelector('.' + data.buttonLikeClass),
 			likesEl = buttonLike.querySelector('span');
@@ -17,33 +19,51 @@ function Product (el, data) {
 
 		buttonLike.addEventListener('click', function () {
 			// console.log('click')
+			if(!user){
+				location.href = '/auth/login'
+				return
+			}
 			if(!liked) like()
 			else unLike()
 		})
 	}
 
 	function like () {
-		// console.log('like')
-		buttonLike.classList.add('active')
-		liked = true
 
-		// get new likes in response
-		newLikes = likes + 1
+		var url = '/' + user.username + '/product/like'
+		console.log(url)
 
-		likes = newLikes
-		likesEl.innerHTML = likes
+		$.post(url, {idProduct: id}, function (data) {
+			console.log(data)
+			
+			if(data.status == 200) {
+				buttonLike.classList.add('active')
+				liked = true
+		
+				var newLikes = data.data.likes
+				likes = newLikes
+				likesEl.innerHTML = likes
+			}
+		})
 	}
 
 	function unLike () {
-		// console.log('unLike')
-		buttonLike.classList.remove('active')
-		liked = false
+
+		var url = '/' + user.username + '/product/unlike'
+		console.log(url)
+
+		$.post(url, {idProduct: id}, function (data) {
+			console.log(data)
+			
+			if(data.status == 200) {
+				buttonLike.classList.remove('active')
+				liked = false
 		
-		// get new likes in response
-		newLikes = likes - 1
-		
-		likes = newLikes
-		likesEl.innerHTML = likes
+				var newLikes = data.data.likes
+				likes = newLikes
+				likesEl.innerHTML = likes
+			}
+		})
 	}
 
 	setup()

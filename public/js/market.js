@@ -10,6 +10,8 @@ function makeProductObject(el, model) {
 		id: model.id,
 		likes: model.likes,
 		liked: model.liked,
+		// username: model.User.username,
+		// nameSlugify: model.nameSlugify,
 		buttonLikeClass: 'button-like'
 	})
 }
