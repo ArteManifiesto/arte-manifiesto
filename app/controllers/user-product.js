@@ -7,16 +7,25 @@ exports.add = function (req, res) {
 };
 
 exports.product = function (req, res) {
-    var options = {viewer: req.viewer, name: req.params.nameProduct, limit: 50};
-    var query = global.getProductSingle(options);
-    global.db.sequelize.query(query, {nest: true, raw: true}).then(function (data) {
-        var product = data[0];
-        global.db.Product.find(product.id).then(function (pro) {
-            pro.getProductLikes({limit: 50}).then(function (likes) {
-                return res.json({product: product, likes: likes});
-            });
-        });
+    var options = {viewer: req.viewer, name: req.params.nameProduct};
+    var getProduct = global.getProduct(options);
+
+    global.db.Product.findAll({
+        where: {UserId: req.profile.id, through: {attributes: ['id', 'name', 'nameSlugify', 'photo']}},
+        limit: 6
+    }).then(function (products) {
+        return res.json(products);
     });
+
+    /*global.db.sequelize.query(getProduct, {nest: true, raw: true}).then(function (data) {
+     var product = data[0];
+     options = {product: product.id, limit: 50};
+     var getLikesProduct = global.getUserLikesProduct(options);
+     global.db.sequelize.query(getLikesProduct, {nest: true, raw: true}).then(function (data) {
+     product.userLikes = data;
+     return res.json(product);
+     });
+     });*/
 };
 
 

@@ -286,7 +286,7 @@ global.searchProducts = function (req) {
 
     return global.db.ProductType.find({where: {nameSlugify: req.params.value}}).then(function (productType) {
         if (productType)
-            params.type = productType.id;
+            options.type = productType.id;
         return global.getPaginationData(options);
     });
 };
@@ -689,7 +689,7 @@ global.discoverWorks = function (options, count) {
     return _.template(queryTemplate)(options);
 }
 
-global.getProductSingle = function (options) {
+global.getProduct = function (options) {
     var queryTemplate =
         "SELECT `Product`.`id`, `Product`.`name`, `Product`.`nameSlugify`, `Product`.`price`, `Product`.`photo`," +
         "`Product`.`description`, `Product`.`featured`, `ProductTypes`.`name` AS `type`, " +
@@ -711,6 +711,14 @@ global.getProductSingle = function (options) {
         "LEFT OUTER JOIN (`ProductViews` AS `ProductViews` INNER JOIN `Users` AS `Product.Views` " +
         "ON `Product.Views`.`id` = `ProductViews`.`UserId`) ON `Product`.`id` = `ProductViews`.`ProductId` " +
         "LEFT OUTER JOIN `ProductTypes` ON `Product`.`ProductTypeId` = `ProductTypes`.`id`;";
+    return _.template(queryTemplate)(options);
+}
+
+global.getUserLikesProduct = function (options) {
+    var queryTemplate =
+        "SELECT `User`.`id`, `User`.`username`, `User`.`firstname`, `User`.`lastname`, `User`.`photo` " +
+        "FROM `Users` AS `User` INNER JOIN `ProductLikes` ON `User`.`id` = `ProductLikes`.`UserId` " +
+        "AND `ProductLikes`.`ProductId` = <%=product%> LIMIT <%=limit%>;";
     return _.template(queryTemplate)(options);
 }
 
