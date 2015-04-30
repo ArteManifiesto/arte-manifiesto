@@ -82,32 +82,7 @@
 		<article class="work">
 			<img src="<%= photo %>">
 
-			<div class="work__featured">
-
-				<% if (user) { %>
-
-					<% if (featured) { %>
-						<span id="<%= id %>" class="button-featured admin unfeatured" data-size='small'>
-							<div class="button-featured__inner"><i class="fa fa-star"></i></div>
-						</span>
-					<% } else { %>
-						<span id="<%= id %>" class="button-featured admin disabled featured" data-size='small'>
-							<div class="button-featured__inner"><i class="fa fa-star"></i></div>
-						</span>
-					<% } %>
-
-				<% } else { %>
-
-					<% if (featured) { %>
-						<span id="<%= id %>" class="button-featured" data-size='small'>
-							<div class="button-featured__inner"><i class="fa fa-star"></i></div>
-						</span>
-					<% } %>
-
-				<% } %>
-
-			</div>
-		</article>
+					</article>
 
 	</script>
 
@@ -140,3 +115,31 @@
 
 
 {% endblock %}
+
+<!-- 
+<div class="work__featured">
+
+				<% if (user) { %>
+
+					<% if (featured) { %>
+						<span id="<%= id %>" class="button-featured admin unfeatured" data-size='small'>
+							<div class="button-featured__inner"><i class="fa fa-star"></i></div>
+						</span>
+					<% } else { %>
+						<span id="<%= id %>" class="button-featured admin disabled featured" data-size='small'>
+							<div class="button-featured__inner"><i class="fa fa-star"></i></div>
+						</span>
+					<% } %>
+
+				<% } else { %>
+
+					<% if (featured) { %>
+						<span id="<%= id %>" class="button-featured" data-size='small'>
+							<div class="button-featured__inner"><i class="fa fa-star"></i></div>
+						</span>
+					<% } %>
+
+				<% } %>
+
+			</div>
+ -->
