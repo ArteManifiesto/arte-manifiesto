@@ -35,7 +35,7 @@
 			</div>
 			<ul class="search-options js-search-options">
 				<li class="search-option" data-search='username'>Buscar Username: <span class="search-text"></span></li>
-				<li class="search-option" data-search='name'>Buscar Nombre: <span class="search-text"></span></li>
+				<!-- <li class="search-option" data-search='name'>Buscar Nombre: <span class="search-text"></span></li> -->
 			</ul>
 		</div>
 		<div class="filters-menu__category js-leftFiltersButton">
@@ -100,13 +100,14 @@
 							</div>
 						</a>
 						<div class="artist-works">
-							
+						{% for work in artist.Works %}
 							<div class="work work1"></div>
-							<div class="work work2"></div>
+						{% endfor %}
+							<!-- <div class="work work2"></div>
 							<div class="work work3"></div>
 							<div class="work work4"></div>
 							<div class="work work5"></div>
-							<div class="work work6"></div>
+							<div class="work work6"></div> -->
 						</div>
 						<div class="artist-follow">
 							{% if artist.following %}
@@ -187,12 +188,11 @@
 					</div>
 				</a>
 				<div class="artist-works">
-					<div class="work work1"></div>
-					<div class="work work2"></div>
-					<div class="work work3"></div>
-					<div class="work work4"></div>
-					<div class="work work5"></div>
-					<div class="work work6"></div>
+
+					<% _.each(Works, function(work) { %>
+						<div class="work work1"></div>
+					<% }); %>
+
 				</div>
 				<div class="artist-follow">
 					<% if (following) { %>
