@@ -758,6 +758,7 @@ html {
   }
 }
 .works {
+  min-height: 500px;
   padding: 0 0.5rem;
   overflow: hidden;
   max-width: 1100px;
