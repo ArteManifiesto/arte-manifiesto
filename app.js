@@ -88,14 +88,10 @@ global.db.sequelize.sync({force: dev}).then(function () {
 
         for (i = 0; i < 20; i++)
             tagsData.push({name: chance.word()});
-
         promises.push(global.db.Category.bulkCreate(categoriesData));
         promises.push(global.db.Tag.bulkCreate(tagsData));
-        var products = ['prints', 'tazas', 'polos', 'carteras', 'gorras', 'tatuajes'];
-        for (var j = 0; j < products.length; j++) {
-            var product = products[j];
-            promises.push(global.db.ProductType.create({name: product}));
-        }
+        var products = [{name: 'prints'}, {name: 'tazas'}, {name: 'polos'}, {name: 'carteras'}, {name: 'gorras'}, {name: 'tatuajes'}];
+        promises.push(global.db.ProductType.bulkCreate(products));
         global.db.Sequelize.Promise.all(promises).then(function () {
             promises = [];
             for (i = 0; i < 20; i++) {

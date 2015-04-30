@@ -48,7 +48,8 @@ module.exports = function (sequelize, DataTypes) {
             },
             hooks: {
                 afterCreate: function (product, options) {
-                    return global.db.ProductType.find(_.random(1, 5)).then(function (type) {
+                    return global.db.ProductType.findAll({order:[global.db.sequelize.fn('RAND', '')] , limit:1}).then(function (types) {
+                        var type = types[0];
                         return type.addProduct(product);
                     });
                 }
