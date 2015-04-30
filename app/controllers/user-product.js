@@ -24,7 +24,9 @@ exports.product = function (req, res) {
             global.db.sequelize.query(getLikesProduct, {nest: true, raw: true}).then(function (data) {
                 product.userLikes = data;
                 product.otherProducts = otherProducts;
-                return res.json(product);
+                return res.render('user/product/index', {
+                    product: product
+                });
             });
         });
     });
