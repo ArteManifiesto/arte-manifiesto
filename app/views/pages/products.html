@@ -123,7 +123,7 @@
 							<!-- <div class="price">${{product.price}}</div> -->
 						</div>
 						<div class="product-social">
-							<div class="price">${{product.price}}</div>
+							<div class="price">S/. {{product.price}}</div>
 							<div class="like">
 								{% if product.liked %}
 									<span class="button-like active"> <i class="fa fa-heart-o"></i> <i class="fa fa-heart"></i> <span>{{product.likes}}</span> </span>
@@ -192,7 +192,7 @@
 					<div class="title"><%= name %></div>
 				</div>
 				<div class="product-social">
-					<div class="price">$<%= price %></div>
+					<div class="price">S/. <%= price %></div>
 					<div class="like">
 
 						<% if (liked) { %>
