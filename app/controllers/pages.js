@@ -77,14 +77,12 @@ exports.works = function (req, res) {
 
 exports.users = function (req, res) {
     discover(req).then(function (data) {
-        //return res.json(data);
         return res.render('pages/users', data);
     });
 };
 
 exports.products = function (req, res) {
     searchBridge(req).then(function (data) {
-        //return res.json(data);
         var query = {attributes: ['id', 'name', 'nameSlugify']};
         global.db.ProductType.findAll(query).then(function (productTypes) {
             data.productTypes = productTypes;

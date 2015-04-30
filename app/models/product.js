@@ -16,6 +16,7 @@ module.exports = function (sequelize, DataTypes) {
             price: DataTypes.INTEGER,
             photo: DataTypes.STRING,
             description: DataTypes.TEXT,
+            public: {type: DataTypes.BOOLEAN, defaultValue: true},
             featured: {type: DataTypes.BOOLEAN, defaultValue: false}
         }, {
             classMethods: {
@@ -29,6 +30,20 @@ module.exports = function (sequelize, DataTypes) {
                     Product.belongsTo(models.Work, {onDelete: 'cascade'});
                     Product.belongsTo(models.User);
                     Product.belongsTo(models.ProductType);
+                }
+            },
+            instanceMethods: {
+                like: function (user) {
+                    var scope = this;
+                    return user.addProductLike(this).then(function () {
+                        return global.getNumLikesOfProduct({product: scope.id});
+                    });
+                },
+                unLike: function (user) {
+                    var scope = this;
+                    return user.removeProductLike(this).then(function () {
+                        return global.getNumLikesOfProduct({product: scope.id});
+                    });
                 }
             },
             hooks: {
