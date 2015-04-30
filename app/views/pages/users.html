@@ -122,32 +122,6 @@
 							</button>
 						</div>
 
-						<!-- if isAdmin -->
-						<!-- <div class="artist__featured">
-							{% if user %}
-								
-								{% if artist.featured %}
-									<span id="{{ artist.id }}" class="button-featured admin unfeatured" data-size='small'>
-										<div class="button-featured__inner"><i class="fa fa-star"></i></div>
-									</span>
-								{% else %}
-									<span id="{{ artist.id }}" class="button-featured admin disabled featured" data-size='small'>
-										<div class="button-featured__inner"><i class="fa fa-star"></i></div>
-									</span>
-								{% endif %}
-
-
-							{% else %}
-
-								{% if artist.featured %}
-									<span id="{{ artist.id }}" class="button-featured" data-size='small'>
-										<div class="button-featured__inner"><i class="fa fa-star"></i></div>
-									</span>
-								{% endif %}
-
-							{% endif %}
-						</div> -->
-
 					</article>
 				</div>
 				{% endfor %}
@@ -156,41 +130,39 @@
 	
 			<div class="loading"><i class="fa fa-spinner"></i></div>
 
-			{% if works.length > 0 %}
+            {% if users.length > 0 %}
+                
+                <div class="more">
+                    <button class="button-solid js-moreButton" data-color='red'>Ver más</button>
+                </div>
 
-			<div class="more">
-				<button class="button-solid js-moreButton" data-color='red'>Ver más</button>
-			</div>
+                <div class="empty-result" style="display:none;">
+                    <p class="high-text note">No se encontraron resultados,
+                        <button>
+                            <a href="/works/category/all/page-1/">
+                                <strong>Ver todas las obras</strong>
+                            </a>
+                        </button>
+                    </p>
+                </div>
 
-			<div class="empty-result" style="display:none;">
-				<p class="high-text note">No se encontraron resultados,
-					<button>
-						<a href="/works/category/all/page-1/">
-							<strong>Ver todas las obras</strong>
-						</a>
-					</button>
-				</p>
-			</div>
+            {% else %}
+                
+                <div class="more hide">
+                    <button class="button-solid js-moreButton" data-color='red'>Ver más</button>
+                </div>
 
-			{% else %}
+                <div class="empty-result">
+                    <p class="high-text note">No se encontraron resultados,
+                        <button>
+                            <a href="/works/category/all/page-1/">
+                                <strong>Ver todas las obras</strong>
+                            </a>
+                        </button>
+                    </p>
+                </div>
 
-			<div class="more hide">
-				<button class="button-solid js-moreButton" data-color='red'>Ver más</button>
-			</div>
-
-			<div class="empty-result">
-				<p class="high-text note">No se encontraron resultados,
-					<button>
-						<a href="/works/category/all/page-1/">
-							<strong>Ver todas las obras</strong>
-						</a>
-					</button>
-				</p>
-			</div>
-
-			{% endif %}
-
-			{% include '../partials/more.html' %}
+            {% endif %}
 
 		</div>
 	</div>
