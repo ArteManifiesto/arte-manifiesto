@@ -100,14 +100,45 @@
 							</div>
 						</a>
 						<div class="artist-works">
-						{% for work in artist.Works %}
-							<div class="work work1"></div>
-						{% endfor %}
-							<!-- <div class="work work2"></div>
-							<div class="work work3"></div>
-							<div class="work work4"></div>
-							<div class="work work5"></div>
-							<div class="work work6"></div> -->
+						
+						<!-- {% for work in artist.Works %} -->
+						{% if artist.Works[0] %}
+							<div class="work" style="background-image: url('{{ artist.Works[0].photo }}');"></div>
+						{% else %}
+							<div class="work" style="background: #ccc; border: 1px solid white;"></div>
+						{% endif %}
+
+						{% if artist.Works[1] %}
+							<div class="work" style="background-image: url('{{ artist.Works[1].photo }}');"></div>
+						{% else %}
+							<div class="work" style="background: #ccc; border: 1px solid white;"></div>
+						{% endif %}
+
+						{% if artist.Works[2] %}
+							<div class="work" style="background-image: url('{{ artist.Works[2].photo }}');"></div>
+						{% else %}
+							<div class="work" style="background: #ccc; border: 1px solid white;"></div>
+						{% endif %}
+
+						{% if artist.Works[3] %}
+							<div class="work" style="background-image: url('{{ artist.Works[3].photo }}');"></div>
+						{% else %}
+							<div class="work" style="background: #ccc; border: 1px solid white;"></div>
+						{% endif %}
+
+						{% if artist.Works[4] %}
+							<div class="work" style="background-image: url('{{ artist.Works[4].photo }}');"></div>
+						{% else %}
+							<div class="work" style="background: #ccc; border: 1px solid white;"></div>
+						{% endif %}
+
+						{% if artist.Works[5] %}
+							<div class="work" style="background-image: url('{{ artist.Works[5].photo }}');"></div>
+						{% else %}
+							<div class="work" style="background: #ccc; border: 1px solid white;"></div>
+						{% endif %}
+						<!-- {% endfor %} -->
+
 						</div>
 						<div class="artist-follow">
 							{% if artist.following %}
