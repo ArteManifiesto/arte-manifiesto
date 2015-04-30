@@ -46,12 +46,22 @@ exports.portfolio = function (req, res) {
     });
 };
 
-exports.likesWorks = function (req, res) {
+var likesByMeta = function (req, meta) {
     var options = {
-        query: 'getLikesOfUser', entity: 'likes', viewer: req.viewer,
-        user: req.profile.id, page: req.params.page, limit: 1
+        query: 'getWorksLikesOfUser', entity: 'likes', meta: meta, viewer: req.viewer,
+        user: req.profile.id, page: req.params.page, limit: 10
     };
-    global.getPaginationData(options).then(function (data) {
+    return global.getPaginationData(options);
+};
+
+exports.likesWorks = function (req, res) {
+    likesByMeta(req, 'Work').then(function (data) {
+        return res.json(data);
+    });
+};
+
+exports.likesProducts = function (req, res) {
+    likesByMeta(req, 'Product').then(function (data) {
         return res.json(data);
     });
 };

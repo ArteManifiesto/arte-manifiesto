@@ -30,6 +30,7 @@ router.use(function (req, res, next) {
 
 router.get(['/', '/portfolio'], controller.profile);
 router.get('/likes/works', controller.profile);
+router.get('/likes/products', controller.profile);
 router.get('/products', controller.profile);
 router.get('/collections/works', controller.profile);
 router.get('/collections/products', controller.profile);
@@ -49,6 +50,7 @@ router.post('/unfeatured', controller.unfeatured);
 
 router.post(['/:page', '/portfolio/:page'], controller.portfolio);
 router.post('/likes/works/:page', controller.likesWorks);
+router.post('/likes/products/:page', controller.likesProducts);
 router.post('/products/:page', controller.products);
 router.post('/collections/works/:page', controller.collectionsWorks);
 router.post('/collections/products/:page', controller.collectionsProducts);

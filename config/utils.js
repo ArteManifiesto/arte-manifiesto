@@ -101,11 +101,10 @@ global.searchUsers = function (req) {
     var options = discoverOptions(req);
     options.specialty = undefined;
     options.username = req.query.username ? req.query.username : undefined;
-
+    if (req.params.value == 'all')  req.params.value = 'arte-urbano';
     var query = {where: {nameSlugify: req.params.value}};
     return global.db.Category.find(query).then(function (specialty) {
         options.specialty = specialty ? specialty.id : 0;
-        if (req.params.value == 'all') options.specialty = undefined;
         return global.getPaginationData(options).then(function (data) {
             var records = global.mergeEntity(data[options.entity], ['Works']);
             _.map(records, function (value, key) {
@@ -362,7 +361,7 @@ global.getWorksOfCollection = function (options, count) {
         "<% if (count == undefined) { %> LIMIT <%= offset %>,<%= limit %> <% } %>) AS `Work` " +
         "<% if (count == undefined) { %>" +
         "LEFT OUTER JOIN (`WorkLikes` AS `Work.Likes` INNER JOIN `Users` AS `Likes` " +
-        "ON `Likes`.`id` = `Work.Likes`.`UserId`) ON `Work`.`id` = `Work.Likes`.`WorkId` " +
+        "ON `Likes`.`id` = `Work    .Likes`.`UserId`) ON `Work`.`id` = `Work.Likes`.`WorkId` " +
         "LEFT OUTER JOIN (`WorkLikes` AS `CurrentUser.Likes` INNER JOIN `Users` AS CurrentUser " +
         "ON CurrentUser.`id` = `CurrentUser.Likes`.`UserId`) ON `Work`.`id` = `CurrentUser.Likes`.`WorkId` " +
         "AND CurrentUser.`id` = <%=viewer%> " +
@@ -370,29 +369,33 @@ global.getWorksOfCollection = function (options, count) {
         "<% } %>";
     return _.template(queryTemplate)(options)
 };
-global.getLikesOfUser = function (options, count) {
+global.getWorksLikesOfUser = function (options, count) {
     options.count = count;
     var queryTemplate =
         "<% if (count == undefined) { %>" +
-        "SELECT `Work`.`id`, `Work`.`name`, `Work`.`nameSlugify`, `Work`.`photo`, `Work`.`featured`, " +
+        "SELECT `<%=meta%>`.`id`, `<%=meta%>`.`name`, `<%=meta%>`.`nameSlugify`, `<%=meta%>`.`photo`, `<%=meta%>`.`featured`, " +
         "COUNT(DISTINCT `Likes`.id) AS `likes`, " +
-        "CASE WHEN COUNT(DISTINCT CurrentUser.id) > 0 THEN TRUE ELSE FALSE END AS `liked` " +
+        "IF(COUNT(DISTINCT CurrentUser.id) > 0 , TRUE , FALSE) AS `liked` " +
         "<% } else { %>" +
-        "SELECT COUNT(DISTINCT Work.id) AS total " +
+        "SELECT COUNT(DISTINCT <%=meta%>.id) AS total " +
         "<% } %>" +
-        "FROM (SELECT `Work`.* FROM `Works` AS `Work` INNER JOIN `Likes` AS `Likes` " +
-        "ON `Work`.`id` = `Likes`.`WorkId` AND `Likes`.`UserId` = <%= user %> WHERE (`Work`.`public` = TRUE)" +
-        "<% if (count == undefined) { %> LIMIT <%= offset %>,<%= limit %> <% } %>) AS `Work` " +
+        "FROM (SELECT `<%=meta%>`.* FROM `<%=meta%>s` AS `<%=meta%>` INNER JOIN `<%=meta%>Likes` AS `<%=meta%>.Likes` " +
+        "ON `<%=meta%>`.`id` = `<%=meta%>.Likes`.`<%=meta%>Id` AND `<%=meta%>.Likes`.`UserId` = <%= user %> " +
+        "WHERE (`<%=meta%>`.`public` = TRUE)" +
+        "<% if (count == undefined) { %> LIMIT <%= offset %>,<%= limit %> <% } %>) AS `<%=meta%>` " +
         "<% if (count == undefined) { %>" +
-        "LEFT OUTER JOIN (`Likes` AS `Likes.Likes` INNER JOIN `Users` AS `Likes` " +
-        "ON `Likes`.`id` = `Likes.Likes`.`UserId`) ON `Work`.`id` = `Likes.Likes`.`WorkId` " +
-        "LEFT OUTER JOIN (`Likes` AS `CurrentUser.Likes` INNER JOIN `Users` AS CurrentUser " +
-        "ON CurrentUser.`id` = `CurrentUser.Likes`.`UserId`)ON `Work`.`id` = `CurrentUser.Likes`.`WorkId` " +
+        "LEFT OUTER JOIN (`<%=meta%>Likes` AS `Likes.Likes` INNER JOIN `Users` AS `Likes` " +
+        "ON `Likes`.`id` = `Likes.Likes`.`UserId`) ON `<%=meta%>`.`id` = `Likes.Likes`.`<%=meta%>Id` " +
+        "LEFT OUTER JOIN (`<%=meta%>Likes` AS `CurrentUser.Likes` INNER JOIN `Users` AS CurrentUser " +
+        "ON CurrentUser.`id` = `CurrentUser.Likes`.`UserId`)ON `<%=meta%>`.`id` = `CurrentUser.Likes`.`<%=meta%>Id` " +
         "AND CurrentUser.`id` = <%= viewer %>  " +
-        "GROUP BY Work.id;" +
+        "GROUP BY <%=meta%>.id;" +
         "<% } %>";
     return _.template(queryTemplate)(options)
 };
+
+
+
 global.getCollectionsByMeta = function (options, count) {
     options.count = count;
     var queryTemplate =
