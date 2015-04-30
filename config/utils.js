@@ -342,28 +342,29 @@ global.getCount = function (queryTemplate, options) {
         return data[0];
     });
 };
-global.getWorksOfCollection = function (options, count) {
+
+global.getWorksOfCollectionByMeta = function (options, count) {
     options.count = count;
     var queryTemplate =
         "<% if (count == undefined) { %>" +
-        "SELECT `Work`.`id`, `Work`.`name`, `Work`.`nameSlugify`, `Work`.`photo`, " +
-        "`Work`.`public`, `Work`.`featured`, " +
+        "SELECT `<%=meta%>`.`id`, `<%=meta%>`.`name`, `<%=meta%>`.`nameSlugify`, `<%=meta%>`.`photo`, " +
+        "`<%=meta%>`.`public`, `<%=meta%>`.`featured`, " +
         "COUNT(DISTINCT `Likes`.id) AS `likes`, " +
         "CASE WHEN COUNT(DISTINCT CurrentUser.id) > 0 THEN TRUE ELSE FALSE END AS `liked` " +
         "<% } else { %>" +
-        "SELECT COUNT(DISTINCT Work.id) AS total " +
+        "SELECT COUNT(DISTINCT <%=meta%>.id) AS total " +
         "<% } %>" +
-        "FROM (SELECT `Work`.*, `CollectionWork`.`order` AS `CollectionWork.order` " +
-        "FROM `Works` AS `Work` INNER JOIN `CollectionWorks` AS `CollectionWork` " +
-        "ON `Work`.`id` = `CollectionWork`.`WorkId` AND `CollectionWork`.`CollectionId` = <%= collection %> " +
-        "<% if (count == undefined) { %> LIMIT <%= offset %>,<%= limit %> <% } %>) AS `Work` " +
+        "FROM (SELECT `<%=meta%>`.*, `Collection<%=meta%>`.`order` AS `Collection<%=meta%>.order` " +
+        "FROM `<%=meta%>s` AS `<%=meta%>` INNER JOIN `Collection<%=meta%>s` AS `Collection<%=meta%>` " +
+        "ON `<%=meta%>`.`id` = `Collection<%=meta%>`.`<%=meta%>Id` AND `Collection<%=meta%>`.`CollectionId` = <%= collection %> " +
+        "<% if (count == undefined) { %> LIMIT <%= offset %>,<%= limit %> <% } %>) AS `<%=meta%>` " +
         "<% if (count == undefined) { %>" +
-        "LEFT OUTER JOIN (`WorkLikes` AS `Work.Likes` INNER JOIN `Users` AS `Likes` " +
-        "ON `Likes`.`id` = `Work    .Likes`.`UserId`) ON `Work`.`id` = `Work.Likes`.`WorkId` " +
-        "LEFT OUTER JOIN (`WorkLikes` AS `CurrentUser.Likes` INNER JOIN `Users` AS CurrentUser " +
-        "ON CurrentUser.`id` = `CurrentUser.Likes`.`UserId`) ON `Work`.`id` = `CurrentUser.Likes`.`WorkId` " +
+        "LEFT OUTER JOIN (`<%=meta%>Likes` AS `<%=meta%>.Likes` INNER JOIN `Users` AS `Likes` " +
+        "ON `Likes`.`id` = `<%=meta%>.Likes`.`UserId`) ON `<%=meta%>`.`id` = `<%=meta%>.Likes`.`<%=meta%>Id` " +
+        "LEFT OUTER JOIN (`<%=meta%>Likes` AS `CurrentUser.Likes` INNER JOIN `Users` AS CurrentUser " +
+        "ON CurrentUser.`id` = `CurrentUser.Likes`.`UserId`) ON `<%=meta%>`.`id` = `CurrentUser.Likes`.`<%=meta%>Id` " +
         "AND CurrentUser.`id` = <%=viewer%> " +
-        "GROUP BY Work.id ORDER BY `CollectionWork.order` ASC;" +
+        "GROUP BY <%=meta%>.id ORDER BY `Collection<%=meta%>.order` ASC;" +
         "<% } %>";
     return _.template(queryTemplate)(options)
 };
@@ -391,7 +392,6 @@ global.getWorksLikesOfUser = function (options, count) {
         "<% } %>";
     return _.template(queryTemplate)(options)
 };
-
 
 
 global.getCollectionsByMeta = function (options, count) {

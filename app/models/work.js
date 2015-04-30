@@ -53,7 +53,7 @@ module.exports = function (sequelize, DataTypes) {
             hooks: {
                 afterCreate: function (work, options) {
                     var promises = [];
-                    for (var i = 0; i < _.random(0, 5); i++) {
+                    for (var i = 0; i < 4; i++) {
                         promises.push(global.db.Product.create({
                             name: chance.name(),
                             price: _.random(0, 1000),
@@ -62,9 +62,15 @@ module.exports = function (sequelize, DataTypes) {
                             description: chance.paragraph({sentences: 2})
                         }))
                     }
+
                     return global.db.Sequelize.Promise.all(promises).then(function (products) {
-                        return work.addProducts(products);
-                    })
+                        console.log("adddd producttt to collection");
+                        promises = [
+                            options.store.addProducts(products),
+                            work.addProducts(products)
+                        ]
+                        return global.db.Sequelize.Promise.all(promises);
+                    });
                 }
             }
         }

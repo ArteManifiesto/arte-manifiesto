@@ -33,14 +33,19 @@ exports.profile = function (req, res) {
     });
 };
 
+var worksCollectionByMeta = function (req, options) {
+    options.query = 'getWorksOfCollectionByMeta'
+    options.viewer = req.viewer;
+    options.user = req.profile.id;
+    options.page = req.params.page;
+    options.limit = 10;
+    return global.getPaginationData(options);
+};
+
 exports.portfolio = function (req, res) {
     global.getPortfolioCollection(req.profile).then(function (collection) {
-        var options = {
-            query: 'getWorksOfCollection', entity: 'works', viewer: req.viewer,
-            collection: collection.id, user: req.profile.id,
-            page: req.params.page, limit: 1
-        };
-        global.getPaginationData(options).then(function (data) {
+        var options = {collection: collection.id, entity: 'works', meta: 'Work'};
+        worksCollectionByMeta(req, options).then(function (data) {
             return res.json(data);
         });
     });
@@ -67,14 +72,19 @@ exports.likesProducts = function (req, res) {
 };
 
 exports.products = function (req, res) {
-
+    global.getStoreCollection(req.profile).then(function (collection) {
+        var options = {collection: collection.id, entity: 'products', meta: 'Product'};
+        worksCollectionByMeta(req, options).then(function (data) {
+            return res.json(data);
+        });
+    });
 };
 
 var collectionsByMeta = function (req, meta) {
     var options = {
         query: 'getCollectionsByMeta', entity: meta, viewer: req.viewer,
         meta: meta, user: req.profile.id,
-        page: req.params.page, limit: 1
+        page: req.params.page, limit: 10
     };
     return global.getPaginationData(options);
 };
