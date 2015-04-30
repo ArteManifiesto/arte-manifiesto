@@ -1,4 +1,3 @@
-// console.log('hola desde profile.js')
 
 function Profile (data) {
 	
@@ -52,7 +51,6 @@ function Profile (data) {
 			pages[currentPage].style.display = 'none'
 			currentPage = 2
 			pages[currentPage].style.display = 'block'
-
 		})
 		profileMenuItems[3].addEventListener('click', function () {
 			rederFollowers()
@@ -114,7 +112,7 @@ function Profile (data) {
 		console.log('url: ', url)
 		$.post( url, function( data ) {
 			console.log('data: ', data)
-				var productsContainer = document.querySelector('.profile-content__likes .products')
+				var productsContainer = document.querySelector('.profile-content__store .products')
 				addProducts(productsContainer, data.products)
 		});
 	}
@@ -184,9 +182,9 @@ function Profile (data) {
 	}
 
 	function clear (container, className) {
-		   var els = container.querySelectorAll('.' + className)
-        for (var i = 0; i < els.length; i++)
-            els[i].remove()
+		var els = container.querySelectorAll('.' + className)
+			for (var i = 0; i < els.length; i++)
+				els[i].remove()
 	}
 
 	setup()

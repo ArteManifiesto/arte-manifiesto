@@ -45,26 +45,25 @@
 				<div class="square-menu__element">
 					<div class="square-menu__item">Portafolio <!-- <span class="number">{{data[0].portfolio}}</span> --></div>
 				</div>
-			{% if user.username == "artjam" %}
+
+			{% if user.username != "artjam" %}
 				<div class="square-menu__element">
 					<div class="square-menu__item">Tienda</div>
 				</div>
 			{% else %}
 				<div class="square-menu__element" style="display: none;">
 					<div class="square-menu__item">Tienda</div>
+				</div>
 			{% endif %}
+
+				<div class="square-menu__element">
+					<div class="square-menu__item">Likes <span class="number"></span></div>
 				</div>
 				<div class="square-menu__element">
-					<div class="square-menu__item">Likes <span class="number"><!-- {{data[1].likes}} --></span></div>
-				</div>
-				<!-- <div class="square-menu__element">
-					<div class="square-menu__item">Colecciones <span class="number">{{data[3].works + data[4].products}}</span></div>
-				</div> -->
-				<div class="square-menu__element">
-					<div class="square-menu__item">Seguidores <span class="number"><!-- {{data[5].followers}} --></span></div>
+					<div class="square-menu__item">Seguidores <span class="number"></span></div>
 				</div>
 				<div class="square-menu__element">
-					<div class="square-menu__item">Siguiendo <span class="number"><!-- {{data[6].followings}} --></span></div>
+					<div class="square-menu__item">Siguiendo <span class="number"></span></div>
 				</div>
 			</div>
 		</div>
@@ -72,39 +71,34 @@
 
 	<div class="profile-content">
 
-		<div class="page profile-content__works">
+		<div class="page profile-content__works" style="display: block;">
 			<!-- ********************************************************************
 				$ WORKS
 			********************************************************************* -->
 			<section class="works" data-columns></section>
 		</div>
 
-		<div class="page profile-content__store">
+		<div class="page profile-content__store" style="display: block;">
 			<!-- ********************************************************************
 				$ PRODUCTS
 			********************************************************************* -->
 			<section class="products"></section>
 		</div>
 
-		<div class="page profile-content__likes">
+		<div class="page profile-content__likes" style="display: block;">
 			<!-- ********************************************************************
 				$ WORKS
 			********************************************************************* -->
 			<section class="works" data-columns></section>
-			<!-- ********************************************************************
-				$ PRODUCTS
-			********************************************************************* -->
-			<section class="products"></section>
-		</div>
 
-		<div class="page profile-content__followers">
+		<div class="page profile-content__followers" style="display: block;">
 			<!-- ********************************************************************
 				$ ARTISTS
 			********************************************************************* -->
 			<section class="artists"></section>
 		</div>
 
-		<div class="page profile-content__following">
+		<div class="page profile-content__following" style="display: block;">
 			<!-- ********************************************************************
 				$ ARTISTS
 			********************************************************************* -->

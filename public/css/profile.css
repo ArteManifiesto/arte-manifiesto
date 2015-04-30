@@ -501,7 +501,6 @@ html {
   border-bottom: 1px solid #eee;
 }
 .works {
-  min-height: 500px;
   padding: 0 0.5rem;
   overflow: hidden;
   max-width: 1100px;
@@ -719,7 +718,6 @@ html {
 }
 .artists {
   margin: 0.5rem;
-  min-height: 500px;
 }
 .artist-wrapper {
   padding: 0.5rem;
@@ -958,7 +956,6 @@ html {
   background-image: url("../img/works/obra12.jpg");
 }
 .products {
-  min-height: 500px;
   margin: 0.5rem;
 }
 .product-wrapper {
