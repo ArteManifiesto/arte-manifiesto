@@ -17,7 +17,8 @@
 .single-product
 	max-width max-width
 	margin auto
-	padding .75rem .5rem
+	padding 1rem .5rem
+	// padding .75rem .5rem
 
 	&__title
 		text-align center
@@ -26,6 +27,7 @@
 	&__artist
 		font-family 'Roboto Condensed'
 		letter-spacing 1px
+		font-size 1.15rem
 		display flex
 		align-items center
 		justify-content center
@@ -39,7 +41,7 @@
 			font-style italic
 				
 	&__info
-		padding .5rem 0
+		padding 1rem 0
 		max-width
 		&__image
 			padding .5rem
@@ -47,41 +49,38 @@
 				max-width 300px
 				margin: auto;
 				display: block;
-		&__actions
-			padding .5rem
-			.actions__social
-				display flex
-				justify-content space-between
-				align-items center
-				// .like
-					// padding .5rem
-				.price
-					font-family 'Raleway'
-					font-size 1.5rem
-					font-weight 700
+		&__data
+			.actions
+				padding .5rem
+				.actions__social
+					display flex
+					justify-content space-between
+					align-items center
+					.price
+						font-family 'Raleway'
+						font-size 1.5rem
+						font-weight 700
+				.actions__buy
+					margin 1rem 0
+				.actions__people
+					display flex
+					flex-wrap wrap
+					justify-content center
+					.people-item
+						padding .1rem
+						img
+							width 2.5rem
+							height 2.5rem
+							border-radius 50%
+							// margin .5rem
 					
-			.actions__buy
-				margin-top 1rem
-
-	// 	// display flex
-	// 	&__image
-	// 		padding 2rem
-	// 		// background red
-	// 		img
-	// 			padding .5rem
-			// .actions
-				// min-width 200px
-				// .actions__social
-				// 	display flex
-				// 	justify-content: space-between;
-				// 	align-items center
-				// 	padding .5rem
-				// 	.price
-				// 		font-family 'Raleway'
-				// 		font-size 1.75rem
-				// 		font-weight 700
-				// .actions__buy
-				// 	padding .5rem
+			// .people
+			// 	padding .25rem
+			// 	justify-content center
+			// 		margin .25rem
+			// 		img
+			// 			border-radius 50%
+				
 										
 @media (min-width: tablet)
 	.single-product
@@ -92,11 +91,18 @@
 			display flex
 			justify-content center
 			align-items center
+			max-width 800px
+			margin auto
 			&__image
 				flex 2
-			&__actions
+			&__data
 				flex 1
-				// border solid 1px #ccc
-				// padding .5rem
-				// .actions
-				// 	background green
+				.actions
+					border solid 1px #ccc
+					margin .5rem
+					padding 1rem
+				// .people
+				// 	border solid 1px #ccc
+				// 	margin .5rem
+				// 	padding .5rem
+				// 	
