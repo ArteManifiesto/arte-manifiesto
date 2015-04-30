@@ -7,29 +7,29 @@ var chance = new Chance();
 
 module.exports = function (sequelize, DataTypes) {
     var User = sequelize.define('User', {
-            username: DataTypes.STRING,
-            email: DataTypes.STRING,
-            firstname: DataTypes.STRING,
-            lastname: DataTypes.STRING,
-            gender: DataTypes.STRING,
-            photo: DataTypes.STRING,
+            username: DataTypes.STRING,//
+            email: DataTypes.STRING, //
+            firstname: DataTypes.STRING, //
+            lastname: DataTypes.STRING, //
+            gender: DataTypes.STRING,//
+            photo: DataTypes.STRING,//
             isArtist: {type: DataTypes.BOOLEAN, defaultValue: false},
 
-            city: DataTypes.STRING,
-            country: DataTypes.STRING,
-            biography: DataTypes.TEXT,
-            birthday: DataTypes.DATE,
+            city: DataTypes.STRING,//
+            country: DataTypes.STRING,//
+            biography: DataTypes.TEXT,//
+            birthday: DataTypes.DATE,//----->
             // specialties in associations
-            school: DataTypes.STRING,
+            school: DataTypes.STRING,//------>
 
             //TODO maybe need other table association for social ?
-            facebook: DataTypes.STRING,
+            facebook: DataTypes.STRING,//
             facebookUserId: DataTypes.BIGINT(30),
-            twitter: DataTypes.STRING,
-            instagram: DataTypes.STRING,
-            tumblr: DataTypes.STRING,
-            behance: DataTypes.STRING,
-            web: DataTypes.STRING,
+            twitter: DataTypes.STRING,//
+            instagram: DataTypes.STRING,//--->
+            tumblr: DataTypes.STRING,//
+            behance: DataTypes.STRING,//
+            web: DataTypes.STRING,//
 
             // interests in associations
             hashedPassword: DataTypes.STRING,
