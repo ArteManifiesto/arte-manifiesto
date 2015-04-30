@@ -53,8 +53,8 @@ module.exports = function (sequelize, DataTypes) {
                     User.belongsToMany(models.User, {as: 'Followers', foreignKey: 'FollowingId', through: 'Followers'});
                     User.belongsToMany(models.User, {as: 'Followings', foreignKey: 'FollowerId', through: 'Followers'});
 
-                    User.belongsToMany(models.User, {as: 'Viewers', foreignKey: 'ViewingId', through: 'UserViewers'});
-                    User.belongsToMany(models.User, {as: 'Viewings', foreignKey: 'ViewerId', through: 'UserViewers'});
+                    User.belongsToMany(models.User, {as: 'Viewers', foreignKey: 'ViewingId', through: 'UserViews'});
+                    User.belongsToMany(models.User, {as: 'Viewings', foreignKey: 'ViewerId', through: 'UserViews'});
 
                     User.belongsToMany(models.Work, {as: 'WorkLikes', through: 'WorkLikes'});
                     User.belongsToMany(models.Work, {as: 'WorkViews', through: 'WorkViews'});
