@@ -105,7 +105,7 @@
 							<div class="work work3"></div>
 							<div class="work work4"></div>
 							<div class="work work5"></div>
-							<div class="work work6"></div>                  
+							<div class="work work6"></div>
 						</div>
 						<div class="artist-follow">
 							{% if artist.following %}
@@ -121,10 +121,9 @@
 						</div>
 
 						<!-- if isAdmin -->
-						<div class="artist__featured">
+						<!-- <div class="artist__featured">
 							{% if user %}
 								
-								<!-- is Admin -->
 								{% if artist.featured %}
 									<span id="{{ artist.id }}" class="button-featured admin unfeatured" data-size='small'>
 										<div class="button-featured__inner"><i class="fa fa-star"></i></div>
@@ -135,7 +134,6 @@
 									</span>
 								{% endif %}
 
-								<!-- else is User -->
 
 							{% else %}
 
@@ -146,7 +144,7 @@
 								{% endif %}
 
 							{% endif %}
-						</div>
+						</div> -->
 
 					</article>
 				</div>
@@ -172,76 +170,6 @@
 
 
 	{% include '../partials/footer.html' %}
-
-
-	<!-- ********************************************************************
-		$ LOGIN
-	********************************************************************* -->
-	<section class="login-modal">
-		<div class="login-box js-loginBox">
-			<header class="login-box__header">			
-				<div class="skinny-menu">
-					<a href="#" class="skinny-menu__item js-signInFormButton">
-						Ingresar
-					</a>
-					<a href="#" class="skinny-menu__item js-signUpFormButton">
-						Registrarme
-					</a>
-				</div>
-			</header>
-			<form class="login-box__form js-signUpForm">
-		 		<a href="#" class="facebook-button" data-expand='true'>
-					<i class="fa fa-facebook-official"></i>&nbsp; Registrarme con Facebook
-				</a>
-				<div class="separator-text">
-					<span class="line"></span>
-					<span class="text">Con email</span>
-					<span class="line"></span>
-				</div>
-				<input class="input" data-size='large' name="username" placeholder="Username" type="text">
-				<input class="input" data-size='large' name="email" placeholder="Email" type="email">
-				<input class="input" data-size='large' name="password" placeholder="Password" type="password">
-				<input class="input" data-size='large' name="first-name" placeholder="First Name" type="text">
-				<input class="input" data-size='large' name="last-name" placeholder="Last Name" type="text">
-				<select class="input" name="gender">
-					<option selected disabled>Género</option>
-					<option value="Male">Masculino</option>
-					<option value="Female">Femenino</option>
-				</select>
-				<div class="question">
-					<input name="question" type="checkbox" id="question">
-					<label for="question" class="medium-text">¿Eres Artista profesional?</label>
-				</div>
-				<input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Registrarme" type="submit">
-				<p class="high-text note" data-size="small">Al registrarte estas aceptando los <strong>terminos y condiciones</strong> de Arte Manifiesto</p>
-			</form>
-			<form class="login-box__form js-signInForm">
-		 		<a href="#" class="facebook-button" data-expand='true'>
-					<i class="fa fa-facebook-official"></i>&nbsp; Ingresar con Facebook
-				</a>
-				<div class="separator-text">
-					<span class="line"></span>
-					<span class="text">Con email</span>
-					<span class="line"></span>
-				</div>
-				<input class="input" data-size='large' name="email" placeholder="Email" type="text">
-				<input class="input" data-size='large' name="password" placeholder="Password" type="password">
-				<input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Ingresar" type="submit">
-				<p class="high-text note js-rememberFormButton" data-size="small">Recordar contraseña</p>
-			</form>
-			<form class="login-box__form js-rememberForm">
-				<div class="separator-text">
-					<span class="line"></span>
-					<span class="text">Recordar contraseña</span>
-					<span class="line"></span>
-				</div>
-				<input class="input" data-size='large' name="email" placeholder="Email" type="text">
-				<input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Recordar" type="submit">
-				<p class="high-text note js-rememberBackButton" data-size="small">Ingresar</p>
-			</form>
-			<div class="login-box__closed js-loginClosed"><i class="fa fa-times"></i></div>
-		</div>
-	</section>
 
 
 	<script type="text/template" id="artist-template">
@@ -276,25 +204,6 @@
 						<span class="button-liner__action cancel"><i class="fa fa-times-circle"></i> Cancelar</span>
 						<span class="button-liner__number">13,2k</span>
 					</button>
-				</div>
-				<div class="artist__featured">
-					<% if (user) { %>
-						<% if (featured) { %>
-							<span id="<%= id %>" class="button-featured admin unfeatured" data-size='small'>
-								<div class="button-featured__inner"><i class="fa fa-star"></i></div>
-							</span>
-						<% } else { %>
-							<span id="<%= id %>" class="button-featured admin disabled featured" data-size='small'>
-								<div class="button-featured__inner"><i class="fa fa-star"></i></div>
-							</span>
-						<% } %>
-					<% } else { %>
-						<% if (featured) { %>
-							<span id="<%= id %>" class="button-featured" data-size='small'>
-								<div class="button-featured__inner"><i class="fa fa-star"></i></div>
-							</span>
-						<% } %>
-					<% } %>
 				</div>
 			</article>
 		</div>
