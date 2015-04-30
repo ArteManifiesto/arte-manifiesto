@@ -22,17 +22,67 @@ work-width = 150px
 		position relative
 		&:hover
 			box-shadow rgba(0,0,0,0.35) 0 0 10px
-		&__featured
+		// &__featured
+		// 	position absolute
+		// 	top 0
+		// 	right 0
+		// 	transform translate(-12.5%, -37.5%)
+		// &__like
+		// 	position absolute
+		// 	top 0
+		// 	left 0
+		// 	transform translate(50%, -35%)
+		&__socials
+			display none
 			position absolute
 			top 0
-			right 0
-			transform translate(-12.5%, -37.5%)
-		&__like
-			position absolute
-			top 0
+			bottom 0
 			left 0
-			transform translate(50%, -35%)
-			
+			right 0
+			.social-block
+				margin auto
+				.social-item
+					background rgba(black, .375)
+					color white
+					border-radius 50%
+					padding .5em
+					margin .5em
+					font-size 1em
+					cursor pointer
+					display flex
+					&.active
+						background white
+						color #f54545
+
+		&__like-cover
+			position absolute
+			top 0
+			bottom 0
+			width 100%
+			background rgba(green, .25)
+			display flex
+			.like-simbol
+				color white
+				margin auto
+				&.fade
+					// animation 1s fade infinite
+
+@keyframes fade
+	0%
+		font-size 0
+	100%
+		font-size 2rem
+
+@media (min-width: desktop)
+	.works
+		.work
+			&__like-cover
+				display none
+		.work
+			&:hover
+				.work__socials
+					display flex
+
 
 for i in (1..(columns - 1))
 	@media screen and (min-width: work-width*i+1) and (max-width: work-width*(i+1))

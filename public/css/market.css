@@ -493,6 +493,8 @@ html {
   font-family: 'Raleway';
   border: solid 1px #ddd;
   color: #333;
+  max-width: 400px;
+  margin: auto;
 }
 .search-options .search-option {
   padding: 0.5rem 1rem;

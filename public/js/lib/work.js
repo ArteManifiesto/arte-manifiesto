@@ -1,92 +1,112 @@
 
 function Work(el, data) {
 
-	// console.log('work', el, data)
-
 	var id = data.id,
-			likes = data.likes,
+			// likes = data.likes,
 			liked = data.liked,
 			featureded = data.featured;
 
-	console.log('liked: ', liked)
+	// var buttonFeatured = el.querySelector('.' + data.buttonFeaturedClass)
+	// var buttonliked = el.querySelector('.' + data.buttonLikedClass)
 
-	var buttonFeatured = el.querySelector('.' + data.buttonFeaturedClass)
-	var buttonliked = el.querySelector('.' + data.buttonLikedClass)
-	console.log('buttonliked: ', buttonliked)
-	// console.log('buttonFeatured: ', buttonFeatured)
+	var buttonlike = el.querySelector('.' + data.buttonLikeClass)
+	// console.log('buttonlike: ', buttonlike)
 
 	var clickend = false;
 
 	function setup() {
 
-		if(buttonFeatured)
-			buttonFeatured.addEventListener('click', function () {
-				if(featureded) featured()
-				else unFeatured()
-			})
+		// el.addEventListener('click', function () {
 
-		el.addEventListener('click', function () {
+		// 	if(clickend) {
+		// 		console.log('dblclick')
+		// 		clickend = false
 
-			if(clickend) {
-				// console.log('dblclick')
-				clickend = false
+		// 		if (!user) {
+		// 			location.href = '/auth/login'
+		// 			return
+		// 		}
 
-				if (!user) {
-					location.href = '/auth/login'
-					return
-				}
+		// 		if(!liked) like()
+		// 		else unLike()
 
-				if(!liked) like()
-				else unLike()
-
-			} else {
+		// 	} else {
 	
-				clickend = true
+		// 		clickend = true
 				
-				setTimeout(function () {
-					if(clickend){
-						// console.log('click')
-						clickend = false
-					}
-					// else {
-					// 	// cancel click ecent
-					// }
-				}, 400)
+		// 		setTimeout(function () {
+		// 			if(clickend){
+		// 				console.log('click')
+		// 				clickend = false
+		// 			}
+		// 		}, 400)
 
+		// 	}
+		// })
+
+		// if(buttonFeatured)
+		// 	buttonFeatured.addEventListener('click', function () {
+		// 		console.log()
+		// 		if(featureded) unFeatured()
+		// 		else featured()
+		// 	})
+
+		buttonlike.addEventListener('click', function () {
+			console.log('click')
+
+			if (!user) {
+				location.href = '/auth/login'
+				return
 			}
+
+			if(liked) unLike()
+			else like()
 		})
 	}
 
 	function like () {
-		console.log('id', id)
+		console.log('like')
 		$.post('/' + user.username + '/work/like/', {idWork: id}, function (data) {
 			if (data.status == 200) {
-				console.log('liked')
+				// buttonliked.classList.remove('hidden')
+				// buttonliked.classList.add('active')
+				buttonlike.classList.add('active')
 				liked = true
-				buttonLiked.classList.remove('hidden')
+				console.log(data)
 			}
-			console.log(data)
 		})
 	}
 
 	function unLike () {
-		console.log('id', id)
+		console.log('unLike')
 		$.post('/' + user.username + '/work/unlike/', {idWork: id}, function (data) {
 			if (data.status == 200) {
-				console.log('unliked')
+				// buttonliked.classList.add('hidden')
+				// buttonliked.classList.remove('active')
+				buttonlike.classList.remove('active')
 				liked = false
+				console.log(data)
 			}
-			console.log(data)
 		})
 	}
 
-	function featured () {
-		
-	}
+	// function featured () {
+	// 	$.post('/' + user.username + '/work/featured/', {idWork: id}, function (data) {
+	// 		if (data.status == 200) {
+	// 			buttonFeatured.classList.remove('disabled')
+	// 			featureded = true
+	// 		}
+	// 	})
+	// }
 
-	function unFeatured () {
-		
-	}
+	// function unFeatured () {
+	// 	$.post('/' + user.username + '/work/unfeatured/', {idWork: id}, function (data) {
+	// 		if (data.status == 200) {
+	// 			buttonFeatured.classList.add('disabled')
+	// 			featureded = false
+	// 		}
+	// 	})
+	// }
 
 	setup()
 }

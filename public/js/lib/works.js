@@ -112,7 +112,6 @@ function Works () {
 		}
 	}
 
-
 	function more () {
 
 		if(pagination.page == pagination.pages) return
@@ -127,11 +126,11 @@ function Works () {
 		if (tag != undefined)
 			url = url.replace('tag=' + tag, '');
 
-		var title = getUrlParameter('title');
-		if (title != undefined)
-			url = url.replace('title=' + title, 'title=' + value);
+		var name = getUrlParameter('name');
+		if (name != undefined)
+			url = url.replace('name=' + name, 'name=' + value);
 		else
-			url += '&title='+value;
+			url += '&name='+value;
 
 		url = url.replace('page-' + pagination.page, 'page-1')
 		navigation.style.display = 'block'
@@ -144,9 +143,9 @@ function Works () {
 
 	function changeTag (value) {
 
-		var title = getUrlParameter('title');
-		if (title != undefined)
-			url = url.replace('title=' + title, '');
+		var name = getUrlParameter('name');
+		if (name != undefined)
+			url = url.replace('name=' + name, '');
 
 		var tag = getUrlParameter('tag');
 		if (tag != undefined)
@@ -235,13 +234,22 @@ function Works () {
 	function add (works) {
 		for (var i = 0; i < works.length; i++) {
 			var work = makeEl(workTemplate, works[i])
+		
 			new Work(work, {
 				id: works[i].id,
-				likes: works[i].likes,
 				liked: works[i].liked,
-				featureded : works[i].featured,
-				featuredButtonClass: 'button-featured'
+				buttonLikeClass: 'js-likeButton'
 			})
+
+			// new Work(work, {
+			// 	id: works[i].id,
+			// 	likes: works[i].likes,
+			// 	liked: works[i].liked,
+			// 	featureded : works[i].featured,
+			// 	buttonFeaturedClass: 'button-featured',
+			// 	buttonLikedClass: 'button-liked'
+			// })
+
 			salvattore['append_elements'](worksContainer, [work])
 		}
 	}
