@@ -28,14 +28,16 @@
                     <span class="line"></span>
                 </div>
                 <div class="question">
-                    <label for="question" class="medium-text">Ingresa tus datos y te contactaremos para detallar tu pedido.</label>
+                    <label for="question" class="medium-text">Ingresa tus datos y te contactaremos para detallar tu
+                        pedido.</label>
                 </div>
                 <input class="input" data-size='large' name="firstname" placeholder="Nombre" type="text" required>
                 <input class="input" data-size='large' name="lastname" placeholder="Apellido" type="text" required>
                 <input class="input" data-size='large' name="email" placeholder="Email" type="email" required>
-                <input class="input" data-size='large' name="phone" placeholder="Phone" type="tel" required>
+                <input class="input" data-size='large' name="phone" placeholder="Celular" type="tel" required>
                 <input class="input" data-size='large' name="direction" placeholder="Dirección" type="text" required>
-                <input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Enviar" type="submit">
+                <input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Enviar"
+                       type="submit">
 
                 <input type="hidden" name="idProduct" value="{{ product.id }}">
 
@@ -51,20 +53,20 @@
     <script type="text/javascript">
 
         var product = {{ product|json|safe }}
-        console.log('product: ', product)
-
+                console.log('product: ', product)
 
 
         var checkoutForm = $(".js-checkoutForm");
         console.log('checkoutForm: ', checkoutForm)
 
         checkoutForm.submit(function () {
+            checkoutForm.append('<input type="hidden" name="idProduct" value='dsdd'>')
             console.log('submit')
             $.ajax({
                 type: "POST",
-                url: "/checkout",
+                url: "/checkout/buyer",
                 data: checkoutForm.serialize(),
-                success: function  (data) {
+                success: function (data) {
                     console.log('data: ', data)
                 }
             });
