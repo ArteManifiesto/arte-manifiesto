@@ -14,7 +14,6 @@ var _ = require('lodash');
  */
 var sequelize;
 if (process.env.NODE_ENV == 'production') {
-
     sequelize = new Sequelize('heroku_082ce63f99d3d82', 'be72f71bb5432f', '520f5767', {
         dialect: 'mysql',
         protocol: 'mysql',

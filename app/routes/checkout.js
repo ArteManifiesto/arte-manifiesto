@@ -5,9 +5,6 @@ router.mergeParams = true;
 var config = require('../../config/config');
 var controller = require(config.controllersDir + "/checkout");
 
-router.get('/cart');
-router.get('/shipping');
-router.get('/payment');
-router.get('/review');
+router.get('/:nameProduct', controller.cart);
 
 module.exports = router;

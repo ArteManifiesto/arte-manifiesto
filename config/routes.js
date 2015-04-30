@@ -22,6 +22,6 @@ exports.init = function (app) {
     app.use('/', pagesRouter);
     app.use('/auth', authRouter);
     app.use('/dashboard', middlewares.shouldLogged, dashboardRouter);
-    app.use('/checkout', middlewares.shouldLogged, checkoutRouter);
+    app.use('/checkout',checkoutRouter);
     app.use('/:username', userRouter);
 };

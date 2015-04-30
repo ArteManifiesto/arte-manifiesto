@@ -52,7 +52,7 @@ global.db = db;
 
 
 var dev = !(process.env.NODE_ENV == 'production');
-dev = true;
+dev = false;
 global.db.sequelize.sync({force: dev}).then(function () {
     if (dev) {
         var Chance = require('chance');
