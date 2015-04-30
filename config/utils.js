@@ -460,16 +460,16 @@ global.getNumFollowingsOfUser = function (options) {
     var queryTemplate =
         "SELECT COUNT(DISTINCT `User`.`id`) AS `followings` " +
         "FROM `Users` AS `User` INNER JOIN `Followers` AS `Followers` " +
-        "ON `User`.`id` = `Followers`.`FollowerId` " +
-        "AND `Followers`.`FollowingId` = <%= user %>;";
+        "ON `User`.`id` = `Followers`.`FollowingId` " +
+        "AND `Followers`.`FollowerId` = <%=user%>;";
     return getCount(queryTemplate, options);
 };
 global.getNumLikesOfUser = function (options) {
     var queryTemplate =
         "SELECT COUNT(DISTINCT `Work`.`id`) AS `likes` " +
-        "FROM `Works` AS `Work` INNER JOIN `Likes` AS `Likes` " +
-        "ON `Work`.`id` = `Likes`.`WorkId` " +
-        "AND `Likes`.`UserId` = <%= user %>;";
+        "FROM `Works` AS `Work` INNER JOIN `WorkLikes` " +
+        "ON `Work`.`id` = `WorkLikes`.`WorkId` " +
+        "AND `WorkLikes`.`UserId` = <%= user %>;";
     return getCount(queryTemplate, options);
 };
 global.getNumCollectionsOfUser = function (options) {
@@ -529,6 +529,8 @@ global.getWorksOfCollection = function (options, count) {
         "<% } %>";
     return _.template(queryTemplate)(options)
 };
+
+
 global.getLikesOfUser = function (options, count) {
     options.count = count;
     var queryTemplate =
@@ -656,9 +658,9 @@ global.discoverWorks = function (options, count) {
         "COUNT(DISTINCT `Works.Views`.`id`) AS `views`, " +
         "((COUNT(DISTINCT `Works.Likes`.`id`) * 1) + (COUNT(DISTINCT `Works.Collects`.`id`) * 3)) AS `popularity`, " +
         "IF(`Works`.`UserId` = <%= viewer %>, TRUE, FALSE) AS `owner`, " +
-        "IF(`WorkLikes`.`UserId` = <%=viewer%>, TRUE, FALSE) AS `liked`, " +
-        "IF(`WorkCollects`.UserId = <%=viewer%>, TRUE, FALSE) AS `collected`," +
-        "IF(`WorkViews`.UserId = <%=viewer%>, TRUE, FALSE) AS `viewed`, " +
+        "IF(COUNT(DISTINCT `CurrentUser.Likes`.`id`) > 0, TRUE, FALSE) AS `liked`, " +
+        "IF(COUNT(DISTINCT `CurrentUser.Collects`.`id`) > 0, TRUE, FALSE) AS `collected`, " +
+        "IF(COUNT(DISTINCT `CurrentUser.Views`.`id`) > 0, TRUE, FALSE) AS `viewed`, " +
         "`User`.`username` AS `User.username`, `User`.`firstname` AS `User.firstname`, " +
         "`User`.`lastname` AS `User.lastname`, `User`.`country` AS `User.country`, " +
         "`User`.`city` AS `User.city`, `User`.`featured` AS `User.featured` " +
@@ -674,10 +676,19 @@ global.discoverWorks = function (options, count) {
         "LEFT OUTER JOIN `Users` AS `User` ON `Works`.`UserId` = `User`.`id` " +
         "LEFT OUTER JOIN (`WorkLikes` INNER JOIN `Users` AS `Works.Likes` ON `Works.Likes`.`id` = `WorkLikes`.`UserId`) " +
         "ON `Works`.`id` = `WorkLikes`.`WorkId`" +
+        "LEFT OUTER JOIN (`WorkLikes` AS `CurrentUserLikes` INNER JOIN `Users` AS `CurrentUser.Likes` " +
+        "ON `CurrentUser.Likes`.`id` = `CurrentUserLikes`.`UserId`)" +
+        "ON `Works`.`id` = `CurrentUserLikes`.`WorkId` AND `CurrentUser.Likes`.`id` = <%=viewer%> " +
         "LEFT OUTER JOIN (`WorkCollects` INNER JOIN `Users` AS `Works.Collects` ON `Works.Collects`.`id` = `WorkCollects`.`UserId`) " +
         "ON `Works`.`id` = `WorkCollects`.`WorkId` " +
+        "LEFT OUTER JOIN (`WorkCollects` AS `CurrentUserCollects`" +
+        "INNER JOIN `Users` AS `CurrentUser.Collects` ON `CurrentUser.Collects`.`id` = `CurrentUserCollects`.`UserId`)" +
+        "ON `Works`.`id` = `CurrentUserCollects`.`WorkId` AND `CurrentUser.Collects`.`id` = <%=viewer%> " +
         "LEFT OUTER JOIN (`WorkViews` INNER JOIN `Users` AS `Works.Views` ON `Works.Views`.`id` = `WorkViews`.`UserId`) " +
         "ON `Works`.`id` = `WorkViews`.`WorkId` " +
+        "LEFT OUTER JOIN (`WorkViews` AS `CurrentUserViews`" +
+        "INNER JOIN `Users` AS `CurrentUser.Views` ON `CurrentUser.Views`.`id` = `CurrentUserViews`.`UserId`)" +
+        "ON `Works`.`id` = `CurrentUserViews`.`WorkId` AND `CurrentUser.Views`.`id` = <%=viewer%> " +
         "<% if (tag != undefined) { %> " +
         "INNER JOIN (`WorkTags` INNER JOIN `Tags` AS `Works.Tags` ON `Works.Tags`.`id` = `WorkTags`.`TagId`) " +
         "ON `Works`.`id` = `WorkTags`.`WorkId` AND `Works.Tags`.`name` LIKE '<%=tag%>' " +

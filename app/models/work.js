@@ -53,7 +53,7 @@ module.exports = function (sequelize, DataTypes) {
             hooks: {
                 afterCreate: function (work, options) {
                     var promises = [];
-                    for (var i = 0; i < 2; i++) {
+                    for (var i = 0; i < _.random(0, 5); i++) {
                         promises.push(global.db.Product.create({
                             name: chance.name(),
                             price: _.random(0, 1000),

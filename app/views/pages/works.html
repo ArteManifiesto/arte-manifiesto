@@ -7,219 +7,222 @@
 
 {% block content %}
 
-	{% include '../partials/category-menu.html' %}
+    {% include '../partials/category-menu.html' %}
 
 
-	<!-- ********************************************************************
-		$ SECTION TITLE
-	********************************************************************* -->
-	<section class="section-title">
-		<span class="section-title-text">Obras</span>
-	</section>
-	
-
-	<!-- ********************************************************************
-		$ NAVIGATION
-	********************************************************************* -->
-	<section class="navigation">
-		<span class="navigation-text">Tag</span>&nbsp; <i class="fa fa-angle-right"></i>&nbsp; <span class="navigation-text">Cats</span>
-	</section>
+    <!-- ********************************************************************
+        $ SECTION TITLE
+    ********************************************************************* -->
+    <section class="section-title">
+        <span class="section-title-text">Obras</span>
+    </section>
 
 
-	<!-- ********************************************************************
-		$ FILTERS MENU
-	********************************************************************* -->
-	<section class="filters-menu">
-		<div class="filters-menu__search">
-			<div class="search">
-				<i class="fa fa-search"></i>
-				<input class="js-searcher" type="text" placeholder="Busca Obras por Título o Tag">
-			</div>
-			<ul class="search-options js-search-options">
-				<li class="search-option" data-search='title'>Buscar Nombre: <span class="search-text"></span></li>
-				<li class="search-option" data-search='tag'>Buscar Tag: <span class="search-text"></span></li>
-			</ul>
-		</div>
-		<div class="filters-menu__category js-leftFiltersButton">
-			<button class="button-filter js-leftFiltersButton"><i class="fa fa-caret-left"></i> &nbsp; Categorías</button>
-		</div>
-		<div class="filters-menu__order js-rightFiltersButton">
-			<button class="button-filter js-rightFiltersButton">Ordenar &nbsp; <i class="fa fa-caret-right"></i></button>
-		</div>
-	</section>
+    <!-- ********************************************************************
+        $ NAVIGATION
+    ********************************************************************* -->
+    <section class="navigation">
+        <span class="navigation-text">Tag</span>&nbsp; <i class="fa fa-angle-right"></i>&nbsp; <span
+                class="navigation-text">Cats</span>
+    </section>
 
 
-	<!-- ********************************************************************
-		$ WORKS CONTAINER
-	********************************************************************* -->
-	<div class="works-container">
-		<div class="works-container__filters left js-leftFilters">
-			<div class="filters">
-				<div class="filters__title">Featured</div>
-				<div class="filters__fueatured">
-					<input name="question" type="checkbox" id="question">
-					<label for="question" class="">Recomendadas</label>
-				</div>
-			</div>
-			<div class="filters">
-				<div class="filters__title">Categorías</div>
-				{% for category in categories %}
-					<div class="filter js-category" data-value="{{ category.nameSlugify }}">{{ category.name }}</div>
-				{% endfor %}
-			</div>
-		</div>
-		<div class="works-container__filters right js-rightFilters">
-			<div class="filters">
-				<div class="filters__title">Orden</div>
-				<div class="filter js-order" data-value="popularity">Más popular</div>
-				<div class="filter js-order" data-value="views">Más visto</div>
-				<div class="filter js-order" data-value="newest">Más reciente</div>
-			</div>
-			<div class="filters">
-				<div class="filters__title">Tiempo</div>
-				<div class="filter js-time" data-value="day">Día</div>
-				<div class="filter js-time" data-value="week">Semana</div>
-				<div class="filter js-time" data-value="month">Mes</div>
-				<div class="filter js-time" data-value="year">Año</div>
-			</div>
-		</div>
-		<div class="works-container__works js-works">
-			<!-- ********************************************************************
-				$ WORKS
-			********************************************************************* -->
-			<section class="works" data-columns>
-				{% for work in works %}
-					<article class="work" data-index="{{ loop.index }}">
-						<img src="{{work.photo}}">
-
-						<div class="work__socials">
-							<div class="social-block">
-								{% if work.liked %}
-								<div class="social-item active js-likeButton">
-									<i class="fa fa-heart"></i>
-								</div>
-								{% else %}
-								<div class="social-item js-likeButton">
-									<i class="fa fa-heart"></i>
-								</div>
-								{% endif %}
-								<!-- <div class="social-item"><i class="fa fa-bars"></i></div> -->
-							</div>
-						</div>
-
-						<div class="work__like-cover">
-							<div class="like-simbol">
-								<i class="fa fa-heart"></i>
-							</div>
-						</div>
-
-					</article>
-				{% endfor %}
-			</section>
+    <!-- ********************************************************************
+        $ FILTERS MENU
+    ********************************************************************* -->
+    <section class="filters-menu">
+        <div class="filters-menu__search">
+            <div class="search">
+                <i class="fa fa-search"></i>
+                <input class="js-searcher" type="text" placeholder="Busca Obras por Título o Tag">
+            </div>
+            <ul class="search-options js-search-options">
+                <li class="search-option" data-search='title'>Buscar Nombre: <span class="search-text"></span></li>
+                <li class="search-option" data-search='tag'>Buscar Tag: <span class="search-text"></span></li>
+            </ul>
+        </div>
+        <div class="filters-menu__category js-leftFiltersButton">
+            <button class="button-filter js-leftFiltersButton"><i class="fa fa-caret-left"></i> &nbsp; Categorías
+            </button>
+        </div>
+        <div class="filters-menu__order js-rightFiltersButton">
+            <button class="button-filter js-rightFiltersButton">Ordenar &nbsp; <i class="fa fa-caret-right"></i>
+            </button>
+        </div>
+    </section>
 
 
-			<div class="loading"><i class="fa fa-spinner"></i></div>
+    <!-- ********************************************************************
+        $ WORKS CONTAINER
+    ********************************************************************* -->
+    <div class="works-container">
+        <div class="works-container__filters left js-leftFilters">
+            <div class="filters">
+                <div class="filters__title">Featured</div>
+                <div class="filters__fueatured">
+                    <input name="question" type="checkbox" id="question">
+                    <label for="question" class="">Recomendadas</label>
+                </div>
+            </div>
+            <div class="filters">
+                <div class="filters__title">Categorías</div>
+                {% for category in categories %}
+                    <div class="filter js-category" data-value="{{ category.nameSlugify }}">{{ category.name }}</div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="works-container__filters right js-rightFilters">
+            <div class="filters">
+                <div class="filters__title">Orden</div>
+                <div class="filter js-order" data-value="popularity">Más popular</div>
+                <div class="filter js-order" data-value="views">Más visto</div>
+                <div class="filter js-order" data-value="newest">Más reciente</div>
+            </div>
+            <div class="filters">
+                <div class="filters__title">Tiempo</div>
+                <div class="filter js-time" data-value="day">Día</div>
+                <div class="filter js-time" data-value="week">Semana</div>
+                <div class="filter js-time" data-value="month">Mes</div>
+                <div class="filter js-time" data-value="year">Año</div>
+            </div>
+        </div>
+        <div class="works-container__works js-works">
+            <!-- ********************************************************************
+                $ WORKS
+            ********************************************************************* -->
+            <section class="works" data-columns>
+                {% for work in works %}
+                    <article class="work" data-index="{{ loop.index }}">
+                        <img src="{{ work.photo }}">
 
-			{% if works.length > 0 %}
+                        <div class="work__socials">
+                            <div class="social-block">
+                                {% if work.liked %}
+                                    <div class="social-item active js-likeButton">
+                                        <i class="fa fa-heart"></i>
+                                    </div>
+                                {% else %}
+                                    <div class="social-item js-likeButton">
+                                        <i class="fa fa-heart"></i>
+                                    </div>
+                                {% endif %}
+                                <!-- <div class="social-item"><i class="fa fa-bars"></i></div> -->
+                            </div>
+                        </div>
 
-				<div class="more">
-					<button class="button-solid js-moreButton" data-color='red'>Ver más</button>
-				</div>
+                        <div class="work__like-cover">
+                            <div class="like-simbol">
+                                <i class="fa fa-heart"></i>
+                            </div>
+                        </div>
 
-				<div class="empty-result" style="display:none;">
-					<p class="high-text note">No se encontraron resultados,
-						<button>
-							<a href="/works/category/all/page-1/">
-								<strong>Ver todas las obras</strong>
-							</a>
-						</button>
-					</p>
-				</div>
+                    </article>
+                {% endfor %}
+            </section>
 
-			{% else %}
 
-				<div class="more hide">
-					<button class="button-solid js-moreButton" data-color='red'>Ver más</button>
-				</div>
+            <div class="loading"><i class="fa fa-spinner"></i></div>
 
-				<div class="empty-result">
-					<p class="high-text note">No se encontraron resultados,
-						<button>
-							<a href="/works/category/all/page-1/">
-								<strong>Ver todas las obras</strong>
-							</a>
-						</button>
-					</p>
-				</div>
+            {% if works.length > 0 %}
 
-			{% endif %}
+                <div class="more">
+                    <button class="button-solid js-moreButton" data-color='red'>Ver más</button>
+                </div>
 
-		</div>
-	</div>
+                <div class="empty-result" style="display:none;">
+                    <p class="high-text note">No se encontraron resultados,
+                        <button>
+                            <a href="/works/category/all/page-1/">
+                                <strong>Ver todas las obras</strong>
+                            </a>
+                        </button>
+                    </p>
+                </div>
 
-	{% include '../partials/footer.html' %}
+            {% else %}
 
-	
-	<script type="text/template" id="work-template">
+                <div class="more hide">
+                    <button class="button-solid js-moreButton" data-color='red'>Ver más</button>
+                </div>
 
-		<article class="work">
+                <div class="empty-result">
+                    <p class="high-text note">No se encontraron resultados,
+                        <button>
+                            <a href="/works/category/all/page-1/">
+                                <strong>Ver todas las obras</strong>
+                            </a>
+                        </button>
+                    </p>
+                </div>
 
-			<img src="<%= photo %>">
+            {% endif %}
 
-			<div class="work__socials">
-				<div class="social-block">
-					<% if(liked) { %>
-					<div class="social-item active js-likeButton">
-						<i class="fa fa-heart"></i>
-					</div>
-					<% } else { %>
-					<div class="social-item js-likeButton">
-						<i class="fa fa-heart"></i>
-					</div>
-					<% } %>
-				</div>
-			</div>
+        </div>
+    </div>
 
-			<div class="work__like-cover">
-				<div class="like-simbol">
-					<i class="fa fa-heart"></i>
-				</div>
-			</div>
-			
-		</article>
+    {% include '../partials/footer.html' %}
 
-	</script>
 
-	<script>
+    <script type="text/template" id="work-template">
 
-		pagination = {{ pagination|json|safe }};
-		console.log('pagination: ', pagination)
+        <article class="work">
 
-		var user = {{ user|json|safe }};
-		console.log('user: ', user)
+            <img src="<%= photo %>">
 
-		var works = {{ works|json|safe }};
-		console.log('works: ', works)
+            <div class="work__socials">
+                <div class="social-block">
+                    <% if(liked) { %>
+                    <div class="social-item active js-likeButton">
+                        <i class="fa fa-heart"></i>
+                    </div>
+                    <% } else { %>
+                    <div class="social-item js-likeButton">
+                        <i class="fa fa-heart"></i>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
 
-		var url = {{ url|json|safe }};
-		console.log('url: ', url)
+            <div class="work__like-cover">
+                <div class="like-simbol">
+                    <i class="fa fa-heart"></i>
+                </div>
+            </div>
 
-	</script>
+        </article>
 
-	<script src="/js/vendor/jquery.min.js"></script>
-	<script src="/js/vendor/salvattore.js"></script>
-	<script src="/js/vendor/underscore-min.js"></script>
+    </script>
 
-	<script src="/js/lib/utils.js"></script>
-	<script src="/js/lib/login.js"></script>
-	<script src="/js/lib/filters.js"></script>
-	<script src="/js/lib/work.js"></script>
-	<script src="/js/lib/works.js"></script>
-	<script src="/js/discover-works.js"></script>
+    <script>
+
+        pagination = {{ pagination|json|safe }};
+        console.log('pagination: ', pagination)
+
+        var user = {{ user|json|safe }};
+        console.log('user: ', user)
+
+        var works = {{ works|json|safe }};
+        console.log('works: ', works)
+
+        var url = {{ url|json|safe }};
+        console.log('url: ', url)
+
+    </script>
+
+    <script src="/js/vendor/jquery.min.js"></script>
+    <script src="/js/vendor/salvattore.js"></script>
+    <script src="/js/vendor/underscore-min.js"></script>
+
+    <script src="/js/lib/utils.js"></script>
+    <script src="/js/lib/login.js"></script>
+    <script src="/js/lib/filters.js"></script>
+    <script src="/js/lib/work.js"></script>
+    <script src="/js/lib/works.js"></script>
+    <script src="/js/discover-works.js"></script>
 
 {% endblock %}
 
-						<!-- <div class="work__featured">
+<!-- <div class="work__featured">
 							{% if user %}
 								{% if user.isAdmin %}
 									{% if work.featured %}
@@ -262,7 +265,7 @@
 							{% endif %}
 						</div> -->
 
-						<!-- <div class="work__like">
+<!-- <div class="work__like">
 							{% if work.liked %}
 								<button class="button-liked"><i class="fa fa-heart"></i></button>
 							{% else %}
