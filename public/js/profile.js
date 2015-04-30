@@ -41,9 +41,14 @@ function Profile (data) {
 			currentPage = 0
 			pages[currentPage].style.display = 'block'
 		})
+		profileMenuItems[1].addEventListener('click', function () {
+			rederStore()
+			pages[currentPage].style.display = 'none'
+			currentPage = 1
+			pages[currentPage].style.display = 'block'
+		})
 		profileMenuItems[2].addEventListener('click', function () {
 			rederLikes()
-			// console.log('currentPage: ', currentPage)
 			pages[currentPage].style.display = 'none'
 			currentPage = 2
 			pages[currentPage].style.display = 'block'
@@ -103,6 +108,17 @@ function Profile (data) {
 		});
 	}
 
+	function rederStore () {
+		currentPath = 'products'
+		url = '/' + profile.username + '/' + currentPath + '/page-1';
+		console.log('url: ', url)
+		$.post( url, function( data ) {
+			console.log('data: ', data)
+				var productsContainer = document.querySelector('.profile-content__likes .products')
+				addProducts(productsContainer, data.products)
+		});
+	}
+
 	function rederLikes () {
 		currentPath = 'likes/works'
 		// currentPath = 'likes/products'
@@ -112,8 +128,6 @@ function Profile (data) {
 			console.log('data: ', data)
 				var worksContainer = document.querySelector('.profile-content__likes .works')
 				addWorks(worksContainer, data.likes)
-				// var productsContainer = document.querySelector('.profile-content__likes .products')
-				// addProducts(productsContainer, data.likes)
 		});
 	}
 
