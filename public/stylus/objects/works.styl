@@ -22,16 +22,7 @@ work-width = 150px
 		position relative
 		&:hover
 			box-shadow rgba(0,0,0,0.35) 0 0 10px
-		// &__featured
-		// 	position absolute
-		// 	top 0
-		// 	right 0
-		// 	transform translate(-12.5%, -37.5%)
-		// &__like
-		// 	position absolute
-		// 	top 0
-		// 	left 0
-		// 	transform translate(50%, -35%)
+			
 		&__socials
 			display none
 			position absolute
@@ -59,19 +50,23 @@ work-width = 150px
 			top 0
 			bottom 0
 			width 100%
-			background rgba(green, .25)
 			display flex
 			.like-simbol
 				color white
 				margin auto
+				font-size 0
 				&.fade
-					// animation 1s fade infinite
+					animation .5s fade
 
 @keyframes fade
 	0%
 		font-size 0
+		opacity 0
+	50%
+		opacity 1
 	100%
-		font-size 2rem
+		opacity 0
+		font-size 3rem
 
 @media (min-width: desktop)
 	.works

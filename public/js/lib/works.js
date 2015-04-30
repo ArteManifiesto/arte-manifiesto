@@ -32,6 +32,7 @@ function Works () {
 
 	var loading = document.querySelector('.loading')
 	var moreContainer = document.querySelector('.more')
+	var emptyResult = document.querySelector('.empty-result')
 
 	var text = ''
 	var type = null
@@ -50,7 +51,11 @@ function Works () {
 		// Enter event in search
 		searcher.addEventListener('keypress', function (e) {
 			var keyCode = e.keyCode || e.which;
-			if (keyCode == '13') changeTag(text)
+			// if (keyCode == '13') changeTag(text)
+			if (keyCode == '13'){
+				searchOptions.style.display = 'none'
+				changeTitle(text)
+			}
 			// return false;
 		})
 
@@ -215,6 +220,13 @@ function Works () {
 	}
 
 	function render (works) {
+		// console.log('works: ', works)
+		if(works.length == 0) {
+			// console.log('cero mielda!')
+			emptyResult.style.display = 'block'
+		} else {
+			emptyResult.style.display = 'none'
+		}
 
 		var currentWorks = worksContainer.querySelectorAll('.work')
 		for (var i = 0; i < currentWorks.length; i++)
@@ -238,7 +250,9 @@ function Works () {
 			new Work(work, {
 				id: works[i].id,
 				liked: works[i].liked,
-				buttonLikeClass: 'js-likeButton'
+				buttonLikeClass: 'js-likeButton',
+				likeCoverClass: 'work__like-cover',
+				likeSimbolClass: 'like-simbol'
 			})
 
 			// new Work(work, {

@@ -10,39 +10,43 @@ function Work(el, data) {
 	// var buttonliked = el.querySelector('.' + data.buttonLikedClass)
 
 	var buttonlike = el.querySelector('.' + data.buttonLikeClass)
-	// console.log('buttonlike: ', buttonlike)
+	console.log(el, data.likeCoverClass)
+	var likeCover = el.querySelector('.' + data.likeCoverClass)
+	console.log('likeCover: ', likeCover)
+	var likeSimbol = el.querySelector('.' + data.likeSimbolClass)
+	console.log('likeSimbol: ', likeSimbol)
 
 	var clickend = false;
 
 	function setup() {
 
-		// el.addEventListener('click', function () {
+		likeCover.addEventListener('click', function () {
 
-		// 	if(clickend) {
-		// 		console.log('dblclick')
-		// 		clickend = false
+			if(clickend) {
+				console.log('dblclick')
+				clickend = false
 
-		// 		if (!user) {
-		// 			location.href = '/auth/login'
-		// 			return
-		// 		}
+				if (!user) {
+					location.href = '/auth/login'
+					return
+				}
 
-		// 		if(!liked) like()
-		// 		else unLike()
+				if(!liked) like()
+				else unLike()
 
-		// 	} else {
+			} else {
 	
-		// 		clickend = true
+				clickend = true
 				
-		// 		setTimeout(function () {
-		// 			if(clickend){
-		// 				console.log('click')
-		// 				clickend = false
-		// 			}
-		// 		}, 400)
+				setTimeout(function () {
+					if(clickend){
+						console.log('click')
+						clickend = false
+					}
+				}, 400)
 
-		// 	}
-		// })
+			}
+		})
 
 		// if(buttonFeatured)
 		// 	buttonFeatured.addEventListener('click', function () {
@@ -71,6 +75,8 @@ function Work(el, data) {
 				// buttonliked.classList.remove('hidden')
 				// buttonliked.classList.add('active')
 				buttonlike.classList.add('active')
+				likeSimbol.classList.add('fade')
+				setTimeout(function () { likeSimbol.classList.remove('fade') }, 500)
 				liked = true
 				console.log(data)
 			}
@@ -84,6 +90,8 @@ function Work(el, data) {
 				// buttonliked.classList.add('hidden')
 				// buttonliked.classList.remove('active')
 				buttonlike.classList.remove('active')
+				likeSimbol.classList.add('fade')
+				setTimeout(function () { likeSimbol.classList.remove('fade') }, 500)
 				liked = false
 				console.log(data)
 			}

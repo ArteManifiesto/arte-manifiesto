@@ -533,7 +533,6 @@ html {
   top: 0;
   bottom: 0;
   width: 100%;
-  background: rgba(0,128,0,0.25);
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;
@@ -544,6 +543,14 @@ html {
 .works .work__like-cover .like-simbol {
   color: #fff;
   margin: auto;
+  font-size: 0;
+}
+.works .work__like-cover .like-simbol.fade {
+  -webkit-animation: 0.5s fade;
+  -moz-animation: 0.5s fade;
+  -o-animation: 0.5s fade;
+  -ms-animation: 0.5s fade;
+  animation: 0.5s fade;
 }
 @media (min-width: 920px) {
   .works .work__like-cover {
@@ -612,33 +619,77 @@ html {
 @-moz-keyframes fade {
   0% {
     font-size: 0;
+    opacity: 0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+  }
+  50% {
+    opacity: 1;
+    -ms-filter: none;
+    filter: none;
   }
   100% {
-    font-size: 2rem;
+    opacity: 0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    font-size: 3rem;
   }
 }
 @-webkit-keyframes fade {
   0% {
     font-size: 0;
+    opacity: 0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+  }
+  50% {
+    opacity: 1;
+    -ms-filter: none;
+    filter: none;
   }
   100% {
-    font-size: 2rem;
+    opacity: 0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    font-size: 3rem;
   }
 }
 @-o-keyframes fade {
   0% {
     font-size: 0;
+    opacity: 0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+  }
+  50% {
+    opacity: 1;
+    -ms-filter: none;
+    filter: none;
   }
   100% {
-    font-size: 2rem;
+    opacity: 0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    font-size: 3rem;
   }
 }
 @keyframes fade {
   0% {
     font-size: 0;
+    opacity: 0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+  }
+  50% {
+    opacity: 1;
+    -ms-filter: none;
+    filter: none;
   }
   100% {
-    font-size: 2rem;
+    opacity: 0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    font-size: 3rem;
   }
 }
 .footer-container {

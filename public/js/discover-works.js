@@ -14,12 +14,10 @@ function makeWorkObject(el, model) {
 
 	new Work(el, {
 		id: model.id,
-		// likes: model.lkes,
 		liked: model.liked,
-		// featured: model.featured,
-		// buttonFeaturedClass: 'button-featured',
-		// buttonLikedClass: 'button-liked'
-		buttonLikeClass: 'js-likeButton'
+		buttonLikeClass: 'js-likeButton',
+		likeCoverClass: 'work__like-cover',
+		likeSimbolClass: 'like-simbol'
 	})
 }
 

@@ -3,6 +3,8 @@
 	{% set title = 'Arte Manifiesto | Obras' %}
 	{% set css = 'discover-works' %}
 
+
+
 {% block content %}
 
 	{% include '../partials/category-menu.html' %}
@@ -34,7 +36,7 @@
 				<input class="js-searcher" type="text" placeholder="Busca Obras por Título o Tag">
 			</div>
 			<ul class="search-options js-search-options">
-				<li class="search-option" data-search='title'>Buscar Título: <span class="search-text"></span></li>
+				<li class="search-option" data-search='title'>Buscar Nombre: <span class="search-text"></span></li>
 				<li class="search-option" data-search='tag'>Buscar Tag: <span class="search-text"></span></li>
 			</ul>
 		</div>
@@ -106,7 +108,7 @@
 						</div>
 
 						<div class="work__like-cover">
-							<div class="like-simbol fade">
+							<div class="like-simbol">
 								<i class="fa fa-heart"></i>
 							</div>
 						</div>
@@ -117,7 +119,41 @@
 
 			<div class="loading"><i class="fa fa-spinner"></i></div>
 
-			{% include '../partials/more.html' %}
+			
+			{% if works.length > 0 %}
+
+				<div class="more">
+					<button class="button-solid js-moreButton" data-color='red'>Ver más</button>
+				</div>
+
+				<div class="empty-result" style="display:none;">
+					<p class="high-text note">No se encontraron resultados,
+						<button>
+							<a href="/works/category/all/page-1/">
+								<strong>Ver todas las obras</strong>
+							</a>
+						</button>
+					</p>
+				</div>
+
+			{% else %}
+
+				<div class="more hide">
+					<button class="button-solid js-moreButton" data-color='red'>Ver más</button>
+				</div>
+
+				<div class="empty-result">
+					<p class="high-text note">No se encontraron resultados,
+						<button>
+							<a href="/works/category/all/page-1/">
+								<strong>Ver todas las obras</strong>
+							</a>
+						</button>
+					</p>
+				</div>
+
+			{% endif %}
+
 		</div>
 	</div>
 
@@ -177,52 +213,6 @@
 	<script src="/js/lib/work.js"></script>
 	<script src="/js/lib/works.js"></script>
 	<script src="/js/discover-works.js"></script>
-
-	<script>
-
-        // $(document).on("click", ".featured", function (event) {
-        // 		event.preventDefault()
-        // 		event.stopPropagation()
-        // 		// window.cosita = event
-        //     var scope = $(this);
-        //     // console.log('scope: ', scope)
-
-        //     $.ajax({
-        //         type: "POST",
-        //         url: "/" + user.username + "/work/featured/",
-        //         data: {idWork: scope.attr('id')},
-        //         success: function (data) {
-        //             if (data.status == 200) {
-        //                 // scope.html('<i class="fa fa-star"></i>');
-        //                 scope.removeClass('featured').addClass('unfeatured').removeClass('disabled');
-
-        //     						// console.log('scope: ', scope)
-        //             }
-        //             console.log(data);
-        //         }
-        //     });
-        //     return false;
-        // });
-        // $(document).on("click", ".unfeatured", function (event) {
-        // 		event.preventDefault()
-        // 		event.stopPropagation()
-        // 		// window.cosita = event
-        //     var scope = $(this);
-        //     $.ajax({
-        //         type: "POST",
-        //         url: "/" + user.username + "/work/unfeatured/",
-        //         data: {idWork: scope.attr('id')},
-        //         success: function (data) {
-        //             if (data.status == 200) {
-        //                 // scope.html('<i class="fa fa-star"></i>');
-        //                 scope.removeClass('unfeatured').addClass('featured').addClass('disabled');
-        //             }
-        //             console.log(data);
-        //         }
-        //     });
-        //     return false;
-        // });
-	</script>
 
 {% endblock %}
 

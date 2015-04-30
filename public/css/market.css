@@ -493,7 +493,6 @@ html {
   font-family: 'Raleway';
   border: solid 1px #ddd;
   color: #333;
-  max-width: 400px;
   margin: auto;
 }
 .search-options .search-option {
@@ -508,6 +507,11 @@ html {
 }
 .search-options .search-option:hover {
   background: #ededed;
+}
+@media (min-width: 720px) {
+  .search-options {
+    max-width: 400px;
+  }
 }
 .double-range__slider {
   font-size: 1.25rem;
