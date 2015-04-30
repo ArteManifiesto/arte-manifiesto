@@ -50,9 +50,8 @@ app.set('port', process.env.PORT || config.port);
 
 global.db = db;
 
-
 var dev = !(process.env.NODE_ENV == 'production');
-dev = false;
+dev = true;
 global.db.sequelize.sync({force: dev}).then(function () {
     if (dev) {
         var Chance = require('chance');

@@ -16,8 +16,8 @@ exports.cart = function (req, res) {
     });
 };
 
-exports.buy = function (req, res) {
+exports.buyer = function (req, res) {
     global.db.Buyer.create(req.body).then(function (buyer) {
-
+        return res.ok({buyer: buyer}, 'New buyer');
     });
 };

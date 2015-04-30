@@ -13,6 +13,7 @@ exports.signupPage = function (req, res) {
  * User signup
  */
 exports.signup = function (req, res) {
+    req.body.photo = "http://res.cloudinary.com/arte-manifiesto/image/upload/v1430416332/profile_hrnftg.jpg";
     var query = {where: {email: req.body.email}};
     global.db.User.find(query).then(function (user) {
         if (user)

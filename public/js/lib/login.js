@@ -1,9 +1,8 @@
-
 var loginForm = $(".js-signInForm");
 console.log('loginForm: ', loginForm)
 
 loginForm.submit(function () {
-		console.log('submit')
+    console.log('submit')
     $.ajax({
         type: "POST",
         url: "/auth/login",
@@ -16,16 +15,16 @@ loginForm.submit(function () {
 function loginSuccessHandler(response) {
     console.log("login response : ", response);
     if (response.status == 200) {
-    	console.log('response.status == 200')
+        console.log('response.status == 200')
         // location.href = '/dashboard';
         location.href = '/';
     }
 }
 
 var registerForm = $(".js-signUpForm");
-
 registerForm.submit(function () {
-    // console.log('registerForm.submit')
+    console.log(registerForm.serialize());
+    console.log('register');
     $.ajax({
         type: "POST",
         url: "/auth/signup",
@@ -36,120 +35,120 @@ registerForm.submit(function () {
 });
 
 function registerSuccessHandler(response) {
-    // console.log('registerSuccessHandler')
-    // console.log("register response : ", response);
-    if (response.code == 200) {
-        // location.href = '/dashboard';
-        location.href = '/';
-    }
+    if (response.status == 200) {location.href = '/';}
 }
 
 
 /*------------------------------------------------------------------------------------------------------------*
-	$ DEPURADO---------------------------------------------------------------------------------------------------
-*------------------------------------------------------------------------------------------------------------*/
+ $ DEPURADO---------------------------------------------------------------------------------------------------
+ *------------------------------------------------------------------------------------------------------------*/
 console.log('LOGIN!')
 
-function Login (data) {
+function Login(data) {
 
-	var mode = data.mode
-	console.log('mode: ', mode)
+    var mode = data.mode
+    console.log('mode: ', mode)
 
-	var modal = document.querySelector('.' + data.modalClass)
+    var modal = document.querySelector('.' + data.modalClass)
 
-	var openSignUpButton = document.querySelector('.' + data.signUpButtonClass)
-	var openSignInButton = document.querySelector('.' + data.signInButtonClass)
+    var openSignUpButton = document.querySelector('.' + data.signUpButtonClass)
+    var openSignInButton = document.querySelector('.' + data.signInButtonClass)
 
-	// var loginBox = modal.querySelector('.' + data.loginBoxClass)
-	var loginBox = document.querySelector('.' + data.loginBoxClass)
+    // var loginBox = modal.querySelector('.' + data.loginBoxClass)
+    var loginBox = document.querySelector('.' + data.loginBoxClass)
 
-	var signUpFormButton = loginBox.querySelector('.' + data.signUpFormButtonClass)
-	var signInFormButton = loginBox.querySelector('.' + data.signInFormButtonClass)
-	var rememberFormButton = loginBox.querySelector('.' + data.rememberFormButtonClass)
-	var rememberBackButton = loginBox.querySelector('.' + data.rememberBackButtonClass)
-	
-	var signUpForm = loginBox.querySelector('.' + data.signUpFormClass)
-	var signInForm = loginBox.querySelector('.' + data.signInFormClass)
-	var rememberForm = loginBox.querySelector('.' + data.rememberFormClass)
+    var signUpFormButton = loginBox.querySelector('.' + data.signUpFormButtonClass)
+    var signInFormButton = loginBox.querySelector('.' + data.signInFormButtonClass)
+    var rememberFormButton = loginBox.querySelector('.' + data.rememberFormButtonClass)
+    var rememberBackButton = loginBox.querySelector('.' + data.rememberBackButtonClass)
 
-	var loginClosed = loginBox.querySelector('.' + data.loginClosedClass)
-	// console.log('loginClosed: ', loginClosed)
+    var signUpForm = loginBox.querySelector('.' + data.signUpFormClass)
+    var signInForm = loginBox.querySelector('.' + data.signInFormClass)
+    var rememberForm = loginBox.querySelector('.' + data.rememberFormClass)
 
-	var html = document.querySelector('html')
+    var loginClosed = loginBox.querySelector('.' + data.loginClosedClass)
+    // console.log('loginClosed: ', loginClosed)
 
-	function setup () {
+    var html = document.querySelector('html')
 
-		signUpForm.style.display = 'none'
-		signInForm.style.display = 'none'
-		rememberForm.style.display = 'none'
+    function setup() {
 
-		if(mode == 'signin'){
-			signInForm.style.display = 'block'
-			signInFormButton.classList.add('active')
-		}
-		if(mode == 'signup'){
-			signUpForm.style.display = 'block'
-			signUpFormButton.classList.add('active')
-		}
+        signUpForm.style.display = 'none'
+        signInForm.style.display = 'none'
+        rememberForm.style.display = 'none'
 
-		if(openSignUpButton) openSignUpButton.addEventListener('click', openSignUp)
-		if(openSignInButton) openSignInButton.addEventListener('click', openSignIn)
+        if (mode == 'signin') {
+            signInForm.style.display = 'block'
+            signInFormButton.classList.add('active')
+        }
+        if (mode == 'signup') {
+            signUpForm.style.display = 'block'
+            signUpFormButton.classList.add('active')
+        }
 
-		signUpFormButton.addEventListener('click', openSignUpForm)
-		signInFormButton.addEventListener('click', openSignInForm)
-		rememberFormButton.addEventListener('click', openRememberForm)
-		rememberBackButton.addEventListener('click', openSignInForm)
-		
-		loginBox.addEventListener('click', function (e) { e.stopPropagation() } )
-		if(modal) modal.addEventListener('click', closed)
-		if(loginClosed) loginClosed.addEventListener('click', closed)
-	}
+        if (openSignUpButton) openSignUpButton.addEventListener('click', openSignUp)
+        if (openSignInButton) openSignInButton.addEventListener('click', openSignIn)
 
-	function openSignUp () {
-		if(modal) modal.style.display = 'block'
-		html.style.overflow = 'hidden'
-		openSignUpForm()
-	}
-	function openSignIn () {
-		if(modal) modal.style.display = 'block'
-		html.style.overflow = 'hidden'
-		openSignInForm()
-	}
+        signUpFormButton.addEventListener('click', openSignUpForm)
+        signInFormButton.addEventListener('click', openSignInForm)
+        rememberFormButton.addEventListener('click', openRememberForm)
+        rememberBackButton.addEventListener('click', openSignInForm)
 
-	function openSignUpForm () {
-		signUpForm.style.display = 'block'
-		signInForm.style.display = 'none'
-		rememberForm.style.display = 'none'
-		
-		signUpFormButton.classList.add('active')
-		signInFormButton.classList.remove('active')
-	}
-	function openSignInForm () {
-		signInForm.style.display = 'block'
-		signUpForm.style.display = 'none'
-		rememberForm.style.display = 'none'
+        loginBox.addEventListener('click', function (e) {
+            e.stopPropagation()
+        })
+        if (modal) modal.addEventListener('click', closed)
+        if (loginClosed) loginClosed.addEventListener('click', closed)
+    }
 
-		signInFormButton.classList.add('active')
-		signUpFormButton.classList.remove('active')
-	}
-	function openRememberForm () {
-		// signUpForm.style.display = 'none'
-		signInForm.style.display = 'none'
-		rememberForm.style.display = 'block'
-	}
+    function openSignUp() {
+        if (modal) modal.style.display = 'block'
+        html.style.overflow = 'hidden'
+        openSignUpForm()
+    }
 
-	function closed () {
-		modal.style.display = 'none'
-		html.style.overflow = 'auto'
-	}
+    function openSignIn() {
+        if (modal) modal.style.display = 'block'
+        html.style.overflow = 'hidden'
+        openSignInForm()
+    }
 
-	setup()
+    function openSignUpForm() {
+        signUpForm.style.display = 'block'
+        signInForm.style.display = 'none'
+        rememberForm.style.display = 'none'
 
-	return {
-		openSignIn: openSignIn,
-		openSignUp: openSignUp,
-		openSignInForm: openSignInForm,
-		openSignUpForm: openSignUpForm,
-		closed: closed
-	}
+        signUpFormButton.classList.add('active')
+        signInFormButton.classList.remove('active')
+    }
+
+    function openSignInForm() {
+        signInForm.style.display = 'block'
+        signUpForm.style.display = 'none'
+        rememberForm.style.display = 'none'
+
+        signInFormButton.classList.add('active')
+        signUpFormButton.classList.remove('active')
+    }
+
+    function openRememberForm() {
+        // signUpForm.style.display = 'none'
+        signInForm.style.display = 'none'
+        rememberForm.style.display = 'block'
+    }
+
+    function closed() {
+        modal.style.display = 'none'
+        html.style.overflow = 'auto'
+    }
+
+    setup()
+
+    return {
+        openSignIn: openSignIn,
+        openSignUp: openSignUp,
+        openSignInForm: openSignInForm,
+        openSignUpForm: openSignUpForm,
+        closed: closed
+    }
 }
