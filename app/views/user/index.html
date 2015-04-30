@@ -65,13 +65,15 @@
 	</div>
 
 	<div class="profile-content">
-		<div class="profile-content__works">
+		<div class="page profile-content__works">
 			<!-- ********************************************************************
 				$ WORKS
 			********************************************************************* -->
 			<section class="works" data-columns></section>
 		</div>
-		<div class="profile-content__likes">
+		<div class="page profile-content__store" style="display: none;">
+		</div>
+		<div class="page profile-content__likes">
 			<!-- ********************************************************************
 				$ WORKS
 			********************************************************************* -->
@@ -81,17 +83,17 @@
 			********************************************************************* -->
 			<section class="products"></section>
 		</div>
-		<div class="profile-content__followers">
+		<div class="page profile-content__followers">
 			<!-- ********************************************************************
-				$ WORKS
+				$ ARTISTS
 			********************************************************************* -->
-			<section class="works" data-columns></section>
+			<section class="artists"></section>
 		</div>
-		<div class="profile-content__following">
+		<div class="page profile-content__following">
 			<!-- ********************************************************************
-				$ WORKS
+				$ ARTISTS
 			********************************************************************* -->
-			<section class="works" data-columns></section>
+			<section class="artists"></section>
 		</div>
 	</div>
 
@@ -104,7 +106,6 @@
 	</script>
 
 	<script type="text/template" id="artist-template">
-
 		<div class="artist-wrapper">
 			<article class="artist">
 				<a class="artist-header" href="#"> 
@@ -141,7 +142,6 @@
 	</script>
 
 	<script type="text/template" id="product-template">
-
 		<div class="product-wrapper">					
 			<article class="product">
 				<a href="/<%= User.username %>/product/<%= nameSlugify %>" class="product-image">
