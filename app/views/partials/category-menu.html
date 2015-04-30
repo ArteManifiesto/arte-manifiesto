@@ -18,6 +18,18 @@
 					{% endfor %}
 
 				{% endif %}
+				{% if path == 'index' || path == 'login' || path == 'single-product' %}
+					<a href="#" class="thick-menu__item">Obras Originales</a>
+					<a href="#" class="thick-menu__item">Polos</a>
+					<a href="#" class="thick-menu__item">Tazas</a>
+					<a href="#" class="thick-menu__item">Iphone Cases</a>
+					<a href="#" class="thick-menu__item">Prints</a>
+				{% endif %}
+				{% if path == 'profile' %}
+					<a href="#" class="thick-menu__item">Subir Obra</a>
+					<a href="#" class="thick-menu__item">Editar Perfil</a>
+					<a href="/auth/logout" class="thick-menu__item">Log Out</a>
+				{% endif %}
 			</div>
 		</div>
 	</section>
@@ -29,6 +41,7 @@
 					<a href="#" class="thick-menu__item">Tazas</a>
 					<a href="#" class="thick-menu__item">Iphone Cases</a>
 					<a href="#" class="thick-menu__item">Prints</a> -->
+
 					<!-- 	<a href="#" class="thick-menu__item">Arte Urbano</a>
 					<a href="#" class="thick-menu__item">Collage</a>
 					<a href="#" class="thick-menu__item">Dibujo</a>

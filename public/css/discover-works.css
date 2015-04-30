@@ -122,6 +122,8 @@ html {
 }
 .thick-menu__item.selected {
   background: #f6f6f6;
+  border-left: 1px solid #eee;
+  border-right: 1px solid #eee;
 }
 .carousel-thick-menu {
   height: 2.5rem;
