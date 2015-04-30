@@ -35,10 +35,17 @@
 					<div class="actions__social">
 
 						<span class="like">
-							<button class="button-liner">
+						{% if product.liked %}
+							<button class="button-liner disabled js-buttonLike">
 								<div class="button-liner__action">Likes</div>
 								<div class="button-liner__number">{{product.likes}}</div>
 							</button>
+						{% else %}
+							<button class="button-liner js-buttonLike">
+								<div class="button-liner__action">Likes</div>
+								<div class="button-liner__number">{{product.likes}}</div>
+							</button>
+						{% endif %}
 						</span>
 
 						<span class="price">$ {{product.price}}</span>
@@ -98,10 +105,24 @@
 
 	{% include '../../partials/footer.html' %}
 
+   <script src="/js/vendor/jquery.min.js"></script>
+
+	<script src="/js/lib/product.js"></script>
+
 	<script type="text/javascript">
 
 		var product = {{ product|json|safe }}
 		console.log('product: ', product)
+
+		var user = {{ user|json|safe }}
+		console.log('user: ', user)
+
+		new Product(document.querySelector('.single-product'), {
+			id: product.id,
+			likes: product.likes,
+			liked: product.liked,
+			buttonLikeClass: 'js-buttonLike'
+		})
 
 	</script>
 

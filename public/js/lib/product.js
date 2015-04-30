@@ -11,9 +11,10 @@ function Product (el, data) {
 			// nameSlugify = data.nameSlugify,
 
 			buttonLike = el.querySelector('.' + data.buttonLikeClass),
-			likesEl = buttonLike.querySelector('span');
-			// console.log('buttonLike: ', buttonLike)
+			likesEl = buttonLike.querySelector('.button-liner__number');
 
+			console.log('liked: ', liked)
+			// console.log('buttonLike: ', buttonLike)
 
 	function setup () {
 
@@ -38,6 +39,7 @@ function Product (el, data) {
 			
 			if(data.status == 200) {
 				buttonLike.classList.add('active')
+				buttonLike.classList.add('disabled')
 				liked = true
 		
 				var newLikes = data.data.likes
@@ -57,6 +59,7 @@ function Product (el, data) {
 			
 			if(data.status == 200) {
 				buttonLike.classList.remove('active')
+				buttonLike.classList.remove('disabled')
 				liked = false
 		
 				var newLikes = data.data.likes

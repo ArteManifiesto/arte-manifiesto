@@ -156,6 +156,40 @@
 	
 			<div class="loading"><i class="fa fa-spinner"></i></div>
 
+			{% if works.length > 0 %}
+
+			<div class="more">
+				<button class="button-solid js-moreButton" data-color='red'>Ver más</button>
+			</div>
+
+			<div class="empty-result" style="display:none;">
+				<p class="high-text note">No se encontraron resultados,
+					<button>
+						<a href="/works/category/all/page-1/">
+							<strong>Ver todas las obras</strong>
+						</a>
+					</button>
+				</p>
+			</div>
+
+			{% else %}
+
+			<div class="more hide">
+				<button class="button-solid js-moreButton" data-color='red'>Ver más</button>
+			</div>
+
+			<div class="empty-result">
+				<p class="high-text note">No se encontraron resultados,
+					<button>
+						<a href="/works/category/all/page-1/">
+							<strong>Ver todas las obras</strong>
+						</a>
+					</button>
+				</p>
+			</div>
+
+			{% endif %}
+
 			{% include '../partials/more.html' %}
 
 		</div>
@@ -243,6 +277,7 @@
 	<script src="/js/lib/filters.js"></script>
 	<script src="/js/lib/artist.js"></script>
 	<script src="/js/lib/artists.js"></script>
+	<script src="/js/lib/category-menu.js"></script>
 
 	<script src="/js/discover-artists.js"></script>
 

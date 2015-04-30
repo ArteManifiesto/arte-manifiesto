@@ -5,7 +5,31 @@
 		<div class="carousel-thick-menu">
 			<div class="thick-menu">
 				{% if path == 'works' || path == 'users' %}
-					<a href="#" class="thick-menu__item">Arte Urbano</a>
+
+					{% for category in categories %}
+						<div class="thick-menu__item js-category" data-value="{{ category.nameSlugify }}">{{ category.name }}</div>
+					{% endfor %}
+
+				{% endif %}
+				{% if path == 'products' || path == 'index' || path == 'login' || path == 'profile' || path == 'single-product' %}
+
+					{% for productType in productTypes %}
+						<div class="thick-menu__item js-category" data-value="{{ productType.nameSlugify }}">{{ productType.name }}</div>
+					{% endfor %}
+
+				{% endif %}
+			</div>
+		</div>
+	</section>
+
+
+<!-- 
+					<a href="#" class="thick-menu__item">Obras Originales</a>
+					<a href="#" class="thick-menu__item">Polos</a>
+					<a href="#" class="thick-menu__item">Tazas</a>
+					<a href="#" class="thick-menu__item">Iphone Cases</a>
+					<a href="#" class="thick-menu__item">Prints</a> -->
+					<!-- 	<a href="#" class="thick-menu__item">Arte Urbano</a>
 					<a href="#" class="thick-menu__item">Collage</a>
 					<a href="#" class="thick-menu__item">Dibujo</a>
 					<a href="#" class="thick-menu__item">Ilustracion</a>
@@ -15,15 +39,4 @@
 					<a href="#" class="thick-menu__item">Escultura</a>
 					<a href="#" class="thick-menu__item">Ilustracion</a>
 					<a href="#" class="thick-menu__item">Tecnica Mixta</a>
-					<a href="#" class="thick-menu__item">Grabado</a>
-				{% endif %}
-				{% if path == 'products' || path == 'index' || path == 'login' || path == 'profile' || 'path == single-product' %}
-					<a href="#" class="thick-menu__item">Obras Originales</a>
-					<a href="#" class="thick-menu__item">Polos</a>
-					<a href="#" class="thick-menu__item">Tazas</a>
-					<a href="#" class="thick-menu__item">Iphone Cases</a>
-					<a href="#" class="thick-menu__item">Prints</a>
-				{% endif %}
-			</div>
-		</div>
-	</section>
+					<a href="#" class="thick-menu__item">Grabado</a> -->

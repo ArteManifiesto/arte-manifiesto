@@ -112,12 +112,16 @@ html {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
   display: table-cell;
+  cursor: pointer;
 }
 .thick-menu__item:not(:first-child) {
   padding-left: 1rem;
 }
 .thick-menu__item:not(:last-child) {
   padding-right: 1rem;
+}
+.thick-menu__item.selected {
+  background: #f6f6f6;
 }
 .carousel-thick-menu {
   height: 2.5rem;
