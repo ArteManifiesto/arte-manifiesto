@@ -9,17 +9,20 @@
 
 	<div class="single-product">
 
-		<header class="single-product__header">		
+		<div class="single-product__header">
+			
 			<div class="single-product__title">
 				<p class="single-product-text">{{product.name}}</p>
 			</div>
+
 			<div class="single-product__artist">
 				from
 				<span class="avatar"><img src="{{product.User.photo}}"></span>
 				<span class="name">{{product.User.firstname}} {{product.User.lastname}}</span> 
 			</div>
-		</header>
-	
+
+		</div>
+
 		<div class="single-product__info">
 			
 			<figure class="single-product__info__image">
@@ -27,17 +30,20 @@
 			</figure>
 			
 			<div class="single-product__info__actions">
-				<div class="actions">
-					<div class="actions__social">
+				<div class="actions__social">
+
+					<span class="like">
 						<button class="button-liner">
 							<div class="button-liner__action">Likes</div>
 							<div class="button-liner__number">{{product.likes}}</div>
 						</button>
-						<span class="price">$ {{product.price}}</span>
-					</div>
-					<div class="actions__buy">
-						<button class="button-solid" data-size='large' data-color='red' data-expand='true'>Comprar</button>
-					</div>
+					</span>
+
+					<span class="price">$ {{product.price}}</span>
+
+				</div>
+				<div class="actions__buy">
+					<button class="button-solid" data-size='large' data-color='red' data-expand='true'>Comprar</button>
 				</div>
 			</div>
 
