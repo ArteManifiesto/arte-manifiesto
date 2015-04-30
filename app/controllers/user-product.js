@@ -7,28 +7,16 @@ exports.add = function (req, res) {
 };
 
 exports.product = function (req, res) {
-    var query = {
-        where: {
-            nameSlugify: req.params.nameProduct,
-            include: [
-                {
-                    model: global.db.Product,
-                    include: [
-                        {model: global.db.User, as: 'ProductLikes'},
-                        {model: global.db.User, as: 'Productcollects'}
-                    ]
-                }
-            ]
-        }
-    };
-    global.db.Product.find(query).then(function (product) {
-
+    var options = {viewer: req.viewer, name: req.params.nameProduct, limit: 50};
+    var query = global.getProductSingle(options);
+    global.db.sequelize.query(query, {nest: true, raw: true}).then(function (data) {
+        var product = data[0];
+        global.db.Product.find(product.id).then(function (pro) {
+            pro.getProductLikes({limit: 50}).then(function (likes) {
+                return res.json({product: product, likes: likes});
+            });
+        });
     });
-
-    return res.json({lele: 20});
-
-    return res.render('user/product/index');
-    //return res.json({lel: 10});
 };
 
 

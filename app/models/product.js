@@ -21,8 +21,8 @@ module.exports = function (sequelize, DataTypes) {
         }, {
             classMethods: {
                 associate: function (models) {
-                    Product.belongsToMany(models.User, {as: 'ProductViewers', through: 'ProductViewers'});
                     Product.belongsToMany(models.User, {as: 'ProductLikes', through: 'ProductLikes'});
+                    Product.belongsToMany(models.User, {as: 'ProductViews', through: 'ProductViews'});
                     Product.belongsToMany(models.User, {as: 'ProductCollects', through: 'ProductCollects'});
 
                     Product.belongsToMany(models.Collection, {through: models.CollectionProduct});

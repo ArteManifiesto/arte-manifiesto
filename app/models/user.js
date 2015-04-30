@@ -57,11 +57,11 @@ module.exports = function (sequelize, DataTypes) {
                     User.belongsToMany(models.User, {as: 'Viewings', foreignKey: 'ViewerId', through: 'UserViewers'});
 
                     User.belongsToMany(models.Work, {as: 'WorkLikes', through: 'WorkLikes'});
-                    User.belongsToMany(models.Work, {as: 'WorkViewers', through: 'WorkViewers'});
+                    User.belongsToMany(models.Work, {as: 'WorkViews', through: 'WorkViews'});
                     User.belongsToMany(models.Work, {as: 'WorkCollects', through: 'WorkCollects'});
-                    
+
                     User.belongsToMany(models.Product, {as: 'ProductLikes', through: 'ProductLikes'});
-                    User.belongsToMany(models.Product, {as: 'ProductViewers', through: 'ProductViewers'});
+                    User.belongsToMany(models.Product, {as: 'ProductViews', through: 'ProductViews'});
                     User.belongsToMany(models.Product, {as: 'ProductCollects', through: 'ProductCollects'});
 
                     User.hasMany(models.Collection);

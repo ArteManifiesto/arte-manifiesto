@@ -611,12 +611,12 @@ global.discoverProducts = function (options, count) {
         "`Products`.`featured`, `Products`.`createdAt`, " +
         "COUNT(DISTINCT `Products.Likes`.`id`) AS `likes`, " +
         "COUNT(DISTINCT `Products.Collects`.`id`) AS `collects`, " +
-        "COUNT(DISTINCT `Products.Viewers`.`id`) AS `views`, " +
+        "COUNT(DISTINCT `Products.Views`.`id`) AS `views`, " +
         "((COUNT(DISTINCT `Products.Likes`.`id`) * 1) + (COUNT(DISTINCT `Products.Collects`.`id`) * 3)) AS `popularity`, " +
         "IF(`Products`.`UserId` = <%=viewer%>, TRUE, FALSE) AS `owner`, " +
         "IF(`ProductLikes`.`UserId` = <%=viewer%>, TRUE, FALSE) AS `liked`, " +
         "IF(`ProductCollects`.UserId = <%=viewer%>, TRUE, FALSE) AS `collected`, " +
-        "IF(`ProductViewers`.UserId = <%=viewer%>, TRUE, FALSE) AS `viewed`, " +
+        "IF(`ProductViews`.UserId = <%=viewer%>, TRUE, FALSE) AS `viewed`, " +
         "`User`.`username` AS `User.username`, " +
         "`Work`.`name` AS `Work.name`, `Work`.`nameSlugify` AS `Work.nameSlugify`, `Work`.`photo` AS `Work.photo` " +
         "<% } else { %>" +
@@ -635,9 +635,9 @@ global.discoverProducts = function (options, count) {
         "ON `Products`.id = `ProductLikes`.`ProductId` " +
         "LEFT OUTER JOIN (`ProductCollects` INNER JOIN `Users` AS `Products.Collects` " +
         "ON `Products.Collects`.`id` = `ProductCollects`.`UserId`) ON `Products`.id = `ProductCollects`.`ProductId` " +
-        "LEFT OUTER JOIN (`ProductViewers` INNER JOIN `Users` AS `Products.Viewers` " +
-        "ON `Products.Viewers`.`id` = `ProductViewers`.`UserId`) " +
-        "ON `Products`.id = `ProductViewers`.`ProductId` " +
+        "LEFT OUTER JOIN (`ProductViews` INNER JOIN `Users` AS `Products.Views` " +
+        "ON `Products.Views`.`id` = `ProductViews`.`UserId`) " +
+        "ON `Products`.id = `ProductViews`.`ProductId` " +
         "<% if (type != undefined) { %> WHERE `ProductType`.`id` = <%=type%> <% } %> " +
         "<% if (count == undefined) { %> GROUP BY `Products`.`id` <% } %> ) AS `products` " +
         "<% if (count == undefined) { %> ORDER BY <%=order%>,`name` <%  } %>" +
@@ -653,12 +653,12 @@ global.discoverWorks = function (options, count) {
         "SELECT `Works`.`id`, `Works`.`name`, `Works`.`nameSlugify`, `Works`.`photo`, `Works`.`featured`, `Works`.`createdAt`, " +
         "COUNT(DISTINCT `Works.Likes`.`id`) AS `likes`, " +
         "COUNT(DISTINCT `Works.Collects`.`id`) AS `collects`, " +
-        "COUNT(DISTINCT `Works.Viewers`.`id`) AS `views`, " +
+        "COUNT(DISTINCT `Works.Views`.`id`) AS `views`, " +
         "((COUNT(DISTINCT `Works.Likes`.`id`) * 1) + (COUNT(DISTINCT `Works.Collects`.`id`) * 3)) AS `popularity`, " +
         "IF(`Works`.`UserId` = <%= viewer %>, TRUE, FALSE) AS `owner`, " +
         "IF(`WorkLikes`.`UserId` = <%=viewer%>, TRUE, FALSE) AS `liked`, " +
         "IF(`WorkCollects`.UserId = <%=viewer%>, TRUE, FALSE) AS `collected`," +
-        "IF(`WorkViewers`.UserId = <%=viewer%>, TRUE, FALSE) AS `viewed`, " +
+        "IF(`WorkViews`.UserId = <%=viewer%>, TRUE, FALSE) AS `viewed`, " +
         "`User`.`username` AS `User.username`, `User`.`firstname` AS `User.firstname`, " +
         "`User`.`lastname` AS `User.lastname`, `User`.`country` AS `User.country`, " +
         "`User`.`city` AS `User.city`, `User`.`featured` AS `User.featured` " +
@@ -676,8 +676,8 @@ global.discoverWorks = function (options, count) {
         "ON `Works`.`id` = `WorkLikes`.`WorkId`" +
         "LEFT OUTER JOIN (`WorkCollects` INNER JOIN `Users` AS `Works.Collects` ON `Works.Collects`.`id` = `WorkCollects`.`UserId`) " +
         "ON `Works`.`id` = `WorkCollects`.`WorkId` " +
-        "LEFT OUTER JOIN (`WorkViewers` INNER JOIN `Users` AS `Works.Viewers` ON `Works.Viewers`.`id` = `WorkViewers`.`UserId`) " +
-        "ON `Works`.`id` = `WorkViewers`.`WorkId` " +
+        "LEFT OUTER JOIN (`WorkViews` INNER JOIN `Users` AS `Works.Views` ON `Works.Views`.`id` = `WorkViews`.`UserId`) " +
+        "ON `Works`.`id` = `WorkViews`.`WorkId` " +
         "<% if (tag != undefined) { %> " +
         "INNER JOIN (`WorkTags` INNER JOIN `Tags` AS `Works.Tags` ON `Works.Tags`.`id` = `WorkTags`.`TagId`) " +
         "ON `Works`.`id` = `WorkTags`.`WorkId` AND `Works.Tags`.`name` LIKE '<%=tag%>' " +
@@ -686,6 +686,31 @@ global.discoverWorks = function (options, count) {
         "<% if (count == undefined) { %> GROUP BY `Works`.`id` <% } %> ) AS `works` " +
         "<% if (count == undefined) { %> ORDER BY <%=order%>,`name` <%  } %>" +
         "<% if (count == undefined) { %> LIMIT <%=offset%>,<%=limit%> <% } %>"
+    return _.template(queryTemplate)(options);
+}
+
+global.getProductSingle = function (options) {
+    var queryTemplate =
+        "SELECT `Product`.`id`, `Product`.`name`, `Product`.`nameSlugify`, `Product`.`price`, `Product`.`photo`," +
+        "`Product`.`description`, `Product`.`featured`, `ProductTypes`.`name` AS `type`, " +
+        "COUNT(DISTINCT `Product.Likes`.`id`) AS `likes`, " +
+        "COUNT(DISTINCT `Product.Collects`.`id`) AS `collects`, " +
+        "COUNT(DISTINCT `Product.Views`.`id`) AS `views`, " +
+        "IF(`Product`.`UserId` = <%=viewer%>, TRUE, FALSE) AS `owner`, " +
+        "IF(`ProductLikes`.`UserId` = <%=viewer%>, TRUE, FALSE) AS `liked`, " +
+        "IF(`ProductCollects`.UserId = <%=viewer%>, TRUE, FALSE) AS `collected`, " +
+        "IF(`ProductViews`.UserId = <%=viewer%>, TRUE, FALSE) AS `viewed`, " +
+        "`User`.`id` AS `User.id`, `User`.`username` AS `User.username`, `User`.`firstname` AS `User.firstname`, " +
+        "`User`.`lastname` AS `User.lastname`,`User`.`photo` AS `User.photo` " +
+        "FROM (SELECT `Product`.* FROM `Products` AS `Product` WHERE `Product`.`nameSlugify` = '<%=name%>' LIMIT 1) " +
+        "AS `Product` LEFT OUTER JOIN `Users` AS `User` ON `Product`.`UserId` = `User`.`id` " +
+        "LEFT OUTER JOIN (`ProductLikes` AS `ProductLikes` INNER JOIN `Users` AS `Product.Likes` " +
+        "ON `Product.Likes`.`id` = `ProductLikes`.`UserId`) ON `Product`.`id` = `ProductLikes`.`ProductId` " +
+        "LEFT OUTER JOIN  (`ProductCollects` AS `ProductCollects` INNER JOIN `Users` AS `Product.Collects` " +
+        "ON `Product.Collects`.`id` = `ProductCollects`.`UserId`) ON `Product`.`id` = `ProductCollects`.`ProductId` " +
+        "LEFT OUTER JOIN (`ProductViews` AS `ProductViews` INNER JOIN `Users` AS `Product.Views` " +
+        "ON `Product.Views`.`id` = `ProductViews`.`UserId`) ON `Product`.`id` = `ProductViews`.`ProductId` " +
+        "LEFT OUTER JOIN `ProductTypes` ON `Product`.`ProductTypeId` = `ProductTypes`.`id`;";
     return _.template(queryTemplate)(options);
 }
 

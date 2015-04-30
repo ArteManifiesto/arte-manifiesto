@@ -22,7 +22,7 @@ module.exports = function (sequelize, DataTypes) {
             classMethods: {
                 associate: function (models) {
                     Work.belongsToMany(models.User, {as: 'WorkLikes', through: 'WorkLikes'});
-                    Work.belongsToMany(models.User, {as: 'WorkViewers', through: 'WorkViewers'});
+                    Work.belongsToMany(models.User, {as: 'WorkViews', through: 'WorkViews'});
                     Work.belongsToMany(models.User, {as: 'WorkCollects', through: 'WorkCollects'});
 
                     Work.belongsTo(models.User, {onDelete: 'cascade'});
