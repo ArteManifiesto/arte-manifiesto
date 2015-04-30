@@ -8,8 +8,8 @@ var request = require('request');
 var cloudinary = require('cloudinary').v2;
 
 exports.index = function (req, res) {
-    var query = {where: {featured: true}, limit: 10};
-    global.db.Work.findAll(query).then(function (workFeatureds) {
+    var query = {where: {featured: true}, limit: 20};
+    global.db.Product.findAll(query).then(function (workFeatureds) {
         return res.render('index', {
             workFeatureds: workFeatureds
         });

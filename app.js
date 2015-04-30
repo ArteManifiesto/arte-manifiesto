@@ -51,7 +51,7 @@ app.set('port', process.env.PORT || config.port);
 global.db = db;
 
 var dev = !(process.env.NODE_ENV == 'production');
-dev = true;
+dev = false;
 global.db.sequelize.sync({force: dev}).then(function () {
     if (dev) {
         var Chance = require('chance');
@@ -13102,12 +13102,28 @@ global.db.sequelize.sync({force: dev}).then(function () {
                     promises = [];
                     for (var j = 0; j < products.length; j++) {
                         var product = products[j];
-                        promises.push(global.db.Product.create(product));
+                        product.featured = true;
+                        promises.push(global.db.Work.create(product));
                     }
-                    global.db.Sequelize.Promise.all(promises).then(function (productsArtJam) {
-                        global.getStoreCollection(artJam).then(function (collection) {
-                            artJam.addProducts(productsArtJam).then(function () {
-                                collection.addProducts(productsArtJam);
+                    global.db.Sequelize.Promise.all(promises).then(function (works) {
+                        global.getPortfolioCollection(artJam).then(function (portfolio) {
+                            artJam.addWorks(works).then(function () {
+                                portfolio.addWorks(works).then(function () {
+                                    promises = [];
+                                    for (var j = 0; j < products.length; j++) {
+                                        var product = products[j];
+                                        product.featured = true;
+                                        product.WorkId = works[j].id;
+                                        promises.push(global.db.Product.create(product));
+                                    }
+                                    global.db.Sequelize.Promise.all(promises).then(function (products) {
+                                        global.getStoreCollection(artJam).then(function (collection) {
+                                            artJam.addProducts(products).then(function () {
+                                                collection.addProducts(products);
+                                            });
+                                        });
+                                    });
+                                });
                             });
                         });
                     })

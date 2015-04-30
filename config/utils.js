@@ -107,7 +107,7 @@ global.searchUsers = function (req) {
         return global.getPaginationData(options).then(function (data) {
             var records = global.mergeEntity(data[options.entity], ['Works']);
             _.map(records, function (value, key) {
-                value['Works'] = _.slice(value['Works'], 0, options.limit);
+                value['Works'] = _.slice(value['Works'], 0, 6);
             });
             data[options.entity] = records;
             return data;
