@@ -91,16 +91,13 @@ global.db.sequelize.sync({force: dev}).then(function () {
 
         promises.push(global.db.Category.bulkCreate(categoriesData));
         promises.push(global.db.Tag.bulkCreate(tagsData));
-
-
+        var products = ['prints', 'tazas', 'polos', 'carteras', 'gorras', 'tatuajes'];
+        for (var j = 0; j < products.length; j++) {
+            var product = products[j];
+            promises.push(global.db.ProductType.create({name: product}));
+        }
         global.db.Sequelize.Promise.all(promises).then(function () {
             promises = [];
-            var products = ['prints', 'tazas', 'polos', 'carteras', 'gorras', 'tatuajes'];
-            for (var j = 0; j < products.length; j++) {
-                var product = products[j];
-                promises.push(global.db.ProductType.create({name: product}));
-            }
-
             for (i = 0; i < 20; i++) {
                 promises.push(global.db.User.create({
                     username: i == 0 ? 'juliocanares' : chance.twitter().replace('@', ''),
