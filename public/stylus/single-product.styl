@@ -1,0 +1,66 @@
+/*------------------------------------------------------------------------------------------------------------*
+	$ DEPURADO---------------------------------------------------------------------------------------------------
+*------------------------------------------------------------------------------------------------------------*/
+@import 'nib'
+@import 'base.styl'
+
+@import 'elements/menus.styl'
+@import 'elements/logos.styl'
+@import 'elements/texts.styl'
+@import 'elements/buttons.styl'
+
+@import 'objects/header.styl'
+@import 'objects/category-menu.styl'
+@import 'objects/footer.styl'
+
+
+.single-product
+	max-width max-width
+	margin auto
+	padding .5rem
+
+	&__title
+		text-align center
+		padding .5rem
+		
+	&__artist
+		font-family 'Roboto Condensed'
+		letter-spacing: 1px;
+		display flex
+		align-items center
+		justify-content center
+		.avatar
+			max-width 2rem
+			margin 0 .5em
+			img
+				border-radius 50%
+		.name
+			font-style italic
+	&__info
+		// display flex
+		&__image
+		&__actions
+			.actions
+				min-width 200px
+				.actions__social
+					display flex
+					justify-content: space-between;
+					align-items center
+					padding .5rem
+					.price
+						background blue
+				.actions__buy
+					padding .5rem
+										
+@media (min-width: tablet)
+	.single-product
+		&__header
+			display flex
+			justify-content center
+		&__info
+			display flex
+			justify-content center
+			align-items center
+			&__actions
+				border solid 1px #ccc
+				padding .5rem

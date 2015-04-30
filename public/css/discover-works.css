@@ -450,6 +450,13 @@ html {
   letter-spacing: 0.5px;
   line-height: 1em;
 }
+.single-product-text {
+  font-family: 'Oswald';
+  font-size: 1.75rem;
+  color: #585858;
+  letter-spacing: 1px;
+  line-height: 1em;
+}
 .input {
   font-size: 1rem;
   padding: 0.5em;

@@ -1,16 +1,56 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Product</title>
-</head>
-<body>
+{% extends '../../partials/base.html' %}
+	{% set path = 'single-product' %}
+	{% set title = 'Arte Manifiesto | Product' %}
+	{% set css = 'single-product' %}
 
+{% block content %}
 
-<h1>{{ product.name }}</h1>
-<h1>{{ product.price }}</h1>
-<img src="{{ product.photo }}" width="300"/>
-<br/>
-<a href="/checkout"><button>comprar</button></a>
-</body>
-</html>
+	{% include '../../partials/category-menu.html' %}
+
+	<div class="single-product">
+
+		<header class="single-product__header">		
+			<div class="single-product__title">
+				<p class="single-product-text">{{product.name}}</p>
+			</div>
+			<div class="single-product__artist">
+				from
+				<span class="avatar"><img src="{{product.User.photo}}"></span>
+				<span class="name">{{product.User.firstname}} {{product.User.lastname}}</span> 
+			</div>
+		</header>
+	
+		<div class="single-product__info">
+			
+			<figure class="single-product__info__image">
+				<img src="{{product.photo}}">
+			</figure>
+			
+			<div class="single-product__info__actions">
+				<div class="actions">
+					<div class="actions__social">
+						<button class="button-liner">
+							<div class="button-liner__action">Likes</div>
+							<div class="button-liner__number">{{product.likes}}</div>
+						</button>
+						<span class="price">$ {{product.price}}</span>
+					</div>
+					<div class="actions__buy">
+						<button class="button-solid" data-size='large' data-color='red' data-expand='true'>Comprar</button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	{% include '../../partials/footer.html' %}
+
+	<script type="text/javascript">
+
+		var product = {{ product|json|safe }}
+		console.log('product: ', product)
+
+	</script>
+
+{% endblock %}
