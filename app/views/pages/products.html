@@ -124,15 +124,14 @@
 							<div class="like">
 								<span class="button-like"> <i class="fa fa-heart-o"></i> <span>{{product.likes}}</span> </span>
 							</div>
-							<div class="wish-list">
+							<!-- <div class="wish-list">
 								<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
-							</div>
+							</div> -->
 						</div>
 
-						<div class="product__featured">
+						<!-- <div class="product__featured">
 							{% if user %}
 								
-								<!-- is Admin -->
 								{% if product.featured %}
 									<span id="{{ product.id }}" class="button-featured admin unfeatured" data-size='small'>
 										<div class="button-featured__inner"><i class="fa fa-star"></i></div>
@@ -143,7 +142,6 @@
 									</span>
 								{% endif %}
 
-								<!-- else is User -->
 
 							{% else %}
 
@@ -154,7 +152,7 @@
 								{% endif %}
 
 							{% endif %}
-						</div>
+						</div> -->
 
 					</article>
 				</div>
@@ -170,87 +168,7 @@
 	</div>
 
 
-
-	<!-- ********************************************************************
-		$ SLOGAN
-	********************************************************************* -->
-	<!-- <section class="slogan">
-		<span class="slogan-text">Muestra tu talento artístico!</span>
-		<button class="button-solid js-signUpButton" data-size='large'>Sign Up</button>
-	</section> -->
-
-
 	{% include '../partials/footer.html' %}
-
-
-	<!-- ********************************************************************
-		$ LOGIN
-	********************************************************************* -->
-	<section class="login-modal">
-		<div class="login-box js-loginBox">
-			<header class="login-box__header">			
-				<div class="skinny-menu">
-					<a href="#" class="skinny-menu__item js-signInFormButton">
-						Ingresar
-					</a>
-					<a href="#" class="skinny-menu__item js-signUpFormButton">
-						Registrarme
-					</a>
-				</div>
-			</header>
-			<form class="login-box__form js-signUpForm">
-		 		<a href="#" class="facebook-button" data-expand='true'>
-					<i class="fa fa-facebook-official"></i>&nbsp; Registrarme con Facebook
-				</a>
-				<div class="separator-text">
-					<span class="line"></span>
-					<span class="text">Con email</span>
-					<span class="line"></span>
-				</div>
-				<input class="input" data-size='large' name="username" placeholder="Username" type="text">
-				<input class="input" data-size='large' name="email" placeholder="Email" type="email">
-				<input class="input" data-size='large' name="password" placeholder="Password" type="password">
-				<input class="input" data-size='large' name="first-name" placeholder="First Name" type="text">
-				<input class="input" data-size='large' name="last-name" placeholder="Last Name" type="text">
-				<select class="input" name="gender">
-					<option selected disabled>Género</option>
-					<option value="Male">Masculino</option>
-					<option value="Female">Femenino</option>
-				</select>
-				<div class="question">
-					<input name="question" type="checkbox" id="question">
-					<label for="question" class="medium-text">¿Eres Artista profesional?</label>
-				</div>
-				<input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Registrarme" type="submit">
-				<p class="high-text note" data-size="small">Al registrarte estas aceptando los <strong>terminos y condiciones</strong> de Arte Manifiesto</p>
-			</form>
-			<form class="login-box__form js-signInForm">
-		 		<a href="#" class="facebook-button" data-expand='true'>
-					<i class="fa fa-facebook-official"></i>&nbsp; Ingresar con Facebook
-				</a>
-				<div class="separator-text">
-					<span class="line"></span>
-					<span class="text">Con email</span>
-					<span class="line"></span>
-				</div>
-				<input class="input" data-size='large' name="email" placeholder="Email" type="text">
-				<input class="input" data-size='large' name="password" placeholder="Password" type="password">
-				<input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Ingresar" type="submit">
-				<p class="high-text note js-rememberFormButton" data-size="small">Recordar contraseña</p>
-			</form>
-			<form class="login-box__form js-rememberForm">
-				<div class="separator-text">
-					<span class="line"></span>
-					<span class="text">Recordar contraseña</span>
-					<span class="line"></span>
-				</div>
-				<input class="input" data-size='large' name="email" placeholder="Email" type="text">
-				<input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Recordar" type="submit">
-				<p class="high-text note js-rememberBackButton" data-size="small">Ingresar</p>
-			</form>
-			<div class="login-box__closed js-loginClosed"><i class="fa fa-times"></i></div>
-		</div>
-	</section>
 
 
 	<script type="text/template" id="product-template">
