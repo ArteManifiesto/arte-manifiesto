@@ -49,16 +49,16 @@
 					<div class="square-menu__item">Tienda <!-- <span class="number">{{data[2].store}}</span> --></div>
 				</div>
 				<div class="square-menu__element">
-					<div class="square-menu__item">Likes <span class="number">{{data[1].likes}}</span></div>
+					<div class="square-menu__item">Likes <span class="number"><!-- {{data[1].likes}} --></span></div>
 				</div>
-				<div class="square-menu__element">
+				<!-- <div class="square-menu__element">
 					<div class="square-menu__item">Colecciones <span class="number">{{data[3].works + data[4].products}}</span></div>
+				</div> -->
+				<div class="square-menu__element">
+					<div class="square-menu__item">Seguidores <span class="number"><!-- {{data[5].followers}} --></span></div>
 				</div>
 				<div class="square-menu__element">
-					<div class="square-menu__item">Seguidores <span class="number">{{data[5].followers}}</span></div>
-				</div>
-				<div class="square-menu__element">
-					<div class="square-menu__item">Siguiendo <span class="number">{{data[6].followings}}</span></div>
+					<div class="square-menu__item">Siguiendo <span class="number"><!-- {{data[6].followings}} --></span></div>
 				</div>
 			</div>
 		</div>
@@ -69,21 +69,102 @@
 			<!-- ********************************************************************
 				$ WORKS
 			********************************************************************* -->
-			<section class="works" data-columns>
-
-			</section>
+			<section class="works" data-columns></section>
+		</div>
+		<div class="profile-content__likes">
+			<!-- ********************************************************************
+				$ WORKS
+			********************************************************************* -->
+			<section class="works" data-columns></section>
+			<!-- ********************************************************************
+				$ PRODUCTS
+			********************************************************************* -->
+			<section class="products"></section>
+		</div>
+		<div class="profile-content__followers">
+			<!-- ********************************************************************
+				$ WORKS
+			********************************************************************* -->
+			<section class="works" data-columns></section>
+		</div>
+		<div class="profile-content__following">
+			<!-- ********************************************************************
+				$ WORKS
+			********************************************************************* -->
+			<section class="works" data-columns></section>
 		</div>
 	</div>
 
 	{% include '../partials/footer.html' %}
 
 	<script type="text/template" id="work-template">
-
 		<article class="work">
 			<img src="<%= photo %>">
+		</article>
+	</script>
 
-					</article>
+	<script type="text/template" id="artist-template">
 
+		<div class="artist-wrapper">
+			<article class="artist">
+				<a class="artist-header" href="#"> 
+					<div class="avatar">
+						<img src="<%= photo %>">
+					</div>
+					<div class="info">
+						<p class="high-text" data-size='small'><%= firstname %></p>
+						<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
+					</div>
+				</a>
+				<div class="artist-works">
+
+					<% _.each(Works, function(work) { %>
+						<div class="work work1"></div>
+					<% }); %>
+
+				</div>
+				<div class="artist-follow">
+					<% if (following) { %>
+						<button class="button-liner disabled js-followButton" data-following="true" data-userId="<%= id %>" data-size='small'>
+					<% } else { %>
+						<button class="button-liner js-followButton" data-following="false" data-userId="<%= id %>" data-size='small'>
+					<% } %>
+						<span class="button-liner__action folllow">Seguir</span>
+						<span class="button-liner__action following"><i class="fa fa-check"></i> Siguiendo</span>
+						<span class="button-liner__action cancel"><i class="fa fa-times-circle"></i> Cancelar</span>
+						<span class="button-liner__number">13,2k</span>
+					</button>
+				</div>
+			</article>
+		</div>
+
+	</script>
+
+	<script type="text/template" id="product-template">
+
+		<div class="product-wrapper">					
+			<article class="product">
+				<a href="/<%= User.username %>/product/<%= nameSlugify %>" class="product-image">
+					<img src="<%= photo %>">
+				</a>
+				<div class="product-info">
+					<div class="title"><%= name %></div>
+				</div>
+				<div class="product-social">
+					<div class="price">$<%= price %></div>
+					<div class="like">
+
+						<% if (liked) { %>
+							<span class="button-like active"> <i class="fa fa-heart-o"></i> <i class="fa fa-heart"></i> <span>{{product.likes}}</span> </span>
+						<% } else { %>
+							<span class="button-like"> <i class="fa fa-heart-o"></i> <i class="fa fa-heart"></i> <span>{{product.likes}}</span> </span>
+						<% } %>
+
+					</div>
+				</div>
+
+			</article>
+		</div>
 	</script>
 
 	<script>

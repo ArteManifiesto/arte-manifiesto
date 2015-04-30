@@ -2,8 +2,10 @@
 
 function Profile () {
 	
-	var worksContainer = document.querySelector('.works'),
-			workTemplate = _.template( $( "#work-template" ).html() );
+	// var worksContainer = document.querySelector('.works'),
+	var workTemplate = _.template( $( "#work-template" ).html() );
+	var artistTemplate = _.template( $( "#artist-template" ).html() );
+	var productTemplate = _.template( $( "#product-template" ).html() );
 
 	var profileMenuItems = document.querySelectorAll('.square-menu__item')
 
@@ -23,37 +25,39 @@ function Profile () {
 	}
 
 	function rederPortfolio () {
-		
 		currentPath = 'portfolio'
 		url = '/' + profile.username + '/' + currentPath + '/page-1';
-		
-		console.log('url: ', url)
 		$.post( url, function( data ) {
-				console.log(data);
-
-				addWorks(data.works)
+				var worksContainer = document.querySelector('.profile-content__works .works')
+				addWorks(worksContainer, data.works)
 		});
 	}
-
-	function rederLikes () {
-		
-		currentPath = 'likes/works'
-		url = '/' + profile.username + '/' + currentPath + '/page-1';
-		
-		console.log('url holi: ', url)
-		$.post( url, function( data ) {
-				console.log(data);
-
-				// addWorks(data.works)
-		});
-	}
-
-	function addWorks (works) {
+	function addWorks (worksContainer, works) {
 		for (var i = 0; i < works.length; i++) {
 			var work = makeEl(workTemplate, works[i])
 			salvattore['append_elements'](worksContainer, [work])
 		}
 	}
+
+	function rederLikes () {
+		currentPath = 'likes/works'
+		url = '/' + profile.username + '/' + currentPath + '/page-1';
+		$.post( url, function( data ) {
+				var worksContainer = document.querySelector('.profile-content__likes .works')
+				addWorks(worksContainer, data.likes)
+		});
+	}
+	
+	function rederLikes () {
+		currentPath = 'likes/works'
+		url = '/' + profile.username + '/' + currentPath + '/page-1';
+		$.post( url, function( data ) {
+				var worksContainer = document.querySelector('.profile-content__likes .works')
+				addWorks(worksContainer, data.likes)
+		});
+	}
+
+
 
 	setup()
 }
