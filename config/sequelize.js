@@ -13,13 +13,14 @@ var _ = require('lodash');
  * ====================================================
  */
 var sequelize;
-if (process.env.NODE_ENV == 'production') {
-    sequelize = new Sequelize(config.db.name, config.db.username, config.db.password, {
-        dialect: config.db.dialect,
-        protocol: config.db.protocol,
-        port: config.db.port,
-        host: config.db.host,
-        logging: config.db.logging
+if (process.env.NODE_ENV != 'production') {
+
+    var d = 'mysql://be72f71bb5432f:520f5767@us-cdbr-iron-east-02.cleardb.net/heroku_082ce63f99d3d82?reconnect=true';
+    sequelize = new Sequelize('heroku_082ce63f99d3d82', 'be72f71bb5432f', '520f5767', {
+        dialect: 'mysql',
+        protocol: 'mysql',
+        port: '3306',
+        host: 'us-cdbr-iron-east-02.cleardb.net'
     });
 } else {
     sequelize = new Sequelize(config.db.name, config.db.username, config.db.password, {
