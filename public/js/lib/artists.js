@@ -33,6 +33,7 @@ function Artists (data) {
 
 	var loading = document.querySelector('.loading')
 	var moreContainer = document.querySelector('.more')
+	var emptyResult = document.querySelector('.empty-result')
 
 	var text = ''
 	var type = null
@@ -144,6 +145,13 @@ function Artists (data) {
 		navigationTexts[0].innerHTML = 'Nombre'
 		navigationTexts[1].innerHTML = value
 
+    if (value == '') {
+        navigation.style.display = 'none'
+        url = url.replace('&tag=', '');
+    }
+
+    searcher.blur()
+
 		getData(false)
 	}
 
@@ -227,6 +235,14 @@ function Artists (data) {
 	}
 
 	function render (artists) {
+
+		if (artists.length == 0) {
+        // console.log('cero mielda!')
+        emptyResult.style.display = 'block'
+    } else {
+        emptyResult.style.display = 'none'
+    }
+
 		removeEntities('artist-wrapper')
 		add(artists)
 

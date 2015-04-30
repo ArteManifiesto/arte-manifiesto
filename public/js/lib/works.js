@@ -1,3 +1,4 @@
+
 function Works() {
 
     window.history.pushState({}, "", url)
@@ -126,7 +127,7 @@ function Works() {
     }
 
     function changeTitle(value) {
-        console.log('vlaue ', value);
+        // console.log('vlaue ', value);
         var tag = getUrlParameter('tag');
         if (tag != undefined)
             url = url.replace('tag=' + tag, '');

@@ -10,11 +10,11 @@ function Work(el, data) {
 	// var buttonliked = el.querySelector('.' + data.buttonLikedClass)
 
 	var buttonlike = el.querySelector('.' + data.buttonLikeClass)
-	console.log(el, data.likeCoverClass)
+	// console.log(el, data.likeCoverClass)
 	var likeCover = el.querySelector('.' + data.likeCoverClass)
-	console.log('likeCover: ', likeCover)
+	// console.log('likeCover: ', likeCover)
 	var likeSimbol = el.querySelector('.' + data.likeSimbolClass)
-	console.log('likeSimbol: ', likeSimbol)
+	// console.log('likeSimbol: ', likeSimbol)
 
 	var clickend = false;
 
@@ -23,7 +23,7 @@ function Work(el, data) {
 		likeCover.addEventListener('click', function () {
 
 			if(clickend) {
-				console.log('dblclick')
+				// console.log('dblclick')
 				clickend = false
 
 				if (!user) {
@@ -40,7 +40,7 @@ function Work(el, data) {
 				
 				setTimeout(function () {
 					if(clickend){
-						console.log('click')
+						// console.log('click')
 						clickend = false
 					}
 				}, 400)
@@ -56,7 +56,7 @@ function Work(el, data) {
 		// 	})
 
 		buttonlike.addEventListener('click', function () {
-			console.log('click')
+			// console.log('click')
 
 			if (!user) {
 				location.href = '/auth/login'

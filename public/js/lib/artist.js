@@ -1,3 +1,4 @@
+
 	function Artist(el, data) {
 
 	var id = data.id,
@@ -14,7 +15,7 @@
 	function setup() {
 		buttonFollow.addEventListener('click', function () {
 			if (!user) {
-				console.log('falta usuario')
+				// console.log('falta usuario')
 				location.href = '/auth/login'
 				return
 			}
@@ -25,7 +26,7 @@
 
 	function follow() {
 		$.post('/' + user.username + '/follow/', {idUser: id}, function (data) {
-			console.log(data)
+			// console.log(data)
 			if (data.status == 200) {
 				following = true
 				buttonFollow.classList.add('disabled')
@@ -37,7 +38,7 @@
 
 	function unFollow() {
 		$.post('/' + user.username + '/unfollow/', {idUser: id}, function (data) {
-			console.log(data)
+			// console.log(data)
 			if (data.status == 200) {
 				buttonFollow.classList.remove('disabled')
 				following = false
