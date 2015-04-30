@@ -143,6 +143,13 @@ function Works() {
         navigationTexts[0].innerHTML = 'Título'
         navigationTexts[1].innerHTML = value
 
+        if (value == '') {
+            navigation.style.display = 'none'
+            url = url.replace('&tag=', '');
+        }
+
+        searcher.blur()
+
         getData(false)
     }
 

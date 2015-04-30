@@ -55,6 +55,7 @@ function Products (data) {
 		searcher.addEventListener('keypress', function (e) {
 			var keyCode = e.keyCode || e.which;
 			// if (keyCode == '13') changeTag(text)
+			searchOptions.style.display = 'none'
 			if (keyCode == '13') changeTitle(text)
 			// return false;
 		})
@@ -112,10 +113,10 @@ function Products (data) {
 		})
 
 		window.onscroll = function(ev) {
-			console.log('onscroll!')
+			// console.log('onscroll!')
 			if(looking) return
 			if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-				console.log('bottom!')
+				// console.log('bottom!')
 				if(scrollMode) more()
 			}
 		}
