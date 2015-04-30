@@ -1,7 +1,7 @@
 var moment = require('moment');
 var email = require('../app/controllers/email');
 var Promise = require('bluebird');
-
+var _ = require('lodash');
 //works/category/urban/page-1/?order=(newest,popularity,views)&time=(day,week,month,year)&featured&tag=amazing&title=art
 //users/specialty/paint/page-1/?order=(newest,popularity,views)&time=(day,week,month,year)&featured&name=julio&username=juliocanares
 
