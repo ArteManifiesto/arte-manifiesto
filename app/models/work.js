@@ -49,29 +49,6 @@ module.exports = function (sequelize, DataTypes) {
                         return global.getNumLikesOfWork({work: scope.id});
                     });
                 }
-            },
-            hooks: {
-                afterCreate: function (work, options) {
-                    var promises = [];
-                    for (var i = 0; i < 4; i++) {
-                        promises.push(global.db.Product.create({
-                            name: chance.name(),
-                            price: _.random(0, 1000),
-                            UserId: options.user,
-                            photo: '/img/products/product' + (_.random(1, 5).toString()) + '.jpg',
-                            description: chance.paragraph({sentences: 2})
-                        }))
-                    }
-
-                    return global.db.Sequelize.Promise.all(promises).then(function (products) {
-                        console.log("adddd producttt to collection");
-                        promises = [
-                            options.store.addProducts(products),
-                            work.addProducts(products)
-                        ]
-                        return global.db.Sequelize.Promise.all(promises);
-                    });
-                }
             }
         }
     );

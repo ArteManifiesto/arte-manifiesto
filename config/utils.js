@@ -349,6 +349,7 @@ global.getWorksOfCollectionByMeta = function (options, count) {
     var queryTemplate =
         "<% if (count == undefined) { %>" +
         "SELECT `<%=meta%>`.`id`, `<%=meta%>`.`name`, `<%=meta%>`.`nameSlugify`, `<%=meta%>`.`photo`, " +
+        "<% if (meta == 'Product') { %>  `<%=meta%>`.`price`, <% } %>" +
         "`<%=meta%>`.`public`, `<%=meta%>`.`featured`, " +
         "COUNT(DISTINCT `Likes`.id) AS `likes`, " +
         "CASE WHEN COUNT(DISTINCT CurrentUser.id) > 0 THEN TRUE ELSE FALSE END AS `liked` " +

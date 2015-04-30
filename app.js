@@ -12885,11 +12885,184 @@ global.db.sequelize.sync({force: dev}).then(function () {
                         "facebook": "https://www.facebook.com/arte.sativa",
                         "createdAt": "2014-03-26 21:32:52"
                     }
-                ]
+                ];
                 for (i = 0; i < userData.length; i++) {
                     promises.push(global.db.User.create(userData[i]));
                 }
             } else {
+                var products = [
+                    {
+                        "name": 'Conrad - Art Jam 2013 VOL I',
+                        "price": 500,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430426644/VENTA/2013_AJ_1_CONRAD.png'
+                    },
+                    {
+                        "name": 'Yandy - Art Jam 2013 VOL I',
+                        "price": 650,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430427018/VENTA/2013_AJ_1_YANDY.png'
+                    },
+                    {
+                        "name": 'Salima - Art Jam 2013 VOL II',
+                        "price": 650,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430426983/VENTA/2013_AJ_2_SALIMA.jpg'
+                    },
+                    {
+                        "name": 'Sose - Art Jam 2013 VOL II',
+                        "price": 300,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430426983/VENTA/2013_AJ_2__SOSE-F.jpg'
+                    },
+                    {
+                        "name": 'Malk - Art Jam 2013 VOL II',
+                        "price": 300,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430427000/VENTA/2013_AJ_2_MALK.png'
+                    },
+                    {
+                        "name": 'Ce Ardiles - Art Jam 2013 VOL III',
+                        "price": 1500,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430427013/VENTA/2013_AJ_3_CE.jpg'
+                    },
+                    {
+                        "name": 'Gutierrez - Art Jam 2013 VOL III',
+                        "price": 500,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/v1430427026/VENTA/2013_AJ_3_GUTIERREZ.png'
+                    },
+                    {
+                        "name": 'Nemo - Art Jam 2013 VOL III',
+                        "price": 500,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430427006/VENTA/2013_AJ_3_NEMO-F.jpg'
+                    },
+                    {
+                        "name": 'ChocoCar - Art Jam 2013 VOL III',
+                        "price": 500,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430426997/VENTA/2013_AJ_3_CHOCO.png'
+                    },
+                    {
+                        "name": 'Sose - Art Jam 2013 VOL FINAL',
+                        "price": 600,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430427047/VENTA/2013_FIN_SOSE.png'
+                    },
+                    {
+                        "name": 'Mask - Art Jam 2013 VOL FINAL',
+                        "price": 1000,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430427026/VENTA/2013_F_MASK.png'
+                    },
+                    {
+                        "name": 'Peremese - Art Jam 2013 VOL FINAL',
+                        "price": 500,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430427526/VENTA/2013_F_PEREMESE.jpg'
+                    },
+                    {
+                        "name": 'Mask - Art Jam 2013 VOL DEMO',
+                        "price": 400,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430427043/VENTA/2013_AJ_D_MASK.png'
+                    },
+                    {
+                        "name": 'Alinder - Art Jam 2014 VOL I',
+                        "price": 500,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430427044/VENTA/2014_AJ_1_ALINDER.png'
+                    },
+                    {
+                        "name": 'Fania - Art Jam 2014 VOL I',
+                        "price": 300,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430426640/VENTA/2014_AJ_1_FANIA.png'
+                    },
+                    {
+                        "name": 'Cindy Messco - Art Jam 2014 VOL I',
+                        "price": 300,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430426644/VENTA/2014_AJ_1_CINDY_MESCCO.png'
+                    },
+                    {
+                        "name": 'Ale Wendorff - Art Jam 2014 VOL I',
+                        "price": 500,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430429041/VENTA/2014_AJ_1_WENDORFFnoche_trop_-_ale_wendorff.jpg'
+                    },
+                    {
+                        "name": 'Andre Coronado - Art Jam 2014 VOL I',
+                        "price": 300,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430427070/VENTA/2014_AJ_1_ANDRE_COR.png'
+                    },
+                    {
+                        "name": 'Brus Rubio - Art Jam 2014 VOL I',
+                        "price": 500,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430427085/VENTA/2014_AJ_1_BRUS_RUBIO.png'
+                    },
+                    {
+                        "name": 'Xomatok - Radio - Art Jam 2014 VOL II',
+                        "price": 1900,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430427161/VENTA/2014_AJ_2_XOMATOK-VALENTINO.png'
+                    },
+                    {
+                        "name": 'Faber - Sierrah - Art Jam 2014 VOL II',
+                        "price": 1700,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430427093/VENTA/2014_AJ_2_FABER-SIERRAH.png'
+                    },
+                    {
+                        "name": 'Musik - Trazo - Art Jam 2014 VOL II',
+                        "price": 1000,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430427065/VENTA/2014_AJ_2_FABER-MUSICK.png'
+                    },
+                    {
+                        "name": 'Ridan - Art Jam 2014 VOL III',
+                        "price": 1350,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430429304/VENTA/2014_F_RIDAN.jpg'
+                    },
+                    {
+                        "name": 'Ilustraaron - Art Jam 2014 VOL III',
+                        "price": 600,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430427448/VENTA/2014_AJ_3_AARON.png'
+                    },
+                    {
+                        "name": 'Macizo - Art Jam 2014 VOL III',
+                        "price": 600,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430427097/VENTA/2014_AJ_3_MACIZO.png'
+                    },
+                    {
+                        "name": 'Fiasco - Art Jam 2014 VOL III',
+                        "price": 600,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430428935/VENTA/2014-AJ-3-FIASCO.png'
+                    },
+                    {
+                        "name": 'Ridan - Art Jam 2014 VOL FINAL',
+                        "price": 500,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430427084/VENTA/2014_AJ_3_RIDAN.png'
+                    },
+                    {
+                        "name": 'Alinder - Art Jam 2014 VOL FINAL',
+                        "price": 1000,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430427129/VENTA/2014_F_ALINDER.png'
+                    },
+                    {
+                        "name": 'Cindy Messco - Art Jam 2014 VOL FINAL',
+                        "price": 500,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430427150/VENTA/2014_F_CINDY_MESCCO.png'
+                    },
+                    {
+                        "name": 'Faber - Art Jam 2014 VOL VOLT',
+                        "price": 1620,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430427276/VENTA/2014_AJ_D_FABER.png'
+                    },
+                    {
+                        "name": 'Pher - Art Jam 2014 VOL VOLT',
+                        "price": 500,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430427110/VENTA/2014_AJ_D_PHER.png'
+                    },
+                    {
+                        "name": 'Nemo - Art Jam 2014 VOL DEMO',
+                        "price": 800,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430429582/VENTA/2014_AJ_D_NEMO.jpg'
+                    },
+                    {
+                        "name": 'Willyto Mact - Art Jam 2013 VOL DEMO',
+                        "price": 300,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430427035/VENTA/2013_AJ_D_WILLYTO.png'
+                    },
+                    {
+                        "name": 'ART JAM DEMO',
+                        "price": 700,
+                        "photo": 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430427146/VENTA/2014_AJ_D_PEREMESE.png'
+                    }
+                ];
+
                 for (i = 0; i < 20; i++) {
                     promises.push(global.db.User.create({
                         username: i == 0 ? 'juliocanares' : chance.twitter().replace('@', ''),
@@ -12912,6 +13085,33 @@ global.db.sequelize.sync({force: dev}).then(function () {
 
 
             global.db.Sequelize.Promise.all(promises).then(function () {
+                global.db.User.create({
+                    username: 'artjam',
+                    email: 'artjam@gmail.com',
+                    firstname: 'Art',
+                    lastname: 'Jam',
+                    gender: 'Male',
+                    photo: 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.png',
+                    isArtist: true,
+                    city: 'Lima',
+                    country: 'Perú',
+                    school: 'La calle',
+                    bigraphy: 'La primera competencia de batallas de arte en vivo.',
+                    isAdmin: true
+                }).then(function (artJam) {
+                    promises = [];
+                    for (var j = 0; j < products.length; j++) {
+                        var product = products[j];
+                        promises.push(global.db.Product.create(product));
+                    }
+                    global.db.Sequelize.Promise.all(promises).then(function (productsArtJam) {
+                        global.getStoreCollection(artJam).then(function (collection) {
+                            artJam.addProducts(productsArtJam).then(function () {
+                                collection.addProducts(productsArtJam);
+                            });
+                        });
+                    })
+                })
             });
         });
     }
