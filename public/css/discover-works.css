@@ -97,6 +97,7 @@ html {
   }
 }
 .thick-menu {
+  display: block;
   font-weight: 600;
   letter-spacing: 2px;
   font-family: 'Raleway';

@@ -1,14 +1,77 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-  <meta charset="UTF-8">
-  <title></title>
-</head>
-<body>
+{% extends '../partials/base.html' %}
+	{% set path = 'checkout' %}
+	{% set title = 'Arte Manifiesto | Checkout' %}
+	{% set css = 'checkout' %}
 
-	<script type="text/javascript">
-				
-	</script>
+{% block content %}
 
-</body>
-</html>
+    {% include '../partials/category-menu.html' %}
+
+
+    <!-- ********************************************************************
+        $ LOGIN
+    ********************************************************************* -->
+
+
+    <section class="login-cover">
+        <div class="login-box js-loginBox">
+            <header class="login-box__header">
+                <div class="skinny-menu">
+                    <a class="skinny-menu__item js-signInFormButton">LA GALERIA VA A TU CASA</a>
+                </div>
+            </header>
+
+            <form class="login-box__form js-checkoutForm">
+                <div class="separator-text">
+                    <span class="line"></span>
+                    <span class="text"></span>
+                    <span class="line"></span>
+                </div>
+                <div class="question">
+                    <label for="question" class="medium-text">Ingresa tus datos y te contactaremos para detallar tu pedido.</label>
+                </div>
+                <input class="input" data-size='large' name="firstname" placeholder="Nombre" type="text" required>
+                <input class="input" data-size='large' name="lastname" placeholder="Apellido" type="text" required>
+                <input class="input" data-size='large' name="email" placeholder="Email" type="email" required>
+                <input class="input" data-size='large' name="phone" placeholder="Phone" type="tel" required>
+                <input class="input" data-size='large' name="direction" placeholder="Dirección" type="text" required>
+                <input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Enviar" type="submit">
+
+                <input type="hidden" name="idProduct" value="{{ product.id }}">
+
+            </form>
+
+        </div>
+    </section>
+
+    {% include '../partials/footer.html' %}
+
+    <script src="/js/vendor/jquery.min.js"></script>
+
+    <script type="text/javascript">
+
+        var product = {{ product|json|safe }}
+        console.log('product: ', product)
+
+
+
+        var checkoutForm = $(".js-checkoutForm");
+        console.log('checkoutForm: ', checkoutForm)
+
+        checkoutForm.submit(function () {
+            console.log('submit')
+            $.ajax({
+                type: "POST",
+                url: "/checkout",
+                data: checkoutForm.serialize(),
+                success: function  (data) {
+                    console.log('data: ', data)
+                }
+            });
+            return false;
+        });
+
+    </script>
+
+
+{% endblock %}
