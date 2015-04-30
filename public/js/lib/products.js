@@ -35,6 +35,7 @@ function Products (data) {
 
 	var loading = document.querySelector('.loading')
 	var moreContainer = document.querySelector('.more')
+	var emptyResult = document.querySelector('.empty-result')
 
 	var text = ''
 	var type = null
@@ -53,7 +54,8 @@ function Products (data) {
 		// Enter event in search
 		searcher.addEventListener('keypress', function (e) {
 			var keyCode = e.keyCode || e.which;
-			if (keyCode == '13') changeTag(text)
+			// if (keyCode == '13') changeTag(text)
+			if (keyCode == '13') changeTitle(text)
 			// return false;
 		})
 
@@ -133,11 +135,11 @@ function Products (data) {
 		if (tag != undefined)
 			url = url.replace('tag=' + tag, '');
 
-		var title = getUrlParameter('title');
-		if (title != undefined)
-			url = url.replace('title=' + title, 'title=' + value);
+		var name = getUrlParameter('name');
+		if (name != undefined)
+			url = url.replace('name=' + name, 'name=' + value);
 		else
-			url += '&title='+value;
+			url += '&name='+value;
 
 		url = url.replace('page-' + pagination.page, 'page-1')
 		navigation.style.display = 'block'
@@ -150,9 +152,9 @@ function Products (data) {
 
 	function changeTag (value) {
 
-		var title = getUrlParameter('title');
-		if (title != undefined)
-			url = url.replace('title=' + title, '');
+		var name = getUrlParameter('name');
+		if (name != undefined)
+			url = url.replace('name=' + name, '');
 
 		var tag = getUrlParameter('tag');
 		if (tag != undefined)
@@ -203,7 +205,7 @@ function Products (data) {
 
 	function changeCategory (value) {
 		console.log('value: ', value)
-		
+
 		category = value
 		var currentCategory = url.split('/')[5]
 		url =	url.replace('type/'+currentCategory, 'type/'+category)
@@ -253,6 +255,13 @@ function Products (data) {
 	}
 
 	function render (products) {
+
+		if(products.length == 0) {
+			emptyResult.style.display = 'block'
+		} else {
+			emptyResult.style.display = 'none'
+		}
+
 		var currentProducts = productsContainer.querySelectorAll('.product-wrapper')
 		for (var i = 0; i < currentProducts.length; i++)
 			currentProducts[i].remove()

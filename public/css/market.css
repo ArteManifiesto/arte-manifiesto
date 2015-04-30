@@ -810,6 +810,12 @@ html {
   -webkit-justify-content: space-between;
   justify-content: space-between;
 }
+.product .product-social .price {
+  font-size: 0.9em;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  font-family: 'Raleway';
+}
 .product:hover {
   -webkit-box-shadow: rgba(0,0,0,0.35) 0 0 10px;
   box-shadow: rgba(0,0,0,0.35) 0 0 10px;
@@ -1120,4 +1126,15 @@ html {
   text-align: center;
   max-width: 1100px;
   margin: auto;
+}
+.empty-result {
+  max-width: 1100px;
+  margin: auto;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+.empty-result a {
+  font-size: 1rem;
+  fon-weight: 600;
+  color: #333;
 }

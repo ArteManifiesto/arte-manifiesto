@@ -44,7 +44,7 @@
 			</div>
 			<ul class="search-options js-search-options">
 				<li class="search-option" data-search='title'>Buscar Titulo: <span class="search-text"></span></li>
-				<li class="search-option" data-search='tag'>Buscar Tag: <span class="search-text"></span></li>
+				<!-- <li class="search-option" data-search='tag'>Buscar Tag: <span class="search-text"></span></li> -->
 			</ul>
 		</div>
 		<div class="filters-menu__category js-leftFiltersButton">
@@ -113,16 +113,17 @@
 				{% for product in products %}
 				<div class="product-wrapper">					
 					<article class="product">
-						<div class="product-image">
+						<a href="/{{ product.User.username}}/product/{{product.nameSlugify}}" class="product-image">
 							<img src="{{ product.photo }}">
-						</div>
+						</a>
 						<div class="product-info">
 							<div class="title">{{product.name}}</div>
-							<div class="price">${{product.price}}</div>
+							<!-- <div class="price">${{product.price}}</div> -->
 						</div>
 						<div class="product-social">
+							<div class="price">${{product.price}}</div>
 							<div class="like">
-								<span class="button-like"> <i class="fa fa-heart-o"></i> <span>{{product.likes}}</span> </span>
+								<span class="button-like"> <i class="fa fa-heart-o"></i> <i class="fa fa-heart"></i> <span>{{product.likes}}</span> </span>
 							</div>
 							<!-- <div class="wish-list">
 								<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
@@ -161,8 +162,40 @@
 
 
 			<div class="loading"><i class="fa fa-spinner"></i></div>
-			
-			{% include '../partials/more.html' %}
+
+			{% if products.length > 0 %}
+
+				<div class="more">
+					<button class="button-solid js-moreButton" data-color='red'>Ver más</button>
+				</div>
+
+				<div class="empty-result" style="display:none;">
+					<p class="high-text note">No se encontraron resultados,
+						<button>
+							<a href="/products/type/all/page-1/">
+								<strong>Ver todos los productos</strong>
+							</a>
+						</button>
+					</p>
+				</div>
+
+			{% else %}
+
+				<div class="more hide">
+					<button class="button-solid js-moreButton" data-color='red'>Ver más</button>
+				</div>
+
+				<div class="empty-result">
+					<p class="high-text note">No se encontraron resultados,
+						<button>
+							<a href="/products/type/all/page-1/">
+								<strong>Ver todas las obras</strong>
+							</a>
+						</button>
+					</p>
+				</div>
+
+			{% endif %}
 
 		</div>
 	</div>
@@ -175,9 +208,9 @@
 
 		<div class="product-wrapper">					
 			<article class="product">
-				<div class="product-image">
+				<a href="/<%= User.username %>/product/<%= nameSlugify %>" class="product-image">
 					<img src="<%= photo %>">
-				</div>
+				</a>
 				<div class="product-info">
 					<div class="title"><%= name %></div>
 					<div class="price">$<%= price %></div>
