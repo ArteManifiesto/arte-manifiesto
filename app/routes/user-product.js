@@ -7,8 +7,6 @@ var controller = require(config.controllersDir + "/user-product");
 
 router.get('/add', controller.add);
 
-router.get('/:nameProduct', controller.product);
-
 router.post('/create', controller.create);
 router.post('/delete', controller.delete);
 router.post('/update', controller.update);
@@ -19,6 +17,8 @@ router.post('/unfeatured', controller.unFeatured);
 
 router.post('/like', controller.like);
 router.post('/unlike', controller.unLike);
+
+router.get('/:nameProduct', controller.product);
 
 /*
  router.post('/work/add/collection', controller.workAddCollection);
