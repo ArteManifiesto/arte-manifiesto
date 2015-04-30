@@ -1,5 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
-    var Buyers = sequelize.define('Buyers', {
+    var Buyer = sequelize.define('Buyer', {
             firstname: DataTypes.STRING,
             lastname: DataTypes.STRING,
             email: DataTypes.STRING,
@@ -8,13 +8,10 @@ module.exports = function (sequelize, DataTypes) {
         }, {
             classMethods: {
                 associate: function (models) {
-                    Buyers.belongsToMany(models.User, {as: 'Specialties', through: 'Specialties'});
-                    Buyers.belongsToMany(models.User, {as: 'Interests', through: 'Interests'});
-
-                    Buyers.belongsToMany(models.Work, {through: 'WorkCategories'});
+                    Buyer.belongsTo(models.Product);
                 }
             }
         }
     );
-    return Buyers;
+    return Buyer;
 };

@@ -1,6 +1,5 @@
 
 function Works() {
-
     window.history.pushState({}, "", url)
 
     var worksContainer = document.querySelector('.works'),

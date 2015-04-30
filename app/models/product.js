@@ -30,6 +30,7 @@ module.exports = function (sequelize, DataTypes) {
                     Product.belongsTo(models.Work, {onDelete: 'cascade'});
                     Product.belongsTo(models.User);
                     Product.belongsTo(models.ProductType);
+                    Product.hasMany(models.Buyer);
                 }
             },
             instanceMethods: {
@@ -48,7 +49,10 @@ module.exports = function (sequelize, DataTypes) {
             },
             hooks: {
                 afterCreate: function (product, options) {
-                    return global.db.ProductType.findAll({order:[global.db.sequelize.fn('RAND', '')] , limit:1}).then(function (types) {
+                    return global.db.ProductType.findAll({
+                        order: [global.db.sequelize.fn('RAND', '')],
+                        limit: 1
+                    }).then(function (types) {
                         var type = types[0];
                         return type.addProduct(product);
                     });
