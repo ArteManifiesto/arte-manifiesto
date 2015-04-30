@@ -202,6 +202,8 @@ function Products (data) {
 	}
 
 	function changeCategory (value) {
+		console.log('value: ', value)
+		
 		category = value
 		var currentCategory = url.split('/')[5]
 		url =	url.replace('type/'+currentCategory, 'type/'+category)
