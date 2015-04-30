@@ -58,7 +58,7 @@ module.exports = function (sequelize, DataTypes) {
                             name: chance.name(),
                             price: _.random(0, 1000),
                             UserId: options.user,
-                            photo: '/img/products/product' + (_.random(0, 2).toString()) + '.jpg',
+                            photo: '/img/products/product' + (_.random(1, 2).toString()) + '.jpg',
                             description: chance.paragraph({sentences: 2})
                         }))
                     }

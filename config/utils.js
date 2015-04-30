@@ -91,6 +91,7 @@ global.searchWorks = function (req) {
     var query = {where: {nameSlugify: req.params.value}};
     return global.db.Category.find(query).then(function (category) {
         options.category = category ? category.id : 0;
+        if (req.params.value == 'all') options.category = undefined;
         return global.getPaginationData(options);
     });
 };
@@ -104,10 +105,11 @@ global.searchUsers = function (req) {
     var query = {where: {nameSlugify: req.params.value}};
     return global.db.Category.find(query).then(function (specialty) {
         options.specialty = specialty ? specialty.id : 0;
+        if (req.params.value == 'all') options.specialty = undefined;
         return global.getPaginationData(options).then(function (data) {
             var records = global.mergeEntity(data[options.entity], ['Works']);
             _.map(records, function (value, key) {
-                value['Works'] = _.slice(value['Works'], 0, 6);
+                value['Works'] = _.slice(value['Works'], 0, options.limit);
             });
             data[options.entity] = records;
             return data;
@@ -126,6 +128,7 @@ global.searchProducts = function (req) {
 
     return global.db.ProductType.find({where: {nameSlugify: req.params.value}}).then(function (productType) {
         options.type = productType ? productType.id : 0;
+        if (req.params.value == 'all') options.type = undefined;
         return global.getPaginationData(options);
     });
 };
@@ -358,9 +361,9 @@ global.getWorksOfCollection = function (options, count) {
         "ON `Work`.`id` = `CollectionWork`.`WorkId` AND `CollectionWork`.`CollectionId` = <%= collection %> " +
         "<% if (count == undefined) { %> LIMIT <%= offset %>,<%= limit %> <% } %>) AS `Work` " +
         "<% if (count == undefined) { %>" +
-        "LEFT OUTER JOIN (`Likes` AS `Likes.Likes` INNER JOIN `Users` AS `Likes` " +
-        "ON `Likes`.`id` = `Likes.Likes`.`UserId`) ON `Work`.`id` = `Likes.Likes`.`WorkId` " +
-        "LEFT OUTER JOIN (`Likes` AS `CurrentUser.Likes` INNER JOIN `Users` AS CurrentUser " +
+        "LEFT OUTER JOIN (`WorkLikes` AS `Work.Likes` INNER JOIN `Users` AS `Likes` " +
+        "ON `Likes`.`id` = `Work.Likes`.`UserId`) ON `Work`.`id` = `Work.Likes`.`WorkId` " +
+        "LEFT OUTER JOIN (`WorkLikes` AS `CurrentUser.Likes` INNER JOIN `Users` AS CurrentUser " +
         "ON CurrentUser.`id` = `CurrentUser.Likes`.`UserId`) ON `Work`.`id` = `CurrentUser.Likes`.`WorkId` " +
         "AND CurrentUser.`id` = <%=viewer%> " +
         "GROUP BY Work.id ORDER BY `CollectionWork.order` ASC;" +

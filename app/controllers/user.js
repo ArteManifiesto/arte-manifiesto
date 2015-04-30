@@ -36,7 +36,7 @@ exports.profile = function (req, res) {
 exports.portfolio = function (req, res) {
     global.getPortfolioCollection(req.profile).then(function (collection) {
         var options = {
-            query: 'getWorksOfCollection', name: 'works', viewer: req.viewer,
+            query: 'getWorksOfCollection', entity: 'works', viewer: req.viewer,
             collection: collection.id, user: req.profile.id,
             page: req.params.page, limit: 1
         };
@@ -48,7 +48,7 @@ exports.portfolio = function (req, res) {
 
 exports.likesWorks = function (req, res) {
     var options = {
-        query: 'getLikesOfUser', name: 'likes', viewer: req.viewer,
+        query: 'getLikesOfUser', entity: 'likes', viewer: req.viewer,
         user: req.profile.id, page: req.params.page, limit: 1
     };
     global.getPaginationData(options).then(function (data) {
@@ -62,7 +62,7 @@ exports.products = function (req, res) {
 
 var collectionsByMeta = function (req, meta) {
     var options = {
-        query: 'getCollectionsByMeta', name: meta, viewer: req.viewer,
+        query: 'getCollectionsByMeta', entity: meta, viewer: req.viewer,
         meta: meta, user: req.profile.id,
         page: req.params.page, limit: 1
     };
@@ -83,7 +83,7 @@ exports.collectionsProducts = function (req, res) {
 
 var getRelation = function (req, relation) {
     var options = {
-        query: 'relations', name: relation, viewer: req.viewer,
+        query: 'relations', entity: relation, viewer: req.viewer,
         relation: relation, user: req.profile.id,
         page: req.params.page, limit: 10
     };
