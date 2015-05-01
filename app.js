@@ -13071,7 +13071,7 @@ global.db.sequelize.sync({force: dev}).then(function () {
                         lastname: i == 0 ? 'Canares García' : chance.last(),
                         gender: i == 0 ? 'Male' : chance.gender(),
                         provider: 'local',
-                        photo: '/img/artists/artist' + (_.random(1, 4).toString()) + '.jpg',
+                        photo: i == 0 ? 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_140/v1430439983/juliocanares_cvuwwv.jpg' : '/img/artists/artist' + (_.random(1, 4).toString()) + '.jpg',
                         isArtist: _.sample(_.shuffle([0, 1])),
                         city: chance.city(),
                         country: chance.country({full: true}),

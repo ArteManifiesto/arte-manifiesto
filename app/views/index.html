@@ -5,7 +5,7 @@
 	{% set title = 'Arte Manifiesto' %}
 	{% set css = 'index' %}
 
-	{% set moreLink = '/works/category/all/page-1/?order=popularity&featured' %}
+	{% set moreLink = '/products/type/all/page-1/?order=popularity&featured' %}
 	
 
 {% block content %}
@@ -19,15 +19,11 @@
 	********************************************************************* -->
 	<section class="slider-small">
 		<div class="slider-small__items">
-			<div class="slider-small__item js-slide"><img src="/img/slide-small1.jpg"></div>
-			<div class="slider-small__item js-slide"><img src="/img/slide-small2.jpg"></div>
-			<div class="slider-small__item js-slide"><img src="/img/slide-small3.jpg"></div>
-			<div class="slider-small__item js-slide"><img src="/img/slide-small4.jpg"></div>
+			<div class="slider-small__item js-slide"><img src="/img/slide-large1.jpg"></div>
+			<div class="slider-small__item js-slide"><img src="/img/slide-large2.jpg"></div>
 		</div>
 		<div class="slider-small__nav">
 			<i class="slider-small__nav__item js-slideNavItem active fa fa-circle"></i>
-			<i class="slider-small__nav__item js-slideNavItem fa fa-circle"></i>
-			<i class="slider-small__nav__item js-slideNavItem fa fa-circle"></i>
 			<i class="slider-small__nav__item js-slideNavItem fa fa-circle"></i>
 		</div>
 	</section>
@@ -195,7 +191,6 @@
 	<script src="/js/lib/slider.js"></script>
 
 	<script src="/js/index.js"></script>
-	<script src="/js/script.js"></script>
 
 	<script>
 		var workFeatureds = {{ workFeatureds|json|safe }}
