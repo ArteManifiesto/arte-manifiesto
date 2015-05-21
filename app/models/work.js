@@ -24,7 +24,7 @@ module.exports = function (sequelize, DataTypes) {
                     Work.belongsToMany(models.User, {as: 'WorkLikes', through: 'WorkLikes'});
                     Work.belongsToMany(models.User, {as: 'WorkViews', through: 'WorkViews'});
                     Work.belongsToMany(models.User, {as: 'WorkCollects', through: 'WorkCollects'});
-
+                    
                     Work.belongsTo(models.User, {onDelete: 'cascade'});
 /*
                     Work.belongsToMany(models.Collection, {through: models.CollectionWork});
@@ -41,6 +41,7 @@ module.exports = function (sequelize, DataTypes) {
                         foreignKey: 'collectable_id',
                         constraints: false
                     });
+                    
                     Work.belongsToMany(models.Category, {through: 'WorkCategories'});
 
                     Work.belongsToMany(models.Tag, {through: 'WorkTags'});

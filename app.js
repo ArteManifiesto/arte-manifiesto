@@ -25639,7 +25639,7 @@ global.db.sequelize.sync({force: dev}).then(function () {
             }
 
 
-            /*global.db.Sequelize.Promise.all(promises).then(function () {
+            global.db.Sequelize.Promise.all(promises).then(function () {
              global.db.User.create({
              username: 'artjam',
              email: 'artjam@gmail.com',
@@ -25683,7 +25683,7 @@ global.db.sequelize.sync({force: dev}).then(function () {
              });
              })
              })
-             });*/
+             });
         });
     }
     var server = app.listen(app.get('port'), function () {

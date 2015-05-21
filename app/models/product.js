@@ -25,9 +25,9 @@ module.exports = function (sequelize, DataTypes) {
                     Product.belongsToMany(models.User, {as: 'ProductViews', through: 'ProductViews'});
                     Product.belongsToMany(models.User, {as: 'ProductCollects', through: 'ProductCollects'});
 
-                    /*Product.belongsToMany(models.Collection, {through: models.CollectionProduct});
-                     */
-                     Product.belongsToMany(models.Collection, {
+                    Product.belongsToMany(models.Collection, {through: models.CollectionProduct});
+                    
+                     /*Product.belongsToMany(models.Collection, {
                      through: {
                      model: models.CollectionItem,
                      unique: false,
@@ -37,7 +37,7 @@ module.exports = function (sequelize, DataTypes) {
                      },
                      foreignKey: 'collectable_id',
                      constraints: false
-                     });
+                     });*/
 
                     Product.belongsTo(models.Work, {onDelete: 'cascade'});
                     Product.belongsTo(models.User);
@@ -58,7 +58,7 @@ module.exports = function (sequelize, DataTypes) {
                         return global.getNumLikesOfProduct({product: scope.id});
                     });
                 }
-            }/*,
+            },
             hooks: {
                 afterCreate: function (product, options) {
                     return global.db.ProductType.findAll({
@@ -69,7 +69,7 @@ module.exports = function (sequelize, DataTypes) {
                         return type.addProduct(product);
                     });
                 }
-            }*/
+            }
         }
     );
     return Product;

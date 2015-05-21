@@ -22,6 +22,12 @@ exports.index = function (req, res) {
         });
     });*/
 
+    if(req.user){
+        return req.user.getSpecialties().then(function(specialties){
+            return res.json(specialties)
+        });   
+    }
+
     var recaptcha = new Recaptcha(config.recaptcha.publicKey, config.recaptcha.privateKey);
 
     var query = {where: {featured: true}, limit: 20};

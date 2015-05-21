@@ -9,7 +9,7 @@ var Recaptcha = require('recaptcha').Recaptcha;
  */
 exports.signupPage = function (req, res) {
     var recaptcha = new Recaptcha(config.recaptcha.publicKey, config.recaptcha.privateKey);
-    
+
     var profileCookie = req.cookies.profile;
     res.clearCookie('profile');
     return res.render('auth/signup', {
@@ -27,11 +27,11 @@ exports.signup = function (req, res) {
         check('email', req.body.email)
     ];
     global.db.Sequelize.Promise.all(promises).then(function (data) {
-        var usernameAvailable = data[0], emailAvailable = data[1];
+        var usernameAvailable = data[0], emailAvailable = data[1] , errors = [];
         if (!usernameAvailable)
-            return res.conflict('username is not available');
+            errors.push({username:'username is not available'});
         if (!emailAvailable)
-            return res.conflict('email is not available');
+            errors.push({email:'email is not available'});
 
         var dataRecaptcha = {
             remoteip: req.connection.remoteAddress,
@@ -42,8 +42,11 @@ exports.signup = function (req, res) {
         var recaptcha = new Recaptcha(config.recaptcha.publicKey, config.recaptcha.privateKey, dataRecaptcha);
         recaptcha.verify(function (success, error_code) {
             if (!success)
-                return res.conflict('recaptch not match');
+                errors.push({recaptch:'recaptch not match'});
 
+            if(errors.length >0)
+                return res.conflict(errors);
+            
             var options = {password: req.body.password};
             global.db.User.create(req.body, options).then(function (user) {
                 var params = {
@@ -93,7 +96,7 @@ exports.login = function (req, res) {
     passport.authenticate('local', function (err, user, message) {
         if (err)
             return res.internalServerError(err.message);
-
+        
         if (!user)
             return res.badRequest(message);
 
@@ -129,7 +132,7 @@ var loginUser = function (req, res, user) {
     req.login(user, function (err) {
         if (err)
             return res.internalServerError('Cannot login');
-
+        
         var callback;
         if (req.query.callback !== undefined)
             callback = req.query.callback
