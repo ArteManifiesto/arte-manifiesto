@@ -7,7 +7,6 @@ var loadingSubmit = document.querySelectorAll('.loading')[1]
 var facebookButton = document.querySelector('.facebook-button')
 var submitButton = document.querySelector('input[type="submit"]')
 
-
 facebookButton.addEventListener('click', function () {
 	facebookButton.style.display = 'none'
 	loadingFacebook.classList.add('visible')

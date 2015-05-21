@@ -63,8 +63,9 @@
 				</p>
 			</form>
 		{% elseif path == 'login' %}
-			<form class="login__form">
-				<a href="#" class="facebook-button" data-expand='true'>
+			<form class="login__form js-loginForm">
+				<div class="loading"><i class="fa fa-spinner"></i></div>
+				<a href="/auth/facebook" class="facebook-button" data-expand='true'>
 					<i class="fa fa-facebook-official"></i>&nbsp; Ingresar con Facebook
 				</a>
 				<p class="separator-text">
@@ -74,17 +75,19 @@
 				</p>
 				<input class="input" data-size='large' name="email" placeholder="Email" type="text">
 				<input class="input" data-size='large' name="password" placeholder="Contraseña" type="password">
+				<div class="loading"><i class="fa fa-spinner"></i></div>
 				<input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Ingresar" type="submit">
 				<p class="italic-text" data-size="small">Recordar contraseña</p>
 			</form>
 
-			<form class="login__form">
+			<form class="login__form js-rememberForm" style="display: none;">
 				<p class="separator-text">
 					<span class="line"></span>
 					<span class="text">Recordar contraseña</span>
 					<span class="line"></span>
 				</p>
 				<input class="input" data-size='large' name="email" placeholder="Email" type="text">
+				<div class="loading"><i class="fa fa-spinner"></i></div>
 				<input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Recordar" type="submit">
 				<p class="italic-text" data-size="small">Ingresar</p>
 			</form>
