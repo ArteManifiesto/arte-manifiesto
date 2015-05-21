@@ -10,9 +10,12 @@
 	{% include '../partials/login.html' %}
 
 {% endblock %}
+<div class="g-recaptcha" data-sitekey="6LcbDwcTAAAAAIexPkpMRGp4fTveLvMzll_XPH3Q"></div>
+
 
 {% block scripts %}
-	
+	<script src='https://www.google.com/recaptcha/api.js'></script>
+
 	<script type="text/javascript">
 		
 		var profile = {{profile|json|safe}}
