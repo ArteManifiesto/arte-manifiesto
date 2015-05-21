@@ -2,7 +2,7 @@ module.exports = {
     db: {
         name: "am",
         username: "root",
-        password: "123",
+        password: process.env.DB_PASSWORD,
         dialect: "mysql"
     },
     app: {
