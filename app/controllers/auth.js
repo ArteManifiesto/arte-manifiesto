@@ -1,20 +1,16 @@
 var passport = require('passport');
 var moment = require('moment');
 var config = require('../../config/config');
-
-var Recaptcha = require('recaptcha').Recaptcha;
+var simple_recaptcha = require('simple-recaptcha-new');
 
 /**
  * Show the view page for signup
  */
 exports.signupPage = function (req, res) {
-    var recaptcha = new Recaptcha(config.recaptcha.publicKey, config.recaptcha.privateKey);
-
     var profileCookie = req.cookies.profile;
     res.clearCookie('profile');
     return res.render('auth/signup', {
-        profile: profileCookie,
-        recaptcha: recaptcha.toHTML()
+        profile: profileCookie
     });
 };
 
@@ -22,37 +18,32 @@ exports.signupPage = function (req, res) {
  * User signup
  */
 exports.signup = function (req, res) {
+    console.log(req.body);
     var promises = [
         check('username', req.body.username),
         check('email', req.body.email)
     ];
-    
+
     global.db.Sequelize.Promise.all(promises).then(function (data) {
-        var usernameAvailable = data[0], emailAvailable = data[1] , errors = [];
-        
+        var usernameAvailable = data[0], emailAvailable = data[1], errors = [];
+
         if (!usernameAvailable)
-            errors.push({username:'username is not available'});
+            errors.push({username: 'username is not available'});
 
         if (!emailAvailable)
-            errors.push({email:'email is not available'});
+            errors.push({email: 'email is not available'});
 
-        var dataRecaptcha = {
-            remoteip: req.connection.remoteAddress,
-            challenge: req.body.recaptcha_challenge_field,
-            response: req.body.recaptcha_response_field
-        };
+        var ip = req.ip, response = req.body['g-recaptcha-response'];
 
-        var recaptcha = new Recaptcha(config.recaptcha.publicKey, config.recaptcha.privateKey, dataRecaptcha);
+        simple_recaptcha(config.recaptcha.privateKey, ip, response, function (error) {
+            if (error)
+                errors.push({recaptch: 'recaptcha not match'});
 
-        recaptcha.verify(function (success, error_code) {
-            if (!success)
-                errors.push({recaptch:'recaptcha not match' , new: recaptch.toHTML()});
-
-            if(errors.length >0)
+            if (errors.length > 0)
                 return res.conflict(errors);
-            
-            var options = {password: req.body.password};
 
+            var options = {password: req.body.password};
+            
             global.db.User.create(req.body, options).then(function (user) {
                 var params = {
                     to: user.email, user: user.firstname,
@@ -64,8 +55,9 @@ exports.signup = function (req, res) {
                     loginUser(req, res, user);
                 });
             });
+
         });
-    });
+    })
 };
 
 var check = function (property, value) {
@@ -102,7 +94,7 @@ exports.login = function (req, res) {
     passport.authenticate('local', function (err, user, message) {
         if (err)
             return res.internalServerError(err.message);
-        
+
         if (!user)
             return res.badRequest(message);
 
@@ -137,19 +129,19 @@ var loginUser = function (req, res, user) {
     req.login(user, function (err) {
         if (err)
             return res.internalServerError('Cannot login');
-        
+
         var callback;
         if (req.query.callback !== undefined)
             callback = req.query.callback
         else
             callback = req.protocol + '://' + req.get('host');
 
-        if(!req.xhr)
+        if (!req.xhr)
             return res.redirect(callback);
 
         return res.ok({
             callback: callback
-        }, 'User logged');   
+        }, 'User logged');
     });
 };
 

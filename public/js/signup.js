@@ -21,6 +21,10 @@ registerForm.submit(function () {
 	$.post('/auth/signup', formData, function (response) {
 		loadingSubmit.classList.remove('visible')
 		submitButton.style.display = 'block'
+		if(response.status === 409)
+		{
+			grecaptcha.reset();
+		}
 		console.log('response: ', response)
 	})
 
