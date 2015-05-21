@@ -10,7 +10,7 @@ var config = require('../../config/config');
 var Recaptcha = require('recaptcha').Recaptcha;
 
 exports.index = function (req, res) {
-    return global.db.Collection.create({name: 'New Collection'}).then(function (collection) {
+    /*return global.db.Collection.create({name: 'New Collection'}).then(function (collection) {
         global.db.Work.create({name: 'New Work'}).then(function (work) {
             collection.addWork(work).then(function () {
                 global.db.Product.create({id: 10000, name: 'New Product'}).then(function (product) {
@@ -20,7 +20,7 @@ exports.index = function (req, res) {
                 });
             });
         });
-    });
+    });*/
 
     var recaptcha = new Recaptcha(config.recaptcha.publicKey, config.recaptcha.privateKey);
 
