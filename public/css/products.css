@@ -904,6 +904,67 @@ body {
 .products .product-wrapper {
   padding: 0.5rem;
 }
+.product {
+  border: 1px solid #ddd;
+  position: relative;
+  -webkit-transition: box-shadow ease-in-out 125ms;
+  -moz-transition: box-shadow ease-in-out 125ms;
+  -o-transition: box-shadow ease-in-out 125ms;
+  -ms-transition: box-shadow ease-in-out 125ms;
+  transition: box-shadow ease-in-out 125ms;
+}
+.product .product-info {
+  border-bottom: 1px dashed #e6e8ec;
+  padding: 0.5em 1em;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-pack: justify;
+  -moz-box-pack: justify;
+  -o-box-pack: justify;
+  -ms-flex-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+.product .product-info .title {
+  font-size: 0.8em;
+  letter-spacing: 1px;
+  font-family: 'Raleway';
+}
+.product .product-info .price {
+  font-size: 0.9em;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  font-family: 'Raleway';
+}
+.product .product-social {
+  padding: 0.5em 1em;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-pack: justify;
+  -moz-box-pack: justify;
+  -o-box-pack: justify;
+  -ms-flex-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+.product .product-social .price {
+  font-size: 0.9em;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  font-family: 'Raleway';
+}
+.product:hover {
+  -webkit-box-shadow: rgba(0,0,0,0.35) 0 0 10px;
+  box-shadow: rgba(0,0,0,0.35) 0 0 10px;
+}
 @media screen and (min-width: 360px) {
   .products {
     display: -webkit-box;

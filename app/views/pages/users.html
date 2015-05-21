@@ -22,23 +22,21 @@
 					</div>
 				</a>
 				<div class="user-works">
-
 					<% _.each(Works, function(work) { %>
-						<div class="work work1"></div>
+						<div class="work" style="background-image: url('<%= work.photo %>');"></div>
 					<% }); %>
-
 				</div>
 				<div class="user-follow">
-					<% if (following) { %>
-						<button class="button-liner disabled js-followButton" data-following="true" data-userId="<%= id %>" data-size='small'>
-					<% } else { %>
-						<button class="button-liner js-followButton" data-following="false" data-userId="<%= id %>" data-size='small'>
-					<% } %>
-						<span class="button-liner__action folllow">Seguir</span>
-						<span class="button-liner__action following"><i class="fa fa-check"></i> Siguiendo</span>
-						<span class="button-liner__action cancel"><i class="fa fa-times-circle"></i> Cancelar</span>
-						<span class="button-liner__number">13,2k</span>
-					</button>
+					{% if user.following %}
+						<button class="button-liner disabled" data-following="true" data-size='small'>
+					{% else %}
+						<button class="button-liner" data-following="false" data-size='small'>
+					{% endif %}
+							<span class="button-liner__action folllow">Seguir</span>
+							<span class="button-liner__action following"><i class="fa fa-check"></i> Siguiendo</span>
+							<span class="button-liner__action cancel"><i class="fa fa-times-circle"></i> Cancelar</span>
+							<span class="button-liner__number"><%= followers %></span>
+						</button>
 				</div>
 			</article>
 		</div>
@@ -59,12 +57,16 @@
 		var user = {{ user|json|safe }}
 		console.log('user: ', user)
 
+		var users = {{ users|json|safe }}
+		console.log('users: ', users)
+
 	</script>
 
 	<script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
 	<script type="text/javascript" src="/js/vendor/underscore-min.js"></script>
 	<script type="text/javascript" src="/js/lib/search.js"></script>
 	<script type="text/javascript" src="/js/lib/section.js"></script>
+	<script type="text/javascript" src="/js/lib/user.js"></script>
 	<script type="text/javascript" src="/js/users.js"></script>
 
 {% endblock %}
