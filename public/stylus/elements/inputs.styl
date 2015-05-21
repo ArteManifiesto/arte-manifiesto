@@ -1,53 +1,6 @@
-// /*------------------------------------*
-// 	$ SEARCH
-// *------------------------------------*/
-// .search
-// 	position relative
-// 	input
-// 		width 100%
-// 		border-radius 4px
-// 		border 1px solid #cccccc
-// 		// padding .75em 0 .75em 2em
-// 		padding .5em 0 .5em 2em
-// 		color #555
-// 		font-size 1rem
-// 		// font-size .95rem
-// 	i
-// 		position absolute
-// 		top 50%
-// 		transform translate(0, -50%)
-// 		left .75em
-// 		color gray
-
-// /*------------------------------------*
-// 	$ INPUT
-// *------------------------------------*/
-// .input[type="text"]
-// .input[type="email"]
-// .input[type="password"]
-// 	font-size 1rem
-// 	padding .5em
-// 	color #555
-// 	border 1px solid #cccccc
-// 	width 100%
-// 	&:focus
-// 		border-color rgba(82,168,236,0.8)
-// 		box-shadow 0 0 8px rgba(82,168,236,0.6)
-// 	&[data-size='large']
-// 		font-size 1.15rem
-
-
-
-/*------------------------------------------------------------------------------------------------------------*
-	$ DEPURADO---------------------------------------------------------------------------------------------------
-*------------------------------------------------------------------------------------------------------------*/
-
 /*------------------------------------*
 	$ INPUT
 *------------------------------------*/
-// .input[type="text"]
-// .input[type="email"]
-// .input[type="password"]
 .input
 	font-size 1rem
 	padding .5em
@@ -59,7 +12,7 @@
 		box-shadow 0 0 8px rgba(82,168,236,0.6)
 	&[data-size='large']
 		font-size 1.15rem
-
+		
 
 /*------------------------------------*
 	$ SEARCH
@@ -70,54 +23,38 @@
 		width 100%
 		border-radius 4px
 		border 1px solid #cccccc
-		// padding .75em 0 .75em 2em
 		padding .5em 0 .5em 2em
 		color #555
 		font-size 1rem
-		// font-size .95rem
 	i
 		position absolute
-		top 50%
-		transform translate(0, -50%)
+		top .5rem
 		left .75em
 		color gray
-		
-.search-options
-	display none
-	font-family 'Raleway'
-	border solid 1px #ddd
-	color #333
-	margin auto
-	.search-option
-		padding .5rem 1rem
-		cursor pointer
-		.search-text
-			font-weight 600
-		&:not(:last-child)
-			border-bottom solid 1px #ddd
-		&:hover
-			background #ededed
+	.options
+		display none
+		font-family 'Raleway'
+		border solid 1px #ddd
+		color #333
+		margin auto
+		// position absolute
+		// background white
+		// z-index 1
+		// width 100%
+		&.visible
+			display block
+		.option
+			padding .5rem 1rem
+			cursor pointer
+			&.selected
+				background #ededed
+			.search-text
+				font-weight 600
+			&:not(:last-child)
+				border-bottom solid 1px #ddd
+			&:hover
+				background #ededed
 
-@media (min-width: tablet-medium)
-	.search-options
-		max-width 400px
-
-/*------------------------------------*
-	$ DOUBLE RANGE
-*------------------------------------*/
-.double-range
-	// background rgba(green, .5)
-	&__slider
-		// padding-bottom .25rem
-		font-size 1.25rem
-		padding-top 1rem
-	&__values
-		// background rgba(yellow, .5)
-		display flex
-		justify-content space-between
-		
-
-@media (min-width: max-width)
-	.double-range
-		&__slider
-			font-size .8rem
+// @media (min-width: tablet-medium)
+// 	.search-options
+// 		max-width 400px

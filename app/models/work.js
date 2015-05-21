@@ -26,20 +26,21 @@ module.exports = function (sequelize, DataTypes) {
                     Work.belongsToMany(models.User, {as: 'WorkCollects', through: 'WorkCollects'});
 
                     Work.belongsTo(models.User, {onDelete: 'cascade'});
+/*
                     Work.belongsToMany(models.Collection, {through: models.CollectionWork});
+*/
 
-                    /* Work.belongsToMany(models.Collection, {
-                     through: {
-                     model: models.CollectionItem,
-                     unique: false,
-                     scope: {
-                     collectable: 'work'
-                     }
-                     },
-                     foreignKey: 'collectable_id',
-                     constraints: false
-                     });
-                     */
+                    Work.belongsToMany(models.Collection, {
+                        through: {
+                            model: models.CollectionItem,
+                            unique: false,
+                            scope: {
+                                collectable: 'work'
+                            }
+                        },
+                        foreignKey: 'collectable_id',
+                        constraints: false
+                    });
                     Work.belongsToMany(models.Category, {through: 'WorkCategories'});
 
                     Work.belongsToMany(models.Tag, {through: 'WorkTags'});

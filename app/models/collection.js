@@ -7,13 +7,16 @@ module.exports = function (sequelize, DataTypes) {
                 classMethods: {
                     associate: function (models) {
 
+/*
                         Collection.belongsToMany(models.Work, {through: models.CollectionWork});
                         Collection.belongsToMany(models.Product, {through: models.CollectionProduct});
+*/
 
                         //Collection.belongsToMany(models.Work , t)
 
-                        /*Collection.belongsToMany(models.Work, {
+                        Collection.belongsToMany(models.Work, {
                             as: 'work',
+                            unique: false,
                             through: {
                                 model: models.CollectionItem,
                                 unique: false,
@@ -21,11 +24,13 @@ module.exports = function (sequelize, DataTypes) {
                                     collectable: 'work'
                                 }
                             },
-                            foreignKey: 'collection_id'
+                            foreignKey: 'collection_id',
+                            constraints: false
                         });
 
                         Collection.belongsToMany(models.Product, {
                             as: 'product',
+                            unique: false,
                             through: {
                                 model: models.CollectionItem,
                                 unique: false,
@@ -33,8 +38,9 @@ module.exports = function (sequelize, DataTypes) {
                                     collectable: 'product'
                                 }
                             },
-                            foreignKey: 'collection_id'
-                        });*/
+                            foreignKey: 'collection_id',
+                            constraints: false
+                        });
 
                         Collection.belongsTo(models.User, {onDelete: 'cascade'});
                     }
@@ -106,14 +112,14 @@ module.exports = function (sequelize, DataTypes) {
                          });*/
                     }
                 }
-                ,
-                hooks: {
-                    beforeDestroy: function (collection, options, fn) {
-                        collection.setWorks(null).then(function () {
-                            fn(null, collection)
-                        });
-                    }
-                }
+                /*  ,
+                 hooks: {
+                 beforeDestroy: function (collection, options, fn) {
+                 collection.setWorks(null).then(function () {
+                 fn(null, collection)
+                 });
+                 }
+                 }*/
             }
         )
         ;

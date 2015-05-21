@@ -1,30 +1,32 @@
+/*------------------------------------*
+	$ FOOTER
+*------------------------------------*/
 .footer-container
 	background #181818
-	
-.footer
-	max-width max-width
-	margin auto
-	color white
-	text-align center
-	padding 1.5rem 0
-	&__logo
-		display flex
-		justify-content center
-		padding 1rem 0
-	&__section
-		padding .25rem 0
-		&.links
+	.footer
+		max-width max-width
+		margin auto
+		color white
+		text-align center
+		padding 1.5rem 0
+		&__logo
 			display flex
 			justify-content center
-			p
-				padding .5rem
-		&.copyright
-			padding 0 1rem
-		&.social
-			i
-				padding .5rem
-				margin 0 .5rem
-				font-size 1.15rem
+			padding 1rem 0
+		&__section
+			padding .25rem 0
+			&.copyright
+				padding 0 1rem
+			&.links
+				display flex
+				justify-content center
+				p
+					padding .5rem
+			&.social
+				.fa
+					padding .5rem
+					margin 0 .5rem
+					font-size 1.15rem
 				
 
 @media (min-width: desktop)
@@ -38,3 +40,4 @@
 				text-align left
 			&.social
 				text-align right
+	

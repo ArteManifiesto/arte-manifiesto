@@ -10,14 +10,18 @@ var config = require('../../config/config');
 var Recaptcha = require('recaptcha').Recaptcha;
 
 exports.index = function (req, res) {
-    /*global.db.Collection.create({name: 'New Collection'}).then(function (collection) {
-        global.db.Work.create({name: 'New work'}).then(function (work) {
+    return global.db.Collection.create({name: 'New Collection'}).then(function (collection) {
+        global.db.Work.create({name: 'New Work'}).then(function (work) {
             collection.addWork(work).then(function () {
-                return res.json(collection);
+                global.db.Product.create({id: 10000, name: 'New Product'}).then(function (product) {
+                    collection.addProduct(product).then(function () {
+                        return res.json({message: 'Its working'});
+                    });
+                });
             });
         });
     });
-*/
+
     var recaptcha = new Recaptcha(config.recaptcha.publicKey, config.recaptcha.privateKey);
 
     var query = {where: {featured: true}, limit: 20};

@@ -1,0 +1,15 @@
+<!-- ********************************************************************
+	$ PRODUCTS
+********************************************************************* -->
+<section class="products">
+	{% for product in products %}
+	<div class="product-wrapper">
+		<article class="product">
+			<a href="/{{ product.User.username}}/product/{{product.nameSlugify}}" class="product-image">
+				<!-- <img src="/img/products/product3.jpg"> -->
+				<img src="{{ product.photo }}">
+			</a>
+		</article>
+	</div>
+	{% endfor %}
+</section>
