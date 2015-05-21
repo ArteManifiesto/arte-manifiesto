@@ -2,8 +2,6 @@ var moment = require('moment');
 var email = require('../app/controllers/email');
 var Promise = require('bluebird');
 var _ = require('lodash');
-//works/category/urban/page-1/?order=(newest,popularity,views)&time=(day,week,month,year)&featured&tag=amazing&title=art
-//users/specialty/paint/page-1/?order=(newest,popularity,views)&time=(day,week,month,year)&featured&name=julio&username=juliocanares
 
 global.config = {
     search: {
@@ -312,6 +310,7 @@ global.getNumLikesOfUser = function (options) {
         "AND `WorkLikes`.`UserId` = <%= user %>;";
     return getCount(queryTemplate, options);
 };
+
 global.getNumCollectionsOfUser = function (options) {
     var queryTemplate =
         "SELECT COUNT(DISTINCT Collection.id) AS `<%= meta %>` " +
@@ -452,7 +451,7 @@ global.discoverUsers = function (options, count) {
         "SELECT * FROM (" +
         "<% if (count == undefined) { %>" +
         "SELECT `User`.`id`, `User`.`username`, `User`.`photo`, `User`.`firstname`, `User`.`lastname`, " +
-        "`User`.`featured`, `User`.`createdAt`, " +
+        "`User`.`featured`, " +
         "COUNT(DISTINCT `User.Followers`.`id`) AS `followers`, " +
         "COUNT(DISTINCT `User.Views`.`id`) AS `views`, " +
         "((COUNT(DISTINCT `User.Followers`.`id`) * 1) + (COUNT(DISTINCT `User.Views`.`id`) * 3)) AS `popularity`, " +
@@ -486,7 +485,6 @@ global.discoverUsers = function (options, count) {
         "<% if (count == undefined) { %> GROUP BY `User`.`id`, `Works`.id <% } %> ) AS `users`" +
         "<% if (count == undefined) { %> ORDER BY <%=order%>,`username` <%  } %>";
     return _.template(queryTemplate)(options);
-
 }
 
 global.discoverProducts = function (options, count) {

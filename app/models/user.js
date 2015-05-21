@@ -123,7 +123,6 @@ module.exports = function (sequelize, DataTypes) {
                             user.setSpecialties(categories),
                             user.setInterests(categories)
                         ];
-
                         return global.db.Sequelize.Promise.all(promises).then(function (data) {
                             return user.addCollections(data.slice(1, data.length - 2)).then(function () {
                                 var collection = data[1];

@@ -5,7 +5,7 @@ loginForm.submit(function () {
     console.log('submit')
     $.ajax({
         type: "POST",
-        url: "/auth/login",
+        url: location.href,
         data: loginForm.serialize(),
         success: loginSuccessHandler
     });
@@ -17,7 +17,7 @@ function loginSuccessHandler(response) {
     if (response.status == 200) {
         console.log('response.status == 200')
         // location.href = '/dashboard';
-        location.href = '/';
+        location.href = response.data.callback;
     }
 }
 
@@ -35,6 +35,7 @@ registerForm.submit(function () {
 });
 
 function registerSuccessHandler(response) {
+    console.log(response);
     if (response.status == 200) {location.href = '/';}
 }
 

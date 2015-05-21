@@ -17,6 +17,21 @@ exports.add = function (req, res) {
     return res.render(basePath + 'work-create');
 };
 
+exports.upload = function(req,res){
+  var cors = "http://" + req.headers.host + "/cloudinary_cors.html";
+  // Create a new photo model and set it's default title
+  var photo = new Photo();
+  Photo.count().then(function(amount){
+    photo.title = "My Photo #"+(amount+1)+" (direct)";
+  })
+  .finally(function(){
+    res.render('photos/add_direct', {
+      photo:photo,
+      cloudinary_cors:cloudinary_cors
+    });
+  });
+}
+
 exports.workCreate = function (req, res) {
     global.getPortfolioCollection(req.user).then(function (collection) {
         var promises = [
@@ -24,10 +39,9 @@ exports.workCreate = function (req, res) {
             global.db.Tag.findAll({where: {id: {in: req.body.tags}}, attributes: ['id']}),
             global.db.Work.create(req.body.work)
         ];
-
         global.db.Sequelize.Promise.all(promises).then(function (data) {
             var categories = data[0], tags = data[1], work = data[2];
-
+            work.url = '/'+ req.user.username + '/work' + work.nameSlugify;
             collection.addWork(work).then(function () {
                 var promises = [
                     collection.reorderAfterWorkAdded([work]),
@@ -160,6 +174,7 @@ exports.unlike = function (req, res) {
 };
 
 exports.featured = function (req, res) {
+    console.log('WORK NAME : ' ,req.work.name);
     global.db.Work.find(req.body.idWork).then(function (work) {
         work.featured().then(function () {
             return res.ok('Work featured');
@@ -175,3 +190,5 @@ exports.unFeatured = function (req, res) {
     });
 };
 
+exports.collections = function(req, res){
+}

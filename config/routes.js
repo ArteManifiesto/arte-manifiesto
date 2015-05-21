@@ -10,6 +10,7 @@ var config = require('./config');
  */
 var pagesRouter = require(config.routesDir + '/pages');
 var authRouter = require(config.routesDir + '/auth');
+var adminRouter = require(config.routesDir + '/admin');
 var dashboardRouter = require(config.routesDir + '/dashboard');
 var userRouter = require(config.routesDir + '/user');
 var checkoutRouter = require(config.routesDir + '/checkout');

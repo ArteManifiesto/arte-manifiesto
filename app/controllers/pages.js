@@ -6,15 +6,42 @@ var _ = require('lodash');
 var moment = require('moment');
 var request = require('request');
 var cloudinary = require('cloudinary').v2;
+var config = require('../../config/config');
+var Recaptcha = require('recaptcha').Recaptcha;
 
 exports.index = function (req, res) {
+    /*global.db.Collection.create({name: 'New Collection'}).then(function (collection) {
+        global.db.Work.create({name: 'New work'}).then(function (work) {
+            collection.addWork(work).then(function () {
+                return res.json(collection);
+            });
+        });
+    });
+*/
+    var recaptcha = new Recaptcha(config.recaptcha.publicKey, config.recaptcha.privateKey);
+
     var query = {where: {featured: true}, limit: 20};
     global.db.Product.findAll(query).then(function (workFeatureds) {
         return res.render('index', {
-            workFeatureds: workFeatureds
+            workFeatureds: workFeatureds,
+            recaptcha: recaptcha.toHTML()
         });
     });
 };
+
+exports.onBoard = function (req, res) {
+    global.db.Category.findAll({order: [[global.db.sequelize.fn('RAND', '')]]}).then(function (categories) {
+        var i, category, promises = [];
+        for (i = 0; i < categories.length; i++) {
+            category = categories[i];
+            promises.push(category.getWorks({order: [[global.db.sequelize.fn('RAND', '')]], limit: 4}));
+            promises.push(category.getSpecialties({order: [[global.db.sequelize.fn('RAND', '')]], limit: 4}));
+        }
+        global.db.Sequelize.Promise.all(promises).then(function (data) {
+            return res.json(data);
+        });
+    });
+}
 
 exports.search = function (req, res) {
     var config = global.config.search;

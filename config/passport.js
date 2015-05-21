@@ -25,15 +25,13 @@ passport.deserializeUser(function (id, done) {
  * Authentication by Local strategy
  */
 var localStrategyHandler = function (email, password, done) {
-    global.db.User.find({where: {email: email}}).success(function (user) {
+    global.db.User.find({where: {email: email}}).then(function (user) {
         if (!user)
             done(null, false, 'Unknown user');
         else if (!user.authenticate(password))
             done(null, false, 'Invalid password');
         else
             done(null, user);
-    }).error(function (err) {
-        done(err);
     });
 };
 
@@ -45,24 +43,10 @@ passport.use(new LocalStrategy(localStrategyData, localStrategyHandler));
  */
 var fbStrategyHandler = function (accessToken, refreshToken, profile, done) {
     global.db.User.find({where: {facebookUserId: profile.id}}).then(function (user) {
-        if (!user) {
-            var firstname = profile.name.givenName + " " + profile.name.middleName;
-            var userData = {
-                email: profile.emails[0].value,
-                firstname: firstname,
-                lastname: profile.name.familyName,
-                gender: profile.gender,
-                provider: 'facebook',
-                facebook: profile.profileUrl,
-                facebookUserId: profile.id,
-                photo: '//graph.facebook.com/' + profile.id + '/picture?type=large'
-            };
-            global.db.User.create(userData).then(function (user) {
-                done(null, user);
-            })
-        } else {
-            done(null, user);
-        }
+        if (!user)
+            done(null, false, profile);
+        else
+            done(null, user, profile);
     })
 };
 

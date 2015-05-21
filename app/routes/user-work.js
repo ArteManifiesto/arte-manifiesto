@@ -5,6 +5,30 @@ router.mergeParams = true;
 var config = require('../../config/config');
 var controller = require(config.controllersDir + "/user-work");
 
+router.use(function (req, res, next) {
+	var query;
+	if(req.body.idWork)
+		query = {where:{id:req.body.idWork}};
+
+	if(req.params.nameWork)
+		query = {where:{nameSlugify:req.params.nameWork}};
+	
+	if(query === undefined)
+		return next();
+
+	global.db.Work.find(query).then(function(work){
+		if(!work){
+			if(req.xhr)
+				return res.badRequest('Work not exists');
+
+			req.flash('errorMessage', 'Work not exists');
+            return res.redirect('back');
+		}
+		req.work = work;
+		next();
+	});
+});
+
 router.get('/add', controller.add);
 router.get('/:nameWork', controller.work);
 

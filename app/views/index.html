@@ -13,6 +13,7 @@
 
 	{% include 'partials/slogan.html' %}
 
+	{% autoescape false %}{{ recaptcha }}{% endautoescape %}
 
 	<!-- ********************************************************************
 		$ SLIDER
@@ -182,6 +183,9 @@
 		</div>
 	</section>
 
+<a href="/auth/facebook">facebook</a>
+
+<a href="/auth/login/?callback=http://localhost:3000/products/type/all/page-1/?order=popularity&lo_p=0&hi_p=3000">elelelel</a>
 
 	<script src="/js/vendor/jquery.min.js"></script>
 	<script src="/js/vendor/salvattore.js"></script>

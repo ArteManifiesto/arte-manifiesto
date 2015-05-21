@@ -8,13 +8,15 @@ var async = require('async');
 var cloudinary = require('cloudinary').v2;
 var Promise = require('bluebird');
 
-
 exports.work = function (req, res) {
     return res.json({lel: 10});
 };
 
 exports.add = function (req, res) {
-    return res.render(basePath + 'work-create');
+    var cors = "http://" + req.headers.host + "/cloudinary_cors.html";
+    return res.render(basePath + 'work-create', {
+        cors:cors
+    });
 };
 
 /**
@@ -22,8 +24,7 @@ exports.add = function (req, res) {
  * ====================================================================
  * When a work is created this is added to a portfolio collection
  * too the work is reordered automatically in the collection
- * finally the work is added to the current user and set
- * the categories and tags
+ * finally the work is added to the current user and set categories and tags
  * @param categories ids of the cotegories
  * @param tags ids of the tags
  * @param work data
@@ -31,14 +32,12 @@ exports.add = function (req, res) {
 exports.create = function (req, res) {
     global.getPortfolioCollection(req.user).then(function (collection) {
         var promises = [
-            global.db.Category.findAll({where: {id: {in: req.body.categories}}, attributes: ['id']}),
-            global.db.Tag.findAll({where: {id: {in: req.body.tags}}, attributes: ['id']}),
+            global.db.Category.findAll({where: {id: {$in: req.body.categories}}, attributes: ['id']}),
+            global.db.Tag.findAll({where: {id: {$in: req.body.tags}}, attributes: ['id']}),
             global.db.Work.create(req.body.work)
         ];
-
         global.db.Sequelize.Promise.all(promises).then(function (data) {
             var categories = data[0], tags = data[1], work = data[2];
-
             collection.addWork(work).then(function () {
                 var promises = [
                     collection.reorderAfterWorkAdded([work]),
@@ -46,10 +45,9 @@ exports.create = function (req, res) {
                     work.setCategories(categories),
                     work.setTags(tags)
                 ];
-
                 global.db.Sequelize.Promise.all(promises).then(function () {
                     return res.ok({work: work}, 'Work created');
-                })
+                });
             })
         });
     });
@@ -152,49 +150,37 @@ exports.workUpdate = function (req, res) {
 };
 
 exports.like = function (req, res) {
-    global.db.Work.find(req.body.idWork).then(function (work) {
-        work.like(req.user).then(function (likes) {
-            return res.ok({work: work, likes: likes.likes}, 'User liked');
-        });
-    })
+    req.work.like(req.user).then(function (likes) {
+        return res.ok({work: req.work, likes: likes.likes}, 'User liked');
+    });
 };
 
 exports.unLike = function (req, res) {
-    global.db.Work.find(req.body.idWork).then(function (work) {
-        work.unLike(req.user).then(function (likes) {
-            return res.ok({work: work, likes: likes.likes}, 'User unLiked');
-        });
+    req.work.unLike(req.user).then(function (likes) {
+        return res.ok({work: req.work, likes: likes.likes}, 'User unLiked');
     });
 };
 
 exports.featured = function (req, res) {
-    global.db.Work.find(req.body.idWork).then(function (work) {
-        work.updateAttributes({featured: true}).then(function () {
-            return res.ok({work: work}, 'Work featured');
-        });
+    req.work.updateAttributes({featured: true}).then(function () {
+        return res.ok({work: req.work}, 'Work featured');
     });
 };
 
 exports.unFeatured = function (req, res) {
-    global.db.Work.find(req.body.idWork).then(function (work) {
-        work.updateAttributes({featured: false}).then(function () {
-            return res.ok({work: work}, 'Work unFeatured');
-        });
+    req.work.updateAttributes({featured: false}).then(function () {
+        return res.ok({work: req.work}, 'Work unFeatured');
     });
 };
 
 exports.public = function (req, res) {
-    global.db.Work.find(req.body.idWork).then(function (work) {
-        work.updateAttributes({public: true}).then(function () {
-            return res.ok({work: work}, 'Work published');
-        });
+    req.work.updateAttributes({public: true}).then(function () {
+        return res.ok({work: req.work}, 'Work published');
     });
 };
 
 exports.private = function (req, res) {
-    global.db.Work.find(req.body.idWork).then(function (work) {
-        work.updateAttributes({public: false}).then(function () {
-            return res.ok({work: work}, 'Work unPublished');
-        });
+    req.work.updateAttributes({public: false}).then(function () {
+        return res.ok({work: req.work}, 'Work unPublished');
     });
 };

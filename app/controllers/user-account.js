@@ -9,7 +9,6 @@ exports.index = function (req, res) {
     ];
     global.db.Sequelize.Promise.all(promises).then(function (data) {
         var categories = data[0], specialties = data[1], interests = data[2];
-        
         return res.render(basePath + 'index', {
             categories: categories,
             specialties: specialties,

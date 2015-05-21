@@ -16,8 +16,8 @@ module.exports = function (sequelize, DataTypes) {
             description: DataTypes.TEXT,
             photo: DataTypes.STRING,
             public: {type: DataTypes.BOOLEAN, defaultValue: true},
-            featured: {type: DataTypes.BOOLEAN, defaultValue: false}
-            //dimension: DataTypes.TEXT
+            featured: {type: DataTypes.BOOLEAN, defaultValue: false},
+            url: {type: DataTypes.STRING}
         }, {
             classMethods: {
                 associate: function (models) {
@@ -26,9 +26,20 @@ module.exports = function (sequelize, DataTypes) {
                     Work.belongsToMany(models.User, {as: 'WorkCollects', through: 'WorkCollects'});
 
                     Work.belongsTo(models.User, {onDelete: 'cascade'});
-
                     Work.belongsToMany(models.Collection, {through: models.CollectionWork});
 
+                    /* Work.belongsToMany(models.Collection, {
+                     through: {
+                     model: models.CollectionItem,
+                     unique: false,
+                     scope: {
+                     collectable: 'work'
+                     }
+                     },
+                     foreignKey: 'collectable_id',
+                     constraints: false
+                     });
+                     */
                     Work.belongsToMany(models.Category, {through: 'WorkCategories'});
 
                     Work.belongsToMany(models.Tag, {through: 'WorkTags'});

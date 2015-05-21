@@ -15,11 +15,9 @@ router.post('/update', controller.workUpdate);
 //TODO add middleware for check if work exists
 router.post('/featured', controller.featured);
 router.post('/unfeatured', controller.unFeatured);
-router.post('/like', controller.like);
-router.post('/unlike', controller.unLike);
 
-router.post('/public' , controller.public);
-router.post('/private' , controller.private);
+router.post('/public', controller.public);
+router.post('/private', controller.private);
 
 /*
  router.post('/work/add/collection', controller.workAddCollection);

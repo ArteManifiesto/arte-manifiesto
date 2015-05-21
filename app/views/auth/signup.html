@@ -11,6 +11,8 @@
     <!-- ********************************************************************
         $ LOGIN
     ********************************************************************* -->
+
+
     <section class="login-cover" style="min-height: 600px;">
         <div class="login-box js-loginBox">
             <header class="login-box__header">
@@ -23,22 +25,31 @@
                 {#<a href="#" class="facebook-button" data-expand='true'>
                     <i class="fa fa-facebook-official"></i>&nbsp; Registrarme con Facebook
                 </a>
-#}
+                #}
                 <div class="separator-text">
                     <span class="line"></span>
                     <span class="text">Con email</span>
                     <span class="line"></span>
                 </div>
                 <input class="input" data-size='large' name="username" placeholder="Nombre de usuario" type="text">
-                <input class="input" data-size='large' name="email" placeholder="Email" type="email">
+                <input class="input" data-size='large' name="email" placeholder="Email" type="email" value="{{profile.email}}">
                 <input class="input" data-size='large' name="password" placeholder="Contraseña" type="password">
-                <input class="input" data-size='large' name="firstname" placeholder="Nombres" type="text">
-                <input class="input" data-size='large' name="lastname" placeholder="Apellidos" type="text">
+                <input class="input" data-size='large' name="firstname" placeholder="Nombres" type="text" value="{{profile.first_name + ' ' + profile.middle_name}}">
+                <input class="input" data-size='large' name="lastname" placeholder="Apellidos" type="text" value="{{profile.last_name}}">
                 <select class="input" name="gender">
                     <option selected disabled>Género</option>
-                    <option value="Male">Masculino</option>
-                    <option value="Female">Femenino</option>
+                    <option value="male">Masculino</option>
+                    <option value="female">Femenino</option>
+                    {% if profile.gender === 'male' %}
+                    <option selected value="male">Masculino</option>
+                    <option value="female">Femenino</option>
+                    {% endif %}
+                    {% if profile.gender === 'female' %}
+                    <option value="male">Masculino</option>
+                    <option selected value="female">Femenino</option>
+                    {% endif %}
                 </select>
+                {% autoescape false %}{{ recaptcha }}{% endautoescape %}
 
                 <div class="question">
                     <input name="question" type="checkbox" id="question">
@@ -105,5 +116,11 @@
             loginClosedClass: 'js-loginClosed'
         })
     </script>
+
+<script>
+    $(function () {
+        var profile = {{profile|json|safe}};
+    });
+</script>
 
 {% endblock %}

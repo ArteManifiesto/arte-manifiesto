@@ -27,6 +27,19 @@ module.exports = function (sequelize, DataTypes) {
 
                     Product.belongsToMany(models.Collection, {through: models.CollectionProduct});
 
+                    /*
+                     Product.belongsToMany(models.Collection, {
+                     through: {
+                     model: models.CollectionItem,
+                     unique: false,
+                     scope: {
+                     collectable: 'product'
+                     }
+                     },
+                     foreignKey: 'collectable_id',
+                     constraints: false
+                     });*/
+
                     Product.belongsTo(models.Work, {onDelete: 'cascade'});
                     Product.belongsTo(models.User);
                     Product.belongsTo(models.ProductType);
