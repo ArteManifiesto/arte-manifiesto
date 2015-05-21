@@ -28,3 +28,20 @@
 			margin 1rem 0
 		.loading
 			text-align center
+			font-size 1.5rem
+			color #aaa
+			margin 1rem
+			display none
+			.fa
+				animation 1.5s circle infinite
+			&.visible
+				display block
+				
+
+@keyframes circle
+	0%
+		transform rotate(0)
+	50%
+		transform rotate(-180deg)
+	100%
+		transform rotate(-360deg)

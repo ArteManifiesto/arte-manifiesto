@@ -1,21 +1,29 @@
 
-var registerForm = $(".js-signUpForm");
+var registerForm = $(".js-signUpForm")
+
+var loadingFacebook = document.querySelectorAll('.loading')[0]
+var loadingSubmit = document.querySelectorAll('.loading')[1]
+
+var facebookButton = document.querySelector('.facebook-button')
+var submitButton = document.querySelector('input[type="submit"]')
+
+
+facebookButton.addEventListener('click', function () {
+	facebookButton.style.display = 'none'
+	loadingFacebook.classList.add('visible')
+})
 
 registerForm.submit(function () {
-	console.log(registerForm.serialize());
-	$.ajax({
-		type: "POST",
-		url: "/auth/signup",
-		data: registerForm.serialize(),
-		success: registerSuccessHandler
-	});
-	return false;
-});
+	var formData = registerForm.serialize()
 
-function registerSuccessHandler(response) {
-	console.log(response);
-	if (response.status == 200) {
-		console.log('data: ', response.data)
-		// location.href = '';
-	}
-}
+	loadingSubmit.classList.add('visible')
+	submitButton.style.display = 'none'
+	
+	$.post('/auth/signup', formData, function (response) {
+		loadingSubmit.classList.remove('visible')
+		submitButton.style.display = 'block'
+		console.log('response: ', response)
+	})
+
+	return false
+});
