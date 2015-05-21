@@ -16,7 +16,6 @@ module.exports = function (sequelize, DataTypes) {
 
                         Collection.belongsToMany(models.Work, {
                             as: 'work',
-                            unique: false,
                             through: {
                                 model: models.CollectionItem,
                                 unique: false,
@@ -24,13 +23,11 @@ module.exports = function (sequelize, DataTypes) {
                                     collectable: 'work'
                                 }
                             },
-                            foreignKey: 'collection_id',
-                            constraints: false
+                            foreignKey: 'collection_id'
                         });
 
                         Collection.belongsToMany(models.Product, {
                             as: 'product',
-                            unique: false,
                             through: {
                                 model: models.CollectionItem,
                                 unique: false,
@@ -38,8 +35,7 @@ module.exports = function (sequelize, DataTypes) {
                                     collectable: 'product'
                                 }
                             },
-                            foreignKey: 'collection_id',
-                            constraints: false
+                            foreignKey: 'collection_id'
                         });
 
                         Collection.belongsTo(models.User, {onDelete: 'cascade'});
@@ -48,8 +44,7 @@ module.exports = function (sequelize, DataTypes) {
                 instanceMethods: {
                     isMutable: function () {
                         return ['work', 'product'].indexOf(this.meta) != -1;
-                    }
-                    ,
+                    },
                     reorderAfterWorkAdded: function (works) {
                         /*var idWorks = _.pluck(works, 'id');
 

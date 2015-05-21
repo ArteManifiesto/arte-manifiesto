@@ -27,7 +27,7 @@
 				</p>
 				
 				{% if profile %}
-					<input class="input" data-size='large' name="username" placeholder="Nombre de usuario" type="text">
+					<input class="input" data-size='large' name="username" placeholder="Nombre de usuario" type="text" value="{{profile.username}}">
 					<input class="input" data-size='large' name="email" placeholder="Email" type="email" value="{{profile.email}}">
 					<input class="input" data-size='large' name="password" placeholder="Contraseña" type="password">
 					<input class="input" data-size='large' name="firstname" placeholder="Nombres" type="text" value="{{profile.first_name + ' ' + profile.middle_name}}">

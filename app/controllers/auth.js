@@ -11,6 +11,9 @@ exports.signupPage = function (req, res) {
     var recaptcha = new Recaptcha(config.recaptcha.publicKey, config.recaptcha.privateKey);
 
     var profileCookie = req.cookies.profile;
+    if (profileCookie !== undefined)
+        if (profileCookie.email === 'hansevangelista@gmail.com')
+            profileCookie.username = 'cabraso'
     res.clearCookie('profile');
     return res.render('auth/signup', {
         profile: profileCookie,
@@ -22,7 +25,7 @@ exports.signupPage = function (req, res) {
  * User signup
  */
 exports.signup = function (req, res) {
-        var promises = [
+    var promises = [
         check('username', req.body.username),
         check('email', req.body.email)
     ];
@@ -41,7 +44,7 @@ exports.signup = function (req, res) {
 
         var recaptcha = new Recaptcha(config.recaptcha.publicKey, config.recaptcha.privateKey, dataRecaptcha);
         recaptcha.verify(function (success, error_code) {
-            if(!success)
+            if (!success)
                 return res.conflict('recaptch not match');
 
             var options = {password: req.body.password};
