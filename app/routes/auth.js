@@ -23,7 +23,7 @@ router.get('/logout', controller.logout);
 
 router.post('/login', controller.login);
 router.post('/signup', controller.signup);
-router.post('/signup/check', controller.check);
+router.post('/check', controller.check);
 
 router.get('/verify/:token', controller.verify);
 

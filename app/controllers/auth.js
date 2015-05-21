@@ -9,11 +9,8 @@ var Recaptcha = require('recaptcha').Recaptcha;
  */
 exports.signupPage = function (req, res) {
     var recaptcha = new Recaptcha(config.recaptcha.publicKey, config.recaptcha.privateKey);
-
+    
     var profileCookie = req.cookies.profile;
-    if (profileCookie !== undefined)
-        if (profileCookie.email === 'hansevangelista@gmail.com')
-            profileCookie.username = 'cabraso'
     res.clearCookie('profile');
     return res.render('auth/signup', {
         profile: profileCookie,
@@ -73,7 +70,6 @@ var check = function (property, value) {
 exports.check = function (req, res) {
     if (req.query.property === undefined || req.query.value === undefined)
         return res.badRequest('You need pass property and value variables in query');
-
     var checkable = ['username', 'email'];
     if (checkable.indexOf(req.query.property) === -1)
         return res.badRequest('Invalid property value');
@@ -108,6 +104,7 @@ exports.login = function (req, res) {
 
 exports.facebook = function (req, res) {
     passport.authenticate('facebook', function (err, user, profile) {
+        console.log(user);
         if (user)
             return res.redirect('/');
 

@@ -42,7 +42,7 @@ passport.use(new LocalStrategy(localStrategyData, localStrategyHandler));
  * Authentication by Facebook strategy
  */
 var fbStrategyHandler = function (accessToken, refreshToken, profile, done) {
-    global.db.User.find({where: {facebookUserId: profile.id}}).then(function (user) {
+    global.db.User.find({where: {email:profile.emails[0].value}}).then(function (user) {
         if (!user)
             done(null, false, profile);
         else
