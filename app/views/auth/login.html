@@ -1,11 +1,19 @@
 
 {% extends '../partials/base.html' %}
-
+	
+	{% set path = 'login' %}
 	{% set title = 'Arte Manifiesto | Login' %}
 	{% set css = 'login' %}
 
 {% block elements %}
 
     {% include '../partials/login.html' %}
+
+{% endblock %}
+
+{% block scripts %}
+
+	<!-- // <script type="text/javascript" src="/js/lib/section.js"></script> -->
+	<script type="text/javascript" src="/js/login.js"></script>
 
 {% endblock %}

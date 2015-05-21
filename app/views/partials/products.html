@@ -5,10 +5,23 @@
 	{% for product in products %}
 	<div class="product-wrapper">
 		<article class="product">
-			<a href="/{{ product.User.username}}/product/{{product.nameSlugify}}" class="product-image">
-				<!-- <img src="/img/products/product3.jpg"> -->
+
+			<a class="product-image" href="/{{ product.User.username}}/product/{{product.nameSlugify}}">
 				<img src="{{ product.photo }}">
 			</a>
+			<div class="product-info">
+				<div class="title">{{product.name}}</div>
+				<div class="price">${{product.price}}</div>
+			</div>
+			<div class="product-social">
+				<div class="like">
+					<span class="button-like"> <i class="fa fa-heart-o"></i> <span>{{product.likes}}</span> </span>
+				</div>
+				<div class="wish-list">
+					<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
+				</div>
+			</div>
+
 		</article>
 	</div>
 	{% endfor %}

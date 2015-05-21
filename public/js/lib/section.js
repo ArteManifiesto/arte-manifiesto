@@ -26,6 +26,8 @@ function Section (data) {
 	var navigation = document.querySelector('.section__navigation')
 	var navigationText = document.querySelector('.js-navigation-text')
 
+	var createObject = data.createObject
+
 	function setup () {
 		
 		var searchEl = document.querySelector('.search')
@@ -165,6 +167,9 @@ function Section (data) {
 	function addElements (elements) {
 		for (var i = 0; i < elements.length; i++) {
 			var object = makeObject(template, elements[i])
+			// console.log('elements[i]: ', elements[i])
+			// console.log('object: ', object)
+			createObject(object, elements[i])
 			container.appendChild(object)
 		}
 	}
