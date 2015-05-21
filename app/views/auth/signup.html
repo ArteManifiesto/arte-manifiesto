@@ -14,12 +14,13 @@
 {% block scripts %}
 	
 	<script type="text/javascript">
+		
 		var profile = {{profile|json|safe}}
 		console.log('profile: ', profile)
-		if(profile)
-			console.log('existe profile!')
+
 	</script>
 	
-	<!-- // <script type="text/javascript" src="/js/signup.js"></script> -->
+	<script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/signup.js"></script>
 
 {% endblock %}

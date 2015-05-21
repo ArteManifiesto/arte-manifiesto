@@ -3,7 +3,7 @@
 ********************************************************************* -->
 <section class="login-container">
 	<div class="login">
-		<header class="login__header">
+		<!-- <header class="login__header">
 			<div class="skinny-menu">
 				{% if path == 'signup' %}
 					<a class="skinny-menu__item active" href="/auth/signup">Registrarme</a>
@@ -13,10 +13,10 @@
 					<a class="skinny-menu__item active" href="/auth/login">Ingresar</a>
 				{% endif %}
 			</div>
-		</header>
+		</header> -->
 
 		{% if path == 'signup' %}
-			<form class="login__form">
+			<form class="login__form js-signUpForm">
 				<a href="/auth/facebook" class="facebook-button" data-expand='true'>
 					<i class="fa fa-facebook-official"></i>&nbsp; Registrarme con Facebook
 				</a>
@@ -27,7 +27,7 @@
 				</p>
 				
 				{% if profile %}
-					<input class="input" data-size='large' name="username" placeholder="Nombre de usuario" type="text" value="{{profile.username}}">
+					<input class="input" data-size='large' name="username" placeholder="Nombre de usuario" type="text" value="hanshavin">
 					<input class="input" data-size='large' name="email" placeholder="Email" type="email" value="{{profile.email}}">
 					<input class="input" data-size='large' name="password" placeholder="Contraseña" type="password">
 					<input class="input" data-size='large' name="firstname" placeholder="Nombres" type="text" value="{{profile.first_name + ' ' + profile.middle_name}}">
@@ -56,6 +56,7 @@
 					<label for="question" class="medium-text">¿Eres Artista profesional?</label>
 				</div>
 				<input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Registrarme" type="submit">
+				<div class="loading"><i class="fa fa-spinner"></i></div>
 				<p class="italic-text" data-size="small">
 					Al registrarte estas aceptando los <strong>terminos y condiciones</strong> de Arte Manifiesto
 				</p>
