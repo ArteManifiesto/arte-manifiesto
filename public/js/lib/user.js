@@ -12,10 +12,10 @@ function User(el, data) {
 	function setup() {
 		buttonFollow.addEventListener('click', function () {
 			console.log('click')
-			// if (!user) {
-			// 	location.href = '/auth/login'
-			// 	return
-			// }
+			if (!user) {
+				location.href = '/auth/login'
+				return
+			}
 			// if (!following) follow()
 			// else unFollow()
 		})

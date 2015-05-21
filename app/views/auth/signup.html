@@ -1,0 +1,25 @@
+
+{% extends '../partials/base.html' %}
+	
+	{% set path = 'signup' %}
+	{% set title = 'Arte Manifiesto | Signup' %}
+	{% set css = 'login' %}
+
+{% block elements %}
+
+	{% include '../partials/login.html' %}
+
+{% endblock %}
+
+{% block scripts %}
+	
+	<script type="text/javascript">
+		var profile = {{profile|json|safe}}
+		console.log('profile: ', profile)
+		if(profile)
+			console.log('existe profile!')
+	</script>
+	
+	<!-- // <script type="text/javascript" src="/js/signup.js"></script> -->
+
+{% endblock %}
