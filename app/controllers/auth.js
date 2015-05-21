@@ -26,10 +26,13 @@ exports.signup = function (req, res) {
         check('username', req.body.username),
         check('email', req.body.email)
     ];
+    
     global.db.Sequelize.Promise.all(promises).then(function (data) {
         var usernameAvailable = data[0], emailAvailable = data[1] , errors = [];
+        
         if (!usernameAvailable)
             errors.push({username:'username is not available'});
+
         if (!emailAvailable)
             errors.push({email:'email is not available'});
 
@@ -40,20 +43,23 @@ exports.signup = function (req, res) {
         };
 
         var recaptcha = new Recaptcha(config.recaptcha.publicKey, config.recaptcha.privateKey, dataRecaptcha);
+
         recaptcha.verify(function (success, error_code) {
             if (!success)
-                errors.push({recaptch:'recaptch not match'});
+                errors.push({recaptch:'recaptcha not match' , new: recaptch.toHTML()});
 
             if(errors.length >0)
                 return res.conflict(errors);
             
             var options = {password: req.body.password};
+
             global.db.User.create(req.body, options).then(function (user) {
                 var params = {
                     to: user.email, user: user.firstname,
                     url: req.protocol + '://' + req.get('host') +
                     '/auth/verify/' + user.tokenVerifyEmail
                 };
+
                 global.emails.verify(params).then(function () {
                     loginUser(req, res, user);
                 });
@@ -107,9 +113,8 @@ exports.login = function (req, res) {
 
 exports.facebook = function (req, res) {
     passport.authenticate('facebook', function (err, user, profile) {
-        console.log(user);
         if (user)
-            return res.redirect('/');
+            loginUser(req, res, user);
 
         res.cookie('profile', JSON.parse(profile._raw), {maxAge: 900000, httpOnly: true});
 
@@ -139,9 +144,12 @@ var loginUser = function (req, res, user) {
         else
             callback = req.protocol + '://' + req.get('host');
 
+        if(!req.xhr)
+            return res.redirect(callback);
+
         return res.ok({
             callback: callback
-        }, 'User logged');
+        }, 'User logged');   
     });
 };
 
