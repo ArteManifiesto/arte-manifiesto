@@ -1,47 +1,18 @@
-
-/*------------------------------------------------------------------------------------------------------------*
-	$ DEPURADO---------------------------------------------------------------------------------------------------
-*------------------------------------------------------------------------------------------------------------*/
-
 /*------------------------------------*
-	$ LOGIN MODAL
+	$ LOGIN
 *------------------------------------*/
-.login-modal
-	position absolute
-	top 0
-	bottom 0
-	width 100%
-	background rgba(black, .6)
-	padding 3rem 1.5rem
-	overflow auto
-	display none
-	
-
-/*------------------------------------*
-	$ LOGIN COVER
-*------------------------------------*/
-.login-cover
-	padding 2rem 1rem
-	// min-height 500px
-	display flex
-	.login-box
-		flex 1
-		
-/*------------------------------------*
-	$ LOGIN BOX
-*------------------------------------*/
-.login-box
-	background white
-	max-width 400px
+.login-container
 	margin auto
-	padding 1rem 1.5rem
+	max-width 400px
+.login
 	position relative
-	// border solid 1px #ccc
+	margin 1.5rem 1rem
+	padding 1rem 1.5rem
 	box-shadow rgba(0,0,0,0.35) 0 0 10px
 	&__header
 		display flex
-		justify-content center
 		padding .5rem
+		justify-content center
 	&__form
 		.facebook-button
 			margin 1rem 0
@@ -50,16 +21,8 @@
 		.button-solid
 			margin .5rem 0
 		.question
+			display flex
 			margin 1rem 0
+			align-items center
 		.note
 			margin 1rem 0
-			font-style italic
-	&__closed
-		position absolute
-		top 0
-		right 0
-		transform translate(75%, -75%)
-		color white
-		font-size 1.25rem
-		padding .5rem
-		cursor pointer

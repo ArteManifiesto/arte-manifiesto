@@ -1,0 +1,146 @@
+/*------------------------------------*
+	$ SECTION
+*------------------------------------*/
+.section
+	&__title
+		margin auto
+		padding 1rem
+		text-align center
+		max-width max-width
+	&__navigation
+		text-align center
+		display none
+		&.visible
+			display block
+	&__filters
+		margin auto
+		display flex
+		flex-wrap wrap
+		// align-items center
+		align-items flex-start
+		max-width max-width
+		justify-content space-between
+		.search
+			flex 100%
+			margin .5rem 1rem
+		.button-filter
+			margin .5rem 1rem
+	&__workspace
+		margin auto
+		overflow hidden
+		position relative
+		max-width max-width
+		&__filter
+			z-index 1
+			margin 1rem
+			background white
+			position absolute
+			border solid 1px #ddd
+			transition transform .5s
+			&:nth-child(1)
+				// background rgba(green, .5)
+				transform translate(-120%, 0)
+				&.visible
+					transform translate(0%, 0)
+			&:nth-child(2)
+				// background rgba(red, .5)
+				transform translate(120%, 0)
+				right 0
+				&.visible
+					transform translate(0%, 0)
+		&__elements
+			min-height 500px
+			.loading
+				color #aaa
+				margin 2rem
+				display none
+				font-size 1.75rem
+				text-align center
+				&.visible
+					display block
+				.fa
+					animation 1.5s circle infinite
+			.empty-result
+				display none
+				padding 2rem 1rem
+				text-align center
+				&.visible
+					display block
+				a
+					color #333
+					font-size 1rem
+					fon-weight 600
+			.more
+				margin 1rem auto
+				text-align center
+				&.hidden
+					display none
+
+@media (min-width: max-width)
+	.section
+		&__workspace
+			&__elements
+				&.moveLeft
+					padding-left 12rem
+					// padding-left 10rem
+				&.moveRight
+					padding-right 12rem
+	.filter
+		width 11rem
+
+@keyframes circle
+	0%
+		transform rotate(0)
+	50%
+		transform rotate(-180deg)
+	100%
+		transform rotate(-360deg)
+
+
+@media (min-width: tablet-medium)
+	.section
+		&__filters
+			.button-filter:nth-child(2)
+				order 1
+			.search
+				order 2
+				flex auto
+			.button-filter:nth-child(3)
+				order 3
+
+@media (min-width: tablet-medium)
+	.section
+		&__filters
+			.search
+				max-width 400px
+				margin-left auto
+				margin-right auto
+				
+
+/*------------------------------------*
+	$ FILTERS
+*------------------------------------*/
+.filter
+	font-size .85rem
+	font-family 'Raleway'
+	&__title
+		font-weight 600
+		padding .5rem 1rem
+		border-bottom solid 1px #ddd
+		box-shadow inset 0 -1px 0 #fff,0 2px 6px #eee
+		background-image linear-gradient(top,#fff 0,#f6f6f6 100%)
+	&:not(:first-child)
+		border-top solid 1px #ddd
+			
+	&__item
+		cursor pointer
+		padding .5rem 1rem
+		&.selected
+			background rgb(237, 237, 237)
+				
+	&__price
+		padding 1rem 1rem 2rem 1rem
+	&__fueatured
+		display flex
+		align-items center
+		padding 1rem .5rem

@@ -1,0 +1,52 @@
+/*------------------------------------------------------------------------------------------------------------*
+	$ DEPURADO---------------------------------------------------------------------------------------------------
+*------------------------------------------------------------------------------------------------------------*/
+body {
+  margin: 0;
+}
+figure {
+  margin: 0;
+}
+img {
+  vertical-align: top;
+  width: 100%;
+}
+p {
+  margin: 0;
+}
+a {
+  text-decoration: none;
+}
+button {
+  background: #fff;
+  border: none;
+  padding: 0;
+  outline: none;
+}
+select {
+  border: none;
+  outline: none;
+  background: #fff;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+input {
+  outline: 0;
+}
+input[type="submit"] {
+  border: none;
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  font-size: 90%;
+}
+@media (min-width: 720px) {
+  html {
+    font-size: 100%;
+  }
+}

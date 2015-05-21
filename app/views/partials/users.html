@@ -1,0 +1,76 @@
+<!-- ********************************************************************
+	$ ARTISTS
+********************************************************************* -->
+<section class="users">
+	{% for user in users %}
+	<div class="user-wrapper">				
+		<article class="user">
+			<a class="user-header" href="#"> 
+				<div class="avatar">
+					<img src="{{ user.photo }}">
+				</div>
+				<div class="info">
+					<p class="high-text" data-size='small'>{{ user.firstname }}</p>
+					<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
+				</div>
+			</a>
+			<div class="user-works">
+
+				{% for work in user.Works %}
+					<div class="work" style="background-image: url('{{ work.photo }}');"></div>
+				{% endfor %}
+
+			<!-- {% if user.Works[0] %}
+				<div class="work" style="background-image: url('{{ user.Works[0].photo }}');"></div>
+			{% else %}
+				<div class="work" style="background: #ccc; border: 1px solid white;"></div>
+			{% endif %}
+
+			{% if user.Works[1] %}
+				<div class="work" style="background-image: url('{{ user.Works[1].photo }}');"></div>
+			{% else %}
+				<div class="work" style="background: #ccc; border: 1px solid white;"></div>
+			{% endif %}
+
+			{% if user.Works[2] %}
+				<div class="work" style="background-image: url('{{ user.Works[2].photo }}');"></div>
+			{% else %}
+				<div class="work" style="background: #ccc; border: 1px solid white;"></div>
+			{% endif %}
+
+			{% if user.Works[3] %}
+				<div class="work" style="background-image: url('{{ user.Works[3].photo }}');"></div>
+			{% else %}
+				<div class="work" style="background: #ccc; border: 1px solid white;"></div>
+			{% endif %}
+
+			{% if user.Works[4] %}
+				<div class="work" style="background-image: url('{{ user.Works[4].photo }}');"></div>
+			{% else %}
+				<div class="work" style="background: #ccc; border: 1px solid white;"></div>
+			{% endif %}
+
+			{% if user.Works[5] %}
+				<div class="work" style="background-image: url('{{ user.Works[5].photo }}');"></div>
+			{% else %}
+				<div class="work" style="background: #ccc; border: 1px solid white;"></div>
+			{% endif %} -->
+
+			</div>
+			<div class="user-follow">
+				{% if user.following %}
+					<button class="button-liner disabled js-followButton" data-following="true" data-userId="{{ user.id }}" data-size='small'>
+				{% else %}
+					<button class="button-liner js-followButton" data-following="false" data-userId="{{ user.id }}" data-size='small'>
+				{% endif %}
+					<span class="button-liner__action folllow">Seguir</span>
+					<span class="button-liner__action following"><i class="fa fa-check"></i> Siguiendo</span>
+					<span class="button-liner__action cancel"><i class="fa fa-times-circle"></i> Cancelar</span>
+					<span class="button-liner__number">{{ user.followers }}</span>
+				</button>
+			</div>
+
+		</article>
+	</div>
+	{% endfor %}
+</section>

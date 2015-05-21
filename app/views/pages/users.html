@@ -1,221 +1,18 @@
+
 {% extends '../partials/base.html' %}
+
 	{% set path = 'users' %}
 	{% set title = 'Arte Manifiesto | Artistas' %}
-	{% set css = 'discover-artists' %}
+	{% set css = 'users' %}
 
-{% block content %}
+{% block elements %}
 
-	{% include '../partials/category-menu.html' %}
-	
+	{% include '../partials/section.html' %}
 
-	<!-- ********************************************************************
-		$ SECTION TITLE
-	********************************************************************* -->
-	<section class="section-title">
-		<span class="section-title-text">Artístas</span>
-	</section>
-	
-
-	<!-- ********************************************************************
-		$ NAVIGATION
-	********************************************************************* -->
-	<section class="navigation">
-		<span class="navigation-text">Username</span>&nbsp; <i class="fa fa-angle-right"></i>&nbsp; <span class="navigation-text"></span>
-	</section>
-
-
-	<!-- ********************************************************************
-		$ FILTERS MENU
-	********************************************************************* -->
-	<section class="filters-menu">
-		<div class="filters-menu__search">
-			<div class="search">
-				<input class="js-searcher" type="text" placeholder="Busca Artístas por Nombre o Username">
-				<i class="fa fa-search"></i>
-			</div>
-			<ul class="search-options js-search-options">
-				<li class="search-option" data-search='username'>Buscar Username: <span class="search-text"></span></li>
-				<!-- <li class="search-option" data-search='name'>Buscar Nombre: <span class="search-text"></span></li> -->
-			</ul>
-		</div>
-		<div class="filters-menu__category js-leftFiltersButton">
-			<button class="button-filter js-leftFiltersButton"><i class="fa fa-caret-left"></i> &nbsp Categorías</button>
-		</div>
-		<div class="filters-menu__order js-rightFiltersButton">
-			<button class="button-filter js-rightFiltersButton">Ordenar &nbsp <i class="fa fa-caret-right"></i></button>
-		</div>
-	</section>
-
-
-	<!-- ********************************************************************
-		$ WORKS CONTAINER
-	********************************************************************* -->
-	<div class="works-container">
-		<div class="works-container__filters left js-leftFilters">
-			<div class="filters">
-				<div class="filters__title">Featured</div>
-				<div class="filters__fueatured">
-					<input name="question" type="checkbox" id="question">
-					<label for="question" class="">Recomendados</label>
-				</div>
-			</div>
-			<div class="filters">
-				<div class="filters__title">Categorías</div>
-				{% for category in categories %}
-					<div class="filter js-category" data-value="{{ category.nameSlugify }}">{{ category.name }}</div>
-				{% endfor %}
-			</div>
-		</div>
-		<div class="works-container__filters right js-rightFilters">
-			<div class="filters">
-				<div class="filters__title">Orden</div>
-				<div class="filter js-order" data-value="popularity">Más popular</div>
-				<div class="filter js-order" data-value="views">Más visto</div>
-				<div class="filter js-order" data-value="newest">Más reciente</div>
-			</div>
-			<div class="filters">
-				<div class="filters__title">Tiempo</div>
-				<div class="filter js-time" data-value="day">Día</div>
-				<div class="filter js-time" data-value="week">Semana</div>
-				<div class="filter js-time" data-value="month">Mes</div>
-				<div class="filter js-time" data-value="year">Año</div>
-			</div>
-		</div>
-		<div class="works-container__works js-works">
-			<!-- ********************************************************************
-				$ ARTISTS
-			********************************************************************* -->
-			<!-- <section class="artists" data-columns> -->
-			<section class="artists">
-				{% for artist in users %}
-				<div class="artist-wrapper">				
-					<article class="artist">
-						<a class="artist-header" href="#"> 
-							<div class="avatar">
-								<img src="{{ artist.photo }}">
-							</div>
-							<div class="info">
-								<p class="high-text" data-size='small'>{{ artist.firstname }}</p>
-								<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
-							</div>
-						</a>
-						<div class="artist-works">
-						
-						<!-- {% for work in artist.Works %} -->
-						{% if artist.Works[0] %}
-							<div class="work" style="background-image: url('{{ artist.Works[0].photo }}');"></div>
-						{% else %}
-							<div class="work" style="background: #ccc; border: 1px solid white;"></div>
-						{% endif %}
-
-						{% if artist.Works[1] %}
-							<div class="work" style="background-image: url('{{ artist.Works[1].photo }}');"></div>
-						{% else %}
-							<div class="work" style="background: #ccc; border: 1px solid white;"></div>
-						{% endif %}
-
-						{% if artist.Works[2] %}
-							<div class="work" style="background-image: url('{{ artist.Works[2].photo }}');"></div>
-						{% else %}
-							<div class="work" style="background: #ccc; border: 1px solid white;"></div>
-						{% endif %}
-
-						{% if artist.Works[3] %}
-							<div class="work" style="background-image: url('{{ artist.Works[3].photo }}');"></div>
-						{% else %}
-							<div class="work" style="background: #ccc; border: 1px solid white;"></div>
-						{% endif %}
-
-						{% if artist.Works[4] %}
-							<div class="work" style="background-image: url('{{ artist.Works[4].photo }}');"></div>
-						{% else %}
-							<div class="work" style="background: #ccc; border: 1px solid white;"></div>
-						{% endif %}
-
-						{% if artist.Works[5] %}
-							<div class="work" style="background-image: url('{{ artist.Works[5].photo }}');"></div>
-						{% else %}
-							<div class="work" style="background: #ccc; border: 1px solid white;"></div>
-						{% endif %}
-						<!-- {% endfor %} -->
-
-						</div>
-						<div class="artist-follow">
-							{% if artist.following %}
-								<button class="button-liner disabled js-followButton" data-following="true" data-userId="{{ artist.id }}" data-size='small'>
-							{% else %}
-								<button class="button-liner js-followButton" data-following="false" data-userId="{{ artist.id }}" data-size='small'>
-							{% endif %}
-								<span class="button-liner__action folllow">Seguir</span>
-								<span class="button-liner__action following"><i class="fa fa-check"></i> Siguiendo</span>
-								<span class="button-liner__action cancel"><i class="fa fa-times-circle"></i> Cancelar</span>
-								<span class="button-liner__number">{{ artist.followers }}</span>
-							</button>
-						</div>
-
-					</article>
-				</div>
-				{% endfor %}
-			</section>
-
-	
-			<div class="loading"><i class="fa fa-spinner"></i></div>
-
-            {% if users.length > 0 %}
-                
-                <div class="more">
-                    <button class="button-solid js-moreButton" data-color='red'>Ver más</button>
-                </div>
-
-                <div class="empty-result" style="display:none;">
-                    <p class="high-text note">No se encontraron resultados,
-                        <button>
-                            <a href="/works/category/all/page-1/">
-                                <strong>Ver todos los artístas</strong>
-                            </a>
-                        </button>
-                    </p>
-                </div>
-
-            {% else %}
-                
-                <div class="more hide">
-                    <button class="button-solid js-moreButton" data-color='red'>Ver más</button>
-                </div>
-
-                <div class="empty-result">
-                    <p class="high-text note">No se encontraron resultados,
-                        <button>
-                            <a href="/works/category/all/page-1/">
-                                <strong>Ver todas las obras</strong>
-                            </a>
-                        </button>
-                    </p>
-                </div>
-
-            {% endif %}
-
-		</div>
-	</div>
-
-
-	<!-- ********************************************************************
-		$ SLOGAN
-	********************************************************************* -->
-	<!-- <section class="slogan">
-		<span class="slogan-text">Muestra tu talento artístico!</span>
-		<button class="button-solid js-signUpButton" data-size='large'>Sign Up</button>
-	</section> -->
-
-
-	{% include '../partials/footer.html' %}
-
-
-	<script type="text/template" id="artist-template">
-
-		<div class="artist-wrapper">
-			<article class="artist">
-				<a class="artist-header" href="#"> 
+	<script type="text/template" id="template">
+		<div class="user-wrapper">
+			<article class="user">
+				<a class="user-header" href="#">
 					<div class="avatar">
 						<img src="<%= photo %>">
 					</div>
@@ -224,14 +21,14 @@
 						<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
 					</div>
 				</a>
-				<div class="artist-works">
+				<div class="user-works">
 
 					<% _.each(Works, function(work) { %>
 						<div class="work work1"></div>
 					<% }); %>
 
 				</div>
-				<div class="artist-follow">
+				<div class="user-follow">
 					<% if (following) { %>
 						<button class="button-liner disabled js-followButton" data-following="true" data-userId="<%= id %>" data-size='small'>
 					<% } else { %>
@@ -245,81 +42,29 @@
 				</div>
 			</article>
 		</div>
-
 	</script>
 
-	<script>
+{% endblock %}
 
-		var artists = {{ users|json|safe }}
-		console.log('artists: ', artists)
+{% block scripts %}
 
-		var pagination = {{ pagination|json|safe }};
-		console.log('pagination: ', pagination)
-
-		var user = {{ user|json|safe }};
-		console.log('user: ', user)
-
-		// var works = {{ works|json|safe }};
-		// console.log('works: ', works)
-
-		var categories = {{ categories|json|safe }};
-		console.log('categories: ', categories)
-
-		var url = {{ url|json|safe }};
+	<script type="text/javascript">
+		
+		var url = {{ url|json|safe }}
 		console.log('url: ', url)
 
+		var pagination = {{ pagination|json|safe }}
+		console.log('pagination: ', pagination)
+
+		var user = {{ user|json|safe }}
+		console.log('user: ', user)
+
 	</script>
 
-	<script src="/js/vendor/jquery.min.js"></script>
-	<script src="/js/vendor/salvattore.js"></script>
-	<script src="/js/vendor/underscore-min.js"></script>
-
-	<script src="/js/lib/utils.js"></script>
-
-	<script src="/js/lib/login.js"></script>
-	<script src="/js/lib/filters.js"></script>
-	<script src="/js/lib/artist.js"></script>
-	<script src="/js/lib/artists.js"></script>
-	<script src="/js/lib/category-menu.js"></script>
-
-	<script src="/js/discover-artists.js"></script>
-
-	<script>
-		$(document).on("click", ".featured", function (event) {
-			var scope = $(this);
-			$.ajax({
-				type: "POST",
-				url: "/" + user.username + "/featured/",
-				data: {idUser: scope.attr('id')},
-				success: function (data) {
-					if (data.status == 200) {
-						// scope.html('<i class="fa fa-star"></i>&nbsp;Recomendado');
-						scope.removeClass('featured').addClass('unfeatured').removeClass('disabled');
-					}
-					console.log(data);
-				}
-			});
-			return false;
-		});
-		$(document).on("click", ".unfeatured", function (event) {
-			var scope = $(this);
-			$.ajax({
-				type: "POST",
-				url: "/" + user.username + "/unfeatured/",
-				data: {idUser: scope.attr('id')},
-				success: function (data) {
-					if (data.status == 200) {
-						// scope.parent().find('.featuredlogo').hide();
-						// scope.text('Featured');
-						// scope.removeClass('unfeatured').addClass('featured');
-						// scope.html('<i class="fa fa-star"></i>&nbsp;Recomendar');
-						scope.removeClass('unfeatured').addClass('featured').addClass('disabled');
-					}
-					console.log(data);
-				}
-			});
-			return false;
-		});
-	</script>
+	<script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/vendor/underscore-min.js"></script>
+	<script type="text/javascript" src="/js/lib/search.js"></script>
+	<script type="text/javascript" src="/js/lib/section.js"></script>
+	<script type="text/javascript" src="/js/users.js"></script>
 
 {% endblock %}
