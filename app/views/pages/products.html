@@ -34,12 +34,16 @@
 		var user = {{ user|json|safe }}
 		console.log('user: ', user)
 
+		var products = {{ products|json|safe }}
+		console.log('products: ', products)
+
 	</script>
 
 	<script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
 	<script type="text/javascript" src="/js/vendor/underscore-min.js"></script>
 	<script type="text/javascript" src="/js/lib/search.js"></script>
 	<script type="text/javascript" src="/js/lib/section.js"></script>
+	<script type="text/javascript" src="/js/lib/product.js"></script>
 	<script type="text/javascript" src="/js/products.js"></script>
 
 {% endblock %}

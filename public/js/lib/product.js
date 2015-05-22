@@ -2,15 +2,15 @@ function Product(el, data) {
 	// console.log('el: ', el)
 	// console.log('data: ', data)
 
-	var id = data.id,
+	// var id = data.id,
 
-		likes = data.likes,
-		liked = data.liked,
+	// 	likes = data.likes,
+	// 	liked = data.liked,
 
-		buttonLike = el.querySelector('.' + data.buttonLikeClass),
-		likesEl = buttonLike.querySelector('.button-liner__number');
+	// 	buttonLike = el.querySelector('.' + data.buttonLikeClass),
+	// 	likesEl = buttonLike.querySelector('.button-liner__number');
 
-	console.log('liked: ', liked)
+	// console.log('liked: ', liked)
 	// console.log('buttonLike: ', buttonLike)
 
 	function setup() {
@@ -67,5 +67,5 @@ function Product(el, data) {
 		})
 	}
 
-	setup()
+	// setup()
 }

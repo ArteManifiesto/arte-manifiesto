@@ -28,8 +28,49 @@ function Section (data) {
 
 	var createObject = data.createObject
 
+	var filterLeftButton = document.querySelectorAll('.button-filter')[0]
+	var filterRightButton = document.querySelectorAll('.button-filter')[1]
+	// console.log('filterLeftButton: ', filterLeftButton)
+	// console.log('filterRightButton: ', filterRightButton)
+
+	var filterLeft = document.querySelectorAll('.section__workspace__filter')[0]
+	var filterRight = document.querySelectorAll('.section__workspace__filter')[1]
+	// console.log('filterLeft: ', filterLeft)
+	// console.log('filterRight: ', filterRight)
+	var elementsCotainer = document.querySelector('.section__workspace__elements')
+
+	var leftVisible = false
+	var rightVisible = false
+
 	function setup () {
 		
+		filterLeftButton.addEventListener('click', function () {
+			if(leftVisible){
+				filterLeft.classList.remove('visible')
+				elementsCotainer.classList.remove('moveLeft')
+				container.classList.remove('moveLeft')
+			}
+			else{
+				filterLeft.classList.add('visible')
+				elementsCotainer.classList.add('moveLeft')
+				container.classList.add('moveLeft')
+			}
+			leftVisible = leftVisible?false:true
+		})
+		filterRightButton.addEventListener('click', function () {
+			if(rightVisible){
+				filterRight.classList.remove('visible')
+				elementsCotainer.classList.remove('moveRight')
+				container.classList.remove('moveRight')
+			}
+			else{
+				filterRight.classList.add('visible')
+				elementsCotainer.classList.add('moveRight')
+				container.classList.add('moveRight')
+			}
+			rightVisible = rightVisible?false:true
+		})
+
 		var searchEl = document.querySelector('.search')
 		var search = new Search(searchEl)
 

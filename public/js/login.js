@@ -14,16 +14,6 @@ var submitRegister = document.querySelectorAll('input[type="submit"]')[1]
 var openRememberForm = document.querySelectorAll('.italic-text')[0]
 var openLoginForm = document.querySelectorAll('.italic-text')[1]
 
-var filterLeftButton = document.querySelectorAll('.button-filter')[0]
-var filterRightButton = document.querySelectorAll('.button-filter')[1]
-console.log('filterLeftButton: ', filterLeftButton)
-console.log('filterRightButton: ', filterRightButton)
-
-var filterLeft = document.querySelectorAll('.section__workspace__filter')[0]
-var filterRight = document.querySelectorAll('.section__workspace__filter')[1]
-console.log('filterLeft: ', filterLeft)
-console.log('filterRight: ', filterRight)
-
 facebookButton.addEventListener('click', function () {
 	facebookButton.style.display = 'none'
 	loadingFacebook.classList.add('visible')

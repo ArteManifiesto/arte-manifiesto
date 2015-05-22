@@ -17,6 +17,22 @@ window.section = new Section({
 		name: 'js-price',
 		url: 'price'
 	}],
-	searchers: ['name', 'tag', 'username']
+	searchers: ['name', 'tag', 'username'],
+	createObject: createProductObject
 })
 
+function createProductObject(el, model) {
+	// new Artist(el, {
+	// 	id: model.id,
+	// 	followers: model.followers,
+	// 	following: model.following,
+	// 	buttonFollowClass: 'js-followButton'
+	// })
+	new Product(el, model)
+}
+
+
+var productEls = document.querySelectorAll('.product')
+
+for (var i = 0; i < productEls.length; i++)
+	createProductObject(productEls[i], products[i])
