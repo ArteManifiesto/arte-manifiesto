@@ -7,7 +7,6 @@ var FacebookStrategy = require('passport-facebook').Strategy;
  * Serialize Sessions
  */
 passport.serializeUser(function (user, done) {
-    console.log("serialized id : ", user.id);
     done(null, user.id);
 });
 
@@ -42,6 +41,7 @@ passport.use(new LocalStrategy(localStrategyData, localStrategyHandler));
  * Authentication by Facebook strategy
  */
 var fbStrategyHandler = function (accessToken, refreshToken, profile, done) {
+    console.log('lleleleleleel' , profile);
     global.db.User.find({where: {email:profile.emails[0].value}}).then(function (user) {
         if (!user)
             done(null, false, profile);

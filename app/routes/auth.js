@@ -23,8 +23,10 @@ router.get('/reset/:token', controller.reset);
 router.post('/reset/:token', controller.resetVerify);
 
 var permissions = ['email', 'user_about_me', 'user_birthday', 'user_friends', 'user_website'];
+//router.get('/facebook', passport.authenticate('facebook', {scope: permissions}))
 
-router.get('/facebook', passport.authenticate('facebook', {scope: permissions}));
-router.get('/facebook/callback', controller.facebook);
+router.get('/facebook', controller.facebook);
+
+router.get('/facebook/callback', controller.facebookCallback);
 
 module.exports = router;

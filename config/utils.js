@@ -677,3 +677,9 @@ global.getPaginationData = function (options) {
         return result;
     });
 };
+
+global.objectToParameters = function (element) {
+    return Object.keys(element).map(function (key) {
+        return key + '=' + element[key];
+    }).join('&');
+}

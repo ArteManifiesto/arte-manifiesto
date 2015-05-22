@@ -40,7 +40,9 @@ exports.index = function (req, res) {
 };
 
 exports.onBoard = function (req, res) {
-    global.db.Category.findAll({order: [[global.db.sequelize.fn('RAND', '')]]}).then(function (categories) {
+    return res.render('pages/onboard');
+
+    /*global.db.Category.findAll({order: [[global.db.sequelize.fn('RAND', '')]]}).then(function (categories) {
         var i, category, promises = [];
         for (i = 0; i < categories.length; i++) {
             category = categories[i];
@@ -50,7 +52,7 @@ exports.onBoard = function (req, res) {
         global.db.Sequelize.Promise.all(promises).then(function (data) {
             return res.json(data);
         });
-    });
+    });*/
 }
 
 exports.search = function (req, res) {

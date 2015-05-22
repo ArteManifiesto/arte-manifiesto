@@ -18,7 +18,6 @@ exports.signupPage = function (req, res) {
  * User signup
  */
 exports.signup = function (req, res) {
-    console.log(req.body);
     var promises = [
         check('username', req.body.username),
         check('email', req.body.email)
@@ -43,7 +42,7 @@ exports.signup = function (req, res) {
                 return res.conflict(errors);
 
             var options = {password: req.body.password};
-            
+
             global.db.User.create(req.body, options).then(function (user) {
                 var params = {
                     to: user.email, user: user.firstname,
@@ -104,9 +103,20 @@ exports.login = function (req, res) {
 
 
 exports.facebook = function (req, res) {
+    /*var permissions = ['email', 'user_about_me', 'user_birthday', 'user_friends', 'user_website'];
+     passport.authenticate('facebook', {scope: permissions});*/
+    
+    var permissions = ['email', 'user_about_me', 'user_birthday', 'user_friends', 'user_website'];
+    passport.authenticate('facebook', function (err, user, profile) {
+        return res.json(profile);
+    })(req, res);
+}
+
+exports.facebookCallback = function (req, res) {
+    console.log('query', req.query);
     passport.authenticate('facebook', function (err, user, profile) {
         if (user)
-            loginUser(req, res, user);
+            return loginUser(req, res, user);
 
         res.cookie('profile', JSON.parse(profile._raw), {maxAge: 900000, httpOnly: true});
 
