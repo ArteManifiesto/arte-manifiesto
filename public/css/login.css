@@ -584,8 +584,10 @@ body {
 }
 .flash-message .fa {
   position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  padding: 0.5rem;
 }
 .auth-container {
   margin: auto;

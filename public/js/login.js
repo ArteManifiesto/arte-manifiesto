@@ -11,14 +11,12 @@ window.signup = new Login(loginForm, {})
 window.remember = new Remember(rememberForm, {})
 
 toRemember.addEventListener('click', function () {
-	// console.log('toRemember')
 	flashMessage.hide()
 	loginForm.style.display = 'none'
 	rememberForm.style.display = 'block'
 })
 
 toLogin.addEventListener('click', function () {
-	// console.log('toLogin')
 	flashMessage.hide()
 	loginForm.style.display = 'block'
 	rememberForm.style.display = 'none'
