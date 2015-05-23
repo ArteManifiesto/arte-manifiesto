@@ -27,18 +27,7 @@ exports.index = function (req, res) {
 };
 
 exports.onBoard = function (req, res) {
-    return res.render('pages/onboard')
-    /*global.db.Category.findAll({order: [[global.db.sequelize.fn('RAND', '')]]}).then(function (categories) {
-     var i, category, promises = [];
-     for (i = 0; i < categories.length; i++) {
-     category = categories[i];
-     promises.push(category.getWorks({order: [[global.db.sequelize.fn('RAND', '')]], limit: 4}));
-     promises.push(category.getSpecialties({order: [[global.db.sequelize.fn('RAND', '')]], limit: 4}));
-     }
-     global.db.Sequelize.Promise.all(promises).then(function (data) {
-     return res.json(data);
-     });
-     });*/
+    return res.render('pages/onboard');
 }
 
 exports.search = function (req, res) {
@@ -66,7 +55,6 @@ exports.search = function (req, res) {
 
 var searchBridge = function (req) {
     var idUser = req.user ? req.user.id : 0;
-    console.log(req.url);
     var options = {
         method: 'POST',
         body: {idUser: idUser},
@@ -82,6 +70,7 @@ var searchBridge = function (req) {
 };
 
 var discover = function (req) {
+    req.url = req.url.replace(req.params.page, 'page-1');
     return searchBridge(req).then(function (data) {
         var query = {attributes: ['name', 'nameSlugify']};
 
@@ -101,7 +90,6 @@ exports.works = function (req, res) {
 
 exports.users = function (req, res) {
     discover(req).then(function (data) {
-        return res.json(data);
         return res.render('pages/users', data);
     });
 };
@@ -111,7 +99,6 @@ exports.products = function (req, res) {
         var query = {attributes: ['id', 'name', 'nameSlugify']};
         global.db.ProductType.findAll(query).then(function (productTypes) {
             data.productTypes = productTypes;
-            //return res.json(data);
             return res.render('pages/products', data);
         });
     });
