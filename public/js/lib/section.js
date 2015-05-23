@@ -160,7 +160,9 @@ function Section (data) {
 		
 		resetElements()
 
+		console.log('url: ', url)
 		getElements(url, function (elements) {
+			console.log('elements: ', elements)
 			renderElements(elements)
 		})
 	}
