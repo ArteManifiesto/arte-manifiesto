@@ -18,7 +18,7 @@ module.exports = function (sequelize, DataTypes) {
             description: DataTypes.TEXT,
             public: {type: DataTypes.BOOLEAN, defaultValue: true},
             featured: {type: DataTypes.BOOLEAN, defaultValue: false},
-
+            url: {type: DataTypes.STRING},
             views: {type: DataTypes.INTEGER, defaultValue: 0}
         }, {
             classMethods: {
@@ -47,6 +47,12 @@ module.exports = function (sequelize, DataTypes) {
                     return user.removeProductLike(this).then(function () {
                         return global.getNumLikesOfProduct({product: scope.id});
                     });
+                }
+            },
+            hooks: {
+                afterCreate: function (product, options) {
+                    product.url = '/' + options.user.username + '/work/' + product.nameSlugify;
+                    return product.save();
                 }
             }
         }

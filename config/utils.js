@@ -67,7 +67,7 @@ global.discoverOptions = function (req) {
     options.entity = entity;
     options.viewer = req.body.idUser ? req.body.idUser : 0;
     options.page = req.params.page;
-    options.limit = 10;
+    options.limit = 3;
     options.time = undefined;
     options.featured = req.query.featured;
     options.order = global.getOrder(req.query.order);
@@ -121,7 +121,6 @@ global.searchProducts = function (req) {
     options.type = undefined;
     options.price = [req.query.lo_p, req.query.hi_p];
     options.name = req.query.name ? req.query.name : undefined;
-
     return global.db.ProductType.find({where: {nameSlugify: req.params.value}}).then(function (productType) {
         options.type = productType ? productType.id : 0;
         if (req.params.value == 'all') options.type = undefined;
@@ -454,12 +453,9 @@ global.discoverUsers = function (options, count) {
         "`User`.`featured`, " +
         "COUNT(DISTINCT `User.Followers`.`id`) AS `followers`, " +
         "COUNT(DISTINCT `User.Views`.`id`) AS `views`, " +
-        "((COUNT(DISTINCT `User.Followers`.`id`) * 1) + (COUNT(DISTINCT `User.Views`.`id`) * 3)) AS `popularity`, " +
+        "((COUNT(DISTINCT `User.Followers`.`id`) * 1) + (COUNT(DISTINCT `User`.`views`) * 3)) AS `popularity`, " +
         "IF(`User`.`id` = 0, TRUE, FALSE) AS `owner`, " +
-        "IF(COUNT(DISTINCT `CurrentUser.Followers`.`id`) > 0 , TRUE, FALSE) AS `following`, " +
-        "IF(COUNT(DISTINCT `CurrentUser.Views`.`id`) > 0, TRUE, FALSE) AS `viewed`, " +
-        "`Works`.`id` AS `Works.id`, `Works`.`name` AS `Works.name`, `Works`.`nameSlugify` AS `Works.nameSlugify`, " +
-        "`Works`.`photo` AS `Works.photo` " +
+        "IF(COUNT(DISTINCT `CurrentUser.Followers`.`id`) > 0 , TRUE, FALSE) AS `following`" +
         "<% } else { %>" +
         "SELECT COUNT(DISTINCT `User`.`id`) AS `total` " +
         "<% } %>" +
@@ -475,10 +471,6 @@ global.discoverUsers = function (options, count) {
         "LEFT OUTER JOIN (`Followers` AS `CurrentUserFollowers` INNER JOIN `Users` AS `CurrentUser.Followers` " +
         "ON `CurrentUser.Followers`.`id` = `CurrentUserFollowers`.`FollowerId`) " +
         "ON `User`.`id` = `CurrentUserFollowers`.`FollowingId` AND `CurrentUser.Followers`.`id` = <%=viewer%> " +
-        "LEFT OUTER JOIN (`UserViews` INNER JOIN `Users` AS `User.Views` ON `User.Views`.`id` = `UserViews`.`ViewerId`) " +
-        "ON `User`.`id` = UserViews.`ViewingId` LEFT OUTER JOIN (`UserViews` AS `CurrentUserViews` " +
-        "INNER JOIN `Users` AS `CurrentUser.Views` ON `CurrentUser.Views`.`id` = `CurrentUserViews`.`ViewerId`) " +
-        "ON `User`.id = `CurrentUserViews`.`ViewingId` AND `CurrentUser.Views`.id = <%=viewer%> " +
         "INNER JOIN `Collections` ON `User`.`id` = Collections.`UserId` AND Collections.`meta` = 'portfolio' " +
         "LEFT OUTER JOIN (`CollectionWorks` AS CollectionWorks INNER JOIN `Works` ON Works.`id` = CollectionWorks.`WorkId`) " +
         "ON Collections.`id` = CollectionWorks.`CollectionId` " +
@@ -493,17 +485,12 @@ global.discoverProducts = function (options, count) {
         "SELECT * FROM (" +
         "<% if (count == undefined) { %>" +
         "SELECT `Products`.`id`, `Products`.`name`, `Products`.`nameSlugify`, `Products`.`photo`, `Products`.`price`, " +
-        "`Products`.`featured`, `Products`.`createdAt`, " +
+        "`Products`.`featured`, `Products`.`url`, `Products`.`views`, `Products`.`createdAt`, " +
         "COUNT(DISTINCT `Products.Likes`.`id`) AS `likes`, " +
-        "COUNT(DISTINCT `Products.Collects`.`id`) AS `collects`, " +
-        "COUNT(DISTINCT `Products.Views`.`id`) AS `views`, " +
-        "((COUNT(DISTINCT `Products.Likes`.`id`) * 1) + (COUNT(DISTINCT `Products.Collects`.`id`) * 3)) AS `popularity`, " +
-        "IF(`Products`.`UserId` = <%=viewer%>, TRUE, FALSE) AS `owner`, " +
+        "((COUNT(DISTINCT `Products.Likes`.`id`) * 1) + ((`Products`.`views`) * 3)) AS `popularity`, " +
         "IF(COUNT(DISTINCT `CurrentUser.Likes`.`id`) > 0, TRUE, FALSE) AS `liked`, " +
-        "IF(COUNT(DISTINCT `CurrentUser.Collects`.`id`) > 0, TRUE, FALSE) AS `collected`, " +
-        "IF(COUNT(DISTINCT `CurrentUser.Views`.`id`) > 0, TRUE, FALSE) AS `viewed`, " +
         "`User`.`username` AS `User.username`, " +
-        "`Work`.`name` AS `Work.name`, `Work`.`nameSlugify` AS `Work.nameSlugify`, `Work`.`photo` AS `Work.photo` " +
+        "`Work`.`id` AS `Work.id`, `Work`.`photo` AS `Work.photo` " +
         "<% } else { %>" +
         "SELECT COUNT(DISTINCT `Products`.`id`) AS `total` " +
         "<% } %>" +
@@ -520,16 +507,6 @@ global.discoverProducts = function (options, count) {
         "LEFT OUTER JOIN (`ProductLikes` AS `CurrentUserLikes` " +
         "INNER JOIN `Users` AS `CurrentUser.Likes` ON `CurrentUser.Likes`.`id` = `CurrentUserLikes`.`UserId`) " +
         "ON `Products`.id = `CurrentUserLikes`.`ProductId` AND `CurrentUser.Likes`.id = <%=viewer%> " +
-        "LEFT OUTER JOIN (`ProductCollects` INNER JOIN `Users` AS `Products.Collects` " +
-        "ON `Products.Collects`.`id` = `ProductCollects`.`UserId`) ON `Products`.id = `ProductCollects`.`ProductId` " +
-        "LEFT OUTER JOIN (`ProductCollects` AS `CurrentUserCollects` " +
-        "INNER JOIN `Users` AS `CurrentUser.Collects` ON `CurrentUser.Collects`.`id` = `CurrentUserCollects`.`UserId`) " +
-        "ON `Products`.id = `CurrentUserCollects`.`ProductId` AND `CurrentUser.Collects`.id = <%=viewer%> " +
-        "LEFT OUTER JOIN (`ProductViews` INNER JOIN `Users` AS `Products.Views` " +
-        "ON `Products.Views`.`id` = `ProductViews`.`UserId`) ON `Products`.id = `ProductViews`.`ProductId` " +
-        "LEFT OUTER JOIN (`ProductViews` AS `CurrentUserViews` " +
-        "INNER JOIN `Users` AS `CurrentUser.Views` ON `CurrentUser.Views`.`id` = `CurrentUserViews`.`UserId`) " +
-        "ON `Products`.id = `CurrentUserViews`.`ProductId` AND `CurrentUser.Views`.id = <%=viewer%> " +
         "<% if (type != undefined) { %> WHERE `ProductType`.`id` = <%=type%> <% } %> " +
         "<% if (count == undefined) { %> GROUP BY `Products`.`id` <% } %> ) AS `products` " +
         "<% if (count == undefined) { %> ORDER BY <%=order%>,`name` <%  } %>" +
@@ -541,18 +518,10 @@ global.discoverWorks = function (options, count) {
     var queryTemplate =
         "SELECT * FROM (" +
         "<% if (count == undefined) { %>" +
-        "SELECT `Works`.`id`, `Works`.`name`, `Works`.`nameSlugify`, `Works`.`photo`, `Works`.`featured`, `Works`.`createdAt`, " +
-        "COUNT(DISTINCT `Works.Likes`.`id`) AS `likes`, " +
-        "COUNT(DISTINCT `Works.Collects`.`id`) AS `collects`, " +
-        "COUNT(DISTINCT `Works.Views`.`id`) AS `views`, " +
-        "((COUNT(DISTINCT `Works.Likes`.`id`) * 1) + (COUNT(DISTINCT `Works.Collects`.`id`) * 3)) AS `popularity`, " +
-        "IF(`Works`.`UserId` = <%= viewer %>, TRUE, FALSE) AS `owner`, " +
-        "IF(COUNT(DISTINCT `CurrentUser.Likes`.`id`) > 0, TRUE, FALSE) AS `liked`, " +
-        "IF(COUNT(DISTINCT `CurrentUser.Collects`.`id`) > 0, TRUE, FALSE) AS `collected`, " +
-        "IF(COUNT(DISTINCT `CurrentUser.Views`.`id`) > 0, TRUE, FALSE) AS `viewed`, " +
-        "`User`.`username` AS `User.username`, `User`.`firstname` AS `User.firstname`, " +
-        "`User`.`lastname` AS `User.lastname`, `User`.`country` AS `User.country`, " +
-        "`User`.`city` AS `User.city`, `User`.`featured` AS `User.featured` " +
+        "SELECT `Works`.`id`, `Works`.`name`, `Works`.`nameSlugify`, " +
+        "`Works`.`photo`, `Works`.`featured`, `Works`.`url`, `Works`.`views`, `Works`.`createdAt`, " +
+        "(COUNT(DISTINCT `Works.Likes`.`id` * 1) + (`Works`.`views`) * 3) AS `popularity`, " +
+        "IF(COUNT(DISTINCT `CurrentUser.Likes`.`id`) > 0, TRUE, FALSE) AS `liked` " +
         "<% } else { %>" +
         "SELECT COUNT(DISTINCT `Works`.id) AS `total` " +
         "<% } %>" +
@@ -562,26 +531,19 @@ global.discoverWorks = function (options, count) {
         "<% if (time != undefined) { %> AND `Works`.`createdAt` BETWEEN '<%=time[0]%>' AND '<%= time[1]%>' <% } %> " +
         "<% if (name != undefined) { %> AND `Works`.`name` LIKE '<%=name%>' <% } %> " +
         "<% if (featured != undefined) { %> AND `Works`.`featured` = TRUE  <% } %> " +
-        "LEFT OUTER JOIN `Users` AS `User` ON `Works`.`UserId` = `User`.`id` " +
+
         "LEFT OUTER JOIN (`WorkLikes` INNER JOIN `Users` AS `Works.Likes` ON `Works.Likes`.`id` = `WorkLikes`.`UserId`) " +
         "ON `Works`.`id` = `WorkLikes`.`WorkId`" +
+
         "LEFT OUTER JOIN (`WorkLikes` AS `CurrentUserLikes` INNER JOIN `Users` AS `CurrentUser.Likes` " +
         "ON `CurrentUser.Likes`.`id` = `CurrentUserLikes`.`UserId`)" +
         "ON `Works`.`id` = `CurrentUserLikes`.`WorkId` AND `CurrentUser.Likes`.`id` = <%=viewer%> " +
-        "LEFT OUTER JOIN (`WorkCollects` INNER JOIN `Users` AS `Works.Collects` ON `Works.Collects`.`id` = `WorkCollects`.`UserId`) " +
-        "ON `Works`.`id` = `WorkCollects`.`WorkId` " +
-        "LEFT OUTER JOIN (`WorkCollects` AS `CurrentUserCollects`" +
-        "INNER JOIN `Users` AS `CurrentUser.Collects` ON `CurrentUser.Collects`.`id` = `CurrentUserCollects`.`UserId`)" +
-        "ON `Works`.`id` = `CurrentUserCollects`.`WorkId` AND `CurrentUser.Collects`.`id` = <%=viewer%> " +
-        "LEFT OUTER JOIN (`WorkViews` INNER JOIN `Users` AS `Works.Views` ON `Works.Views`.`id` = `WorkViews`.`UserId`) " +
-        "ON `Works`.`id` = `WorkViews`.`WorkId` " +
-        "LEFT OUTER JOIN (`WorkViews` AS `CurrentUserViews`" +
-        "INNER JOIN `Users` AS `CurrentUser.Views` ON `CurrentUser.Views`.`id` = `CurrentUserViews`.`UserId`)" +
-        "ON `Works`.`id` = `CurrentUserViews`.`WorkId` AND `CurrentUser.Views`.`id` = <%=viewer%> " +
+
         "<% if (tag != undefined) { %> " +
         "INNER JOIN (`WorkTags` INNER JOIN `Tags` AS `Works.Tags` ON `Works.Tags`.`id` = `WorkTags`.`TagId`) " +
         "ON `Works`.`id` = `WorkTags`.`WorkId` AND `Works.Tags`.`name` LIKE '<%=tag%>' " +
         "<% } %> " +
+
         "<% if (category != undefined) { %> WHERE `Category`.`id` = <%=category%> <% } %> " +
         "<% if (count == undefined) { %> GROUP BY `Works`.`id` <% } %> ) AS `works` " +
         "<% if (count == undefined) { %> ORDER BY <%=order%>,`name` <%  } %>" +

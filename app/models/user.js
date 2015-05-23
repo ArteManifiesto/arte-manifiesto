@@ -133,7 +133,7 @@ module.exports = function (sequelize, DataTypes) {
                                         description: chance.paragraph(),
                                         photo: '/img/works/obra' + (_.random(1, 12).toString()) + '.jpg',
                                         public: true
-                                    }, {user: user.id, store: data[3]})
+                                    }, {user: user})
                                 ];
 
                                 return global.db.Sequelize.Promise.all(promises).then(function (data) {

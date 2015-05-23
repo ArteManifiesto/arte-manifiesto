@@ -184,9 +184,6 @@ exports.forgotCreate = function (req, res) {
         if (!user)
             return res.badRequest('Unknown user');
 
-        if (user.provider != 'local')
-            return res.badRequest('Email associated to facebook');
-
         user.makeTokenResetPassword().then(function () {
             var params = {
                 to: user.email,

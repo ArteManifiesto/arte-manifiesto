@@ -15,10 +15,6 @@ router.get('/products/type/:value/:page', controller.products);
 router.get('/store/:nameProduct/', controller.storeProduct);
 router.get('/pay/:idProduct', controller.productPay);
 
-router.get('/photo', controller.photos);
-router.post('/photos', controller.photosCreate);
-
 router.get('/onboard', controller.onBoard);
-
 
 module.exports = router;

@@ -463,7 +463,7 @@ global.db.sequelize.sync({force: dev}).then(function () {
                     for (var j = 0; j < products.length; j++) {
                         var product = products[j];
                         product.featured = true;
-                        promises.push(global.db.Work.create(product));
+                        promises.push(global.db.Work.create(product, {user: artJam}));
                     }
                     global.db.Sequelize.Promise.all(promises).then(function (works) {
                         global.getPortfolioCollection(artJam).then(function (portfolio) {
@@ -472,8 +472,9 @@ global.db.sequelize.sync({force: dev}).then(function () {
                                 for (var j = 0; j < products.length; j++) {
                                     var product = products[j];
                                     product.featured = true;
+                                    product.ProductTypeId = _.random(1, 5);
                                     product.WorkId = works[j].id;
-                                    promises.push(global.db.Product.create(product));
+                                    promises.push(global.db.Product.create(product, {user: artJam}));
                                 }
                                 global.db.Sequelize.Promise.all(promises).then(function (products) {
                                     global.getStoreCollection(artJam).then(function (collection) {

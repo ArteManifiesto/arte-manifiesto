@@ -44,6 +44,12 @@ module.exports = function (sequelize, DataTypes) {
                         return global.getNumLikesOfWork({work: scope.id});
                     });
                 }
+            },
+            hooks: {
+                afterCreate: function (work, options) {
+                    work.url = '/' + options.user.username + '/product/' + work.nameSlugify;
+                    return work.save();
+                }
             }
         }
     );
