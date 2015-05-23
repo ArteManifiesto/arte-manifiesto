@@ -17,7 +17,7 @@
 		</a>
 		<a class="skinny-menu__item {% if path == 'products' %} active {% endif %}" href="/products/type/all/page-1/">
 			<i class="skinny-menu__item__icon fa fa-diamond"></i>
-			<span class="skinny-menu__item__text">Market</span>
+			<span class="skinny-menu__item__text">Tienda</span>
 		</a>
 		{% if user %}
 			<a class="skinny-menu__avatar" href="/{{ user.username }}">
@@ -28,11 +28,11 @@
 		{% else %}
 			<a class="skinny-menu__item {% if path == 'signup' %} active {% endif %}" href="/auth/signup">
 				<i class="skinny-menu__item__icon fa fa-user"></i>
-				<span class="skinny-menu__item__text">Sign Up</span>
+				<span class="skinny-menu__item__text">Registro</span>
 			</a>
 			<a class="skinny-menu__item {% if path == 'login' %} active {% endif %}" href="/auth/login">
 				<i class="skinny-menu__item__icon fa fa-user"></i>
-				<span class="skinny-menu__item__text">Sign in</span>
+				<span class="skinny-menu__item__text">Ingresar</span>
 			</a>
 		{% endif %}
 	</nav>
