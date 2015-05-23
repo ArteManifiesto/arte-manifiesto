@@ -1,90 +1,48 @@
 
 function Signup (el, data) {
+
+	var imputs = [el.querySelector('input[name="username"]'),
+								el.querySelector('input[name="email"]'),
+								el.querySelector('input[name="password"]'),
+								el.querySelector('input[name="firstname"]'),
+								el.querySelector('input[name="lastname"]')]
+
+	var errors = [el.querySelector('.username-error'),
+								el.querySelector('.email-error'),
+								el.querySelector('.password-error'),
+								el.querySelector('.firstname-error'),
+								el.querySelector('.lastname-error')]
+
+	var actives = [false, false, false, false, false]
 	
-	console.log('el: ', el)
-
-	var username = el.querySelector('input[name="username"]'),
-			usernameError = el.querySelector('.username-error'),
-			usernameActive = false,
-			validUsername = false;
-
-	var email = el.querySelector('input[name="email"]'),
-			emailError = el.querySelector('.email-error'),
-			emailActive = false,
-			validEmail = false;
-
-	var password = el.querySelector('input[name="password"]'),
-			passwordError = el.querySelector('.password-error'),
-			passwordActive = false,
-			validPassword = false;
-
-	var firstname = el.querySelector('input[name="firstname"]'),
-			firstnameError = el.querySelector('.firstname-error'),
-			firstnameActive = false,
-			validFirstname = false;
-
-	var lastname = el.querySelector('input[name="lastname"]'),
-			lastnameError = el.querySelector('.lastname-error'),
-			lastnameActive = false,
-			validLastname = false;
+	var valids = [false, false, false, false, false]
+	
+	var evals = [evalUsername, evalEmail, evalPassword, evalFirstname, evalLastname]
 
 	var facebookButton = el.querySelector('.facebook-button'),
 			loadingFacebook = el.querySelectorAll('.loading')[0];
 
 	var submitButton = el.querySelector('input[type="submit"]'),
 			loadingSubmit = el.querySelectorAll('.loading')[1];
-			// console.log('submitButton: ', submitButton)
+
 
 	function setup () {
-		username.addEventListener('focusout', function () {
-			if(this.value){
-				usernameActive = true
-				evalUsername(this.value)
-			}
-		})
-		username.addEventListener('input', function () {
-			if(usernameActive) evalUsername(this.value)
-		})
 
-		email.addEventListener('focusout', function () {
-			if(this.value){
-				emailActive = true
-				evalEmail(this.value)
-			}
-		})
-		email.addEventListener('input', function () {
-			if(emailActive) evalEmail(this.value)
-		})
+		for (var i = 0; i < 5; i++) imputs[i].setAttribute('index', i)
 
-		password.addEventListener('focusout', function () {
-			if(this.value){
-				passwordActive = true
-				evalPassword(this.value)
-			}
-		})
-		password.addEventListener('input', function () {
-			if(passwordActive) evalPassword(this.value)
-		})
-
-		firstname.addEventListener('focusout', function () {
-			if(this.value){
-				firstnameActive = true
-				evalFirstname(this.value)
-			}
-		})
-		firstname.addEventListener('input', function () {
-			if(firstnameActive) evalFirstname(this.value)
-		})
-
-		lastname.addEventListener('focusout', function () {
-			if(this.value){
-				lastnameActive = true
-				evalLastname(this.value)
-			}
-		})
-		lastname.addEventListener('input', function () {
-			if(lastnameActive) evalLastname(this.value)
-		})
+		for (var i = 0; i < 5; i++) {
+			imputs[i].addEventListener('focusout', function () {
+				var index = this.getAttribute('index')
+				if(this.value){
+					actives[index] = true
+					evals[index](this.value)
+				}
+			})
+			imputs[i].addEventListener('input', function () {
+				var index = this.getAttribute('index')
+				if(actives[index]) evals[index](this.value)
+			})
+		};
 
 		facebookButton.addEventListener('click', function () {
 			facebookButton.style.display = 'none'
@@ -98,52 +56,32 @@ function Signup (el, data) {
 	}
 
 	function submit () {
+
 		var submit = true
 
-		if(!validLastname){
-			lastnameActive = true
-			evalLastname(lastname.value)
-			lastname.focus()
-			submit = false
-		}
-		if(!validFirstname){
-			firstnameActive = true
-			evalFirstname(firstname.value)
-			firstname.focus()
-			submit = false
-		}
-		if(!validPassword){
-			passwordActive = true
-			evalPassword(password.value)
-			password.focus()
-			submit = false
-		}
-		if(!validEmail){
-			emailActive = true
-			evalEmail(email.value)
-			email.focus()
-			submit = false
-		}
-		if(!validUsername){
-			usernameActive = true
-			evalUsername(username.value)
-			username.focus()
-			submit = false
+		for (var i = 4; i >= 0; i--) {
+			if(!valids[i]){
+				actives[i] = true
+				evals[i](imputs[i].value)
+				imputs[i].focus()
+				submit = false
+			}
 		}
 
 		if(submit){
 			submitButton.style.display = 'none'
 			loadingSubmit.style.display = 'block'
+			
 			$.post('/auth/signup', $(el).serialize(), function (response) {
-				console.log('response: ', response)
+				// console.log('response: ', response)
 				submitButton.style.display = 'block'
 				loadingSubmit.style.display = 'none'
 
 				if(response.status === 409){
-					grecaptcha.reset();
+					grecaptcha.reset()
 				}
 				if(response.status == 200){
-					window.location.href = response.data.callback
+					window.location.href = response.data.returnTo
 				}
 			})
 		}
@@ -151,87 +89,87 @@ function Signup (el, data) {
 
 	function evalUsername (value) {
 
-		hide(usernameError)
+		hide(errors[0])
 
 		if(value){
 			$.post('/auth/check/?property=username&value=' + value, function (response) {
 				// console.log('response: ', response)
 				if(!response.data.available){
-					show(usernameError, value + ' ya esta en uso')
-					validUsername = false
+					show(errors[0], value + ' ya esta en uso')
+					valids[0] = false
 				} else {
-					validUsername = true
+					valids[0] = true
 				}
 			})
 		} else {
-			show(usernameError, 'campo requerido')
-			validUsername = false
+			show(errors[0], 'campo requerido')
+			valids[0] = false
 		}
 	}
 
 	function evalEmail (value) {
 		
-		hide(emailError)
+		hide(errors[1])
 
 		if(value){
 			if(validateEmail(value)){
 				$.post('/auth/check/?property=email&value=' + value, function (response) {
 					// console.log('response: ', response)
 					if(!response.data.available){
-						show(emailError, value + ' ya esta en uso')
-						validEmail = false
+						show(errors[1], value + ' ya esta en uso')
+						valids[1] = false
 					} else {
-						validEmail = true
+						valids[1] = true
 					}
 				})
 			} else {
-				show(emailError, 'formato incorrecto')
-				validEmail = false
+				show(errors[1], 'formato incorrecto')
+				valids[1] = false
 			}
 		} else {
-			show(emailError, 'campo requerido')
-			validEmail = false
+			show(errors[1], 'campo requerido')
+			valids[1] = false
 		}
 	}
 
 	function evalPassword (value) {
 
-		hide(passwordError)
+		hide(errors[2])
 
 		if(value){
 			if(value.length < 6){
-				show(passwordError, 'minimo 6 caracteres')
-				validPassword = false
+				show(errors[2], 'minimo 6 caracteres')
+				valids[2] = false
 			} else {
-				validPassword = true
+				valids[2] = true
 			}
 		} else {
-			show(passwordError, 'campo requerido')
-			validPassword = false
+			show(errors[2], 'campo requerido')
+			valids[2] = false
 		}
 	}
 
 	function evalFirstname (value) {
 
-		hide(firstnameError)
+		hide(errors[3])
 
 		if(value){
-			validFirstname = true
+			valids[3] = true
 		} else {
-			show(firstnameError, 'campo requerido')
-			validFirstname = false
+			show(errors[3], 'campo requerido')
+			valids[3] = false
 		}
 	}
 
 	function evalLastname (value) {
 
-		hide(lastnameError)
+		hide(errors[4])
 
 		if(value){
-			validLastname = true
+			valids[4] = true
 		} else {
-			show(lastnameError, 'campo requerido')
-			validLastname = false
+			show(errors[4], 'campo requerido')
+			valids[4] = false
 		}
 	}
 
@@ -251,40 +189,3 @@ function Signup (el, data) {
 }
 
 window.signup = new Signup(document.querySelector('.auth__form'), {})
-
-
-// var registerForm = $(".js-signUpForm")
-
-// var loadingFacebook = document.querySelectorAll('.loading')[0]
-// var loadingSubmit = document.querySelectorAll('.loading')[1]
-
-// var facebookButton = document.querySelector('.facebook-button')
-// var submitButton = document.querySelector('input[type="submit"]')
-
-// facebookButton.addEventListener('click', function () {
-// 	facebookButton.style.display = 'none'
-// 	loadingFacebook.classList.add('visible')
-// })
-
-// registerForm.submit(function () {
-// 	var formData = registerForm.serialize()
-
-// 	loadingSubmit.classList.add('visible')
-// 	submitButton.style.display = 'none'
-	
-// 	$.post('/auth/signup', formData, function (response) {
-// 		loadingSubmit.classList.remove('visible')
-// 		submitButton.style.display = 'block'
-
-// 		if(response.status === 409){
-// 			grecaptcha.reset();
-// 		}
-
-// 		if(response.status == 200){
-// 			window.location.href = response.data.callback
-// 		}
-// 		console.log('response: ', response)
-// 	})
-
-// 	return false
-// });
