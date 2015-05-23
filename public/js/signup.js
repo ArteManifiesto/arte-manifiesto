@@ -71,7 +71,7 @@ function Signup (el, data) {
 		if(submit){
 			submitButton.style.display = 'none'
 			loadingSubmit.style.display = 'block'
-			
+
 			$.post('/auth/signup', $(el).serialize(), function (response) {
 				// console.log('response: ', response)
 				submitButton.style.display = 'block'
@@ -175,11 +175,13 @@ function Signup (el, data) {
 
 	function validateEmail(email) {
 		var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-		return re.test(email);
+		return re.test(email)
 	}
+
 	function hide (el) {
 		el.style.display = 'none'
 	}
+	
 	function show (el, text) {
 		el.style.display = 'block'
 		el.innerHTML = text

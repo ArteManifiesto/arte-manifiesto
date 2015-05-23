@@ -16,83 +16,96 @@
 		</header>
 
 		{% if path == 'signup' %}
-		<form class="auth__form">
-			
-			<div class="loading"><i class="fa fa-spinner"></i></div>
-			<a href="/auth/facebook" class="facebook-button" data-expand='true'>
-				<i class="fa fa-facebook-official"></i>&nbsp; Registrarme con Facebook
-			</a>
-
-			<p class="separator-text">
-				<span class="line"></span>
-				<span class="text">Con email</span>
-				<span class="line"></span>
-			</p>
-			
-			<input class="input" data-size='large' name="username" placeholder="Nombre de usuario" type="text">
-			<p class="username-error"></p>
-			
-			<input class="input" data-size='large' name="email" placeholder="Email" type="email" value="{{profile.email}}">
-			<p class="email-error"></p>
-			
-			<input class="input" data-size='large' name="password" placeholder="Contraseña" type="password">
-			<p class="password-error"></p>
-			
-			<input class="input" data-size='large' name="firstname" placeholder="Nombres" type="text" value="{{profile.first_name}}">
-			<p class="firstname-error"></p>
-
-			<input class="input" data-size='large' name="lastname" placeholder="Apellidos" type="text" value="{{profile.last_name}}">
-			<p class="lastname-error"></p>
-
-			<select class="input" name="gender">
-				<option disabled>Género</option>
-				<option value="Male" {% if profile.gender === 'male' %}selected{% endif %}>Masculino</option>
-				<option value="Female" {% if profile.gender === 'female' %}selected{% endif %}>Femenino</option>
-			</select>
-			
-			<div class="g-recaptcha" data-sitekey="6LcbDwcTAAAAAIexPkpMRGp4fTveLvMzll_XPH3Q"></div>
-			
-			<div class="question">
-				<input name="question" type="checkbox" id="question">
-				<label for="question" class="medium-text">¿Eres Artista profesional?</label>
-			</div>
-
-			<div class="loading"><i class="fa fa-spinner"></i></div>
-			<input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Registrarme" type="submit">
-			
-			<p class="italic-text" data-size="small">
-				Al registrarte estas aceptando los <strong>terminos y condiciones</strong> de Arte Manifiesto
-			</p>
-		</form>
-		{% elseif path == 'login' %}
-			<!-- <form class="login__form js-loginForm">
+			<form class="auth__form">
+				
 				<div class="loading"><i class="fa fa-spinner"></i></div>
 				<a href="/auth/facebook" class="facebook-button" data-expand='true'>
-					<i class="fa fa-facebook-official"></i>&nbsp; Ingresar con Facebook
+					<i class="fa fa-facebook-official"></i>&nbsp; Registrarme con Facebook
 				</a>
+
 				<p class="separator-text">
 					<span class="line"></span>
 					<span class="text">Con email</span>
 					<span class="line"></span>
 				</p>
-				<input class="input" data-size='large' name="email" placeholder="Email" type="text">
+				
+				<input class="input" data-size='large' name="username" placeholder="Nombre de usuario" type="text">
+				<p class="username-error"></p>
+				
+				<input class="input" data-size='large' name="email" placeholder="Email" type="email" value="{{profile.email}}">
+				<p class="email-error"></p>
+				
 				<input class="input" data-size='large' name="password" placeholder="Contraseña" type="password">
+				<p class="password-error"></p>
+				
+				<input class="input" data-size='large' name="firstname" placeholder="Nombres" type="text" value="{{profile.first_name}}">
+				<p class="firstname-error"></p>
+
+				<input class="input" data-size='large' name="lastname" placeholder="Apellidos" type="text" value="{{profile.last_name}}">
+				<p class="lastname-error"></p>
+
+				<select class="input" name="gender">
+					<option disabled>Género</option>
+					<option value="Male" {% if profile.gender === 'male' %}selected{% endif %}>Masculino</option>
+					<option value="Female" {% if profile.gender === 'female' %}selected{% endif %}>Femenino</option>
+				</select>
+				
+				<div class="g-recaptcha" data-sitekey="6LcbDwcTAAAAAIexPkpMRGp4fTveLvMzll_XPH3Q"></div>
+				
+				<div class="question">
+					<input name="isArtist" type="checkbox" id="isArtist">
+					<label for="isArtist" class="medium-text">¿Eres Artista profesional?</label>
+				</div>
+
+				<div class="loading"><i class="fa fa-spinner"></i></div>
+				<input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Registrarme" type="submit">
+				
+				<p class="italic-text" data-size="small">
+					Al registrarte estas aceptando los <strong>terminos y condiciones</strong> de Arte Manifiesto
+				</p>
+
+			</form>
+		{% elseif path == 'login' %}
+			<form class="auth__form">
+
+				<div class="loading"><i class="fa fa-spinner"></i></div>
+				<a href="/auth/facebook" class="facebook-button" data-expand='true'>
+					<i class="fa fa-facebook-official"></i>&nbsp; Ingresar con Facebook
+				</a>
+
+				<p class="separator-text">
+					<span class="line"></span>
+					<span class="text">Con email</span>
+					<span class="line"></span>
+				</p>
+
+				<input class="input" data-size='large' name="email" placeholder="Email" type="text">
+
+				<input class="input" data-size='large' name="password" placeholder="Contraseña" type="password">
+
 				<div class="loading"><i class="fa fa-spinner"></i></div>
 				<input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Ingresar" type="submit">
+
 				<p class="italic-text" data-size="small">Recordar contraseña</p>
+
 			</form>
 
-			<form class="login__form js-rememberForm" style="display: none;">
+			<form class="auth__form" style="display: none;">
+
 				<p class="separator-text">
 					<span class="line"></span>
 					<span class="text">Recordar contraseña</span>
 					<span class="line"></span>
 				</p>
+
 				<input class="input" data-size='large' name="email" placeholder="Email" type="text">
+
 				<div class="loading"><i class="fa fa-spinner"></i></div>
 				<input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Recordar" type="submit">
+				
 				<p class="italic-text" data-size="small">Ingresar</p>
-			</form> -->
+
+			</form>
 		{% endif %}
 
 	</div>
