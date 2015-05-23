@@ -18,6 +18,25 @@
 				{% for work in user.Works %}
 					<div class="work" style="background-image: url('{{ work.photo }}');"></div>
 				{% endfor %}
+				
+				{% if user.Works.length < 6 %}
+					<div class="work" style="background: #ccc; border: 1px solid white;"></div>
+				{% endif %}
+				{% if user.Works.length < 5 %}
+					<div class="work" style="background: #ccc; border: 1px solid white;"></div>
+				{% endif %}
+				{% if user.Works.length < 4 %}
+					<div class="work" style="background: #ccc; border: 1px solid white;"></div>
+				{% endif %}
+				{% if user.Works.length < 3 %}
+					<div class="work" style="background: #ccc; border: 1px solid white;"></div>
+				{% endif %}
+				{% if user.Works.length < 2 %}
+					<div class="work" style="background: #ccc; border: 1px solid white;"></div>
+				{% endif %}
+				{% if user.Works.length < 1 %}
+					<div class="work" style="background: #ccc; border: 1px solid white;"></div>
+				{% endif %}
 			</div>
 			<div class="user-follow">
 				{% if user.following %}
@@ -35,39 +54,3 @@
 	</div>
 	{% endfor %}
 </section>
-
-			<!-- {% if user.Works[0] %}
-				<div class="work" style="background-image: url('{{ user.Works[0].photo }}');"></div>
-			{% else %}
-				<div class="work" style="background: #ccc; border: 1px solid white;"></div>
-			{% endif %}
-
-			{% if user.Works[1] %}
-				<div class="work" style="background-image: url('{{ user.Works[1].photo }}');"></div>
-			{% else %}
-				<div class="work" style="background: #ccc; border: 1px solid white;"></div>
-			{% endif %}
-
-			{% if user.Works[2] %}
-				<div class="work" style="background-image: url('{{ user.Works[2].photo }}');"></div>
-			{% else %}
-				<div class="work" style="background: #ccc; border: 1px solid white;"></div>
-			{% endif %}
-
-			{% if user.Works[3] %}
-				<div class="work" style="background-image: url('{{ user.Works[3].photo }}');"></div>
-			{% else %}
-				<div class="work" style="background: #ccc; border: 1px solid white;"></div>
-			{% endif %}
-
-			{% if user.Works[4] %}
-				<div class="work" style="background-image: url('{{ user.Works[4].photo }}');"></div>
-			{% else %}
-				<div class="work" style="background: #ccc; border: 1px solid white;"></div>
-			{% endif %}
-
-			{% if user.Works[5] %}
-				<div class="work" style="background-image: url('{{ user.Works[5].photo }}');"></div>
-			{% else %}
-				<div class="work" style="background: #ccc; border: 1px solid white;"></div>
-			{% endif %} -->
