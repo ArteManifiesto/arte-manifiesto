@@ -2,12 +2,13 @@ function Product(el, data) {
 	// console.log('el: ', el)
 	// console.log('data: ', data)
 
-	// var id = data.id,
+	var id = data.id,
 
-	// 	likes = data.likes,
-	// 	liked = data.liked,
+		likes = data.likes,
+		liked = data.liked,
 
-	// 	buttonLike = el.querySelector('.' + data.buttonLikeClass),
+		buttonLike = el.querySelector('.button-like');
+		console.log('buttonLike: ', buttonLike)
 	// 	likesEl = buttonLike.querySelector('.button-liner__number');
 
 	// console.log('liked: ', liked)
@@ -18,7 +19,7 @@ function Product(el, data) {
 		buttonLike.addEventListener('click', function () {
 			// console.log('click')
 			if (!user) {
-				location.href = '/auth/login'
+				location.href = '/auth/login/?returnTo=' + location.href
 				return
 			}
 			if (!liked) like()
@@ -34,16 +35,16 @@ function Product(el, data) {
 		$.post(url, {idProduct: id}, function (data) {
 			console.log(data)
 
-			if (data.status == 200) {
-				buttonLike.classList.add('active')
-				buttonLike.classList.add('disabled')
-				liked = true
+			// if (data.status == 200) {
+			// 	buttonLike.classList.add('active')
+			// 	buttonLike.classList.add('disabled')
+			// 	liked = true
 
-				var newLikes = data.data.likes
-				likes = newLikes
-				console.log('like :  ', newLikes);
-				likesEl.innerHTML = likes
-			}
+			// 	var newLikes = data.data.likes
+			// 	likes = newLikes
+			// 	console.log('like :  ', newLikes);
+			// 	likesEl.innerHTML = likes
+			// }
 		})
 	}
 
@@ -55,17 +56,17 @@ function Product(el, data) {
 		$.post(url, {idProduct: id}, function (data) {
 			console.log(data)
 
-			if (data.status == 200) {
-				buttonLike.classList.remove('active')
-				buttonLike.classList.remove('disabled')
-				liked = false
+			// if (data.status == 200) {
+			// 	buttonLike.classList.remove('active')
+			// 	buttonLike.classList.remove('disabled')
+			// 	liked = false
 
-				var newLikes = data.data.likes
-				likes = newLikes
-				likesEl.innerHTML = likes
-			}
+			// 	var newLikes = data.data.likes
+			// 	likes = newLikes
+			// 	likesEl.innerHTML = likes
+			// }
 		})
 	}
 
-	// setup()
+	setup()
 }

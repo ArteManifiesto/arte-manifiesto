@@ -152,9 +152,11 @@ function Section (data) {
 	}
 
 	function changeMainFilter (value) {
+		// console.log('changeMainFilter: ', value)
 
 		var currentValue = url.split('/')[5]
-		url =	url.replace('specialty/' + currentValue, 'specialty/' + value)
+		if(path == 'users') url =	url.replace('specialty/' + currentValue, 'specialty/' + value)
+		if(path == 'products') url =	url.replace('type/' + currentValue, 'type/' + value)
 		url = url.replace('page-' + pagination.page, 'page-1')
 		url = url.replace(path , 'search/' + path)
 		

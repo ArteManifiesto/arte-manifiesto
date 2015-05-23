@@ -16,12 +16,15 @@
 <body>
 
 	<div class="main-wrapper">
-		<div class="main-wrapper__content">
+		<div class="main-wrapper__header">
 
 			{% include 'header.html' %}
-
+		
 			{% include 'category-menu.html' %}
 
+		</div>
+		<div class="main-wrapper__content {% if path == 'signup' || path == 'login' %} background-container {% endif %}">
+			
 			{% block elements %} {% endblock %}
 
 		</div>

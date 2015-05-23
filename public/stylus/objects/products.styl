@@ -1,7 +1,6 @@
 /*------------------------------------*
 	$ PRODUCTS
 *------------------------------------*/
-
 .products
 	margin .5rem
 	display flex
@@ -13,23 +12,19 @@
 	border 1px solid #ddd
 	position relative
 	transition box-shadow ease-in-out 125ms
-	.product-info
-		border-bottom: 1px dashed #e6e8ec
-		padding .5em 1em
-		display flex
-		justify-content space-between
+	&:hover
+		box-shadow rgba(0,0,0,0.35) 0 0 10px
+	.product-title
+		border-bottom 1px dashed #e6e8ec
+		padding .5em
 		.title
 			font-size .8em
 			letter-spacing 1px
 			font-family 'Raleway'
-		.price
-			font-size .9em
-			font-weight 500
-			letter-spacing .5px
-			font-family 'Raleway'
-			// color #5794db
-	.product-social
-		padding .5em 1em
+			white-space nowrap
+			overflow hidden
+	.product-info
+		padding .5em
 		display flex
 		justify-content space-between
 		.price
@@ -37,8 +32,6 @@
 			font-weight 500
 			letter-spacing .5px
 			font-family 'Raleway'
-	&:hover
-		box-shadow rgba(0,0,0,0.35) 0 0 10px
 
 // product-width = 200px
 product-width = 180px
@@ -83,3 +76,29 @@ product-width = 180px
 		.product-wrapper
 			flex 1 33.333%
 			max-width 33.333%
+			
+			
+	// .product-info
+	// 	border-bottom: 1px dashed #e6e8ec
+	// 	padding .5em 1em
+	// 	display flex
+	// 	justify-content space-between
+	// 	.title
+	// 		font-size .8em
+	// 		letter-spacing 1px
+	// 		font-family 'Raleway'
+	// 	.price
+	// 		font-size .9em
+	// 		font-weight 500
+	// 		letter-spacing .5px
+	// 		font-family 'Raleway'
+	// 		// color #5794db
+	// .product-social
+	// 	padding .5em 1em
+	// 	display flex
+	// 	justify-content space-between
+	// 	.price
+	// 		font-size .9em
+	// 		font-weight 500
+	// 		letter-spacing .5px
+	// 		font-family 'Raleway'

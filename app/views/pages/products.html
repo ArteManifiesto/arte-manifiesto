@@ -12,9 +12,21 @@
 	<script type="text/template" id="template">
 		<div class="product-wrapper">
 			<article class="product">
-				<a href="/<%= User.username %>/product/<%= nameSlugify %>" class="product-image">
+				<a class="product-image" href="/<%= User.username %>/product/<%=nameSlugify %>">
 					<img src="<%= photo %>">
 				</a>
+				<div class="product-title">
+					<div class="title"><%= name %></div>
+				</div>
+				<div class="product-info">
+					<div class="price">s./<%= price %></div>
+					<div class="like">
+						<span class="button-like"> <i class="fa fa-heart-o"></i> <span><%= likes %></span> </span>
+					</div>
+					<div class="wish-list">
+						<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
+					</div>
+				</div>
 			</article>
 		</div>
 	</script>
@@ -41,9 +53,11 @@
 
 	<script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
 	<script type="text/javascript" src="/js/vendor/underscore-min.js"></script>
+
 	<script type="text/javascript" src="/js/lib/search.js"></script>
 	<script type="text/javascript" src="/js/lib/section.js"></script>
 	<script type="text/javascript" src="/js/lib/product.js"></script>
+	
 	<script type="text/javascript" src="/js/products.js"></script>
 
 {% endblock %}

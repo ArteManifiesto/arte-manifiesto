@@ -397,27 +397,8 @@ body {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: box;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -moz-box-orient: vertical;
-  -o-box-orient: vertical;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
 }
 .background-container {
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -o-box-flex: 1;
-  box-flex: 1;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
   background-image: url("/img/background1.jpg");
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -584,6 +565,20 @@ body {
 .button-liner.disabled:hover .button-liner__action.cancel {
   display: table-cell;
 }
+.button-like,
+.button-wish-list {
+  color: #444;
+  font-weight: 100;
+  font-size: 0.85em;
+  letter-spacing: 1px;
+  font-family: 'Roboto Condensed';
+  cursor: pointer;
+}
+.button-like .fa-heart,
+.button-wish-list .fa-heart {
+  color: #f54545;
+  display: none;
+}
 .flash-message-container {
   max-width: 1100px;
   margin: auto;
@@ -600,7 +595,7 @@ body {
   color: #ce6637;
 }
 .flash-message.success {
-  background: rgba(0,128,0,0.4);
+  background: #81c784;
   color: #fff;
 }
 .flash-message .text {
@@ -625,7 +620,7 @@ body {
   padding: 1rem 1.5rem;
   -webkit-box-shadow: rgba(0,0,0,0.35) 0 0 10px;
   box-shadow: rgba(0,0,0,0.35) 0 0 10px;
-  background: rgba(255,255,255,0.8);
+  background: rgba(255,255,255,0.85);
 }
 .auth__header {
   display: -webkit-box;
@@ -660,7 +655,7 @@ body {
   font-weight: bold;
   text-transform: uppercase;
   font-family: 'Raleway';
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   padding: 0.5rem 0.25rem;
   display: none;
   letter-spacing: 0.5px;

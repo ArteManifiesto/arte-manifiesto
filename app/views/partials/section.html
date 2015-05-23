@@ -53,8 +53,8 @@
 
 					<div class="filter__title">Categorías</div>
 					
-					{% for category in productTypes %}
-						<div class="filter__item js-mainFilter" data-value="{{ category.nameSlugify }}">{{ category.name }}</div>
+					{% for productType in productTypes %}
+						<div class="filter__item js-mainFilter" data-value="{{ productType.nameSlugify }}">{{ productType.name }}</div>
 					{% endfor %}
 				
 				{% endif %}

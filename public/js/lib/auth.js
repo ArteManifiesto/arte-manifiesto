@@ -74,11 +74,11 @@ function Signup (el, data) {
 
 			$.post('/auth/signup', $(el).serialize(), function (response) {
 				// console.log('response: ', response)
-				submitButton.style.display = 'block'
-				loadingSubmit.style.display = 'none'
 
 				if(response.status === 409){
 					grecaptcha.reset()
+					submitButton.style.display = 'block'
+					loadingSubmit.style.display = 'none'
 				}
 				if(response.status == 200){
 					window.location.href = response.data.returnTo
@@ -213,13 +213,14 @@ function Login (el, data) {
 	function submit () {
 		submitButton.style.display = 'none'
 		loadingSubmit.style.display = 'block'
+		flashMessage.hide()
 
 		$.post('/auth/login', $(el).serialize(), function (response) {
-			console.log('response: ', response)
-			submitButton.style.display = 'block'
-			loadingSubmit.style.display = 'none'
+			// console.log('response: ', response)
 
 			if(response.status == 400){
+				submitButton.style.display = 'block'
+				loadingSubmit.style.display = 'none'
 				flashMessage.show('error', response.data)
 			}
 
@@ -247,9 +248,10 @@ function Remember (el, data) {
 	function submit () {
 		submitButton.style.display = 'none'
 		loadingSubmit.style.display = 'block'
+		flashMessage.hide()
 
 		$.post('/auth/forgot', $(el).serialize(), function (response) {
-			console.log('response: ', response)
+			// console.log('response: ', response)
 			submitButton.style.display = 'block'
 			loadingSubmit.style.display = 'none'
 
