@@ -558,6 +558,35 @@ body {
 .button-liner.disabled:hover .button-liner__action.cancel {
   display: table-cell;
 }
+.flash-message-container {
+  max-width: 1100px;
+  margin: auto;
+  display: none;
+}
+.flash-message {
+  text-align: center;
+  position: relative;
+  margin: 0 1rem;
+  padding: 0.5rem;
+}
+.flash-message.error {
+  background: #fae7c8;
+  color: #ce6637;
+}
+.flash-message.success {
+  background: rgba(0,128,0,0.4);
+  color: #fff;
+}
+.flash-message .text {
+  font-family: Arial;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+.flash-message .fa {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
 .auth-container {
   margin: auto;
   max-width: 400px;

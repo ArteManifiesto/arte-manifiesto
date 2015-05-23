@@ -6,6 +6,8 @@
 	{% set css = 'login' %}
 
 {% block elements %}
+	
+	{% include '../partials/flash-message.html' %}
 
 	{% include '../partials/auth.html' %}
 
@@ -14,6 +16,10 @@
 {% block scripts %}
 
 	<script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
+
+	<script type="text/javascript" src="/js/lib/flash-message.js"></script>
+	<script type="text/javascript" src="/js/lib/auth.js"></script>
+
 	<script type="text/javascript" src="/js/login.js"></script>
 
 {% endblock %}
