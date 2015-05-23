@@ -450,7 +450,7 @@ global.discoverUsers = function (options, count) {
         "SELECT * FROM (" +
         "<% if (count == undefined) { %>" +
         "SELECT `User`.`id`, `User`.`username`, `User`.`photo`, `User`.`firstname`, `User`.`lastname`, " +
-        "`User`.`featured`, " +
+        "`User`.`featured`, `User`.`views` " +
         "COUNT(DISTINCT `User.Followers`.`id`) AS `followers`, " +
         "COUNT(DISTINCT `User.Views`.`id`) AS `views`, " +
         "((COUNT(DISTINCT `User.Followers`.`id`) * 1) + (COUNT(DISTINCT `User`.`views`) * 3)) AS `popularity`, " +

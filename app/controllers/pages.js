@@ -94,7 +94,7 @@ var discover = function (req) {
 
 exports.works = function (req, res) {
     discover(req).then(function (data) {
-        return res.json(data);
+        //return res.json(data);
         return res.render('pages/works', data);
     });
 };
@@ -111,7 +111,7 @@ exports.products = function (req, res) {
         var query = {attributes: ['id', 'name', 'nameSlugify']};
         global.db.ProductType.findAll(query).then(function (productTypes) {
             data.productTypes = productTypes;
-            return res.json(data);
+            //return res.json(data);
             return res.render('pages/products', data);
         });
     });
