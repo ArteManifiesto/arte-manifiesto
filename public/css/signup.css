@@ -1,5 +1,5 @@
 /*------------------------------------*
-	$ LOGIN
+	$ SIGNUP
 *------------------------------------*/
 body {
   margin: 0;
@@ -790,4 +790,7 @@ body {
     -ms-transform: rotate(-360deg);
     transform: rotate(-360deg);
   }
+}
+.background-container {
+  min-height: 56rem;
 }

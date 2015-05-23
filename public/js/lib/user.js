@@ -13,16 +13,18 @@ function User(el, data) {
 		buttonFollow.addEventListener('click', function () {
 			console.log('click')
 			if (!user) {
-				location.href = '/auth/login'
+				location.href = '/auth/login?returnTo=' + location.href
 				return
 			}
-			// if (!following) follow()
-			// else unFollow()
+			if (!following) follow()
+			else unFollow()
 		})
 	}
 
 	function follow() {
-		$.post('/' + user.username + '/follow/', {idUser: id}, function (data) {
+		var url = '/' + user.username + '/follow/'
+
+		$.post(url, {idUser: id}, function (data) {
 			// console.log(data)
 			if (data.status == 200) {
 				following = true
@@ -34,7 +36,9 @@ function User(el, data) {
 	}
 
 	function unFollow() {
-		$.post('/' + user.username + '/unfollow/', {idUser: id}, function (data) {
+		var url = '/' + user.username + '/unfollow/'
+
+		$.post(url, {idUser: id}, function (data) {
 			// console.log(data)
 			if (data.status == 200) {
 				following = false
