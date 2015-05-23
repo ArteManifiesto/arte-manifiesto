@@ -73,7 +73,6 @@ var discover = function (req) {
     req.url = req.url.replace(req.params.page, 'page-1');
     return searchBridge(req).then(function (data) {
         var query = {attributes: ['name', 'nameSlugify']};
-
         return global.db.Category.findAll(query).then(function (categories) {
             data.categories = categories;
             return data;
@@ -83,7 +82,6 @@ var discover = function (req) {
 
 exports.works = function (req, res) {
     discover(req).then(function (data) {
-        //return res.json(data);
         return res.render('pages/works', data);
     });
 };

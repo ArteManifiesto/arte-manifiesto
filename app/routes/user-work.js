@@ -4,32 +4,33 @@ router.mergeParams = true;
 
 var config = require('../../config/config');
 var controller = require(config.controllersDir + "/user-work");
+var middlewares = require(config.middlewaresDir + "/app");
 
 router.use(function (req, res, next) {
-	var query;
-	if(req.body.idWork)
-		query = {where:{id:req.body.idWork}};
+    var query;
+    if (req.body.idWork)
+        query = {where: {id: req.body.idWork}};
 
-	if(req.params.nameWork)
-		query = {where:{nameSlugify:req.params.nameWork}};
-	
-	if(query === undefined)
-		return next();
+    if (req.params.nameWork)
+        query = {where: {nameSlugify: req.params.nameWork}};
 
-	global.db.Work.find(query).then(function(work){
-		if(!work){
-			if(req.xhr)
-				return res.badRequest('Work not exists');
+    if (query === undefined)
+        return next();
 
-			req.flash('errorMessage', 'Work not exists');
+    global.db.Work.find(query).then(function (work) {
+        if (!work) {
+            if (req.xhr)
+                return res.badRequest('Work not exists');
+
+            req.flash('errorMessage', 'Work not exists');
             return res.redirect('back');
-		}
-		req.work = work;
-		next();
-	});
+        }
+        req.work = work;
+        next();
+    });
 });
 
-router.get('/add', controller.add);
+router.get('/add', middlewares.shouldLogged, controller.add);
 router.get('/:nameWork', controller.work);
 
 router.post('/create', controller.create);
@@ -42,8 +43,8 @@ router.post('/unfeatured', controller.unFeatured);
 router.post('/like', controller.like);
 router.post('/unlike', controller.unLike);
 
-router.post('/public' , controller.public);
-router.post('/private' , controller.private);
+router.post('/public', controller.public);
+router.post('/private', controller.private);
 
 /*
  router.post('/work/add/collection', controller.workAddCollection);

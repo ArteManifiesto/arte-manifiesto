@@ -3,9 +3,10 @@ var isProduction = process.env.NODE_ENV == 'production';
 exports.shouldLogged = function (req, res, next) {
     if (!req.isAuthenticated()) {
         if (req.xhr)
-            return res.badRequest('You need to sign in or join before continuing.');
-        req.flash('errorMessage', 'You need to sign in or join before continuing.');
-        return res.redirect('/auth/login');
+            return res.badRequest('Necesitas iniciar sesión antes de continuar');
+
+        req.flash('errorMessage', 'Necesitas iniciar sesión antes de continuar');
+        return res.redirect('/auth/login/?returnTo=' + req.originalUrl);
     }
     next();
 };

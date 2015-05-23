@@ -51,7 +51,7 @@ module.exports = function (sequelize, DataTypes) {
             },
             hooks: {
                 afterCreate: function (product, options) {
-                    product.url = '/' + options.user.username + '/work/' + product.nameSlugify;
+                    product.url = '/' + options.user.username + '/product/' + product.nameSlugify;
                     return product.save();
                 }
             }
