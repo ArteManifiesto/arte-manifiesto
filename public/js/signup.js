@@ -28,6 +28,12 @@ function Signup (el, data) {
 			lastnameActive = false,
 			validLastname = false;
 
+	var facebookButton = el.querySelector('.facebook-button'),
+			loadingFacebook = el.querySelectorAll('.loading')[0];
+
+	var submitButton = el.querySelector('input[type="submit"]'),
+			loadingSubmit = el.querySelectorAll('.loading')[1];
+			// console.log('submitButton: ', submitButton)
 
 	function setup () {
 		username.addEventListener('focusout', function () {
@@ -80,6 +86,11 @@ function Signup (el, data) {
 			if(lastnameActive) evalLastname(this.value)
 		})
 
+		facebookButton.addEventListener('click', function () {
+			facebookButton.style.display = 'none'
+			loadingFacebook.style.display = 'block'
+		})
+
 		el.addEventListener('submit', function (ev) {
 			ev.preventDefault()
 			submit()
@@ -120,9 +131,14 @@ function Signup (el, data) {
 			submit = false
 		}
 
-		if(submit){	
+		if(submit){
+			submitButton.style.display = 'none'
+			loadingSubmit.style.display = 'block'
 			$.post('/auth/signup', $(el).serialize(), function (response) {
 				console.log('response: ', response)
+				submitButton.style.display = 'block'
+				loadingSubmit.style.display = 'none'
+
 				if(response.status === 409){
 					grecaptcha.reset();
 				}
