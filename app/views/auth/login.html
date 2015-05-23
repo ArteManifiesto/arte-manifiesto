@@ -6,10 +6,12 @@
 	{% set css = 'login' %}
 
 {% block elements %}
-	
-	{% include '../partials/flash-message.html' %}
 
-	{% include '../partials/auth.html' %}
+	<div class="background-container">
+		{% include '../partials/flash-message.html' %}
+
+		{% include '../partials/auth.html' %}
+	</div>
 
 {% endblock %}
 
