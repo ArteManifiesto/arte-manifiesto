@@ -17,32 +17,22 @@ module.exports = function (sequelize, DataTypes) {
             photo: DataTypes.STRING,
             description: DataTypes.TEXT,
             public: {type: DataTypes.BOOLEAN, defaultValue: true},
-            featured: {type: DataTypes.BOOLEAN, defaultValue: false}
+            featured: {type: DataTypes.BOOLEAN, defaultValue: false},
+
+            views: {type: DataTypes.INTEGER, defaultValue: 0}
         }, {
             classMethods: {
                 associate: function (models) {
                     Product.belongsToMany(models.User, {as: 'ProductLikes', through: 'ProductLikes'});
-                    Product.belongsToMany(models.User, {as: 'ProductViews', through: 'ProductViews'});
                     Product.belongsToMany(models.User, {as: 'ProductCollects', through: 'ProductCollects'});
+                    Product.belongsToMany(models.User, {as: 'ProductBuyers', through: 'ProductBuyers'});
 
                     Product.belongsToMany(models.Collection, {through: models.CollectionProduct});
-                    
-                     /*Product.belongsToMany(models.Collection, {
-                     through: {
-                     model: models.CollectionItem,
-                     unique: false,
-                     scope: {
-                     collectable: 'product'
-                     }
-                     },
-                     foreignKey: 'collectable_id',
-                     constraints: false
-                     });*/
 
                     Product.belongsTo(models.Work, {onDelete: 'cascade'});
                     Product.belongsTo(models.User);
+
                     Product.belongsTo(models.ProductType);
-                    Product.hasMany(models.Buyer);
                 }
             },
             instanceMethods: {
@@ -56,17 +46,6 @@ module.exports = function (sequelize, DataTypes) {
                     var scope = this;
                     return user.removeProductLike(this).then(function () {
                         return global.getNumLikesOfProduct({product: scope.id});
-                    });
-                }
-            },
-            hooks: {
-                afterCreate: function (product, options) {
-                    return global.db.ProductType.findAll({
-                        order: [global.db.sequelize.fn('RAND', '')],
-                        limit: 1
-                    }).then(function (types) {
-                        var type = types[0];
-                        return type.addProduct(product);
                     });
                 }
             }

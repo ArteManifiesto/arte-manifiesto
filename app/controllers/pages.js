@@ -10,7 +10,7 @@ var config = require('../../config/config');
 var Recaptcha = require('recaptcha').Recaptcha;
 
 exports.index = function (req, res) {
-    /*return global.db.Collection.create({name: 'New Collection'}).then(function (collection) {
+   /* return global.db.Collection.create({name: 'New Collection'}).then(function (collection) {
         global.db.Work.create({name: 'New Work'}).then(function (work) {
             collection.addWork(work).then(function () {
                 global.db.Product.create({id: 10000, name: 'New Product'}).then(function (product) {
@@ -22,26 +22,24 @@ exports.index = function (req, res) {
         });
     });*/
 
-    if(req.user){
+   /* if(req.user){
         return req.user.getSpecialties().then(function(specialties){
             return res.json(specialties)
         });   
     }
 
-    var recaptcha = new Recaptcha(config.recaptcha.publicKey, config.recaptcha.privateKey);
+    var recaptcha = new Recaptcha(config.recaptcha.publicKey, config.recaptcha.privateKey);*/
 
     var query = {where: {featured: true}, limit: 20};
     global.db.Product.findAll(query).then(function (workFeatureds) {
         return res.render('index', {
-            workFeatureds: workFeatureds,
-            recaptcha: recaptcha.toHTML()
+            workFeatureds: workFeatureds
         });
     });
 };
 
 exports.onBoard = function (req, res) {
-    return res.render('pages/onboard');
-
+    return res.render('pages/onboard')
     /*global.db.Category.findAll({order: [[global.db.sequelize.fn('RAND', '')]]}).then(function (categories) {
         var i, category, promises = [];
         for (i = 0; i < categories.length; i++) {

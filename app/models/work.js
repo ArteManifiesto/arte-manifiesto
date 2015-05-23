@@ -17,34 +17,16 @@ module.exports = function (sequelize, DataTypes) {
             photo: DataTypes.STRING,
             public: {type: DataTypes.BOOLEAN, defaultValue: true},
             featured: {type: DataTypes.BOOLEAN, defaultValue: false},
-            url: {type: DataTypes.STRING}
+            url: {type: DataTypes.STRING},
+            views: {type: DataTypes.INTEGER, defaultValue: 0}
         }, {
             classMethods: {
                 associate: function (models) {
                     Work.belongsToMany(models.User, {as: 'WorkLikes', through: 'WorkLikes'});
-                    Work.belongsToMany(models.User, {as: 'WorkViews', through: 'WorkViews'});
-                    Work.belongsToMany(models.User, {as: 'WorkCollects', through: 'WorkCollects'});
-                    
-                    Work.belongsTo(models.User, {onDelete: 'cascade'});
-
-                    Work.belongsToMany(models.Collection, {through: models.CollectionWork});
-
-/*
-                    Work.belongsToMany(models.Collection, {
-                        through: {
-                            model: models.CollectionItem,
-                            unique: false,
-                            scope: {
-                                collectable: 'work'
-                            }
-                        },
-                        foreignKey: 'collectable_id',
-                        constraints: false
-                    });
-                    */
                     Work.belongsToMany(models.Category, {through: 'WorkCategories'});
-
                     Work.belongsToMany(models.Tag, {through: 'WorkTags'});
+
+                    Work.belongsTo(models.User, {onDelete: 'cascade'});
 
                     Work.hasMany(models.Product);
                 }

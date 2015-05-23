@@ -7,42 +7,41 @@ var chance = new Chance();
 
 module.exports = function (sequelize, DataTypes) {
     var User = sequelize.define('User', {
-            username: DataTypes.STRING,//
-            email: DataTypes.STRING, //
-            firstname: DataTypes.STRING, //
-            lastname: DataTypes.STRING, //
-            gender: DataTypes.STRING,//
-            photo: DataTypes.STRING,//
+            username: DataTypes.STRING,
+            email: DataTypes.STRING,
+            firstname: DataTypes.STRING,
+            lastname: DataTypes.STRING,
+            gender: DataTypes.STRING,
+            photo: DataTypes.STRING,
             isArtist: {type: DataTypes.BOOLEAN, defaultValue: false},
 
-            city: DataTypes.STRING,//
-            country: DataTypes.STRING,//
-            biography: DataTypes.TEXT,//
-            birthday: DataTypes.DATE,//----->
-            // specialties in associations
-            school: DataTypes.STRING,//------>
+            city: DataTypes.STRING,
+            country: DataTypes.STRING,
+            biography: DataTypes.TEXT,
+            birthday: DataTypes.DATE,
+            school: DataTypes.STRING,
 
             //TODO maybe need other table association for social ?
-            facebook: DataTypes.STRING,//
+            facebook: DataTypes.STRING,
             facebookUserId: DataTypes.BIGINT(30),
-            twitter: DataTypes.STRING,//
-            instagram: DataTypes.STRING,//--->
-            tumblr: DataTypes.STRING,//
-            behance: DataTypes.STRING,//
-            web: DataTypes.STRING,//
+            twitter: DataTypes.STRING,
+            instagram: DataTypes.STRING,
+            tumblr: DataTypes.STRING,
+            behance: DataTypes.STRING,
+            web: DataTypes.STRING,
 
-            // interests in associations
             hashedPassword: DataTypes.STRING,
             salt: DataTypes.STRING,
             provider: DataTypes.STRING,
 
-            filled: {type: DataTypes.BOOLEAN, defaultValue: false},
             verified: {type: DataTypes.BOOLEAN, defaultValue: false},
+
             tokenVerifyEmail: DataTypes.STRING,
             tokenResetPassword: DataTypes.STRING,
             tokenResetPasswordExpires: DataTypes.DATE,
             featured: {type: DataTypes.BOOLEAN, defaultValue: false},
-            isAdmin: {type: DataTypes.BOOLEAN, defaultValue: false}
+            isAdmin: {type: DataTypes.BOOLEAN, defaultValue: false},
+            views: {type: DataTypes.INTEGER, defaultValue: 0}
         },
         {
             classMethods: {
@@ -53,16 +52,12 @@ module.exports = function (sequelize, DataTypes) {
                     User.belongsToMany(models.User, {as: 'Followers', foreignKey: 'FollowingId', through: 'Followers'});
                     User.belongsToMany(models.User, {as: 'Followings', foreignKey: 'FollowerId', through: 'Followers'});
 
-                    User.belongsToMany(models.User, {as: 'Viewers', foreignKey: 'ViewingId', through: 'UserViews'});
-                    User.belongsToMany(models.User, {as: 'Viewings', foreignKey: 'ViewerId', through: 'UserViews'});
-
                     User.belongsToMany(models.Work, {as: 'WorkLikes', through: 'WorkLikes'});
-                    User.belongsToMany(models.Work, {as: 'WorkViews', through: 'WorkViews'});
                     User.belongsToMany(models.Work, {as: 'WorkCollects', through: 'WorkCollects'});
 
                     User.belongsToMany(models.Product, {as: 'ProductLikes', through: 'ProductLikes'});
-                    User.belongsToMany(models.Product, {as: 'ProductViews', through: 'ProductViews'});
                     User.belongsToMany(models.Product, {as: 'ProductCollects', through: 'ProductCollects'});
+                    User.belongsToMany(models.Product, {as: 'ProductBuyers', through: 'ProductBuyers'});
 
                     User.hasMany(models.Collection);
                     User.hasMany(models.Work);
@@ -114,8 +109,6 @@ module.exports = function (sequelize, DataTypes) {
                     return global.db.Category.findAll(query).then(function (categories) {
                         var promises = [
                             user.save(),
-                            global.db.Collection.create({name: 'Portafolio', meta: 'portfolio'}),
-                            global.db.Collection.create({name: 'Favoritos', meta: 'works'}),
                             global.db.Collection.create({name: 'Tienda', meta: 'store'}),
                             global.db.Collection.create({name: 'Deseos', meta: 'products'}),
                             global.db.Collection.create({name: 'Regalos', meta: 'products'}),
@@ -125,10 +118,7 @@ module.exports = function (sequelize, DataTypes) {
                         ];
                         return global.db.Sequelize.Promise.all(promises).then(function (data) {
                             return user.addCollections(data.slice(1, data.length - 2)).then(function () {
-                                var collection = data[1];
-
                                 var ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
                                 promises = [
                                     global.db.Category.findAll({
                                         where: {id: {in: _.take(ids, _.random(1, 5))}},
@@ -148,16 +138,12 @@ module.exports = function (sequelize, DataTypes) {
 
                                 return global.db.Sequelize.Promise.all(promises).then(function (data) {
                                     var categories = data[0], tags = data[1], work = data[2];
-
-                                    return collection.addWork(work).then(function () {
-                                        promises = [
-                                            collection.reorderAfterWorkAdded([work]),
-                                            work.setUser(user),
-                                            work.setCategories(categories),
-                                            work.setTags(tags)
-                                        ];
-                                        return global.db.Sequelize.Promise.all(promises);
-                                    })
+                                    promises = [
+                                        work.setUser(user),
+                                        work.setCategories(categories),
+                                        work.setTags(tags)
+                                    ];
+                                    return global.db.Sequelize.Promise.all(promises);
                                 });
 
                             });

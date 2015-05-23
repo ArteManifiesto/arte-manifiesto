@@ -6,35 +6,8 @@ module.exports = function (sequelize, DataTypes) {
             }, {
                 classMethods: {
                     associate: function (models) {
-                        Collection.belongsToMany(models.Work, {through: models.CollectionWork});
                         Collection.belongsToMany(models.Product, {through: models.CollectionProduct});
                         
-                        //Collection.belongsToMany(models.Work , t)
-
-                        /*Collection.belongsToMany(models.Work, {
-                            as: 'work',
-                            through: {
-                                model: models.CollectionItem,
-                                unique: false,
-                                scope: {
-                                    collectable: 'work'
-                                }
-                            },
-                            foreignKey: 'collection_id'
-                        });
-
-                        Collection.belongsToMany(models.Product, {
-                            as: 'product',
-                            through: {
-                                model: models.CollectionItem,
-                                unique: false,
-                                scope: {
-                                    collectable: 'product'
-                                }
-                            },
-                            foreignKey: 'collection_id'
-                        });*/
-
                         Collection.belongsTo(models.User, {onDelete: 'cascade'});
                     }
                 },

@@ -3,21 +3,26 @@ var moment = require('moment');
 var config = require('../../config/config');
 var simple_recaptcha = require('simple-recaptcha-new');
 
+var checkReturnTo = function (req, res) {
+    var returnTo = req.query.returnTo || req.protocol + '://' + req.get('host');
+    res.cookie('returnTo', returnTo, {maxAge: 900000, httpOnly: true});
+}
+
 /**
  * Show the view page for signup
  */
 exports.signupPage = function (req, res) {
-    var profileCookie = req.cookies.profile;
+    checkReturnTo(req, res);
+    var profile = req.cookies.profile;
     res.clearCookie('profile');
-    return res.render('auth/signup', {
-        profile: profileCookie
-    });
+    return res.render('auth/signup', {profile: profile});
 };
 
 /**
  * User signup
  */
 exports.signup = function (req, res) {
+    console.log(req.body);
     var promises = [
         check('username', req.body.username),
         check('email', req.body.email)
@@ -70,6 +75,7 @@ var check = function (property, value) {
 exports.check = function (req, res) {
     if (req.query.property === undefined || req.query.value === undefined)
         return res.badRequest('You need pass property and value variables in query');
+
     var checkable = ['username', 'email'];
     if (checkable.indexOf(req.query.property) === -1)
         return res.badRequest('Invalid property value');
@@ -83,6 +89,7 @@ exports.check = function (req, res) {
  * Show the view page for login
  */
 exports.loginPage = function (req, res) {
+    checkReturnTo(req, res);
     return res.render('auth/login');
 };
 
@@ -101,19 +108,7 @@ exports.login = function (req, res) {
     })(req, res);
 };
 
-
-exports.facebook = function (req, res) {
-    /*var permissions = ['email', 'user_about_me', 'user_birthday', 'user_friends', 'user_website'];
-     passport.authenticate('facebook', {scope: permissions});*/
-    
-    var permissions = ['email', 'user_about_me', 'user_birthday', 'user_friends', 'user_website'];
-    passport.authenticate('facebook', function (err, user, profile) {
-        return res.json(profile);
-    })(req, res);
-}
-
 exports.facebookCallback = function (req, res) {
-    console.log('query', req.query);
     passport.authenticate('facebook', function (err, user, profile) {
         if (user)
             return loginUser(req, res, user);
@@ -140,18 +135,14 @@ var loginUser = function (req, res, user) {
         if (err)
             return res.internalServerError('Cannot login');
 
-        var callback;
-        if (req.query.callback !== undefined)
-            callback = req.query.callback
-        else
-            callback = req.protocol + '://' + req.get('host');
+        var returnTo = req.cookies.returnTo || req.protocol + '://' + req.get('host');
+
+        res.clearCookie('returnTo');
 
         if (!req.xhr)
-            return res.redirect(callback);
+            return res.redirect(returnTo);
 
-        return res.ok({
-            callback: callback
-        }, 'User logged');
+        return res.ok({returnTo: returnTo}, 'User logged');
     });
 };
 

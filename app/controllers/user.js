@@ -12,7 +12,7 @@ var request = require('request');
 exports.profile = function (req, res) {
     var currentPath = req.path.replace('/', '');
     if (currentPath.length == '') currentPath = 'portfolio';
-
+    
     var promises = [
         global.getNumCollectionsOfUser({user: req.profile.id, meta: 'portfolio'}),
         global.getNumLikesOfUser({user: req.profile.id}),
