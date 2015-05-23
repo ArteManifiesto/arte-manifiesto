@@ -1,10 +1,10 @@
 /*------------------------------------*
 	$ LOGIN
 *------------------------------------*/
-.login-container
+.auth-container
 	margin auto
 	max-width 400px
-.login
+.auth
 	position relative
 	margin 1.5rem 1rem
 	padding 1rem 1.5rem
@@ -20,6 +20,20 @@
 		.separator-text
 		.button-solid
 			margin .5rem 0
+		.username-error
+		.email-error
+		.password-error
+		.firstname-error
+		.lastname-error
+			color #f54545
+			margin-top -.5rem
+			font-weight bold
+			text-transform uppercase
+			font-family 'Raleway'
+			font-size .8rem
+			padding .5rem .25rem
+			display none
+			letter-spacing .5px
 		.question
 			display flex
 			margin 1rem 0
@@ -36,7 +50,10 @@
 				animation 1.5s circle infinite
 			&.visible
 				display block
-				
+		.g-recaptcha
+			display table
+			margin auto
+		
 
 @keyframes circle
 	0%
