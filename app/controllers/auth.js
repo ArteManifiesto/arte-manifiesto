@@ -169,13 +169,6 @@ exports.verify = function (req, res) {
 };
 
 /**
- * Forgot password view
- */
-exports.forgot = function (req, res) {
-    return res.render('auth/forgot');
-};
-
-/**
  * Send email with link for reset password
  */
 exports.forgotCreate = function (req, res) {

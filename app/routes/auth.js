@@ -16,7 +16,6 @@ router.post('/check', controller.check);
 
 router.get('/verify/:token', controller.verify);
 
-router.get('/forgot', controller.forgot);
 router.post('/forgot', controller.forgotCreate);
 
 router.get('/reset/:token', controller.reset);
