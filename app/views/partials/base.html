@@ -25,6 +25,8 @@
 		</div>
 		<div class="main-wrapper__content {% if path == 'signup' || path == 'login' %} background-container {% endif %}">
 			
+			{% include '../partials/flash-message.html' %}
+			
 			{% block elements %} {% endblock %}
 
 		</div>

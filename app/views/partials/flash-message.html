@@ -1,9 +1,30 @@
 <!-- ********************************************************************
 	$ FLASH MESSAGE
 ********************************************************************* -->
-<div class="flash-message-container">
-	<section class="flash-message">
-		<p class="text">Este es mensaje de error</p>
-		<i class="fa fa-times"></i>
+
+{% if successMessage.length == 0 && errorMessage.length == 0 %}
+	<section class="flash-message-container">
+		<div class="flash-message">
+			<p class="text"></p>
+			<i class="fa fa-times"></i>
+		</div>
 	</section>
-</div>
+{% endif %}
+
+{% if successMessage.length > 0 %}
+	<section class="flash-message-container" style="display: block;">
+		<div class="flash-message success">
+			<p class="text">{{ successMessage[0] }}</p>
+			<i class="fa fa-times"></i>
+		</div>
+	</section>
+{% endif %}
+
+{% if errorMessage.length > 0 %}
+	<section class="flash-message-container" style="display: block;">
+		<div class="flash-message error">
+			<p class="text"></p>
+			<i class="fa fa-times"></i>
+		</div>
+	</section>
+{% endif %}
