@@ -589,19 +589,19 @@ body {
   text-align: center;
   position: relative;
   margin: 0 1rem;
-  padding: 0.5rem;
+  padding: 1rem;
 }
 .flash-message.error {
   background: #fae7c8;
   color: #ce6637;
 }
 .flash-message.success {
-  background: #81c784;
-  color: #fff;
+  background: #e8edd0;
+  color: #48970c;
 }
 .flash-message .text {
   font-family: Arial;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   letter-spacing: 1px;
 }
 .flash-message .fa {
@@ -609,7 +609,7 @@ body {
   top: 0;
   right: 0;
   cursor: pointer;
-  padding: 0.5rem;
+  padding: 1rem;
 }
 .auth-container {
   margin: auto;
