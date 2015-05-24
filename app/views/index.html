@@ -7,3 +7,19 @@
 {% block elements %}
 
 {% endblock %}
+
+{% block scripts %}
+
+	<script type="text/javascript">
+
+		console.log('index!')
+
+		var successMessage = {{ successMessage|json|safe }}
+		console.log('successMessage: ', successMessage)
+
+		var errorMessage = {{ errorMessage|json|safe }}
+		console.log('errorMessage: ', errorMessage)
+
+	</script>
+
+{% endblock %}

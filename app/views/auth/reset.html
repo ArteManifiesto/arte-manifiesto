@@ -1,23 +1,35 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-{{ successMessage }}
-{{ errorMessage }}
-<form method="POST" id="reset">
-    <input type="password" name="password"/>
-    <input type="password" name="repassword"/>
-    <input type="submit"/>
-</form>
-<script src="/js/lib/jquery.min.js"></script>
-<script>
 
-	var userReset = {{ userReset|json|safe }}
-	console.log('userReset: ', userReset)
+{% extends '../partials/base.html' %}
 	
-</script>
-</body>
-</html>
+	{% set path = 'reset' %}
+	{% set title = 'Arte Manifiesto | Reset' %}
+	{% set css = 'reset' %}
+
+{% block elements %}
+
+		{% include '../partials/flash-message.html' %}
+
+		{% include '../partials/reset.html' %}
+
+{% endblock %}
+
+{% block scripts %}
+
+	<script>
+
+		var userReset = {{ userReset|json|safe }}
+		console.log('userReset: ', userReset)
+		
+	</script>
+	
+	<script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/reset.js"></script>
+
+	<!-- <script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
+
+	// <script type="text/javascript" src="/js/lib/flash-message.js"></script>
+	// <script type="text/javascript" src="/js/lib/auth.js"></script>
+
+	// <script type="text/javascript" src="/js/login.js"></script> -->
+
+{% endblock %}

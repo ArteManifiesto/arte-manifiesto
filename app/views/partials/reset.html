@@ -1,0 +1,15 @@
+<!-- ********************************************************************
+	$ RESET
+********************************************************************* -->
+<form class="reset">
+	<div class="reset-title">Reset Password</div>
+
+	<div class="reset-subtitle">Nuevo passwork para {{ userReset.username }}</div>
+	<input class="input" data-size='large' name="password" type="password">
+
+	<div class="reset-subtitle">Confirmar password</div>
+	<input class="input" data-size='large' name="repassword" type="password">
+	
+	<div class="loading"><i class="fa fa-spinner"></i></div>
+	<input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Reset" type="submit">
+</form>
