@@ -1,3 +1,5 @@
+var express = require('express');
+
 /**
  * Load general configuration
  * ====================================================
@@ -15,6 +17,7 @@ var dashboardRouter = require(config.routesDir + '/dashboard');
 var userRouter = require(config.routesDir + '/user');
 var checkoutRouter = require(config.routesDir + '/checkout');
 var middlewares = require(config.middlewaresDir + '/app');
+
 /**
  * Setup routers
  * ====================================================
@@ -22,7 +25,7 @@ var middlewares = require(config.middlewaresDir + '/app');
 exports.init = function (app) {
     app.use('/', pagesRouter);
     app.use('/auth', authRouter);
-    app.use('/dashboard', middlewares.shouldLogged, dashboardRouter);
-    app.use('/checkout',checkoutRouter);
+    app.use('/dashboard', middlewares.isLogged, dashboardRouter);
+    app.use('/checkout', checkoutRouter);
     app.use('/:username', userRouter);
 };

@@ -6,7 +6,7 @@ exports.add = function (req, res) {
     return res.render(basePath + 'work-create');
 };
 
-exports.product = function (req, res) {
+exports.index = function (req, res) {
     var options = {viewer: req.viewer, name: req.params.nameProduct};
     var getProduct = global.getProduct(options);
     global.db.sequelize.query(getProduct, {nest: true, raw: true}).then(function (data) {
@@ -48,34 +48,36 @@ exports.update = function (req, res) {
 
 };
 
+exports.public = function (req, res) {
+
+};
+
+exports.private = function (req, res) {
+
+};
+
 exports.featured = function (req, res) {
     global.db.Product.find(req.body.idProduct).then(function (product) {
         product.updateAttributes({featured: true}).then(function () {
-            return res.ok('Product featured');
+            return res.ok({product: req.product}, 'Product featured');
         });
     });
 };
 
 exports.unFeatured = function (req, res) {
-    global.db.Product.find(req.body.idProduct).then(function (product) {
-        product.updateAttributes({featured: false}).then(function () {
-            return res.ok('Product unFeatured');
-        });
+    req.product.updateAttributes({featured: false}).then(function () {
+        return res.ok({product: req.product}, 'Product unFeatured');
     });
 };
 
 exports.like = function (req, res) {
-    global.db.Product.find(req.body.idProduct).then(function (product) {
-        product.like(req.user).then(function (likes) {
-            return res.ok({product: product, likes: likes.likes}, 'Product liked');
-        });
-    })
+    req.product.like(req.user).then(function (likes) {
+        return res.ok({product: req.product, likes: likes.likes}, 'Product liked');
+    });
 };
 
 exports.unLike = function (req, res) {
-    global.db.Product.find(req.body.idProduct).then(function (product) {
-        product.unLike(req.user).then(function (likes) {
-            return res.ok({product: product, likes: likes.likes}, 'Product unLiked');
-        });
+    req.product.unLike(req.user).then(function (likes) {
+        return res.ok({product: req.product, likes: likes.likes}, 'Product unLiked');
     });
 };

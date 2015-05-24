@@ -12,7 +12,7 @@ var request = require('request');
 exports.profile = function (req, res) {
     var currentPath = req.path.replace('/', '');
     if (currentPath.length == '') currentPath = 'portfolio';
-    
+
     var promises = [
         global.getNumCollectionsOfUser({user: req.profile.id, meta: 'portfolio'}),
         global.getNumLikesOfUser({user: req.profile.id}),
@@ -138,7 +138,7 @@ exports.follow = function (req, res) {
     });
 };
 
-exports.unfollow = function (req, res) {
+exports.unFollow = function (req, res) {
     global.db.User.find(req.body.idUser).then(function (user) {
         user.unFollow(req.user).then(function (followers) {
             return res.ok(followers, 'User unFollowed');
@@ -154,7 +154,7 @@ exports.featured = function (req, res) {
     });
 };
 
-exports.unfeatured = function (req, res) {
+exports.unFeatured = function (req, res) {
     global.db.User.find(req.body.idUser).then(function (user) {
         user.updateAttributes({featured: false}).then(function () {
             return res.ok('User unFeatured');

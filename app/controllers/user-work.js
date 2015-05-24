@@ -1,20 +1,11 @@
 var basePath = 'user/work/';
-var redirectPath = '/' + basePath;
-var Chance = require('chance');
-var _ = require('lodash');
-var chance = new Chance();
 
-var async = require('async');
-var cloudinary = require('cloudinary').v2;
-var Promise = require('bluebird');
-
+exports.index = function (req, res) {
+    return res.render(basePath + 'work');
+};
 
 exports.add = function (req, res) {
     return res.render(basePath + 'add');
-};
-
-exports.work = function (req, res) {
-    return res.json({lel: 10});
 };
 
 /**
@@ -48,17 +39,11 @@ exports.create = function (req, res) {
     });
 };
 
-exports.workDelete = function (req, res) {
-    req.work.destroy().then(function () {
-        if (req.xhr)
-            return res.ok({work: req.work}, 'Obra eliminada');
-
-        req.flash('successMessage', 'Obra eliminada');
-        return res.redirect('back');
-    });
+exports.edit = function (req, res) {
+    return res.render(basePath + 'edit');
 };
 
-exports.workUpdate = function (req, res) {
+exports.update = function (req, res) {
     var promises = [
         global.db.Category.findAll({where: {id: {$in: req.body.categories}}}),
         global.db.Tag.findAll({where: {id: {$in: req.body.tags}}})
@@ -78,6 +63,16 @@ exports.workUpdate = function (req, res) {
             req.flash('successMessage', 'Obra actualizada');
             return res.redirect('back');
         });
+    });
+};
+
+exports.delete = function (req, res) {
+    req.work.destroy().then(function () {
+        if (req.xhr)
+            return res.ok({work: req.work}, 'Obra eliminada');
+
+        req.flash('successMessage', 'Obra eliminada');
+        return res.redirect('back');
     });
 };
 
