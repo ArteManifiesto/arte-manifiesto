@@ -6,13 +6,14 @@ var controller = require(config.controllersDir + "/user-work");
 var middlewares = require(config.middlewaresDir + "/app");
 
 var isLoggedAndOwner = [middlewares.isLogged, middlewares.isOwner];
+var entity = 'Work';
 
-router.use(middlewares.work);
+router.use(middlewares.entity(entity));
 
 router.get('/add', isLoggedAndOwner, controller.add);
 
-router.get('/:nameSlugify', middlewares.workNameSlugify, controller.index);
-router.get('/:nameSlugify/edit', isLoggedAndOwner, middlewares.workNameSlugify, controller.edit);
+router.get('/:nameSlugify', middlewares.nameSlugify(entity), controller.index);
+router.get('/:nameSlugify/edit', isLoggedAndOwner, middlewares.nameSlugify(entity), controller.edit);
 
 router.post('/create', isLoggedAndOwner, controller.create);
 router.post('/delete', isLoggedAndOwner, controller.delete);

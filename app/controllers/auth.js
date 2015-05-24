@@ -32,16 +32,16 @@ exports.signup = function (req, res) {
         var usernameAvailable = data[0], emailAvailable = data[1], errors = [];
 
         if (!usernameAvailable)
-            errors.push({username: 'username is not available'});
+            errors.push({username: 'Username no esta disponible'});
 
         if (!emailAvailable)
-            errors.push({email: 'email is not available'});
+            errors.push({email: 'Email no esta disponible'});
 
         var ip = req.ip, response = req.body['g-recaptcha-response'];
 
         simple_recaptcha(config.recaptcha.privateKey, ip, response, function (error) {
             if (error)
-                errors.push({recaptch: 'recaptcha not match'});
+                errors.push({recaptch: 'Recaptcha invalido'});
 
             if (errors.length > 0)
                 return res.conflict(errors);
@@ -74,14 +74,14 @@ var check = function (property, value) {
 
 exports.check = function (req, res) {
     if (req.query.property === undefined || req.query.value === undefined)
-        return res.badRequest('You need pass property and value variables in query');
+        return res.badRequest('Necesitas enviar una propiedad y valor');
 
     var checkable = ['username', 'email'];
     if (checkable.indexOf(req.query.property) === -1)
-        return res.badRequest('Invalid property value');
+        return res.badRequest('Propiedad invalida');
 
     check(req.query.property, req.query.value).then(function (available) {
-        return res.ok({available: available}, 'availability signup');
+        return res.ok({available: available}, 'Disponibilidad de recursos');
     });
 }
 
@@ -133,7 +133,7 @@ exports.logout = function (req, res) {
 var loginUser = function (req, res, user) {
     req.login(user, function (err) {
         if (err)
-            return res.internalServerError('Cannot login');
+            return res.internalServerError('No se pudo iniciar sesion');
 
         var returnTo = req.cookies.returnTo || req.protocol + '://' + req.get('host');
 
@@ -142,7 +142,7 @@ var loginUser = function (req, res, user) {
         if (!req.xhr)
             return res.redirect(returnTo);
 
-        return res.ok({returnTo: returnTo}, 'User logged');
+        return res.ok({returnTo: returnTo}, 'Sesion iniciada');
     });
 };
 
@@ -154,15 +154,15 @@ exports.verify = function (req, res) {
     var query = {where: {tokenVerifyEmail: req.params.token}};
     global.db.User.find(query).then(function (user) {
         if (!user) {
-            req.flash('errorMessage', 'Token invalid');
+            req.flash('errorMessage', 'Token invalido');
             return res.redirect('back');
         }
         if (user.verified) {
-            req.flash('successMessage', 'Email is already confirmed');
+            req.flash('successMessage', 'Email ya ah sido confirmado');
             return res.redirect('back');
         }
         user.updateAttributes({verified: true}).then(function () {
-            req.flash('successMessage', 'Email confirmed');
+            req.flash('successMessage', 'Email confirmado');
             return res.redirect('back');
         });
     })
@@ -175,7 +175,7 @@ exports.forgotCreate = function (req, res) {
     var query = {where: {email: req.body.email}};
     global.db.User.find(query).then(function (user) {
         if (!user)
-            return res.badRequest('Unknown user');
+            return res.badRequest('No existe una cuenta para ' + req.body.email);
 
         user.makeTokenResetPassword().then(function () {
             var params = {
@@ -184,7 +184,7 @@ exports.forgotCreate = function (req, res) {
                 url: req.protocol + '://' + req.get('host') + '/auth/reset/' + user.tokenResetPassword
             };
             global.emails.forgot(params).then(function () {
-                return res.ok('Email sended to ' + user.email);
+                return res.ok('Email enviado a ' + user.email);
             });
         });
     });
@@ -194,11 +194,11 @@ exports.reset = function (req, res) {
     var query = {where: {tokenResetPassword: req.params.token}};
     global.db.User.find(query).then(function (user) {
         if (!user) {
-            req.flash('errorMessage', 'Password reset token is invalid');
+            req.flash('errorMessage', 'Token invalidado');
             return res.redirect('back');
         }
         if (moment(user.tokenResetPasswordExpires).diff(moment()) < 0) {
-            req.flash('errorMessage', 'Password reset token is expired');
+            req.flash('errorMessage', 'Token expirado');
             return res.redirect('back')
         }
         return res.render('auth/reset', {userReset: user});
@@ -213,7 +213,7 @@ exports.resetVerify = function (req, res) {
         user.tokenResetPassword = null;
         user.tokenResetPasswordExpires = null;
         user.save().then(function (err) {
-            req.flash('successMessage', 'Password changed');
+            req.flash('successMessage', 'Contraseña actualizada');
             loginUser(req, res, user);
         });
     });

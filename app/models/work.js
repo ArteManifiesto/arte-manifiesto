@@ -13,8 +13,8 @@ module.exports = function (sequelize, DataTypes) {
                 }
             },
             nameSlugify: DataTypes.STRING,
-            description: DataTypes.TEXT,
             photo: DataTypes.STRING,
+            description: DataTypes.TEXT,
             public: {type: DataTypes.BOOLEAN, defaultValue: true},
             featured: {type: DataTypes.BOOLEAN, defaultValue: false},
             url: {type: DataTypes.STRING},

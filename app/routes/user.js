@@ -43,15 +43,4 @@ router.post('/collections/products/:page', isLoggedAndOwner, controller.collecti
 router.post('/followers/:page', isLoggedAndOwner, controller.followers);
 router.post('/followings/:page', isLoggedAndOwner, controller.followings);
 
-/*
- router.post('/update', controller.update);
- router.post('/collection/create', controller.collectionCreate);
- router.post('/collection/read', controller.collectionRead);
- router.post('/collection/update', controller.collectionUpdate);
- router.post('/collection/delete', controller.collectionDelete);
- router.post('/collection/reorder', controller.collectionReOrder);
- router.post('/featured', controller.userFeatured);
- router.post('/unfeatured', controller.userUnFeatured);
- */
-
 module.exports = router;

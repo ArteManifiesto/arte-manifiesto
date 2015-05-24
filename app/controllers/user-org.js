@@ -506,7 +506,7 @@ exports.unlike = function (req, res) {
  * create a collection passing data for that
  * @param * all paramaters for creation
  */
-exports.collectionCreate = function (req, res) {
+exports.create = function (req, res) {
     if (['work', 'product'].indexOf(req.body.meta) == -1)
         return res.json(responses.collectionCannotCreate(req.body.meta));
 
@@ -523,17 +523,10 @@ exports.collectionCreate = function (req, res) {
  * read a collection from the current user
  * @param idCollection
  */
-exports.collectionRead = function (req, res) {
-    var query = {where: {id: req.body.idCollection}, limit: 1};
-
-    req.user.getCollections(query).then(function (collections) {
-        var collection = collections[0];
-
-        if (!collection)
-            return res.json(responses.collectionNotExists(req.body.idCollection));
-
-        return res.json(collection);
-    })
+exports.index = function (req, res) {
+    req.collection.getProducts().then(function (products) {
+        return res.json({collection: req.collection, products: products});
+    });
 };
 
 /**
@@ -543,21 +536,9 @@ exports.collectionRead = function (req, res) {
  * @param idCollection the collection that will update
  * @param * all parameters for update
  */
-exports.collectionUpdate = function (req, res) {
-    var query = {where: {id: req.body.idCollection}, limit: 1};
-
-    req.user.getCollections(query).then(function (collections) {
-        var collection = collections[0];
-
-        if (!collection)
-            return res.json(responses.collectionNotExists(req.body.idCollection));
-
-        if (!collection.isMutable())
-            return res.json(responses.collectionIsInmutable(collection));
-
-        collection.updateAttributes(req.body).then(function () {
-            return res.json(responses.collectionUpdated(collection));
-        });
+exports.update = function (req, res) {
+    req.collection.updateAttributes(req.body).then(function () {
+        return res.json(responses.collectionUpdated(collection));
     });
 };
 

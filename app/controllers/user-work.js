@@ -1,7 +1,7 @@
 var basePath = 'user/work/';
 
 exports.index = function (req, res) {
-    return res.render(basePath + 'work');
+    return res.render(basePath + 'index');
 };
 
 exports.add = function (req, res) {

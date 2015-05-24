@@ -7,14 +7,10 @@ module.exports = function (sequelize, DataTypes) {
                 classMethods: {
                     associate: function (models) {
                         Collection.belongsToMany(models.Product, {through: models.CollectionProduct});
-                        
                         Collection.belongsTo(models.User, {onDelete: 'cascade'});
                     }
                 },
                 instanceMethods: {
-                    isMutable: function () {
-                        return ['work', 'product'].indexOf(this.meta) != -1;
-                    },
                     reorderAfterWorkAdded: function (works) {
                         /*var idWorks = _.pluck(works, 'id');
 
@@ -48,10 +44,10 @@ module.exports = function (sequelize, DataTypes) {
 
                          return global.db.Sequelize.Promise.all(promises);
                          });*/
-                    }
-                    ,
+                    },
                     reorderAfterWorkRemoved: function (work) {
-                        /*var currentOrder = this.CollectionWork.order;
+                        /*
+                         var currentOrder = this.CollectionWork.order;
 
                          var collectionQuery = {
                          where: {id: this.id},
@@ -76,15 +72,14 @@ module.exports = function (sequelize, DataTypes) {
                          return global.db.Sequelize.Promise.all(promises)
                          });*/
                     }
+                },
+                hooks: {
+                    beforeDestroy: function (collection, options, fn) {
+                        collection.setWorks(null).then(function () {
+                            fn(null, collection)
+                        });
+                    }
                 }
-                /*  ,
-                 hooks: {
-                 beforeDestroy: function (collection, options, fn) {
-                 collection.setWorks(null).then(function () {
-                 fn(null, collection)
-                 });
-                 }
-                 }*/
             }
         )
         ;

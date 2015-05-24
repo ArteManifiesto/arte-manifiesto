@@ -52,28 +52,32 @@ exports.user = function (req, res, next) {
     });
 };
 
-var workExists = function (query, req, res, next) {
-    global.db.Work.find(query).then(function (work) {
-        if (!work) {
+var entityExists = function (entity, query, req, res, next) {
+    global.db[entity].find(query).then(function (element) {
+        if (!element) {
             if (req.xhr)
-                return res.badRequest('Work not exists');
+                return res.badRequest(entity + ' not exists');
 
-            req.flash('errorMessage', 'Work not exists');
+            req.flash('errorMessage', entity + ' not exists');
             return res.redirect('/' + req.params.username);
         }
-        req.work = work;
+        req[entity.toLowerCase()] = element;
         next();
     });
-}
-
-exports.work = function (req, res, next) {
-    if (!req.body.idWork)
-        return next();
-    var query = {where: {id: req.body.idWork}};
-    workExists(query, req, res, next);
 };
 
-exports.workNameSlugify = function (req, res, next) {
-    var query = {where: {nameSlugify: req.params.nameSlugify}};
-    workExists(query, req, res, next);
+exports.entity = function (entity) {
+    return function (req, res, next) {
+        if (!req.body['id' + entity])
+            return next();
+        var query = {where: {id: req.body['id' + entity]}};
+        entityExists(entity, query, req, res, next);
+    }
+};
+
+exports.nameSlugify = function (entity) {
+    return function (req, res, next) {
+        var query = {where: {nameSlugify: req.params.nameSlugify}};
+        entityExists(entity, query, req, res, next);
+    }
 };

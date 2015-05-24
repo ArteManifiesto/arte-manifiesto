@@ -1,45 +1,66 @@
-var basePath = 'account/';
-var redirectPath = '/' + basePath;
+var basePath = 'user/collection/';
 
-exports.index = function (req, res) {
-    var promises = [
-        global.db.Category.findAll(),
-        req.user.getSpecialties(),
-        req.user.getInterests()
-    ];
-    global.db.Sequelize.Promise.all(promises).then(function (data) {
-        var categories = data[0], specialties = data[1], interests = data[2];
-        
-        return res.render(basePath + 'index', {
-            categories: categories,
-            specialties: specialties,
-            interests: interests
-        });
+exports.all = function (req, res) {
+    req.user.getCollections().then(function (collections) {
+        return res.ok({collections: collections}, 'Colecciones listadas');
+    });
+}
+
+/**
+ * Collection create
+ * ====================================================================
+ * create a collection
+ */
+exports.create = function (req, res) {
+    global.db.Collection.create(req.body).then(function (collection) {
+        req.user.addCollection(collection).then(function () {
+            if (req.xhr)
+                return res.ok({collection: collection}, 'Coleccion creada');
+        })
     });
 };
 
+/**
+ * Collection read
+ * ====================================================================
+ * read a collection
+ */
+exports.read = function (req, res) {
+    req.collection.getProducts().then(function (products) {
+        return res.json({collection: req.collection, products: products});
+    });
+};
+
+/**
+ * Collection update
+ * ====================================================================
+ * update collection
+ */
 exports.update = function (req, res) {
-    var specialtiesData = JSON.parse(req.body.specialties);
-    var interestsData = JSON.parse(req.body.interests);
+    req.collection.updateAttributes(req.body).then(function () {
+        return res.ok({collection: req.collection}, 'Coleccion actualizada');
+    });
+};
 
-    var promises = [
-        global.db.Category.findAll({where: {id: {in: specialtiesData}}}),
-        global.db.Category.findAll({where: {id: {in: interestsData}}})
-    ];
+/**
+ * Collection remove
+ * ====================================================================
+ * remove a collection
+ */
+exports.delete = function (req, res) {
+    req.collection.destroy().then(function () {
+        return res.ok({collection: req.collection}, 'Coleccion eliminada');
+    });
+};
 
-    global.db.Sequelize.Promise.all(promises).then(function (result) {
-        var specialties = result[0], interests = result[1];
-        promises = [
-            req.user.updateAttributes(req.body),
-            req.user.setSpecialties(specialties),
-            req.user.setInterests(interests)
-        ];
+exports.public = function (req, res) {
+    req.collection.updateAttributes({public: true}).then(function () {
+        return res.ok({collection: req.collection}, 'Coleccion publica');
+    });
+};
 
-        global.db.Sequelize.Promise.all(promises).then(function () {
-            return res.json({
-                code: 203,
-                message: 'User updated'
-            });
-        });
+exports.private = function (req, res) {
+    req.collection.updateAttributes({public: false}).then(function () {
+        return res.ok({collection: req.collection}, 'Coleccion privada');
     });
 };
