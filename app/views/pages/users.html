@@ -25,13 +25,32 @@
 					<% _.each(Works, function(work) { %>
 						<div class="work" style="background-image: url('<%= work.photo %>');"></div>
 					<% }); %>
+
+					<% if (Works.length < 6) { %>
+						<div class="work" style="background: #ccc; border: 1px solid white;"></div>
+					<% } %>
+					<% if (Works.length < 5) { %>
+						<div class="work" style="background: #ccc; border: 1px solid white;"></div>
+					<% } %>
+					<% if (Works.length < 4) { %>
+						<div class="work" style="background: #ccc; border: 1px solid white;"></div>
+					<% } %>
+					<% if (Works.length < 3) { %>
+						<div class="work" style="background: #ccc; border: 1px solid white;"></div>
+					<% } %>
+					<% if (Works.length < 2) { %>
+						<div class="work" style="background: #ccc; border: 1px solid white;"></div>
+					<% } %>
+					<% if (Works.length < 1) { %>
+						<div class="work" style="background: #ccc; border: 1px solid white;"></div>
+					<% } %>
 				</div>
 				<div class="user-follow">
-					{% if user.following %}
+					<% if (following) { %>
 						<button class="button-liner disabled" data-following="true" data-size='small'>
-					{% else %}
+					<% } else { %>
 						<button class="button-liner" data-following="false" data-size='small'>
-					{% endif %}
+					<% } %>
 							<span class="button-liner__action folllow">Seguir</span>
 							<span class="button-liner__action following"><i class="fa fa-check"></i> Siguiendo</span>
 							<span class="button-liner__action cancel"><i class="fa fa-times-circle"></i> Cancelar</span>

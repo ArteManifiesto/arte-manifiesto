@@ -1,0 +1,50 @@
+<!-- ********************************************************************
+	$ PROFILE
+********************************************************************* -->
+<section class="profile">
+	<div class="profile__info">
+		<!-- <div class="profile"> -->
+				<div class="profile__avatar">
+					<!-- <img src="{{ profile.photo }}"> -->
+					<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.png">
+				</div>
+				<div class="profile__data">
+					<div class="profile__name">
+						<p class="profile-text">{{ profile.firstname }} {{ profile.lastname }}</p>
+					</div>
+					<div class="profile__info">
+						<div class="profile__city">
+							<p class="skinny-text" data-color='light'><i class="fa fa-map-marker"></i> {{ profile.city }}</p>
+						</div>
+						<div class="profile__follow">
+
+							{% if profile.following %}
+								<button class="button-liner disabled js-followButton" data-size="small" data-following="true" data-userId="{{ profile.id }}">
+							{% else %}
+								<button class="button-liner js-followButton" data-size="small" data-following="false" data-userId="{{ profile.id }}">
+							{% endif %}
+									<span class="button-liner__action folllow">Seguir</span>
+									<span class="button-liner__action following"><i class="fa fa-check"></i> Siguiendo</span>
+									<span class="button-liner__action cancel"><i class="fa fa-times-circle"></i> Cancelar</span>
+									<span class="button-liner__number">{{ data[5].followers }}</span>
+								</button>
+						</div>
+					</div>
+				</div>
+		<!-- </div> -->
+	</div>
+	<div class="profile__menu">
+		<div class="square-menu-container">	
+			<div class="square-menu">
+				<div class="square-menu__item">Portafolio</div>
+				<div class="square-menu__item">Tienda</div>
+				<div class="square-menu__item">Likes <span class="number"></span></div>
+				<div class="square-menu__item">Seguidores <span class="number"></span></div>
+				<div class="square-menu__item">Siguiendo <span class="number"></span></div>
+			</div>
+		</div>
+	</div>
+	<div class="profile__elements">
+		
+	</div>
+</section>

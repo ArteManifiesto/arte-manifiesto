@@ -5,6 +5,8 @@
 	{% set css = 'profile' %}
 
 {% block elements %}
+	
+	{% include '../partials/profile.html' %}
 
 {% endblock %}
 
@@ -28,5 +30,7 @@
 		console.log('user: ', user);
 
 	</script>
+
+	<script type="text/javascript" src="js/profile.js"></script>
 
 {% endblock %}

@@ -45,7 +45,7 @@
 				<p class="lastname-error"></p>
 
 				<select class="input" name="gender">
-					<option disabled>Género</option>
+					<option disabled {% if !profile.gender %}selected{% endif %}>Género</option>
 					<option value="Male" {% if profile.gender === 'male' %}selected{% endif %}>Masculino</option>
 					<option value="Female" {% if profile.gender === 'female' %}selected{% endif %}>Femenino</option>
 				</select>
