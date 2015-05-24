@@ -141,7 +141,7 @@ var loginUser = function (req, res, user) {
 
         if (!req.xhr)
             return res.redirect(returnTo);
-        
+
         return res.ok({returnTo: returnTo}, 'User logged');
     });
 };
@@ -208,7 +208,7 @@ exports.reset = function (req, res) {
             req.flash('errorMessage', 'Password reset token is expired');
             return res.redirect('back')
         }
-        return res.render('auth/reset');
+        return res.render('auth/reset', {userReset: user});
     });
 };
 
