@@ -141,7 +141,7 @@ var loginUser = function (req, res, user) {
 
         if (!req.xhr)
             return res.redirect(returnTo);
-
+        
         return res.ok({returnTo: returnTo}, 'User logged');
     });
 };
@@ -191,7 +191,7 @@ exports.forgotCreate = function (req, res) {
                 url: req.protocol + '://' + req.get('host') + '/auth/reset/' + user.tokenResetPassword
             };
             global.emails.forgot(params).then(function () {
-                return res.ok('Email sended for reset password');
+                return res.ok('Email sended to ' + user.email);
             });
         });
     });
@@ -220,10 +220,8 @@ exports.resetVerify = function (req, res) {
         user.tokenResetPassword = null;
         user.tokenResetPasswordExpires = null;
         user.save().then(function (err) {
-            req.login(user, function (err) {
-                req.flash('successMessage', 'Password changed');
-                return res.redirect('/dashboard');
-            });
+            req.flash('successMessage', 'Password changed');
+            loginUser(req, res, user);
         });
     });
 };
