@@ -1,0 +1,10 @@
+<!-- ********************************************************************
+    $ WORKS
+********************************************************************* -->
+<section class="works" data-columns>
+	{% for work in works %}
+		<article class="work" data-index="{{ loop.index }}">
+			<img src="{{ work.photo }}">
+		</article>
+	{% endfor %}
+</section>

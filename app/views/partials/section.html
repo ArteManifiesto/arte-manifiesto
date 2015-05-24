@@ -23,8 +23,10 @@
 					<li class="option" data-search='username'>Buscar Username: <span class="search-text"></span></li>
 				{% elseif path == 'products' %}
 					<li class="option" data-search='name'>Buscar Nombre: <span class="search-text"></span></li>
+				{% elseif path == 'works' %}
+					<li class="option" data-search='name'>Buscar Nombre: <span class="search-text"></span></li>
+					<li class="option" data-search='tag'>Buscar Tag: <span class="search-text"></span></li>
 				{% endif %}
-				<!-- <li class="option" data-search='tag'>Buscar Tag: <span class="search-text"></span></li> -->
 			</ul>
 		</div>
 		<button class="button-filter"><i class="fa fa-caret-left"></i> &nbsp; Categorías</button>
@@ -55,6 +57,14 @@
 					
 					{% for productType in productTypes %}
 						<div class="filter__item js-mainFilter" data-value="{{ productType.nameSlugify }}">{{ productType.name }}</div>
+					{% endfor %}
+
+				{% elseif path == 'works' %}
+
+					<div class="filter__title">Categorías</div>
+					
+					{% for category in categories %}
+						<div class="filter__item js-mainFilter" data-value="{{ category.nameSlugify }}">{{ category.name }}</div>
 					{% endfor %}
 				
 				{% endif %}
@@ -99,6 +109,16 @@
 				<div class="empty-result {% if products.length == 0 %} visible {% endif %}">
 					<p class="italic-text">No se encontraron resultados,
 						<a href="/products/type/all/page-1/">Ver todos los productos</a>
+					</p>
+				</div>
+				
+			{% elseif path == 'works' %}
+
+				{% include '../partials/works.html' %}
+
+				<div class="empty-result {% if works.length == 0 %} visible {% endif %}">
+					<p class="italic-text">No se encontraron resultados,
+						<a href="/works/category/all/page-1/">Ver todas las obras</a>
 					</p>
 				</div>
 

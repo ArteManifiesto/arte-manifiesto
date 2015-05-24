@@ -122,9 +122,12 @@ function Section (data) {
 		url = url.replace('page-' + pagination.page, 'page-1')
 		url = url.replace(path , 'search/' + path)
 
-		resetElements()
+		if(path != 'works') resetElements()
+		else resetWorks()
 		
+		console.log('url: ', url)
 		getElements(url, function (elements) {
+			console.log('elements: ', elements)
 			renderElements(elements)
 		})
 	}
@@ -157,10 +160,12 @@ function Section (data) {
 		var currentValue = url.split('/')[5]
 		if(path == 'users') url =	url.replace('specialty/' + currentValue, 'specialty/' + value)
 		if(path == 'products') url =	url.replace('type/' + currentValue, 'type/' + value)
+		if(path == 'works') url =	url.replace('category/' + currentValue, 'category/' + value)
 		url = url.replace('page-' + pagination.page, 'page-1')
 		url = url.replace(path , 'search/' + path)
 		
-		resetElements()
+		if(path != 'works') resetElements()
+		else resetWorks()
 
 		console.log('url: ', url)
 		getElements(url, function (elements) {
@@ -171,6 +176,19 @@ function Section (data) {
 
 	function resetElements () {
 		container.innerHTML = ""
+		emptyResult.classList.remove('visible')
+		moreSection.classList.add('hidden')
+		scrollMode = false
+	}
+
+	function resetWorks () {
+		var worksEls = container.querySelectorAll('.work')
+
+		for (var i = worksEls.length - 1; i >= 0; i--) {
+			// console.log('worksEl: ', worksEls[i])
+			worksEls[i].remove()
+		}
+
 		emptyResult.classList.remove('visible')
 		moreSection.classList.add('hidden')
 		scrollMode = false
@@ -212,10 +230,11 @@ function Section (data) {
 	function addElements (elements) {
 		for (var i = 0; i < elements.length; i++) {
 			var object = makeObject(template, elements[i])
-			// console.log('elements[i]: ', elements[i])
-			// console.log('object: ', object)
 			createObject(object, elements[i])
-			container.appendChild(object)
+			if(path != 'works')
+				container.appendChild(object)
+			else
+				salvattore['append_elements'](container, [object])
 		}
 	}
 
