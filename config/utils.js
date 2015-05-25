@@ -66,7 +66,7 @@ global.discoverOptions = function (req) {
     options.entity = entity;
     options.viewer = req.body.idUser ? req.body.idUser : 0;
     options.page = req.params.page;
-    options.limit = 3;
+    options.limit = 10;
     options.featured = req.query.featured;
     options.order = global.getOrder(req.query.order);
     if (req.query.time)
@@ -94,26 +94,16 @@ global.searchWorks = function (req) {
 
 global.searchUsers = function (req) {
     var options = discoverOptions(req);
-    options.specialty = undefined;
-    options.username = req.query.username ? req.query.username : undefined;
+    options.username = req.query.username;
+    var query = {order: [options.order, 'username'], build: true};
+    if (options.time !== undefined)
+        query.where.createdAt = {$between: options.time};
+    if (options.username !== undefined)
+        query.where.username = options.username;
+    if (options.featured !== undefined)
+        query.where.featured = true;
 
-    var query = {where: {nameSlugify: req.params.value}};
-    return global.db.Category.find(query).then(function (specialty) {
-        options.specialty = specialty ? specialty.id : 0;
-        if (req.params.value == 'all') options.specialty = undefined;
-
-        return global.getPaginationData(options).then(function (data) {
-            var i, promises = [];
-            for (i = 0; i < data.users.length; i++)
-                promises.push(global.getWorksFromUserId(data.users[i].id, 6));
-
-            return global.db.Sequelize.Promise.all(promises).then(function (result) {
-                for (i = 0; i < result.length; i++)
-                    data.users[i]['Works'] = result[i];
-                return data;
-            });
-        });
-    });
+    return global.getPaginationEntity('User', options, query);
 };
 
 global.searchProducts = function (req) {
@@ -139,16 +129,14 @@ global.getWorksFromUserId = function (id, limit) {
     });
 }
 
-
 global.getPagination = function (page, limit) {
-    console.log('page raw', page);
     var split = parseInt(page.split('-')[1], 10);
     page = _.isNaN(split) ? 1 : split;
     page = page > 10000 ? 1 : page;
-    console.log('page ', page);
     var offset = page > 0 ? ((page - 1) * limit) : 0;
     return {page: page, limit: limit, offset: offset};
 };
+
 global.getParameter = function (data, value) {
     var index = data.indexOf(value);
     if (index < 0)index = 0;
@@ -170,13 +158,13 @@ global.getOrder = function (order) {
             order = [global.db.sequelize.col('views'), 'DESC'];
             break;
         case 'newest':
-            order = '`createdAt` DESC';
+            order = [global.db.sequelize.col('createdAt'), 'DESC'];
             break;
         case 'price_asc':
-            order = '`price` ASC';
+            order = [global.db.sequelize.col('price'), 'ASC'];
             break;
         case 'price_desc':
-            order = '`price` DESC';
+            order = [global.db.sequelize.col('price'), 'DESC'];
             break;
     }
     return order;
@@ -339,14 +327,7 @@ global.getNumLikesOfWork = function (options) {
         "AND `Likes`.`WorkId` = <%= work %>;";
     return getCount(queryTemplate, options);
 };
-global.getNumLikesOfProduct = function (options) {
-    var queryTemplate =
-        "SELECT COUNT(DISTINCT `User`.`id`) AS `likes` " +
-        "FROM   `Users` AS `User` INNER JOIN `ProductLikes` AS `Likes` " +
-        "ON `User`.`id` = `Likes`.`UserId` " +
-        "AND `Likes`.`ProductId` = <%= product %>;";
-    return getCount(queryTemplate, options);
-}
+
 global.getCount = function (queryTemplate, options) {
     var query = _.template(queryTemplate)(options);
     return global.db.sequelize.query(query, {nest: true, raw: true}).then(function (data) {

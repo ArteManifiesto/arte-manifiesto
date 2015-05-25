@@ -84,7 +84,6 @@ exports.users = function (req, res) {
 
 exports.products = function (req, res) {
     searchBridge(req).then(function (data) {
-        return res.json(data);
         var query = {attributes: ['id', 'name', 'nameSlugify']};
         global.db.ProductType.findAll(query).then(function (productTypes) {
             data.productTypes = productTypes;

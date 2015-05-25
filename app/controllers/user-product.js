@@ -1,58 +1,24 @@
 var basePath = 'user/product/';
-var _ = require('lodash');
 
 exports.index = function (req, res) {
+    req.product.views += 1;
     var promises = [
+        req.product.save(),
         req.product.userLikes(),
         req.product.more(),
         req.product.similar(req)
     ];
     global.db.Sequelize.Promise.all(promises).then(function (result) {
         return res.render(basePath + 'index', {
-            product: req.product, userLikes: result[0],
-            more: result[1], similar: result[2]
+            product: req.product, userLikes: result[1],
+            more: result[2], similar: result[3]
         });
     });
 };
 
-exports.add = function (req, res) {
-    return res.render(basePath + 'add');
-};
-
-
-exports.edit = function (req, res) {
-
-}
-
-exports.checkout = function (req, res) {
-
-}
-
-
-exports.create = function (req, res) {
-};
-
-exports.delete = function (req, res) {
-
-};
-
-exports.update = function (req, res) {
-
-};
-
-exports.public = function (req, res) {
-
-};
-
-exports.private = function (req, res) {
-
-};
-
 exports.featured = function (req, res) {
-    global.db.Product.find(req.body.idProduct).then(function (product) {
-        product.updateAttributes({featured: true}).then(function () {
-            return res.ok({product: req.product}, 'Product featured');
-        });
+    req.product.updateAttributes({featured: true}).then(function () {
+        return res.ok({product: req.product}, 'Product featured');
     });
 };
 

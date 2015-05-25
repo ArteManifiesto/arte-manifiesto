@@ -38,17 +38,17 @@ module.exports = function (sequelize, DataTypes) {
             },
             instanceMethods: {
                 like: function (user) {
-                    var scope = this, promises = [
-                        this.addProductLike(user), this.increment({popularity: 3})
-                    ];
+                    var scope = this;
+                    this.popularity += 3;
+                    var promises = [this.addProductLike(user), this.save()];
                     return global.db.Sequelize.Promise.all(promises).then(function () {
                         return scope.likes();
                     });
                 },
                 unLike: function (user) {
-                    var scope = this, promises = [
-                        this.removeProductLike(user), this.decrement({popularity: 3})
-                    ];
+                    var scope = this;
+                    this.popularity -= 3;
+                    var promises = [this.removeProductLike(user), this.save()];
                     return global.db.Sequelize.Promise.all(promises).then(function () {
                         return scope.likes();
                     });
@@ -86,13 +86,13 @@ module.exports = function (sequelize, DataTypes) {
                     if (user === undefined)
                         return [];
 
-                    var scope = this, queryProductLikes = {attributes: ['id']};
-                    return this.getProductLikes(queryProductLikes).then(function (productLikes) {
+                    var scope = this, queryLikes = {attributes: ['id']};
+                    return this.getProductLikes(queryLikes).then(function (likes) {
                         var queryFollowings = {attributes: ['id', 'username', 'photo', 'url']};
                         return user.getFollowings(queryFollowings).then(function (followings) {
-                            var productLikesId = _.pluck(productLikes, 'id');
+                            var likesId = _.pluck(likes, 'id');
                             var followingsId = _.pluck(followings, 'id');
-                            var intersection = _.intersection(productLikesId, followingsId);
+                            var intersection = _.intersection(likesId, followingsId);
                             var result = [];
                             for (var i = 0; i < intersection.length; i++)
                                 result.push(_.where(followings, {id: intersection[i]})[0]);
@@ -136,19 +136,20 @@ module.exports = function (sequelize, DataTypes) {
                     }];
                     fn(null, options);
                 },
-                afterFind: function (products, options, fn) {
-                    if (!options.build)
+                afterFind: function (items, options, fn) {
+                    if ((!options.build) || (items === null) ||
+                        (_.isArray(items) && items.length < 1))
                         return fn(null, options);
 
-                    if (!_.isArray(products)) {
-                        return products.buildParts(options).then(function () {
+                    if (!_.isArray(items)) {
+                        return items.buildParts(options).then(function () {
                             return fn(null, options);
                         });
                     }
 
-                    var i, product, promises = [];
-                    for (i = 0; i < products.length; i++)
-                        promises.push(products[i].buildParts(options));
+                    var i, promises = [];
+                    for (i = 0; i < items.length; i++)
+                        promises.push(items[i].buildParts(options));
                     return global.db.Sequelize.Promise.all(promises).then(function () {
                         return fn(null, options);
                     });

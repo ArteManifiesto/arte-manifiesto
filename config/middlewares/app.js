@@ -35,7 +35,9 @@ exports.user = function (req, res, next) {
         req.owner = true;
         return next();
     }
-    var query = {where: {username: req.params.username}};
+    var query = {
+        where: {username: req.params.username}
+    };
     global.db.User.find(query).then(function (user) {
         if (!user)
             if (req.xhr) {

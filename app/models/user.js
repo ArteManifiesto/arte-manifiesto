@@ -42,7 +42,8 @@ module.exports = function (sequelize, DataTypes) {
             featured: {type: DataTypes.BOOLEAN, defaultValue: false},
             isAdmin: {type: DataTypes.BOOLEAN, defaultValue: false},
             views: {type: DataTypes.INTEGER, defaultValue: 0},
-            url: {type: DataTypes.STRING}
+            url: {type: DataTypes.STRING},
+            popularity: {type: DataTypes.INTEGER, defaultValue: 0}
         },
         {
             classMethods: {
@@ -92,6 +93,51 @@ module.exports = function (sequelize, DataTypes) {
                     var scope = this;
                     return this.removeFollower(user).then(function () {
                         return global.getNumFollowersOfUser({user: scope.id});
+                    });
+                },
+                buildParts: function (options) {
+                    var scope = this, worksQuery = {
+                        attributes: ['id', 'name', 'photo', 'url'],
+                        limit: 6
+                    };
+                    return global.db.Sequelize.Promise.all([
+                        scope.numOfFollowers(),
+                        scope.numOfWorks(),
+                        scope.following(options.viewer),
+                        scope.getWorks(worksQuery)
+                    ]).then(function (result) {
+                        scope.setDataValue('numOfFollowers', result[0]);
+                        scope.setDataValue('numOfWorks', result[1]);
+                        scope.setDataValue('following', result[2]);
+                        scope.setDataValue('works', result[3]);
+                    });
+                },
+                numOfFollowers: function () {
+                    var scope = this,
+                        query = {
+                            attributes: [
+                                [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'numOfFollowers']
+                            ]
+                        };
+                    return this.getFollowers(query).then(function (result) {
+                        return result[0].getDataValue('numOfFollowers');
+                    });
+                },
+                numOfWorks: function () {
+                    var scope = this,
+                        query = {
+                            attributes: [
+                                [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'numOfWorks']
+                            ]
+                        }
+                    return this.getWorks(query).then(function (result) {
+                        return result[0].getDataValue('numOfWorks');
+                    })
+                },
+                following: function (viewer) {
+                    var scope = this, query = {where: {id: viewer}};
+                    return this.getFollowings(query).then(function (followings) {
+                        return followings.length > 0;
                     });
                 }
             },
@@ -151,6 +197,24 @@ module.exports = function (sequelize, DataTypes) {
                         });
                     });
 
+                },
+                afterFind: function (items, options, fn) {
+                    if ((!options.build) || (items === null) ||
+                        (_.isArray(items) && items.length < 1))
+                        return fn(null, options);
+
+                    if (!_.isArray(items)) {
+                        return items.buildParts(options).then(function () {
+                            return fn(null, options);
+                        });
+                    }
+
+                    var i, promises = [];
+                    for (i = 0; i < items.length; i++)
+                        promises.push(items[i].buildParts(options));
+                    return global.db.Sequelize.Promise.all(promises).then(function () {
+                        return fn(null, options);
+                    });
                 }
             }
         }
