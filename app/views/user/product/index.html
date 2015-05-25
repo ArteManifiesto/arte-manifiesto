@@ -1,34 +1,39 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-</head>
-<body>
-<script type="text/javascript">
+{% extends '../../partials/base.html' %}
+	
+	{% set path = 'product' %}
+	{% set title = 'Arte Manifiesto | Product' %}
+	{% set css = 'single-product' %}
 
-    var product = {{ product|json|safe }};
-    console.log('product: ', product)
+{% block elements %}
+	
+	{% include '../../partials/single-product.html' %}
 
-    var userLikes = {{userLikes|json|safe}};
-    console.log('userLikes: ', userLikes);
+{% endblock %}
 
-    var more = {{more|json|safe}};
-    console.log('more: ', more);
+{% block scripts %}
+	<script type="text/javascript">
 
-    var similar = {{similar|json|safe}};
-    console.log('similar: ', similar);
+		var product = {{ product|json|safe }};
+		console.log('product: ', product)
 
-    var user = {{ user|json|safe }}
-    console.log('user: ', user);
+		var userLikes = {{userLikes|json|safe}};
+		console.log('userLikes: ', userLikes);
 
-    new Product(document.querySelector('.single-product'), {
-        id: product.id,
-        likes: product.likes,
-        liked: product.liked,
-        buttonLikeClass: 'js-buttonLike'
-    })
+		var more = {{more|json|safe}};
+		console.log('more: ', more);
 
-</script>
-</body>
-</html>
+		var similar = {{similar|json|safe}};
+		console.log('similar: ', similar);
+
+		var user = {{ user|json|safe }}
+		console.log('user: ', user);
+
+		new Product(document.querySelector('.single-product'), {
+			id: product.id,
+			likes: product.likes,
+			liked: product.liked,
+			buttonLikeClass: 'js-buttonLike'
+		})
+
+	</script>
+{% endblock %}
