@@ -66,7 +66,7 @@ module.exports = function (sequelize, DataTypes) {
                             ]
                         }
                     return this.getProductLikes(query).then(function (result) {
-                        return scope.setDataValue('liked', result[0].getDataValue('likes'));
+                        return scope.setDataValue('likes', result[0].getDataValue('likes'));
                     });
                 },
                 liked: function (viewer) {
@@ -98,7 +98,11 @@ module.exports = function (sequelize, DataTypes) {
                     return this.getProductLikes(query);
                 },
                 similar: function (options) {
-                    var query = {where: {ProductTypeId: this.ProductTypeId, id: {$not: [this.id]}}, limit: 10};
+                    var query = {
+                        where: {ProductTypeId: this.ProductTypeId, id: {$not: [this.id]}},
+                        order: [global.db.sequelize.fn('RAND')],
+                        limit: 10
+                    };
                     return global.db.Product.findAll(query).then(function (products) {
                         var i, promises = [];
                         for (i = 0; i < products.length; i++)
@@ -107,7 +111,11 @@ module.exports = function (sequelize, DataTypes) {
                     });
                 },
                 more: function () {
-                    var query = {where: {id: {$not: [this.id]}}, limit: 6};
+                    var query = {
+                        where: {id: {$not: [this.id]}},
+                        order: [global.db.sequelize.fn('RAND')],
+                        limit: 6
+                    };
                     return this.User.getProducts(query);
                 }
             },
