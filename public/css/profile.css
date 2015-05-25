@@ -167,6 +167,13 @@ input[type="submit"] {
 .high-text[data-color='light'] {
   color: #aaa;
 }
+.profile-text {
+  font-family: 'Oswald';
+  font-size: 1.5rem;
+  color: #585858;
+  letter-spacing: 0.5px;
+  line-height: 1em;
+}
 .thick-menu-container {
   display: block;
   font-weight: 600;
@@ -586,8 +593,11 @@ body {
 }
 .profile {
   background: #f6f6f6;
+  overflow: hidden;
 }
-.profile__info {
+.profile__information {
+  max-width: 1100px;
+  margin: 1.5rem auto;
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;
@@ -600,40 +610,40 @@ body {
   -ms-flex-align: center;
   -webkit-align-items: center;
   align-items: center;
-  max-width: 1100px;
-  margin: auto;
-  padding: 1.5rem 0;
+}
+.profile__avatar {
+  margin: 0 1rem;
+  width: 5rem;
+}
+.profile__avatar img {
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+.profile__data .profile__info {
+  margin-top: 0.75rem;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -o-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.profile__data .profile__info .skinny-text {
+  padding-right: 1rem;
 }
 .profile__elements {
   height: 200px;
   background: #fff;
   border-top: solid 1px #ddd;
 }
-.profile__avatar {
-  width: 5rem;
-  margin: 0 1rem;
-}
-.profile__avatar img {
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-}
-.profile__info {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: box;
-  display: flex;
-  -webkit-box-align: center;
-  -moz-box-align: center;
-  -o-box-align: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  align-items: center;
-  padding-top: 0.75rem;
-}
-.profile__city {
-  padding-right: 1rem;
+.profile__element {
+  display: none;
 }
 @media (min-width: 590px) {
   .profile__avatar {

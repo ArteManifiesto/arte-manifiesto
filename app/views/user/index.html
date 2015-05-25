@@ -12,10 +12,16 @@
 
 {% block scripts %}
 	
+	<script type="text/template" id="work-template">
+		<article class="work">
+			<img src="<%= photo %>">
+		</article>
+	</script>
+
 	<script>
 
-		var data = {{ data|json|safe }};
-		console.log('data: ', data);
+		// var data = {{ data|json|safe }};
+		// console.log('data: ', data);
 
 		var currentPath = {{ currentPath|json|safe }};
 		console.log('path: ', currentPath);
@@ -31,6 +37,8 @@
 
 	</script>
 
+	<script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/vendor/underscore-min.js"></script>
 	<script type="text/javascript" src="js/profile.js"></script>
 
 {% endblock %}
