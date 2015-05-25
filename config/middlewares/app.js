@@ -77,7 +77,7 @@ exports.entity = function (entity) {
 
 exports.nameSlugify = function (entity) {
     return function (req, res, next) {
-        var query = {where: {nameSlugify: req.params.nameSlugify}};
+        var query = {where: {nameSlugify: req.params.nameSlugify}, build: true};
         entityExists(entity, query, req, res, next);
     }
 };

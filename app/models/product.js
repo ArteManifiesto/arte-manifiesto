@@ -19,7 +19,8 @@ module.exports = function (sequelize, DataTypes) {
             public: {type: DataTypes.BOOLEAN, defaultValue: true},
             featured: {type: DataTypes.BOOLEAN, defaultValue: false},
             url: {type: DataTypes.STRING},
-            views: {type: DataTypes.INTEGER, defaultValue: 0}
+            views: {type: DataTypes.INTEGER, defaultValue: 0},
+            popularity: {type: DataTypes.INTEGER, defaultValue: 0}
         }, {
             classMethods: {
                 associate: function (models) {
@@ -37,15 +38,19 @@ module.exports = function (sequelize, DataTypes) {
             },
             instanceMethods: {
                 like: function (user) {
-                    var scope = this;
-                    return user.addProductLike(this).then(function () {
-                        return global.getNumLikesOfProduct({product: scope.id});
+                    var scope = this, promises = [
+                        this.addProductLike(user), this.increment({popularity: 3})
+                    ];
+                    return global.db.Sequelize.Promise.all(promises).then(function () {
+                        return scope.likes();
                     });
                 },
                 unLike: function (user) {
-                    var scope = this;
-                    return user.removeProductLike(this).then(function () {
-                        return global.getNumLikesOfProduct({product: scope.id});
+                    var scope = this, promises = [
+                        this.removeProductLike(user), this.decrement({popularity: 3})
+                    ];
+                    return global.db.Sequelize.Promise.all(promises).then(function () {
+                        return scope.likes();
                     });
                 },
                 buildParts: function (options) {
@@ -55,7 +60,9 @@ module.exports = function (sequelize, DataTypes) {
                         scope.liked(options.viewer),
                         scope.friends(options.user)
                     ]).then(function (result) {
-                        return scope.toJSON();
+                        scope.setDataValue('likes', result[0]);
+                        scope.setDataValue('liked', result[1]);
+                        scope.setDataValue('friends', result[2]);
                     });
                 },
                 likes: function () {
@@ -66,18 +73,18 @@ module.exports = function (sequelize, DataTypes) {
                             ]
                         }
                     return this.getProductLikes(query).then(function (result) {
-                        return scope.setDataValue('likes', result[0].getDataValue('likes'));
+                        return result[0].getDataValue('likes');
                     });
                 },
                 liked: function (viewer) {
                     var scope = this, query = {where: {id: viewer}};
                     return this.getProductLikes(query).then(function (likes) {
-                        return scope.setDataValue('liked', likes.length > 0);
+                        return likes.length > 0;
                     });
                 },
                 friends: function (user) {
                     if (user === undefined)
-                        return this.setDataValue('friends', []);
+                        return [];
 
                     var scope = this, queryProductLikes = {attributes: ['id']};
                     return this.getProductLikes(queryProductLikes).then(function (productLikes) {
@@ -89,7 +96,7 @@ module.exports = function (sequelize, DataTypes) {
                             var result = [];
                             for (var i = 0; i < intersection.length; i++)
                                 result.push(_.where(followings, {id: intersection[i]})[0]);
-                            return scope.setDataValue('friends', result);
+                            return result;
                         });
                     });
                 },
@@ -101,20 +108,15 @@ module.exports = function (sequelize, DataTypes) {
                     var query = {
                         where: {ProductTypeId: this.ProductTypeId, id: {$not: [this.id]}},
                         order: [global.db.sequelize.fn('RAND')],
-                        limit: 10
+                        limit: 10, build: true
                     };
-                    return global.db.Product.findAll(query).then(function (products) {
-                        var i, promises = [];
-                        for (i = 0; i < products.length; i++)
-                            promises.push(products[i].buildParts(options));
-                        return global.db.Sequelize.Promise.all(promises);
-                    });
+                    return global.db.Product.findAll(query);
                 },
                 more: function () {
                     var query = {
                         where: {id: {$not: [this.id]}},
                         order: [global.db.sequelize.fn('RAND')],
-                        limit: 6
+                        limit: 6, build: true
                     };
                     return this.User.getProducts(query);
                 }
@@ -133,6 +135,23 @@ module.exports = function (sequelize, DataTypes) {
                         attributes: ['id', 'name', 'photo', 'url']
                     }];
                     fn(null, options);
+                },
+                afterFind: function (products, options, fn) {
+                    if (!options.build)
+                        return fn(null, options);
+
+                    if (!_.isArray(products)) {
+                        return products.buildParts(options).then(function () {
+                            return fn(null, options);
+                        });
+                    }
+
+                    var i, product, promises = [];
+                    for (i = 0; i < products.length; i++)
+                        promises.push(products[i].buildParts(options));
+                    return global.db.Sequelize.Promise.all(promises).then(function () {
+                        return fn(null, options);
+                    });
                 }
             }
         }

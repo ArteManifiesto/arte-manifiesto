@@ -3,15 +3,14 @@ var _ = require('lodash');
 
 exports.index = function (req, res) {
     var promises = [
-        req.product.buildParts(req),
         req.product.userLikes(),
         req.product.more(),
         req.product.similar(req)
-    ]
+    ];
     global.db.Sequelize.Promise.all(promises).then(function (result) {
         return res.render(basePath + 'index', {
-            product: result[0], userLikes: result[1],
-            more: result[2], similar: result[3]
+            product: req.product, userLikes: result[0],
+            more: result[1], similar: result[2]
         });
     });
 };
@@ -65,12 +64,12 @@ exports.unFeatured = function (req, res) {
 
 exports.like = function (req, res) {
     req.product.like(req.user).then(function (likes) {
-        return res.ok({product: req.product, likes: likes.likes}, 'Product liked');
+        return res.ok({product: req.product, likes: likes}, 'Product liked');
     });
 };
 
 exports.unLike = function (req, res) {
     req.product.unLike(req.user).then(function (likes) {
-        return res.ok({product: req.product, likes: likes.likes}, 'Product unLiked');
+        return res.ok({product: req.product, likes: likes}, 'Product unLiked');
     });
 };

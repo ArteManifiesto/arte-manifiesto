@@ -10,19 +10,9 @@ var config = require('../../config/config');
 var Recaptcha = require('recaptcha').Recaptcha;
 
 exports.index = function (req, res) {
-    /* if(req.user){
-     return req.user.getSpecialties().then(function(specialties){
-     return res.json(specialties)
-     });
-     }
-     var recaptcha = new Recaptcha(config.recaptcha.publicKey, config.recaptcha.privateKey);
-     */
-
-    var query = {where: {featured: true}, limit: 20};
-    global.db.Product.findAll(query).then(function (workFeatureds) {
-        return res.render('index', {
-            workFeatureds: workFeatureds
-        });
+    var query = {where: {featured: true}, limit: 1, build: true};
+    global.db.Product.findAll(query).then(function (products) {
+        return res.render('index');
     });
 };
 
@@ -45,7 +35,7 @@ exports.search = function (req, res) {
     for (item in req.query)
         if (currentParams.indexOf(item) == -1)
             delete req.query[item];
-
+    
     var searchable = _.capitalize(req.params.entity);
     global["search" + searchable](req).then(function (data) {
         data.url = global.generateUrlWithParams(data.pagination, req);
@@ -94,6 +84,7 @@ exports.users = function (req, res) {
 
 exports.products = function (req, res) {
     searchBridge(req).then(function (data) {
+        return res.json(data);
         var query = {attributes: ['id', 'name', 'nameSlugify']};
         global.db.ProductType.findAll(query).then(function (productTypes) {
             data.productTypes = productTypes;
