@@ -34,11 +34,9 @@ function Profile (el, data) {
 		
 		url = '/' + profile.username + '/' + paths[index] + '/page-1'
 		console.log('url: ', url)
-		
+
 		$.post( url, function( data ) {
 			console.log('data: ', data)
-				// var productsContainer = document.querySelector('.profile-content__store .products')
-				// addProducts(productsContainer, data.products)
 		});
 
 	}
