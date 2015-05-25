@@ -1,10 +1,99 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Product</title>
-</head>
-<body>
+{% extends '../../partials/base.html' %}
+	{% set path = 'single-product' %}
+	{% set title = 'Arte Manifiesto | Product' %}
+	{% set css = 'single-product' %}
 
-</body>
-</html>
+{% block content %}
+
+	{% include '../../partials/category-menu.html' %}
+	<div class="single-product">
+		<div class="single-product__header">
+
+			<div class="single-product__title">
+				<p class="single-product-text">{{product.name}}</p>
+			</div>
+
+			<div class="single-product__artist">
+				from
+				<span class="avatar"><img src="{{product.User.photo}}"></span>
+
+				<span class="name">{{product.User.firstname}} {{product.User.lastname}}</span>
+			</div>
+
+		</div>
+
+		<div class="single-product__info">
+
+			<figure class="single-product__info__image">
+				<img src="{{product.photo}}">
+			</figure>
+
+			<div class="single-product__info__data">
+
+				<div class="actions">
+					<div class="actions__social">
+
+						<span class="like">
+						{% if product.liked %}
+							<button class="button-liner disabled js-buttonLike">
+								<div class="button-liner__action">Likes</div>
+								<div class="button-liner__number">{{product.likes}}</div>
+							</button>
+						{% else %}
+							<button class="button-liner js-buttonLike">
+								<div class="button-liner__action">Likes</div>
+								<div class="button-liner__number">{{product.likes}}</div>
+							</button>
+						{% endif %}
+						</span>
+
+						<span class="price">S/. {{product.price}}</span>
+
+					</div>
+					<div class="actions__buy">
+						<a href="/checkout/{{product.nameSlugify}}" class="button-solid" data-size='large' data-color='red' data-expand='true'>Comprar</a>
+					</div>
+
+					<div class="actions__people">
+
+						{% for userLike in product.userLikes %}
+							<div class="people-item"><img src="{{userLike.photo}}"></div>
+
+						{% endfor %}
+ 							</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+ggpe
+
+
+	{% include '../../partials/footer.html' %}
+
+   <script src="/js/vendor/jquery.min.js"></script>
+
+	<script src="/js/lib/product.js"></script>
+
+	<script type="text/javascript">
+
+		var product = {{ product|json|safe }}
+		console.log('product: ', product)
+
+		var user = {{ user|json|safe }}
+		console.log('user: ', user)
+
+		new Product(document.querySelector('.single-product'), {
+			id: product.id,
+			likes: product.likes,
+			liked: product.liked,
+			buttonLikeClass: 'js-buttonLike'
+		})
+
+	</script>
+
+{% endblock %}
