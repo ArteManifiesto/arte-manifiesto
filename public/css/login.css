@@ -657,6 +657,14 @@ body {
   color: #f54545;
   display: none;
 }
+.button-like.active .fa-heart,
+.button-wish-list.active .fa-heart {
+  display: inline;
+}
+.button-like.active .fa-heart-o,
+.button-wish-list.active .fa-heart-o {
+  display: none;
+}
 .auth-container {
   margin: auto;
   max-width: 400px;

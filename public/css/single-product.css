@@ -598,6 +598,14 @@ body {
   color: #f54545;
   display: none;
 }
+.button-like.active .fa-heart,
+.button-wish-list.active .fa-heart {
+  display: inline;
+}
+.button-like.active .fa-heart-o,
+.button-wish-list.active .fa-heart-o {
+  display: none;
+}
 .products {
   margin: 0.5rem;
   display: -webkit-box;
@@ -917,7 +925,7 @@ body {
   flex: 1 50%;
   padding: 0.5rem;
 }
-@media (min-width: 540px) {
+@media (min-width: 400px) {
   .more-image {
     -webkit-box-flex: 1;
     -moz-box-flex: 1;

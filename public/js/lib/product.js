@@ -7,9 +7,10 @@ function Product(el, data) {
 		likes = data.likes,
 		liked = data.liked,
 
-		buttonLike = el.querySelector('.button-like');
-		console.log('buttonLike: ', buttonLike)
-	// 	likesEl = buttonLike.querySelector('.button-liner__number');
+		buttonLike = el.querySelector('.button-like'),
+		likesEl = buttonLike.querySelector('span');
+		// console.log('buttonLike: ', buttonLike)
+		// console.log('buttonLike: ', buttonLike)
 
 	// console.log('liked: ', liked)
 	// console.log('buttonLike: ', buttonLike)
@@ -35,20 +36,22 @@ function Product(el, data) {
 		$.post(url, {idProduct: id}, function (data) {
 			console.log(data)
 
-			// if (data.status == 200) {
-			// 	buttonLike.classList.add('active')
-			// 	buttonLike.classList.add('disabled')
-			// 	liked = true
+			if (data.status == 200) {
+				buttonLike.classList.add('active')
+				buttonLike.classList.add('disabled')
+				liked = true
 
-			// 	var newLikes = data.data.likes
-			// 	likes = newLikes
-			// 	console.log('like :  ', newLikes);
-			// 	likesEl.innerHTML = likes
-			// }
+				var newLikes = data.data.likes
+				likes = newLikes
+				console.log('likes :  ', likes);
+				likesEl.innerHTML = likes
+			}
 		})
 	}
 
 	function unLike() {
+
+		console.log('unLike')
 
 		var url = '/' + user.username + '/product/unlike'
 		console.log(url)
@@ -56,15 +59,16 @@ function Product(el, data) {
 		$.post(url, {idProduct: id}, function (data) {
 			console.log(data)
 
-			// if (data.status == 200) {
-			// 	buttonLike.classList.remove('active')
-			// 	buttonLike.classList.remove('disabled')
-			// 	liked = false
+			if (data.status == 200) {
+				buttonLike.classList.remove('active')
+				buttonLike.classList.remove('disabled')
+				liked = false
 
-			// 	var newLikes = data.data.likes
-			// 	likes = newLikes
-			// 	likesEl.innerHTML = likes
-			// }
+				var newLikes = data.data.likes
+				likes = newLikes
+				console.log('likes :  ', likes);
+				likesEl.innerHTML = likes
+			}
 		})
 	}
 

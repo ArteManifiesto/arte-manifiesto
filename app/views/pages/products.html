@@ -21,7 +21,7 @@
 				<div class="product-info">
 					<div class="price">s./<%= price %></div>
 					<div class="like">
-						<span class="button-like"> <i class="fa fa-heart-o"></i> <span><%= likes %></span> </span>
+						<span class="button-like <% if (liked) { %>active<% } %>"> <i class="fa fa-heart"></i><i class="fa fa-heart-o"></i> <span><%= likes %></span> </span>
 					</div>
 					<div class="wish-list">
 						<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
