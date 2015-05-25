@@ -2,7 +2,6 @@
  * Load dependencies
  * ====================================================
  */
-var subdomain = require('express-subdomain');
 var express = require('express');
 var expressSession = require('express-session');
 var cookieParser = require('cookie-parser');
@@ -57,22 +56,15 @@ module.exports = function (app, passport) {
     app.use(passport.initialize());
     app.use(passport.session());
 
-
     app.use(function (req, res, next) {
+        req.viewer = req.user ? req.user.id : -1;
         res.locals = {
             user: req.user,
             successMessage: req.flash('successMessage'),
             errorMessage: req.flash('errorMessage')
         };
+
+        console.log(res.locals);
         next();
     });
-
-
-    var router = express.Router();
-
-    router.get('/', function (req, res) {
-        res.send('Welcome to our API!');
-    });
-
-    app.use(subdomain('api', router));
 };

@@ -17,12 +17,14 @@ module.exports = function (sequelize, DataTypes) {
             description: DataTypes.TEXT,
             public: {type: DataTypes.BOOLEAN, defaultValue: true},
             featured: {type: DataTypes.BOOLEAN, defaultValue: false},
+            views: {type: DataTypes.INTEGER, defaultValue: 0},
             url: {type: DataTypes.STRING},
-            views: {type: DataTypes.INTEGER, defaultValue: 0}
+            popularity: {type: DataTypes.INTEGER, defaultValue: 0}
         }, {
             classMethods: {
                 associate: function (models) {
                     Work.belongsToMany(models.User, {as: 'WorkLikes', through: 'WorkLikes'});
+
                     Work.belongsToMany(models.Category, {through: 'WorkCategories'});
                     Work.belongsToMany(models.Tag, {through: 'WorkTags'});
 
@@ -42,6 +44,23 @@ module.exports = function (sequelize, DataTypes) {
                     var scope = this;
                     return user.removeWorkLike(this).then(function () {
                         return global.getNumLikesOfWork({work: scope.id});
+                    });
+                },
+                numOfLikes: function () {
+                    var scope = this,
+                        query = {
+                            attributes: [
+                                [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'numOfLikes']
+                            ]
+                        };
+                    return this.getWorkLikes(query).then(function (result) {
+                        return result[0].getDataValue('numOfLikes');
+                    });
+                },
+                liked: function (viewer) {
+                    var scope = this, query = {where: {id: viewer}};
+                    return this.getWorkLikes(query).then(function (likes) {
+                        return likes.length > 0;
                     });
                 }
             },

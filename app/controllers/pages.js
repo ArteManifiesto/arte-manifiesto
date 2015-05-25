@@ -1,26 +1,18 @@
 var basePath = 'pages/';
-var redirectPath = '/';
-var email = require('./email');
 var Promise = require('bluebird');
 var _ = require('lodash');
-var moment = require('moment');
 var request = require('request');
-var cloudinary = require('cloudinary').v2;
-var config = require('../../config/config');
-var Recaptcha = require('recaptcha').Recaptcha;
 
 exports.index = function (req, res) {
-    var query = {where: {featured: true}, limit: 1, build: true};
+    var query = {where: {featured: true}, limit: 10, build: true, viewer: req.viewer};
     global.db.Product.findAll(query).then(function (products) {
-        return res.render('index');
+        return res.render(basePath + 'index', {
+            products: products
+        });
     });
 };
 
-exports.onBoard = function (req, res) {
-    return res.render('pages/onboard');
-}
-
-exports.search = function (req, res) {
+var searchHandler = function (req, res) {
     var config = global.config.search;
 
     req.params.entity = global.getParameter(config.entities, req.params.entity);
@@ -35,23 +27,30 @@ exports.search = function (req, res) {
     for (item in req.query)
         if (currentParams.indexOf(item) == -1)
             delete req.query[item];
-    
+
     var searchable = _.capitalize(req.params.entity);
-    global["search" + searchable](req).then(function (data) {
+    return global["search" + searchable](req).then(function (data) {
         data.url = global.generateUrlWithParams(data.pagination, req);
         return res.json(data);
     });
+}
+
+exports.search = function (req, res) {
+    if (!req.body.viewer)
+        return searchHandler(req, res);
+
+    req.viewer = req.body.viewer;
+    return searchHandler(req, res);
 };
 
+
 var searchBridge = function (req) {
-    var idUser = req.user ? req.user.id : 0;
     var options = {
         method: 'POST',
-        body: {idUser: idUser},
+        body: {viewer: req.viewer},
         json: true,
         url: req.protocol + '://' + req.get('host') + '/search' + req.url
     };
-
     return new Promise(function (resolve, reject) {
         request.post(options, function (error, response, body) {
             resolve(body);
@@ -72,13 +71,13 @@ var discover = function (req) {
 
 exports.works = function (req, res) {
     discover(req).then(function (data) {
-        return res.render('pages/works', data);
+        return res.render(basePath + 'works', data);
     });
 };
 
 exports.users = function (req, res) {
     discover(req).then(function (data) {
-        return res.render('pages/users', data);
+        return res.render(basePath + 'users', data);
     });
 };
 
@@ -87,7 +86,7 @@ exports.products = function (req, res) {
         var query = {attributes: ['id', 'name', 'nameSlugify']};
         global.db.ProductType.findAll(query).then(function (productTypes) {
             data.productTypes = productTypes;
-            return res.render('pages/products', data);
+            return res.render(basePath + 'products', data);
         });
     });
 };

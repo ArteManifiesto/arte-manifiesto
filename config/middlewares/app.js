@@ -28,31 +28,40 @@ exports.shouldAdmin = function (req, res, next) {
 };
 
 exports.user = function (req, res, next) {
-    console.log('usernameeeee =====> ', req.params.username);
     if (req.user && req.user.username == req.params.username) {
         req.profile = req.user;
-        req.viewer = req.user.id;
         req.owner = true;
         return next();
     }
-    var query = {
-        where: {username: req.params.username}
-    };
+    var query = {where: {}};
+    query.where = {username: req.params.username}
+
     global.db.User.find(query).then(function (user) {
-        if (!user)
-            if (req.xhr) {
-                return res.noContent('User dont exists');
-            }
-            else {
-                req.flash('errorMessage', 'User dont exists');
-                return res.redirect('/');
-            }
+        if (!user) {
+            if (req.xhr)
+                return res.noContent('Usuario desconocido');
+            req.flash('errorMessage', 'Usuario desconocido');
+            return res.redirect('/');
+        }
         req.profile = user;
-        req.viewer = req.user ? req.user.id : 0;
         req.owner = false;
         return next();
     });
 };
+
+exports.userTo = function (req, res, next) {
+    global.db.User.findById(req.body.idUser).then(function (user) {
+        if (!user) {
+            if (req.xhr)
+                return res.noContent('Usuario desconocido');
+            req.flash('errorMessage', 'Usuario desconocido');
+            return res.redirect('/');
+        }
+        req.userTo = user;
+        next();
+    });
+}
+
 
 var entityExists = function (entity, query, req, res, next) {
     global.db[entity].find(query).then(function (element) {

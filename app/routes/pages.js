@@ -15,6 +15,6 @@ router.get('/products/type/:value/:page', controller.products);
 router.get('/store/:nameProduct/', controller.storeProduct);
 router.get('/pay/:idProduct', controller.productPay);
 
-router.get('/onboard', controller.onBoard);
+//router.get('/onboard', controller.onBoard);
 
 module.exports = router;

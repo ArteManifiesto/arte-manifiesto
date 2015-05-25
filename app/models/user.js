@@ -55,7 +55,6 @@ module.exports = function (sequelize, DataTypes) {
                     User.belongsToMany(models.User, {as: 'Followings', foreignKey: 'FollowerId', through: 'Followers'});
 
                     User.belongsToMany(models.Work, {as: 'WorkLikes', through: 'WorkLikes'});
-                    User.belongsToMany(models.Work, {as: 'WorkCollects', through: 'WorkCollects'});
 
                     User.belongsToMany(models.Product, {as: 'ProductLikes', through: 'ProductLikes'});
                     User.belongsToMany(models.Product, {as: 'ProductCollects', through: 'ProductCollects'});
@@ -85,14 +84,18 @@ module.exports = function (sequelize, DataTypes) {
                 },
                 follow: function (user) {
                     var scope = this;
-                    return this.addFollower(user).then(function () {
-                        return global.getNumFollowersOfUser({user: scope.id});
+                    this.popularity -= 3;
+                    var promises = [user.addFollower(this), this.save()];
+                    return global.db.Sequelize.Promise.all(promises).then(function () {
+                        return user.numOfFollowers();
                     });
                 },
                 unFollow: function (user) {
                     var scope = this;
-                    return this.removeFollower(user).then(function () {
-                        return global.getNumFollowersOfUser({user: scope.id});
+                    this.popularity -= 3;
+                    var promises = [user.removeFollower(this), this.save()];
+                    return global.db.Sequelize.Promise.all(promises).then(function () {
+                        return user.numOfFollowers();
                     });
                 },
                 buildParts: function (options) {
@@ -112,6 +115,17 @@ module.exports = function (sequelize, DataTypes) {
                         scope.setDataValue('Works', result[3]);
                     });
                 },
+                numOfCollections: function () {
+                    var scope = this,
+                        query = {
+                            attributes: [
+                                [global.db.sequelize.fn('COUNT', global.db.sequelize.col('Collection.id')), 'numOfCollections']
+                            ]
+                        };
+                    return this.getCollections(query).then(function (result) {
+                        return result[0].getDataValue('numOfCollections');
+                    });
+                },
                 numOfFollowers: function () {
                     var scope = this,
                         query = {
@@ -123,16 +137,60 @@ module.exports = function (sequelize, DataTypes) {
                         return result[0].getDataValue('numOfFollowers');
                     });
                 },
+                numOfFollowings: function () {
+                    var scope = this,
+                        query = {
+                            attributes: [
+                                [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'numOfFollowings']
+                            ]
+                        };
+                    return this.getFollowings(query).then(function (result) {
+                        return result[0].getDataValue('numOfFollowings');
+                    });
+                },
                 numOfWorks: function () {
                     var scope = this,
                         query = {
                             attributes: [
                                 [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'numOfWorks']
                             ]
-                        }
+                        };
                     return this.getWorks(query).then(function (result) {
                         return result[0].getDataValue('numOfWorks');
-                    })
+                    });
+                },
+                numOfProducts: function () {
+                    var scope = this,
+                        query = {
+                            attributes: [
+                                [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'numOfProducts']
+                            ]
+                        };
+                    return this.getProducts(query).then(function (result) {
+                        return result[0].getDataValue('numOfProducts');
+                    });
+                },
+                numOfLikesToWorks: function () {
+                    var scope = this,
+                        query = {
+                            attributes: [
+                                [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'numOfLikesToWorks']
+                            ]
+                        };
+                    return this.getWorkLikes(query).then(function (result) {
+                        return result[0].getDataValue('numOfLikesToWorks');
+                    });
+                },
+                numOfLikesToProducts: function () {
+                    var scope = this,
+                        query = {
+                            attributes: [
+                                [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'numOfLikesToProducts']
+                            ]
+                        };
+                    return this.getProductLikes(query).then(function (result) {
+                        return result[0].getDataValue('numOfLikesToProducts');
+                    });
                 },
                 following: function (viewer) {
                     var scope = this, query = {where: {id: viewer}};

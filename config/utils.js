@@ -1,6 +1,5 @@
 var moment = require('moment');
 var email = require('../app/controllers/email');
-var Promise = require('bluebird');
 var _ = require('lodash');
 
 global.config = {
@@ -20,31 +19,8 @@ global.config = {
     }
 };
 
-global.getIdOfMyWorks = function (user) {
-    var query = {attributes: ['id']};
-
-    return user.getWorks().then(function (works) {
-        return works;
-    });
-};
-
-global.getPortfolioCollection = function (user) {
-    var query = {
-        where: {meta: 'portfolio'},
-        attributes: ['id', 'meta'],
-        limit: 1
-    };
-    return user.getCollections(query).then(function (collections) {
-        return collections[0];
-    });
-};
-
 global.getStoreCollection = function (user) {
-    var query = {
-        where: {meta: 'store'},
-        attributes: ['id', 'meta'],
-        limit: 1
-    };
+    var query = {where: {meta: 'store'}, limit: 1};
     return user.getCollections(query).then(function (collections) {
         return collections[0];
     });
@@ -59,75 +35,55 @@ global.slugify = function (text) {
         .replace(/-+$/, '');            // Trim - from end of text
 };
 
-global.discoverOptions = function (req) {
-    var entity = req.params.entity;
+global.discoverGenerator = function (entity, req) {
     var options = {};
-    options.query = 'discover' + _.capitalize(entity);
     options.entity = entity;
-    options.viewer = req.body.idUser ? req.body.idUser : 0;
+    options.name = req.params.entity;
     options.page = req.params.page;
     options.limit = 3;
-    options.featured = req.query.featured;
-    options.order = global.getOrder(req.query.order);
+
+    var query = {where: {}, build: true};
+    query.viewer = req.viewer;
+    query.order = [global.getOrder(req.query.order), global.getOrder('newest')]
+
+    if (req.query.featured)
+        query.where.featured = req.query.featured;
+
     if (req.query.time)
-        options.time = [
-            moment().startOf(req.query.time).toDate(),
-            moment().toDate()
-        ];
-    return options;
+        query.where.createdAt = {
+            $between: [moment().startOf(req.query.time).toDate(), moment().toDate()]
+        };
+
+    if (req.query.lo_p || req.query.hi_p)
+        query.where.price = {
+            $between: [req.query.lo_p || 0, req.query.hi_p || 3000]
+        };
+
+    if (req.query.name)
+        query.where.name = req.query.name;
+
+    if (req.query.username)
+        query.where.username = req.query.username;
+
+    return {options: options, query: query};
 }
 
 global.searchWorks = function (req) {
-    var options = discoverOptions(req);
-    options.category = undefined;
-    options.tag = req.query.tag ? req.query.tag : undefined;
-    options.name = req.query.name ? req.query.name : undefined;
-
-    var query = {where: {nameSlugify: req.params.value}};
-    return global.db.Category.find(query).then(function (category) {
-        options.category = category ? category.id : 0;
-        if (req.params.value == 'all') options.category = undefined;
-        return global.getPaginationData(options);
-    });
+    var discover = discoverGenerator('Work', req);
+    discover.query.where.public = true;
+    return global.getPaginationEntity(discover.options, discover.query);
 };
 
-
 global.searchUsers = function (req) {
-    var options = discoverOptions(req);
-    options.username = req.query.username;
-    var query = {where: {}, order: [options.order, 'username'], build: true};
-    if (options.time !== undefined)
-        query.where.createdAt = {$between: options.time};
-    if (options.username !== undefined)
-        query.where.username = options.username;
-    if (options.featured !== undefined)
-        query.where.featured = true;
-
-    return global.getPaginationEntity('User', options, query);
+    var discover = discoverGenerator('User', req);
+    return global.getPaginationEntity(discover.options, discover.query);
 };
 
 global.searchProducts = function (req) {
-    var options = discoverOptions(req);
-    options.price = [req.query.lo_p || 0, req.query.hi_p || 3000];
-    options.name = req.query.name;
-    var query = {where: {public: true}, order: [options.order, 'name'], build: true};
-    if (options.time !== undefined)
-        query.where.createdAt = {$between: options.time};
-    if (options.price !== undefined)
-        query.where.price = {$between: options.price};
-    if (options.name !== undefined)
-        query.where.name = options.name;
-    if (options.featured !== undefined)
-        query.where.featured = true;
-
-    return global.getPaginationEntity('Product', options, query);
+    var discover = discoverGenerator('Product', req);
+    discover.query.where.public = true;
+    return global.getPaginationEntity(discover.options, discover.query);
 };
-
-global.getWorksFromUserId = function (id, limit) {
-    return global.db.User.findById(id).then(function (user) {
-        return user.getWorks({attributes: ['id', 'photo', 'url'], limit: limit});
-    });
-}
 
 global.getPagination = function (page, limit) {
     var split = parseInt(page.split('-')[1], 10);
@@ -149,6 +105,7 @@ global.encodeToQuery = function (data) {
         ret.push(encodeURIComponent(param) + "=" + encodeURIComponent(data[param]));
     return ret.join("&");
 };
+
 global.getOrder = function (order) {
     switch (order) {
         case 'popularity':
@@ -169,10 +126,12 @@ global.getOrder = function (order) {
     }
     return order;
 };
+
 global.generateUrlWithParams = function (pagination, req) {
-    var path =
-        ['', req.params.entity, req.params.filter, req.params.value, 'page-' + pagination.page]
-            .join('/');
+    var path = [
+        '', req.params.entity, req.params.filter,
+        req.params.value, 'page-' + pagination.page
+    ].join('/');
 
     return req.protocol + '://' + req.get('host') + path + '/?' + global.encodeToQuery(req.query);
 };
@@ -198,423 +157,39 @@ global.emails = {
         return email.send(params, 'forgot').then();
     }
 };
-global.queries = {
-    /**
-     * Get all works of a portfolio
-     * @param options(collection)
-     * @param options(offset)
-     * @param options(limit)
-     * @returns query
-     */
 
-    getWorksOfPortfolio: function (options, count) {
-        options.count = count;
-        var queryTemplate =
-            "SELECT " +
-            "<% if (count != undefined) { %>" +
-            "COUNT(DISTINCT Work.id) AS total " +
-            "<% } else { %>" +
-            "Work.id, Work.name, Work.nameSlugify, Work.photo, Work.public, " +
-            "CollectionWork.order " +
-            "<% } %>" +
-            "FROM Works AS Work INNER JOIN CollectionWorks AS CollectionWork " +
-            "ON Work.id = CollectionWork.WorkId AND CollectionWork.CollectionId = <%= collection %> " +
-            "<% if (count == undefined) { %> " +
-            "ORDER BY CollectionWork.order ASC " +
-            "LIMIT <%= offset %>,<%= limit %>" +
-            "<% } %>";
-        return _.template(queryTemplate)(options)
-    },
-    getLikes: function (options, count) {
-        options.count = count;
-        var queryTemplate =
-            "<% if (count == undefined) { %>" +
-            "SELECT `Work`.`id`, `Work`.`name`, `Work`.`nameSlugify`, `Work`.`photo`, `Work`.`featured`, " +
-            "COUNT(DISTINCT `Likes`.id) AS `likes`, " +
-            "CASE WHEN COUNT(DISTINCT CurrentUser.id) > 0 THEN TRUE ELSE FALSE END AS `liked` " +
-            "<% } else { %>" +
-            "SELECT COUNT(DISTINCT Work.id) AS total " +
-            "<% } %>" +
-            "FROM (SELECT `Work`.* FROM `Works` AS `Work` INNER JOIN `Likes` AS `Likes` " +
-            "ON `Work`.`id` = `Likes`.`WorkId` AND `Likes`.`UserId` = <%= user %> WHERE (`Work`.`public` = TRUE)" +
-            "<% if (count == undefined) { %> LIMIT <%= offset %>,<%= limit %> <% } %>) AS `Work` " +
-            "<% if (count == undefined) { %>" +
-            "LEFT OUTER JOIN (`Likes` AS `Likes.Likes` INNER JOIN `Users` AS `Likes` " +
-            "ON `Likes`.`id` = `Likes.Likes`.`UserId`) ON `Work`.`id` = `Likes.Likes`.`WorkId` " +
-            "LEFT OUTER JOIN (`Likes` AS `CurrentUser.Likes` INNER JOIN `Users` AS CurrentUser " +
-            "ON CurrentUser.`id` = `CurrentUser.Likes`.`UserId`)ON `Work`.`id` = `CurrentUser.Likes`.`WorkId` " +
-            "AND CurrentUser.`id` = <%= viewer %>  " +
-            "GROUP BY WORK.id;" +
-            "<% } %>";
-        return _.template(queryTemplate)(options)
-    },
-    getProductsOfStore: function (options, count) {
-        options.count = count;
-        var queryTemplate =
-            "SELECT " +
-            "<% if (count != undefined) { %>" +
-            "COUNT(DISTINCT Work.id) AS total " +
-            "<% } else { %>" +
-            "Work.id, Work.name, Work.nameSlugify, Work.photo, Work.public, " +
-            "CollectionWork.order " +
-            "<% } %>" +
-            "FROM Works AS Work INNER JOIN CollectionWorks AS CollectionWork " +
-            "ON Work.id = CollectionWork.WorkId AND CollectionWork.CollectionId = <%= collection %> " +
-            "<% if (count == undefined) { %> " +
-            "ORDER BY CollectionWork.order ASC " +
-            "LIMIT <%= offset %>,<%= limit %>" +
-            "<% } %>";
-        return _.template(queryTemplate)(options)
-    },
-    getCollectionsProduct: function (options, count) {
-        options.count = count;
-        var queryTemplate =
-            "SELECT " +
-            "<% if (count != undefined) { %>" +
-            "COUNT(DISTINCT Collection.id) AS total " +
-            "<% } else { %>" +
-            "id, name " +
-            "<% } %>" +
-            "FROM Collections AS Collection " +
-            "WHERE (Collection.UserId = <%= user %> AND Collection.meta = 'product') " +
-            "<% if (count == undefined) { %> " +
-            "ORDER BY Collection.createdAt ASC " +
-            "LIMIT <%= offset %>,<%= limit %>" +
-            "<% } %>";
-        return _.template(queryTemplate)(options)
-    }
-
-};
-global.getNumFollowersOfUser = function (options) {
-    var queryTemplate =
-        "SELECT COUNT(DISTINCT `User`.`id`) AS `followers` " +
-        "FROM `Users` AS `User` INNER JOIN `Followers` AS `Followers` " +
-        "ON `User`.`id` = `Followers`.`FollowerId` " +
-        "AND `Followers`.`FollowingId` = <%= user %>;";
-    return getCount(queryTemplate, options);
-};
-global.getNumFollowingsOfUser = function (options) {
-    var queryTemplate =
-        "SELECT COUNT(DISTINCT `User`.`id`) AS `followings` " +
-        "FROM `Users` AS `User` INNER JOIN `Followers` AS `Followers` " +
-        "ON `User`.`id` = `Followers`.`FollowingId` " +
-        "AND `Followers`.`FollowerId` = <%=user%>;";
-    return getCount(queryTemplate, options);
-};
-global.getNumLikesOfUser = function (options) {
-    var queryTemplate =
-        "SELECT COUNT(DISTINCT `Work`.`id`) AS `likes` " +
-        "FROM `Works` AS `Work` INNER JOIN `WorkLikes` " +
-        "ON `Work`.`id` = `WorkLikes`.`WorkId` " +
-        "AND `WorkLikes`.`UserId` = <%= user %>;";
-    return getCount(queryTemplate, options);
-};
-
-global.getNumCollectionsOfUser = function (options) {
-    var queryTemplate =
-        "SELECT COUNT(DISTINCT Collection.id) AS `<%= meta %>` " +
-        "FROM `Collections` AS `Collection` " +
-        "WHERE (`Collection`.`UserId` = <%= user %> " +
-        "AND `Collection`.`meta` = '<%= meta %>');";
-    return getCount(queryTemplate, options);
-};
-
-global.getNumLikesOfWork = function (options) {
-    var queryTemplate =
-        "SELECT COUNT(DISTINCT `User`.`id`) AS `likes` " +
-        "FROM `Users` AS `User` INNER JOIN `WorkLikes` AS `Likes` " +
-        "ON `User`.`id` = `Likes`.`UserId` " +
-        "AND `Likes`.`WorkId` = <%= work %>;";
-    return getCount(queryTemplate, options);
-};
-
-global.getCount = function (queryTemplate, options) {
-    var query = _.template(queryTemplate)(options);
-    return global.db.sequelize.query(query, {nest: true, raw: true}).then(function (data) {
-        return data[0];
-    });
-};
-
-global.getWorksOfCollectionByMeta = function (options, count) {
-    options.count = count;
-    var queryTemplate =
-        "<% if (count == undefined) { %>" +
-        "SELECT `<%=meta%>`.`id`, `<%=meta%>`.`name`, `<%=meta%>`.`nameSlugify`, `<%=meta%>`.`photo`, " +
-        "<% if (meta == 'Product') { %>  `<%=meta%>`.`price`, <% } %>" +
-        "`<%=meta%>`.`public`, `<%=meta%>`.`featured`, " +
-        "COUNT(DISTINCT `Likes`.id) AS `likes`, " +
-        "CASE WHEN COUNT(DISTINCT CurrentUser.id) > 0 THEN TRUE ELSE FALSE END AS `liked` " +
-        "<% } else { %>" +
-        "SELECT COUNT(DISTINCT <%=meta%>.id) AS total " +
-        "<% } %>" +
-        "FROM (SELECT `<%=meta%>`.*, `Collection<%=meta%>`.`order` AS `Collection<%=meta%>.order` " +
-        "FROM `<%=meta%>s` AS `<%=meta%>` INNER JOIN `Collection<%=meta%>s` AS `Collection<%=meta%>` " +
-        "ON `<%=meta%>`.`id` = `Collection<%=meta%>`.`<%=meta%>Id` AND `Collection<%=meta%>`.`CollectionId` = <%= collection %> " +
-        "<% if (count == undefined) { %> LIMIT <%= offset %>,<%= limit %> <% } %>) AS `<%=meta%>` " +
-        "<% if (count == undefined) { %>" +
-        "LEFT OUTER JOIN (`<%=meta%>Likes` AS `<%=meta%>.Likes` INNER JOIN `Users` AS `Likes` " +
-        "ON `Likes`.`id` = `<%=meta%>.Likes`.`UserId`) ON `<%=meta%>`.`id` = `<%=meta%>.Likes`.`<%=meta%>Id` " +
-        "LEFT OUTER JOIN (`<%=meta%>Likes` AS `CurrentUser.Likes` INNER JOIN `Users` AS CurrentUser " +
-        "ON CurrentUser.`id` = `CurrentUser.Likes`.`UserId`) ON `<%=meta%>`.`id` = `CurrentUser.Likes`.`<%=meta%>Id` " +
-        "AND CurrentUser.`id` = <%=viewer%> " +
-        "GROUP BY <%=meta%>.id ORDER BY `Collection<%=meta%>.order` ASC;" +
-        "<% } %>";
-    return _.template(queryTemplate)(options)
-};
-global.getWorksLikesOfUser = function (options, count) {
-    options.count = count;
-    var queryTemplate =
-        "<% if (count == undefined) { %>" +
-        "SELECT `<%=meta%>`.`id`, `<%=meta%>`.`name`, `<%=meta%>`.`nameSlugify`, `<%=meta%>`.`photo`, `<%=meta%>`.`featured`, " +
-        "COUNT(DISTINCT `Likes`.id) AS `likes`, " +
-        "IF(COUNT(DISTINCT CurrentUser.id) > 0 , TRUE , FALSE) AS `liked` " +
-        "<% } else { %>" +
-        "SELECT COUNT(DISTINCT <%=meta%>.id) AS total " +
-        "<% } %>" +
-        "FROM (SELECT `<%=meta%>`.* FROM `<%=meta%>s` AS `<%=meta%>` INNER JOIN `<%=meta%>Likes` AS `<%=meta%>.Likes` " +
-        "ON `<%=meta%>`.`id` = `<%=meta%>.Likes`.`<%=meta%>Id` AND `<%=meta%>.Likes`.`UserId` = <%= user %> " +
-        "WHERE (`<%=meta%>`.`public` = TRUE)" +
-        "<% if (count == undefined) { %> LIMIT <%= offset %>,<%= limit %> <% } %>) AS `<%=meta%>` " +
-        "<% if (count == undefined) { %>" +
-        "LEFT OUTER JOIN (`<%=meta%>Likes` AS `Likes.Likes` INNER JOIN `Users` AS `Likes` " +
-        "ON `Likes`.`id` = `Likes.Likes`.`UserId`) ON `<%=meta%>`.`id` = `Likes.Likes`.`<%=meta%>Id` " +
-        "LEFT OUTER JOIN (`<%=meta%>Likes` AS `CurrentUser.Likes` INNER JOIN `Users` AS CurrentUser " +
-        "ON CurrentUser.`id` = `CurrentUser.Likes`.`UserId`)ON `<%=meta%>`.`id` = `CurrentUser.Likes`.`<%=meta%>Id` " +
-        "AND CurrentUser.`id` = <%= viewer %>  " +
-        "GROUP BY <%=meta%>.id;" +
-        "<% } %>";
-    return _.template(queryTemplate)(options)
-};
-
-
-global.getCollectionsByMeta = function (options, count) {
-    options.count = count;
-    var queryTemplate =
-        "<% if (count == undefined) { %>" +
-        "SELECT `id`, `name` " +
-        "<% } else { %>" +
-        "SELECT COUNT(DISTINCT Collection.id) AS total " +
-        "<% } %>" +
-        "FROM `Collections` AS `Collection` " +
-        "WHERE (`Collection`.`UserId` = <%= user %> " +
-        "AND `Collection`.`meta` = '<%= meta %>') " +
-        "<% if (count == undefined) { %>" +
-        "LIMIT <%= offset %>,<%= limit %>" +
-        "<% } %>";
-    return _.template(queryTemplate)(options)
-};
-global.relations = function (options, count) {
-    options.count = count;
-    var queryTemplate =
-        "<% if (count == undefined) { %>" +
-        "SELECT `User`.id, `User`.username, `User`.firstname, `User`.lastname, " +
-        "`User`.photo, `User`.country, `User`.city, `User`.featured, " +
-        "CASE WHEN COUNT(DISTINCT CurrentUser.id) > 0 THEN TRUE ELSE FALSE END AS `following`, " +
-        "COUNT(DISTINCT `Followers`.id) AS `followers`, " +
-        "`Works`.`id` AS `Works.id`, `Works`.`name` AS `Works.name`, " +
-        "`Works`.`nameSlugify` AS `Works.nameSlugify`, `Works`.`photo` AS `Works.photo` " +
-        "<% } else { %>" +
-        "SELECT COUNT(DISTINCT User.id) AS total " +
-        "<% } %>" +
-        "FROM (SELECT `User`.* FROM `Users` AS `User` INNER JOIN `Followers` AS `Followers` " +
-        "<% if (relation == 'followers') { %>" +
-        "ON `User`.`id` = `Followers`.`FollowerId` AND `Followers`.`FollowingId` = <%=user%> " +
-        "<% } else { %>" +
-        "ON `User`.`id` = `Followers`.`FollowingId` AND `Followers`.`FollowerId` = <%=user%> " +
-        "<% } %>" +
-        "<% if (count == undefined) { %> LIMIT <%=offset%>,<%=limit%> <% } %>) AS `User` " +
-        "<% if (count == undefined) { %>" +
-        "LEFT OUTER JOIN (`Followers` AS `CurrentUser.Followers` INNER JOIN `Users` AS CurrentUser " +
-        "ON CurrentUser.`id` = `CurrentUser.Followers`.`FollowerId`)" +
-        "ON `User`.`id` = `CurrentUser.Followers`.`FollowingId` AND CurrentUser.`id` = <%=viewer%> " +
-        "LEFT OUTER JOIN (`Followers` AS `Followers.Followers` INNER JOIN `Users` AS `Followers` " +
-        "ON `Followers`.`id` = `Followers.Followers`.`FollowerId`) " +
-        "ON `User`.`id` = `Followers.Followers`.`FollowingId` " +
-        "LEFT OUTER JOIN `Works` AS `Works` ON `User`.`id` = `Works`.`UserId` " +
-        "AND `Works`.`public` = TRUE " +
-        "GROUP BY User.id, Works.id;" +
-        "<% } %>";
-    return _.template(queryTemplate)(options)
-};
-
-global.discoverUsers = function (options, count) {
-    options.count = count;
-    var queryTemplate =
-        "SELECT * FROM (" +
-        "<% if (count == undefined) { %>" +
-        "SELECT `User`.`id`, `User`.`username`, `User`.`photo`, `User`.`firstname`, `User`.`lastname`, " +
-        "`User`.`featured`, `User`.`views`, `User`.`createdAt`, " +
-        "COUNT(DISTINCT `User.Followers`.`id`) AS `followers`, " +
-        "COUNT(DISTINCT `Works`.`id`) AS `works`, " +
-        "((COUNT(DISTINCT `User.Followers`.`id`) * 1) + (`User`.`views`) * 3) AS `popularity`, " +
-        "IF(COUNT(DISTINCT `CurrentUser.Followers`.`id`) > 0 , TRUE, FALSE) AS `following`" +
-        "<% } else { %>" +
-        "SELECT COUNT(DISTINCT `User`.`id`) AS `total` " +
-        "<% } %>" +
-
-        "FROM `Users` AS `User` INNER JOIN `Specialties` AS `Specialties` " +
-
-        "LEFT OUTER JOIN (`Followers` INNER JOIN `Users` AS `User.Followers` ON `User.Followers`.`id` = `Followers`.`FollowerId`)" +
-        "ON `User`.`id` = `Followers`.`FollowingId`" +
-
-        "LEFT OUTER JOIN (`Followers` AS `CurrentFollowers` INNER JOIN `Users` AS `CurrentUser.Followers`" +
-        "ON `CurrentUser.Followers`.`id` = `CurrentFollowers`.`FollowerId`)" +
-        "ON `User`.`id` = `CurrentFollowers`.`FollowingId` AND `CurrentUser.Followers`.`id` = <%= viewer %>  " +
-
-        "LEFT OUTER JOIN `Works` ON Works.`UserId` = `User`.`id`" +
-
-        "WHERE `User`.`id` = `Specialties`.`UserId`" +
-        "<% if (specialty != undefined) { %> AND `Specialties`.`CategoryId` = <%=specialty%> <% } %> " +
-        "<% if (username != undefined) { %> AND `User`.`username` = '<%=username%>' <% } %> " +
-        "<% if (featured != undefined) { %> AND `User`.`featured` = TRUE <% } %> " +
-        "<% if (time != undefined) { %> AND `User`.`createdAt` BETWEEN '<%=time[0]%>' AND '<%=time[1]%>' <% } %> " +
-        "<% if (count == undefined) { %> GROUP BY `User`.`id` <% } %> ) AS `users` " +
-        "<% if (count == undefined) { %> ORDER BY <%=order%>,`username` <%  } %>" +
-        "<% if (count == undefined) { %> LIMIT <%=offset%>,<%=limit%> <% } %>";
-
-    return _.template(queryTemplate)(options);
-}
-
-global.discoverWorks = function (options, count) {
-    options.count = count;
-    var queryTemplate =
-        "SELECT * FROM (" +
-        "<% if (count == undefined) { %>" +
-        "SELECT `Works`.`id`, `Works`.`name`, `Works`.`nameSlugify`, " +
-        "`Works`.`photo`, `Works`.`featured`, `Works`.`url`, `Works`.`views`, `Works`.`createdAt`, " +
-        "(COUNT(DISTINCT `Works.Likes`.`id` * 1) + (`Works`.`views`) * 3) AS `popularity`, " +
-        "IF(COUNT(DISTINCT `CurrentUser.Likes`.`id`) > 0, TRUE, FALSE) AS `liked` " +
-        "<% } else { %>" +
-        "SELECT COUNT(DISTINCT `Works`.id) AS `total` " +
-        "<% } %>" +
-        "FROM `Categories` AS `Category` INNER JOIN (`WorkCategories` " +
-        "INNER JOIN `Works` AS `Works` ON `Works`.`id` = `WorkCategories`.`WorkId`) " +
-        "ON `Category`.`id` = `WorkCategories`.`CategoryId` AND `Works`.`public` = TRUE " +
-        "<% if (time != undefined) { %> AND `Works`.`createdAt` BETWEEN '<%=time[0]%>' AND '<%= time[1]%>' <% } %> " +
-        "<% if (name != undefined) { %> AND `Works`.`name` LIKE '<%=name%>' <% } %> " +
-        "<% if (featured != undefined) { %> AND `Works`.`featured` = TRUE  <% } %> " +
-
-        "LEFT OUTER JOIN (`WorkLikes` INNER JOIN `Users` AS `Works.Likes` ON `Works.Likes`.`id` = `WorkLikes`.`UserId`) " +
-        "ON `Works`.`id` = `WorkLikes`.`WorkId`" +
-
-        "LEFT OUTER JOIN (`WorkLikes` AS `CurrentUserLikes` INNER JOIN `Users` AS `CurrentUser.Likes` " +
-        "ON `CurrentUser.Likes`.`id` = `CurrentUserLikes`.`UserId`)" +
-        "ON `Works`.`id` = `CurrentUserLikes`.`WorkId` AND `CurrentUser.Likes`.`id` = <%=viewer%> " +
-
-        "<% if (tag != undefined) { %> " +
-        "INNER JOIN (`WorkTags` INNER JOIN `Tags` AS `Works.Tags` ON `Works.Tags`.`id` = `WorkTags`.`TagId`) " +
-        "ON `Works`.`id` = `WorkTags`.`WorkId` AND `Works.Tags`.`name` LIKE '<%=tag%>' " +
-        "<% } %> " +
-
-        "<% if (category != undefined) { %> WHERE `Category`.`id` = <%=category%> <% } %> " +
-        "<% if (count == undefined) { %> GROUP BY `Works`.`id` <% } %> ) AS `works` " +
-        "<% if (count == undefined) { %> ORDER BY <%=order%>,`name` <%  } %>" +
-        "<% if (count == undefined) { %> LIMIT <%=offset%>,<%=limit%> <% } %>"
-    return _.template(queryTemplate)(options);
-};
-global.getProduct = function (options) {
-    var queryTemplate =
-        "SELECT `Product`.`id`, `Product`.`name`, `Product`.`nameSlugify`, `Product`.`price`, `Product`.`photo`," +
-        "`Product`.`description`, `Product`.`featured`,`Product`.`views`, `ProductTypes`.`name` AS `type`, " +
-        "COUNT(DISTINCT `Product.Likes`.`id`) AS `likes`, " +
-        "COUNT(DISTINCT `Product.Collects`.`id`) AS `collects`, " +
-        "IF(`Product`.`UserId` = <%=viewer%>, TRUE, FALSE) AS `owner`, " +
-        "IF(`ProductLikes`.`UserId` = <%=viewer%>, TRUE, FALSE) AS `liked`, " +
-        "IF(`ProductCollects`.UserId = <%=viewer%>, TRUE, FALSE) AS `collected`, " +
-        "`User`.`id` AS `User.id`, `User`.`username` AS `User.username`, `User`.`firstname` AS `User.firstname`, " +
-        "`User`.`lastname` AS `User.lastname`,`User`.`photo` AS `User.photo` " +
-        "FROM (SELECT `Product`.* FROM `Products` AS `Product` WHERE `Product`.`nameSlugify` = '<%=name%>' LIMIT 1) " +
-        "AS `Product` LEFT OUTER JOIN `Users` AS `User` ON `Product`.`UserId` = `User`.`id` " +
-        "LEFT OUTER JOIN (`ProductLikes` AS `ProductLikes` INNER JOIN `Users` AS `Product.Likes` " +
-        "ON `Product.Likes`.`id` = `ProductLikes`.`UserId`) ON `Product`.`id` = `ProductLikes`.`ProductId` " +
-        "LEFT OUTER JOIN  (`ProductCollects` AS `ProductCollects` INNER JOIN `Users` AS `Product.Collects` " +
-        "ON `Product.Collects`.`id` = `ProductCollects`.`UserId`) ON `Product`.`id` = `ProductCollects`.`ProductId` " +
-        "LEFT OUTER JOIN `ProductTypes` ON `Product`.`ProductTypeId` = `ProductTypes`.`id`;";
-    return _.template(queryTemplate)(options);
-};
-
-global.getUserLikesProduct = function (options) {
-    var queryTemplate =
-        "SELECT `User`.`id`, `User`.`username`, `User`.`firstname`, `User`.`lastname`, `User`.`photo` " +
-        "FROM `Users` AS `User` INNER JOIN `ProductLikes` ON `User`.`id` = `ProductLikes`.`UserId` " +
-        "AND `ProductLikes`.`ProductId` = <%=product%> LIMIT <%=limit%>;";
-    return _.template(queryTemplate)(options);
-}
-
-global.mergeEntity = function (data, entity) {
-    var ids = [], result = [];
-    _.map(data, function (d) {
-        if (ids.indexOf(d.id) == -1) {
-            _.map(d, function (value, key) {
-                if (entity.indexOf(key) > -1) {
-                    console.log(d[key].id);
-                    if (d[key].id != null)
-                        d[key] = [d[key]];
-                    else
-                        d[key] = [];
-                }
-            });
-            ids.push(d.id);
-            result.push(d);
-        } else {
-            var currentData = _.findWhere(result, {id: d.id});
-            _.map(currentData, function (value, key) {
-                if (entity.indexOf(key) > -1) {
-                    if (_.findWhere(currentData[key], {id: d[key].id}) == undefined)
-                        currentData[key].push(d[key]);
-                }
-            });
-        }
-    });
-    return result;
-};
-
-global.getPaginationEntity = function (entity, options, query) {
+global.getPaginationEntity = function (options, query) {
     var pages = global.getPagination(options.page, options.limit);
     query = _.assign(query, {offset: pages.offset, limit: pages.limit});
-    var promises = [
-        global.db[entity].findAll(query),
-        global.db[entity].count(_.omit(query, 'offset', 'limit'))
-    ];
+
+    var promises = [];
+    if (!options.association) {
+        promises = [global.db[options.entity].findAll(query)]
+        query = _.omit(query, 'build', 'offset', 'limit');
+        promises.push(global.db[options.entity].count(query));
+    }
+    else {
+        promises = [options.entity[options.method](query)];
+        query.attributes = [
+            [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'total']
+        ]
+        query = _.omit(query, 'build', 'offset', 'limit');
+        promises.push(options.entity[options.method](query));
+    }
+
     return global.db.Sequelize.Promise.all(promises).then(function (data) {
-        var records = data[0], total = data[1], result = {};
-        var pagination = {
+        var total, result = {};
+        result[options.name] = data[0];
+        if (!options.association)
+            total = data[1];
+        else
+            total = data[1][0].getDataValue('total');
+        result.pagination = {
             total: total,
             page: pages.page,
             limit: pages.limit,
             pages: Math.ceil(total / pages.limit)
         };
-        result[options.entity] = records;
-        result.pagination = pagination;
-        return result;
-    });
-};
-
-
-global.getPaginationData = function (options) {
-    var pages = global.getPagination(options.page, options.limit);
-
-    options.offset = pages.offset;
-    options.limit = pages.limit;
-
-    var recordsQuery = global[options.query](options);
-    var countQuery = global[options.query](options, true);
-
-    var promises = [
-        global.db.sequelize.query(recordsQuery, {nest: true, raw: true}),
-        global.db.sequelize.query(countQuery, {nest: true, raw: true})
-    ];
-
-    return global.db.Sequelize.Promise.all(promises).then(function (data) {
-        var records = data[0], total = data[1][0].total, result = {};
-        var pagination = {
-            total: total,
-            page: pages.page,
-            limit: pages.limit,
-            pages: Math.ceil(total / pages.limit)
-        };
-        result[options.entity] = records;
-        result.pagination = pagination;
         return result;
     });
 };

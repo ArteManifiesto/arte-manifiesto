@@ -40,7 +40,7 @@ module.exports = function (sequelize, DataTypes) {
                 like: function (user) {
                     var scope = this;
                     this.popularity += 3;
-                    var promises = [this.addProductLike(user), this.save()];
+                    var promises = [user.addProductLike(this), this.save()];
                     return global.db.Sequelize.Promise.all(promises).then(function () {
                         return scope.likes();
                     });
@@ -48,7 +48,7 @@ module.exports = function (sequelize, DataTypes) {
                 unLike: function (user) {
                     var scope = this;
                     this.popularity -= 3;
-                    var promises = [this.removeProductLike(user), this.save()];
+                    var promises = [user.removeProductLike(this), this.save()];
                     return global.db.Sequelize.Promise.all(promises).then(function () {
                         return scope.likes();
                     });
@@ -58,7 +58,7 @@ module.exports = function (sequelize, DataTypes) {
                     return global.db.Sequelize.Promise.all([
                         scope.likes(),
                         scope.liked(options.viewer),
-                        scope.friends(options.user)
+                        scope.friends(options.viewer)
                     ]).then(function (result) {
                         scope.setDataValue('likes', result[0]);
                         scope.setDataValue('liked', result[1]);
@@ -82,22 +82,30 @@ module.exports = function (sequelize, DataTypes) {
                         return likes.length > 0;
                     });
                 },
-                friends: function (user) {
-                    if (user === undefined)
+                friends: function (viewer) {
+                    if (viewer < 0)
                         return [];
 
-                    var scope = this, queryLikes = {attributes: ['id']};
-                    return this.getProductLikes(queryLikes).then(function (likes) {
-                        var queryFollowings = {attributes: ['id', 'username', 'photo', 'url']};
-                        return user.getFollowings(queryFollowings).then(function (followings) {
-                            var likesId = _.pluck(likes, 'id');
-                            var followingsId = _.pluck(followings, 'id');
-                            var intersection = _.intersection(likesId, followingsId);
-                            var result = [];
-                            for (var i = 0; i < intersection.length; i++)
-                                result.push(_.where(followings, {id: intersection[i]})[0]);
-                            return result;
-                        });
+                    var scope = this, queryLikes = {attributes: ['id']},
+                        queryFollowings = {attributes: ['id', 'username', 'photo', 'url']};
+
+                    var promises = [
+                        this.getProductLikes(queryLikes),
+                        global.db.User.findById(viewer).then(function (user) {
+                            return user.getFollowings(queryFollowings);
+                        })
+                    ]
+                    return global.db.Sequelize.Promise.all(promises).then(function (result) {
+                        var likes = result[0], followings = result[1];
+
+                        var likesId = _.pluck(likes, 'id');
+                        var followingsId = _.pluck(followings, 'id');
+                        var intersection = _.intersection(likesId, followingsId);
+                        var i, friends = [];
+                        for (i = 0; i < intersection.length; i++)
+                            friends.push(_.where(followings, {id: intersection[i]})[0]);
+
+                        return friends;
                     });
                 },
                 userLikes: function () {
@@ -125,16 +133,6 @@ module.exports = function (sequelize, DataTypes) {
                 afterCreate: function (product, options) {
                     product.url = options.user.url + '/product/' + product.nameSlugify;
                     return product.save();
-                },
-                beforeFind: function (options, fn) {
-                    options.include = [{
-                        model: global.db.User,
-                        attributes: ['id', 'username', 'firstname', 'lastname', 'photo', 'url']
-                    }, {
-                        model: global.db.Work,
-                        attributes: ['id', 'name', 'photo', 'url']
-                    }];
-                    fn(null, options);
                 },
                 afterFind: function (items, options, fn) {
                     if ((!options.build) || (items === null) ||

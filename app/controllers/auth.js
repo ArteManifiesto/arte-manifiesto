@@ -103,7 +103,7 @@ exports.login = function (req, res) {
 
         if (!user)
             return res.badRequest(message);
-
+        
         loginUser(req, res, user);
     })(req, res);
 };

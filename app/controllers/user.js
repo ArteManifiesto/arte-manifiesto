@@ -1,30 +1,17 @@
 var basePath = 'user/';
-var redirectPath = '/' + basePath;
-var Chance = require('chance');
-var _ = require('lodash');
-var chance = new Chance();
-
-var async = require('async');
-var cloudinary = require('cloudinary').v2;
-var Promise = require('bluebird');
-var request = require('request');
 
 exports.profile = function (req, res) {
     var currentPath = req.path.replace('/', '');
-    if (currentPath.length == '') currentPath = 'portfolio';
-
+    if (currentPath.length === '') currentPath = 'portfolio';
     var promises = [
-        global.getNumCollectionsOfUser({user: req.profile.id, meta: 'portfolio'}),
-        global.getNumLikesOfUser({user: req.profile.id}),
-        global.getNumCollectionsOfUser({user: req.profile.id, meta: 'store'}),
-        global.getNumCollectionsOfUser({user: req.profile.id, meta: 'works'}),
-        global.getNumCollectionsOfUser({user: req.profile.id, meta: 'products'}),
-        global.getNumFollowersOfUser({user: req.profile.id}),
-        global.getNumFollowingsOfUser({user: req.profile.id})
+        req.profile.numOfWorks(), req.profile.numOfProducts(),
+        req.profile.numOfLikesToWorks(), req.profile.numOfLikesToProducts(),
+        req.profile.numOfCollections(), req.profile.numOfFollowers(),
+        req.profile.numOfFollowings()
     ];
 
     global.db.sequelize.Promise.all(promises).then(function (data) {
-        return res.render('user/index', {
+        return res.render(basePath + 'index', {
             currentPath: currentPath,
             profile: req.profile,
             owner: req.owner,
@@ -33,131 +20,103 @@ exports.profile = function (req, res) {
     });
 };
 
-var worksCollectionByMeta = function (req, options) {
-    options.query = 'getWorksOfCollectionByMeta'
-    options.viewer = req.viewer;
-    options.user = req.profile.id;
-    options.page = req.params.page;
-    options.limit = 10;
-    return global.getPaginationData(options);
-};
-
 exports.portfolio = function (req, res) {
-    global.getPortfolioCollection(req.profile).then(function (collection) {
-        var options = {collection: collection.id, entity: 'works', meta: 'Work'};
-        worksCollectionByMeta(req, options).then(function (data) {
-            return res.json(data);
-        });
-    });
-};
-
-var likesByMeta = function (req, meta) {
     var options = {
-        query: 'getWorksLikesOfUser', entity: 'likes', meta: meta, viewer: req.viewer,
-        user: req.profile.id, page: req.params.page, limit: 10
+        entity: req.profile, method: 'getWorks', association: true,
+        name: 'works', page: req.params.page, limit: 2
     };
-    return global.getPaginationData(options);
-};
 
-exports.likesWorks = function (req, res) {
-    likesByMeta(req, 'Work').then(function (data) {
-        return res.json(data);
-    });
-};
-
-exports.likesProducts = function (req, res) {
-    likesByMeta(req, 'Product').then(function (data) {
-        return res.json(data);
+    global.getPaginationEntity(options, {build: true}).then(function (result) {
+        return res.json(result);
     });
 };
 
 exports.products = function (req, res) {
-    global.getStoreCollection(req.profile).then(function (collection) {
-        var options = {collection: collection.id, entity: 'products', meta: 'Product'};
-        worksCollectionByMeta(req, options).then(function (data) {
-            return res.json(data);
-        });
-    });
-};
-
-var collectionsByMeta = function (req, meta) {
     var options = {
-        query: 'getCollectionsByMeta', entity: meta, viewer: req.viewer,
-        meta: meta, user: req.profile.id,
-        page: req.params.page, limit: 10
+        entity: req.profile, method: 'getProducts', association: true,
+        name: 'products', page: req.params.page, limit: 2
     };
-    return global.getPaginationData(options);
-};
 
-exports.collectionsWorks = function (req, res) {
-    collectionsByMeta(req, 'works').then(function (data) {
-        return res.json(data);
+    global.getPaginationEntity(options, {build: true}).then(function (result) {
+        return res.json(result);
     });
 };
 
-exports.collectionsProducts = function (req, res) {
-    collectionsByMeta(req, 'products').then(function (data) {
-        return res.json(data);
-    });
-};
-
-var getRelation = function (req, relation) {
+exports.likesWorks = function (req, res) {
     var options = {
-        query: 'relations', entity: relation, viewer: req.viewer,
-        relation: relation, user: req.profile.id,
-        page: req.params.page, limit: 10
+        entity: req.profile, method: 'getWorkLikes', association: true,
+        name: 'works', page: req.params.page, limit: 2
     };
-    return global.getPaginationData(options).then(function (data) {
-        var records = global.mergeEntity(data[relation], ['Works']);
-        _.map(records, function (value, key) {
-            value['Works'] = _.slice(value['Works'], 0, 6);
-        });
-        data[relation] = records;
-        return data;
+
+    global.getPaginationEntity(options, {build: true}).then(function (result) {
+        return res.json(result);
+    });
+};
+
+exports.likesProducts = function (req, res) {
+    var options = {
+        entity: req.profile, method: 'getProductLikes', association: true,
+        name: 'products', page: req.params.page, limit: 2
+    };
+
+    global.getPaginationEntity(options, {build: true}).then(function (result) {
+        return res.json(result);
+    });
+};
+
+exports.collections = function (req, res) {
+    var options = {
+        entity: req.profile, method: 'getCollections', association: true,
+        name: 'collections', page: req.params.page, limit: 2
+    };
+
+    global.getPaginationEntity(options, {build: true}).then(function (result) {
+        return res.json(result);
     });
 };
 
 exports.followers = function (req, res) {
-    return req.profile.getFollowers({build: true}).then(function (followers) {
-        return res.json(followers);
+    var options = {
+        entity: req.profile, method: 'getFollowers', association: true,
+        name: 'followers', page: req.params.page, limit: 2
+    };
+
+    global.getPaginationEntity(options, {build: true}).then(function (result) {
+        return res.json(result);
     });
 };
 
 exports.followings = function (req, res) {
-    getRelation(req, 'followings').then(function (data) {
-        return res.json(data);
+    var options = {
+        entity: req.profile, method: 'getFollowings', association: true,
+        name: 'followings', page: req.params.page, limit: 2
+    };
+
+    global.getPaginationEntity(options, {build: true}).then(function (result) {
+        return res.json(result);
     });
 };
 
-//TODO make middlewate for check if user exists
 exports.follow = function (req, res) {
-    global.db.User.find(req.body.idUser).then(function (user) {
-        user.follow(req.user).then(function (followers) {
-            return res.ok(followers, 'User Followed');
-        });
+    req.user.follow(req.userTo).then(function (followers) {
+        return res.ok({user: req.user, followers: followers}, 'Usuario seguido');
     });
 };
 
 exports.unFollow = function (req, res) {
-    global.db.User.find(req.body.idUser).then(function (user) {
-        user.unFollow(req.user).then(function (followers) {
-            return res.ok(followers, 'User unFollowed');
-        });
+    req.user.unFollow(req.userTo).then(function (followers) {
+        return res.ok({user: req.user, followers: followers}, 'Usuario precedido');
     });
 };
 
 exports.featured = function (req, res) {
-    global.db.User.find(req.body.idUser).then(function (user) {
-        user.updateAttributes({featured: true}).then(function () {
-            return res.ok('User featured');
-        });
+    req.userTo.updateAttributes({featured: true}).then(function () {
+        return res.ok({user: req.userTo}, 'Usuario recomendado');
     });
 };
 
 exports.unFeatured = function (req, res) {
-    global.db.User.find(req.body.idUser).then(function (user) {
-        user.updateAttributes({featured: false}).then(function () {
-            return res.ok('User unFeatured');
-        });
+    req.userTo.updateAttributes({featured: false}).then(function () {
+        return res.ok({user: req.userTo}, 'Usuario censurado');
     });
 };

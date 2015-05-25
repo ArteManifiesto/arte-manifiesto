@@ -29,18 +29,17 @@ router.use('/product', productRouter);
 router.use('/collection', collectionRouter);
 router.use('/account', isLoggedAndOwner, accountRouter);
 
-router.post('/follow', isLoggedAndOwner, controller.follow);
-router.post('/unfollow', isLoggedAndOwner, controller.unFollow);
-router.post('/featured', isLoggedAndOwner, controller.featured);
-router.post('/unfeatured', isLoggedAndOwner, controller.unFeatured);
+router.post('/follow', isLoggedAndOwner, middlewares.userTo, controller.follow);
+router.post('/unfollow', isLoggedAndOwner, middlewares.userTo, controller.unFollow);
+router.post('/featured', isLoggedAndOwner, middlewares.userTo, controller.featured);
+router.post('/unfeatured', isLoggedAndOwner, middlewares.userTo, controller.unFeatured);
 
-router.post(['/:page', '/portfolio/:page'], controller.portfolio);
-router.post('/likes/works/:page', controller.likesWorks);
-router.post('/likes/products/:page', controller.likesProducts);
-router.post('/products/:page', controller.products);
-router.post('/collections/works/:page', controller.collectionsWorks);
-router.post('/collections/products/:page', controller.collectionsProducts);
-router.post('/followers/:page', controller.followers);
-router.post('/followings/:page', controller.followings);
+router.get(['/:page', '/portfolio/:page'], controller.portfolio);
+router.get('/products/:page', controller.products);
+router.get('/likes/works/:page', controller.likesWorks);
+router.get('/likes/products/:page', controller.likesProducts);
+router.get('/collections/:page', controller.collections);
+router.get('/followers/:page', controller.followers);
+router.get('/followings/:page', controller.followings);
 
 module.exports = router;
