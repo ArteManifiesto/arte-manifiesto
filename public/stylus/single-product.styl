@@ -5,6 +5,8 @@
 
 @import 'elements/buttons.styl'
 
+@import 'objects/products.styl'
+
 
 .single-product
 	max-width max-width
@@ -37,7 +39,8 @@
 		&__image
 			padding .5rem
 			img
-				max-width 300px
+				// max-width 300px
+				width auto
 				margin auto
 				display block
 		&__data
@@ -63,6 +66,12 @@
 							width 2.25rem
 							height 2.25rem
 							border-radius 50%
+				.actions__more
+					display flex
+					flex-wrap wrap
+					.product-image
+						flex 1 50%
+						padding .5rem
 										
 @media (min-width: tablet)
 	.single-product
@@ -72,7 +81,8 @@
 		&__info
 			display flex
 			justify-content center
-			align-items center
+			// align-items center
+			// align-items flex-start
 			max-width 800px
 			margin auto
 			&__image
@@ -82,10 +92,12 @@
 				.actions
 					border solid 1px #ccc
 					margin .5rem
-					padding 1rem
+					&:nth-child(1)
+					&:nth-child(2)
+						padding 1rem
 					
-@media (min-width: desktop)
-	.single-product
-		&__info
-			&__image
-				flex 2
+// @media (min-width: desktop)
+// 	.single-product
+// 		&__info
+// 			&__image
+// 				flex 2

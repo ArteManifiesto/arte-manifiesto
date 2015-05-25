@@ -11,22 +11,23 @@
 {% endblock %}
 
 {% block scripts %}
-<script type="text/javascript">
-    var product = {{ product|json|safe }};
-    console.log('product: ', product)
-    var userLikes = {{userLikes|json|safe}};
-    console.log('userLikes: ', userLikes);
-    var more = {{more|json|safe}};
-    console.log('more: ', more);
-    var similar = {{similar|json|safe}};
-    console.log('similar: ', similar);
-    var user = {{ user|json|safe }}
-    console.log('user: ', user);
-    new Product(document.querySelector('.single-product'), {
-        id: product.id,
-        likes: product.likes,
-        liked: product.liked,
-        buttonLikeClass: 'js-buttonLike'
-    })
-</script>
+
+	<script type="text/javascript">
+
+		var product = {{ product|json|safe }};
+		console.log('product: ', product)
+
+		var userLikes = {{userLikes|json|safe}};
+		console.log('userLikes: ', userLikes);
+
+		var more = {{more|json|safe}};
+		console.log('more: ', more);
+
+		var similar = {{similar|json|safe}};
+		console.log('similar: ', similar);
+
+		var user = {{ user|json|safe }}
+		console.log('user: ', user);
+
+	</script>
 {% endblock %}

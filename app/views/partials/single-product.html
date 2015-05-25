@@ -48,14 +48,89 @@
 				<div class="actions__buy">
 					<a href="/checkout/{{product.nameSlugify}}" class="button-solid" data-size='large' data-color='red' data-expand='true'>Comprar</a>
 				</div>
-
+			</div>
+			<div class="actions">
 				<div class="actions__people">
+					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
 					{% for userLike in product.userLikes %}
 						<div class="people-item"><img src="{{userLike.photo}}"></div>
+					{% endfor %}
+				</div>
+			</div>
+			<div class="actions">
+				<div class="actions__more">
+					{% for product in more %}
+						<a class="product-image" href="/{{ product.User.username}}/product/{{product.nameSlugify}}">
+							<img src="{{ product.photo }}">
+						</a>
 					{% endfor %}
 				</div>
 			</div>
 		</div>
 
 	</div>
+
+	<div class="single-product__similar">
+		<!-- ********************************************************************
+			$ PRODUCTS
+		********************************************************************* -->
+		<!-- <p>Mas productos</p>
+		
+		<section class="products">
+			{% for product in more %}
+			<div class="product-wrapper">
+				<article class="product">
+					<a class="product-image" href="/{{ product.User.username}}/product/{{product.nameSlugify}}">
+						<img src="{{ product.photo }}">
+					</a>
+					<div class="product-title">
+						<div class="title">{{product.name}}</div>
+					</div>
+					<div class="product-info">
+						<div class="price">s./{{product.price}}</div>
+						<div class="like">
+							<span class="button-like"> <i class="fa fa-heart-o"></i> <span>{{product.likes}}</span> </span>
+						</div>
+						<div class="wish-list">
+							<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
+						</div>
+					</div>
+				</article>
+			</div>
+			{% endfor %}
+		</section> -->
+
+
+		<p>Productos similares</p>
+		
+		<section class="products">
+			{% for product in similar %}
+			<div class="product-wrapper">
+				<article class="product">
+					<a class="product-image" href="/{{ product.User.username}}/product/{{product.nameSlugify}}">
+						<img src="{{ product.photo }}">
+					</a>
+					<div class="product-title">
+						<div class="title">{{product.name}}</div>
+					</div>
+					<div class="product-info">
+						<div class="price">s./{{product.price}}</div>
+						<div class="like">
+							<span class="button-like"> <i class="fa fa-heart-o"></i> <span>{{product.likes}}</span> </span>
+						</div>
+						<div class="wish-list">
+							<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
+						</div>
+					</div>
+				</article>
+			</div>
+			{% endfor %}
+		</section>
+	</div>
+
 </div>
