@@ -5,7 +5,7 @@
 	{% for product in products %}
 	<div class="product-wrapper">
 		<article class="product">
-			<a class="product-image" href="/{{ product.User.username}}/product/{{product.nameSlugify}}">
+			<a class="product-image" href="{{ product.url }}">
 				<img src="{{ product.photo }}">
 			</a>
 			<div class="product-title">
