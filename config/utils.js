@@ -66,7 +66,7 @@ global.discoverOptions = function (req) {
     options.entity = entity;
     options.viewer = req.body.idUser ? req.body.idUser : 0;
     options.page = req.params.page;
-    options.limit = 10;
+    options.limit = 3;
     options.featured = req.query.featured;
     options.order = global.getOrder(req.query.order);
     if (req.query.time)
@@ -95,7 +95,7 @@ global.searchWorks = function (req) {
 global.searchUsers = function (req) {
     var options = discoverOptions(req);
     options.username = req.query.username;
-    var query = {order: [options.order, 'username'], build: true};
+    var query = {where: {}, order: [options.order, 'username'], build: true};
     if (options.time !== undefined)
         query.where.createdAt = {$between: options.time};
     if (options.username !== undefined)

@@ -109,7 +109,7 @@ module.exports = function (sequelize, DataTypes) {
                         scope.setDataValue('numOfFollowers', result[0]);
                         scope.setDataValue('numOfWorks', result[1]);
                         scope.setDataValue('following', result[2]);
-                        scope.setDataValue('works', result[3]);
+                        scope.setDataValue('Works', result[3]);
                     });
                 },
                 numOfFollowers: function () {

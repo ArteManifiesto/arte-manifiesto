@@ -10,10 +10,6 @@ var Promise = require('bluebird');
 var request = require('request');
 
 exports.profile = function (req, res) {
-    return req.profile.getFollowers({viewer: req.viewer, build: true}).then(function (followers) {
-        return res.json(followers);
-    });
-
     var currentPath = req.path.replace('/', '');
     if (currentPath.length == '') currentPath = 'portfolio';
 
