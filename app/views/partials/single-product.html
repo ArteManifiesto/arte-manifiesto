@@ -31,7 +31,8 @@
 					{% if product.liked %}
 						<button class="button-liner disabled js-buttonLike">
 							<div class="button-liner__action">Likes</div>
-							<div class="button-liner__number">{{product.likes}}</div>
+							<!-- <div class="button-liner__number">{{product.likes}}</div> -->
+							<div class="button-liner__number">{{product.getDataValue('likes')}}</div>
 						</button>
 					{% else %}
 						<button class="button-liner js-buttonLike">
@@ -50,6 +51,7 @@
 				</div>
 			</div>
 			<div class="actions">
+				<p class="actions__title">Comunidad</p>
 				<div class="actions__people">
 					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
 					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
@@ -63,9 +65,10 @@
 				</div>
 			</div>
 			<div class="actions">
+				<p class="actions__title">Mas del artista</p>
 				<div class="actions__more">
 					{% for product in more %}
-						<a class="product-image" href="/{{ product.User.username}}/product/{{product.nameSlugify}}">
+						<a class="more-image" href="/{{ product.User.username}}/product/{{product.nameSlugify}}">
 							<img src="{{ product.photo }}">
 						</a>
 					{% endfor %}
@@ -76,7 +79,36 @@
 	</div>
 
 	<div class="single-product__similar">
-		<!-- ********************************************************************
+		<p class="actions-title">Productos similares</p>
+		
+		<section class="products">
+			{% for product in similar %}
+			<div class="product-wrapper">
+				<article class="product">
+					<a class="product-image" href="/{{ product.User.username}}/product/{{product.nameSlugify}}">
+						<img src="{{ product.photo }}">
+					</a>
+					<div class="product-title">
+						<div class="title">{{product.name}}</div>
+					</div>
+					<div class="product-info">
+						<div class="price">s./{{product.price}}</div>
+						<div class="like">
+							<span class="button-like"> <i class="fa fa-heart-o"></i> <span>{{product.getDataValue('likes')}}</span> </span>
+						</div>
+						<div class="wish-list">
+							<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
+						</div>
+					</div>
+				</article>
+			</div>
+			{% endfor %}
+		</section>
+	</div>
+
+</div>
+
+	<!-- ********************************************************************
 			$ PRODUCTS
 		********************************************************************* -->
 		<!-- <p>Mas productos</p>
@@ -104,33 +136,3 @@
 			</div>
 			{% endfor %}
 		</section> -->
-
-
-		<p>Productos similares</p>
-		
-		<section class="products">
-			{% for product in similar %}
-			<div class="product-wrapper">
-				<article class="product">
-					<a class="product-image" href="/{{ product.User.username}}/product/{{product.nameSlugify}}">
-						<img src="{{ product.photo }}">
-					</a>
-					<div class="product-title">
-						<div class="title">{{product.name}}</div>
-					</div>
-					<div class="product-info">
-						<div class="price">s./{{product.price}}</div>
-						<div class="like">
-							<span class="button-like"> <i class="fa fa-heart-o"></i> <span>{{product.likes}}</span> </span>
-						</div>
-						<div class="wish-list">
-							<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
-						</div>
-					</div>
-				</article>
-			</div>
-			{% endfor %}
-		</section>
-	</div>
-
-</div>
