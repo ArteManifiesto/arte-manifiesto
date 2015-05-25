@@ -956,8 +956,6 @@ body {
     -ms-flex-pack: center;
     -webkit-justify-content: center;
     justify-content: center;
-    max-width: 800px;
-    margin: auto;
   }
   .single-product__info__image {
     -webkit-box-flex: 1.5;
@@ -969,6 +967,7 @@ body {
     flex: 1.5;
   }
   .single-product__info__data {
+    max-width: 350px;
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
     -o-box-flex: 1;
