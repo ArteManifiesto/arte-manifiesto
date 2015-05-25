@@ -1,26 +1,21 @@
-
 {% extends 'partials/base.html' %}
 
-	{% set path = 'index' %}
-	{% set title = 'Arte Manifiesto' %}
-	{% set css = 'index' %}
-	
+{% set path = 'index' %}
+{% set title = 'Arte Manifiesto' %}
+{% set css = 'index' %}
+
 {% block elements %}
 
 {% endblock %}
 
 {% block scripts %}
 
-	<script type="text/javascript">
-
-		console.log('index!')
-
-		var successMessage = {{ successMessage|json|safe }}
-		console.log('successMessage: ', successMessage)
-
-		var errorMessage = {{ errorMessage|json|safe }}
-		console.log('errorMessage: ', errorMessage)
-
-	</script>
+<script type="text/javascript">
+	console.log('index!')
+	var successMessage = {{ successMessage|json|safe }}
+	console.log('successMessage: ', successMessage)
+	var errorMessage = {{ errorMessage|json|safe }}
+	console.log('errorMessage: ', errorMessage)
+</script>
 
 {% endblock %}

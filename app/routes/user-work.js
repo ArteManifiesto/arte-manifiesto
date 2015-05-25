@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router({mergeParams: true});
-
 var config = require('../../config/config');
 var controller = require(config.controllersDir + "/user-work");
 var middlewares = require(config.middlewaresDir + "/app");

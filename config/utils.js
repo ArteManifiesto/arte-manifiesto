@@ -568,14 +568,12 @@ global.discoverWorks = function (options, count) {
 global.getProduct = function (options) {
     var queryTemplate =
         "SELECT `Product`.`id`, `Product`.`name`, `Product`.`nameSlugify`, `Product`.`price`, `Product`.`photo`," +
-        "`Product`.`description`, `Product`.`featured`, `ProductTypes`.`name` AS `type`, " +
+        "`Product`.`description`, `Product`.`featured`,`Product`.`views`, `ProductTypes`.`name` AS `type`, " +
         "COUNT(DISTINCT `Product.Likes`.`id`) AS `likes`, " +
         "COUNT(DISTINCT `Product.Collects`.`id`) AS `collects`, " +
-        "COUNT(DISTINCT `Product.Views`.`id`) AS `views`, " +
         "IF(`Product`.`UserId` = <%=viewer%>, TRUE, FALSE) AS `owner`, " +
         "IF(`ProductLikes`.`UserId` = <%=viewer%>, TRUE, FALSE) AS `liked`, " +
         "IF(`ProductCollects`.UserId = <%=viewer%>, TRUE, FALSE) AS `collected`, " +
-        "IF(`ProductViews`.UserId = <%=viewer%>, TRUE, FALSE) AS `viewed`, " +
         "`User`.`id` AS `User.id`, `User`.`username` AS `User.username`, `User`.`firstname` AS `User.firstname`, " +
         "`User`.`lastname` AS `User.lastname`,`User`.`photo` AS `User.photo` " +
         "FROM (SELECT `Product`.* FROM `Products` AS `Product` WHERE `Product`.`nameSlugify` = '<%=name%>' LIMIT 1) " +
@@ -584,8 +582,6 @@ global.getProduct = function (options) {
         "ON `Product.Likes`.`id` = `ProductLikes`.`UserId`) ON `Product`.`id` = `ProductLikes`.`ProductId` " +
         "LEFT OUTER JOIN  (`ProductCollects` AS `ProductCollects` INNER JOIN `Users` AS `Product.Collects` " +
         "ON `Product.Collects`.`id` = `ProductCollects`.`UserId`) ON `Product`.`id` = `ProductCollects`.`ProductId` " +
-        "LEFT OUTER JOIN (`ProductViews` AS `ProductViews` INNER JOIN `Users` AS `Product.Views` " +
-        "ON `Product.Views`.`id` = `ProductViews`.`UserId`) ON `Product`.`id` = `ProductViews`.`ProductId` " +
         "LEFT OUTER JOIN `ProductTypes` ON `Product`.`ProductTypeId` = `ProductTypes`.`id`;";
     return _.template(queryTemplate)(options);
 };

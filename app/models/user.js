@@ -41,7 +41,8 @@ module.exports = function (sequelize, DataTypes) {
             tokenResetPasswordExpires: DataTypes.DATE,
             featured: {type: DataTypes.BOOLEAN, defaultValue: false},
             isAdmin: {type: DataTypes.BOOLEAN, defaultValue: false},
-            views: {type: DataTypes.INTEGER, defaultValue: 0}
+            views: {type: DataTypes.INTEGER, defaultValue: 0},
+            url: {type: DataTypes.STRING}
         },
         {
             classMethods: {
@@ -101,7 +102,7 @@ module.exports = function (sequelize, DataTypes) {
                     user.salt = user.makeSalt();
                     user.hashedPassword = user.encryptPassword(options.password, user.salt);
                     user.tokenVerifyEmail = uuid.v4();
-
+                    user.url = '/' + user.username;
                     var query = {
                         limit: _.random(1, 4),
                         order: [sequelize.fn('RAND', '')]

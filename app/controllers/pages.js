@@ -15,8 +15,8 @@ exports.index = function (req, res) {
      return res.json(specialties)
      });
      }
-
-     var recaptcha = new Recaptcha(config.recaptcha.publicKey, config.recaptcha.privateKey);*/
+     var recaptcha = new Recaptcha(config.recaptcha.publicKey, config.recaptcha.privateKey);
+     */
 
     var query = {where: {featured: true}, limit: 20};
     global.db.Product.findAll(query).then(function (workFeatureds) {

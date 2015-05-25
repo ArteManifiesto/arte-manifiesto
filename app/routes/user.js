@@ -34,13 +34,13 @@ router.post('/unfollow', isLoggedAndOwner, controller.unFollow);
 router.post('/featured', isLoggedAndOwner, controller.featured);
 router.post('/unfeatured', isLoggedAndOwner, controller.unFeatured);
 
-router.post(['/:page', '/portfolio/:page'], isLoggedAndOwner, controller.portfolio);
-router.post('/likes/works/:page', isLoggedAndOwner, controller.likesWorks);
-router.post('/likes/products/:page', isLoggedAndOwner, controller.likesProducts);
-router.post('/products/:page', isLoggedAndOwner, controller.products);
-router.post('/collections/works/:page', isLoggedAndOwner, controller.collectionsWorks);
-router.post('/collections/products/:page', isLoggedAndOwner, controller.collectionsProducts);
-router.post('/followers/:page', isLoggedAndOwner, controller.followers);
-router.post('/followings/:page', isLoggedAndOwner, controller.followings);
+router.post(['/:page', '/portfolio/:page'], controller.portfolio);
+router.post('/likes/works/:page', controller.likesWorks);
+router.post('/likes/products/:page', controller.likesProducts);
+router.post('/products/:page', controller.products);
+router.post('/collections/works/:page', controller.collectionsWorks);
+router.post('/collections/products/:page', controller.collectionsProducts);
+router.post('/followers/:page', controller.followers);
+router.post('/followings/:page', controller.followings);
 
 module.exports = router;

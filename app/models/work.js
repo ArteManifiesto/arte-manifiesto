@@ -47,7 +47,7 @@ module.exports = function (sequelize, DataTypes) {
             },
             hooks: {
                 afterCreate: function (work, options) {
-                    work.url = '/' + options.user.username + '/work/' + work.nameSlugify;
+                    work.url = options.user.url + '/work/' + work.nameSlugify;
                     return work.save();
                 }
             }
