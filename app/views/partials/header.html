@@ -22,7 +22,11 @@
 		{% if user %}
 			<a class="skinny-menu__avatar" href="/{{ user.username }}">
 				<div class="button-avatar">
-					<img src="{{ user.photo }}">
+					{% if user.photo %}
+						<img src="{{ user.photo }}">
+					{% else %}
+						<img src="http://www.furcontest.com/imagenes/default.png">
+					{% endif %}
 				</div>
 			</a>
 		{% else %}

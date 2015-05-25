@@ -665,6 +665,13 @@ body {
 .button-wish-list.active .fa-heart-o {
   display: none;
 }
+.button-avatar {
+  max-width: 2.5rem;
+}
+.button-avatar img {
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
 .flash-message-container {
   max-width: 1100px;
   margin: auto;

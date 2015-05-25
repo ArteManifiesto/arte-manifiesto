@@ -4,13 +4,18 @@
 <section class="profile">
 	<div class="profile__information">
 		<div class="profile__avatar">
-			<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.png">
+			{% if profile.photo %}
+				<img src="{{ profile.photo }}">
+			{% else %}
+				<img src="http://www.furcontest.com/imagenes/default.png">
+			{% endif %}
 		</div>
 		<div class="profile__data">
 			<p class="profile-text">{{ profile.firstname }} {{ profile.lastname }}</p>
 			<div class="profile__info">
 				<p class="skinny-text" data-color='light'><i class="fa fa-map-marker"></i> Lima</p>
-				{% if profile.following %}
+				{% if profile.getDataValue('following') %}
+					holi!
 					<button class="button-liner disabled js-followButton" data-size="small" data-following="true" data-userId="{{ profile.id }}">
 				{% else %}
 					<button class="button-liner js-followButton" data-size="small" data-following="false" data-userId="{{ profile.id }}">
