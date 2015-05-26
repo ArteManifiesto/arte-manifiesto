@@ -7,7 +7,12 @@
 		<article class="user">
 			<a class="user-header" href="{{ user.url }}">
 				<div class="avatar">
-					<img src="{{ user.photo }}">
+					{% if user.photo %}
+						<img src="{{ user.photo }}">
+					{% else %}
+						<img src="http://www.furcontest.com/imagenes/default.png">
+					{% endif %}
+
 				</div>
 				<div class="info">
 					<p class="high-text" data-size='small'>{{ user.firstname }}</p>
