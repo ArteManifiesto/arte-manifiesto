@@ -13,7 +13,11 @@
         <article class="user">
             <a class="user-header" href="#">
                 <div class="avatar">
-                    <img src="<%= photo %>">
+                    <% if (photo) { %>
+                        <img src="<%= photo %>">
+                    <% } else { %>
+                        <img src="http://www.furcontest.com/imagenes/default.png">
+                    <% } %>
                 </div>
                 <div class="info">
                     <p class="high-text" data-size='small'><%= firstname %></p>
@@ -65,7 +69,6 @@
 {% block scripts %}
 
 <script type="text/javascript">
-
     var url = {{ url|json|safe }}
     console.log('url: ', url)
     var pagination = {{ pagination|json|safe }}

@@ -25,7 +25,7 @@ function User(el, data) {
 		var url = '/' + user.username + '/follow/'
 
 		$.post(url, {idUser: id}, function (data) {
-			// console.log(data)
+			console.log(data)
 			if (data.status == 200) {
 				following = true
 				buttonFollow.classList.add('disabled')
@@ -39,7 +39,7 @@ function User(el, data) {
 		var url = '/' + user.username + '/unfollow/'
 
 		$.post(url, {idUser: id}, function (data) {
-			// console.log(data)
+			console.log(data)
 			if (data.status == 200) {
 				following = false
 				buttonFollow.classList.remove('disabled')
