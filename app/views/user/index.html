@@ -95,28 +95,27 @@
 	        </article>
 	    </div>
 	</script>
-
 	<script type="text/template" id="collection-template">
 		<div class="collection-wrapper">
 			<div class="collection">
 				<div class="collection__images">
-					<div class="column">
+					<div class="imageColumn">
 						<% if (products[0] && products[0].photo) { %>
-							<img src="<%= products[0].photo %>">
+							<div class="image-container" style="height: 100%; background-image: url('<%= products[0].photo %>')"></div>
 						<% } else { %>
-	            <div style="background: #ccc; border: 1px solid white;">holi!</div>
+	            <div class="image-container" style="height: 100%; background: #ccc; border: 1px solid white;"></div>
 						<% } %>
 					</div>
-					<div class="column">
+					<div class="imageColumn">
 						<% if (products[1] && products[1].photo) { %>
-							<img src="<%= products[1].photo %>">
+							<div class="image-container" style="height: 50%; background-image: url('<%= products[1].photo %>')"></div>
 						<% } else { %>
-	            <div style="background: #ccc; border: 1px solid white;">holi!</div>
+	            <div class="image-container" style="height: 50%; background: #ccc; border: 1px solid white;"></div>
 						<% } %>
 						<% if (products[2] && products[2].photo) { %>
-							<img src="<%= products[2].photo %>">
+							<div class="image-container" style="height: 50%; background-image: url('<%= products[2].photo %>')"></div>
 						<% } else { %>
-	            <div style="background: #ccc; border: 1px solid white;">holi!</div>
+	            <div class="image-container" style="height: 50%; background: #ccc; border: 1px solid white;"></div>
 						<% } %>
 					</div>
 				</div>
