@@ -679,8 +679,50 @@ body {
 .add-work__data {
   margin: 0.5rem;
 }
+.add-work__data .title {
+  margin: 0.25rem 0;
+  font-family: 'Roboto Condensed';
+  color: #444;
+  letter-spacing: 0.75px;
+}
+.add-work__data .input {
+  margin: 0.25rem 0;
+}
+.add-work__data .checkbox-list {
+  margin: 0.25rem 0;
+}
+.upload-images {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -o-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+.upload-images .upload-image {
+  height: 300px;
+  width: 300px;
+  margin: 1rem;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+}
+.upload-images .upload-image img {
+  width: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
 .work-data__input {
-  margin: 0.5rem;
+  padding: 0.5rem;
 }
 @media (min-width: 920px) {
   .work-data {
@@ -706,4 +748,48 @@ body {
     -ms-flex: 1 50%;
     flex: 1 50%;
   }
+}
+.checkbox-list__item {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -o-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  padding: 0.25rem;
+  font-family: 'Raleway';
+  cursor: pointer;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+.checkbox-list__item:hover {
+  background: #eee;
+}
+.checkbox-list__item span {
+  padding-left: 0.25rem;
+}
+.radio-list {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -o-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  font-family: 'Raleway';
+  font-size: 0.8rem;
+}
+.radio-list label {
+  padding-right: 0.5rem;
 }
