@@ -1,5 +1,4 @@
-var basePath = 'account/';
-var redirectPath = '/' + basePath;
+var basePath = 'user/account/';
 
 exports.index = function (req, res) {
     var promises = [

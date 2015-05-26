@@ -97,8 +97,6 @@ exports.nameSlugify = function (entity) {
 exports.checkFillData = function (req, res, next) {
     if (!req.user)return next();
 
-    if (req.user.omited) return next();
-
     var query = {
         attributes: [
             [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'total']
@@ -111,19 +109,24 @@ exports.checkFillData = function (req, res, next) {
         }
 
         return req.user.getSpecialties(query).then(function (specialties) {
+            console.log('especialtiess  :  ', specialties[0].getDataValue('total'));
             if (specialties[0].getDataValue('total') < 1) {
                 if (req.url === '/specialties')return next()
                 return res.redirect('/specialties');
             }
+            if (req.url === '/' + req.user.username + '/account')
+                return next();
+            if (['/interests', '/specialties'].indexOf(req.url) > -1)
+                return res.redirect('/' + req.user.username + '/account');
+            
             return next();
         });
     });
 };
-
 exports.checkEmail = function (req, res, next) {
     if (!req.user)
         return next();
     if (req.user.verified) return next();
-    req.flash('emailMessage', 'Email sin confirmar');
+    req.flash('errorMessage', 'Email sin confirmar');
     next();
 }

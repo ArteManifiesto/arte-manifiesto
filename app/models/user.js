@@ -33,7 +33,6 @@ module.exports = function (sequelize, DataTypes) {
             hashedPassword: DataTypes.STRING,
             salt: DataTypes.STRING,
 
-            omited: {type: DataTypes.BOOLEAN, defaultValue: false},
             verified: {type: DataTypes.BOOLEAN, defaultValue: false},
 
             tokenVerifyEmail: DataTypes.STRING,

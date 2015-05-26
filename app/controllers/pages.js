@@ -114,6 +114,20 @@ exports.productPay = function (req, res) {
             // redirect to paypal webpage
             res.redirect(url);
         });
-
     });
 };
+
+exports.interests = function (req, res) {
+    global.db.Category.findAll().then(function (interests) {
+        return res.render(basePath + 'interests', {
+            interests: interests
+        });
+    });
+}
+exports.specialties = function (req, res) {
+    global.db.Category.findAll().then(function (specialties) {
+        return res.render(basePath + 'specialties', {
+            specialties: specialties
+        });
+    });
+}

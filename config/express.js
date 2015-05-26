@@ -58,6 +58,7 @@ module.exports = function (app, passport) {
     app.use(passport.session());
 
     app.use(middlewares.checkEmail);
+    app.use(middlewares.checkFillData);
 
     app.use(function (req, res, next) {
         req.viewer = req.user ? req.user.id : -1;
