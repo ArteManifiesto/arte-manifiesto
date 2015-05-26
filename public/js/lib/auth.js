@@ -72,7 +72,11 @@ function Signup (el, data) {
 			submitButton.style.display = 'none'
 			loadingSubmit.style.display = 'block'
 
-			$.post('/auth/signup', $(el).serialize(), function (response) {
+			var serilizeData = $(el).serialize()
+			if(!(serilizeData.indexOf("&isArtist=true") > -1)) serilizeData += '&isArtist=false'
+
+			// console/.log('serilizeData: ', serilizeData)
+			$.post('/auth/signup', serilizeData, function (response) {
 				// console.log('response: ', response)
 
 				if(response.status === 409){
