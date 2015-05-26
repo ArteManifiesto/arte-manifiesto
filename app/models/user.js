@@ -32,7 +32,6 @@ module.exports = function (sequelize, DataTypes) {
 
             hashedPassword: DataTypes.STRING,
             salt: DataTypes.STRING,
-            provider: DataTypes.STRING,
 
             verified: {type: DataTypes.BOOLEAN, defaultValue: false},
 
@@ -84,16 +83,16 @@ module.exports = function (sequelize, DataTypes) {
                 },
                 follow: function (user) {
                     var scope = this;
-                    this.popularity -= 3;
-                    var promises = [user.addFollower(this), this.save()];
+                    user.popularity += 3;
+                    var promises = [user.addFollower(this), user.save()];
                     return global.db.Sequelize.Promise.all(promises).then(function () {
                         return user.numOfFollowers();
                     });
                 },
                 unFollow: function (user) {
                     var scope = this;
-                    this.popularity -= 3;
-                    var promises = [user.removeFollower(this), this.save()];
+                    user.popularity -= 3;
+                    var promises = [user.removeFollower(this), user.save()];
                     return global.db.Sequelize.Promise.all(promises).then(function () {
                         return user.numOfFollowers();
                     });
@@ -194,15 +193,14 @@ module.exports = function (sequelize, DataTypes) {
                 },
                 following: function (viewer) {
                     var scope = this, query = {where: {id: viewer}};
-                    return this.getFollowings(query).then(function (followings) {
-                        return followings.length > 0;
+                    return this.getFollowers(query).then(function (followers) {
+                        return followers.length > 0;
                     });
                 }
             },
             hooks: {
                 afterCreate: function (user, options) {
                     options.password = options.password || '123';
-                    user.provider = 'local';
                     user.salt = user.makeSalt();
                     user.hashedPassword = user.encryptPassword(options.password, user.salt);
                     user.tokenVerifyEmail = uuid.v4();

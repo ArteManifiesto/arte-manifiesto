@@ -100,13 +100,13 @@ exports.followings = function (req, res) {
 
 exports.follow = function (req, res) {
     req.user.follow(req.userTo).then(function (followers) {
-        return res.ok({user: req.user, followers: followers}, 'Usuario seguido');
+        return res.ok({user: req.userTo, followers: followers}, 'Usuario seguido');
     });
 };
 
 exports.unFollow = function (req, res) {
     req.user.unFollow(req.userTo).then(function (followers) {
-        return res.ok({user: req.user, followers: followers}, 'Usuario precedido');
+        return res.ok({user: req.userTo, followers: followers}, 'Usuario precedido');
     });
 };
 

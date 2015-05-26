@@ -40,11 +40,11 @@ global.discoverGenerator = function (entity, req) {
     options.entity = entity;
     options.name = req.params.entity;
     options.page = req.params.page;
-    options.limit = 3;
+    options.limit = 30;
 
     var query = {where: {}, build: true};
     query.viewer = req.viewer;
-    query.order = [global.getOrder(req.query.order), global.getOrder('newest')]
+    query.order = [global.getOrder(req.query.order)]
 
     if (req.query.featured)
         query.where.featured = req.query.featured;
@@ -71,17 +71,20 @@ global.discoverGenerator = function (entity, req) {
 global.searchWorks = function (req) {
     var discover = discoverGenerator('Work', req);
     discover.query.where.public = true;
+    discover.query.order.push([global.db.sequelize.col('name')]);
     return global.getPaginationEntity(discover.options, discover.query);
 };
 
 global.searchUsers = function (req) {
     var discover = discoverGenerator('User', req);
+    discover.query.order.push([global.db.sequelize.col('username')]);
     return global.getPaginationEntity(discover.options, discover.query);
 };
 
 global.searchProducts = function (req) {
     var discover = discoverGenerator('Product', req);
     discover.query.where.public = true;
+    discover.query.order.push([global.db.sequelize.col('name')]);
     return global.getPaginationEntity(discover.options, discover.query);
 };
 
