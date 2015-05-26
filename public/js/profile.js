@@ -4,16 +4,17 @@ function Profile (el, data) {
 									_.template($( "#product-template" ).html()),
 									_.template($( "#work-template" ).html()),
 									_.template($( "#product-template" ).html()),
-									null,
+									_.template($( "#collection-template" ).html()),
 									_.template($( "#user-template" ).html()),
 									_.template($( "#user-template" ).html())]
+
 	var paginations = []
 
 	var paths = ['portfolio',
 							 'products',
 							 '',
 							 'likes/products',
-							 '',
+							 'collections',
 							 'followers',
 							 'followings']
 
@@ -66,7 +67,7 @@ function Profile (el, data) {
 			if(index == 1) renderElements(index, response.products)
 			// if(index == 2) renderElements(index, response.products)
 			if(index == 3) renderElements(index, response.products)
-			// if(index == 4) renderElements(index, response.products)
+			if(index == 4) renderElements(index, response.collections)
 			if(index == 5) renderElements(index, response.followers)
 			if(index == 6) renderElements(index, response.followings)
 			
@@ -95,19 +96,14 @@ function Profile (el, data) {
 			// createObject(object, elements[i])
 			if(index == 1) new Product(object, elements[i])
 			if(index == 3) new Product(object, elements[i])
+			// if(index == 4) new Collection(object, elements[i])
 			if(index == 5) new User(object, elements[i])
 			if(index == 6) new User(object, elements[i])
 
-			if(index != 0){
-				// containers.appendChild(object)
-				console.log('container: ', containers[index].children[0])
+			if(index != 0)
 				containers[index].children[0].appendChild(object)
-			}
-			else{
-				console.log('container: ', containers[index].children[0])
+			else
 				salvattore['append_elements'](containers[index].children[0], [object])
-				// salvattore['append_elements'](containers[index], [object])
-			}
 		}
 	}
 
@@ -123,7 +119,7 @@ function Profile (el, data) {
 		if(index == 1) var els = containers[index].querySelectorAll('.product-wrapper')
 		// if(index == 2) var els = containers[index].querySelectorAll('.work')
 		if(index == 3) var els = containers[index].querySelectorAll('.product-wrapper')
-		// if(index == 4) var els = containers[index].querySelectorAll('.work')
+		if(index == 4) var els = containers[index].querySelectorAll('.collection-wrapper')
 		if(index == 5) var els = containers[index].querySelectorAll('.user-wrapper')
 		if(index == 6) var els = containers[index].querySelectorAll('.user-wrapper')
 

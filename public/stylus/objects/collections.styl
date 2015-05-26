@@ -1,0 +1,71 @@
+/*------------------------------------*
+	$ COLLECTIONS
+*------------------------------------*/
+.collections
+	margin .5rem
+	display flex
+	flex-wrap wrap
+	.collection-wrapper
+		padding .5rem
+
+.collection
+	border 1px solid #ddd
+	transition box-shadow ease-in-out 125ms
+	padding .5rem
+	&__images
+		display flex
+		.column
+			&:first-child
+				flex 2
+			&:nth-child(2)
+				flex 1
+
+	&__products
+		color #777
+		text-align center
+		font-family 'Roboto Condensed'
+		letter-spacing .5px
+		font-size .9rem
+	&__name
+		color #222
+		font-family 'Oswald'
+		letter-spacing .5px
+	&__user
+		color #777
+		font-family 'Roboto Condensed'
+		letter-spacing .5px
+		font-size .95rem
+	&__description
+		color #777
+		font-family 'Roboto Condensed'
+		font-size 0.95rem
+		margin-top 0.5rem
+		letter-spacing .25px
+
+collection-width = 200px
+
+@media screen and (min-width: collection-width*2)
+	.collections
+		display flex
+		flex-wrap wrap
+		.collection-wrapper
+			flex 1 50%
+			max-width 50%
+			
+@media screen and (min-width: collection-width*3)
+	.collections
+		.collection-wrapper
+			flex 1 33.333%
+			max-width 33.333%
+			
+@media screen and (min-width: collection-width*4)
+	.collections
+		.collection-wrapper
+			flex 1 25%
+			max-width 25%
+
+@media screen and (min-width: collection-width*5)
+	.collections
+		.collection-wrapper
+			flex 1 20%
+			max-width 20%

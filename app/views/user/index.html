@@ -96,6 +96,38 @@
 	    </div>
 	</script>
 
+	<script type="text/template" id="collection-template">
+		<div class="collection-wrapper">
+			<div class="collection">
+				<div class="collection__images">
+					<div class="column">
+						<% if (products[0] && products[0].photo) { %>
+							<img src="<%= products[0].photo %>">
+						<% } else { %>
+	            <div style="background: #ccc; border: 1px solid white;">holi!</div>
+						<% } %>
+					</div>
+					<div class="column">
+						<% if (products[1] && products[1].photo) { %>
+							<img src="<%= products[1].photo %>">
+						<% } else { %>
+	            <div style="background: #ccc; border: 1px solid white;">holi!</div>
+						<% } %>
+						<% if (products[2] && products[2].photo) { %>
+							<img src="<%= products[2].photo %>">
+						<% } else { %>
+	            <div style="background: #ccc; border: 1px solid white;">holi!</div>
+						<% } %>
+					</div>
+				</div>
+				<div class="collection__products"><%= numOfProducts %> Productos</div>
+				<div class="collection__name"><%= name %></div>
+				<a class="collection__user" href="#">De <span><%= User.username %></span></a>
+				<div class="collection__description"><%= description %>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed eiusmod tempor incididunt ...</div>
+			</div>
+		</div>	
+	</script>
+
 	<script>
 
 		var data = {{ data|json|safe }};
