@@ -14,7 +14,9 @@
 	
 	<script type="text/template" id="work-template">
 		<article class="work">
-			<img src="<%= photo %>">
+			<a href="<%= url %>">
+				<img src="<%= photo %>">
+			</a>
 		</article>
 	</script>
 
@@ -95,6 +97,7 @@
 	        </article>
 	    </div>
 	</script>
+
 	<script type="text/template" id="collection-template">
 		<div class="collection-wrapper">
 			<div class="collection">
@@ -150,9 +153,9 @@
 	<script type="text/javascript" src="/js/vendor/underscore-min.js"></script>
 	<script type="text/javascript" src="/js/vendor/salvattore.js"></script>
 	
-	<script type="text/javascript" src="js/lib/user.js"></script>
-	<script type="text/javascript" src="js/lib/product.js"></script>
+	<script type="text/javascript" src="/js/lib/user.js"></script>
+	<script type="text/javascript" src="/js/lib/product.js"></script>
 	
-	<script type="text/javascript" src="js/profile.js"></script>
+	<script type="text/javascript" src="/js/profile.js"></script>
 
 {% endblock %}

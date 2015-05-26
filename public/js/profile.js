@@ -11,7 +11,7 @@ function Profile (el, data) {
 	var paginations = []
 
 	var paths = ['portfolio',
-							 'products',
+							 'store',
 							 '',
 							 'likes/products',
 							 'collections',
@@ -20,13 +20,18 @@ function Profile (el, data) {
 
 	var buttons = data.menus,
 			containers = data.elements,
-			// actives = [false, false, false, false, false, false, false]
-
 			pos = 0;
 
 	function setup () {
-		
-		show(0)
+		console.log('path: ', path)
+
+		if(!path || path == 'portfolio' ) pos = 0
+
+		// if(path == 'portfolio') pos = 0
+		// if(path == 'portfolio') pos = 0
+		// if(path == 'portfolio') pos = 0
+		// if(path == 'portfolio') pos = 0
+		// if(path == 'portfolio') pos = 0
 
 		for (var i = buttons.length - 1; i >= 0; i--)
 			buttons[i].setAttribute('index', i)
@@ -43,14 +48,14 @@ function Profile (el, data) {
 		containers[pos].style.display = 'none'
 		containers[index].style.display = 'block'
 		pos = index
-		// if(!actives[index]) render(index)
 		render(index)
 	}
 
 	function render (index) {
 		
 		url = '/' + profile.username + '/' + paths[index] + '/page-1'
-		console.log('url: ', url)
+		// console.log('url: ', url)
+		var newUrl = '/' + profile.username + '/' + paths[index]
 
 		clear(index)
 
@@ -62,6 +67,7 @@ function Profile (el, data) {
 			console.log('response: ', response)
 			
 			paginations[index] = response.pagination
+			window.history.pushState({}, "", newUrl)
 
 			if(index == 0) renderElements(index, response.works)
 			if(index == 1) renderElements(index, response.products)
@@ -73,11 +79,10 @@ function Profile (el, data) {
 			
 			// actives[index] = true
 		});
-
 	}
 
 	function renderElements (index, elements) {
-		console.log('renderElements', index, elements)
+		// console.log('renderElements', index, elements)
 		if(elements.length != 0){
 			addElements(index, elements)
 			if(paginations[index].page < paginations[index].pages){
@@ -92,7 +97,7 @@ function Profile (el, data) {
 	function addElements (index, elements) {
 		for (var i = 0; i < elements.length; i++) {
 			var object = makeObject(templates[index], elements[i])
-			console.log('object: ', object)
+			// console.log('object: ', object)
 			// createObject(object, elements[i])
 			if(index == 1) new Product(object, elements[i])
 			if(index == 3) new Product(object, elements[i])
