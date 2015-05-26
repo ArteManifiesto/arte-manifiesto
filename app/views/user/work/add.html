@@ -4,6 +4,33 @@
 {% set title = 'Arte Manifiesto | Add Work' %}
 {% set css = 'add-work' %}
 
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="/css/vendor/wysiwyg-editor.css">
+	<style>
+	    .wysiwyg-plugin-list {
+	        max-height: 8em;
+	        overflow: auto;
+	        overflow-x: hidden;
+	        overflow-y: scroll;
+	    }
+	    
+	    .wysiwyg-plugin-list a,
+	    .wysiwyg-plugin-list a:link,
+	    .wysiwyg-plugin-list a:visited {
+	        display: block;
+	        color: black;
+	        padding: 5px 10px;
+	        text-decoration: none;
+	        cursor: pointer;
+	    }
+
+	    .wysiwyg-plugin-list a:hover {
+	        color: HighlightText;
+	        background-color: Highlight;
+	    }
+	</style>
+{% endblock %}
+
 {% block elements %}
 
 	<section class="add-work">
@@ -68,16 +95,143 @@
 {% endblock %}
 
 {% block scripts %}
-	<script type="text/javascript">
-
-		var product = {{ product|json|safe }};
-		console.log('product: ', product)
-
-		var userLikes = {{userLikes|json|safe}};
-		console.log('userLikes: ', userLikes);
-
-		var user = {{ user|json|safe }}
-		console.log('user: ', user);
-
-	</script>
+<script src="/js/vendor/jquery.min.js"></script>
+<script src="/js/vendor/wysiwyg-editor.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var element = $('.description');
+        element.wysiwyg({
+            classes: 'input',
+            toolbar: 'top',
+            buttons: {
+                insertimage: {
+                    title: 'Insertar Imagen',
+                    image: '\uf030'
+                },
+                bold: {
+                    title: 'negrita (Ctrl+B)',
+                    image: '\uf032',
+                    hotkey: 'b'
+                },
+                italic: {
+                    title: 'Curva (Ctrl+I)',
+                    image: '\uf033',
+                    hotkey: 'i'
+                },
+                underline: {
+                    title: 'Subrayar (Ctrl+U)',
+                    image: '\uf0cd',
+                    hotkey: 'u'
+                },
+                fontname: {
+                    title: 'Font',
+                    image: '\uf031',
+                    popup: function ($popup, $button) {
+                        var list_fontnames = {
+                            'Arial, Helvetica': 'Arial,Helvetica',
+                            'Verdana': 'Verdana,Geneva',
+                            'Georgia': 'Georgia',
+                            'Courier New': 'Courier New,Courier',
+                            'Times New Roman': 'Times New Roman,Times'
+                        };
+                        var $list = $('<div/>').addClass('wysiwyg-plugin-list')
+                                .attr('unselectable', 'on');
+                        $.each(list_fontnames, function (name, font) {
+                            var $link = $('<a/>').attr('href', '#')
+                                    .css('font-family', font)
+                                    .html(name)
+                                    .click(function (event) {
+                                        $(element).wysiwyg('shell').fontName(font).closePopup();
+                                        event.stopPropagation();
+                                        event.preventDefault();
+                                        return false;
+                                    });
+                            $list.append($link);
+                        });
+                        $popup.append($list);
+                    },
+                },
+                fontsize: {
+                    title: 'Size',
+                    image: '\uf034',
+                    popup: function ($popup, $button) {
+                        var i, list_fontsizes = [];
+                        for (i = 8; i <= 11; ++i)
+                            list_fontsizes.push(i + 'px');
+                        for (i = 12; i <= 28; i += 2)
+                            list_fontsizes.push(i + 'px');
+                        list_fontsizes.push('36px');
+                        list_fontsizes.push('48px');
+                        list_fontsizes.push('72px');
+                        var $list = $('<div/>').addClass('wysiwyg-plugin-list')
+                                .attr('unselectable', 'on');
+                        $.each(list_fontsizes, function (index, size) {
+                            var $link = $('<a/>').attr('href', '#')
+                                    .html(size)
+                                    .click(function (event) {
+                                        element.wysiwyg('shell').fontSize(7).closePopup();
+                                        element.wysiwyg('container')
+                                                .find('font[size=7]')
+                                                .removeAttr("size")
+                                                .css("font-size", size);
+                                        event.stopPropagation();
+                                        event.preventDefault();
+                                        return false;
+                                    });
+                            $list.append($link);
+                        });
+                        $popup.append($list);
+                    }
+                },
+                strikethrough: {
+                    title: 'Tachar (Ctrl+S)',
+                    image: '\uf0cc',
+                    hotkey: 's'
+                },
+                forecolor: {
+                    title: 'Color de texto',
+                    image: '\uf1fc'
+                },
+                highlight: {
+                    title: 'Color de fondo',
+                    image: '\uf043'
+                },
+                alignleft: {
+                    title: 'Left',
+                    image: '\uf036',
+                    showselection: false    // wanted on selection
+                },
+                aligncenter: {
+                    title: 'Center',
+                    image: '\uf037'
+                },
+                alignright: {
+                    title: 'Right',
+                    image: '\uf038'
+                },
+                alignjustify: {
+                    title: 'Justify',
+                    image: '\uf039'
+                },
+                orderedList: {
+                    title: 'Lista ordenada',
+                    image: '\uf0cb'
+                },
+                unorderedList: {
+                    title: 'Lista desordenada',
+                    image: '\uf0ca'
+                },
+                removeformat: {
+                    title: 'Remover formato',
+                    image: '\uf12d'
+                }
+            },
+            submit: {
+                title: 'Submit',
+                image: '\uf00c'
+            },
+            placeholderUrl: '/img/logo.png'
+        });
+    });
+</script>
 {% endblock %}
