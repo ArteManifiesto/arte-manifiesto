@@ -7,13 +7,30 @@ exports.index = function (req, res) {
         req.user.getInterests()
     ];
     global.db.Sequelize.Promise.all(promises).then(function (data) {
-        var categories = data[0], specialties = data[1], interests = data[2];
         return res.render(basePath + 'index', {
-            categories: categories,
-            specialties: specialties,
-            interests: interests
+            categories: data[0],
+            specialties: data[1],
+            interests: data[2]
         });
     });
+};
+//TODO make possible that the user can have multiple photos
+exports.photo = function (req, res) {
+
+};
+
+exports.addresses = function (req, res) {
+    req.user.getAddresses().then(function (addresses) {
+        return res.render(basePath + 'addresses');
+    });
+};
+
+exports.websites = function (req, res) {
+
+};
+
+exports.password = function (req, res) {
+
 };
 
 exports.update = function (req, res) {

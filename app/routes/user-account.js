@@ -6,14 +6,12 @@ var config = require('../../config/config');
 var controller = require(config.controllersDir + "/user-account");
 
 router.get('/', controller.index);
-/*
-router.get('/photo', controller.index);
-router.get('/orders', controller.orders);
+router.get('/photo', controller.photo);
+//router.get('/orders', controller.orders);
 router.get('/addresses', controller.addresses);
-router.get('/cards', controller.cards);
+//router.get('/cards', controller.cards);
 router.get('/websites', controller.websites);
 router.get('/password', controller.password);
-*/
 
 router.post('/', controller.update);
 

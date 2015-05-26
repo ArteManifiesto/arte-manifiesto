@@ -18,9 +18,8 @@ router.use(middlewares.user);
 router.get(['/', '/portfolio'], controller.profile);
 router.get('/likes/works', controller.profile);
 router.get('/likes/products', controller.profile);
-router.get('/products', controller.profile);
-router.get('/collections/works', controller.profile);
-router.get('/collections/products', controller.profile);
+router.get('/store', controller.profile);
+router.get('/collections', controller.profile);
 router.get('/followers', controller.profile);
 router.get('/followings', controller.profile);
 
@@ -35,7 +34,7 @@ router.post('/featured', isLoggedAndOwner, middlewares.userTo, controller.featur
 router.post('/unfeatured', isLoggedAndOwner, middlewares.userTo, controller.unFeatured);
 
 router.post(['/:page', '/portfolio/:page'], controller.portfolio);
-router.post('/products/:page', controller.products);
+router.post('/store/:page', controller.store);
 router.post('/likes/works/:page', controller.likesWorks);
 router.post('/likes/products/:page', controller.likesProducts);
 router.post('/collections/:page', controller.collections);

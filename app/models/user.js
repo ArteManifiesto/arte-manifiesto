@@ -122,13 +122,13 @@ module.exports = function (sequelize, DataTypes) {
                             scope.setDataValue('Works', result[3]);
                         });
                     },
-                    numOfCollections: function () {
-                        var scope = this,
-                            query = {
-                                attributes: [
-                                    [global.db.sequelize.fn('COUNT', global.db.sequelize.col('Collection.id')), 'numOfCollections']
-                                ]
-                            };
+                    numOfCollections: function (query) {
+                        var scope = this;
+                        query = _.assign(query, {
+                            attributes: [
+                                [global.db.sequelize.fn('COUNT', global.db.sequelize.col('Collection.id')), 'numOfCollections']
+                            ]
+                        });
                         return this.getCollections(query).then(function (result) {
                             return result[0].getDataValue('numOfCollections');
                         });

@@ -5,10 +5,11 @@ exports.profile = function (req, res) {
     var currentPath = req.path.replace('/', '');
     if (currentPath.length === '') currentPath = 'portfolio';
 
+    var collectionsQuery = {where: {meta: 'products'}};
     var promises = [
         req.profile.numOfWorks(), req.profile.numOfProducts(),
         req.profile.numOfLikesToWorks(), req.profile.numOfLikesToProducts(),
-        req.profile.numOfCollections(), req.profile.numOfFollowers(),
+        req.profile.numOfCollections(collectionsQuery), req.profile.numOfFollowers(),
         req.profile.numOfFollowings()
     ];
 
@@ -22,13 +23,13 @@ exports.profile = function (req, res) {
     });
 };
 
-var getData = function (req, res, options) {
+var getData = function (req, res, options, query) {
     options = _.assign(options, {
         entity: req.profile, association: true,
-        page: req.params.page, limit: 20
+        page: req.params.page, limit: 5
     });
-
-    var query = {build: true, viewer: req.viewer};
+    query = query || {}
+    query = _.assign(query, {build: true, viewer: req.viewer});
     return global.getPaginationEntity(options, query).then(function (result) {
         return res.json(result);
     });
@@ -38,7 +39,7 @@ exports.portfolio = function (req, res) {
     return getData(req, res, {method: 'getWorks', name: 'works'});
 };
 
-exports.products = function (req, res) {
+exports.store = function (req, res) {
     return getData(req, res, {method: 'getProducts', name: 'products'});
 };
 
@@ -51,7 +52,8 @@ exports.likesProducts = function (req, res) {
 };
 
 exports.collections = function (req, res) {
-    return getData(req, res, {method: 'getCollections', name: 'collections'});
+    var query = {where: {meta: 'products'}};
+    return getData(req, res, {method: 'getCollections', name: 'collections'}, query);
 };
 
 exports.followers = function (req, res) {
