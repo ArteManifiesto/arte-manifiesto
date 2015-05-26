@@ -1,5 +1,7 @@
 function Profile (el, data) {
 
+	var index
+
 	var templates =[_.template($( "#work-template" ).html()),
 									_.template($( "#product-template" ).html()),
 									_.template($( "#work-template" ).html()),
@@ -12,7 +14,7 @@ function Profile (el, data) {
 
 	var paths = ['portfolio',
 							 'store',
-							 '',
+							 'likes/works',
 							 'likes/products',
 							 'collections',
 							 'followers',
@@ -22,84 +24,135 @@ function Profile (el, data) {
 			containers = data.elements,
 			pos = 0;
 
+	var wrapper = document.querySelector('.main-wrapper')
+
+	var more = document.querySelector('.more')
+	var scrollMode = false
+	var page
+
 	function setup () {
-		console.log('path: ', path)
 
-		if(!path || path == 'portfolio' ) pos = 0
+		window.onscroll = function() {
+			if ((window.innerHeight + window.scrollY) >= wrapper.offsetHeight){
+				console.log('scrollEnd')
+				if(scrollMode) nextPage()
+			}
+		}
 
-		// if(path == 'portfolio') pos = 0
-		// if(path == 'portfolio') pos = 0
-		// if(path == 'portfolio') pos = 0
-		// if(path == 'portfolio') pos = 0
-		// if(path == 'portfolio') pos = 0
+		more.addEventListener('click', initScroll)
+
+		if(!currentPath) pos = 0
+		else {
+			for (var i = paths.length - 1; i >= 0; i--) {
+				if(paths[i] == currentPath) pos = i
+			}
+		}
+
+		index = pos
+		show()
 
 		for (var i = buttons.length - 1; i >= 0; i--)
 			buttons[i].setAttribute('index', i)
 		
 		for (var i = buttons.length - 1; i >= 0; i--) {
 			buttons[i].addEventListener('click', function () {
-				var index = this.getAttribute('index')
-				show(index)
+				var indexValue = this.getAttribute('index')
+				index = indexValue
+				show()
 			})
 		}
 	}
 
-	function show (index) {
-		containers[pos].style.display = 'none'
-		containers[index].style.display = 'block'
-		pos = index
-		render(index)
+	function initScroll () {
+		more.classList.add('hidden')
+		nextPage(function () { scrollMode = true })
 	}
 
-	function render (index) {
-		
-		url = '/' + profile.username + '/' + paths[index] + '/page-1'
-		// console.log('url: ', url)
-		var newUrl = '/' + profile.username + '/' + paths[index]
+	function nextPage (callback) {
+		console.log('NEXT PAGE')
 
-		clear(index)
+		if(paginations[index].page == paginations[index].pages) return
+
+		url = '/' + profile.username + '/' + paths[index] + '/page-' + ++page
+		console.log('url: ', url)
 
 		containers[index].querySelector('.loading').style.display = 'block'
-		containers[index].querySelector('.empty').style.display = 'none'
 
 		$.post( url, function( response ) {
+			if(callback) callback()
 			containers[index].querySelector('.loading').style.display = 'none'
 			console.log('response: ', response)
 			
 			paginations[index] = response.pagination
-			window.history.pushState({}, "", newUrl)
 
-			if(index == 0) renderElements(index, response.works)
-			if(index == 1) renderElements(index, response.products)
-			// if(index == 2) renderElements(index, response.products)
-			if(index == 3) renderElements(index, response.products)
-			if(index == 4) renderElements(index, response.collections)
-			if(index == 5) renderElements(index, response.followers)
-			if(index == 6) renderElements(index, response.followings)
-			
-			// actives[index] = true
+			if(index == 0) addElements(response.works)
+			if(index == 1) addElements(response.products)
+			if(index == 2) addElements(response.works)
+			if(index == 3) addElements(response.products)
+			if(index == 4) addElements(response.collections)
+			if(index == 5) addElements(response.followers)
+			if(index == 6) addElements(response.followings)
+
 		});
 	}
 
-	function renderElements (index, elements) {
-		// console.log('renderElements', index, elements)
+	function show () {
+		containers[pos].style.display = 'none'
+		containers[index].style.display = 'block'
+		pos = index
+		render()
+	}
+
+	function render () {
+		
+		url = '/' + profile.username + '/' + paths[index] + '/page-1'
+		page = 1
+		var newUrl = '/' + profile.username + '/' + paths[index]
+		scrollMode = false
+
+		clear()
+
+		containers[index].querySelector('.loading').style.display = 'block'
+		containers[index].querySelector('.empty').style.display = 'none'
+		more.classList.add('hidden')
+
+		console.log('url: ', url)
+
+		$.post( url, function( response ) {
+			containers[index].querySelector('.loading').style.display = 'none'
+			console.log('response: ', response)
+
+			paginations[index] = response.pagination
+			window.history.pushState({}, "", newUrl)
+
+			if(index == 0) renderElements(response.works)
+			if(index == 1) renderElements(response.products)
+			if(index == 2) renderElements(response.works)
+			if(index == 3) renderElements(response.products)
+			if(index == 4) renderElements(response.collections)
+			if(index == 5) renderElements(response.followers)
+			if(index == 6) renderElements(response.followings)
+		});
+	}
+
+	function renderElements (elements) {
 		if(elements.length != 0){
-			addElements(index, elements)
+			addElements(elements)
 			if(paginations[index].page < paginations[index].pages){
-				// containers[index].querySelector('more').classList.remove('hidden')
+				more.classList.remove('hidden')
 			}
-				// moreSection.classList.remove('hidden')
 			return
 		}
 		containers[index].querySelector('.empty').style.display = 'block'
 	}
 
-	function addElements (index, elements) {
+	function addElements (elements) {
+
 		for (var i = 0; i < elements.length; i++) {
 			var object = makeObject(templates[index], elements[i])
-			// console.log('object: ', object)
-			// createObject(object, elements[i])
+			// if(index == 0) new Work(object, elements[i])
 			if(index == 1) new Product(object, elements[i])
+			// if(index == 2) new Work(object, elements[i])
 			if(index == 3) new Product(object, elements[i])
 			// if(index == 4) new Collection(object, elements[i])
 			if(index == 5) new User(object, elements[i])
@@ -118,11 +171,12 @@ function Profile (el, data) {
 		div.innerHTML = objectString
 		return div.children[0]
 	}
-	function clear (index) {
+
+	function clear () {
 
 		if(index == 0) var els = containers[index].querySelectorAll('.work')
 		if(index == 1) var els = containers[index].querySelectorAll('.product-wrapper')
-		// if(index == 2) var els = containers[index].querySelectorAll('.work')
+		if(index == 2) var els = containers[index].querySelectorAll('.work')
 		if(index == 3) var els = containers[index].querySelectorAll('.product-wrapper')
 		if(index == 4) var els = containers[index].querySelectorAll('.collection-wrapper')
 		if(index == 5) var els = containers[index].querySelectorAll('.user-wrapper')

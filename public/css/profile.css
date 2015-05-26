@@ -1407,6 +1407,14 @@ body {
   -ms-animation: 1.5s circle infinite;
   animation: 1.5s circle infinite;
 }
+.more {
+  padding: 1rem 0;
+  text-align: center;
+  background: #fff;
+}
+.more.hidden {
+  display: none;
+}
 .empty {
   display: none;
   text-align: center;
