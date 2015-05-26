@@ -41,7 +41,28 @@ str(x)
 		border-top solid 1px #ddd
 	&__element
 		display none
+		max-width max-width
+		margin auto
 
+.loading
+	text-align center
+	font-size 1.5rem
+	color #aaa
+	margin 1rem
+	display none
+	.fa
+		animation 1.5s circle infinite
+			
+@keyframes circle
+	0%
+		transform rotate(0)
+	50%
+		transform rotate(-180deg)
+	100%
+		transform rotate(-360deg)
+
+.empty
+	display none
 
 @media (min-width: tablet)
 	.profile

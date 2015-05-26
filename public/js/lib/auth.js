@@ -75,7 +75,7 @@ function Signup (el, data) {
 			var serilizeData = $(el).serialize()
 			if(!(serilizeData.indexOf("&isArtist=true") > -1)) serilizeData += '&isArtist=false'
 
-			// console/.log('serilizeData: ', serilizeData)
+			// console.log('serilizeData: ', serilizeData)
 			$.post('/auth/signup', serilizeData, function (response) {
 				// console.log('response: ', response)
 
