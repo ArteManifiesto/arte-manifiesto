@@ -13,8 +13,6 @@ exports.profile = function (req, res) {
     ];
 
     global.db.sequelize.Promise.all(promises).then(function (data) {
-        return res.json({owner: req.owner, user: req.user, profile: req.profile});
-        
         return res.render(basePath + 'index', {
             currentPath: currentPath,
             profile: req.profile,
