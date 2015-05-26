@@ -108,12 +108,12 @@ function Profile (el, data) {
 }
 
 var menus = document.querySelectorAll('.square-menu__item')
-// console.log('menus: ', menus)
 
 var elements = document.querySelectorAll('.profile__element')
-// console.log('elements: ', elements)
 
 window.profileObj = new Profile(document.querySelector('.profile'), {
 	menus: menus,
 	elements: elements
 })
+
+new User(document.querySelector('.profile__info'), profile)
