@@ -5,7 +5,11 @@ exports.index = function (req, res) {
 };
 
 exports.add = function (req, res) {
-    return res.render(basePath + 'add');
+    global.db.Category.findAll().then(function (categories) {
+        return res.render(basePath + 'add', {
+            categories: categories
+        });
+    });
 };
 
 /**

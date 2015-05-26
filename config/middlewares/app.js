@@ -94,9 +94,10 @@ exports.nameSlugify = function (entity) {
     }
 };
 
+//TODO refactor middleware checkFillData
 exports.checkFillData = function (req, res, next) {
     if (!req.user)return next();
-
+    if (req.url === '/auth/logout')return next();
     var query = {
         attributes: [
             [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'total']
@@ -116,9 +117,10 @@ exports.checkFillData = function (req, res, next) {
             }
             if (req.url === '/' + req.user.username + '/account')
                 return next();
+
             if (['/interests', '/specialties'].indexOf(req.url) > -1)
                 return res.redirect('/' + req.user.username + '/account');
-            
+
             return next();
         });
     });
@@ -127,6 +129,6 @@ exports.checkEmail = function (req, res, next) {
     if (!req.user)
         return next();
     if (req.user.verified) return next();
-    req.flash('errorMessage', 'Email sin confirmar');
+    req.flash('emailMessage', 'Email sin confirmar');
     next();
 }

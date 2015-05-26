@@ -60,21 +60,11 @@
 				<div class="work-data__input">
 					<p class="title">Categorias</p>
 					<ul class="checkbox-list">
+                        {% for category in categories %}
 						<li class="checkbox-list__item">
-							<input type="checkbox" name="category" value=""> <span>Photography</span>
+							<input type="checkbox" name="category" value=""> <span>{{category.name}}</span>
 						</li>
-						<li class="checkbox-list__item">
-							<input type="checkbox" name="category" value=""> <span>Design & Illustration</span>
-						</li>
-						<li class="checkbox-list__item">
-							<input type="checkbox" name="category" value=""> <span>Painting & Mixed Media</span>
-						</li>
-						<li class="checkbox-list__item">
-							<input type="checkbox" name="category" value=""> <span>Drawing</span>
-						</li>
-						<li class="checkbox-list__item">
-							<input type="checkbox" name="category" value=""> <span>Digital Art</span>
-						</li>
+                        {% endfor %}
 					</ul>
 				</div>
 				<div class="work-data__input">
