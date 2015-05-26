@@ -214,13 +214,14 @@ module.exports = function (sequelize, DataTypes) {
                             user.save(),
                             global.db.Collection.create({name: 'Tienda', meta: 'store'}),
                             global.db.Collection.create({name: 'Deseos', meta: 'products'}),
-                            global.db.Collection.create({name: 'Regalos', meta: 'products'}),
+                            global.db.Collection.create({name: 'Regalos', meta: 'products'})
+                            /*
                             //TODO only in development enviroment
                             user.setSpecialties(categories),
-                            user.setInterests(categories)
+                            user.setInterests(categories)*/
                         ];
                         return global.db.Sequelize.Promise.all(promises).then(function (data) {
-                            return user.addCollections(data.slice(1, data.length - 2)).then(function () {
+                            return user.addCollections(data.slice(1, data.length)).then(function () {
                                 var ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
                                 promises = [
                                     global.db.Category.findAll({

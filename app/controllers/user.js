@@ -13,6 +13,8 @@ exports.profile = function (req, res) {
     ];
 
     global.db.sequelize.Promise.all(promises).then(function (data) {
+        return res.json({owner: req.owner, user: req.user, profile: req.profile});
+        
         return res.render(basePath + 'index', {
             currentPath: currentPath,
             profile: req.profile,
@@ -27,7 +29,7 @@ var getData = function (req, res, options) {
         entity: req.profile, association: true,
         page: req.params.page, limit: 20
     });
-    
+
     var query = {build: true, viewer: req.viewer};
     return global.getPaginationEntity(options, query).then(function (result) {
         return res.json(result);

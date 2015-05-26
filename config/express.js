@@ -67,6 +67,7 @@ module.exports = function (app, passport) {
         next();
     });
     /*
-    app.use(middlewares.checkInterests);
-    app.use(middlewares.checkSpecialties);*/
+     app.use(middlewares.checkInterests);
+     app.use(middlewares.checkSpecialties);
+     */
 };

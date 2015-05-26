@@ -16,6 +16,6 @@ router.get('/store/:nameProduct/', controller.storeProduct);
 router.get('/pay/:idProduct', controller.productPay);
 
 router.get('/interests', middlewares.isLogged, controller.interests);
-router.get('/specialties', middlewares.isLogged, middlewares.checkInterests, controller.specialties);
+router.get('/specialties', middlewares.isLogged, controller.specialties);
 
 module.exports = router;

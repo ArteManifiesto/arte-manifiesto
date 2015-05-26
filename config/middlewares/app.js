@@ -30,8 +30,8 @@ exports.shouldAdmin = function (req, res, next) {
 exports.user = function (req, res, next) {
     var query = {where: {}, build: true, viewer: req.viewer};
 
-    if (req.user) {
-        req.owner = req.user.username === req.params.username;
+    if (req.user && req.user.username === req.params.username) {
+        req.owner = true;
         query.where.id = req.user.id;
     } else {
         req.owner = false;
@@ -93,7 +93,6 @@ exports.nameSlugify = function (entity) {
         entityExists(entity, query, req, res, next);
     }
 };
-
 exports.checkInterests = function (req, res, next) {
     if (!req.user)
         return next();
@@ -105,12 +104,14 @@ exports.checkInterests = function (req, res, next) {
     };
     return req.user.getInterests(query).then(function (result) {
         if (result[0].getDataValue('total') > 0) return next();
+        if (req.url === '/interests')
+            next();
         return res.redirect('/interests');
     });
 }
 
 exports.checkSpecialties = function (req, res, next) {
-    if (!req.user)
+    if (!req.user || req.url === '/interests')
         return next();
 
     var query = {
