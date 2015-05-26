@@ -11,9 +11,9 @@ function Profile (el, data) {
 
 	var paths = ['portfolio',
 							 'products',
-							 'products',
-							 'products',
-							 'products',
+							 '',
+							 'likes/products',
+							 '',
 							 'followers',
 							 'followings']
 
@@ -65,7 +65,7 @@ function Profile (el, data) {
 			if(index == 0) renderElements(index, response.works)
 			if(index == 1) renderElements(index, response.products)
 			// if(index == 2) renderElements(index, response.products)
-			// if(index == 3) renderElements(index, response.products)
+			if(index == 3) renderElements(index, response.products)
 			// if(index == 4) renderElements(index, response.products)
 			if(index == 5) renderElements(index, response.followers)
 			if(index == 6) renderElements(index, response.followings)
@@ -94,6 +94,7 @@ function Profile (el, data) {
 			console.log('object: ', object)
 			// createObject(object, elements[i])
 			if(index == 1) new Product(object, elements[i])
+			if(index == 3) new Product(object, elements[i])
 			if(index == 5) new User(object, elements[i])
 			if(index == 6) new User(object, elements[i])
 
@@ -121,7 +122,7 @@ function Profile (el, data) {
 		if(index == 0) var els = containers[index].querySelectorAll('.work')
 		if(index == 1) var els = containers[index].querySelectorAll('.product-wrapper')
 		// if(index == 2) var els = containers[index].querySelectorAll('.work')
-		// if(index == 3) var els = containers[index].querySelectorAll('.work')
+		if(index == 3) var els = containers[index].querySelectorAll('.product-wrapper')
 		// if(index == 4) var els = containers[index].querySelectorAll('.work')
 		if(index == 5) var els = containers[index].querySelectorAll('.user-wrapper')
 		if(index == 6) var els = containers[index].querySelectorAll('.user-wrapper')
