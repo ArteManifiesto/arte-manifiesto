@@ -16,6 +16,7 @@ var swig = require('swig');
  * ====================================================
  */
 var config = require('./config');
+var middlewares = require(config.middlewaresDir + "/app");
 
 module.exports = function (app, passport) {
     /**
@@ -65,4 +66,7 @@ module.exports = function (app, passport) {
         };
         next();
     });
+    /*
+    app.use(middlewares.checkInterests);
+    app.use(middlewares.checkSpecialties);*/
 };

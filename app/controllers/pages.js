@@ -117,3 +117,27 @@ exports.productPay = function (req, res) {
 
     });
 };
+
+exports.interests = function (req, res) {
+    global.db.ProductType.findAll().then(function (productTypes) {
+        var i, promises = [];
+        for (i = 0; i < productTypes.length; i++)
+            promises.push(productTypes[i].getProducts({limit: 1}));
+
+        global.db.Sequelize.Promise.all(promises).then(function (products) {
+            return res.json(products);
+        });
+    });
+}
+
+exports.specialties = function (req, res) {
+    global.db.Category.findAll().then(function (categories) {
+        var i, promises = [];
+        for (i = 0; i < categories.length; i++)
+            promises.push(categories[i].getSpecialties({limit: 1}));
+
+        global.db.Sequelize.Promise.all(promises).then(function (users) {
+            return res.json(users);
+        });
+    });
+}

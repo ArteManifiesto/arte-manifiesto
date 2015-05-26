@@ -66,12 +66,11 @@ module.exports = function (sequelize, DataTypes) {
                     });
                 },
                 likes: function () {
-                    var scope = this,
-                        query = {
-                            attributes: [
-                                [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'likes']
-                            ]
-                        }
+                    var scope = this, query = {
+                        attributes: [
+                            [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'likes']
+                        ]
+                    }
                     return this.getProductLikes(query).then(function (result) {
                         return result[0].getDataValue('likes');
                     });
@@ -83,7 +82,6 @@ module.exports = function (sequelize, DataTypes) {
                     });
                 },
                 friends: function (viewer) {
-                    console.log('viewer : ', viewer);
                     if (viewer < 0)
                         return [];
 

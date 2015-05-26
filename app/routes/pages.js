@@ -15,6 +15,7 @@ router.get('/products/type/:value/:page', controller.products);
 router.get('/store/:nameProduct/', controller.storeProduct);
 router.get('/pay/:idProduct', controller.productPay);
 
-//router.get('/onboard', controller.onBoard);
+router.get('/interests', middlewares.isLogged, controller.interests);
+router.get('/specialties', middlewares.isLogged, middlewares.checkInterests, controller.specialties);
 
 module.exports = router;

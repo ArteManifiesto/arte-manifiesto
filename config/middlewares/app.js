@@ -93,3 +93,33 @@ exports.nameSlugify = function (entity) {
         entityExists(entity, query, req, res, next);
     }
 };
+
+exports.checkInterests = function (req, res, next) {
+    if (!req.user)
+        return next();
+
+    var query = {
+        attributes: [
+            [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'total']
+        ]
+    };
+    return req.user.getInterests(query).then(function (result) {
+        if (result[0].getDataValue('total') > 0) return next();
+        return res.redirect('/interests');
+    });
+}
+
+exports.checkSpecialties = function (req, res, next) {
+    if (!req.user)
+        return next();
+
+    var query = {
+        attributes: [
+            [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'total']
+        ]
+    };
+    return req.user.getSpecialties(query).then(function (result) {
+        if (result[0].getDataValue('total') > 0) return next();
+        return res.redirect('/specialties');
+    });
+}

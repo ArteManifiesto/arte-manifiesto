@@ -1,4 +1,5 @@
 var basePath = 'user/';
+var _ = require('lodash');
 
 exports.profile = function (req, res) {
     var currentPath = req.path.replace('/', '');
@@ -21,81 +22,44 @@ exports.profile = function (req, res) {
     });
 };
 
-exports.portfolio = function (req, res) {
-    var options = {
-        entity: req.profile, method: 'getWorks', association: true,
-        name: 'works', page: req.params.page, limit: 2
-    };
-
-    global.getPaginationEntity(options, {build: true}).then(function (result) {
+var getData = function (req, res, options) {
+    options = _.assign(options, {
+        entity: req.profile, association: true,
+        page: req.params.page, limit: 20
+    });
+    
+    var query = {build: true, viewer: req.viewer};
+    return global.getPaginationEntity(options, query).then(function (result) {
         return res.json(result);
     });
+}
+
+exports.portfolio = function (req, res) {
+    return getData(req, res, {method: 'getWorks', name: 'works'});
 };
 
 exports.products = function (req, res) {
-    var options = {
-        entity: req.profile, method: 'getProducts', association: true,
-        name: 'products', page: req.params.page, limit: 2
-    };
-
-    global.getPaginationEntity(options, {build: true}).then(function (result) {
-        return res.json(result);
-    });
+    return getData(req, res, {method: 'getProducts', name: 'products'});
 };
 
 exports.likesWorks = function (req, res) {
-    var options = {
-        entity: req.profile, method: 'getWorkLikes', association: true,
-        name: 'works', page: req.params.page, limit: 2
-    };
-
-    global.getPaginationEntity(options, {build: true}).then(function (result) {
-        return res.json(result);
-    });
+    return getData(req, res, {method: 'getWorkLikes', name: 'works'});
 };
 
 exports.likesProducts = function (req, res) {
-    var options = {
-        entity: req.profile, method: 'getProductLikes', association: true,
-        name: 'products', page: req.params.page, limit: 2
-    };
-
-    global.getPaginationEntity(options, {build: true}).then(function (result) {
-        return res.json(result);
-    });
+    return getData(req, res, {method: 'getProductLikes', name: 'products'});
 };
 
 exports.collections = function (req, res) {
-    var options = {
-        entity: req.profile, method: 'getCollections', association: true,
-        name: 'collections', page: req.params.page, limit: 2
-    };
-
-    global.getPaginationEntity(options, {build: true}).then(function (result) {
-        return res.json(result);
-    });
+    return getData(req, res, {method: 'getCollections', name: 'collections'});
 };
 
 exports.followers = function (req, res) {
-    var options = {
-        entity: req.profile, method: 'getFollowers', association: true,
-        name: 'followers', page: req.params.page, limit: 2
-    };
-
-    global.getPaginationEntity(options, {build: true}).then(function (result) {
-        return res.json(result);
-    });
+    return getData(req, res, {method: 'getFollowers', name: 'followers'});
 };
 
 exports.followings = function (req, res) {
-    var options = {
-        entity: req.profile, method: 'getFollowings', association: true,
-        name: 'followings', page: req.params.page, limit: 2
-    };
-
-    global.getPaginationEntity(options, {build: true}).then(function (result) {
-        return res.json(result);
-    });
+    return getData(req, res, {method: 'getFollowings', name: 'followings'});
 };
 
 exports.follow = function (req, res) {
