@@ -16,7 +16,7 @@
 			<p class="profile-text">{{ profile.firstname }} {{ profile.lastname }}</p>
 			<div class="profile__info">
 				<p class="skinny-text" data-color='light'><i class="fa fa-map-marker"></i> Lima</p>
-				{% if profile.getDataValue('following') %}
+				{% if profile.following %}
 					<button class="button-liner disabled js-followButton" data-size="small" data-following="true" data-userId="{{ profile.id }}">
 				{% else %}
 					<button class="button-liner js-followButton" data-size="small" data-following="false" data-userId="{{ profile.id }}">
