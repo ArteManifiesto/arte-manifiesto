@@ -58,7 +58,7 @@ function Profile (el, data) {
 			// if(index == 3) renderElements(index, response.products)
 			// if(index == 4) renderElements(index, response.products)
 			if(index == 5) renderElements(index, response.followers)
-			if(index == 6) renderElements(index, response.products)
+			if(index == 6) renderElements(index, response.followings)
 			actives[index] = true
 		});
 
