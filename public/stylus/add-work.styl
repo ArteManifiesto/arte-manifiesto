@@ -4,4 +4,23 @@
 @import 'base.styl'
 
 @import 'elements/buttons.styl'
+@import 'elements/inputs.styl'
 
+
+.add-work
+	max-width max-width
+	margin auto
+	&__data
+		margin .5rem
+		
+.work-data
+	&__input
+		margin .5rem
+			
+			
+@media (min-width: desktop)
+	.work-data
+		display flex
+		flex-wrap wrap
+		&__input
+			flex 1 50%

@@ -6,7 +6,53 @@
 
 {% block elements %}
 
-	<section class="add-work"></section>
+	<section class="add-work">
+		<p class="add-work__title">
+			
+		</p>
+		<div class="add-work__images">
+			
+		</div>
+		<div class="add-work__data">
+			<form class="work-data">
+				<div class="work-data__input">
+					<p class="title">Title</p>
+					<input class="input" data-size='large' name="title" placeholder="Titulo, de 4 a 8 palabras es bueno" type="text">
+				</div>
+				<div class="work-data__input">
+					<p class="title">Descripcion</p>
+					<textarea class="input" style="resize:none" placeholder="Descipcion, hagalo en 140 caracteres"></textarea>
+				</div>
+				<div class="work-data__input">
+					<p class="title">Tags</p>
+					<textarea class="input" style="resize:none" placeholder="Tags, separados por comas"></textarea>
+				</div>
+				<div class="work-data__input">
+					<p class="title">Categorias</p>
+					<ul class="checkbox-list">
+						<li class="checkbox-list__item">
+							<input type="checkbox" name="category" value=""> <label>Photography</label>
+						</li>
+						<li class="checkbox-list__item">
+							<input type="checkbox" name="category" value=""> <label>Design & Illustration</label>
+						</li>
+						<li class="checkbox-list__item">
+							<input type="checkbox" name="category" value=""> <label>Painting & Mixed Media</label>
+						</li>
+						<li class="checkbox-list__item">
+							<input type="checkbox" name="category" value=""> <label>Drawing</label>
+						</li>
+						<li class="checkbox-list__item">
+							<input type="checkbox" name="category" value=""> <label>Digital Art</label>
+						</li>
+					</ul>
+				</div>
+				<div class="work-data__input">
+					<p class="title">Publico</p>
+				</div>
+			</form>
+		</div>
+	</section>
 
 {% endblock %}
 
