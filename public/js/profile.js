@@ -1,13 +1,25 @@
 function Profile (el, data) {
 
-	var templates =[_.template( $( "#work-template" ).html() )]
+	var templates =[_.template($( "#work-template" ).html()),
+									_.template($( "#product-template" ).html()),
+									_.template($( "#work-template" ).html()),
+									_.template($( "#product-template" ).html()),
+									null,
+									_.template($( "#user-template" ).html()),
+									_.template($( "#user-template" ).html())]
 	var paginations = []
 
-	var paths = ['portfolio', 'products']
+	var paths = ['portfolio',
+							 'products',
+							 'products',
+							 'products',
+							 'products',
+							 'followers',
+							 'followings']
 
-	var buttons = [data.menus[0], data.menus[1], data.menus[2], data.menus[3], data.menus[4]],
-			containers = [data.elements[0], data.elements[1], data.elements[2], data.elements[3], data.elements[4]],
-			actives = [false, false, false, false, false]
+	var buttons = data.menus,
+			containers = data.elements,
+			actives = [false, false, false, false, false, false, false]
 
 			pos = 0;
 
@@ -42,6 +54,11 @@ function Profile (el, data) {
 			console.log('index: ', index)
 			if(index == 0) renderElements(index, response.works)
 			if(index == 1) renderElements(index, response.products)
+			// if(index == 2) renderElements(index, response.products)
+			// if(index == 3) renderElements(index, response.products)
+			// if(index == 4) renderElements(index, response.products)
+			if(index == 5) renderElements(index, response.followers)
+			if(index == 6) renderElements(index, response.products)
 			actives[index] = true
 		});
 

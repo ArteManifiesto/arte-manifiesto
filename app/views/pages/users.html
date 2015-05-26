@@ -11,7 +11,7 @@
 <script type="text/template" id="template">
     <div class="user-wrapper">
         <article class="user">
-            <a class="user-header" href="#">
+            <a class="user-header" href="<%= url %>">
                 <div class="avatar">
                     <% if (photo) { %>
                         <img src="<%= photo %>">
@@ -26,7 +26,7 @@
             </a>
             <div class="user-works">
                 <% _.each(Works, function(work) { %>
-                <div class="work" style="background-image: url('<%= work.photo %>');"></div>
+                    <a class="work" href="<%= work.url %>" style="background-image: url('<%= work.photo %>');"></a>
                 <% }); %>
 
                 <% if (Works.length < 6) { %>
