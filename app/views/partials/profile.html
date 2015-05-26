@@ -1,6 +1,8 @@
 <!-- ********************************************************************
 	$ PROFILE
 ********************************************************************* -->
+{% set profile = profile.toJSON() %}
+
 <section class="profile">
 	<div class="profile__information">
 		<div class="profile__avatar">
@@ -10,13 +12,11 @@
 				<img src="http://www.furcontest.com/imagenes/default.png">
 			{% endif %}
 		</div>
-
 		<div class="profile__data">
 			<p class="profile-text">{{ profile.firstname }} {{ profile.lastname }}</p>
 			<div class="profile__info">
 				<p class="skinny-text" data-color='light'><i class="fa fa-map-marker"></i> Lima</p>
 				{% if profile.getDataValue('following') %}
-					holi!
 					<button class="button-liner disabled js-followButton" data-size="small" data-following="true" data-userId="{{ profile.id }}">
 				{% else %}
 					<button class="button-liner js-followButton" data-size="small" data-following="false" data-userId="{{ profile.id }}">
@@ -34,9 +34,11 @@
 			<div class="square-menu">
 				<div class="square-menu__item">Portafolio</div>
 				<div class="square-menu__item">Tienda</div>
-				<div class="square-menu__item">Likes <span class="number"></span></div>
-				<div class="square-menu__item">Seguidores <span class="number"></span></div>
-				<div class="square-menu__item">Siguiendo <span class="number"></span></div>
+				<div class="square-menu__item">Obras favoritas</div>
+				<div class="square-menu__item">Productos favoritos</div>
+				<div class="square-menu__item">Colecciones</div>
+				<div class="square-menu__item">Seguidores</div>
+				<div class="square-menu__item">Siguiendo</div>
 			</div>
 		</div>
 	</div>

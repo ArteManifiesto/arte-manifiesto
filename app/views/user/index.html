@@ -20,8 +20,8 @@
 
 	<script>
 
-		// var data = {{ data|json|safe }};
-		// console.log('data: ', data);
+		var data = {{ data|json|safe }};
+		console.log('data: ', data);
 
 		var currentPath = {{ currentPath|json|safe }};
 		console.log('path: ', currentPath);

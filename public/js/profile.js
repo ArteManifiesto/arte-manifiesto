@@ -1,6 +1,7 @@
 function Profile (el, data) {
 
-	var workTemplate = _.template( $( "#work-template" ).html() );
+	var templates =[_.template( $( "#work-template" ).html() )]
+	var pagination = []
 
 	var paths = ['portfolio']
 
@@ -35,12 +36,28 @@ function Profile (el, data) {
 		url = '/' + profile.username + '/' + paths[index] + '/page-1'
 		console.log('url: ', url)
 
-		$.post( url, function( data ) {
-			console.log('data: ', data)
+		$.post( url, function( response ) {
+			console.log('response: ', response)
+			pagination[index] = response.pagination
+			renderElements(index, response.works)
+			actives[index] = true
 		});
 
 	}
 
+	function renderElements (index, elements) {
+		if(elements.length != 0){
+			addElements(index, elements)
+			if(pagination[index].page < pagination[index].pages){
+				// containers[index].querySelector('more').classList.remove('hidden')
+			}
+				// moreSection.classList.remove('hidden')
+			return
+		}
+		// emptyResult[].classList.add('visible')
+		// containers[index].querySelector('.empty').style.add('visible')
+	}
+	
 	setup()
 }
 

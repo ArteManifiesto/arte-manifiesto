@@ -34,12 +34,12 @@ router.post('/unfollow', isLoggedAndOwner, middlewares.userTo, controller.unFoll
 router.post('/featured', isLoggedAndOwner, middlewares.userTo, controller.featured);
 router.post('/unfeatured', isLoggedAndOwner, middlewares.userTo, controller.unFeatured);
 
-router.get(['/:page', '/portfolio/:page'], controller.portfolio);
-router.get('/products/:page', controller.products);
-router.get('/likes/works/:page', controller.likesWorks);
-router.get('/likes/products/:page', controller.likesProducts);
-router.get('/collections/:page', controller.collections);
-router.get('/followers/:page', controller.followers);
-router.get('/followings/:page', controller.followings);
+router.post(['/:page', '/portfolio/:page'], controller.portfolio);
+router.post('/products/:page', controller.products);
+router.post('/likes/works/:page', controller.likesWorks);
+router.post('/likes/products/:page', controller.likesProducts);
+router.post('/collections/:page', controller.collections);
+router.post('/followers/:page', controller.followers);
+router.post('/followings/:page', controller.followings);
 
 module.exports = router;
