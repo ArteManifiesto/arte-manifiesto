@@ -12,10 +12,19 @@
 	margin auto
 	&__data
 		margin .5rem
-		
+		.title
+			margin .25rem 0
+			font-family 'Roboto Condensed'
+			color #444
+			letter-spacing .75px
+		.input
+			margin .25rem 0
+		.checkbox-list
+			margin .25rem 0
+
 .work-data
 	&__input
-		margin .5rem
+		padding .5rem
 			
 			
 @media (min-width: desktop)
@@ -24,3 +33,35 @@
 		flex-wrap wrap
 		&__input
 			flex 1 50%
+			
+
+.checkbox-list
+	// max-height 100px
+	// overflow auto
+	// display table
+	&__item
+		display flex
+		align-items center
+		padding .25rem
+		font-family 'Raleway'
+		cursor pointer
+		font-size .8rem
+		letter-spacing 1px
+		&:hover
+			background #eee
+		span
+			padding-left .25rem
+			
+.radio-list
+	display flex
+	align-items center
+	font-family 'Raleway'
+	font-size .8rem
+	label
+		padding-right .5rem
+		
+
+.upload-images
+	display flex
+	justify-content center
+	margin 1rem
