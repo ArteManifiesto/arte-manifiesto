@@ -6,10 +6,11 @@ exports.index = function (req, res) {
         req.product.save(),
         req.product.userLikes(),
         req.product.more(),
-        req.product.similar(req)
+        req.product.similar(req.viewer)
     ];
     global.db.Sequelize.Promise.all(promises).then(function (result) {
         return res.render(basePath + 'index', {
+            profile: req.profile,
             product: req.product, userLikes: result[1],
             more: result[2], similar: result[3]
         });

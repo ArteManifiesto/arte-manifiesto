@@ -3,6 +3,7 @@ var basePath = 'user/';
 exports.profile = function (req, res) {
     var currentPath = req.path.replace('/', '');
     if (currentPath.length === '') currentPath = 'portfolio';
+
     var promises = [
         req.profile.numOfWorks(), req.profile.numOfProducts(),
         req.profile.numOfLikesToWorks(), req.profile.numOfLikesToProducts(),

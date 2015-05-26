@@ -36,6 +36,7 @@ var searchHandler = function (req, res) {
 }
 
 exports.search = function (req, res) {
+    console.log(req.body.viewer);
     if (!req.body.viewer)
         return searchHandler(req, res);
 

@@ -28,13 +28,15 @@ exports.shouldAdmin = function (req, res, next) {
 };
 
 exports.user = function (req, res, next) {
-    if (req.user && req.user.username == req.params.username) {
-        req.profile = req.user;
-        req.owner = true;
-        return next();
+    var query = {where: {}, build: true, viewer: req.viewer};
+
+    if (req.user) {
+        req.owner = req.user.username === req.params.username;
+        query.where.id = req.user.id;
+    } else {
+        req.owner = false;
+        query.where.username = req.params.username;
     }
-    var query = {where: {}};
-    query.where = {username: req.params.username}
 
     global.db.User.find(query).then(function (user) {
         if (!user) {
@@ -44,13 +46,12 @@ exports.user = function (req, res, next) {
             return res.redirect('/');
         }
         req.profile = user;
-        req.owner = false;
         return next();
     });
 };
 
 exports.userTo = function (req, res, next) {
-    global.db.User.findById(req.body.idUser).then(function (user) {
+    global.db.User.find({where: {id: req.body.idUser}}).then(function (user) {
         if (!user) {
             if (req.xhr)
                 return res.noContent('Usuario desconocido');
@@ -88,7 +89,7 @@ exports.entity = function (entity) {
 
 exports.nameSlugify = function (entity) {
     return function (req, res, next) {
-        var query = {where: {nameSlugify: req.params.nameSlugify}, build: true};
+        var query = {where: {nameSlugify: req.params.nameSlugify}, viewer: req.viewer, build: true};
         entityExists(entity, query, req, res, next);
     }
 };

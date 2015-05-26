@@ -63,8 +63,6 @@ module.exports = function (app, passport) {
             successMessage: req.flash('successMessage'),
             errorMessage: req.flash('errorMessage')
         };
-
-        console.log(res.locals);
         next();
     });
 };

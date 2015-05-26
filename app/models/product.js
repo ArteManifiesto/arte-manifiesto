@@ -83,6 +83,7 @@ module.exports = function (sequelize, DataTypes) {
                     });
                 },
                 friends: function (viewer) {
+                    console.log('viewer : ', viewer);
                     if (viewer < 0)
                         return [];
 
@@ -112,11 +113,11 @@ module.exports = function (sequelize, DataTypes) {
                     var query = {attributes: ['id', 'username', 'photo', 'url'], limit: 50};
                     return this.getProductLikes(query);
                 },
-                similar: function (options) {
+                similar: function (viewer) {
                     var query = {
                         where: {ProductTypeId: this.ProductTypeId, id: {$not: [this.id]}},
                         order: [global.db.sequelize.fn('RAND')],
-                        limit: 10, build: true
+                        limit: 10, build: true, viewer: viewer
                     };
                     return global.db.Product.findAll(query);
                 },
@@ -124,9 +125,11 @@ module.exports = function (sequelize, DataTypes) {
                     var query = {
                         where: {id: {$not: [this.id]}},
                         order: [global.db.sequelize.fn('RAND')],
-                        limit: 6, build: true
+                        limit: 6
                     };
-                    return this.User.getProducts(query);
+                    return this.getUser().then(function (user) {
+                        return user.getProducts(query);
+                    });
                 }
             },
             hooks: {
