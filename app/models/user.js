@@ -33,6 +33,7 @@ module.exports = function (sequelize, DataTypes) {
             hashedPassword: DataTypes.STRING,
             salt: DataTypes.STRING,
 
+            omited: {type: DataTypes.BOOLEAN, defaultValue: false},
             verified: {type: DataTypes.BOOLEAN, defaultValue: false},
 
             tokenVerifyEmail: DataTypes.STRING,
@@ -205,56 +206,71 @@ module.exports = function (sequelize, DataTypes) {
                     user.hashedPassword = user.encryptPassword(options.password, user.salt);
                     user.tokenVerifyEmail = uuid.v4();
                     user.url = '/' + user.username;
-                    var query = {
-                        limit: _.random(1, 4),
-                        order: [sequelize.fn('RAND', '')]
-                    };
-                    return global.db.Category.findAll(query).then(function (categories) {
-                        var promises = [
-                            user.save(),
-                            global.db.Collection.create({name: 'Tienda', meta: 'store'}),
-                            global.db.Collection.create({name: 'Deseos', meta: 'products'}),
-                            global.db.Collection.create({name: 'Regalos', meta: 'products'})
-                            /*
-                            //TODO only in development enviroment
-                            user.setSpecialties(categories),
-                            user.setInterests(categories)*/
-                        ];
-                        return global.db.Sequelize.Promise.all(promises).then(function (data) {
-                            return user.addCollections(data.slice(1, data.length)).then(function () {
-                                var ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-                                promises = [
-                                    global.db.Category.findAll({
-                                        where: {id: {in: _.take(ids, _.random(1, 5))}},
-                                        attributes: ['id']
-                                    }),
-                                    global.db.Tag.findAll({
-                                        where: {id: {in: _.take(ids, _.random(1, 5))}},
-                                        attributes: ['id']
-                                    }),
-                                    global.db.Work.create({
-                                        name: chance.name(),
-                                        description: chance.paragraph(),
-                                        photo: '/img/works/obra' + (_.random(1, 12).toString()) + '.jpg',
-                                        public: true
-                                    }, {user: user})
-                                ];
 
-                                return global.db.Sequelize.Promise.all(promises).then(function (data) {
-                                    var categories = data[0], tags = data[1], work = data[2];
-                                    promises = [
-                                        work.setUser(user),
-                                        work.setCategories(categories),
-                                        work.setTags(tags)
-                                    ];
-                                    return global.db.Sequelize.Promise.all(promises);
-                                });
-
-                            });
-                        });
+                    var promises = [
+                        user.save(),
+                        global.db.Collection.create({name: 'Tienda', meta: 'store'}),
+                        global.db.Collection.create({name: 'Deseos', meta: 'products'}),
+                        global.db.Collection.create({name: 'Regalos', meta: 'products'})
+                    ];
+                    return global.db.Sequelize.Promise.all(promises).then(function (data) {
+                        return user.addCollections(data.slice(1, data.length))
                     });
+                }
+                /*afterCreate: function (user, options) {
+                 options.password = options.password || '123';
+                 user.salt = user.makeSalt();
+                 user.hashedPassword = user.encryptPassword(options.password, user.salt);
+                 user.tokenVerifyEmail = uuid.v4();
+                 user.url = '/' + user.username;
+                 var query = {
+                 limit: _.random(1, 4),
+                 order: [sequelize.fn('RAND', '')]
+                 };
+                 return global.db.Category.findAll(query).then(function (categories) {
+                 var promises = [
+                 user.save(),
+                 global.db.Collection.create({name: 'Tienda', meta: 'store'}),
+                 global.db.Collection.create({name: 'Deseos', meta: 'products'}),
+                 global.db.Collection.create({name: 'Regalos', meta: 'products'}),
+                 user.setSpecialties(categories),
+                 user.setInterests(categories)
+                 ];
+                 return global.db.Sequelize.Promise.all(promises).then(function (data) {
+                 return user.addCollections(data.slice(1, data.length - 2)).then(function () {
+                 var ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+                 promises = [
+                 global.db.Category.findAll({
+                 where: {id: {in: _.take(ids, _.random(1, 5))}},
+                 attributes: ['id']
+                 }),
+                 global.db.Tag.findAll({
+                 where: {id: {in: _.take(ids, _.random(1, 5))}},
+                 attributes: ['id']
+                 }),
+                 global.db.Work.create({
+                 name: chance.name(),
+                 description: chance.paragraph(),
+                 photo: '/img/works/obra' + (_.random(1, 12).toString()) + '.jpg',
+                 public: true
+                 }, {user: user})
+                 ];
 
-                },
+                 return global.db.Sequelize.Promise.all(promises).then(function (data) {
+                 var categories = data[0], tags = data[1], work = data[2];
+                 promises = [
+                 work.setUser(user),
+                 work.setCategories(categories),
+                 work.setTags(tags)
+                 ];
+                 return global.db.Sequelize.Promise.all(promises);
+                 });
+
+                 });
+                 });
+                 });
+
+                 }*/,
                 afterFind: function (items, options, fn) {
                     if ((!options.build) || (items === null) ||
                         (_.isArray(items) && items.length < 1))

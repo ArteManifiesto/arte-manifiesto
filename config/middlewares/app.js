@@ -93,34 +93,37 @@ exports.nameSlugify = function (entity) {
         entityExists(entity, query, req, res, next);
     }
 };
-exports.checkInterests = function (req, res, next) {
+
+exports.checkFillData = function (req, res, next) {
+    if (!req.user)return next();
+
+    if (req.user.omited) return next();
+
+    var query = {
+        attributes: [
+            [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'total']
+        ]
+    };
+    return req.user.getInterests(query).then(function (interests) {
+        if (interests[0].getDataValue('total') < 1) {
+            if (req.url === '/interests')return next()
+            return res.redirect('/interests');
+        }
+
+        return req.user.getSpecialties(query).then(function (specialties) {
+            if (specialties[0].getDataValue('total') < 1) {
+                if (req.url === '/specialties')return next()
+                return res.redirect('/specialties');
+            }
+            return next();
+        });
+    });
+};
+
+exports.checkEmail = function (req, res, next) {
     if (!req.user)
         return next();
-
-    var query = {
-        attributes: [
-            [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'total']
-        ]
-    };
-    return req.user.getInterests(query).then(function (result) {
-        if (result[0].getDataValue('total') > 0) return next();
-        if (req.url === '/interests')
-            next();
-        return res.redirect('/interests');
-    });
-}
-
-exports.checkSpecialties = function (req, res, next) {
-    if (!req.user || req.url === '/interests')
-        return next();
-
-    var query = {
-        attributes: [
-            [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'total']
-        ]
-    };
-    return req.user.getSpecialties(query).then(function (result) {
-        if (result[0].getDataValue('total') > 0) return next();
-        return res.redirect('/specialties');
-    });
+    if (req.user.verified) return next();
+    req.flash('emailMessage', 'Email sin confirmar');
+    next();
 }

@@ -14,8 +14,8 @@ router.get('/products/type/:value/:page', controller.products);
 
 router.get('/store/:nameProduct/', controller.storeProduct);
 router.get('/pay/:idProduct', controller.productPay);
-
-router.get('/interests', middlewares.isLogged, controller.interests);
-router.get('/specialties', middlewares.isLogged, controller.specialties);
+/*
+router.get('/interests', middlewares.isLogged);
+router.get('/specialties', middlewares.isLogged);*/
 
 module.exports = router;

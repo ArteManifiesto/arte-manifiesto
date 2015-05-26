@@ -103,7 +103,7 @@ exports.login = function (req, res) {
 
         if (!user)
             return res.badRequest(message);
-        
+
         loginUser(req, res, user);
     })(req, res);
 };
@@ -123,8 +123,9 @@ exports.facebookCallback = function (req, res) {
  * User logout
  */
 exports.logout = function (req, res) {
-    req.logout();
-    return res.redirect('/');
+    req.session.destroy(function (err) {
+        return res.redirect('/');
+    });
 };
 
 /**
