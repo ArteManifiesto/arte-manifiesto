@@ -1,0 +1,83 @@
+{% extends '../../partials/base.html' %}
+
+{% set path = 'add-work' %}
+{% set title = 'Arte Manifiesto | Add Work' %}
+{% set css = 'add-work' %}
+
+{% block elements %}
+
+	<section class="add-work">
+		<p class="add-work__title">
+			Subir una nueva obra
+		</p>
+		<div class="add-work__images">
+			<ul class="upload-images">
+				<li class="upload-image">
+					<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430427018/VENTA/2013_AJ_1_YANDY.png">
+				</li>
+				<li class="upload-image">
+					<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430426983/VENTA/2013_AJ_2_SALIMA.jpg">
+				</li>
+			</ul>
+		</div>
+		<div class="add-work__data">
+			<form class="work-data">
+				<div class="work-data__input">
+					<p class="title">Title</p>
+					<input class="input" name="title" placeholder="Titulo, de 4 a 8 palabras es bueno" type="text">
+				</div>
+				<div class="work-data__input">
+					<p class="title">Descripcion</p>
+					<textarea class="input" style="resize:none" placeholder="Descipcion, hagalo en 140 caracteres"></textarea>
+				</div>
+				<div class="work-data__input">
+					<p class="title">Categorias</p>
+					<ul class="checkbox-list">
+						<li class="checkbox-list__item">
+							<input type="checkbox" name="category" value=""> <span>Photography</span>
+						</li>
+						<li class="checkbox-list__item">
+							<input type="checkbox" name="category" value=""> <span>Design & Illustration</span>
+						</li>
+						<li class="checkbox-list__item">
+							<input type="checkbox" name="category" value=""> <span>Painting & Mixed Media</span>
+						</li>
+						<li class="checkbox-list__item">
+							<input type="checkbox" name="category" value=""> <span>Drawing</span>
+						</li>
+						<li class="checkbox-list__item">
+							<input type="checkbox" name="category" value=""> <span>Digital Art</span>
+						</li>
+					</ul>
+				</div>
+				<div class="work-data__input">
+					<p class="title">Tags</p>
+					<textarea class="input" style="resize:none" placeholder="Tags, separados por comas"></textarea>
+				</div>
+				<div class="work-data__input">
+					<p class="title">Publico?</p>
+					<ul class="radio-list">
+						<input type="radio" name="public" value="" id="radio1"><label for="radio1">Yes</label>
+						<input type="radio" name="public" value="" id="radio2"><label for="radio2">No</label>
+					</ul>
+				</div>
+			</form>
+		</div>
+	</section>
+
+{% endblock %}
+
+{% block scripts %}
+	<script type="text/javascript">
+
+		var product = {{ product|json|safe }};
+		console.log('product: ', product)
+
+		var userLikes = {{userLikes|json|safe}};
+		console.log('userLikes: ', userLikes);
+
+		var user = {{ user|json|safe }}
+		console.log('user: ', user);
+
+	</script>
+{% endblock %}
