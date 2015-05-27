@@ -9,10 +9,10 @@ function Product (el, data) {
 		buttonLike = el.querySelector('.button-like'),
 		likesEl = buttonLike.querySelector('span'),
 
-		buttonCollect = el.querySelector('.wish-list'),
+		buttonCollect = el.querySelector('.wish-list');
 
-		collect = document.querySelector('.collect'),
-		collectTemplate = _.template( $( "#collect-template" ).html() );
+		// collect = document.querySelector('.collect'),
+		// collectTemplate = _.template( $( "#collect-template" ).html() );
 
 
 	function setup () {
@@ -52,33 +52,25 @@ function Product (el, data) {
 		var url = '/' + user.username + '/collection/all'
 
 		$.post(url, {idProduct: id}, function (response) {
-			// console.log('response: ', response)
-			// var object = makeObject(collectTemplate, response.data)
-			// console.log('object: ', object)
-			document.querySelector('.products').appendChild(object)
+			collect.init(response.data, function (insides) {
+				console.log('insides: ', insides)
+				var url = '/' + user.username + '/product/addToCollection'
+				console.log(url)
 
-			collect.init(response.data, pos)
+				$.ajax({
+					type: "POST",
+					url: url,
+					datatype: "json",
+					data: JSON.stringify({idProduct: id, collections: insides}),
+					success: function (response) {
+						console.log(response)
+					},
+					contentType: "application/json; charset=utf-8",
+				});
+			})
+
 		})
 	}
-
-	window.collect = new Collect(object, response.data, function (insides) {
-			
-			console.log('insides: ', insides)
-			var url = '/' + user.username + '/product/addToCollection'
-			console.log(url)
-
-			$.ajax({
-				type: "POST",
-				url: url,
-				datatype: "json",
-				data: JSON.stringify({idProduct: id, collections: insides}),
-				success: function (response) {
-					console.log(response)
-				},
-				contentType: "application/json; charset=utf-8",
-			});
-
-		})
 
 	function like () {
 
@@ -127,20 +119,35 @@ function Product (el, data) {
 	setup()
 }
 
-function makeObject (template, data) {
-	var objectString = template(data)
-	var div = document.createElement('div')
-	div.innerHTML = objectString
-	return div.children[0]
-}
+function Collect (el) {
 
-function Collect (el, data, callback) {
-	var collectsData = data.collections
-	var collectsEl = el.querySelectorAll('.checkbox-list__item')
+	var itemTemplate = _.template( $( "#item-template" ).html() )
+
+	var collectsData
+	var collectsEl
 	var save = el.querySelector('.button-solid')
+	var list = el.querySelector('.checkbox-list')
+	var callback
 
-	function setup () {
+	save.addEventListener('click', function () {
+		var newInsides = getInsides()
+		callback(newInsides)
+	})
+
+	function init (data, back) {
+
+		callback = back
+		collectsData = data.collections
 		
+		list.innerHTML = ''
+
+		for (var i = 0; i < collectsData.length; i++) {
+			var object = makeObject(itemTemplate, collectsData[i])
+			list.appendChild(object)
+		}
+
+		collectsEl = el.querySelectorAll('.checkbox-list__item')
+
 		for (var i = collectsEl.length - 1; i >= 0; i--)
 			collectsEl[i].setAttribute('index', i)
 
@@ -153,11 +160,6 @@ function Collect (el, data, callback) {
 
 				collectsData[index].productInside = collectsData[index].productInside?false:true
 			})
-
-		save.addEventListener('click', function () {
-			var newInsides = getInsides()
-			callback(newInsides)
-		})
 	}
 
 	function getInsides () {
@@ -168,8 +170,13 @@ function Collect (el, data, callback) {
 		return ret
 	}
 
-	setup()
+	return {
+		init: init
+	}
 }
+
+window.collect = new Collect(document.querySelector('.collect'))
+
 
 function isMobile() {
 	// return true
@@ -185,4 +192,11 @@ function isMobile() {
 
 	// nothing found.. assume desktop
 	return false;
+}
+
+function makeObject (template, data) {
+	var objectString = template(data)
+	var div = document.createElement('div')
+	div.innerHTML = objectString
+	return div.children[0]
 }

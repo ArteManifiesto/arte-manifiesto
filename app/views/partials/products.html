@@ -16,19 +16,17 @@
 	</div>
 </script>
 
-	<script type="text/javascript" id="item-template"></script>
+<script type="text/template" id="item-template">
+	<li class="checkbox-list__item <% if (productInside) { %> active <% } %> ">
+		<i class="fa fa-check-square-o"></i><i class="fa fa-square-o"></i> <span><%= name %></span>
+	</li>
+</script>
 
 <section class="products">
 
 	<div class="collect">
 		<div class="collect-title">Add to collections</div>
-		<ul class="checkbox-list">
-			<% for collection in collections %>
-				<li class="checkbox-list__item <% if (collection.productInside) { %> active <% } %> ">
-					<i class="fa fa-check-square-o"></i><i class="fa fa-square-o"></i> <span><%= collection.name %></span>
-				</li>
-			<% enf %>
-		</ul>
+		<ul class="checkbox-list"></ul>
 		<button class="button-solid" data-size="small" data-color='red'>Guardar</button>
 	</div>
 
