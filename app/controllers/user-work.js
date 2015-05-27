@@ -82,13 +82,13 @@ exports.delete = function (req, res) {
 
 exports.like = function (req, res) {
     req.work.like(req.user).then(function (likes) {
-        return res.ok({work: req.work, likes: likes.likes}, 'User liked');
+        return res.ok({work: req.work, likes: likes}, 'Work liked');
     });
 };
 
 exports.unLike = function (req, res) {
     req.work.unLike(req.user).then(function (likes) {
-        return res.ok({work: req.work, likes: likes.likes}, 'User unLiked');
+        return res.ok({work: req.work, likes: likes}, 'Work unLiked');
     });
 };
 
