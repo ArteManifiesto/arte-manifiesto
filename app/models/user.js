@@ -19,30 +19,22 @@ module.exports = function (sequelize, DataTypes) {
                 country: DataTypes.STRING,
                 biography: DataTypes.TEXT,
                 birthday: DataTypes.DATE,
+
                 school: DataTypes.STRING,
 
-                //TODO maybe need other table association for social ?
-                facebook: DataTypes.STRING,
-                facebookUserId: DataTypes.BIGINT(30),
-                twitter: DataTypes.STRING,
-                instagram: DataTypes.STRING,
-                tumblr: DataTypes.STRING,
-                behance: DataTypes.STRING,
-                web: DataTypes.STRING,
+                featured: {type: DataTypes.BOOLEAN, defaultValue: false},
+                isAdmin: {type: DataTypes.BOOLEAN, defaultValue: false},
+                views: {type: DataTypes.INTEGER, defaultValue: 0},
+                url: {type: DataTypes.STRING},
+                popularity: {type: DataTypes.INTEGER, defaultValue: 0},
 
                 hashedPassword: DataTypes.STRING,
                 salt: DataTypes.STRING,
 
                 verified: {type: DataTypes.BOOLEAN, defaultValue: false},
-
                 tokenVerifyEmail: DataTypes.STRING,
                 tokenResetPassword: DataTypes.STRING,
-                tokenResetPasswordExpires: DataTypes.DATE,
-                featured: {type: DataTypes.BOOLEAN, defaultValue: false},
-                isAdmin: {type: DataTypes.BOOLEAN, defaultValue: false},
-                views: {type: DataTypes.INTEGER, defaultValue: 0},
-                url: {type: DataTypes.STRING},
-                popularity: {type: DataTypes.INTEGER, defaultValue: 0}
+                tokenResetPasswordExpires: DataTypes.DATE
             },
             {
                 classMethods: {
@@ -70,6 +62,9 @@ module.exports = function (sequelize, DataTypes) {
                         User.hasMany(models.Collection);
                         User.hasMany(models.Work);
                         User.hasMany(models.Product);
+
+                        User.hasMany(models.Website);
+                        User.hasMany(models.Address);
                     }
                 },
                 instanceMethods: {

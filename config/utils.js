@@ -20,7 +20,7 @@ global.config = {
 };
 
 global.getStoreCollection = function (user) {
-    var query = {where: {meta: 'store'}, limit: 1};
+    var query = {store: true, limit: 1};
     return user.getCollections(query).then(function (collections) {
         return collections[0];
     });

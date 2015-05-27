@@ -1,7 +1,10 @@
 var basePath = 'user/collection/';
 
 exports.all = function (req, res) {
-    req.user.getCollections().then(function (collections) {
+    var query;
+    if (req.body.idProduct)
+        query = {idProduct: req.body.idProduct, productInside: true};
+    req.user.getCollections(query).then(function (collections) {
         return res.ok({collections: collections}, 'Colecciones listadas');
     });
 }

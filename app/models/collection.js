@@ -42,6 +42,24 @@ module.exports = function (sequelize, DataTypes) {
                     return this.getProducts(query).then(function (products) {
                         return products;
                     });
+                },
+                productInside: function (options) {
+                    var scope = this, query = {
+                        attributes: [
+                            [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'total']
+                        ], where: {id: options.idProduct}
+                    }
+                    return this.getProducts(query).then(function (result) {
+                        return scope.setDataValue('productInside', result[0].getDataValue('total') > 0);
+                    });
+                },
+                appendProduct: function (options) {
+                    var scope = this, query = {
+                        where: {id: options.idProduct}
+                    }
+                    return global.db.Product.find(query).then(function (product) {
+                        return scope.addProduct(product);
+                    });
                 }
             },
             hooks: {
@@ -53,25 +71,43 @@ module.exports = function (sequelize, DataTypes) {
                 beforeFind: function (options, fn) {
                     if (options.build)
                         options.include = [{model: global.db.User}];
+
+                    options.where = options.where || {}
+                    if (options.store)
+                        options.where.meta = 'store';
+                    else
+                        options.where.meta = 'products';
                     fn(null, options);
                 },
                 afterFind: function (items, options, fn) {
-                    if ((!options.build) || (items === null) ||
+                    if ((items === null) ||
                         (_.isArray(items) && items.length < 1))
                         return fn(null, options);
 
-                    if (!_.isArray(items)) {
-                        return items.buildParts(options).then(function () {
+                    if (options.build || options.productInside || options.appendProduct) {
+                        var promises = [];
+                        var addPromise = function (item) {
+                            if (options.build)
+                                promises.push(item.buildParts(options));
+
+                            if (options.productInside)
+                                promises.push(item.productInside(options));
+
+                            if (options.appendProduct)
+                                promises.push(item.appendProduct(options));
+                        };
+
+                        if (!_.isArray(items))
+                            addPromise(items);
+
+                        for (var i = 0; i < items.length; i++)
+                            addPromise(items[i]);
+
+                        return global.db.Sequelize.Promise.all(promises).then(function () {
                             return fn(null, options);
                         });
                     }
-
-                    var i, promises = [];
-                    for (i = 0; i < items.length; i++)
-                        promises.push(items[i].buildParts(options));
-                    return global.db.Sequelize.Promise.all(promises).then(function () {
-                        return fn(null, options);
-                    });
+                    return fn(null, options);
                 }
             }
         }

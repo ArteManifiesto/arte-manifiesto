@@ -13,7 +13,6 @@ router.use(middlewares.entity(entity));
 router.get('/:nameSlugify', middlewares.nameSlugify(entity), controller.read);
 
 router.post('/all', isLoggedAndOwner, controller.all);
-
 router.post('/create', isLoggedAndOwner, controller.create);
 router.post('/update', isLoggedAndOwner, controller.update);
 router.post('/delete', isLoggedAndOwner, controller.delete);

@@ -26,7 +26,7 @@ exports.profile = function (req, res) {
 var getData = function (req, res, options, query) {
     options = _.assign(options, {
         entity: req.profile, association: true,
-        page: req.params.page, limit: 5
+        page: req.params.page, limit: 30
     });
     query = query || {}
     query = _.assign(query, {build: true, viewer: req.viewer});
@@ -52,8 +52,8 @@ exports.likesProducts = function (req, res) {
 };
 
 exports.collections = function (req, res) {
-    var query = {where: {meta: 'products'}};
-    return getData(req, res, {method: 'getCollections', name: 'collections'}, query);
+    //var query = {where: {meta: 'products'}};
+    return getData(req, res, {method: 'getCollections', name: 'collections'});
 };
 
 exports.followers = function (req, res) {

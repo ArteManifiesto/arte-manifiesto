@@ -40,3 +40,14 @@ exports.unLike = function (req, res) {
         return res.ok({product: req.product, likes: likes}, 'Product unLiked');
     });
 };
+
+exports.addToCollection = function (req, res) {
+    var idCollections = req.body.idCollections;
+    var queryCollections = {
+        where: {id: {$in: idCollections}},
+        appendProduct: true, idProduct: req.product.id
+    };
+    global.db.Collection.findAll(queryCollections).then(function (collections) {
+        return res.json(collections);
+    });
+}

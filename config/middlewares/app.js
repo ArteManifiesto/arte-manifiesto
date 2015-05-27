@@ -97,7 +97,7 @@ exports.nameSlugify = function (entity) {
 //TODO refactor middleware checkFillData
 exports.checkFillData = function (req, res, next) {
     if (!req.user)return next();
-    if (req.url === '/auth/logout')return next();
+    if (req.url === '/auth/logout' || req.url.indexOf('/account') > -1)return next();
     var query = {
         attributes: [
             [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'total']
@@ -107,6 +107,12 @@ exports.checkFillData = function (req, res, next) {
         if (interests[0].getDataValue('total') < 1) {
             if (req.url === '/interests')return next()
             return res.redirect('/interests');
+        }
+
+        if (!req.user.isArtist) {
+            if (['/interests', '/specialties'].indexOf(req.url) > -1)
+                return res.redirect('/' + req.user.username + '/account');
+            return next();
         }
 
         return req.user.getSpecialties(query).then(function (specialties) {
@@ -120,7 +126,6 @@ exports.checkFillData = function (req, res, next) {
 
             if (['/interests', '/specialties'].indexOf(req.url) > -1)
                 return res.redirect('/' + req.user.username + '/account');
-
             return next();
         });
     });
