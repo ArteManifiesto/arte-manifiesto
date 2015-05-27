@@ -11,9 +11,6 @@ function Product (el, data) {
 
 		buttonCollect = el.querySelector('.wish-list');
 
-		// collect = document.querySelector('.collect'),
-		// collectTemplate = _.template( $( "#collect-template" ).html() );
-
 
 	function setup () {
 
@@ -26,7 +23,6 @@ function Product (el, data) {
 		}
 
 		buttonLike.addEventListener('click', function () {
-			// console.log('click')
 			if (!user) {
 				location.href = '/auth/login/?returnTo=' + location.href
 				return
@@ -36,7 +32,6 @@ function Product (el, data) {
 		})
 
 		buttonCollect.addEventListener('click', function (e) {
-			console.log('e: ', e)
 			if (!user) {
 				location.href = '/auth/login/?returnTo=' + location.href
 				return
@@ -52,20 +47,15 @@ function Product (el, data) {
 		var url = '/' + user.username + '/collection/all'
 
 		$.post(url, {idProduct: id}, function (response) {
-
-			console.log('id: ', id)
 			collect.init(response.data, id, pos)
-
 		})
 	}
 
 	function like () {
 
 		var url = '/' + user.username + '/product/like'
-		console.log(url)
 
 		$.post(url, {idProduct: id}, function (data) {
-			console.log(data)
 
 			if (data.status == 200) {
 				buttonLike.classList.add('active')
@@ -74,7 +64,6 @@ function Product (el, data) {
 
 				var newLikes = data.data.likes
 				likes = newLikes
-				console.log('likes :  ', likes);
 				likesEl.innerHTML = likes
 			}
 		})
@@ -82,13 +71,9 @@ function Product (el, data) {
 
 	function unLike () {
 
-		console.log('unLike')
-
 		var url = '/' + user.username + '/product/unlike'
-		console.log(url)
 
 		$.post(url, {idProduct: id}, function (data) {
-			console.log(data)
 
 			if (data.status == 200) {
 				buttonLike.classList.remove('active')
@@ -97,7 +82,6 @@ function Product (el, data) {
 
 				var newLikes = data.data.likes
 				likes = newLikes
-				console.log('likes :  ', likes);
 				likesEl.innerHTML = likes
 			}
 		})
@@ -115,16 +99,21 @@ function Collect (el) {
 	var save = el.querySelector('.button-solid')
 	var list = el.querySelector('.checkbox-list')
 	var idProduct
-	// var callback
+
+	el.addEventListener('click', function (event) {
+		// console.log('collect click')
+  	event.stopPropagation()
+	})
+
+	document.addEventListener('click', function () {
+		// console.log('document click')
+		el.style.display = 'none'
+	})
 
 	save.addEventListener('click', function () {
 		var insides = getInsides()
-		// callback(insides)
 
-		// console.log('insides: ', insides)
 		var url = '/' + user.username + '/product/addToCollection'
-		console.log(url)
-		console.log('idProduct: ', idProduct)
 
 		$.ajax({
 			type: "POST",
