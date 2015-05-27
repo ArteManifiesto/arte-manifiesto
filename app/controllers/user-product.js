@@ -42,14 +42,9 @@ exports.unLike = function (req, res) {
 };
 
 exports.addToCollection = function (req, res) {
-    var idCollections = req.body.idCollections;
-    console.log(idCollections);
-    var queryCollections = {
-        where: {id: {$in: idCollections}},
-        appendProduct: true, idProduct: req.product.id
-    };
-    req.user.getCollections(queryCollections).then(function (collections) {
-        return res.ok({collections: collections}, 'Product added to collections');
+    var query = {viewer: req.viewer, collections: req.body.collections};
+    req.product.addToCollection(query).then(function (data) {
+        return res.json(data);
     });
 }
 
