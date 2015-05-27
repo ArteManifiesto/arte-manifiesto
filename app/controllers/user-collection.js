@@ -1,5 +1,13 @@
 var basePath = 'user/collection/';
 
+
+exports.index = function (req, res) {
+    req.collection.getProducts().then(function (products) {
+        //res.render(basePath + 'index', {collection: req.collection, products: products});
+        return res.json({collection: req.collection, products: products});
+    });
+}
+
 exports.all = function (req, res) {
     var query;
     if (req.body.idProduct)
@@ -20,17 +28,6 @@ exports.create = function (req, res) {
             if (req.xhr)
                 return res.ok({collection: collection}, 'Coleccion creada');
         })
-    });
-};
-
-/**
- * Collection read
- * ====================================================================
- * read a collection
- */
-exports.read = function (req, res) {
-    req.collection.getProducts().then(function (products) {
-        return res.json({collection: req.collection, products: products});
     });
 };
 

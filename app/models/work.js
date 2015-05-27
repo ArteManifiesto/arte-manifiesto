@@ -36,13 +36,17 @@ module.exports = function (sequelize, DataTypes) {
             instanceMethods: {
                 like: function (user) {
                     var scope = this;
-                    return user.addWorkLike(this).then(function () {
+                    this.popularity += 3;
+                    var promises = [user.addWorkLike(this), this.save()];
+                    return global.db.Sequelize.Promise.all(promises).then(function () {
                         return scope.numOfLikes();
                     });
                 },
                 unLike: function (user) {
                     var scope = this;
-                    return user.removeWorkLike(this).then(function () {
+                    this.popularity -= 3;
+                    var promises = [user.removeWorkLike(this), this.save()];
+                    return global.db.Sequelize.Promise.all(promises).then(function () {
                         return scope.numOfLikes();
                     });
                 },

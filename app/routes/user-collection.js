@@ -10,7 +10,7 @@ var entity = 'Collection';
 
 router.use(middlewares.entity(entity));
 
-router.get('/:nameSlugify', middlewares.nameSlugify(entity), controller.read);
+router.get('/:nameSlugify', middlewares.nameSlugify(entity), controller.index);
 
 router.post('/all', isLoggedAndOwner, controller.all);
 router.post('/create', isLoggedAndOwner, controller.create);

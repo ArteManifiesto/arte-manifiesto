@@ -1,7 +1,14 @@
 var _ = require('lodash');
 module.exports = function (sequelize, DataTypes) {
     var Collection = sequelize.define('Collection', {
-            name: DataTypes.STRING,
+            name: {
+                type: DataTypes.STRING,
+                set: function (value) {
+                    this.setDataValue('nameSlugify', global.slugify(value));
+                    this.setDataValue('name', value);
+                }
+            },
+            nameSlugify: DataTypes.STRING,
             meta: DataTypes.STRING,
             description: DataTypes.TEXT,
             public: {type: DataTypes.BOOLEAN, defaultValue: true},
