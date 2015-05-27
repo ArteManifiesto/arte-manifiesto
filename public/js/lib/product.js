@@ -8,7 +8,9 @@ function Product(el, data) {
 		liked = data.liked,
 
 		buttonLike = el.querySelector('.button-like'),
-		likesEl = buttonLike.querySelector('span');
+		likesEl = buttonLike.querySelector('span'),
+
+		buttonCollection = el.querySelector('.wish-list');
 		// console.log('buttonLike: ', buttonLike)
 		// console.log('buttonLike: ', buttonLike)
 
@@ -25,6 +27,29 @@ function Product(el, data) {
 			}
 			if (!liked) like()
 			else unLike()
+		})
+
+		buttonCollection.addEventListener('click', function () {
+			if (!user) {
+				location.href = '/auth/login/?returnTo=' + location.href
+				return
+			}
+			collect()
+			// if (!collecte) like()
+			// else unLike()
+		})
+	}
+
+	function collect () {
+
+		// var url = '/' + user.username + '/collection/all'
+		var url = '/' + user.username + '/product/addToCollection'
+		// var url = '/' + user.username + '/product/'
+		// var
+		console.log(url)
+
+		$.post(url, {idProduct: id , idCollections:[2,3]}, function (data) {
+			console.log(data)
 		})
 	}
 

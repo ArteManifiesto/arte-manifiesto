@@ -43,6 +43,7 @@ exports.unLike = function (req, res) {
 
 exports.addToCollection = function (req, res) {
     var idCollections = req.body.idCollections;
+    console.log('idcollections',idCollections)
     var queryCollections = {
         where: {id: {$in: idCollections}},
         appendProduct: true, idProduct: req.product.id
