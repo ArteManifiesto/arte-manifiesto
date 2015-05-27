@@ -36,3 +36,6 @@ var productEls = document.querySelectorAll('.product')
 
 for (var i = 0; i < productEls.length; i++)
 	createProductObject(productEls[i], products[i])
+
+
+window.collect = new Collect(document.querySelector('.collect'))

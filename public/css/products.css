@@ -1202,6 +1202,7 @@ body {
   text-align: center;
   position: absolute;
   z-index: 1;
+  display: none;
 }
 .collect .collect-title {
   margin: 0.5rem;

@@ -53,22 +53,8 @@ function Product (el, data) {
 
 		$.post(url, {idProduct: id}, function (response) {
 
-			collect.init(response.data, function (insides) {
-				console.log('insides: ', insides)
-				var url = '/' + user.username + '/product/addToCollection'
-				console.log(url)
-
-				$.ajax({
-					type: "POST",
-					url: url,
-					datatype: "json",
-					data: JSON.stringify({idProduct: id, collections: insides}),
-					success: function (response) {
-						console.log(response)
-					},
-					contentType: "application/json; charset=utf-8",
-				});
-			}, pos)
+			console.log('id: ', id)
+			collect.init(response.data, id, pos)
 
 		})
 	}
@@ -128,19 +114,35 @@ function Collect (el) {
 	var collectsEl
 	var save = el.querySelector('.button-solid')
 	var list = el.querySelector('.checkbox-list')
-	var callback
+	var idProduct
+	// var callback
 
 	save.addEventListener('click', function () {
-		var newInsides = getInsides()
-		callback(newInsides)
+		var insides = getInsides()
+		// callback(insides)
+
+		// console.log('insides: ', insides)
+		var url = '/' + user.username + '/product/addToCollection'
+		console.log(url)
+		console.log('idProduct: ', idProduct)
+
+		$.ajax({
+			type: "POST",
+			url: url,
+			datatype: "json",
+			data: JSON.stringify({idProduct: idProduct, collections: insides}),
+			success: function (response) {
+				console.log(response)
+			},
+			contentType: "application/json; charset=utf-8",
+		});
+
 	})
 
-	function init (data, back, pos) {
-		console.log('pos: ', pos)
+	function init (data, id, pos) {
 
-		$(".collect").offset({ top: pos[1], left: pos[0] });
+		idProduct = id
 
-		callback = back
 		collectsData = data.collections
 		
 		list.innerHTML = ''
@@ -148,6 +150,24 @@ function Collect (el) {
 		for (var i = 0; i < collectsData.length; i++) {
 			var object = makeObject(itemTemplate, collectsData[i])
 			list.appendChild(object)
+		}
+
+		el.style.display = 'block'
+
+		var position = $(".products").offset();
+
+		var collectHeight = $(".collect").outerHeight()
+		var collectWidth = $(".collect").outerWidth()
+
+		var warpperHeight = $(".products").outerHeight()
+		var warpperWidth = $(".products").outerWidth()
+
+		var limit = position.left + warpperWidth
+
+		if(pos[0] + collectWidth > limit) {
+			$(".collect").offset({ top: pos[1]-collectHeight, left: pos[0]-collectWidth })
+		} else {
+			$(".collect").offset({ top: pos[1]-collectHeight, left: pos[0] })
 		}
 
 		collectsEl = el.querySelectorAll('.checkbox-list__item')
@@ -178,8 +198,6 @@ function Collect (el) {
 		init: init
 	}
 }
-
-window.collect = new Collect(document.querySelector('.collect'))
 
 
 function isMobile() {
