@@ -84,7 +84,10 @@ function Section (data) {
 		
 		window.onscroll = function() {
 			if ((window.innerHeight + window.scrollY) >= wrapper.offsetHeight)
-				if(scrollMode) nextPage()
+				if(scrollMode){
+					console.log('scroll end!')
+					nextPage()
+				}
 		}
 
 		moreButton.addEventListener('click', initScroll)
@@ -201,9 +204,11 @@ function Section (data) {
 		url = url.replace(path , 'search/' + path)
 		url = url.replace('page-' + pagination.page, 'page-' + ++pagination.page)
 
+		scrollMode = false
 		getElements(url, function (elements) {
 			addElements(elements)
 			if(callback) callback()
+			scrollMode = true
 		})
 	}
 
