@@ -930,6 +930,17 @@ body {
 .collect .button-solid {
   margin: 0.5rem;
 }
+.collect .button-solid .fa {
+  display: none;
+  -webkit-animation: 1.5s load infinite;
+  -moz-animation: 1.5s load infinite;
+  -o-animation: 1.5s load infinite;
+  -ms-animation: 1.5s load infinite;
+  animation: 1.5s load infinite;
+}
+.collect.load .button-solid .fa {
+  display: inline;
+}
 .checkbox-list__item {
   display: -webkit-box;
   display: -moz-box;
@@ -964,6 +975,98 @@ body {
 }
 .checkbox-list__item.active .fa-square-o {
   display: none;
+}
+@-moz-keyframes load {
+  0% {
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+    transform: rotate(0);
+  }
+  50% {
+    -webkit-transform: rotate(-180deg);
+    -moz-transform: rotate(-180deg);
+    -o-transform: rotate(-180deg);
+    -ms-transform: rotate(-180deg);
+    transform: rotate(-180deg);
+  }
+  100% {
+    -webkit-transform: rotate(-360deg);
+    -moz-transform: rotate(-360deg);
+    -o-transform: rotate(-360deg);
+    -ms-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+  }
+}
+@-webkit-keyframes load {
+  0% {
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+    transform: rotate(0);
+  }
+  50% {
+    -webkit-transform: rotate(-180deg);
+    -moz-transform: rotate(-180deg);
+    -o-transform: rotate(-180deg);
+    -ms-transform: rotate(-180deg);
+    transform: rotate(-180deg);
+  }
+  100% {
+    -webkit-transform: rotate(-360deg);
+    -moz-transform: rotate(-360deg);
+    -o-transform: rotate(-360deg);
+    -ms-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+  }
+}
+@-o-keyframes load {
+  0% {
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+    transform: rotate(0);
+  }
+  50% {
+    -webkit-transform: rotate(-180deg);
+    -moz-transform: rotate(-180deg);
+    -o-transform: rotate(-180deg);
+    -ms-transform: rotate(-180deg);
+    transform: rotate(-180deg);
+  }
+  100% {
+    -webkit-transform: rotate(-360deg);
+    -moz-transform: rotate(-360deg);
+    -o-transform: rotate(-360deg);
+    -ms-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+  }
+}
+@keyframes load {
+  0% {
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+    transform: rotate(0);
+  }
+  50% {
+    -webkit-transform: rotate(-180deg);
+    -moz-transform: rotate(-180deg);
+    -o-transform: rotate(-180deg);
+    -ms-transform: rotate(-180deg);
+    transform: rotate(-180deg);
+  }
+  100% {
+    -webkit-transform: rotate(-360deg);
+    -moz-transform: rotate(-360deg);
+    -o-transform: rotate(-360deg);
+    -ms-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+  }
 }
 .users {
   margin: 0.5rem;

@@ -101,12 +101,10 @@ function Collect (el) {
 	var idProduct
 
 	el.addEventListener('click', function (event) {
-		// console.log('collect click')
   	event.stopPropagation()
 	})
 
 	document.addEventListener('click', function () {
-		// console.log('document click')
 		el.style.display = 'none'
 	})
 
@@ -115,6 +113,8 @@ function Collect (el) {
 
 		var url = '/' + user.username + '/product/addToCollection'
 
+		el.classList.add('load')
+
 		$.ajax({
 			type: "POST",
 			url: url,
@@ -122,6 +122,7 @@ function Collect (el) {
 			data: JSON.stringify({idProduct: idProduct, collections: insides}),
 			success: function (response) {
 				console.log(response)
+				el.classList.remove('load')
 			},
 			contentType: "application/json; charset=utf-8",
 		});

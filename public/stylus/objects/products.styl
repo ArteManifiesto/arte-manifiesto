@@ -123,6 +123,25 @@ product-width = 180px
 		margin .5rem
 	.button-solid
 		margin .5rem
+		// display flex
+		.fa
+			display none
+			// margin-right .5rem
+			animation 1.5s load infinite
+
+.collect.load
+	.button-solid
+		.fa
+			display inline
+		
+
+@keyframes load
+	0%
+		transform rotate(0)
+	50%
+		transform rotate(-180deg)
+	100%
+		transform rotate(-360deg)
 		
 .checkbox-list
 	&__item
