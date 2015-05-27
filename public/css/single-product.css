@@ -822,6 +822,43 @@ body {
 .collect .checkbox-list {
   margin: 0.5rem;
 }
+.collect .new-text {
+  color: #3000ff;
+  font-family: 'Roboto Condensed';
+  cursor: pointer;
+  padding: 0.25rem;
+  font-size: 0.9rem;
+}
+.collect .new-text .fa {
+  font-size: 0.6rem;
+}
+.collect .add-wrapp {
+  display: none;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -o-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  margin: 0.5rem;
+}
+.collect .add-wrapp.visible {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+}
+.collect .add-wrapp .fa-check-square-o {
+  color: #008000;
+  padding-right: 0.25rem;
+  cursor: pointer;
+}
+.collect .add-wrapp input {
+  font-size: 0.9rem;
+  padding: 0.25rem;
+}
 .collect .button-solid {
   margin: 0.5rem;
 }
@@ -832,12 +869,6 @@ body {
   -o-animation: 1.5s load infinite;
   -ms-animation: 1.5s load infinite;
   animation: 1.5s load infinite;
-}
-.collect input {
-  font-size: 0.9rem;
-  width: auto;
-  display: block;
-  margin: 0.5rem;
 }
 .collect.load .button-solid .fa {
   display: inline;
@@ -855,7 +886,7 @@ body {
   -ms-flex-align: center;
   -webkit-align-items: center;
   align-items: center;
-  padding: 0.25rem;
+  padding: 0.25rem 0;
   font-family: 'Raleway';
   cursor: pointer;
   font-size: 0.85rem;

@@ -95,11 +95,25 @@ function Collect (el) {
 	var itemTemplate = _.template( $( "#item-template" ).html() )
 
 	var collectsData
+	var list = el.querySelector('.checkbox-list')
 	var collectsEl
 	var save = el.querySelector('.button-solid')
-	var list = el.querySelector('.checkbox-list')
 	var idProduct
 	var input = el.querySelector('input')
+	var newText = el.querySelector('.new-text')
+	var addWrapp = el.querySelector('.add-wrapp')
+	var closeInput = addWrapp.querySelector('.fa')
+	console.log('closeInput: ', closeInput)
+
+	newText.addEventListener('click', function () {
+		addWrapp.classList.add('visible')
+		newText.style.display = 'none'
+	})
+	closeInput.addEventListener('click', function () {
+		addWrapp.classList.remove('visible')
+		newText.style.display = 'block'
+		input.value = ''
+	})
 
 	el.addEventListener('click', function (event) {
   	event.stopPropagation()
@@ -137,8 +151,6 @@ function Collect (el) {
 			// addToCollections
 			addToCollections(insides)
 		}
-
-
 	})
 
 	function addToCollections (insides) {
@@ -153,6 +165,11 @@ function Collect (el) {
 			success: function (response) {
 				console.log(response)
 				el.classList.remove('load')
+				el.style.display = 'none'
+				
+				addWrapp.classList.remove('visible')
+				newText.style.display = 'block'
+				input.value = ''
 			},
 			contentType: "application/json; charset=utf-8",
 		});
