@@ -15,8 +15,6 @@ function Product (el, data) {
 		coverCollection = el.querySelectorAll('.cover .fa')[1]
 		singleUrl = data.url;
 
-		// console.log('coverLike: ', coverLike)
-		// console.log('coverCollection: ', coverCollection)
 
 	function setup () {
 
@@ -134,7 +132,7 @@ function Collect (el) {
 	var newText = el.querySelector('.new-text')
 	var addWrapp = el.querySelector('.add-wrapp')
 	var closeInput = addWrapp.querySelector('.fa')
-	console.log('closeInput: ', closeInput)
+	// console.log('closeInput: ', closeInput)
 
 	newText.addEventListener('click', function () {
 		addWrapp.classList.add('visible')
@@ -161,25 +159,18 @@ function Collect (el) {
 		el.classList.add('load')
 
 		if(input.value){
-			console.log('create collection')
 			
 			var url = '/' + user.username + '/collection/create'
-			console.log('url: ', url)
 
 			$.post(url, {name: input.value}, function (response) {
-				console.log('response: ', response)
 				
 				if(response.status == 200) {
-					console.log('creacion exitosa')
 					insides.push(response.data.collection.id)
-					// addToCollections
 					addToCollections(insides)
 				} else {
-					console.log('creacion fallida')
 				}
 			})
 		} else {
-			// addToCollections
 			addToCollections(insides)
 		}
 	})
@@ -231,11 +222,24 @@ function Collect (el) {
 
 		var limit = position.left + warpperWidth
 
-		if(pos[0] + collectWidth > limit) {
-			$(".collect").offset({ top: pos[1]-collectHeight, left: pos[0]-collectWidth })
+		var margin = 20
+		var newPos = []
+
+		if(pos[0] + collectWidth + 2*margin >= limit)
+			newPos[0] = pos[0]-collectWidth -margin
+		else
+			newPos[0] = pos[0] + margin
+
+		if(pos[1] - collectHeight/2 - 2*margin <= position.top) {
+			console.log('te pasate')
+			newPos[1] = position.top + margin
 		} else {
-			$(".collect").offset({ top: pos[1]-collectHeight, left: pos[0] })
+			console.log('entras')
+			newPos[1] = pos[1] - collectHeight/2 - margin
 		}
+		
+		$(".collect").offset({ top: newPos[1], left: newPos[0] })
+
 
 		collectsEl = el.querySelectorAll('.checkbox-list__item')
 
