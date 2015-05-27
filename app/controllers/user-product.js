@@ -42,9 +42,10 @@ exports.unLike = function (req, res) {
 };
 
 exports.addToCollection = function (req, res) {
-    var query = {viewer: req.viewer, collections: req.body.collections};
+    var collections = req.body.collections;
+    var query = {viewer: req.viewer, collections: collections};
     req.product.addToCollection(query).then(function (data) {
-        return res.json(data);
+        return res.ok({collection: collections}, 'Product added to collections , this is a magic mdf :]');
     });
 }
 

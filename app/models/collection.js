@@ -44,7 +44,7 @@ module.exports = function (sequelize, DataTypes) {
                 products: function () {
                     var scope = this, query = {
                         include: [{model: global.db.User}],
-                        limit: 3
+                        limit: 3, order: [{raw: '`CollectionProduct`.`order` ASC'}]
                     }
                     return this.getProducts(query).then(function (products) {
                         return products;

@@ -112,7 +112,7 @@ module.exports = function (sequelize, DataTypes) {
                     return work.save();
                 },
                 beforeFind: function (options, fn) {
-                    if (options.build)
+                    if (options.addUser)
                         options.include = [{model: global.db.User}];
                     fn(null, options);
                 },

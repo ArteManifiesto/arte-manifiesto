@@ -89,7 +89,10 @@ exports.entity = function (entity) {
 
 exports.nameSlugify = function (entity) {
     return function (req, res, next) {
-        var query = {where: {nameSlugify: req.params.nameSlugify}, viewer: req.viewer, build: true};
+        var query = {
+            where: {nameSlugify: req.params.nameSlugify},
+            viewer: req.viewer, build: true, addUser: true
+        };
         entityExists(entity, query, req, res, next);
     }
 };

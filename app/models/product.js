@@ -147,7 +147,7 @@ module.exports = function (sequelize, DataTypes) {
                             collection = _.where(collections, {id: oldCollectionsIds[i]})[0];
                             promises.push(collection.removeProduct(scope));
                         }
-                        global.db.Sequelize.Promise.all(promises).then(function (result) {
+                        return global.db.Sequelize.Promise.all(promises).then(function (result) {
                             if (newCollectionsIds.length > 0) {
                                 var queryCollections = {
                                     appendProduct: true, idProduct: scope.id,
@@ -165,7 +165,7 @@ module.exports = function (sequelize, DataTypes) {
                     return product.save();
                 },
                 beforeFind: function (options, fn) {
-                    if (options.build)
+                    if (options.addUser)
                         options.include = [{model: global.db.User}];
                     fn(null, options);
                 },
