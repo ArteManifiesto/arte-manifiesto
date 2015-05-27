@@ -1155,3 +1155,58 @@ body {
     max-width: 33.333%;
   }
 }
+.collect {
+  border: 2px solid #c6c9d0;
+  background: #fff;
+  -webkit-box-shadow: 0 0 1px #d7dae0;
+  box-shadow: 0 0 1px #d7dae0;
+  padding: 0.5rem;
+  text-align: center;
+}
+.collect .collect-title {
+  margin: 0.5rem;
+  font-family: 'Oswald';
+  color: #222;
+  letter-spacing: 0.5px;
+}
+.collect .checkbox-list {
+  margin: 0.5rem;
+}
+.collect .button-solid {
+  margin: 0.5rem;
+}
+.checkbox-list__item {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -o-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  padding: 0.25rem;
+  font-family: 'Raleway';
+  cursor: pointer;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+.checkbox-list__item:hover {
+  background: #eee;
+}
+.checkbox-list__item span {
+  padding-left: 0.25rem;
+}
+.checkbox-list__item .fa-check-square-o {
+  color: #008000;
+  display: none;
+}
+.checkbox-list__item.active .fa-check-square-o {
+  display: block;
+}
+.checkbox-list__item.active .fa-square-o {
+  display: none;
+}

@@ -1,26 +1,41 @@
 <!-- ********************************************************************
 	$ PRODUCTS
 ********************************************************************* -->
+
+<script type="text/template" id="collect-template">
+	<div class="collect">
+		<div class="collect-title">Add to collections</div>
+		<ul class="checkbox-list">
+			<% _.each(collections, function(collection) { %>
+				<li class="checkbox-list__item <% if (collection.productInside) { %> active <% } %> ">
+					<i class="fa fa-check-square-o"></i><i class="fa fa-square-o"></i> <span><%= collection.name %></span>
+				</li>
+			<% }); %>
+		</ul>
+		<button class="button-solid" data-size="small" data-color='red'>Guardar</button>
+	</div>
+</script>
+
 <section class="products">
 	{% for product in products %}
-	<div class="product-wrapper">
-		<article class="product">
-			<a class="product-image" href="{{ product.url }}">
-				<img src="{{ product.photo }}">
-			</a>
-			<div class="product-title">
-				<div class="title">{{product.name}}</div>
-			</div>
-			<div class="product-info">
-				<div class="price">s./{{product.price}}</div>
-				<div class="like">
-					<span class="button-like {% if product.liked %}active{% endif %}"> <i class="fa fa-heart"></i><i class="fa fa-heart-o"></i> <span>{{product.likes}}</span> </span>
+		<div class="product-wrapper">
+			<article class="product">
+				<a class="product-image" href="{{ product.url }}">
+					<img src="{{ product.photo }}">
+				</a>
+				<div class="product-title">
+					<div class="title">{{product.name}}</div>
 				</div>
-				<div class="wish-list">
-					<span class="button-wish-list"> <i class="fa fa-square-o"></i></span>
+				<div class="product-info">
+					<div class="price">s./{{product.price}}</div>
+					<div class="like">
+						<span class="button-like {% if product.liked %}active{% endif %}"> <i class="fa fa-heart"></i><i class="fa fa-heart-o"></i> <span>{{product.likes}}</span> </span>
+					</div>
+					<div class="wish-list">
+						<span class="button-wish-list"> <i class="fa fa-square-o"></i></span>
+					</div>
 				</div>
-			</div>
-		</article>
-	</div>
+			</article>
+		</div>
 	{% endfor %}
 </section>

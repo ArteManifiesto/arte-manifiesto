@@ -33,6 +33,7 @@
 			letter-spacing .5px
 			font-family 'Raleway'
 
+			
 // product-width = 200px
 product-width = 180px
 
@@ -76,29 +77,47 @@ product-width = 180px
 		.product-wrapper
 			flex 1 33.333%
 			max-width 33.333%
-			
-			
-	// .product-info
-	// 	border-bottom: 1px dashed #e6e8ec
-	// 	padding .5em 1em
-	// 	display flex
-	// 	justify-content space-between
-	// 	.title
-	// 		font-size .8em
-	// 		letter-spacing 1px
-	// 		font-family 'Raleway'
-	// 	.price
-	// 		font-size .9em
-	// 		font-weight 500
-	// 		letter-spacing .5px
-	// 		font-family 'Raleway'
-	// 		// color #5794db
-	// .product-social
-	// 	padding .5em 1em
-	// 	display flex
-	// 	justify-content space-between
-	// 	.price
-	// 		font-size .9em
-	// 		font-weight 500
-	// 		letter-spacing .5px
-	// 		font-family 'Raleway'
+		
+/*------------------------------------*
+	$ COLLECT
+*------------------------------------*/
+.collect
+	border 2px solid #c6c9d0
+	background #fff
+	box-shadow 0 0 1px #d7dae0
+	padding .5rem
+	text-align center
+	.collect-title
+		// white-space nowrap
+		margin 0.5rem
+		font-family 'Oswald'
+		color #222
+		letter-spacing .5px
+	.checkbox-list
+		margin .5rem
+	.button-solid
+		margin .5rem
+		
+.checkbox-list
+	&__item
+		display flex
+		align-items center
+		padding .25rem
+		font-family 'Raleway'
+		cursor pointer
+		font-size .8rem
+		letter-spacing 1px
+		&:hover
+			background #eee
+		span
+			padding-left .25rem
+		.fa-check-square-o
+			color rgba(green ,5)
+			display none
+	
+.checkbox-list__item.active
+	.fa-check-square-o
+		display block
+	.fa-square-o
+		display none
+		
