@@ -28,6 +28,14 @@ exports.shouldAdmin = function (req, res, next) {
 };
 
 exports.user = function (req, res, next) {
+
+    var excepts = ['css', 'img', 'favicon.ico'];
+    console.log('paramsss ; ', req.params, req.url);
+
+    if (req.params.username === 'img'){
+        return next('route');
+    }
+
     var query = {where: {}, build: true, viewer: req.viewer};
 
     if (req.user && req.user.username === req.params.username) {

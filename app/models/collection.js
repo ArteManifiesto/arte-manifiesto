@@ -71,22 +71,18 @@ module.exports = function (sequelize, DataTypes) {
                         addUser: true,
                         limit: 4
                     };
-                    this.getProducts(query).then(function (products) {
-                        console.log(products.length);
+                    return scope.getProducts(query).then(function (products) {
                         if (products.length > 0) {
                             var i, product;
                             scope.description = scope.baseDescription + 'usando productos de ';
-                            for (i = 0; i < products.length; i++) {
-                                product = products[i];
-                                if (i !== products.length - 1)
-                                    scope.description += product.User.username + ', '
-                                else
-                                    scope.description += product.User.username;
-                            }
-                            if (numOfProducts > products.length)
-                                scope.description += ' and more.';
-                            else
-                                scope.description += '.';
+                            var usernames = [], result = '';
+                            for (i = 0; i < products.length; i++)
+                                usernames.push(products[i].User.username);
+                            if (usernames.length > 1)
+                                result = usernames.slice(0, usernames.length - 1).join(', ') + ' y '
+
+                            result += usernames[usernames.length - 1];
+                            scope.description += result;
                         } else {
                             scope.description = scope.baseDescription;
                         }
@@ -94,10 +90,7 @@ module.exports = function (sequelize, DataTypes) {
                     });
                 },
                 appendProduct: function (options) {
-                    var scope = this, query = {
-                        where: {id: options.idProduct},
-                        addUser: true
-                    }
+                    var scope = this, query = {where: {id: options.idProduct}};
                     return global.db.Product.find(query).then(function (product) {
                         return scope.addProduct(product).then(function () {
                             if (scope.needGenerate)
@@ -106,12 +99,11 @@ module.exports = function (sequelize, DataTypes) {
                     });
                 },
                 deleteProduct: function (options) {
-                    var scope = this, query = {
-                        where: {id: options.idProduct},
-                        addUser: true
-                    }
+                    console.log('delete products ctmre');
+                    var scope = this, query = {where: {id: options.idProduct}};
                     return global.db.Product.find(query).then(function (product) {
                         return scope.removeProduct(product).then(function () {
+                            console.log('removed pe ', scope.needGenerate);
                             if (scope.needGenerate)
                                 return scope.generateDescription();
                         });
@@ -135,7 +127,6 @@ module.exports = function (sequelize, DataTypes) {
                 beforeFind: function (options, fn) {
                     if (options.build)
                         options.include = [{model: global.db.User}];
-
                     options.where = options.where || {}
                     if (options.store)
                         options.where.meta = 'store';
@@ -147,8 +138,7 @@ module.exports = function (sequelize, DataTypes) {
                     if ((items === null) ||
                         (_.isArray(items) && items.length < 1))
                         return fn(null, options);
-
-                    if (options.build || options.productInside || options.appendProduct || options.deleteProduct) {
+                    if (options.build || options.productInside || options.appendProduct) {
                         var promises = [];
                         var addPromise = function (item) {
                             if (options.build)
@@ -159,9 +149,6 @@ module.exports = function (sequelize, DataTypes) {
 
                             if (options.appendProduct)
                                 promises.push(item.appendProduct(options));
-
-                            if (options.deleteProduct)
-                                promises.push(item.deleteProduct(options));
                         };
 
                         if (!_.isArray(items))

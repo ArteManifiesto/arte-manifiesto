@@ -202,3 +202,7 @@ global.objectToParameters = function (element) {
         return key + '=' + element[key];
     }).join('&');
 }
+
+global.replaceAt = function (text, index, character) {
+    return text.substr(0, index) + character + text.substr(index + character.length);
+}

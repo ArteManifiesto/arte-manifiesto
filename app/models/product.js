@@ -131,10 +131,7 @@ module.exports = function (sequelize, DataTypes) {
                 },
                 addToCollection: function (options) {
                     var scope = this,
-                        query = {
-                            attributes: ['id'],
-                            where: {UserId: options.viewer}
-                        };
+                        query = {where: {UserId: options.viewer}};
                     return this.getCollections(query).then(function (collections) {
                         var currentIds = _.pluck(collections, 'id');
                         var newIds = options.collections;
@@ -145,9 +142,7 @@ module.exports = function (sequelize, DataTypes) {
                         var i, collection, promises = [];
                         for (i = 0; i < oldCollectionsIds.length; i++) {
                             collection = _.where(collections, {id: oldCollectionsIds[i]})[0];
-                            promises.push(collection.deleteProduct({
-                                deleteProduct: true, idProduct: scope.id
-                            }));
+                            promises.push(collection.deleteProduct({idProduct: scope.id}));
                         }
                         return global.db.Sequelize.Promise.all(promises).then(function (result) {
                             if (newCollectionsIds.length > 0) {
@@ -167,8 +162,10 @@ module.exports = function (sequelize, DataTypes) {
                     return product.save();
                 },
                 beforeFind: function (options, fn) {
-                    if (options.addUser)
-                        options.include = [{model: global.db.User}];
+                    if (options.addUser) {
+                        options.include = options.include || [];
+                        options.include.push({model: global.db.User});
+                    }
                     fn(null, options);
                 },
                 afterFind: function (items, options, fn) {

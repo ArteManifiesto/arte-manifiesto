@@ -221,12 +221,12 @@ module.exports = function (sequelize, DataTypes) {
                         global.db.Collection.create({
                             name: 'Deseos',
                             meta: 'products',
-                            description: 'Buenas ideas para regalos.',
+                            description: 'Cosas que me encataria tener un dia.',
                             needGenerate: false
                         }, {user: user}),
                         global.db.Collection.create({
                             name: 'Regalos', meta: 'products',
-                            description: 'Cosas que me encataria tener un dia.',
+                            description: 'Buenas ideas para regalos.',
                             needGenerate: false
                         }, {user: user})
                     ];
