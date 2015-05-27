@@ -111,34 +111,52 @@ function Collect (el) {
 
 	save.addEventListener('click', function () {
 
-		var url = '/' + user.username + '/collection/create'
-
+		var insides = getInsides()
 
 		el.classList.add('load')
-		console.log('value: ', input.value)
 
-		$.post(url, {name: input.value}, function (response) {
-			console.log('response: ', response)
-		})
+		if(input.value){
+			console.log('create collection')
+			
+			var url = '/' + user.username + '/collection/create'
+			console.log('url: ', url)
 
-		// var insides = getInsides()
+			$.post(url, {name: input.value}, function (response) {
+				console.log('response: ', response)
+				
+				if(response.status == 200) {
+					console.log('creacion exitosa')
+					insides.push(response.data.collection.id)
+					// addToCollections
+					addToCollections(insides)
+				} else {
+					console.log('creacion fallida')
+				}
+			})
+		} else {
+			// addToCollections
+			addToCollections(insides)
+		}
 
-		// var url = '/' + user.username + '/product/addToCollection'
-
-
-		// $.ajax({
-		// 	type: "POST",
-		// 	url: url,
-		// 	datatype: "json",
-		// 	data: JSON.stringify({idProduct: idProduct, collections: insides}),
-		// 	success: function (response) {
-		// 		console.log(response)
-		// 		el.classList.remove('load')
-		// 	},
-		// 	contentType: "application/json; charset=utf-8",
-		// });
 
 	})
+
+	function addToCollections (insides) {
+
+		var url = '/' + user.username + '/product/addToCollection'
+
+		$.ajax({
+			type: "POST",
+			url: url,
+			datatype: "json",
+			data: JSON.stringify({idProduct: idProduct, collections: insides}),
+			success: function (response) {
+				console.log(response)
+				el.classList.remove('load')
+			},
+			contentType: "application/json; charset=utf-8",
+		});
+	}
 
 	function init (data, id, pos) {
 
