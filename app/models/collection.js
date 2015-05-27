@@ -63,6 +63,10 @@ module.exports = function (sequelize, DataTypes) {
                 }
             },
             hooks: {
+                afterCreate: function (collection, options) {
+                    collection.url = options.user.url + '/collection/' + collection.nameSlugify;
+                    return collection.save();
+                },
                 beforeDestroy: function (collection, options, fn) {
                     collection.setWorks(null).then(function () {
                         fn(null, collection)

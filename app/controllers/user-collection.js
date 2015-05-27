@@ -15,7 +15,7 @@ exports.all = function (req, res) {
  * create a collection
  */
 exports.create = function (req, res) {
-    global.db.Collection.create(req.body).then(function (collection) {
+    global.db.Collection.create(req.body, {user: req.user}).then(function (collection) {
         req.user.addCollection(collection).then(function () {
             if (req.xhr)
                 return res.ok({collection: collection}, 'Coleccion creada');

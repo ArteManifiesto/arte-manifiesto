@@ -37,13 +37,13 @@ module.exports = function (sequelize, DataTypes) {
                 like: function (user) {
                     var scope = this;
                     return user.addWorkLike(this).then(function () {
-                        return global.getNumLikesOfWork({work: scope.id});
+                        return scope.numOfLikes();
                     });
                 },
                 unLike: function (user) {
                     var scope = this;
                     return user.removeWorkLike(this).then(function () {
-                        return global.getNumLikesOfWork({work: scope.id});
+                        return scope.numOfLikes();
                     });
                 },
                 buildParts: function (options) {
@@ -78,7 +78,7 @@ module.exports = function (sequelize, DataTypes) {
                 friends: function (viewer) {
                     if (viewer < 0)
                         return [];
-                    
+
                     var scope = this, queryLikes = {attributes: ['id']},
                         queryFollowings = {attributes: ['id', 'username', 'photo', 'url']};
 

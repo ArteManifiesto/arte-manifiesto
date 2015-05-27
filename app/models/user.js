@@ -211,9 +211,9 @@ module.exports = function (sequelize, DataTypes) {
 
                         var promises = [
                             user.save(),
-                            global.db.Collection.create({name: 'Tienda', meta: 'store'}),
-                            global.db.Collection.create({name: 'Deseos', meta: 'products'}),
-                            global.db.Collection.create({name: 'Regalos', meta: 'products'})
+                            global.db.Collection.create({name: 'Tienda', meta: 'store'}, {user: user}),
+                            global.db.Collection.create({name: 'Deseos', meta: 'products'}, {user: user}),
+                            global.db.Collection.create({name: 'Regalos', meta: 'products'}, {user: user})
                         ];
                         return global.db.Sequelize.Promise.all(promises).then(function (data) {
                             var ids = [1, 2, 3, 4, 5, 7, 8, 9, 10];
