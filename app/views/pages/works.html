@@ -11,9 +11,18 @@
 
 	<script type="text/template" id="template">
 		<article class="work">
-			<a href="<%= url %>">
-				<img src="<%= photo %>">
-			</a>
+			<img src="<%= photo %>">
+			<div class="cover">
+				<% if (liked) { %>
+					<div class="social-item active">
+						<i class="fa fa-heart"></i>
+					</div>
+				<% } else { %>
+					<div class="social-item">
+						<i class="fa fa-heart"></i>
+					</div>
+				<% } %>
+			</div>
 		</article>
 	</script>
 
@@ -40,6 +49,7 @@
 	<script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
 	<script type="text/javascript" src="/js/vendor/underscore-min.js"></script>
 	<script type="text/javascript" src="/js/vendor/salvattore.js"></script>
+	<script type="text/javascript" src="/js/vendor/hammer.min.js"></script>
 	<script type="text/javascript" src="/js/lib/search.js"></script>
 	<script type="text/javascript" src="/js/lib/section.js"></script>
 	<script type="text/javascript" src="/js/lib/work.js"></script>

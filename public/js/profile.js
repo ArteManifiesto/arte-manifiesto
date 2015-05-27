@@ -150,15 +150,15 @@ function Profile (el, data) {
 
 		for (var i = 0; i < elements.length; i++) {
 			var object = makeObject(templates[index], elements[i])
-			// if(index == 0) new Work(object, elements[i])
+			if(index == 0) new Work(object, elements[i])
 			if(index == 1) new Product(object, elements[i])
-			// if(index == 2) new Work(object, elements[i])
+			if(index == 2) new Work(object, elements[i])
 			if(index == 3) new Product(object, elements[i])
 			// if(index == 4) new Collection(object, elements[i])
 			if(index == 5) new User(object, elements[i])
 			if(index == 6) new User(object, elements[i])
 
-			if(index != 0)
+			if(index != 0 && index != 2)
 				containers[index].children[0].appendChild(object)
 			else
 				salvattore['append_elements'](containers[index].children[0], [object])

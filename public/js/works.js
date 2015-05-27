@@ -22,8 +22,9 @@ function createWorkObject(el, model) {
 	new Work(el, model)
 }
 
-
 var workEls = document.querySelectorAll('.work')
 
-for (var i = 0; i < workEls.length; i++)
-	createWorkObject(workEls[i], works[i])
+for (var i = 0; i < workEls.length; i++){
+	var index = workEls[i].getAttribute('data-index')
+	createWorkObject(workEls[i], works[index-1])
+}

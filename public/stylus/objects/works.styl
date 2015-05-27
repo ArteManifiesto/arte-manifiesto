@@ -11,69 +11,36 @@ work-width = 150px
 	max-width max-width
 	margin auto
 	.work
-		display block
+		// display block
 		margin 1rem .5rem
 		border 1px solid #eee
 		transition box-shadow ease-in-out 125ms
 		position relative
 		&:hover
 			box-shadow rgba(0,0,0,0.35) 0 0 10px
-			
-		&__socials
-			display none
-			position absolute
-			top 0
-			bottom 0
-			left 0
-			right 0
-			.social-block
-				margin auto
-				.social-item
-					background rgba(black, .375)
-					color white
-					border-radius 50%
-					padding .5em
-					margin .5em
-					font-size 1em
-					cursor pointer
-					display flex
-					&.active
-						background white
-						color #f54545
-
-		&__like-cover
+		.cover
 			position absolute
 			top 0
 			bottom 0
 			width 100%
-			display flex
-			.like-simbol
-				color white
+			display none
+			.social-item
 				margin auto
-				font-size 0
-				&.fade
-					animation .5s fade
-
-@keyframes fade
-	0%
-		font-size 0
-		opacity 0
-	50%
-		opacity 1
-	100%
-		opacity 0
-		font-size 3rem
-
-@media (min-width: desktop)
-	.works
-		.work
-			&__like-cover
-				display none
-		.work
-			&:hover
-				.work__socials
-					display flex
-
+				background rgba(black, .375)
+				color white
+				border-radius 50%
+				padding 1em
+				font-size 1em
+				cursor pointer
+				display flex
+				&.active
+					background white
+					color #f54545
+.work
+	&:hover
+		.cover
+			display flex
+			
 
 for i in (1..(columns - 1))
 	@media screen and (min-width: work-width*i+1) and (max-width: work-width*(i+1))
