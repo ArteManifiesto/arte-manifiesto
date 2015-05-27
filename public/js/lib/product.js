@@ -36,22 +36,23 @@ function Product (el, data) {
 		})
 
 		buttonCollect.addEventListener('click', function (e) {
-			// console.log('e: ', e)
+			console.log('e: ', e)
 			if (!user) {
 				location.href = '/auth/login/?returnTo=' + location.href
 				return
 			}
-			// openCollect()
-			getCollects()
+			var pos = [e.pageX, e.pageY]
+			getCollects(pos)
 		})
 	}
 
 
-	function getCollects () {
+	function getCollects (pos) {
 
 		var url = '/' + user.username + '/collection/all'
 
 		$.post(url, {idProduct: id}, function (response) {
+
 			collect.init(response.data, function (insides) {
 				console.log('insides: ', insides)
 				var url = '/' + user.username + '/product/addToCollection'
@@ -67,7 +68,7 @@ function Product (el, data) {
 					},
 					contentType: "application/json; charset=utf-8",
 				});
-			})
+			}, pos)
 
 		})
 	}
@@ -134,7 +135,10 @@ function Collect (el) {
 		callback(newInsides)
 	})
 
-	function init (data, back) {
+	function init (data, back, pos) {
+		console.log('pos: ', pos)
+
+		$(".collect").offset({ top: pos[1], left: pos[0] });
 
 		callback = back
 		collectsData = data.collections
