@@ -9,36 +9,65 @@ function Product (el, data) {
 		buttonLike = el.querySelector('.button-like'),
 		likesEl = buttonLike.querySelector('span'),
 
-		buttonCollect = el.querySelector('.wish-list');
+		buttonCollect = el.querySelector('.wish-list'),
+		
+		coverLike = el.querySelectorAll('.cover .fa')[0]
+		coverCollection = el.querySelectorAll('.cover .fa')[1]
+		singleUrl = data.url;
 
+		// console.log('coverLike: ', coverLike)
+		// console.log('coverCollection: ', coverCollection)
 
 	function setup () {
 
 		if(isMobile()){
 			// console.log('Mobile Browser')
+			var mc = new Hammer.Manager(el.querySelector('.cover'));
+			mc.add( new Hammer.Tap({ event: 'singletap' }) );
+			// mc.get('singletap').requireFailure('doubletap');
+
+			mc.on("singletap", function(ev) {
+				location.href = singleUrl
+			})
+
+			buttonLike.addEventListener('click', function () {
+				if (!user) {
+					location.href = '/auth/login/?returnTo=' + location.href
+					return
+				}
+				if (!liked) like()
+				else unLike()
+			})
+
+			buttonCollect.addEventListener('click', function (e) {
+				if (!user) {
+					location.href = '/auth/login/?returnTo=' + location.href
+					return
+				}
+				var pos = [e.pageX, e.pageY]
+				getCollects(pos)
+			})
 
 		} else {
 			// console.log('Desktop Browser');
+			coverLike.addEventListener('click', function () {
+				if (!user) {
+					location.href = '/auth/login/?returnTo=' + location.href
+					return
+				}
+				if (!liked) like()
+				else unLike()
+			})
 
+			coverCollection.addEventListener('click', function (e) {
+				if (!user) {
+					location.href = '/auth/login/?returnTo=' + location.href
+					return
+				}
+				var pos = [e.pageX, e.pageY]
+				getCollects(pos)
+			})
 		}
-
-		buttonLike.addEventListener('click', function () {
-			if (!user) {
-				location.href = '/auth/login/?returnTo=' + location.href
-				return
-			}
-			if (!liked) like()
-			else unLike()
-		})
-
-		buttonCollect.addEventListener('click', function (e) {
-			if (!user) {
-				location.href = '/auth/login/?returnTo=' + location.href
-				return
-			}
-			var pos = [e.pageX, e.pageY]
-			getCollects(pos)
-		})
 	}
 
 
@@ -54,12 +83,13 @@ function Product (el, data) {
 	function like () {
 
 		var url = '/' + user.username + '/product/like'
-
+		console.log('url: ', url)
 		$.post(url, {idProduct: id}, function (data) {
 
 			if (data.status == 200) {
 				buttonLike.classList.add('active')
-				buttonLike.classList.add('disabled')
+				coverLike.classList.add('active')
+				// buttonLike.classList.add('disabled')
 				liked = true
 
 				var newLikes = data.data.likes
@@ -72,12 +102,13 @@ function Product (el, data) {
 	function unLike () {
 
 		var url = '/' + user.username + '/product/unlike'
-
+		console.log('url: ', url)
 		$.post(url, {idProduct: id}, function (data) {
 
 			if (data.status == 200) {
 				buttonLike.classList.remove('active')
-				buttonLike.classList.remove('disabled')
+				coverLike.classList.remove('active')
+				// buttonLike.classList.remove('disabled')
 				liked = false
 
 				var newLikes = data.data.likes

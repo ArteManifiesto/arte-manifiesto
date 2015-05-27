@@ -1,13 +1,6 @@
 <!-- ********************************************************************
 	$ PRODUCTS
 ********************************************************************* -->
-
-<script type="text/template" id="item-template">
-	<li class="checkbox-list__item <% if (productInside) { %> active <% } %> ">
-		<i class="fa fa-check-square-o"></i><i class="fa fa-square-o"></i> <span><%= name %></span>
-	</li>
-</script>
-
 <section class="products">
 
 	<div class="collect">
@@ -23,14 +16,13 @@
 		</button>
 	</div>
 
-
 	{% for product in products %}
 		<div class="product-wrapper">
 			<article class="product">
 				<a class="product-image">
 					<img src="{{ product.photo }}">
 					<div class="cover">
-						<i class="fa fa-heart"></i>
+						<i class="fa fa-heart {% if product.liked %}active{% endif %}"></i>
 						<i class="fa fa-th-list"></i>
 					</div>
 				</a>
@@ -51,6 +43,8 @@
 	{% endfor %}
 </section>
 
-<!-- 
-href="{{ product.url }}"
- -->
+<script type="text/template" id="item-template">
+	<li class="checkbox-list__item <% if (productInside) { %> active <% } %> ">
+		<i class="fa fa-check-square-o"></i><i class="fa fa-square-o"></i> <span><%= name %></span>
+	</li>
+</script>

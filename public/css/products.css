@@ -1060,6 +1060,10 @@ body {
   font-size: 2rem;
   color: #fff;
   margin: 0.5rem;
+  cursor: pointer;
+}
+.product .product-image .cover .fa:first-child.active {
+  color: #3000ff;
 }
 .product .product-title {
   border-bottom: 1px dashed #e6e8ec;
@@ -1092,6 +1096,10 @@ body {
   font-weight: 500;
   letter-spacing: 0.5px;
   font-family: 'Raleway';
+}
+.product .product-info .like,
+.product .product-info .wish-list {
+  display: none;
 }
 .product-image:hover .cover {
   display: -webkit-box;
