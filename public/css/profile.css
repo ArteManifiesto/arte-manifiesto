@@ -1398,7 +1398,7 @@ body {
   margin-top: 0.5rem;
   letter-spacing: 0.25px;
 }
-@media screen and (min-width: 400px) {
+@media screen and (min-width: 500px) {
   .collections {
     display: -webkit-box;
     display: -moz-box;
@@ -1424,7 +1424,7 @@ body {
     max-width: 50%;
   }
 }
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 750px) {
   .collections .collection-wrapper {
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
@@ -1436,7 +1436,7 @@ body {
     max-width: 33.333%;
   }
 }
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 1000px) {
   .collections .collection-wrapper {
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
@@ -1446,18 +1446,6 @@ body {
     -ms-flex: 1 25%;
     flex: 1 25%;
     max-width: 25%;
-  }
-}
-@media screen and (min-width: 1000px) {
-  .collections .collection-wrapper {
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    -o-box-flex: 1;
-    box-flex: 1;
-    -webkit-flex: 1 20%;
-    -ms-flex: 1 20%;
-    flex: 1 20%;
-    max-width: 20%;
   }
 }
 .profile {
