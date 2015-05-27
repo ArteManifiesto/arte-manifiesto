@@ -32,9 +32,13 @@
 	<script type="text/template" id="product-template">
 		<div class="product-wrapper">
 			<article class="product">
-				<a class="product-image" href="<%= url %>">
+				<div class="product-image">
 					<img src="<%= photo %>">
-				</a>
+					<div class="cover">
+						<i class="fa fa-heart <% if (liked) { %>active<% } %>"></i>
+						<i class="fa fa-th-list"></i>
+					</div>
+				</div>
 				<div class="product-title">
 					<div class="title"><%= name %></div>
 				</div>

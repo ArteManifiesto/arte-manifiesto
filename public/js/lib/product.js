@@ -1,6 +1,8 @@
 
 function Product (el, data) {
 
+	// console.log(el)
+
 	var id = data.id,
 
 		likes = data.likes,
@@ -48,6 +50,7 @@ function Product (el, data) {
 
 		} else {
 			// console.log('Desktop Browser');
+			console.log('Desktop Browser')
 			coverLike.addEventListener('click', function () {
 				if (!user) {
 					location.href = '/auth/login/?returnTo=' + location.href
@@ -72,6 +75,7 @@ function Product (el, data) {
 	function getCollects (pos) {
 
 		var url = '/' + user.username + '/collection/all'
+		console.log('url: ', url)
 
 		$.post(url, {idProduct: id}, function (response) {
 			collect.init(response.data, id, pos)
@@ -120,6 +124,8 @@ function Product (el, data) {
 }
 
 function Collect (el) {
+
+	console.log('el: ', el)
 
 	var itemTemplate = _.template( $( "#item-template" ).html() )
 
@@ -198,11 +204,12 @@ function Collect (el) {
 	}
 
 	function init (data, id, pos) {
-
+		console.log('init')
 		idProduct = id
 
 		collectsData = data.collections
-		
+		console.log('collectsData: ', collectsData)
+
 		list.innerHTML = ''
 
 		for (var i = 0; i < collectsData.length; i++) {
