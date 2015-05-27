@@ -2,20 +2,6 @@
 	$ PRODUCTS
 ********************************************************************* -->
 
-<script type="text/template" id="collect-template">
-	<div class="collect">
-		<div class="collect-title">Add to collections</div>
-		<ul class="checkbox-list">
-			<% _.each(collections, function(collection) { %>
-				<li class="checkbox-list__item <% if (collection.productInside) { %> active <% } %> ">
-					<i class="fa fa-check-square-o"></i><i class="fa fa-square-o"></i> <span><%= collection.name %></span>
-				</li>
-			<% }); %>
-		</ul>
-		<button class="button-solid" data-size="small" data-color='red'>Guardar</button>
-	</div>
-</script>
-
 <script type="text/template" id="item-template">
 	<li class="checkbox-list__item <% if (productInside) { %> active <% } %> ">
 		<i class="fa fa-check-square-o"></i><i class="fa fa-square-o"></i> <span><%= name %></span>
@@ -27,6 +13,7 @@
 	<div class="collect">
 		<div class="collect-title">Add to collections</div>
 		<ul class="checkbox-list"></ul>
+		<input class="input" name="newCollection" placeholder="Agregar nueva" type="text">
 		<button class="button-solid" data-size="small" data-color='red'>
 			<i class="fa fa-spinner"></i> Guardar
 		</button>
@@ -39,8 +26,10 @@
 				<a class="product-image" href="{{ product.url }}">
 					<img src="{{ product.photo }}">
 					<div class="cover">
-						<button class="button-solid" data-color='red'><i class="fa fa-heart"></i> Like</button>
-						<button class="button-solid" data-color='red'><i class="fa fa-th-list"></i> Coleccionar</button>
+						<i class="fa fa-heart"></i>
+						<i class="fa fa-th-list"></i>
+						<!-- <button class="button-solid" data-color='red'><i class="fa fa-heart"></i> Like</button> -->
+						<!-- <button class="button-solid" data-color='red'><i class="fa fa-th-list"></i> Coleccionar</button> -->
 					</div>
 				</a>
 				<div class="product-title">

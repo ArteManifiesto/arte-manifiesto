@@ -770,7 +770,9 @@ body {
   -webkit-align-items: center;
   align-items: center;
 }
-.product .product-image .cover .button-solid {
+.product .product-image .cover .fa {
+  font-size: 2rem;
+  color: #fff;
   margin: 0.5rem;
 }
 .product .product-title {
@@ -912,7 +914,7 @@ body {
   background: #fff;
   -webkit-box-shadow: 0 0 1px #d7dae0;
   box-shadow: 0 0 1px #d7dae0;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.75rem;
   text-align: center;
   position: absolute;
   z-index: 1;
@@ -923,6 +925,7 @@ body {
   font-family: 'Oswald';
   color: #222;
   letter-spacing: 0.5px;
+  font-size: 1.125rem;
 }
 .collect .checkbox-list {
   margin: 0.5rem;
@@ -937,6 +940,12 @@ body {
   -o-animation: 1.5s load infinite;
   -ms-animation: 1.5s load infinite;
   animation: 1.5s load infinite;
+}
+.collect input {
+  font-size: 0.9rem;
+  width: auto;
+  display: block;
+  margin: 0.5rem;
 }
 .collect.load .button-solid .fa {
   display: inline;
@@ -957,7 +966,7 @@ body {
   padding: 0.25rem;
   font-family: 'Raleway';
   cursor: pointer;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   letter-spacing: 1px;
 }
 .checkbox-list__item:hover {

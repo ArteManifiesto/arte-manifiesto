@@ -99,6 +99,7 @@ function Collect (el) {
 	var save = el.querySelector('.button-solid')
 	var list = el.querySelector('.checkbox-list')
 	var idProduct
+	var input = el.querySelector('input')
 
 	el.addEventListener('click', function (event) {
   	event.stopPropagation()
@@ -109,23 +110,33 @@ function Collect (el) {
 	})
 
 	save.addEventListener('click', function () {
-		var insides = getInsides()
 
-		var url = '/' + user.username + '/product/addToCollection'
+		var url = '/' + user.username + '/collection/create'
+
 
 		el.classList.add('load')
+		console.log('value: ', input.value)
 
-		$.ajax({
-			type: "POST",
-			url: url,
-			datatype: "json",
-			data: JSON.stringify({idProduct: idProduct, collections: insides}),
-			success: function (response) {
-				console.log(response)
-				el.classList.remove('load')
-			},
-			contentType: "application/json; charset=utf-8",
-		});
+		$.post(url, {name: input.value}, function (response) {
+			console.log('response: ', response)
+		})
+
+		// var insides = getInsides()
+
+		// var url = '/' + user.username + '/product/addToCollection'
+
+
+		// $.ajax({
+		// 	type: "POST",
+		// 	url: url,
+		// 	datatype: "json",
+		// 	data: JSON.stringify({idProduct: idProduct, collections: insides}),
+		// 	success: function (response) {
+		// 		console.log(response)
+		// 		el.classList.remove('load')
+		// 	},
+		// 	contentType: "application/json; charset=utf-8",
+		// });
 
 	})
 
