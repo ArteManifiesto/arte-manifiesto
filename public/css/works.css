@@ -801,7 +801,7 @@ body {
   fon-weight: 600;
 }
 .section__workspace__elements .more {
-  margin: 1rem auto;
+  margin: 2rem auto;
   text-align: center;
 }
 .section__workspace__elements .more.hidden {
@@ -1027,15 +1027,15 @@ body {
   bottom: 0;
   width: 100%;
   display: none;
+  background: rgba(0,0,0,0.1);
 }
 .works .work .cover .social-item {
   margin: auto;
-  background: rgba(0,0,0,0.375);
   color: #fff;
   -webkit-border-radius: 50%;
   border-radius: 50%;
   padding: 1em;
-  font-size: 1em;
+  font-size: 2em;
   cursor: pointer;
   display: -webkit-box;
   display: -moz-box;
@@ -1045,7 +1045,6 @@ body {
   display: flex;
 }
 .works .work .cover .social-item.active {
-  background: #fff;
   color: #f54545;
 }
 .work:hover .cover {

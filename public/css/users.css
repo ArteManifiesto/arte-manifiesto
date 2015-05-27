@@ -798,7 +798,7 @@ body {
   fon-weight: 600;
 }
 .section__workspace__elements .more {
-  margin: 1rem auto;
+  margin: 2rem auto;
   text-align: center;
 }
 .section__workspace__elements .more.hidden {

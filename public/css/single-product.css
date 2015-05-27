@@ -631,10 +631,6 @@ body {
   -ms-transition: box-shadow ease-in-out 125ms;
   transition: box-shadow ease-in-out 125ms;
 }
-.product:hover {
-  -webkit-box-shadow: rgba(0,0,0,0.35) 0 0 10px;
-  box-shadow: rgba(0,0,0,0.35) 0 0 10px;
-}
 .product .product-image {
   position: relative;
   display: block;
@@ -644,7 +640,7 @@ body {
   top: 0;
   bottom: 0;
   width: 100%;
-  background: rgba(0,0,0,0.25);
+  background: rgba(0,0,0,0.1);
   display: none;
   -webkit-box-orient: vertical;
   -moz-box-orient: vertical;
