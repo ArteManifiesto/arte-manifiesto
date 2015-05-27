@@ -2,8 +2,7 @@ var basePath = 'user/collection/';
 
 
 exports.index = function (req, res) {
-    req.collection.getProducts().then(function (products) {
-        //res.render(basePath + 'index', {collection: req.collection, products: products});
+    req.collection.getProducts({build: true, viewer: req.viewer}).then(function (products) {
         return res.json({collection: req.collection, products: products});
     });
 }
@@ -23,6 +22,7 @@ exports.all = function (req, res) {
  * create a collection
  */
 exports.create = function (req, res) {
+    req.body.meta = 'products';
     global.db.Collection.create(req.body, {user: req.user}).then(function (collection) {
         req.user.addCollection(collection).then(function () {
             if (req.xhr)

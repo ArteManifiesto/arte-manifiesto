@@ -10,10 +10,17 @@ var Promise = require('bluebird');
 
 
 exports.cart = function (req, res) {
-    req.user.getProductCarts().then(function (products) {
+    req.user.getProductCarts({
+        include: [global.db.Product],
+        order: [['id', 'DESC']]
+    }).then(function (products) {
         return res.json(products);
     });
 };
+
+exports.cartAdd = function (req, res) {
+    //req.user.getProductCart
+}
 
 exports.buyer = function (req, res) {
     global.db.Product.find(req.body.idProduct).then(function (product) {

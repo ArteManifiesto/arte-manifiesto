@@ -11,6 +11,8 @@ module.exports = function (sequelize, DataTypes) {
             nameSlugify: DataTypes.STRING,
             meta: DataTypes.STRING,
             description: DataTypes.TEXT,
+            baseDescription: DataTypes.TEXT,
+            needGenerate: {type: DataTypes.BOOLEAN, defaultValue: true},
             public: {type: DataTypes.BOOLEAN, defaultValue: true},
             url: {type: DataTypes.STRING}
         }, {
@@ -63,18 +65,66 @@ module.exports = function (sequelize, DataTypes) {
                         return scope.setDataValue('productInside', isInside);
                     });
                 },
+                generateDescription: function () {
+                    var scope = this, query = {
+                        group: [[global.db.User, 'username']],
+                        addUser: true,
+                        limit: 4
+                    };
+                    this.getProducts(query).then(function (products) {
+                        console.log(products.length);
+                        if (products.length > 0) {
+                            var i, product;
+                            scope.description = scope.baseDescription + 'usando productos de ';
+                            for (i = 0; i < products.length; i++) {
+                                product = products[i];
+                                if (i !== products.length - 1)
+                                    scope.description += product.User.username + ', '
+                                else
+                                    scope.description += product.User.username;
+                            }
+                            if (numOfProducts > products.length)
+                                scope.description += ' and more.';
+                            else
+                                scope.description += '.';
+                        } else {
+                            scope.description = scope.baseDescription;
+                        }
+                        return scope.save();
+                    });
+                },
                 appendProduct: function (options) {
                     var scope = this, query = {
-                        where: {id: options.idProduct}
+                        where: {id: options.idProduct},
+                        addUser: true
                     }
                     return global.db.Product.find(query).then(function (product) {
-                        return scope.addProduct(product);
+                        return scope.addProduct(product).then(function () {
+                            if (scope.needGenerate)
+                                return scope.generateDescription();
+                        });
+                    });
+                },
+                deleteProduct: function (options) {
+                    var scope = this, query = {
+                        where: {id: options.idProduct},
+                        addUser: true
+                    }
+                    return global.db.Product.find(query).then(function (product) {
+                        return scope.removeProduct(product).then(function () {
+                            if (scope.needGenerate)
+                                return scope.generateDescription();
+                        });
                     });
                 }
             },
             hooks: {
                 afterCreate: function (collection, options) {
                     collection.url = options.user.url + '/collection/' + collection.nameSlugify;
+                    if (collection.needGenerate)
+                        collection.baseDescription = collection.description =
+                            'Coleccion creada por ' + options.user.firstname + ' ' + options.user.lastname + ' ';
+
                     return collection.save();
                 },
                 beforeDestroy: function (collection, options, fn) {
@@ -98,7 +148,7 @@ module.exports = function (sequelize, DataTypes) {
                         (_.isArray(items) && items.length < 1))
                         return fn(null, options);
 
-                    if (options.build || options.productInside || options.appendProduct) {
+                    if (options.build || options.productInside || options.appendProduct || options.deleteProduct) {
                         var promises = [];
                         var addPromise = function (item) {
                             if (options.build)
@@ -109,6 +159,9 @@ module.exports = function (sequelize, DataTypes) {
 
                             if (options.appendProduct)
                                 promises.push(item.appendProduct(options));
+
+                            if (options.deleteProduct)
+                                promises.push(item.deleteProduct(options));
                         };
 
                         if (!_.isArray(items))

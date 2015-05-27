@@ -145,7 +145,9 @@ module.exports = function (sequelize, DataTypes) {
                         var i, collection, promises = [];
                         for (i = 0; i < oldCollectionsIds.length; i++) {
                             collection = _.where(collections, {id: oldCollectionsIds[i]})[0];
-                            promises.push(collection.removeProduct(scope));
+                            promises.push(collection.deleteProduct({
+                                deleteProduct: true, idProduct: scope.id
+                            }));
                         }
                         return global.db.Sequelize.Promise.all(promises).then(function (result) {
                             if (newCollectionsIds.length > 0) {
