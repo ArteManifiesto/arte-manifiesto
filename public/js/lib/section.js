@@ -228,6 +228,7 @@ function Section (data) {
 	}
 
 	function addElements (elements) {
+		console.log('addElements: ', elements)
 		for (var i = 0; i < elements.length; i++) {
 			var object = makeObject(template, elements[i])
 			createObject(object, elements[i])
