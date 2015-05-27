@@ -52,3 +52,17 @@ exports.addToCollection = function (req, res) {
         return res.ok({collections: collections}, 'Product added to collections');
     });
 }
+
+exports.addToCart = function (req, res) {
+    var query = {where: {ProductId: req.product.id}};
+    global.db.ProductCart.find(query).then(function (productCart) {
+        if (productCart) {
+
+        }
+        req.user.addProductCart(req.product).then(function () {
+            return res.json('ggpe :v');
+        });
+    });
+
+
+}

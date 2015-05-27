@@ -4,8 +4,8 @@ router.mergeParams = true;
 
 var config = require('../../config/config');
 var controller = require(config.controllersDir + "/user");
-
 var accountRouter = require(config.routesDir + "/user-account");
+var checkoutRouter = require(config.routesDir + '/user-checkout');
 var workRouter = require(config.routesDir + "/user-work");
 var productRouter = require(config.routesDir + "/user-product");
 var collectionRouter = require(config.routesDir + "/user-collection");
@@ -27,6 +27,7 @@ router.use('/work', workRouter);
 router.use('/product', productRouter);
 router.use('/collection', collectionRouter);
 router.use('/account', isLoggedAndOwner, accountRouter);
+router.use('/checkout', isLoggedAndOwner, checkoutRouter);
 
 router.post('/follow', isLoggedAndOwner, middlewares.userTo, controller.follow);
 router.post('/unfollow', isLoggedAndOwner, middlewares.userTo, controller.unFollow);

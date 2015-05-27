@@ -10,9 +10,8 @@ var Promise = require('bluebird');
 
 
 exports.cart = function (req, res) {
-    var query = {nameSlugify: req.params.nameProduct};
-    global.db.Product.find(query).then(function (product) {
-        return res.render('checkout/index' , {product:product});
+    req.user.getProductCarts().then(function (products) {
+        return res.json(products);
     });
 };
 

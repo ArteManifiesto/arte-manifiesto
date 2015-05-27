@@ -27,12 +27,12 @@ module.exports = function (sequelize, DataTypes) {
                     Product.belongsToMany(models.User, {as: 'ProductLikes', through: 'ProductLikes'});
                     Product.belongsToMany(models.User, {as: 'ProductCollects', through: 'ProductCollects'});
                     Product.belongsToMany(models.User, {as: 'ProductBuyers', through: 'ProductBuyers'});
+                    Product.hasMany(models.ProductCart);
 
                     Product.belongsToMany(models.Collection, {through: models.CollectionProduct});
 
                     Product.belongsTo(models.Work, {onDelete: 'cascade'});
                     Product.belongsTo(models.User);
-
                     Product.belongsTo(models.ProductType);
                 }
             },

@@ -57,15 +57,17 @@ module.exports = function (sequelize, DataTypes) {
                         ], where: {id: options.idProduct}
                     }
                     return this.getProducts(query).then(function (result) {
-                        return scope.setDataValue('productInside', result[0].getDataValue('total') > 0);
+                        var isInside = result[0].getDataValue('total') > 0
+                        if (raw)
+                            return isInside;
+                        return scope.setDataValue('productInside', isInside);
                     });
                 },
                 appendProduct: function (options) {
-                    var scope = this, query = {
-                        where: {id: options.idProduct}
-                    }
-                    return global.db.Product.find(query).then(function (product) {
-                        return scope.addProduct(product);
+                    options = _.assign(options, {raw: true})
+                    return this.productInside(options).then(function (isInside) {
+                        if (!isInside)
+                            return scope.addProduct(product);
                     });
                 }
             },
