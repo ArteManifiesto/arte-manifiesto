@@ -47,10 +47,16 @@ function Product(el, data) {
 		// var url = '/' + user.username + '/product/'
 		// var
 		console.log(url)
-
-		$.post(url, {idProduct: id , idCollections:[2,3]}, function (data) {
-			console.log(data)
-		})
+		$.ajax({
+			type: "POST",
+			url: url,
+			    datatype : "json",
+			data: {idProduct: id , idCollections:[2,3]},
+			success: function (data) {
+				console.log(data)
+			},
+	    contentType: "application/json; charset=utf-8",
+		});
 	}
 
 	function like() {
