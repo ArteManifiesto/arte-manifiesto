@@ -142,8 +142,6 @@ module.exports = function (sequelize, DataTypes) {
                         var oldCollectionsIds = _.difference(currentIds, newIds);
                         var newCollectionsIds = _.difference(newIds, currentIds);
 
-                        console.log(oldCollectionsIds, newCollectionsIds);
-                        
                         var i, collection, promises = [];
                         for (i = 0; i < oldCollectionsIds.length; i++) {
                             collection = _.where(collections, {id: oldCollectionsIds[i]})[0];
@@ -165,6 +163,11 @@ module.exports = function (sequelize, DataTypes) {
                 afterCreate: function (product, options) {
                     product.url = options.user.url + '/product/' + product.nameSlugify;
                     return product.save();
+                },
+                beforeFind: function (options, fn) {
+                    if (options.build)
+                        options.include = [{model: global.db.User}];
+                    fn(null, options);
                 },
                 afterFind: function (items, options, fn) {
                     if ((!options.build) || (items === null) ||

@@ -111,6 +111,11 @@ module.exports = function (sequelize, DataTypes) {
                     work.url = options.user.url + '/work/' + work.nameSlugify;
                     return work.save();
                 },
+                beforeFind: function (options, fn) {
+                    if (options.build)
+                        options.include = [{model: global.db.User}];
+                    fn(null, options);
+                },
                 afterFind: function (items, options, fn) {
                     if ((items === null) ||
                         (_.isArray(items) && items.length < 1))
