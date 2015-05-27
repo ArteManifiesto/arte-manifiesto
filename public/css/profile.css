@@ -1327,6 +1327,14 @@ body {
 }
 .collections .collection-wrapper {
   padding: 0.5rem;
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -o-box-flex: 1;
+  box-flex: 1;
+  -webkit-flex: 1 100%;
+  -ms-flex: 1 100%;
+  flex: 1 100%;
+  max-width: 100%;
 }
 .collection {
   border: 1px solid #ddd;
@@ -1335,7 +1343,7 @@ body {
   -o-transition: box-shadow ease-in-out 125ms;
   -ms-transition: box-shadow ease-in-out 125ms;
   transition: box-shadow ease-in-out 125ms;
-  padding: 0.5rem;
+  padding: 1rem;
 }
 .collection__images {
   display: -webkit-box;
