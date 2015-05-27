@@ -1059,10 +1059,6 @@ body {
   -webkit-justify-content: center;
   justify-content: center;
 }
-.user:hover {
-  -webkit-box-shadow: rgba(0,0,0,0.35) 0 0 10px;
-  box-shadow: rgba(0,0,0,0.35) 0 0 10px;
-}
 .user__featured {
   position: absolute;
   top: 0;
