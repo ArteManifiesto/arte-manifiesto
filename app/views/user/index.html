@@ -16,7 +16,15 @@
 		<article class="work">
 			<img src="<%= photo %>">
 			<div class="cover">
-
+				<% if (liked) { %>
+					<div class="social-item active">
+						<i class="fa fa-heart"></i>
+					</div>
+				<% } else { %>
+					<div class="social-item">
+						<i class="fa fa-heart"></i>
+					</div>
+				<% } %>
 			</div>
 		</article>
 	</script>

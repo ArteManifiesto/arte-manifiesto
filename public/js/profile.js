@@ -34,7 +34,6 @@ function Profile (el, data) {
 
 		window.onscroll = function() {
 			if ((window.innerHeight + window.scrollY) >= wrapper.offsetHeight){
-				console.log('scrollEnd')
 				if(scrollMode) nextPage()
 			}
 		}
@@ -69,19 +68,19 @@ function Profile (el, data) {
 	}
 
 	function nextPage (callback) {
-		console.log('NEXT PAGE')
 
 		if(paginations[index].page == paginations[index].pages) return
 
 		url = '/' + profile.username + '/' + paths[index] + '/page-' + ++page
-		console.log('url: ', url)
 
 		containers[index].querySelector('.loading').style.display = 'block'
-
+		
+		console.log('url: ', url)
 		$.post( url, function( response ) {
+			console.log('response: ', response)
+
 			if(callback) callback()
 			containers[index].querySelector('.loading').style.display = 'none'
-			console.log('response: ', response)
 			
 			paginations[index] = response.pagination
 
@@ -117,10 +116,10 @@ function Profile (el, data) {
 		more.classList.add('hidden')
 
 		console.log('url: ', url)
-
 		$.post( url, function( response ) {
-			containers[index].querySelector('.loading').style.display = 'none'
 			console.log('response: ', response)
+
+			containers[index].querySelector('.loading').style.display = 'none'
 
 			paginations[index] = response.pagination
 			window.history.pushState({}, "", newUrl)

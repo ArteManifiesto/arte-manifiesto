@@ -1,14 +1,9 @@
 function Work (el, data) {
 
-	// console.log(el, data)
-
 	var id = data.id,
-			// likes = data.likes,
 			liked = data.liked,
-			singleUrl = data.url
-			// featureded = data.featured;
+			singleUrl = data.url,
 			likeButton = el.querySelector('.social-item');
-			// console.log('likeButton: ', likeButton)
 
 	function setup () {
 		if(isMobile()){
@@ -34,7 +29,6 @@ function Work (el, data) {
 
 		} else {
 			// console.log('Desktop Browser')
-			if(!likeButton) return
 			likeButton.addEventListener('click', function () {
 				if (!user) {
 					location.href = '/auth/login/?returnTo=' + location.href
@@ -47,7 +41,6 @@ function Work (el, data) {
 	}
 
 	function like () {
-		console.log('like')
 		$.post('/' + user.username + '/work/like/', {idWork: id}, function (data) {
 			console.log(data)
 			if (data.status == 200) {
@@ -58,7 +51,6 @@ function Work (el, data) {
 	}
 
 	function unLike () {
-		console.log('unLike')
 		$.post('/' + user.username + '/work/unlike/', {idWork: id}, function (data) {
 			console.log(data)
 			if (data.status == 200) {
