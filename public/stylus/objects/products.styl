@@ -14,6 +14,21 @@
 	transition box-shadow ease-in-out 125ms
 	&:hover
 		box-shadow rgba(0,0,0,0.35) 0 0 10px
+	.product-image
+		position relative
+		display block
+		.cover
+			position absolute
+			top 0
+			bottom 0
+			width 100%
+			background rgba(black, .25)
+			display none
+			flex-direction column
+			justify-content center
+			align-items center
+			.button-solid
+				margin .5rem
 	.product-title
 		border-bottom 1px dashed #e6e8ec
 		padding .5em
@@ -33,7 +48,13 @@
 			letter-spacing .5px
 			font-family 'Raleway'
 
+.product-image:hover
+	.cover
+		display flex
 			
+			
+		
+
 // product-width = 200px
 product-width = 180px
 

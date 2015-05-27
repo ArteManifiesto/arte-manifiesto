@@ -17,6 +17,14 @@ function Product (el, data) {
 
 	function setup () {
 
+		if(isMobile()){
+			// console.log('Mobile Browser')
+
+		} else {
+			// console.log('Desktop Browser');
+
+		}
+
 		buttonLike.addEventListener('click', function () {
 			// console.log('click')
 			if (!user) {
@@ -58,7 +66,7 @@ function Product (el, data) {
 					type: "POST",
 					url: url,
 					datatype: "json",
-					data: JSON.stringify({idProduct: id, idCollections: insides}),
+					data: JSON.stringify({idProduct: id, collections: insides}),
 					success: function (response) {
 						console.log(response)
 					},
@@ -145,7 +153,6 @@ function Collect (el, data, callback) {
 
 		save.addEventListener('click', function () {
 			var newInsides = getInsides()
-			// console.log('save: ', newInsides)
 			callback(newInsides)
 		})
 	}
@@ -159,37 +166,20 @@ function Collect (el, data, callback) {
 	}
 
 	setup()
-
-	return {
-		getInsides: getInsides
-	}
 }
 
-	// function collect () {
+function isMobile() {
+	// return true
 
-	// 	var url = '/' + user.username + '/collection/all'
+	if (sessionStorage.desktop) // desktop storage
+	return false;
+	else if (localStorage.mobile) // mobile storage
+	return true;
 
-	// 	$.post(url, {idProduct: id}, function (data) {
-	// 		console.log('data: ', data)
+	// alternative
+	var mobile = ['iphone','ipad','android','blackberry','nokia','opera mini','windows mobile','windows phone','iemobile'];
+	for (var i in mobile) if (navigator.userAgent.toLowerCase().indexOf(mobile[i].toLowerCase()) > 0) return true;
 
-	// 		for (var i = data.collections.length - 1; i >= 0; i--) {
-	// 			data.collections[i]
-	// 		};
-	// 	})
-
-	// 	// var url = '/' + user.username + '/product/addToCollection'
-	// 	// var url = '/' + user.username + '/product/'
-
-	// 	// console.log(url)
-
-	// 	// $.ajax({
-	// 	// 	type: "POST",
-	// 	// 	url: url,
-	// 	// 	datatype: "json",
-	// 	// 	data: JSON.stringify({idProduct: id, idCollections: [2, 3]}),
-	// 	// 	success: function (responsesl) {
-	// 	// 		console.log(responses)
-	// 	// 	},
-	// 	// 	contentType: "application/json; charset=utf-8",
-	// 	// });
-	// }
+	// nothing found.. assume desktop
+	return false;
+}
