@@ -11,7 +11,7 @@
 <section class="products">
 
 	<div class="collect">
-		<div class="collect-title">Add to collections</div>
+		<div class="collect-title">Coleccionar en</div>
 		<ul class="checkbox-list"></ul>
 		<p class="new-text"><i class="fa fa-plus"></i> Agregar nueva</p>
 		<div class="add-wrapp">
@@ -27,7 +27,7 @@
 	{% for product in products %}
 		<div class="product-wrapper">
 			<article class="product">
-				<a class="product-image" href="{{ product.url }}">
+				<a class="product-image">
 					<img src="{{ product.photo }}">
 					<div class="cover">
 						<i class="fa fa-heart"></i>
@@ -50,3 +50,7 @@
 		</div>
 	{% endfor %}
 </section>
+
+<!-- 
+href="{{ product.url }}"
+ -->

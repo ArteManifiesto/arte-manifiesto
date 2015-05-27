@@ -651,7 +651,7 @@ body {
   display: flex;
 }
 .works .work .cover .social-item.active {
-  color: #f54545;
+  color: #3000ff;
 }
 .work:hover .cover {
   display: -webkit-box;
@@ -968,7 +968,7 @@ body {
   padding: 0.25rem;
 }
 .collect .button-solid {
-  margin: 0.5rem;
+  margin: 0.75rem;
 }
 .collect .button-solid .fa {
   display: none;

@@ -1045,7 +1045,7 @@ body {
   display: flex;
 }
 .works .work .cover .social-item.active {
-  color: #f54545;
+  color: #3000ff;
 }
 .work:hover .cover {
   display: -webkit-box;
