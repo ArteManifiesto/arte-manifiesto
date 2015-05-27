@@ -65,6 +65,18 @@ module.exports = function (sequelize, DataTypes) {
                         return scope.setDataValue('productInside', isInside);
                     });
                 },
+                numOfUniqueUsers: function () {
+                    var query = {
+                        group: [[global.db.User, 'username']],
+                        attributes: [
+                            [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'total']
+                        ],
+                        addUser: true
+                    };
+                    return scope.getProducts(query).then(function (products) {
+                        return result[0].getDataValue('total');
+                    });
+                },
                 generateDescription: function () {
                     var scope = this, query = {
                         group: [[global.db.User, 'username']],
@@ -72,22 +84,22 @@ module.exports = function (sequelize, DataTypes) {
                         limit: 4
                     };
                     return scope.getProducts(query).then(function (products) {
+                        var i, product;
                         if (products.length > 0) {
-                            var i, product;
                             scope.description = scope.baseDescription + 'usando productos de ';
-                            var usernames = [], result = '';
+                            var usernames = []
                             for (i = 0; i < products.length; i++)
                                 usernames.push(products[i].User.username);
-                            if (usernames.length > 1)
-                                result = usernames.slice(0, usernames.length - 1).join(', ') + ' y '
 
-                            result += usernames[usernames.length - 1];
-                            scope.description += result;
+                            if (usernames.length > 1)
+                                scope.description += usernames.slice(0, usernames.length - 1).join(', ') + ' y '
+
+                            scope.description += usernames[usernames.length - 1] + '.';
                         } else {
                             scope.description = scope.baseDescription;
                         }
                         return scope.save();
-                    });
+                    })
                 },
                 appendProduct: function (options) {
                     var scope = this, query = {where: {id: options.idProduct}};

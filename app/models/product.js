@@ -84,7 +84,6 @@ module.exports = function (sequelize, DataTypes) {
                 friends: function (viewer) {
                     if (viewer < 0)
                         return [];
-
                     var scope = this, queryLikes = {attributes: ['id']},
                         queryFollowings = {attributes: ['id', 'username', 'photo', 'url']};
 
