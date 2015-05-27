@@ -143,7 +143,7 @@ module.exports = function (sequelize, DataTypes) {
                         var newCollectionsIds = _.difference(newIds, currentIds);
 
                         console.log(oldCollectionsIds, newCollectionsIds);
-                        console.log(collections);
+                        
                         var i, collection, promises = [];
                         for (i = 0; i < oldCollectionsIds.length; i++) {
                             collection = _.where(collections, {id: oldCollectionsIds[i]})[0];
