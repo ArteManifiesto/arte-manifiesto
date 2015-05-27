@@ -16,7 +16,23 @@
 	</div>
 </script>
 
+	<script type="text/javascript" id="item-template"></script>
+
 <section class="products">
+
+	<div class="collect">
+		<div class="collect-title">Add to collections</div>
+		<ul class="checkbox-list">
+			<% for collection in collections %>
+				<li class="checkbox-list__item <% if (collection.productInside) { %> active <% } %> ">
+					<i class="fa fa-check-square-o"></i><i class="fa fa-square-o"></i> <span><%= collection.name %></span>
+				</li>
+			<% enf %>
+		</ul>
+		<button class="button-solid" data-size="small" data-color='red'>Guardar</button>
+	</div>
+
+
 	{% for product in products %}
 		<div class="product-wrapper">
 			<article class="product">

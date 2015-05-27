@@ -53,29 +53,32 @@ function Product (el, data) {
 
 		$.post(url, {idProduct: id}, function (response) {
 			// console.log('response: ', response)
-			var object = makeObject(collectTemplate, response.data)
+			// var object = makeObject(collectTemplate, response.data)
 			// console.log('object: ', object)
 			document.querySelector('.products').appendChild(object)
-			window.collect = new Collect(object, response.data, function (insides) {
-				
-				console.log('insides: ', insides)
-				var url = '/' + user.username + '/product/addToCollection'
-				console.log(url)
 
-				$.ajax({
-					type: "POST",
-					url: url,
-					datatype: "json",
-					data: JSON.stringify({idProduct: id, collections: insides}),
-					success: function (response) {
-						console.log(response)
-					},
-					contentType: "application/json; charset=utf-8",
-				});
-
-			})
+			collect.init(response.data, pos)
 		})
 	}
+
+	window.collect = new Collect(object, response.data, function (insides) {
+			
+			console.log('insides: ', insides)
+			var url = '/' + user.username + '/product/addToCollection'
+			console.log(url)
+
+			$.ajax({
+				type: "POST",
+				url: url,
+				datatype: "json",
+				data: JSON.stringify({idProduct: id, collections: insides}),
+				success: function (response) {
+					console.log(response)
+				},
+				contentType: "application/json; charset=utf-8",
+			});
+
+		})
 
 	function like () {
 
