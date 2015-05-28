@@ -31,6 +31,12 @@ function AddWork (el, data) {
 		for (var i = public.length - 1; i >= 0; i--)
 			if(public[i].checked)  publicVal = public[i].value
 
+		console.log('titleVal: ', titleVal)
+		console.log('descriptionVal: ', descriptionVal)
+		console.log('cateorysVal: ', cateorysVal)
+		console.log('tagsVal: ', tagsVal)
+		console.log('publicVal: ', publicVal)
+
 		var valid = true
 
 		if(!titleVal){
