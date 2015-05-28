@@ -719,6 +719,10 @@ body {
     flex: 1 50%;
   }
 }
+.button-solid {
+  margin: 2rem auto;
+  display: table;
+}
 .upload-images {
   display: -webkit-box;
   display: -moz-box;
