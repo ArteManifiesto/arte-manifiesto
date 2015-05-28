@@ -50,6 +50,7 @@
 		padding .5em
 		display flex
 		justify-content space-between
+		align-items center
 		.price
 			font-size .9em
 			font-weight 500
@@ -58,6 +59,14 @@
 		.like
 		.wish-list
 			display none
+		.users
+			display flex
+			align-items flex-start
+			img
+				max-width 25px
+				border-radius 50%
+				&:not(:first-child)
+					  margin-left .15rem
 
 .product-image:hover
 	.cover
