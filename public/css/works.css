@@ -1034,7 +1034,7 @@ body {
   color: #fff;
   -webkit-border-radius: 50%;
   border-radius: 50%;
-  padding: 1em;
+  padding: 0.5rem;
   font-size: 2em;
   cursor: pointer;
   display: -webkit-box;
