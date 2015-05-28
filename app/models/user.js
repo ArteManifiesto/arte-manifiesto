@@ -11,6 +11,7 @@ module.exports = function (sequelize, DataTypes) {
             email: DataTypes.STRING,
             firstname: DataTypes.STRING,
             lastname: DataTypes.STRING,
+            fullname: DataTypes.STRING,
             gender: DataTypes.STRING,
             photo: DataTypes.STRING,
             isArtist: {type: DataTypes.BOOLEAN, defaultValue: false},
@@ -210,6 +211,7 @@ module.exports = function (sequelize, DataTypes) {
                     user.hashedPassword = user.encryptPassword(options.password, user.salt);
                     user.tokenVerifyEmail = uuid.v4();
                     user.url = '/' + user.username;
+                    user.fullname = user.firstname + ' ' + user.lastname;
 
                     var promises = [
                         user.save(),

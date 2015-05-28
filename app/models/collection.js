@@ -65,18 +65,6 @@ module.exports = function (sequelize, DataTypes) {
                         return scope.setDataValue('productInside', isInside);
                     });
                 },
-                numOfUniqueUsers: function () {
-                    var query = {
-                        group: [[global.db.User, 'username']],
-                        attributes: [
-                            [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'total']
-                        ],
-                        addUser: true
-                    };
-                    return scope.getProducts(query).then(function (products) {
-                        return result[0].getDataValue('total');
-                    });
-                },
                 generateDescription: function () {
                     var scope = this, query = {
                         group: [[global.db.User, 'username']],
@@ -125,9 +113,10 @@ module.exports = function (sequelize, DataTypes) {
             hooks: {
                 afterCreate: function (collection, options) {
                     collection.url = options.user.url + '/collection/' + collection.nameSlugify;
-                    if (collection.needGenerate)
+                    if (collection.needGenerate) {
                         collection.baseDescription = collection.description =
-                            'Coleccion creada por ' + options.user.firstname + ' ' + options.user.lastname + ' ';
+                            'Coleccion creada por ' + options.user.fullname;
+                    }
 
                     return collection.save();
                 },
