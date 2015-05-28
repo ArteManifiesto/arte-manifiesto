@@ -1,8 +1,6 @@
 
 function Product (el, data) {
 
-	// console.log(el)
-
 	var id = data.id,
 
 		likes = data.likes,

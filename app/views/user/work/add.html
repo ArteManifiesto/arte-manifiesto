@@ -28,24 +28,74 @@
 	        color: HighlightText;
 	        background-color: Highlight;
 	    }
+
+		#direct_upload_jquery {
+			width: 100%;
+			height: 500px;
+			background: gray;
+		}
+
 	</style>
 {% endblock %}
 
 {% block elements %}
+
+<!-- 	<div id="direct_upload_jquery">
+		<div id="files" class="files"></div>
+		<form>
+			<input type="file" name="file" class="cloudinary_fileupload"/>
+		</form>
+		<div class="preview"></div>
+	</div> -->
 
 	<section class="add-work">
 		<p class="add-work__title">
 			Subir una nueva obra
 		</p>
 		<div class="add-work__images">
-			<ul class="upload-images">
-				<li class="upload-image">
-					<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430427018/VENTA/2013_AJ_1_YANDY.png">
-				</li>
-				<li class="upload-image">
-					<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,q_50/v1430426983/VENTA/2013_AJ_2_SALIMA.jpg">
-				</li>
-			</ul>
+			<div class="upload-images">
+				<!-- <div class="upload-image">
+					<img src="/img/works/obra2.jpg">
+				</div>
+				<div class="upload-image">
+					<img src="/img/works/obra10.jpg">
+				</div>
+				<div class="upload-image">
+					<img src="/img/works/obra12.jpg">
+				</div>
+				<div class="upload-image">
+					<img src="/img/works/obra10.jpg">
+				</div>
+				<div class="upload-image">
+					<img src="/img/works/obra12.jpg">
+				</div>
+				<div class="upload-image">
+					<img src="/img/works/obra10.jpg">
+				</div> -->
+				
+				<div class="upload-image defout">
+					<input type="file" name="file"/>
+					
+					<div class="inner">
+						<div style="">
+							<i class="fa fa-cloud-upload"></i>
+							<p>Subir nueva imagen</p>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="upload-image preview">
+					<input type="file" name="file"/>
+					
+					<img src="/img/works/obra12.jpg">
+
+					<div class="inner">
+						<p>Reemplazar imagen</p>
+					</div>
+				</div>
+
+			</div>
 		</div>
 		<div class="add-work__data">
 			<form class="work-data">
@@ -60,11 +110,11 @@
 				<div class="work-data__input">
 					<p class="title">Categorias</p>
 					<ul class="checkbox-list">
-                        {% for category in categories %}
+						{% for category in categories %}
 						<li class="checkbox-list__item">
 							<input type="checkbox" name="category" value=""> <span>{{category.name}}</span>
 						</li>
-                        {% endfor %}
+						{% endfor %}
 					</ul>
 				</div>
 				<div class="work-data__input">
@@ -80,13 +130,30 @@
 				</div>
 			</form>
 		</div>
+		
+		<button class="button-solid" data-color='red'>Ver más</button>
 	</section>
 
 {% endblock %}
 
 {% block scripts %}
+
 <script src="/js/vendor/jquery.min.js"></script>
 <script src="/js/vendor/wysiwyg-editor.min.js"></script>
+<script src='/js/vendor/jquery.tmpl.min.js'></script>
+<script src='/js/vendor/load-image.min.js'></script>
+<script src='/js/vendor/jquery.ui.widget.js'></script>
+<script src='/js/vendor/canvas-to-blob.min.js'></script>
+<script src='/js/vendor/jquery.iframe-transport.js'></script>
+<script src='/js/vendor/jquery.fileupload.js'></script>
+<script src='/js/vendor/jquery.fileupload-process.js'></script>
+<script src='/js/vendor/jquery.fileupload-image.js'></script>
+<script src='/js/vendor/jquery.fileupload-validate.js'></script>
+<script src='/js/vendor/jquery.fileupload-ui.js'></script>
+<script src='/js/vendor/jquery.cloudinary.js'></script>
+
+<script type="text/javascript" src="js/add-work"></script>
+
 <script type="text/javascript">
     $(function () {
         var element = $('.description');
@@ -222,6 +289,97 @@
             },
             placeholderUrl: '/img/logo.png'
         });
+
+
+        var currentPublicID;
+        var uploadButton = $('<button/>')
+                .prop('disabled', true)
+                .text('Processing...')
+                .on('click', function () {
+                    var $this = $(this),
+                            data = $this.data();
+                    $this
+                            .off('click')
+                            .text('Abort')
+                            .on('click', function () {
+                                $this.remove();
+                                data.abort();
+                            });
+                    data.submit().always(function () {
+                        $this.remove();
+                    });
+                });
+
+        $.cloudinary.config({cloud_name: 'arte-manifiesto'});
+
+        $(".cloudinary_fileupload").unsigned_cloudinary_upload(
+                'ky9z5ill',
+                {cloud_name: 'arte-manifiesto'},
+                {
+                    dataType: 'json',
+                    acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+                    maxFileSize: 5000000, // 5 MB
+                    // Enable image resizing, except for Android and Opera,
+                    // which actually support image resizing, but fail to
+                    // send Blob objects via XHR requests:
+                    disableImageResize: /Android(?!.*Chrome)|Opera/
+                            .test(window.navigator.userAgent),
+                    previewMaxWidth: 100,
+                    previewMaxHeight: 100,
+                    previewCrop: true,
+                    imageMaxWidth: 1000,
+                    imageMaxHeight: 1000,
+                    multiple: true,
+                    autoUpload:true,
+                    dropZone: "#direct_upload_jquery",
+                    start: function (e) {
+                        if (currentPublicID) {
+
+                        }
+                        console.log('start');
+                    },
+                    fail: function (e, data) {
+                        console.log('fail', e, data);
+                    }
+                })
+                // .on('fileuploadadd', function (e, data) {
+
+                //     data.context = $('<div/>').appendTo('#files');
+                //     $.each(data.files, function (index, file) {
+                //         var node = $('<p/>')
+                //                 .append($('<span/>').text(file.name));
+                //         if (!index) {
+                //             node
+                //                     .append('<br>')
+                //                     .append(uploadButton.clone(true).data(data));
+                //         }
+                //         node.appendTo(data.context);
+                //     });                
+                //   })
+                .on("cloudinaryprogress", function (e, data) {
+                    console.log('cloudinaryprogress', data);
+                    console.log(Math.round((data.loaded * 100.0) / data.total))
+                }).
+                on("cloudinaryprogressall", function (e, data) {
+                    console.log('cloudinaryprogressall', data);
+                    console.log(Math.round((data.loaded * 100.0) / data.total));
+                }).
+                on("cloudinarydone", function (e, data) {
+                		console.log('done!')
+                    console.log(data);
+
+                    currentPublicID = data.result.public_id;
+
+                    return true;
+                    // $('.preview').append(
+                    //         $.cloudinary.image(data.result.public_id, {
+                    //             format: data.result.format, version: data.result.version,
+                    //             width: 100
+                    //         })
+                    // );
+                    // console.log(data.result.public_id);
+                });
+
     });
 </script>
 {% endblock %}

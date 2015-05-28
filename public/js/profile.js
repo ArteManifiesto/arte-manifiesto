@@ -199,4 +199,4 @@ window.profileObj = new Profile(document.querySelector('.profile'), {
 
 new User(document.querySelector('.profile__info'), profile)
 
-window.collect = new Collect(document.querySelector('.collect'))
+// window.collect = new Collect(document.querySelector('.collect'))

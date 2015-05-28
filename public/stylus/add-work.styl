@@ -10,6 +10,14 @@
 .add-work
 	max-width max-width
 	margin auto
+	&__title
+		font-family 'Oswald'
+		font-size 1.75rem
+		color #585859
+		letter-spacing 0.5px
+		line-height 1em
+		text-align center
+		margin 1.5rem
 	&__data
 		margin .5rem
 		.title
@@ -21,23 +29,6 @@
 			margin .25rem 0
 		.checkbox-list
 			margin .25rem 0
-			
-
-.upload-images
-	display flex
-	justify-content center
-	.upload-image
-		height 300px
-		width 300px
-		margin 1rem
-		display flex
-		img
-			width auto
-			max-width 100%
-			max-height 100%
-			// margin auto
-			// max
-	
 
 .work-data
 	&__input
@@ -50,11 +41,57 @@
 		&__input
 			flex 1 50%
 			
+.upload-images
+	display flex
+	flex-wrap wrap
+	justify-content center
+	align-items center
+	.upload-image
+		margin .5rem
+		display flex
+		position relative
+		input
+			position absolute
+			width 100%
+			top 0
+			bottom 0
+			opacity 0
+			font-size 0
+			cursor pointer
+			z-index 1
+		.inner
+			position absolute
+			top 0
+			left 0
+			bottom 0
+			width 100%
+			display flex
+			align-items center
+			padding 1rem
+			justify-content center
+			flex-wrap wrap
+			text-align center
+			font-family "Roboto Condensed"
+			font-size 1.25rem
+			color #585858
+			.fa
+				font-size 2rem
+		&.defout
+			background #f6f6f6
+			height 200px
+			width 150px
+		&.preview
+			.inner
+				display none
+				background rgba(white, .5)
+				color #444
+			&:hover
+				.inner
+					display flex
 
 .checkbox-list
-	// max-height 100px
-	// overflow auto
-	// display table
+	max-height 200px
+	overflow auto
 	&__item
 		display flex
 		align-items center
@@ -67,7 +104,7 @@
 			background #eee
 		span
 			padding-left .25rem
-			
+
 .radio-list
 	display flex
 	align-items center
