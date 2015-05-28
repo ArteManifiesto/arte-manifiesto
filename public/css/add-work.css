@@ -694,6 +694,19 @@ body {
 .work-data__input {
   padding: 0.5rem;
 }
+.work-data__input .error-title,
+.work-data__input .error-description,
+.work-data__input .error-categorys,
+.work-data__input .error-tags,
+.work-data__input .error-public {
+  color: #f54545;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: 'Raleway';
+  font-size: 0.7rem;
+  padding: 0.25rem 0;
+  letter-spacing: 0.5px;
+}
 @media (min-width: 920px) {
   .work-data {
     display: -webkit-box;
