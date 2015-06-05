@@ -1,0 +1,32 @@
+<article class="product">
+    <div class="product-image">
+        <img src="<%= photo %>">
+        <div class="cover">
+            <i class="fa fa-heart <%= liked ? 'active' : '' %>"></i>
+            <i class="fa fa-th-list"></i>
+        </div>
+    </div>
+    <div class="product-title">
+        <div class="title"> <%= name %></div>
+    </div>
+    <div class="product-info">
+        <div class="price">s./<%= price %></div>
+        <div class="users">
+            <img src="/img/artists/artist2.jpg">
+            <img src="/img/artists/artist3.jpg">
+            <img src="/img/artists/artist4.jpg">
+        </div>
+        <div class="like">
+            <span class="button-like <%= liked ? 'active' : '' %>">
+                <i class="fa fa-heart"></i>
+                <i class="fa fa-heart-o"></i>
+                <span><%= likes %></span>
+            </span>
+        </div>
+        <div class="wish-list">
+            <span class="button-wish-list">
+                <i class="fa fa-square-o"></i>
+            </span>
+        </div>
+    </div>
+</article>

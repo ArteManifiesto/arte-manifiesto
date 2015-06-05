@@ -1,276 +1,281 @@
+function Section(data) {
 
-function Section (data) {
+    var path = data.path
 
-	var path = data.path
+    var container = document.querySelector('.' + data.containerClass)
+    var template = _.template($("#" + data.templateId).html())
 
-	var container = document.querySelector('.' + data.containerClass)
-	var	template = _.template( $( "#" + data.templateId ).html() )
-	
-	var mainFilter = data.mainFilter
-	var parameters = data.parameters
+    var mainFilter = data.mainFilter
+    var parameters = data.parameters
 
-	var moreSection = document.querySelector('.more')
-	var moreButton = moreSection.querySelector('.button-solid')
-	
-	var emptyResult = document.querySelector('.empty-result')
-	var loading = document.querySelector('.loading')
+    var moreSection = document.querySelector('.more')
+    var moreButton = moreSection.querySelector('.button-solid')
 
-	var scrollMode = false
+    var emptyResult = document.querySelector('.empty-result')
+    var loading = document.querySelector('.loading')
 
-	var idUser = user.id || 0
+    var scrollMode = false
 
-	var wrapper = document.querySelector('.main-wrapper')
+    var idUser = user.id || 0
 
-	var searchers = data.searchers
+    var wrapper = document.querySelector('.main-wrapper')
 
-	var navigation = document.querySelector('.section__navigation')
-	var navigationText = document.querySelector('.js-navigation-text')
+    var searchers = data.searchers
 
-	var createObject = data.createObject
+    var navigation = document.querySelector('.section__navigation')
+    var navigationText = document.querySelector('.js-navigation-text')
 
-	var filterLeftButton = document.querySelectorAll('.button-filter')[0]
-	var filterRightButton = document.querySelectorAll('.button-filter')[1]
-	// console.log('filterLeftButton: ', filterLeftButton)
-	// console.log('filterRightButton: ', filterRightButton)
+    var createObject = data.createObject
 
-	var filterLeft = document.querySelectorAll('.section__workspace__filter')[0]
-	var filterRight = document.querySelectorAll('.section__workspace__filter')[1]
-	// console.log('filterLeft: ', filterLeft)
-	// console.log('filterRight: ', filterRight)
-	var elementsCotainer = document.querySelector('.section__workspace__elements')
+    var filterLeftButton = document.querySelectorAll('.button-filter')[0]
+    var filterRightButton = document.querySelectorAll('.button-filter')[1]
+    // console.log('filterLeftButton: ', filterLeftButton)
+    // console.log('filterRightButton: ', filterRightButton)
 
-	var leftVisible = false
-	var rightVisible = false
+    var filterLeft = document.querySelectorAll('.section__workspace__filter')[0]
+    var filterRight = document.querySelectorAll('.section__workspace__filter')[1]
+    // console.log('filterLeft: ', filterLeft)
+    // console.log('filterRight: ', filterRight)
+    var elementsCotainer = document.querySelector('.section__workspace__elements')
 
-	function setup () {
-		
-		filterLeftButton.addEventListener('click', function () {
-			if(leftVisible){
-				filterLeft.classList.remove('visible')
-				elementsCotainer.classList.remove('moveLeft')
-				container.classList.remove('moveLeft')
-			}
-			else{
-				filterLeft.classList.add('visible')
-				elementsCotainer.classList.add('moveLeft')
-				container.classList.add('moveLeft')
-			}
-			leftVisible = leftVisible?false:true
-		})
-		filterRightButton.addEventListener('click', function () {
-			if(rightVisible){
-				filterRight.classList.remove('visible')
-				elementsCotainer.classList.remove('moveRight')
-				container.classList.remove('moveRight')
-			}
-			else{
-				filterRight.classList.add('visible')
-				elementsCotainer.classList.add('moveRight')
-				container.classList.add('moveRight')
-			}
-			rightVisible = rightVisible?false:true
-		})
+    var leftVisible = false
+    var rightVisible = false
 
-		var searchEl = document.querySelector('.search')
-		var search = new Search(searchEl)
+    function setup() {
 
-		searchEl.addEventListener('search', function () {
-			changeSearch(search.values().text, search.values().url)
-			navigationText.innerHTML = search.values().text
-			navigation.classList.add('visible')
-		})
+        filterLeftButton.addEventListener('click', function () {
+            if (leftVisible) {
+                filterLeft.classList.remove('visible')
+                elementsCotainer.classList.remove('moveLeft')
+                container.classList.remove('moveLeft')
+            }
+            else {
+                filterLeft.classList.add('visible')
+                elementsCotainer.classList.add('moveLeft')
+                container.classList.add('moveLeft')
+            }
+            leftVisible = leftVisible ? false : true
+        })
+        filterRightButton.addEventListener('click', function () {
+            if (rightVisible) {
+                filterRight.classList.remove('visible')
+                elementsCotainer.classList.remove('moveRight')
+                container.classList.remove('moveRight')
+            }
+            else {
+                filterRight.classList.add('visible')
+                elementsCotainer.classList.add('moveRight')
+                container.classList.add('moveRight')
+            }
+            rightVisible = rightVisible ? false : true
+        })
 
-		window.history.pushState({}, "", url)
-		
-		window.onscroll = function() {
-			if ((window.innerHeight + window.scrollY) >= wrapper.offsetHeight)
-				if(scrollMode){
-					console.log('scroll end!')
-					nextPage()
-				}
-		}
+        var searchEl = document.querySelector('.search')
+        var search = new Search(searchEl)
 
-		moreButton.addEventListener('click', initScroll)
+        searchEl.addEventListener('search', function () {
+            changeSearch(search.values().text, search.values().url)
+            navigationText.innerHTML = search.values().text
+            navigation.classList.add('visible')
+        })
 
-		var mainFilters = document.querySelectorAll('.' + mainFilter.name)
+        window.history.pushState({}, "", url)
 
-		for (var i = mainFilters.length - 1; i >= 0; i--) {
-			mainFilters[i].addEventListener('click', function () {
-				changeMainFilter(this.getAttribute('data-value'))
-			})
-		}
+        window.onscroll = function () {
+            if ((window.innerHeight + window.scrollY) >= wrapper.offsetHeight)
+                if (scrollMode) {
+                    console.log('scroll end!')
+                    nextPage()
+                }
+        }
 
-		for (var i = parameters.length - 1; i >= 0; i--) {
-			var parametersFilter = document.querySelectorAll('.' + parameters[i].name)
-			setupParameters(parametersFilter, parameters[i].url)
-		};
-	}
+        moreButton.addEventListener('click', initScroll)
 
-	function setupParameters (parameters, partialUrl) {
-		for (var i = parameters.length - 1; i >= 0; i--) {
-			parameters[i].addEventListener('click', function () {
-				changeParameter(this.getAttribute('data-value'), partialUrl)
-			})
-		};
-	}
+        var mainFilters = document.querySelectorAll('.' + mainFilter.name)
 
-	function changeParameter (value, partialUrl) {
+        for (var i = mainFilters.length - 1; i >= 0; i--) {
+            mainFilters[i].addEventListener('click', function () {
+                changeMainFilter(this.getAttribute('data-value'))
+            })
+        }
 
-		var currentValue = getUrlParameter(partialUrl)
+        for (var i = parameters.length - 1; i >= 0; i--) {
+            var parametersFilter = document.querySelectorAll('.' + parameters[i].name)
+            setupParameters(parametersFilter, parameters[i].url)
+        }
+        ;
+    }
 
-		if (currentValue != undefined)
-			url = url.replace(currentValue, value)
-		else
-			url += '&' + partialUrl + '=' + value
-		url = url.replace('page-' + pagination.page, 'page-1')
-		url = url.replace(path , 'search/' + path)
+    function setupParameters(parameters, partialUrl) {
+        for (var i = parameters.length - 1; i >= 0; i--) {
+            parameters[i].addEventListener('click', function () {
+                changeParameter(this.getAttribute('data-value'), partialUrl)
+            })
+        }
+        ;
+    }
 
-		if(path != 'works') resetElements()
-		else resetWorks()
-		
-		console.log('url: ', url)
-		getElements(url, function (elements) {
-			console.log('elements: ', elements)
-			renderElements(elements)
-		})
-	}
+    function changeParameter(value, partialUrl) {
 
-	function changeSearch (value, partialUrl) {
-		
-		for (var i = searchers.length - 1; i >= 0; i--) {
-			var val = getUrlParameter(searchers[i]);
-			if (val != undefined)
-				url = url.replace('&' + searchers[i] + '=' + val, '')
-		}
+        var currentValue = getUrlParameter(partialUrl)
 
-		if(value.length > 0)
-			url += '&' + partialUrl + '=' + value
+        if (currentValue != undefined)
+            url = url.replace(currentValue, value)
+        else
+            url += '&' + partialUrl + '=' + value
+        url = url.replace('page-' + pagination.page, 'page-1')
+        url = url.replace(path, 'search/' + path)
 
-		url = url.replace('page-' + pagination.page, 'page-1')
-		url = url.replace(path , 'search/' + path)
+        if (path != 'works') resetElements()
+        else resetWorks()
 
-		resetElements()
-		
-		getElements(url, function (elements) {
-			renderElements(elements)
-		})
+        console.log('url: ', url)
+        getElements(url, function (elements) {
+            console.log('elements: ', elements)
+            renderElements(elements)
+        })
+    }
 
-	}
+    function changeSearch(value, partialUrl) {
 
-	function changeMainFilter (value) {
-		// console.log('changeMainFilter: ', value)
+        for (var i = searchers.length - 1; i >= 0; i--) {
+            var val = getUrlParameter(searchers[i]);
+            if (val != undefined)
+                url = url.replace('&' + searchers[i] + '=' + val, '')
+        }
 
-		var currentValue = url.split('/')[5]
-		if(path == 'users') url =	url.replace('specialty/' + currentValue, 'specialty/' + value)
-		if(path == 'products') url =	url.replace('type/' + currentValue, 'type/' + value)
-		if(path == 'works') url =	url.replace('category/' + currentValue, 'category/' + value)
-		url = url.replace('page-' + pagination.page, 'page-1')
-		url = url.replace(path , 'search/' + path)
-		
-		if(path != 'works') resetElements()
-		else resetWorks()
+        if (value.length > 0)
+            url += '&' + partialUrl + '=' + value
 
-		console.log('url: ', url)
-		getElements(url, function (elements) {
-			console.log('elements: ', elements)
-			renderElements(elements)
-		})
-	}
+        url = url.replace('page-' + pagination.page, 'page-1')
+        url = url.replace(path, 'search/' + path)
 
-	function resetElements () {
-		container.innerHTML = ""
-		emptyResult.classList.remove('visible')
-		moreSection.classList.add('hidden')
-		scrollMode = false
-	}
+        resetElements()
 
-	function resetWorks () {
-		var worksEls = container.querySelectorAll('.work')
+        getElements(url, function (elements) {
+            renderElements(elements)
+        })
 
-		for (var i = worksEls.length - 1; i >= 0; i--) {
-			// console.log('worksEl: ', worksEls[i])
-			worksEls[i].remove()
-		}
+    }
 
-		emptyResult.classList.remove('visible')
-		moreSection.classList.add('hidden')
-		scrollMode = false
-	}
+    function changeMainFilter(value) {
+        // console.log('changeMainFilter: ', value)
 
-	function nextPage (callback) {
+        var currentValue = url.split('/')[5]
+        if (path == 'users') url = url.replace('specialty/' + currentValue, 'specialty/' + value)
+        if (path == 'products') url = url.replace('type/' + currentValue, 'type/' + value)
+        if (path == 'works') url = url.replace('category/' + currentValue, 'category/' + value)
+        url = url.replace('page-' + pagination.page, 'page-1')
+        url = url.replace(path, 'search/' + path)
 
-		if(pagination.page == pagination.pages) return
+        if (path != 'works') resetElements()
+        else resetWorks()
 
-		url = url.replace(path , 'search/' + path)
-		url = url.replace('page-' + pagination.page, 'page-' + ++pagination.page)
+        console.log('url: ', url)
+        getElements(url, function (elements) {
+            console.log('elements: ', elements)
+            renderElements(elements)
+        })
+    }
 
-		scrollMode = false
-		getElements(url, function (elements) {
-			addElements(elements)
-			if(callback) callback()
-			scrollMode = true
-		})
-	}
+    function resetElements() {
+        container.innerHTML = ""
+        emptyResult.classList.remove('visible')
+        moreSection.classList.add('hidden')
+        scrollMode = false
+    }
 
-	function getElements (newUrl, callback) {
+    function resetWorks() {
+        var worksEls = container.querySelectorAll('.work')
 
-		loading.classList.add('visible')
+        for (var i = worksEls.length - 1; i >= 0; i--) {
+            // console.log('worksEl: ', worksEls[i])
+            worksEls[i].remove()
+        }
 
-		$.post( newUrl, {idUser: idUser}, function( data ) {
-			loading.classList.remove('visible')
+        emptyResult.classList.remove('visible')
+        moreSection.classList.add('hidden')
+        scrollMode = false
+    }
 
-			url = data.url
-			window.history.pushState({}, "", url)
-			
-			pagination = data.pagination
-			callback(data[path])
-		})
-	}
-	
-	function initScroll () {
-		moreSection.classList.add('hidden')
-		nextPage(function () { scrollMode = true })
-	}
+    function nextPage(callback) {
 
-	function addElements (elements) {
-		console.log('addElements: ', elements)
-		for (var i = 0; i < elements.length; i++) {
-			var object = makeObject(template, elements[i])
-			createObject(object, elements[i])
-			if(path != 'works')
-				container.appendChild(object)
-			else
-				salvattore['append_elements'](container, [object])
-		}
-	}
+        if (pagination.page == pagination.pages) return
 
-	function renderElements (elements) {
-		if(elements.length != 0){
-			addElements(elements)
-			if(pagination.page < pagination.pages)
-				moreSection.classList.remove('hidden')
-			return
-		}
-		emptyResult.classList.add('visible')
-	}
+        url = url.replace(path, 'search/' + path)
+        url = url.replace('page-' + pagination.page, 'page-' + ++pagination.page)
 
-	setup()
+        scrollMode = false
+        getElements(url, function (elements) {
+            addElements(elements)
+            if (callback) callback()
+            scrollMode = true
+        })
+    }
+
+    function getElements(newUrl, callback) {
+
+        loading.classList.add('visible')
+
+        $.post(newUrl, {idUser: idUser}, function (data) {
+            loading.classList.remove('visible')
+
+            url = data.url
+            window.history.pushState({}, "", url)
+
+            pagination = data.pagination
+            callback(data[path])
+        })
+    }
+
+    function initScroll() {
+        moreSection.classList.add('hidden')
+        nextPage(function () {
+            scrollMode = true
+        })
+    }
+
+    function addElements(elements) {
+        console.log('addElements: ', elements)
+        for (var i = 0; i < elements.length; i++) {
+            var object = makeObject(template, elements[i])
+            createObject(object, elements[i])
+            console.log(object)
+
+            if (path != 'works')
+                container.appendChild(object)
+            else
+                salvattore['append_elements'](container, [object])
+        }
+    }
+
+    function renderElements(elements) {
+        if (elements.length != 0) {
+            addElements(elements)
+            if (pagination.page < pagination.pages)
+                moreSection.classList.remove('hidden')
+            return
+        }
+        emptyResult.classList.add('visible')
+    }
+
+    setup()
 }
 
-function makeObject (template, data) {
-	var objectString = template(data)
-	var div = document.createElement('div')
-	div.innerHTML = objectString
-	return div.children[0]
+function makeObject(template, data) {
+    var objectString = template(data)
+    var div = document.createElement('div')
+    div.innerHTML = objectString
+    return div.children[0]
 }
 
 function getUrlParameter(sParam) {
-	// var sPageURL = window.location.search.substring(1)
-	var sPageURL = window.location.search.substring(1)
-	var sURLVariables = sPageURL.split('&')
-	for (var i = 0; i < sURLVariables.length; i++) {
-		var sParameterName = sURLVariables[i].split('=')
-		if (sParameterName[0] == sParam)
-			return sParameterName[1]
-	}
+    // var sPageURL = window.location.search.substring(1)
+    var sPageURL = window.location.search.substring(1)
+    var sURLVariables = sPageURL.split('&')
+    for (var i = 0; i < sURLVariables.length; i++) {
+        var sParameterName = sURLVariables[i].split('=')
+        if (sParameterName[0] == sParam)
+            return sParameterName[1]
+    }
 }

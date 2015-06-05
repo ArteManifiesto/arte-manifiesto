@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+
+<script src="js/vendor/jquery.min.js"></script>
+<script src="js/vendor/promise-7.0.1.min.js"></script>
+<script>
+
+    var promise = new Promise(function(gg,pe){
+
+    });
+    console.log(promise);
+    var gg = function () {
+        return new Promise(function (fulfill, reject) {
+            var a = 1 + 2;
+            if (a == 2)
+                reject('ggpe');
+            if (a === 3)
+                fulfill('yep');
+        });
+    }
+
+    gg.done(function(ll){
+        console.log(ll);
+    })
+</script>
+</body>
+</html>

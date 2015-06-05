@@ -145,6 +145,6 @@ exports.checkEmail = function (req, res, next) {
     if (!req.user)
         return next();
     if (req.user.verified) return next();
-    req.flash('emailMessage', 'Email sin confirmar');
+    req.flash('errorMessage', 'Email sin confirmar');
     next();
 }

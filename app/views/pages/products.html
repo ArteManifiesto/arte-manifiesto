@@ -6,7 +6,7 @@
 	{% set css = 'products' %}
 
 {% block elements %}
-	
+
 	{% include '../partials/section.html' %}
 
 	<script type="text/template" id="template">
@@ -22,6 +22,7 @@
 				<div class="product-title">
 					<div class="title"><%= name %></div>
 				</div>
+
 				<div class="product-info">
 					<div class="price">s./<%= price %></div>
 					<div class="like">
@@ -40,7 +41,7 @@
 {% block scripts %}
 
 	<script type="text/javascript">
-		
+
 		var url = {{ url|json|safe }}
 		console.log('url: ', url)
 
@@ -58,11 +59,11 @@
 	<script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
 	<script type="text/javascript" src="/js/vendor/underscore-min.js"></script>
 	<script type="text/javascript" src="/js/vendor/hammer.min.js"></script>
-	
+
 	<script type="text/javascript" src="/js/lib/search.js"></script>
 	<script type="text/javascript" src="/js/lib/section.js"></script>
 	<script type="text/javascript" src="/js/lib/product.js"></script>
-	
+
 	<script type="text/javascript" src="/js/products.js"></script>
 
 {% endblock %}

@@ -115,7 +115,7 @@ module.exports = function (sequelize, DataTypes) {
                     collection.url = options.user.url + '/collection/' + collection.nameSlugify;
                     if (collection.needGenerate) {
                         collection.baseDescription = collection.description =
-                            'Coleccion creada por ' + options.user.fullname;
+                            'Coleccion creada por ' + options.user.fullname + ' ';
                     }
 
                     return collection.save();

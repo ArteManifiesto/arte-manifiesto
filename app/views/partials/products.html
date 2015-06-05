@@ -19,6 +19,7 @@
 	{% for product in products %}
 		<div class="product-wrapper">
 			<article class="product">
+
 				<div class="product-image">
 					<img src="{{ product.photo }}">
 					<div class="cover">
@@ -26,19 +27,23 @@
 						<i class="fa fa-th-list"></i>
 					</div>
 				</div>
+
 				<div class="product-title">
 					<div class="title">{{product.name}}</div>
 				</div>
 				<div class="product-info">
 					<div class="price">s./{{product.price}}</div>
+
 					<div class="users">
 						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg">
 						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg">
 						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg">
 					</div>
+
 					<div class="like">
 						<span class="button-like {% if product.liked %}active{% endif %}"> <i class="fa fa-heart"></i><i class="fa fa-heart-o"></i> <span>{{product.likes}}</span> </span>
 					</div>
+
 					<div class="wish-list">
 						<span class="button-wish-list"> <i class="fa fa-square-o"></i></span>
 					</div>

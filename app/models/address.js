@@ -13,7 +13,14 @@ module.exports = function (sequelize, DataTypes) {
                 associate: function (models) {
                     Address.belongsTo(models.User, {onDelete: 'cascade'});
                 }
+            },
+            hooks: {
+                beforeFind: function (options, fn) {
+                    console.log('before find');
+                    fn(null, options);
+                }
             }
+
         }
     );
     return Address;

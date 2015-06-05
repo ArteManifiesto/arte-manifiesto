@@ -95,7 +95,6 @@ module.exports = function (sequelize, DataTypes) {
                     ]
                     return global.db.Sequelize.Promise.all(promises).then(function (result) {
                         var likes = result[0], followings = result[1];
-
                         var likesId = _.pluck(likes, 'id');
                         var followingsId = _.pluck(followings, 'id');
                         var intersection = _.intersection(likesId, followingsId);

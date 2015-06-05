@@ -246,7 +246,7 @@ module.exports = function (sequelize, DataTypes) {
                             })
                         ];
                         var i;
-                        for (i = 0; i < 10; i++) {
+                        for (i = 0; i < 3; i++) {
                             promises.push(global.db.Work.create({
                                 name: chance.name(),
                                 description: chance.paragraph(),
