@@ -76,10 +76,12 @@
 				<div class="work-data__input">
 					<p class="title">Title</p>
 					<input class="input" name="title" placeholder="Titulo, de 4 a 8 palabras es bueno" type="text">
+					<p class="error-title">error-title</p>
 				</div>
 				<div class="work-data__input">
 					<p class="title">Descripcion</p>
 					<textarea name="description" class="input description" style="resize:none" placeholder="Descipcion, hagalo en 140 caracteres"></textarea>
+					<p class="error-description">error-description</p>
 				</div>
 				<div class="work-data__input">
 					<p class="title">Categorias</p>
@@ -90,10 +92,12 @@
 						</li>
 						{% endfor %}
 					</ul>
+					<p class="error-categorys">error-categorys</p>
 				</div>
 				<div class="work-data__input">
 					<p class="title">Tags</p>
 					<textarea name="tags" class="input" style="resize:none" placeholder="Tags, separados por comas"></textarea>
+					<p class="error-tags">error-tags</p>
 				</div>
 				<div class="work-data__input">
 					<p class="title">Publico?</p>
@@ -101,6 +105,7 @@
 						<input type="radio" name="public" value="true" id="radio1"><label for="radio1">Yes</label>
 						<input type="radio" name="public" value="false" id="radio2"><label for="radio2">No</label>
 					</ul>
+					<p class="error-public">error-public</p>
 				</div>
 			</form>
 		</div>
