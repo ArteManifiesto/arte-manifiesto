@@ -51,7 +51,7 @@ app.set('port', process.env.PORT || config.port);
 global.db = db;
 
 var dev = !(process.env.NODE_ENV == 'production');
-dev = true;
+dev = false;
 global.db.sequelize.sync({force: dev}).then(function () {
     if (dev) {
         var Chance = require('chance');
@@ -320,7 +320,11 @@ global.db.sequelize.sync({force: dev}).then(function () {
                                             juliocanares.addProducts(jproducts).then(function () {
                                                 jcollection.addProducts(jproducts).then(function () {
                                                     artJam.addProducts(products).then(function () {
-                                                        collection.addProducts(products);
+                                                        collection.addProducts(products).then(function () {
+                                                            var server = app.listen(app.get('port'), function () {
+                                                                console.log('Express server listening  on http://127.0.0.1:' + server.address().port);
+                                                            });
+                                                        });
                                                     });
                                                 });
                                             });
@@ -334,10 +338,11 @@ global.db.sequelize.sync({force: dev}).then(function () {
                 })
             });
         });
+    } else {
+        var server = app.listen(app.get('port'), function () {
+            console.log('Express server listening  on http://127.0.0.1:' + server.address().port);
+        });
     }
-    var server = app.listen(app.get('port'), function () {
-        console.log('Express server listening on port', server.address().port);
-    });
 });
 
 exports = module.exports = app;

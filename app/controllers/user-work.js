@@ -5,17 +5,20 @@ exports.index = function (req, res) {
 };
 
 exports.add = function (req, res) {
-    global.db.Category.isSelected(req.user).then(function (data) {
-        return res.json(data);
-    });
+    /* global.db.Category.isSelected(req.user).then(function (data) {
+     return res.json(data);
+     });*/
 
-    /*global.db.Sequelize.Promise.all([
-     global.db.Category.findAll(),
-     req.user.getSpecialties({attributes: ['id']})
-     ]).then(function (result) {
-     var categories = result[0], specialties = result[1];
-
-     })*/
+    global.db.Sequelize.Promise.all([
+        global.db.Category.findAll(),
+        req.user.getSpecialties({attributes: ['id']})
+    ]).then(function (result) {
+        var categories = result[0], specialties = result[1];
+        return res.render(basePath + 'add', {
+            categories: categories,
+            specialties: specialties
+        });
+    })
 };
 
 /**

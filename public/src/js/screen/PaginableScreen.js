@@ -6,7 +6,9 @@ var APP = APP || {};
 
 APP.PaginableScreen = function (type) {
     this.type = type || 'numbers';
+
     this.url = '';
+
     this.container;
     this.currentPage = 0;
     this.totalPages = 0;
@@ -33,7 +35,7 @@ APP.PaginableScreen.prototype.gotoPage = function (next) {
         scope.currentPage = data.pagination.page;
         scope.totalPages = data.pagination.pages;
 
-        if(scope.currentPage > data.pagination.pages)return;
+        if (scope.currentPage > data.pagination.pages)return;
 
         scope.data[scope.currentPage] = data;
         scope.currentPageData = data;
@@ -52,7 +54,9 @@ APP.PaginableScreen.prototype.makeButtons = function () {
     var i, number, pNumber, content = $('<div>', {class: 'content'});
     for (i = 0; i < numbers.length; i++) {
         number = numbers[i];
-        pNumber = $('<a>').text(number);
+        pNumber = $('<a>', {
+            href: this.url.replace('page-' + this.currentPage, 'page-' + number)
+        }).text(number);
         pNumber.css('padding', '10px');
         if (number === this.currentPage)
             pNumber.css('color', '#ff0000');
