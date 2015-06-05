@@ -9,7 +9,7 @@ APP.WorksScreen = function () {
     this.container = $('.works')
     this.rawContainer = this.container[0];
 
-    this.url = DataApp.searchWorks;
+        this.url = DataApp.searchWorks;
 };
 
 APP.WorksScreen.prototype = Object.create(APP.PaginableScreen.prototype);

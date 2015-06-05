@@ -32,10 +32,13 @@ APP.PaginableScreen.prototype.gotoPage = function (next) {
         console.log(data);
         scope.currentPage = data.pagination.page;
         scope.totalPages = data.pagination.pages;
+
+        if(scope.currentPage > data.pagination.pages)return;
+
         scope.data[scope.currentPage] = data;
         scope.currentPageData = data;
-        scope.build();
 
+        scope.build();
         scope.makeButtons();
     });
 }
@@ -70,10 +73,9 @@ APP.PaginableScreen.prototype.generateNumbers = function () {
         return result;
     }
 
-    if (this.currentPage <= middle && this.currentPage > 0) {
+    if (this.currentPage <= middle && this.currentPage > 0)
         for (i = 2; i < this.maxButtons; i++)
             result.push(i);
-    }
 
     var maxLimit = (this.totalPages - middle);
 
