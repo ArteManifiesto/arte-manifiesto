@@ -1,32 +1,63 @@
 {% extends '../../partials/base.html' %}
 
-{% set path = 'index' %}
-{% set title = 'Arte Manifiesto' %}
-{% set css = 'index' %}
+{% set path = 'account' %}
+{% set title = 'Arte Manifiesto | Account' %}
+{% set css = 'account' %}
 
 {% block elements %}
 <form action="">
-    <input type="text" placeholder="username"/><br/>
-    <input type="text" placeholder="nombres"/><br/>
-    <input type="text" placeholder="apellidos"/><br/>
-    <input type="text" placeholder="email"/><br/>
-    <input type="text" placeholder="genero"/><br/>
-    <input type="text" placeholder="biografia"/><br/>
-    <input type="text" placeholder="pais"/><br/>
-    <input type="text" placeholder="ciudad"/><br/>
-    <input type="text" placeholder="cumpleaños"/><br/>
-    <input type="text" placeholder="intereses"/><br/>
+    <div class="input-container">
+        <label>username</label>
+        <input class="input" type="text" placeholder="username"/>
+    </div>
+    <div class="input-container">
+        <label>nombres</label>
+        <input class="input" type="text" placeholder="nombres"/>
+    </div>
+    <div class="input-container">
+        <label>apellidos</label>
+        <input class="input" type="text" placeholder="apellidos"/>
+    </div>
+    <div class="input-container">
+        <label>email</label>
+        <input class="input" type="text" placeholder="email"/>
+    </div>
+    <div class="input-container">
+        <label>genero</label>
+        <input class="input" type="text" placeholder="genero"/>
+    </div>
+    <div class="input-container">
+        <label>biografia</label>
+        <input class="input" type="text" placeholder="biografia"/>
+    </div>
+    <div class="input-container">
+        <label>pais</label>
+        <input class="input" type="text" placeholder="pais"/>
+    </div>
+    <div class="input-container">
+        <label>ciudad</label>
+        <input class="input" type="text" placeholder="ciudad"/>
+    </div>
+    <div class="input-container">
+        <label>cumpleahos</label>
+        <input class="input" type="text" placeholder="cumpleaños"/>
+    </div>
+    <div class="input-container">
+        <label>especialidades</label>
+        <input class="input" type="text" placeholder="especialidades"/>
+    </div>
+    <div class="input-container">
+        <label>intereses</label>
+        <input class="input" type="text" placeholder="intereses"/>
+    </div>
     {% if user.isArtist %}
-    <input type="text" placeholder="especialidades"/><br/>
-    <input type="text" placeholder="escuela"/><br/>
+    <div class="input-container">
+        <label>escuela</label>
+        <input class="input" type="text" placeholder="escuela"/>
+    </div>
     {% endif %}
 </form>
 
-<form method="post">
-    <input type="password" name="password" placeholder="contraseña"/><br/>
-    <input type="password" name="repassword" placeholder="recontraseña"/><br/>
-    <input type="submit"/>
-</form>
 {% endblock %}
 
 {% block scripts %}
@@ -40,3 +71,9 @@
 </script>
 
 {% endblock %}
+
+<!-- <form method="post">
+    <input type="password" name="password" placeholder="contraseña"/>
+    <input type="password" name="repassword" placeholder="recontraseña"/>
+    <input type="submit"/>
+</form> -->
