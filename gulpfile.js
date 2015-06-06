@@ -42,7 +42,7 @@ gulp.task('develop', function () {
         script: 'app.js',
         env: {
             'NODE_ENV': 'development',
-            'DB_PASSWORD': ''
+            'DB_PASSWORD': '123'
         },
         tasks: ['watch', 'scripts', 'stylus']
     }).on('restart', function () {
