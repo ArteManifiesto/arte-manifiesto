@@ -54,10 +54,12 @@
     "swig": "^1.4.2"
   },
   "devDependencies": {
-    "gulp": "3.8.11",
-    "gulp-concat": "^2.3.3",
-    "gulp-stylus": "^1.3.4",
-    "gulp-uglify": "^0.3.1",
-    "nib": "^1.0.4"
+    "gulp": "*",
+    "gulp-concat": "*",
+    "gulp-strip-debug": "^1.0.2",
+    "gulp-stylus": "*",
+    "gulp-uglify": "*",
+    "nib": "*",
+    "open": "0.0.5"
   }
 }

@@ -2,8 +2,12 @@ var basePath = 'user/collection/';
 
 
 exports.index = function (req, res) {
-    req.collection.getProducts({build: true, viewer: req.viewer}).then(function (products) {
-        return res.json({collection: req.collection, products: products});
+    var query = {build: true, viewer: req.viewer};
+    req.collection.getProducts(query).then(function (products) {
+        return res.json({
+            collection: req.collection,
+            products: products
+        });
     });
 }
 

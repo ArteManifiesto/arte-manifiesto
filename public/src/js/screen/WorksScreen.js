@@ -5,10 +5,7 @@
 var APP = APP || {};
 
 APP.WorksScreen = function () {
-    APP.PaginableScreen.call(this, 'numbers');
-
-    this.container = $('.works')
-    this.rawContainer = this.container[0];
+    APP.PaginableScreen.call(this, 'works', APP.PaginableScreen.NAVIGATION_PAGINATION);
 
     this.url = DataApp.searchWorks;
 };
@@ -18,8 +15,10 @@ APP.WorksScreen.prototype = Object.create(APP.PaginableScreen.prototype);
 APP.WorksScreen.constructor = APP.WorksScreen;
 
 APP.WorksScreen.prototype.build = function () {
-    if (this.type === 'numbers')
-        $('.work').remove();
+    APP.PaginableScreen.prototype.build.call(this);
+
+    if (this.navigation === APP.PaginableScreen.NAVIGATION_PAGINATION)
+        this.clean();
 
     var i, work;
     for (i = 0; i < this.currentPageData.works.length; i++) {
@@ -27,4 +26,8 @@ APP.WorksScreen.prototype.build = function () {
         work = new APP.Work(this.currentPageData.works[i]);
         salvattore.appendElements(this.rawContainer, [work.rawView]);
     }
-}
+};
+
+APP.WorksScreen.prototype.clean = function () {
+    $('.work').remove();
+};

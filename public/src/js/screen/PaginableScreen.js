@@ -4,96 +4,85 @@
  */
 var APP = APP || {};
 
-APP.PaginableScreen = function (type) {
-    this.type = type || 'numbers';
+APP.PaginableScreen = function (id, navigation) {
+    APP.BaseScreen.call(this, id);
 
-    this.url = '';
+    APP.PaginableScreen.NAVIGATION_PAGINATION = 'pagination';
+    APP.PaginableScreen.NAVIGATION_INFINITE = 'infinite';
 
-    this.container;
+    this.navigation = navigation || APP.PaginableScreen.NAVIGATION_PAGINATION;
+
+    this.container = $('.' + this.id);
+    this.rawContainer = this.container[0];
+
+    this.url;
     this.currentPage = 0;
     this.totalPages = 0;
-    this.data = {};
+
     this.maxButtons = 7;
+
+    this.pagesCache = {};
     this.currentPageData;
+
+    this.listeners();
 };
 
 APP.PaginableScreen.prototype = Object.create(APP.BaseScreen.prototype);
 
 APP.PaginableScreen.constructor = APP.PaginableScreen;
 
+APP.PaginableScreen.prototype.listeners = function () {
+    if (this.navigation === APP.PaginableScreen.NAVIGATION_PAGINATION)
+        $(document).on('click', '.page-button', this.pagesHandler.bind(this));
+};
+
+APP.PaginableScreen.prototype.pagesHandler = function (event) {
+    event.preventDefault();
+    var buttonPage = $(event.currentTarget).attr('id');
+    this.gotoPage(buttonPage);
+};
+
 APP.PaginableScreen.prototype.gotoPage = function (next) {
-    var scope = this;
-    var nextPage = next || scope.currentPage + 1;
+    var nextPage = next || this.currentPage + 1;
 
     if (this.currentPage === nextPage)return;
     if (this.currentPage === 0)this.currentPage = 1;
 
-    scope.url = scope.url.replace('page-' + scope.currentPage, 'page-' + nextPage);
+    this.url = this.getUrlOfNewPage(nextPage);
 
-    return $.post(scope.url).then(function (data) {
-        console.log(data);
-        scope.currentPage = data.pagination.page;
-        scope.totalPages = data.pagination.pages;
+    if (this.pagesCache[nextPage])
+        return this.afterGetData(this.pagesCache[nextPage]);
 
-        if (scope.currentPage > data.pagination.pages)return;
+    this.getData({url: this.url}).done(this.afterGetData.bind(this));
+};
 
-        scope.data[scope.currentPage] = data;
-        scope.currentPageData = data;
+APP.PaginableScreen.prototype.afterGetData = function (response) {
+    this.currentPage = response.pagination.page;
+    this.totalPages = response.pagination.pages;
 
-        scope.build();
-        scope.makeButtons();
-    });
+    if (this.currentPage > response.pagination.pages)return;
+
+    this.pagesCache[this.currentPage] = response;
+    this.currentPageData = response;
+
+    this.build();
 }
 
 APP.PaginableScreen.prototype.build = function () {
+    if (this.navigation === APP.PaginableScreen.NAVIGATION_PAGINATION)
+        this.makeButtons();
+};
 
-}
 APP.PaginableScreen.prototype.makeButtons = function () {
-    $('.content').remove();
-    var numbers = this.generateNumbers();
-    var i, number, pNumber, content = $('<div>', {class: 'content'});
-    for (i = 0; i < numbers.length; i++) {
-        number = numbers[i];
-        pNumber = $('<a>', {
-            href: this.url.replace('page-' + this.currentPage, 'page-' + number)
-        }).text(number);
-        pNumber.css('padding', '10px');
-        if (number === this.currentPage)
-            pNumber.css('color', '#ff0000');
-        content.append(pNumber);
-    }
-    this.container.append(content);
-}
+    var numbers = Utils.paginationButtons(this.currentPage, this.totalPages,
+        this.maxButtons);
+    //TODO make buttons view
+};
 
-APP.PaginableScreen.prototype.generateNumbers = function () {
-    var i, result = [1], middle = Math.floor(this.maxButtons / 2);
+APP.PaginableScreen.prototype.getUrlOfNewPage = function (newPage) {
+    return this.url.replace('page-' + this.currentPage, 'page-' + newPage);
+};
 
-    if (this.currentPage > this.totalPages)
-        return null;
+APP.PaginableScreen.prototype.clean = function () {
 
-    if (this.totalPages < this.maxButtons) {
-        for (i = 2; i < this.totalPages + 1; i++)
-            result.push(i);
-        return result;
-    }
-
-    if (this.currentPage <= middle && this.currentPage > 0)
-        for (i = 2; i < this.maxButtons; i++)
-            result.push(i);
-
-    var maxLimit = (this.totalPages - middle);
-
-    if (this.currentPage > middle && this.currentPage < maxLimit) {
-        var steps = ((this.maxButtons - 3) / 2);
-        for (i = this.currentPage - steps; i < this.currentPage + steps + 1; i++)
-            result.push(i);
-    }
-
-    if (this.currentPage >= maxLimit && this.currentPage <= this.totalPages) {
-        for (i = (this.totalPages - (this.maxButtons - 2) ); i < this.totalPages; i++)
-            result.push(i);
-    }
-
-    result.push(this.totalPages);
-    return result;
-}
+};

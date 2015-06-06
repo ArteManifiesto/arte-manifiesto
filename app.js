@@ -10,6 +10,7 @@ var config = require('./config/config');
 var db = require('./config/sequelize');
 var passport = require('./config/passport');
 var _ = require('lodash');
+var open = require("open");
 
 /**
  * configuration lodash
@@ -321,9 +322,9 @@ global.db.sequelize.sync({force: dev}).then(function () {
                                                 jcollection.addProducts(jproducts).then(function () {
                                                     artJam.addProducts(products).then(function () {
                                                         collection.addProducts(products).then(function () {
-                                                            var server = app.listen(app.get('port'), function () {
-                                                                console.log('Express server listening  on http://127.0.0.1:' + server.address().port);
-                                                            });
+                                                            var url = 'http://127.0.0.1:' + server.address().port
+                                                            console.log('Express server listening  on ' + url);
+                                                            open(url);
                                                         });
                                                     });
                                                 });
@@ -340,7 +341,9 @@ global.db.sequelize.sync({force: dev}).then(function () {
         });
     } else {
         var server = app.listen(app.get('port'), function () {
-            console.log('Express server listening  on http://127.0.0.1:' + server.address().port);
+            var url = 'http://127.0.0.1:' + server.address().port
+            console.log('Express server listening  on ' + url);
+            open(url);
         });
     }
 });
