@@ -515,3 +515,6 @@ body {
   -ms-flex: 1;
   flex: 1;
 }
+.main-wrapper__content.gray {
+  background: #f6f6f6;
+}

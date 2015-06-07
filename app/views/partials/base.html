@@ -24,7 +24,10 @@
 			{% include 'category-menu.html' %}
 
 		</div>
-		<div class="main-wrapper__content {% if path == 'signup' || path == 'login' %} background-container {% endif %}">
+		<div class="main-wrapper__content
+			{% if path == 'signup' || path == 'login' %} background-container {% endif %}
+			{% if path == 'account' || path == 'photo' || path == 'addresses' || path == 'websites' || path == 'password' %} gray {% endif %}
+		">
 			
 			{% include '../partials/flash-message.html' %}
 			

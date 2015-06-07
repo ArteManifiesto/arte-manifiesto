@@ -515,6 +515,9 @@ body {
   -ms-flex: 1;
   flex: 1;
 }
+.main-wrapper__content.gray {
+  background: #f6f6f6;
+}
 .facebook-button {
   color: #fff;
   display: table-cell;
@@ -730,6 +733,7 @@ body {
   -webkit-box-shadow: 0 1px 2px 1px rgba(0,0,0,0.1);
   box-shadow: 0 1px 2px 1px rgba(0,0,0,0.1);
   border: 1px solid #d8dae4;
+  background: #fff;
 }
 .form-container .input-container {
   display: -webkit-box;
@@ -1094,6 +1098,20 @@ body {
   align-items: center;
   padding: 1rem 0.5rem;
 }
+.filter.solid {
+  font-family: 'Roboto Condensed';
+  letter-spacing: 0.5px;
+  background: #fff;
+  font-size: 0.875rem;
+}
+.filter.solid .filter__item {
+  padding: 0.75rem 1rem;
+  color: #666;
+}
+.filter.solid .filter__title {
+  font-weight: 500;
+  padding: 0.75rem 1rem;
+}
 @-moz-keyframes circle {
   0% {
     -webkit-transform: rotate(0);
@@ -1201,6 +1219,9 @@ body {
   display: -ms-flexbox;
   display: box;
   display: flex;
+}
+.account__menu {
+  padding-top: 3.25rem;
 }
 .account__menu .filter {
   margin: 1rem;
