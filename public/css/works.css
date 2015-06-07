@@ -325,7 +325,7 @@ input[type="submit"] {
   padding: 0.5rem;
 }
 .account-menu__item:hover {
-  background: #eee;
+  color: #000;
 }
 .account-menu__item b {
   font-weight: 400;
@@ -1073,6 +1073,8 @@ body {
 .filter__item {
   cursor: pointer;
   padding: 0.5rem 1rem;
+  display: block;
+  color: #444;
 }
 .filter__item.selected {
   background: #ededed;

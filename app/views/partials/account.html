@@ -1,0 +1,232 @@
+<section class="account">
+    <div class="account__menu">
+        <div class="filter">
+            <div class="filter__title">Ajustes de Cuenta</div>
+            <a href="/{{ user.username }}/account" class="filter__item">Perfil</a>
+            <a href="/{{ user.username }}/account/photo" class="filter__item">Foto de Perfil</a>
+            <a href="/{{ user.username }}/account/addresses" class="filter__item">Direcciones de envío</a>
+            <a href="/{{ user.username }}/account/websites" class="filter__item">Websites</a>
+            <a href="/{{ user.username }}/account/password" class="filter__item">Cambiar Password</a>
+        </div>
+    </div>
+    <div class="account__data">
+        
+        {% if path == 'account' %}
+            <section class="section-edit">
+                <div class="section-edit__title">
+                    <p class="section-title-text">Edita tu perfil</p>
+                </div>
+                <div class="section-edit__form">
+                    <form class="form-container" action="">
+                        <div class="input-container">
+                            <label>username</label>
+                            <input class="input" type="text" placeholder="username"/>
+                        </div>
+                        <div class="input-container">
+                            <label>nombres</label>
+                            <input class="input" type="text" placeholder="nombres"/>
+                        </div>
+                        <div class="input-container">
+                            <label>apellidos</label>
+                            <input class="input" type="text" placeholder="apellidos"/>
+                        </div>
+                        <div class="input-container">
+                            <label>email</label>
+                            <input class="input" type="email" placeholder="email"/>
+                        </div>
+                        <div class="input-container">
+                            <label>genero</label>
+                            <!-- <input class="input" type="text" placeholder="genero"/> -->
+                            <select class="input" name="gender">
+                                <option disabled {% if !profile.gender %}selected{% endif %}>Género</option>
+                                <option value="Male" {% if profile.gender === 'male' %}selected{% endif %}>Masculino</option>
+                                <option value="Female" {% if profile.gender === 'female' %}selected{% endif %}>Femenino</option>
+                            </select>
+                        </div>
+                        <div class="input-container">
+                            <label>biografia</label>
+                            <textarea class="input textarea" placeholder="biografia"></textarea>
+                            <!-- <input class="input" type="text" placeholder="biografia"/> -->
+                        </div>
+                        <div class="input-container">
+                            <label>pais</label>
+                            <input class="input" type="text" placeholder="pais"/>
+                        </div>
+                        <div class="input-container">
+                            <label>ciudad</label>
+                            <input class="input" type="text" placeholder="ciudad"/>
+                        </div>
+                        <div class="input-container">
+                            <label>cumpleahos</label>
+                            <input class="input" type="date" placeholder="cumpleaños"/>
+                        </div>
+                        <div class="input-container">
+                            <label>especialidades</label>
+                            <input class="input" type="text" placeholder="especialidades"/>
+                        </div>
+                        <div class="input-container">
+                            <label>intereses</label>
+                            <input class="input" type="text" placeholder="intereses"/>
+                        </div>
+                        {% if user.isArtist %}
+                        <div class="input-container">
+                            <label>escuela</label>
+                            <input class="input" type="text" placeholder="escuela"/>
+                        </div>
+                        {% endif %}
+
+                        <input class="button-solid" data-size='' data-color='red' data-expand='' value="Guardar Cambios" type="submit">
+
+                    </form>
+                </div>
+            </section>
+        {% elseif path == 'photo' %}
+            <section class="section-edit">
+                <div class="section-edit__title">
+                    <p class="section-title-text">Foto de Perfil</p>
+                </div>
+                <div class="section-edit__form">
+                    <form class="form-container" action="post">
+                        <div class="input-container">
+                            <label>Subir nueva foto</label>
+                            <input type="file"/>
+                        </div>
+                        <div class="input-container">
+                            <!-- <label>repetir contraseña</label> -->
+                            <div class="avatars">
+                                <div class="avatar">
+                                    <div class="input-radio">
+                                        <input type="radio" name="photo" id="photo1"/><label for="photo1">Usar mi propia foto</label>
+                                    </div>
+                                    <img src="http://www.furcontest.com/imagenes/default.png">
+                                </div>
+                                <div class="avatar">
+                                    <div class="input-radio">
+                                        <input type="radio" name="photo" id="photo2"/><label for="photo2">Usar mi foto de facebook</label>
+                                    </div>
+                                    <img src="http://www.furcontest.com/imagenes/default.png">
+                                </div>
+                            </div>
+                        </div>
+                        <input class="button-solid" data-size='' data-color='red' data-expand='' value="Guardar Cambios" type="submit">
+                    </form>
+                </div>
+            </section>
+        {% elseif path == 'addresses' %}
+            <section class="section-edit">
+                <div class="section-edit__title">
+                    <p class="section-title-text">Direciones de envío</p>
+                </div>
+                <div class="section-edit__form">
+                    <div class="shippinges-container">
+                        <div class="shippinges">
+                            <div class="shipping">
+                                <div class="shipping-inner">
+                                    <p class="shipping-title">Hans Evangelista</p>
+                                    <p class="shipping-subtitle">Av, Holi boli crayoli #666</p>
+                                    <span class="shipping-subtitle">Lima</span>
+                                    <span class="shipping-subtitle">Lima</span>
+                                    <span class="shipping-subtitle">Lima 01</span>
+                                    <p class="shipping-subtitle">908552187</p>
+                                    <div class="shipping-buttons">
+                                        <button class="button-solid" data-size='small' data-color='gray' data-expand=''>Delete</button>
+                                        <button class="button-solid" data-size='small' data-color='red' data-expand=''>Edit</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="shipping"></div>
+                            <div class="shipping"></div> -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <form class="form-container" action="">
+                <div class="input-container">
+                    <label>City</label>
+                    <select class="input" name="gender">
+                        <option disabled selected>Country</option>
+                        <option value="Male">Masculino</option>
+                        <option value="Female">Femenino</option>
+                    </select>
+                </div>
+                <div class="input-container">
+                    <label>Name</label>
+                    <input class="input" type="text" placeholder=""/>
+                </div>
+                <div class="input-container">
+                    <label>Address</label>
+                    <input class="input" type="text" placeholder=""/>
+                </div>
+                <div class="input-container">
+                    <label>City</label>
+                    <input class="input" type="text" placeholder=""/>
+                </div>
+                <div class="input-container">
+                    <label>State</label>
+                    <input class="input" type="text" placeholder=""/>
+                </div>
+                <div class="input-container">
+                    <label>Zip code</label>
+                    <input class="input" type="text" placeholder=""/>
+                </div>
+                <input class="button-solid" data-size='' data-color='red' data-expand='' value="Guardar Cambios" type="submit">
+            </form>
+        {% elseif path == 'websites' %}
+            <section class="section-edit">
+                <div class="section-edit__title">
+                    <p class="section-title-text">Otros Sitios</p>
+                </div>
+                <div class="section-edit__form">
+                    <form class="form-container" action="">
+                        <div class="input-container">
+                            <label>Web</label>
+                            <input class="input" type="text" placeholder="web"/>
+                        </div>
+                        <div class="input-container">
+                            <label>Facebook</label>
+                            <input class="input" type="text" placeholder="facebook"/>
+                        </div>
+                        <div class="input-container">
+                            <label>Twitter</label>
+                            <input class="input" type="text" placeholder="twitter"/>
+                        </div>
+                        <div class="input-container">
+                            <label>Instagram</label>
+                            <input class="input" type="text" placeholder="instagram"/>
+                        </div>
+                        <div class="input-container">
+                            <label>Tumblr</label>
+                            <input class="input" type="text" placeholder="tumblr"/>
+                        </div>
+                        <div class="input-container">
+                            <label>Behance</label>
+                            <input class="input" type="text" placeholder="behance"/>
+                        </div>
+                        <input class="button-solid" data-size='' data-color='red' data-expand='' value="Guardar Cambios" type="submit">
+                    </form>
+                </div>
+            </section>
+        {% elseif path == 'password' %}
+            <section class="section-edit">
+                <div class="section-edit__title">
+                    <p class="section-title-text">Cambiar Password</p>
+                </div>
+                <div class="section-edit__form">
+                    <form class="form-container" action="post">
+                        <div class="input-container">
+                            <label>contraseña</label>
+                            <input class="input" type="password" placeholder="contraseña"/>
+                        </div>
+                        <div class="input-container">
+                            <label>repetir contraseña</label>
+                            <input class="input" type="password" placeholder="repetir contraseña"/>
+                        </div>
+                        <input class="button-solid" data-size='' data-color='red' data-expand='' value="Guardar Cambios" type="submit">
+                    </form>
+                </div>
+            </section>
+        {% endif %}
+        
+    </div>
+</section>

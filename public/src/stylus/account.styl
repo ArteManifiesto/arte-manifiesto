@@ -6,10 +6,25 @@
 @import 'elements/buttons.styl'
 @import 'elements/inputs.styl'
 
+@import 'objects/section.styl'
+
 .section-edit
-	max-width max-width
-	margin auto
 	&__title
 		margin 1rem
 	&__form
 		margin 1rem
+		
+
+.account
+	max-width max-width
+	margin auto
+	display flex
+	&__menu
+		// padding-top 4.15rem
+		// padding-left 1rem
+		.filter
+			margin 1rem
+			border solid 1px #ddd
+			width auto
+	&__data
+		flex 1
