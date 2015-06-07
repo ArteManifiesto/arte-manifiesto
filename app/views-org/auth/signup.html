@@ -1,0 +1,126 @@
+{% extends '../partials/base.html' %}
+	{% set path = 'login' %}
+	{% set title = 'Arte Manifiesto | Login' %}
+	{% set css = 'market' %}
+
+{% block content %}
+
+    {% include '../partials/category-menu.html' %}
+
+
+    <!-- ********************************************************************
+        $ LOGIN
+    ********************************************************************* -->
+
+
+    <section class="login-cover" style="min-height: 600px;">
+        <div class="login-box js-loginBox">
+            <header class="login-box__header">
+                <div class="skinny-menu">
+                    <a  class="skinny-menu__item js-signInFormButton">Ingresar</a>
+                    <a  class="skinny-menu__item js-signUpFormButton">Registrarme</a>
+                </div>
+            </header>
+            <form class="login-box__form js-signUpForm">
+                {#<a href="#" class="facebook-button" data-expand='true'>
+                    <i class="fa fa-facebook-official"></i>&nbsp; Registrarme con Facebook
+                </a>
+                #}
+                <div class="separator-text">
+                    <span class="line"></span>
+                    <span class="text">Con email</span>
+                    <span class="line"></span>
+                </div>
+                <input class="input" data-size='large' name="username" placeholder="Nombre de usuario" type="text">
+                <input class="input" data-size='large' name="email" placeholder="Email" type="email" value="{{profile.email}}">
+                <input class="input" data-size='large' name="password" placeholder="Contraseña" type="password">
+                <input class="input" data-size='large' name="firstname" placeholder="Nombres" type="text" value="{{profile.first_name + ' ' + profile.middle_name}}">
+                <input class="input" data-size='large' name="lastname" placeholder="Apellidos" type="text" value="{{profile.last_name}}">
+                <select class="input" name="gender">
+                    <option selected disabled>Género</option>
+                    <option value="male">Masculino</option>
+                    <option value="female">Femenino</option>
+                    {% if profile.gender === 'male' %}
+                    <option selected value="male">Masculino</option>
+                    <option value="female">Femenino</option>
+                    {% endif %}
+                    {% if profile.gender === 'female' %}
+                    <option value="male">Masculino</option>
+                    <option selected value="female">Femenino</option>
+                    {% endif %}
+                </select>
+                {% autoescape false %}{{ recaptcha }}{% endautoescape %}
+
+                <div class="question">
+                    <input name="question" type="checkbox" id="question">
+                    <label for="question" class="medium-text">¿Eres Artista profesional?</label>
+                </div>
+                <input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Registrarme"
+                       type="submit">
+{#
+                <p class="high-text note" data-size="small">Al registrarte estas aceptando los <strong>terminos y
+                        condiciones</strong> de Arte Manifiesto</p>#}
+            </form>
+            <form class="login-box__form js-signInForm">
+                {#<a href="#" class="facebook-button" data-expand='true'>
+                    <i class="fa fa-facebook-official"></i>&nbsp; Ingresar con Facebook
+                </a>
+#}
+                <div class="separator-text">
+                    <span class="line"></span>
+                    <span class="text">Con email</span>
+                    <span class="line"></span>
+                </div>
+                <input class="input" data-size='large' name="email" placeholder="Email" type="text">
+                <input class="input" data-size='large' name="password" placeholder="Contraseña" type="password">
+                <input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Ingresar"
+                       type="submit">
+
+                <p class="high-text note js-rememberFormButton" data-size="small">Recordar contraseña</p>
+            </form>
+            <form class="login-box__form js-rememberForm">
+                <div class="separator-text">
+                    <span class="line"></span>
+                    <span class="text">Recordar contraseña</span>
+                    <span class="line"></span>
+                </div>
+                <input class="input" data-size='large' name="email" placeholder="Email" type="text">
+                <input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Recordar"
+                       type="submit">
+
+                <p class="high-text note js-rememberBackButton" data-size="small">Ingresar</p>
+            </form>
+        </div>
+    </section>
+
+    {% include '../partials/footer.html' %}
+
+    <script src="/js/vendor/jquery.min.js"></script>
+
+    <script src="/js/lib/login.js"></script>
+
+    <script>
+        window.login = new Login({
+            mode: 'signup',
+            modalClass: 'js-modal',
+            loginBoxClass: 'js-loginBox',
+            signUpButtonClass: 'js-signUpButton',
+            signInButtonClass: 'js-signInButton',
+            signUpFormButtonClass: 'js-signUpFormButton',
+            signInFormButtonClass: 'js-signInFormButton',
+            rememberFormButtonClass: 'js-rememberFormButton',
+            rememberBackButtonClass: 'js-rememberBackButton',
+            signUpFormClass: 'js-signUpForm',
+            signInFormClass: 'js-signInForm',
+            rememberFormClass: 'js-rememberForm',
+            loginClosedClass: 'js-loginClosed'
+        })
+    </script>
+
+<script>
+    $(function () {
+        var profile = {{profile|json|safe}};
+    });
+</script>
+
+{% endblock %}

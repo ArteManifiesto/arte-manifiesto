@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+</head>
+<body>
+{{ successMessage }}
+{{ errorMessage }}
+<h1>Dashboard</h1>
+{% if user %}
+{% if !user.verified %}
+    <h3>sin verificar  ,revisa tu correo</h3>
+{% endif %}
+    <span>{{ user.firstname }}</span>
+    <br/>
+    <a href="/user/{{ user.username }}">go to profile</a>
+    <br/>
+    <a href="/users/specialty/all/page-1?order=popularity">go to users</a>
+    <br/>
+    <a href="/works/category/all/page-1?order=popularity">go to works</a>
+    <br/>
+    <a href="/user/{{ user.username }}/work/create">upload new work</a>
+{% endif %}
+
+</body>
+</html>

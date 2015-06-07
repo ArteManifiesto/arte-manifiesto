@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<form action="/{{user.username}}/account/updateWebsites">
+    <div>
+        web :
+        <input name="web" type="text"/>
+    </div>
+    <div>
+        facebook :
+        <input name="facebook" type="text"/>
+    </div>
+    <div>
+        twitter :
+        <input name="twitter" type="text"/>
+    </div>
+    <div>
+        instagram :
+        <input name="instagram" type="text"/>
+    </div>
+    <div>
+        tumblr :
+        <input name="tumblr" type="text"/>
+    </div>
+    <div>
+        behance :
+        <input name="behance" type="text"/>
+    </div>
+    <input type="submit"/>
+</form>
+
+<script src='/js/vendor/jquery.min.js'></script>
+<script>
+    $(function () {
+        var websites = {{websites|json|safe}};
+        var i, website;
+        for (i = 0; i < websites.length; i++) {
+            website = websites[i];
+            $("input[name='" + website.name + "']").val(website.url);
+        }
+    })
+</script>
+</body>
+</html>

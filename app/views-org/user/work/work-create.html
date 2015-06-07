@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Add work</title>
+
+    <style>
+        #direct_upload_jquery {
+            width: 1000px;
+            height: 600px;
+            background: darkgray;
+        }
+    </style>
+</head>
+<body>
+
+<div id="direct_upload_jquery">
+    <form>
+        <input type="file" name="file" class="cloudinary_fileupload"/>
+    </form>
+    <div class="preview"></div>
+</div>
+
+<script src='/js/vendor/jquery.min.js'></script>
+<script src='/js/vendor/jquery.ui.widget.js'></script>
+<script src='/js/vendor/jquery.iframe-transport.js'></script>
+<script src='/js/vendor/jquery.fileupload.js'></script>
+<script src='/js/vendor/jquery.cloudinary.js'></script>
+<script src='/js/vendor/jquery.fileupload-image.js'></script>
+<script src='/js/vendor/jquery.fileupload-process.js'></script>
+<script src='/js/vendor/jquery.fileupload-validate.js'></script>
+<script>
+    $(function () {
+        $.cloudinary.config().cloud_name = 'arte-manifiesto';
+        $.cloudinary.config().upload_preset = 'ky9z5ill';
+        var currentPublicID;
+        $(".cloudinary_fileupload").unsigned_cloudinary_upload($.cloudinary.config().upload_preset, {
+        }, {
+            dropZone: "#direct_upload_jquery",
+            start: function (e) {
+                if (currentPublicID) {
+                }
+                console.log('start');
+            },
+            fail: function (e, data) {
+                console.log('fail', e,data);
+            }
+        })
+                .on("cloudinaryprogress", function (e, data) {
+                    console.log('cloudinaryprogress', data);
+                    console.log(Math.round((data.loaded * 100.0) / data.total))
+                })
+                .
+                on("cloudinaryprogressall", function (e, data) {
+                    console.log('cloudinaryprogressall', data);
+                    console.log(Math.round((data.loaded * 100.0) / data.total));
+                })
+                .
+                on("cloudinarydone", function (e, data) {
+                    currentPublicID = data.result.public_id;
+                    $('.preview').html(
+                            $.cloudinary.image(data.result.public_id, {
+                                format: data.result.format, version: data.result.version,
+                                width: 150
+                            })
+                    );
+                    $('.image_public_id').val(data.result.public_id);
+                    return true;
+                });
+    });
+</script>
+</body>
+</html>

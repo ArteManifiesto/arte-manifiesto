@@ -1,0 +1,33 @@
+<article class="user">
+    <a class="user-header" href="<%= url %>">
+        <div class="avatar">
+            <img src="<%= photo %>">
+        </div>
+        <div class="info">
+            <p class="high-text" data-size='small'><%= firstname %></p>
+            <p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
+        </div>
+    </a>
+
+    <div class="user-works">
+        <% _.each(Works, function(work) { %>
+            <a class="work" href="<%= work.url %>" style="background-image: url('<%= work.photo %>');"></a>
+        <% }); %>
+
+        <% _.times(6 - Works.length , function(index) { %>
+            <div class="work" style="background: #ccc; border: 1px solid white;"></div>
+        <% }); %>
+    </div>
+    <div class="user-follow">
+        <% if (following) { %>
+        <button class="button-liner disabled" data-following="true" data-size='small'>
+            <% } else { %>
+            <button class="button-liner" data-following="false" data-size='small'>
+                <% } %>
+                <span class="button-liner__action folllow">Seguir</span>
+                <span class="button-liner__action following"><i class="fa fa-check"></i> Siguiendo</span>
+                <span class="button-liner__action cancel"><i class="fa fa-times-circle"></i> Cancelar</span>
+                <span class="button-liner__number"><%= numOfFollowers %></span>
+            </button>
+    </div>
+</article>

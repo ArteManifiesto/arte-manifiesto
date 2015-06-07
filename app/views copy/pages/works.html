@@ -1,0 +1,313 @@
+{% extends '../partials/base.html' %}
+	{% set path = 'works' %}
+	{% set title = 'Arte Manifiesto | Obras' %}
+	{% set css = 'discover-works' %}
+
+{% block content %}
+
+	{% include '../partials/category-menu.html' %}
+
+
+	<!-- ********************************************************************
+		$ NAVIGATION
+	********************************************************************* -->
+	<section class="navigation">
+		<span class="navigation-text">Obras</span>
+	</section>
+
+
+	<!-- ********************************************************************
+		$ FILTERS MENU
+	********************************************************************* -->
+	<section class="filters-menu">
+		<div class="filters-menu__search">
+			<div class="search">
+				<input type="text" placeholder="Busca Obras, Artistas y Productos">
+				<i class="fa fa-search"></i>
+			</div>
+		</div>
+		<div class="filters-menu__category js-leftFiltersButton">
+			<button class="button-filter js-leftFiltersButton"><i class="fa fa-caret-left"></i> &nbsp Categorías</button>
+		</div>
+		<div class="filters-menu__order js-rightFiltersButton">
+			<button class="button-filter js-rightFiltersButton">Ordenar &nbsp <i class="fa fa-caret-right"></i></button>
+		</div>
+	</section>
+
+
+	<!-- ********************************************************************
+		$ WORKS CONTAINER
+	********************************************************************* -->
+	<div class="works-container">
+		<div class="works-container__filters left js-leftFilters">
+			<div class="filters">
+				<div class="filters__title">Featured</div>
+				<div class="filters__fueatured">
+					<input name="question" type="checkbox" id="question">
+					<label for="question" class="">Recomendadas</label>
+				</div>
+			</div>
+			<div class="filters">
+				<div class="filters__title">Categorías</div>
+				{% for category in categories %}
+					<div class="filter js-category" data-value="{{ category.nameSlugify }}">{{ category.name }}</div>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="works-container__filters right js-rightFilters">
+			<div class="filters">
+				<div class="filters__title">Orden</div>
+				<div class="filter js-order" data-value="popularity">Más popular</div>
+				<div class="filter js-order" data-value="views">Más visto</div>
+				<div class="filter js-order" data-value="newest">Más reciente</div>
+			</div>
+			<div class="filters">
+				<div class="filters__title">Tiempo</div>
+				<div class="filter js-time" data-value="day">Día</div>
+				<div class="filter js-time" data-value="week">Semana</div>
+				<div class="filter js-time" data-value="month">Mes</div>
+				<div class="filter js-time" data-value="year">Año</div>
+			</div>
+		</div>
+		<div class="works-container__works js-works">
+			<!-- ********************************************************************
+				$ WORKS
+			********************************************************************* -->
+			<section class="works" data-columns>
+				{% for work in works %}
+					<article class="work">
+						<img src="{{work.photo}}">
+						
+						<!-- if isUser 
+						{% if work.featured %}
+							<div class="work__featured">
+								<span class="button-featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
+							</div>
+						{% endif %} -->
+
+						<!-- if isAdmin -->
+						<div class="work__featured">
+							{% if work.featured %}
+								<span id="{{ work.id }}" class="button-featured admin unfeatured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
+								<!-- <button id="{{ work.id }}" class="unfeatured">Unfeatured</button> -->
+							{% else %}
+								<span id="{{ work.id }}" class="button-featured admin disabled featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendar </span>
+								<!-- <button id="{{ work.id }}" class="featured">Featured</button> -->
+							{% endif %}
+						</div>
+
+					</article>
+				{% endfor %}
+			</section>
+
+			<div class="loading"><i class="fa fa-spinner"></i></div>
+
+			{% include '../partials/more.html' %}
+		</div>
+	</div>
+
+
+	<!-- ********************************************************************
+		$ SLOGAN
+	********************************************************************* -->
+	<!-- <section class="slogan">
+		<span class="slogan-text">Muestra tu talento artístico!</span>
+		<button class="button-solid js-signUpButton" data-size='large'>Sign Up</button>
+	</section> -->
+
+
+	{% include '../partials/footer.html' %}
+
+
+	<!-- ********************************************************************
+		$ LOGIN
+	********************************************************************* -->
+	<section class="login-modal">
+		<div class="login-box js-loginBox">
+			<header class="login-box__header">			
+				<div class="skinny-menu">
+					<a href="#" class="skinny-menu__item js-signInFormButton">
+						Ingresar
+					</a>
+					<a href="#" class="skinny-menu__item js-signUpFormButton">
+						Registrarme
+					</a>
+				</div>
+			</header>
+			<form class="login-box__form js-signUpForm">
+		 		<a href="#" class="facebook-button" data-expand='true'>
+					<i class="fa fa-facebook-official"></i>&nbsp; Registrarme con Facebook
+				</a>
+				<div class="separator-text">
+					<span class="line"></span>
+					<span class="text">Con email</span>
+					<span class="line"></span>
+				</div>
+				<input class="input" data-size='large' name="username" placeholder="Username" type="text">
+				<input class="input" data-size='large' name="email" placeholder="Email" type="email">
+				<input class="input" data-size='large' name="password" placeholder="Password" type="password">
+				<input class="input" data-size='large' name="first-name" placeholder="First Name" type="text">
+				<input class="input" data-size='large' name="last-name" placeholder="Last Name" type="text">
+				<select class="input" name="gender">
+					<option selected disabled>Género</option>
+					<option value="Male">Masculino</option>
+					<option value="Female">Femenino</option>
+				</select>
+				<div class="question">
+					<input name="question" type="checkbox" id="question">
+					<label for="question" class="medium-text">¿Eres Artista profesional?</label>
+				</div>
+				<input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Registrarme" type="submit">
+				<p class="high-text note" data-size="small">Al registrarte estas aceptando los <strong>terminos y condiciones</strong> de Arte Manifiesto</p>
+			</form>
+			<form class="login-box__form js-signInForm">
+		 		<a href="#" class="facebook-button" data-expand='true'>
+					<i class="fa fa-facebook-official"></i>&nbsp; Ingresar con Facebook
+				</a>
+				<div class="separator-text">
+					<span class="line"></span>
+					<span class="text">Con email</span>
+					<span class="line"></span>
+				</div>
+				<input class="input" data-size='large' name="email" placeholder="Email" type="text">
+				<input class="input" data-size='large' name="password" placeholder="Password" type="password">
+				<input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Ingresar" type="submit">
+				<p class="high-text note js-rememberFormButton" data-size="small">Recordar contraseña</p>
+			</form>
+			<form class="login-box__form js-rememberForm">
+				<div class="separator-text">
+					<span class="line"></span>
+					<span class="text">Recordar contraseña</span>
+					<span class="line"></span>
+				</div>
+				<input class="input" data-size='large' name="email" placeholder="Email" type="text">
+				<input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Recordar" type="submit">
+				<p class="high-text note js-rememberBackButton" data-size="small">Ingresar</p>
+			</form>
+			<div class="login-box__closed js-loginClosed"><i class="fa fa-times"></i></div>
+		</div>
+	</section>
+
+
+	<script type="text/template" id="work-template">
+
+		<article class="work">
+			<img src="<%= photo %>">
+
+			<div class="work__featured">
+				<% if (featured) { %>
+					<span id="<%= id %>" class="button-featured admin unfeatured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendado </span>
+				<% } else { %>
+					<span id="<%= id %>" class="button-featured admin disabled featured" data-size='small'> <i class="fa fa-star"></i>&nbsp;Recomendar </span>
+				<% } %>
+			</div>
+		</article>
+
+	</script>
+
+	<script>
+
+		pagination = {{ pagination|json|safe }};
+		console.log('pagination: ', pagination)
+
+		var user = {{ user|json|safe }};
+		console.log('user: ', user)
+
+		var works = {{ works|json|safe }};
+		console.log('works: ', works)
+
+		// var categories = {{ categories|json|safe }};
+		// // console.log('categories: ', categories)
+
+		var url = {{ url|json|safe }};
+		console.log('url: ', url)
+
+	</script>
+
+	<script src="/js/vendor/jquery.min.js"></script>
+	<script src="/js/vendor/salvattore.js"></script>
+	<script src="/js/vendor/underscore-min.js"></script>
+
+	<script src="/js/lib/login.js"></script>
+	<script src="/js/lib/filters.js"></script>
+	<script src="/js/discover-works.js"></script>
+
+	<script>
+        $(document).on("click", ".featured", function (event) {
+            var scope = $(this);
+            $.ajax({
+                type: "POST",
+                url: "/user/work/featured/",
+                data: {idWork: scope.attr('id')},
+                success: function (data) {
+                    if (data.code == 202) {
+                        // scope.parent().find('.featuredlogo').show();
+                        // scope.text('<i class="fa fa-star"></i>&nbsp;Recomendado');
+                        scope.html('<i class="fa fa-star"></i>&nbsp;Recomendado');
+                        scope.removeClass('featured').addClass('unfeatured').removeClass('disabled');
+                    }
+                    console.log(data);
+                }
+            });
+            return false;
+        });
+        $(document).on("click", ".unfeatured", function (event) {
+            var scope = $(this);
+            $.ajax({
+                type: "POST",
+                url: "/user/work/unfeatured/",
+                data: {idWork: scope.attr('id')},
+                success: function (data) {
+                    if (data.code == 202) {
+                        // scope.parent().find('.featuredlogo').hide();
+                        // scope.text('Featured');
+                        scope.html('<i class="fa fa-star"></i>&nbsp;Recomendar');
+                        scope.removeClass('unfeatured').addClass('featured').addClass('disabled');
+                    }
+                    console.log(data);
+                }
+            });
+            return false;
+        });
+	</script>
+
+{% endblock %}
+
+			<!-- 
+				<a href="#" class="work">
+					<img src="/img/works/obra1.jpg">
+				</a>
+				<a href="#" class="work">
+					<img src="/img/works/obra2.jpg">
+				</a>
+				<a href="#" class="work">
+					<img src="/img/works/obra3.jpg">
+				</a>
+				<a href="#" class="work">
+					<img src="/img/works/obra4.jpg">
+				</a>
+				<a href="#" class="work">
+					<img src="/img/works/obra5.jpg">
+				</a>
+				<a href="#" class="work">
+					<img src="/img/works/obra6.jpg">
+				</a>
+				<a href="#" class="work">
+					<img src="/img/works/obra7.jpg">
+				</a>
+				<a href="#" class="work">
+					<img src="/img/works/obra8.jpg">
+				</a>
+				<a href="#" class="work">
+					<img src="/img/works/obra9.jpg">
+				</a>
+				<a href="#" class="work">
+					<img src="/img/works/obra10.jpg">
+				</a>
+				<a href="#" class="work">
+					<img src="/img/works/obra11.jpg">
+				</a>
+				<a href="#" class="work">
+					<img src="/img/works/obra12.jpg">
+				</a>
+			 -->

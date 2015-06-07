@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>owner</title>
+    <style>
+        .rounded {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+<h1>{{ user.firstname }}</h1>
+
+<h3>following</h3>
+{% if followings.length > 0 %}
+    <ul>
+        {% for following in followings %}
+            <li>{{ following.firstname }}<a href="/user/{{ following.username }}"><img class="rounded"
+                                                                                       src="{{ following.photo }}"
+                                                                                       alt="{{ following.username }}"/></a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <em>no estas siguiendo a nadie </em>
+{% endif %}
+
+
+<h3>followers</h3>
+
+{% if followers.length > 0 %}
+    <ul>
+        {% for follower in followers %}
+            <li>{{ follower.firstname }}<a href="/user/{{ follower.username }}"><img class="rounded"
+                                                                                     src="{{ follower.photo }}"
+                                                                                     alt="{{ follower.username }}"/></a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <em>no tienes ningun seguidor </em>
+{% endif %}
+
+<h1>Portfolio</h1>
+<a href="/user/{{ user.username }}/work/create">create a new work</a>
+
+<h3>likes</h3>
+{% if likes.length > 0 %}
+    <ul>
+        {% for like in likes %}
+            <li>{{ like.name }}</li>
+            <br/>
+            <img class="rounded" src="{{ like.photo }}"><br/>
+        {% endfor %}
+    </ul>
+{% else %}
+    <em>no le has dado like a ninguna obra </em>
+{% endif %}
+<h3>collections</h3>
+<ul>
+    {% for collection in collections %}
+        <li>{{ collection.name }}
+            <ul>
+                {% if collection.Works.length > 0 %}
+                    {% for work in collection.Works %}
+                        <div style="margin: 10px;width: 200px;">
+                            <li>{{ work.name }} <span><strong>
+                                        {% if work.public %}
+                                            private
+                                        {% else %}
+                                            public
+                                        {% endif %}
+                                    </strong></span></li>
+                            <a href="/user/work/{{ work.nameSlugify }}">ir</a>
+                            <img class="rounded" src="{{ work.photo }}"><br/>
+                            <span><strong>tags</strong> </span>
+                            {% for tag in work.Tags %}
+                                <a href="#">{{ tag.name }}</a>
+                            {% endfor %}
+                            <br/>
+                            <span><strong>categories</strong> </span>
+                            {% for category in work.Categories %}
+                                <a href="#">{{ category.name }}</a>
+                            {% endfor %}
+                            <br/>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <em>coleccion sin obras</em>
+                {% endif %}
+            </ul>
+        </li>
+    {% endfor %}
+</ul>
+<h1>Store</h1>
+
+<script src="/js/vendor/jquery.min.js"></script>
+<script>
+    $(function () {
+        var followings = {{ followings|json|safe }};
+        var followers = {{ followers|json|safe }};
+        var likes = {{ likes|json|safe }};
+        console.log(likes);
+        $('.quad').hide();
+        $(document).on("click", ".addToCollection", function (event) {
+            $('.quad').show();
+        });
+
+        $('.addCollection').click(function () {
+            $('.quad').hide();
+        });
+
+        $('.close').click(function () {
+            $('.quad').hide();
+        });
+    });
+</script>
+</body>
+</html>

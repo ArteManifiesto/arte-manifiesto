@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>{{title}}</title>
+	
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+	<link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700|Roboto+Condensed:400,300,700|Raleway:400,100,200,300,500,700,600,800,900|Oswald:400,300,700|Hammersmith+One' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/{{css}}.css">
+	{% block stylesheets %}{% endblock %}
+</head>
+<body>
+
+	<div class="main-wrapper">
+		<div class="main-wrapper__header">
+
+			{% include 'header.html' %}
+		
+			{% include 'category-menu.html' %}
+
+		</div>
+		<div class="main-wrapper__content {% if path == 'signup' || path == 'login' %} background-container {% endif %}">
+			
+			{% include '../partials/flash-message.html' %}
+			
+			{% block elements %} {% endblock %}
+
+		</div>
+		<div class="main-wrapper__footer">
+			
+			{% include 'footer.html' %}
+
+		</div>
+	</div>
+
+	{% block scripts %} {% endblock %}
+
+</body>
+</html>

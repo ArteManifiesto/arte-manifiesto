@@ -1,0 +1,60 @@
+<!-- ********************************************************************
+	$ PRODUCTS
+********************************************************************* -->
+<section class="products">
+
+	<div class="collect">
+		<div class="collect-title">Coleccionar en</div>
+		<ul class="checkbox-list"></ul>
+		<p class="new-text"><i class="fa fa-plus"></i> Agregar nueva</p>
+		<div class="add-wrapp">
+			<i class="fa fa-check-square-o"></i>
+			<input class="input" name="newCollection" placeholder="Agregar nueva" type="text">
+		</div>
+		<button class="button-solid" data-size="small" data-color='red'>
+			<i class="fa fa-spinner"></i> Guardar
+		</button>
+	</div>
+
+	{% for product in products %}
+		<div class="product-wrapper">
+			<article class="product">
+
+				<div class="product-image">
+					<img src="{{ product.photo }}">
+					<div class="cover">
+						<i class="fa fa-heart {% if product.liked %}active{% endif %}"></i>
+						<i class="fa fa-th-list"></i>
+					</div>
+				</div>
+
+				<div class="product-title">
+					<div class="title">{{product.name}}</div>
+				</div>
+				<div class="product-info">
+					<div class="price">s./{{product.price}}</div>
+
+					<div class="users">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg">
+					</div>
+
+					<div class="like">
+						<span class="button-like {% if product.liked %}active{% endif %}"> <i class="fa fa-heart"></i><i class="fa fa-heart-o"></i> <span>{{product.likes}}</span> </span>
+					</div>
+
+					<div class="wish-list">
+						<span class="button-wish-list"> <i class="fa fa-square-o"></i></span>
+					</div>
+				</div>
+			</article>
+		</div>
+	{% endfor %}
+</section>
+
+<script type="text/template" id="item-template">
+	<li class="checkbox-list__item <% if (productInside) { %> active <% } %> ">
+		<i class="fa fa-check-square-o"></i><i class="fa fa-square-o"></i> <span><%= name %></span>
+	</li>
+</script>

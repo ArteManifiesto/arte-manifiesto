@@ -1,0 +1,84 @@
+{% extends '../../partials/base.html' %}
+
+{% set path = 'websites' %}
+{% set title = 'Arte Manifiesto | Websites' %}
+{% set css = 'account' %}
+
+{% block elements %}
+
+<section class="section-edit">
+    <div class="section-edit__title">
+        <p class="section-title-text">Direciones de envío</p>
+    </div>
+    <div class="section-edit__form">
+        <div class="shippinges-container">
+        	<div class="shippinges">
+        		<div class="shipping">
+        			<div class="shipping-inner">
+	        			<p class="shipping-title">Hans Evangelista</p>
+	        			<p class="shipping-subtitle">Av, Holi boli crayoli #666</p>
+	        			<span class="shipping-subtitle">Lima</span>
+	        			<span class="shipping-subtitle">Lima</span>
+	        			<span class="shipping-subtitle">Lima 01</span>
+	        			<p class="shipping-subtitle">908552187</p>
+	        			<div class="shipping-buttons">
+	        				<button class="button-solid" data-size='small' data-color='gray' data-expand=''>Delete</button>
+	        				<button class="button-solid" data-size='small' data-color='red' data-expand=''>Edit</button>
+	        			</div>
+        			</div>
+        		</div>
+        		<!-- <div class="shipping"></div>
+        		<div class="shipping"></div> -->
+        	</div>
+        </div>
+    </div>
+</section>
+
+<form class="form-container" action="">
+	<div class="input-container">
+		<label>City</label>
+		<select class="input" name="gender">
+			<option disabled selected>Country</option>
+			<option value="Male">Masculino</option>
+			<option value="Female">Femenino</option>
+		</select>
+	</div>
+	<div class="input-container">
+		<label>Name</label>
+		<input class="input" type="text" placeholder=""/>
+	</div>
+	<div class="input-container">
+		<label>Address</label>
+		<input class="input" type="text" placeholder=""/>
+	</div>
+	<div class="input-container">
+		<label>City</label>
+		<input class="input" type="text" placeholder=""/>
+	</div>
+	<div class="input-container">
+		<label>State</label>
+		<input class="input" type="text" placeholder=""/>
+	</div>
+	<div class="input-container">
+		<label>Zip code</label>
+		<input class="input" type="text" placeholder=""/>
+	</div>
+	<input class="button-solid" data-size='' data-color='red' data-expand='' value="Guardar Cambios" type="submit">
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script type="text/javascript">
+    // var successMessage = {{ successMessage|json|safe }}
+    // console.log('successMessage: ', successMessage)
+
+    // var errorMessage = {{ errorMessage|json|safe }}
+    // console.log('errorMessage: ', errorMessage)
+    
+    var user = {{ user|json|safe }}
+    console.log('user: ', user)
+</script>
+
+{% endblock %}

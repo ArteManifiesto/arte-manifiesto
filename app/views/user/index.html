@@ -1,0 +1,175 @@
+{% extends '../partials/base.html' %}
+	
+	{% set path = 'profile' %}
+	{% set title = 'Arte Manifiesto | profile' %}
+	{% set css = 'profile' %}
+
+{% block elements %}
+	
+	{% include '../partials/profile.html' %}
+
+{% endblock %}
+
+{% block scripts %}
+	
+	<script type="text/template" id="work-template">
+		<article class="work">
+			<img src="<%= photo %>">
+			<div class="cover">
+				<% if (liked) { %>
+					<div class="social-item active">
+						<i class="fa fa-heart"></i>
+					</div>
+				<% } else { %>
+					<div class="social-item">
+						<i class="fa fa-heart"></i>
+					</div>
+				<% } %>
+			</div>
+		</article>
+	</script>
+
+	<script type="text/template" id="product-template">
+		<div class="product-wrapper">
+			<article class="product">
+				<div class="product-image">
+					<img src="<%= photo %>">
+					<div class="cover">
+						<i class="fa fa-heart <% if (liked) { %>active<% } %>"></i>
+						<i class="fa fa-th-list"></i>
+					</div>
+				</div>
+				<div class="product-title">
+					<div class="title"><%= name %></div>
+				</div>
+				<div class="product-info">
+					<div class="price">s./<%= price %></div>
+					<div class="like">
+						<span class="button-like <% if (liked) { %>active<% } %>"> <i class="fa fa-heart"></i><i class="fa fa-heart-o"></i> <span><%= likes %></span> </span>
+					</div>
+					<div class="wish-list">
+						<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
+					</div>
+				</div>
+			</article>
+		</div>
+	</script>
+
+	<script type="text/template" id="user-template">
+	    <div class="user-wrapper">
+	        <article class="user">
+	            <a class="user-header" href="<%= url %>">
+	                <div class="avatar">
+	                    <% if (photo) { %>
+	                        <img src="<%= photo %>">
+	                    <% } else { %>
+	                        <img src="http://www.furcontest.com/imagenes/default.png">
+	                    <% } %>
+	                </div>
+	                <div class="info">
+	                    <p class="high-text" data-size='small'><%= firstname %></p>
+	                    <p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
+	                </div>
+	            </a>
+	            <div class="user-works">
+	                <% _.each(Works, function(work) { %>
+	                	<a class="work" href="<%= work.url %>" style="background-image: url('<%= work.photo %>');"></a>
+	                <% }); %>
+
+	                <% if (Works.length < 6) { %>
+	                <div class="work" style="background: #ccc; border: 1px solid white;"></div>
+	                <% } %>
+	                <% if (Works.length < 5) { %>
+	                <div class="work" style="background: #ccc; border: 1px solid white;"></div>
+	                <% } %>
+	                <% if (Works.length < 4) { %>
+	                <div class="work" style="background: #ccc; border: 1px solid white;"></div>
+	                <% } %>
+	                <% if (Works.length < 3) { %>
+	                <div class="work" style="background: #ccc; border: 1px solid white;"></div>
+	                <% } %>
+	                <% if (Works.length < 2) { %>
+	                <div class="work" style="background: #ccc; border: 1px solid white;"></div>
+	                <% } %>
+	                <% if (Works.length < 1) { %>
+	                <div class="work" style="background: #ccc; border: 1px solid white;"></div>
+	                <% } %>
+	            </div>
+	            <div class="user-follow">
+	                <% if (following) { %>
+	                <button class="button-liner disabled" data-following="true" data-size='small'>
+	                    <% } else { %>
+	                    <button class="button-liner" data-following="false" data-size='small'>
+	                        <% } %>
+	                        <span class="button-liner__action folllow">Seguir</span>
+	                        <span class="button-liner__action following"><i class="fa fa-check"></i> Siguiendo</span>
+	                        <span class="button-liner__action cancel"><i class="fa fa-times-circle"></i> Cancelar</span>
+	                        <span class="button-liner__number"><%= numOfFollowers %></span>
+	                    </button>
+	            </div>
+	        </article>
+	    </div>
+	</script>
+
+	<script type="text/template" id="collection-template">
+		<div class="collection-wrapper">
+			<div class="collection">
+				<a class="collection__images" href="<%= url %>">
+					<div class="imageColumn">
+						<% if (products[0] && products[0].photo) { %>
+							<div class="image-container" style="height: 100%; background-image: url('<%= products[0].photo %>')"></div>
+						<% } else { %>
+	            <div class="image-container" style="height: 100%; background: #ccc; border: 1px solid white;"></div>
+						<% } %>
+					</div>
+					<div class="imageColumn">
+						<% if (products[1] && products[1].photo) { %>
+							<div class="image-container" style="height: 50%; background-image: url('<%= products[1].photo %>')"></div>
+						<% } else { %>
+	            <div class="image-container" style="height: 50%; background: #ccc; border: 1px solid white;"></div>
+						<% } %>
+						<% if (products[2] && products[2].photo) { %>
+							<div class="image-container" style="height: 50%; background-image: url('<%= products[2].photo %>')"></div>
+						<% } else { %>
+	            <div class="image-container" style="height: 50%; background: #ccc; border: 1px solid white;"></div>
+						<% } %>
+					</div>
+				</a>
+				<div class="collection__products"><%= numOfProducts %> Productos</div>
+				<div class="collection__name"><%= name %></div>
+				<a class="collection__user" href="#">De <span><%= User.username %></span></a>
+				<div class="collection__description"><%= description %></div>
+			</div>
+		</div>	
+	</script>
+
+	<script>
+
+		var data = {{ data|json|safe }};
+		console.log('data: ', data);
+
+		var currentPath = {{ currentPath|json|safe }};
+		console.log('currentPath: ', currentPath);
+
+		var owner = {{ owner|json|safe }};
+		console.log('owner: ', owner);
+
+		var profile = {{ profile|json|safe }};
+		console.log('profile: ', profile);
+
+		var user = {{ user|json|safe }};
+		console.log('user: ', user);
+
+	</script>
+
+	<script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/vendor/underscore-min.js"></script>
+	<script type="text/javascript" src="/js/vendor/salvattore.js"></script>
+	
+	<script type="text/javascript" src="/js/lib/user.js"></script>
+	<script type="text/javascript" src="/js/lib/product.js"></script>
+	<script type="text/javascript" src="/js/lib/work.js"></script>
+	
+	<script type="text/javascript" src="/js/profile.js"></script>
+
+{% endblock %}

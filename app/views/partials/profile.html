@@ -1,0 +1,85 @@
+<!-- ********************************************************************
+	$ PROFILE
+********************************************************************* -->
+{% set profile = profile.toJSON() %}
+
+<section class="profile">
+	<div class="profile__information">
+		<div class="profile__avatar">
+			{% if profile.photo %}
+				<img src="{{ profile.photo }}">
+			{% else %}
+				<img src="http://www.furcontest.com/imagenes/default.png">
+			{% endif %}
+		</div>
+		<div class="profile__data">
+			<p class="profile-text">{{ profile.firstname }} {{ profile.lastname }}</p>
+			<div class="profile__info">
+				<p class="skinny-text" data-color='light'><i class="fa fa-map-marker"></i> Lima</p>
+				{% if profile.following %}
+					<button class="button-liner disabled js-followButton" data-size="small" data-following="true" data-userId="{{ profile.id }}">
+				{% else %}
+					<button class="button-liner js-followButton" data-size="small" data-following="false" data-userId="{{ profile.id }}">
+				{% endif %}
+						<span class="button-liner__action folllow">Seguir</span>
+						<span class="button-liner__action following"><i class="fa fa-check"></i> Siguiendo</span>
+						<span class="button-liner__action cancel"><i class="fa fa-times-circle"></i> Cancelar</span>
+						<span class="button-liner__number">{{ profile.numOfFollowers }}</span>
+					</button>
+			</div>
+		</div>
+	</div>
+	<div class="profile__menu">
+		<div class="square-menu-container">
+			<div class="square-menu">
+				<div class="square-menu__item">Portafolio {{data[0]}}</div>
+				<div class="square-menu__item">Tienda {{data[1]}}</div>
+				<div class="square-menu__item">Obras favoritas {{data[2]}}</div>
+				<div class="square-menu__item">Productos favoritos {{data[3]}}</div>
+				<div class="square-menu__item">Colecciones {{data[4]}}</div>
+				<div class="square-menu__item">Seguidores {{data[5]}}</div>
+				<div class="square-menu__item">Siguiendo {{data[6]}}</div>
+			</div>
+		</div>
+	</div>
+	<div class="profile__elements">
+		<div class="profile__element">
+			<section class="works" data-columns></section>
+			<div class="loading"><i class="fa fa-spinner"></i></div>
+			<div class="empty">No tiene obras</div>
+		</div>
+		<div class="profile__element">
+			<section class="products"></section>
+			<div class="loading"><i class="fa fa-spinner"></i></div>
+			<div class="empty">No tine productos</div>
+		</div>
+		<div class="profile__element">
+			<section class="works" data-columns></section>
+			<div class="loading"><i class="fa fa-spinner"></i></div>
+			<div class="empty">No tine obras favoritas</div>
+		</div>
+		<div class="profile__element">
+			{% include '../partials/products.html' %}
+			<div class="loading"><i class="fa fa-spinner"></i></div>
+			<div class="empty">No tiene productos favoritos</div>
+		</div>
+		<div class="profile__element">
+			<section class="collections"></section>
+			<div class="loading"><i class="fa fa-spinner"></i></div>
+			<div class="empty">No tiene coleciones</div>
+		</div>
+		<div class="profile__element">
+			<section class="users"></section>
+			<div class="loading"><i class="fa fa-spinner"></i></div>
+			<div class="empty">No tiene seguidores</div>
+		</div>
+		<div class="profile__element">
+			<section class="users"></section>
+			<div class="loading"><i class="fa fa-spinner"></i></div>
+			<div class="empty">No siguie a ningun artista</div>
+		</div>
+	</div>
+	<div class="more hidden">
+		<button class="button-solid" data-color='red'>Ver más</button>
+	</div>
+</section>

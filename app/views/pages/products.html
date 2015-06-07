@@ -1,0 +1,69 @@
+
+{% extends '../partials/base.html' %}
+
+	{% set path = 'products' %}
+	{% set title = 'Arte Manifiesto | Market' %}
+	{% set css = 'products' %}
+
+{% block elements %}
+
+	{% include '../partials/section.html' %}
+
+	<script type="text/template" id="template">
+		<div class="product-wrapper">
+			<article class="product">
+				<div class="product-image">
+					<img src="<%= photo %>">
+					<div class="cover">
+						<i class="fa fa-heart <% if (liked) { %>active<% } %>"></i>
+						<i class="fa fa-th-list"></i>
+					</div>
+				</div>
+				<div class="product-title">
+					<div class="title"><%= name %></div>
+				</div>
+
+				<div class="product-info">
+					<div class="price">s./<%= price %></div>
+					<div class="like">
+						<span class="button-like <% if (liked) { %>active<% } %>"> <i class="fa fa-heart"></i><i class="fa fa-heart-o"></i> <span><%= likes %></span> </span>
+					</div>
+					<div class="wish-list">
+						<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
+					</div>
+				</div>
+			</article>
+		</div>
+	</script>
+
+{% endblock %}
+
+{% block scripts %}
+
+	<script type="text/javascript">
+
+		var url = {{ url|json|safe }}
+		console.log('url: ', url)
+
+		var pagination = {{ pagination|json|safe }}
+		console.log('pagination: ', pagination)
+
+		var user = {{ user|json|safe }}
+		console.log('user: ', user)
+
+		var products = {{ products|json|safe }}
+		console.log('products: ', products)
+
+	</script>
+
+	<script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/vendor/underscore-min.js"></script>
+	<script type="text/javascript" src="/js/vendor/hammer.min.js"></script>
+
+	<script type="text/javascript" src="/js/lib/search.js"></script>
+	<script type="text/javascript" src="/js/lib/section.js"></script>
+	<script type="text/javascript" src="/js/lib/product.js"></script>
+
+	<script type="text/javascript" src="/js/products.js"></script>
+
+{% endblock %}

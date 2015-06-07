@@ -1,0 +1,53 @@
+{% extends '../../partials/base.html' %}
+
+{% set path = 'photo' %}
+{% set title = 'Arte Manifiesto | Photo' %}
+{% set css = 'account' %}
+
+{% block elements %}
+
+<section class="section-edit">
+    <div class="section-edit__title">
+        <p class="section-title-text">Foto de Perfil</p>
+    </div>
+    <div class="section-edit__form">
+        <form class="form-container" action="post">
+            <div class="input-container">
+                <label>Subir nueva foto</label>
+                <input type="file"/>
+            </div>
+            <div class="input-container">
+                <!-- <label>repetir contraseña</label> -->
+                <div class="avatars">
+                	<div class="avatar">
+                		<div class="input-radio">
+                			<input type="radio" name="photo" id="photo1"/><label for="photo1">Usar mi propia foto</label>
+                		</div>
+                		<img src="http://www.furcontest.com/imagenes/default.png">
+                	</div>
+                	<div class="avatar">
+                		<div class="input-radio">
+                			<input type="radio" name="photo" id="photo2"/><label for="photo2">Usar mi foto de facebook</label>
+                		</div>
+                		<img src="http://www.furcontest.com/imagenes/default.png">
+                	</div>
+                </div>
+            </div>
+            <input class="button-solid" data-size='' data-color='red' data-expand='' value="Guardar Cambios" type="submit">
+        </form>
+    </div>
+</section>
+
+
+{% endblock %}
+
+{% block scripts %}
+
+<script type="text/javascript">
+
+	var user = {{ user|json|safe }}
+	console.log('user: ', user)
+
+</script>
+
+{% endblock %}

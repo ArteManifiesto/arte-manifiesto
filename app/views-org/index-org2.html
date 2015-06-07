@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AM</title>
+    <style>
+
+        .rounded {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+{{ successMessage }}
+{{ errorMessage }}
+<h1>Arte Manifiesto</h1>
+
+<form id="login">
+    <div>
+        <label>correo : </label>
+        <input type="email" name="email"/>
+    </div>
+    <div>
+        <label>contraseña : </label>
+        <input type="password" name="password"/>
+    </div>
+    <br/>
+    <div>
+        <input type="submit" value="iniciar sesion"/>
+    </div>
+
+    <br/>
+    <a href="/auth/forgot">olvidaste tu contraseña ? </a>
+
+    <a href="/works/search?p=10&pe=30&lel=hola k ase">lel</a>
+
+
+    <h3>trabajos destacados</h3>
+    <ul>
+    {% for workFeatured in workFeatureds %}
+        <img class="rounded" src="{{ workFeatured.photo }}"/>
+        <li>{{ workFeatured.name }}</li>
+    {% endfor %}
+    </ul>
+
+</form>
+
+<script src="/js/lib/jquery.min.js"></script>
+<script>
+    var loginForm = $("#login");
+
+    loginForm.submit(function () {
+        $.ajax({
+            type: "POST",
+            url: "/auth/login",
+            data: loginForm.serialize(),
+            success: loginSuccessHandler
+        });
+        return false;
+    });
+
+    function loginSuccessHandler(response) {
+        console.log("login response : ", response);
+        if (response.code == 202) {
+            location.href = '/dashboard';
+        }
+    }
+</script>
+</body>
+</html>

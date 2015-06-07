@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>owner</title>
+    <style>
+        .rounded {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+<h1>{{ userProfile.firstname }}</h1>
+
+<p>following</p>
+<ul>
+    {% for following in followings %}
+        <li>{{ following.firstname }}<a href="/user/{{ following.username }}"><img class="rounded"
+                                                                                   src="{{ following.photo }}"
+                                                                                   alt="{{ following.username }}"/></a>
+        </li>
+    {% endfor %}
+</ul>
+
+<p>followers</p>
+<ul>
+    {% for follower in followers %}
+        <li>{{ follower.firstname }}<a href="/user/{{ follower.username }}"><img class="rounded"
+                                                                                 src="{{ follower.photo }}"
+                                                                                 alt="{{ follower.username }}"/></a>
+        </li>
+    {% endfor %}
+</ul>
+
+<p>Portfolio</p>
+<ul>
+    {% for collection in collections %}
+        <li>{{ collection.name }}
+            <ul>
+                {% for work in collection.Works %}
+                    {% if !work.private %}
+                    <li>{{ work.name }}</li>
+                    <img class="rounded" src="{{ work.photo }}"><br/>
+                    <span><strong>tags</strong> </span>
+                    {% for tag in work.Tags %}
+                        <a href="#">{{ tag.name }}</a>
+                        {% endfor %}
+                        <br/>
+                        <span><strong>categories</strong> </span>
+                        {% for category in work.Categories %}
+                            <a href="#">{{ category.name }}</a>
+                        {% endfor %}
+                        <br/>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+</ul>
+<p>Store</p>
+
+<script src="/js/vendor/jquery.min.js"></script>
+<script>
+
+    var currentPath = {{ currentPath|json|safe }};
+    var userProfile = {{ userProfile|json|safe }};
+    console.log(currentPath, userProfile);
+
+    /* $(function () {
+     var followings = {{ followings|json|safe }};
+     var followers = {{ followers|json|safe }};
+
+     $('.quad').hide();
+     $(document).on("click", ".addToCollection", function (event) {
+     $('.quad').show();
+     });
+
+
+     $('.addCollection').click(function () {
+     $('.quad').hide();
+     });
+
+     $('.close').click(function () {
+     $('.quad').hide();
+     });
+     });
+     console.log(followings);
+     console.log(followers);*/
+
+</script>
+</body>
+</html>

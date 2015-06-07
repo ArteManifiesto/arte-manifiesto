@@ -1,0 +1,135 @@
+<!-- ********************************************************************
+	$ SECTION
+********************************************************************* -->
+<section class="section">
+	<div class="section__title">
+		<span class="section-title-text">
+			{% if path == 'users' %}
+				Artistas
+			{% elseif path == 'products' %}
+				Productos
+			{% endif %}
+		</span>
+	</div>
+	<div class="section__navigation">
+		<span class="navigation-text">Nombre</span>&nbsp; <i class="fa fa-angle-right"></i>&nbsp; <span class="navigation-text js-navigation-text">Cats</span>
+	</div>
+	<div class="section__filters">
+		<div class="search">
+			<i class="fa fa-search"></i>
+			<input class="js-searcher" type="text" placeholder="Busca Productos por Nombre">
+			<ul class="options">
+				{% if path == 'users' %}
+					<li class="option" data-search='username'>Buscar Username: <span class="search-text"></span></li>
+				{% elseif path == 'products' %}
+					<li class="option" data-search='name'>Buscar Nombre: <span class="search-text"></span></li>
+				{% elseif path == 'works' %}
+					<li class="option" data-search='name'>Buscar Nombre: <span class="search-text"></span></li>
+					<li class="option" data-search='tag'>Buscar Tag: <span class="search-text"></span></li>
+				{% endif %}
+			</ul>
+		</div>
+		<button class="button-filter"><i class="fa fa-caret-left"></i> &nbsp; Categorías</button>
+		<button class="button-filter">Ordenar &nbsp; <i class="fa fa-caret-right"></i></button>
+	</div>
+	<div class="section__workspace">
+		<div class="section__workspace__filter">
+			<div class="filter">
+				<div class="filter__title">Featured</div>
+				<div class="filter__fueatured">
+					<input name="question" type="checkbox" id="question">
+					<label for="question" class="">Recomendados</label>
+				</div>
+			</div>
+			<div class="filter">
+
+				{% if path == 'users' %}
+
+					<div class="filter__title">Categorías</div>
+
+					{% for category in categories %}
+						<div class="filter__item js-mainFilter" data-value="{{ category.nameSlugify }}">{{ category.name }}</div>
+					{% endfor %}
+
+				{% elseif path == 'products' %}
+
+					<div class="filter__title">Categorías</div>
+					
+					{% for productType in productTypes %}
+						<div class="filter__item js-mainFilter" data-value="{{ productType.nameSlugify }}">{{ productType.name }}</div>
+					{% endfor %}
+
+				{% elseif path == 'works' %}
+
+					<div class="filter__title">Categorías</div>
+					
+					{% for category in categories %}
+						<div class="filter__item js-mainFilter" data-value="{{ category.nameSlugify }}">{{ category.name }}</div>
+					{% endfor %}
+				
+				{% endif %}
+
+			</div>
+		</div>
+		<div class="section__workspace__filter">
+			<div class="filter">
+				<div class="filter__title">Orden</div>
+				<div class="filter__item js-order" data-value="popularity">Más popular</div>
+				<div class="filter__item js-order" data-value="views">Más visto</div>
+				<div class="filter__item js-order" data-value="newest">Más reciente</div>
+				{% if path == 'products' %}
+					<div class="filter__item js-order" data-value="price_asc">Menor precio</div>
+					<div class="filter__item js-order" data-value="price_desc">Mayor precio</div>
+				{% endif %}
+			</div>
+			<div class="filter">
+				<div class="filter__title">Tiempo</div>
+				<div class="filter__item js-time" data-value="day">Día</div>
+				<div class="filter__item js-time" data-value="week">Semana</div>
+				<div class="filter__item js-time" data-value="month">Mes</div>
+				<div class="filter__item js-time" data-value="year">Año</div>
+			</div>
+		</div>
+		<div class="section__workspace__elements">
+			
+			{% if path == 'users' %}
+
+				{% include '../partials/users.html' %}
+
+				<div class="empty-result {% if users.length == 0 %} visible {% endif %}">
+					<p class="italic-text">No se encontraron resultados,
+						<a href="/users/specialty/all/page-1/">Ver todos los artistas</a>
+					</p>
+				</div>
+				
+			{% elseif path == 'products' %}
+
+				{% include '../partials/products.html' %}
+
+				<div class="empty-result {% if products.length == 0 %} visible {% endif %}">
+					<p class="italic-text">No se encontraron resultados,
+						<a href="/products/type/all/page-1/">Ver todos los productos</a>
+					</p>
+				</div>
+				
+			{% elseif path == 'works' %}
+
+				{% include '../partials/works.html' %}
+
+				<div class="empty-result {% if works.length == 0 %} visible {% endif %}">
+					<p class="italic-text">No se encontraron resultados,
+						<a href="/works/category/all/page-1/">Ver todas las obras</a>
+					</p>
+				</div>
+
+			{% endif %}
+
+			<div class="more {% if pagination.page >= pagination.pages %} hidden {% endif %}">
+				<button class="button-solid" data-color='red'>Ver más</button>
+			</div>
+
+			<div class="loading"><i class="fa fa-spinner"></i></div>
+
+		</div>
+	</div>
+</section>

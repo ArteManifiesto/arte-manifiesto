@@ -1,0 +1,32 @@
+{% extends '../../partials/base.html' %}
+
+{% set path = 'product' %}
+{% set title = 'Arte Manifiesto | Product' %}
+{% set css = 'single-product' %}
+
+{% block elements %}
+
+{% include '../../partials/single-product.html' %}
+
+{% endblock %}
+
+{% block scripts %}
+	<script type="text/javascript">
+
+		var product = {{ product|json|safe }};
+		console.log('product: ', product)
+
+		var userLikes = {{userLikes|json|safe}};
+		console.log('userLikes: ', userLikes);
+
+		var more = {{more|json|safe}};
+		console.log('more: ', more);
+
+		var similar = {{similar|json|safe}};
+		console.log('similar: ', similar);
+
+		var user = {{ user|json|safe }}
+		console.log('user: ', user);
+
+	</script>
+{% endblock %}
