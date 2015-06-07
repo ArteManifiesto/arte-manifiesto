@@ -40,4 +40,11 @@
 			</a>
 		{% endif %}
 	</nav>
+	<div class="account-menu">
+		<a href="/{{ user.username }}" class="account-menu__item"><b>Hans Evangelista</b></a>
+		<a href="/{{ user.username }}/account" class="account-menu__item">Account</a>
+		<a href="#" class="account-menu__item">Menu</a>
+		<a href="#" class="account-menu__item">Subir Obra</a>
+		<a href="/auth/logout" class="account-menu__item">Logout</a>
+	</div>
 </header>
