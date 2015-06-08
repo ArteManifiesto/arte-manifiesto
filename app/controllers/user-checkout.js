@@ -8,12 +8,17 @@ var async = require('async');
 var cloudinary = require('cloudinary').v2;
 var Promise = require('bluebird');
 
-
-exports.cart = function (req, res) {
-    req.user.getProductCarts({
-        include: [global.db.Product],
-        order: [['id', 'DESC']]
-    }).then(function (products) {
+exports.index = function (req, res) {
+    var query = {
+        order: [[global.db.Product, global.db.User, 'username']],
+        include: [{
+            model: global.db.Product,
+            include: [
+                {model: global.db.User}
+            ]
+        }]
+    };
+    req.user.getProductCarts(query).then(function (products) {
         return res.json(products);
     });
 };

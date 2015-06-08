@@ -12,6 +12,9 @@ module.exports = function (sequelize, DataTypes) {
             instanceMethods: {
                 appendProduct: function (idProduct) {
                     this.getProduct({where: {id: idProduct}});
+                },
+                removeProduct: function (idProduct) {
+                    
                 }
             }
         }

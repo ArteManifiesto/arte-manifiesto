@@ -43,16 +43,8 @@ module.exports = function (sequelize, DataTypes) {
                     User.belongsToMany(models.Category, {as: 'Specialties', through: 'Specialties'});
                     User.belongsToMany(models.Category, {as: 'Interests', through: 'Interests'});
 
-                    User.belongsToMany(models.User, {
-                        as: 'Followers',
-                        foreignKey: 'FollowingId',
-                        through: 'Followers'
-                    });
-                    User.belongsToMany(models.User, {
-                        as: 'Followings',
-                        foreignKey: 'FollowerId',
-                        through: 'Followers'
-                    });
+                    User.belongsToMany(models.User, {as: 'Followers', foreignKey: 'FollowingId', through: 'Followers'});
+                    User.belongsToMany(models.User, {as: 'Followings', foreignKey: 'FollowerId', through: 'Followers'});
 
                     User.belongsToMany(models.Work, {as: 'WorkLikes', through: 'WorkLikes'});
 
@@ -237,12 +229,10 @@ module.exports = function (sequelize, DataTypes) {
                         promises = [
                             user.addCollections(data.slice(1, data.length)),
                             global.db.Category.findAll({
-                                where: {id: {in: _.take(ids, _.random(1, 5))}},
-                                attributes: ['id']
+                                where: {id: {in: _.take(ids, _.random(1, 5))}}
                             }),
                             global.db.Tag.findAll({
-                                where: {id: {in: _.take(ids, _.random(1, 5))}},
-                                attributes: ['id']
+                                where: {id: {in: _.take(ids, _.random(1, 5))}}
                             })
                         ];
                         var i;
@@ -264,7 +254,38 @@ module.exports = function (sequelize, DataTypes) {
                                 promises.push(work.setCategories(categories));
                                 promises.push(work.setTags(tags));
                             }
-                            return global.db.Sequelize.Promise.all(promises);
+                            return global.db.Sequelize.Promise.all(promises).then(function () {
+                                promises = [
+                                    global.db.ProductType.findAll({
+                                        where: {id: _.random(1, 5)},
+                                        limit: 1
+                                    })
+                                ];
+                                var i;
+                                for (i = 0; i < 3; i++) {
+                                    promises.push(global.db.Product.create({
+                                        name: chance.name(),
+                                        price: _.random(100, 1000),
+                                        photo: '/img/products/product' + (_.random(1, 20).toString()) + '.jpg',
+                                        description: chance.paragraph(),
+                                        public: true,
+                                        WorkId: works[i].id,
+                                        featured: _.sample([true, false])
+                                    }, {user: user}));
+                                }
+                                return global.db.Sequelize.Promise.all(promises).then(function (data) {
+                                    var types = data[0][0], products = data.slice(1, data.length);
+                                    var product, promises = [];
+                                    for (i = 0; i < products.length; i++) {
+                                        product = products[i];
+                                        promises.push(product.setUser(user));
+                                        promises.push(product.setProductType(types));
+                                    }
+                                    return global.db.Sequelize.Promise.all(promises).then(function () {
+
+                                    });
+                                });
+                            });
                         });
 
                     });

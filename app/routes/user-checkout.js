@@ -7,7 +7,8 @@ var controller = require(config.controllersDir + "/user-checkout");
 
 //router.get('/:nameProduct', controller.cart);
 
-router.get('/cart', controller.cart);
+router.get('/', controller.index);
+
 //router.get('/cart/add', controller.cartAdd);
 
 /*
