@@ -50,15 +50,20 @@ exports.addToCollection = function (req, res) {
 }
 
 exports.addToCart = function (req, res) {
-    var query = {where: {ProductId: req.product.id}};
-    global.db.ProductCart.find(query).then(function (productCart) {
-        if (productCart) {
-
+    var query = {where: {ProductId: req.product.id, option: req.body.option}, limit: 1};
+    req.user.getProductCarts(query).then(function (productCarts) {
+        var productCart = productCarts[0];
+        var promises = [];
+        if (!productCart) {
+            promises.push(req.user.addProductCart(req.product));
         }
-        req.user.addProductCart(req.product).then(function () {
-            return res.json('ggpe :v');
-        });
+        else {
+            productCart.items += 1;
+            promises.push(productCart.save());
+        }
+
+        global.db.Sequelize.Promise.all(promises).then(function(){
+
+        })
     });
-
-
 }

@@ -1,4 +1,4 @@
-var basePath = 'user/';
+var basePath = 'user/checkout/';
 var redirectPath = '/' + basePath;
 var Chance = require('chance');
 var _ = require('lodash');
@@ -19,21 +19,26 @@ exports.index = function (req, res) {
         }]
     };
     req.user.getProductCarts(query).then(function (products) {
-        return res.json(products);
-    });
-};
-
-exports.cartAdd = function (req, res) {
-    //req.user.getProductCart
-}
-
-exports.buyer = function (req, res) {
-    global.db.Product.find(req.body.idProduct).then(function (product) {
-        global.db.Buyer.create(req.body).then(function (buyer) {
-            product.addBuyer(buyer).then(function () {
-                return res.ok({buyer: buyer}, 'New buyer');
-            })
+        return res.render(basePath + 'cart', {
+            products: products
         });
     });
-
 };
+
+exports.shipping = function (req, res) {
+    req.user.getAddresses().then(function (addresses) {
+        return res.render(basePath + 'shipping', {addresses: addresses});
+    });
+}
+
+exports.payment = function (req, res) {
+    return res.render(basePath + 'payment');
+}
+
+exports.review = function (req, res) {
+    return res.render(basePath + 'review');
+}
+
+exports.complete = function (req, res) {
+    return res.render(basePath + 'complete');
+}

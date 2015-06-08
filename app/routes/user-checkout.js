@@ -5,18 +5,11 @@ router.mergeParams = true;
 var config = require('../../config/config');
 var controller = require(config.controllersDir + "/user-checkout");
 
-//router.get('/:nameProduct', controller.cart);
-
 router.get('/', controller.index);
 
-//router.get('/cart/add', controller.cartAdd);
-
-/*
- router.get('/cart/add', controller.cartAdd);
- router.get('/shipping', controller.shipping);
- router.get('/payment', controller.payment);
- router.get('/review', controller.review);
- router.get('/complete', controller.complete);
- */
+router.get('/shipping', controller.shipping);
+router.get('/payment', controller.payment);
+router.get('/review', controller.review);
+router.get('/complete', controller.complete);
 
 module.exports = router;
