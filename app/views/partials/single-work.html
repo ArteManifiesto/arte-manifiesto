@@ -1,0 +1,109 @@
+<!-- ********************************************************************
+	$ SINGLE PRODUCT
+********************************************************************* -->
+<div class="single-product">
+
+	<div class="single-product__header">
+		
+		<div class="single-product__title">
+			<p class="single-product-text">{{work.name}}</p>
+		</div>
+
+		<div class="single-product__artist">
+			from
+			<span class="avatar"><img src="{{work.User.photo}}"></span>
+			<span class="name">{{work.User.firstname}} {{work.User.lastname}}</span>
+		</div>
+
+	</div>
+
+	<div class="single-product__info">
+		
+		<figure class="single-product__info__image">
+			<img src="{{work.photo}}">
+		</figure>
+		
+		<div class="single-product__info__data">
+			<div class="actions">
+				<div class="actions__social">
+
+					<span class="like">
+					{% if work.liked %}
+						<button class="button-liner disabled js-buttonLike">
+							<div class="button-liner__action">Likes</div>
+							<!-- <div class="button-liner__number">{{product.likes}}</div> -->
+							<div class="button-liner__number">{{work.getDataValue('likes')}}</div>
+						</button>
+					{% else %}
+						<button class="button-liner js-buttonLike">
+							<div class="button-liner__action">Likes</div>
+							<div class="button-liner__number">{{work.likes}}</div>
+						</button>
+					{% endif %}
+					</span>
+
+					<span class="price">S/.{{work.price}}</span>
+
+				</div>
+				
+				<div class="actions__buy">
+					<a href="/checkout/{{work.nameSlugify}}" class="button-solid" data-size='large' data-color='red' data-expand='true'>Comprar</a>
+				</div>
+			</div>
+			<div class="actions">
+				<p class="actions__title">Comunidad</p>
+				<div class="actions__people">
+					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+					{% for userLike in product.userLikes %}
+						<div class="people-item"><img src="{{userLike.photo}}"></div>
+					{% endfor %}
+				</div>
+			</div>
+			<div class="actions">
+				<p class="actions__title">Mas del artista</p>
+				<div class="actions__more">
+					{% for work in more %}
+						<a class="more-image" href="/{{ work.User.username}}/work/{{work.nameSlugify}}">
+							<img src="{{ work.photo }}">
+						</a>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="single-product__similar">
+		<p class="actions-title">Productos similares</p>
+		
+		<section class="products">
+			{% for similarWork in similar %}
+			<div class="product-wrapper">
+				<article class="product">
+					<a class="product-image" href="/{{ similarWork.User.username}}/product/{{product.nameSlugify}}">
+						<img src="{{ similarWork.photo }}">
+					</a>
+					<div class="product-title">
+						<div class="title">{{similarWork.name}}</div>
+					</div>
+					<div class="product-info">
+						<div class="price">s./{{similarWork.price}}</div>
+						<div class="like">
+							<span class="button-like"> <i class="fa fa-heart-o"></i> <span>{{similarWork.getDataValue('likes')}}</span> </span>
+						</div>
+						<div class="wish-list">
+							<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
+						</div>
+					</div>
+				</article>
+			</div>
+			{% endfor %}
+		</section>
+	</div>
+
+</div>
