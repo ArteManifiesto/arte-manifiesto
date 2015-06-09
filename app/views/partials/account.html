@@ -14,29 +14,29 @@
         {% if path == 'account' %}
             <section class="section-edit">
                 <div class="section-edit__title">
+                    <i class="fa fa-caret-down"></i>
                     <p class="section-title-text">Edita tu perfil</p>
                 </div>
                 <div class="section-edit__form">
                     <form class="form-container" action="">
                         <div class="input-container">
-                            <label>username</label>
-                            <input class="input" type="text" placeholder="username"/>
+                            <label>Usuario</label>
+                            <input class="input" type="text" placeholder=""/>
                         </div>
                         <div class="input-container">
                             <label>nombres</label>
-                            <input class="input" type="text" placeholder="nombres"/>
+                            <input class="input" type="text" placeholder=""/>
                         </div>
                         <div class="input-container">
                             <label>apellidos</label>
-                            <input class="input" type="text" placeholder="apellidos"/>
+                            <input class="input" type="text" placeholder=""/>
                         </div>
                         <div class="input-container">
                             <label>email</label>
-                            <input class="input" type="email" placeholder="email"/>
+                            <input class="input" type="email" placeholder=""/>
                         </div>
                         <div class="input-container">
                             <label>genero</label>
-                            <!-- <input class="input" type="text" placeholder="genero"/> -->
                             <select class="input" name="gender">
                                 <option disabled {% if !profile.gender %}selected{% endif %}>Género</option>
                                 <option value="Male" {% if profile.gender === 'male' %}selected{% endif %}>Masculino</option>
@@ -45,33 +45,32 @@
                         </div>
                         <div class="input-container">
                             <label>biografia</label>
-                            <textarea class="input textarea" placeholder="biografia"></textarea>
-                            <!-- <input class="input" type="text" placeholder="biografia"/> -->
+                            <textarea class="input textarea" placeholder=""></textarea>
                         </div>
                         <div class="input-container">
                             <label>pais</label>
-                            <input class="input" type="text" placeholder="pais"/>
+                            <input class="input" type="text" placeholder=""/>
                         </div>
                         <div class="input-container">
                             <label>ciudad</label>
-                            <input class="input" type="text" placeholder="ciudad"/>
+                            <input class="input" type="text" placeholder=""/>
                         </div>
                         <div class="input-container">
                             <label>cumpleahos</label>
-                            <input class="input" type="date" placeholder="cumpleaños"/>
+                            <input class="input" type="date" placeholder=""/>
                         </div>
                         <div class="input-container">
                             <label>especialidades</label>
-                            <input class="input" type="text" placeholder="especialidades"/>
+                            <input class="input" type="text" placeholder=""/>
                         </div>
                         <div class="input-container">
                             <label>intereses</label>
-                            <input class="input" type="text" placeholder="intereses"/>
+                            <input class="input" type="text" placeholder=""/>
                         </div>
                         {% if user.isArtist %}
                         <div class="input-container">
                             <label>escuela</label>
-                            <input class="input" type="text" placeholder="escuela"/>
+                            <input class="input" type="text" placeholder=""/>
                         </div>
                         {% endif %}
 
@@ -83,12 +82,13 @@
         {% elseif path == 'photo' %}
             <section class="section-edit">
                 <div class="section-edit__title">
+                    <i class="fa fa-caret-down"></i>
                     <p class="section-title-text">Foto de Perfil</p>
                 </div>
                 <div class="section-edit__form">
                     <form class="form-container" action="post">
                         <div class="input-container">
-                            <label>Subir nueva foto</label>
+                            <label>Nueva foto</label>
                             <input type="file"/>
                         </div>
                         <div class="input-container">
@@ -115,6 +115,7 @@
         {% elseif path == 'addresses' %}
             <section class="section-edit">
                 <div class="section-edit__title">
+                    <i class="fa fa-caret-down"></i>
                     <p class="section-title-text">Direciones de envío</p>
                 </div>
                 <div class="section-edit__form">
@@ -130,6 +131,7 @@
                                     <p class="shipping-subtitle">908552187</p>
                                     <div class="shipping-buttons">
                                         <button class="button-solid" data-size='small' data-color='gray' data-expand=''>Delete</button>
+                                        <!-- <button class="button-solid" data-size='small' data-color='red' data-expand='' data-toggle="modal" data-target=".bs-example-modal-lg">Edit</button> -->
                                         <button class="button-solid" data-size='small' data-color='red' data-expand=''>Edit</button>
                                     </div>
                                 </div>
@@ -140,68 +142,37 @@
                     </div>
                 </div>
             </section>
-
-            <form class="form-container" action="">
-                <div class="input-container">
-                    <label>City</label>
-                    <select class="input" name="gender">
-                        <option disabled selected>Country</option>
-                        <option value="Male">Masculino</option>
-                        <option value="Female">Femenino</option>
-                    </select>
-                </div>
-                <div class="input-container">
-                    <label>Name</label>
-                    <input class="input" type="text" placeholder=""/>
-                </div>
-                <div class="input-container">
-                    <label>Address</label>
-                    <input class="input" type="text" placeholder=""/>
-                </div>
-                <div class="input-container">
-                    <label>City</label>
-                    <input class="input" type="text" placeholder=""/>
-                </div>
-                <div class="input-container">
-                    <label>State</label>
-                    <input class="input" type="text" placeholder=""/>
-                </div>
-                <div class="input-container">
-                    <label>Zip code</label>
-                    <input class="input" type="text" placeholder=""/>
-                </div>
-                <input class="button-solid" data-size='' data-color='red' data-expand='' value="Guardar Cambios" type="submit">
-            </form>
         {% elseif path == 'websites' %}
             <section class="section-edit">
                 <div class="section-edit__title">
+                    <i class="fa fa-caret-down"></i>
                     <p class="section-title-text">Otros Sitios</p>
                 </div>
                 <div class="section-edit__form">
                     <form class="form-container" action="">
                         <div class="input-container">
                             <label>Web</label>
-                            <input class="input" type="text" placeholder="web"/>
+                            <input class="input" type="text" placeholder=""/>
                         </div>
                         <div class="input-container">
                             <label>Facebook</label>
-                            <input class="input" type="text" placeholder="facebook"/>
+                            <input class="input" type="text" placeholder=""/>
                         </div>
                         <div class="input-container">
                             <label>Twitter</label>
-                            <input class="input" type="text" placeholder="twitter"/>
+                            <input class="input" type="text" placeholder=""/>
                         </div>
                         <div class="input-container">
                             <label>Instagram</label>
-                            <input class="input" type="text" placeholder="instagram"/>
+                            <input class="input" type="text" placeholder=""/>
                         </div>
                         <div class="input-container">
                             <label>Tumblr</label>
-                            <input class="input" type="text" placeholder="tumblr"/>
+                            <input class="input" type="text" placeholder=""/>
                         </div>
                         <div class="input-container">
                             <label>Behance</label>
-                            <input class="input" type="text" placeholder="behance"/>
+                            <input class="input" type="text" placeholder=""/>
                         </div>
                         <input class="button-solid" data-size='' data-color='red' data-expand='' value="Guardar Cambios" type="submit">
                     </form>
@@ -210,17 +181,18 @@
         {% elseif path == 'password' %}
             <section class="section-edit">
                 <div class="section-edit__title">
+                    <i class="fa fa-caret-down"></i>
                     <p class="section-title-text">Cambiar Password</p>
                 </div>
                 <div class="section-edit__form">
                     <form class="form-container" action="post">
                         <div class="input-container">
                             <label>contraseña</label>
-                            <input class="input" type="password" placeholder="contraseña"/>
+                            <input class="input" type="password" placeholder=""/>
                         </div>
                         <div class="input-container">
                             <label>repetir contraseña</label>
-                            <input class="input" type="password" placeholder="repetir contraseña"/>
+                            <input class="input" type="password" placeholder=""/>
                         </div>
                         <input class="button-solid" data-size='' data-color='red' data-expand='' value="Guardar Cambios" type="submit">
                     </form>

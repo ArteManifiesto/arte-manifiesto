@@ -11,20 +11,34 @@
 .section-edit
 	&__title
 		margin 1rem
+		display flex
+		align-items center
+		.fa
+			cursor pointer
+			padding: .5rem 1rem;
 	&__form
 		margin 1rem
 		
-
 .account
 	max-width max-width
 	margin auto
 	display flex
+	position relative
 	&__menu
 		padding-top 3.25rem
-		// padding-left 1rem
+		position absolute
 		.filter
 			margin 1rem
 			border solid 1px #ddd
 			width auto
 	&__data
 		flex 1
+		
+@media (min-width: tablet-medium)
+	.section-edit
+		&__title
+			.fa
+				display none
+	.account
+		&__menu
+			position initial
