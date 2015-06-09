@@ -1,12 +1,5 @@
 var basePath = 'user/checkout/';
 var redirectPath = '/' + basePath;
-var Chance = require('chance');
-var _ = require('lodash');
-var chance = new Chance();
-
-var async = require('async');
-var cloudinary = require('cloudinary').v2;
-var Promise = require('bluebird');
 
 exports.index = function (req, res) {
     var query = {

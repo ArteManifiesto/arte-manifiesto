@@ -5,6 +5,13 @@
     <title></title>
 </head>
 <body>
+<script>
+    var collection = {{collection|json|safe}};
+    var products = {{products|json|safe}};
+    
+    console.log(collection);
+    console.log(products);
+</script>
 
 </body>
 </html>

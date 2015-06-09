@@ -55,7 +55,7 @@ global.db.sequelize.sync({force: dev}).then(function () {
         var server = app.listen(app.get('port'), function () {
             var url = 'http://127.0.0.1:' + server.address().port + '/auth/login';
             console.log('Express server listening  on ' + url);
-            open(url);
+            //open(url);
         });
     }
     if (dev) {

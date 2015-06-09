@@ -3,7 +3,7 @@ var router = express.Router();
 router.mergeParams = true;
 
 var config = require('../../config/config');
-var controller = require(config.controllersDir + "/user-checkout");
+var controller = require(config.controllersDir + "/checkout");
 
 router.get('/', controller.index);
 

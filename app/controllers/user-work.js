@@ -1,23 +1,26 @@
 var basePath = 'user/work/';
 
 exports.index = function (req, res) {
-    return res.render(basePath + 'index');
+    req.work.views += 1;
+    var promises = [
+        req.work.save(),
+        req.work.userLikes(),
+        req.work.more(),
+        req.work.similar(req.viewer),
+        req.work.getProducts({build: true, viewer: req.viewer})
+    ];
+    global.db.Sequelize.Promise.all(promises).then(function (result) {
+        return res.render(basePath + 'index', {
+            work: req.work, userLikes: result[1],
+            more: result[2], similar: result[3],
+            products: result[4]
+        });
+    });
 };
 
 exports.add = function (req, res) {
-    /* global.db.Category.isSelected(req.user).then(function (data) {
-     return res.json(data);
-     });*/
-
-    global.db.Sequelize.Promise.all([
-        global.db.Category.findAll(),
-        req.user.getSpecialties({attributes: ['id']})
-    ]).then(function (result) {
-        var categories = result[0], specialties = result[1];
-        return res.render(basePath + 'add', {
-            categories: categories,
-            specialties: specialties
-        });
+    global.db.Category.findAll().then(function (categories) {
+        return res.render(basePath + 'add', {categories: categories});
     })
 };
 

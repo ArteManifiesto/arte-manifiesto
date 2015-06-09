@@ -13,7 +13,7 @@ var config = require('./config');
 var pagesRouter = require(config.routesDir + '/pages');
 var authRouter = require(config.routesDir + '/auth');
 var adminRouter = require(config.routesDir + '/admin');
-var dashboardRouter = require(config.routesDir + '/dashboard');
+var checkoutRouter = require(config.routesDir + '/checkout');
 var userRouter = require(config.routesDir + '/user');
 var middlewares = require(config.middlewaresDir + '/app');
 
@@ -24,6 +24,6 @@ var middlewares = require(config.middlewaresDir + '/app');
 exports.init = function (app) {
     app.use('/', pagesRouter);
     app.use('/auth', authRouter);
-    app.use('/dashboard', middlewares.isLogged, dashboardRouter);
+    app.use('/checkout', middlewares.isLogged, checkoutRouter);
     app.use('/:username', userRouter);
 };

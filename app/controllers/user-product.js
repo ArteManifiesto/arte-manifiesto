@@ -49,21 +49,7 @@ exports.addToCollection = function (req, res) {
     });
 }
 
-exports.addToCart = function (req, res) {
-    var query = {where: {ProductId: req.product.id, option: req.body.option}, limit: 1};
-    req.user.getProductCarts(query).then(function (productCarts) {
-        var productCart = productCarts[0];
-        var promises = [];
-        if (!productCart) {
-            promises.push(req.user.addProductCart(req.product));
-        }
-        else {
-            productCart.items += 1;
-            promises.push(productCart.save());
-        }
 
-        global.db.Sequelize.Promise.all(promises).then(function(){
+exports.removeFromCart = function (req, res) {
 
-        })
-    });
 }
