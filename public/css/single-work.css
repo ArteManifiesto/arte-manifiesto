@@ -1164,6 +1164,9 @@ body {
   display: box;
   display: flex;
 }
+.work:hover.mobile .cover {
+  display: none;
+}
 @media screen and (min-width: 151px) and (max-width: 300px) {
   .works[data-columns]::before {
     content: '1 .column.size-1of1';

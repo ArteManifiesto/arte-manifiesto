@@ -40,6 +40,10 @@ work-width = 150px
 		.cover
 			display flex
 
+.work:hover.mobile
+	.cover
+		display none
+
 
 for i in (1..(columns - 1))
 	@media screen and (min-width: work-width*i+1) and (max-width: work-width*(i+1))

@@ -1,6 +1,5 @@
-function Work (el, data) {
 
-	// console.log('el', el)
+function Work (el, data) {
 
 	var id = data.id,
 			liked = data.liked,
@@ -10,16 +9,13 @@ function Work (el, data) {
 
 	function setup () {
 
-		console.log('cover', cover)
-
 		cover.addEventListener('click', function () {
-			console.log('click cover!')
 			location.href = singleUrl
 		})
 
 		likeButton.addEventListener('click', function (event) {
 			event.stopPropagation()
-			console.log('click like!')
+
 			if (!user) {
 				location.href = '/auth/login/?returnTo=' + location.href
 				return
@@ -52,44 +48,58 @@ function Work (el, data) {
 	setup()
 }
 
-// function mobileWork (el, data) {
+function mobileWork (el, data) {
+	// console.log('el', el)
+	var id = data.id,
+			liked = data.liked,
+			singleUrl = data.url,
+			img = el.querySelector('img');
 
-// 	var id = data.id,
-// 			liked = data.liked,
-// 			singleUrl = data.url,
-// 			likeButton = el.querySelector('.social-item');
+	function setup () {
 
-// 	function setup () {
+		el.classList.add('mobile')
 
-// 		likeButton.addEventListener('click', function () {
-// 			if (!user) {
-// 				location.href = '/auth/login/?returnTo=' + location.href
-// 				return
-// 			}
-// 			if (!liked) like()
-// 			else unLike()
-// 		})
+		var mc = new Hammer.Manager(img);
+		mc.add( new Hammer.Tap({ event: 'doubletap', taps: 2 }) );
+		mc.add( new Hammer.Tap({ event: 'singletap' }) );
+		mc.get('doubletap').recognizeWith('singletap');
+		mc.get('singletap').requireFailure('doubletap');
 
-// 		// console.log('Mobile Browser')
-// 		var mc = new Hammer.Manager(el);
-// 		mc.add( new Hammer.Tap({ event: 'doubletap', taps: 2 }) );
-// 		mc.add( new Hammer.Tap({ event: 'singletap' }) );
-// 		mc.get('doubletap').recognizeWith('singletap');
-// 		mc.get('singletap').requireFailure('doubletap');
+		mc.on("singletap", function(ev) {
+			console.log('singletap!')
+			location.href = singleUrl
+		})
 
-// 		mc.on("singletap", function(ev) {
-// 			location.href = singleUrl
-// 		})
+		mc.on("doubletap", function(ev) {
+			console.log('doubletap!')
+			if (!user) {
+				location.href = '/auth/login/?returnTo=' + location.href
+				return
+			}
+			if (!liked) like()
+			else unLike()
+		})
+	}
 
-// 		mc.on("doubletap", function(ev) {
-// 			if (!user) {
-// 				location.href = '/auth/login/?returnTo=' + location.href
-// 				return
-// 			}
-// 			if (!liked) like()
-// 			else unLike()
-// 		})
-// 	}
+	function like () {
+		$.post('/' + user.username + '/work/like/', {idWork: id}, function (data) {
+			console.log(data)
+			if (data.status == 200) {
+				// likeButton.classList.add('active')
+				liked = true
+			}
+		})
+	}
 
-// 	setup()
-// }
+	function unLike () {
+		$.post('/' + user.username + '/work/unlike/', {idWork: id}, function (data) {
+			console.log(data)
+			if (data.status == 200) {
+				// likeButton.classList.remove('active')
+				liked = false
+			}
+		})
+	}
+
+	setup()
+}
