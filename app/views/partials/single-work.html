@@ -42,13 +42,13 @@
 					{% endif %}
 					</span>
 
-					<span class="price">S/.{{work.price}}</span>
+					<!-- <span class="price">S/.{{work.price}}</span> -->
 
 				</div>
 				
-				<div class="actions__buy">
+				<!-- <div class="actions__buy">
 					<a href="/checkout/{{work.nameSlugify}}" class="button-solid" data-size='large' data-color='red' data-expand='true'>Comprar</a>
-				</div>
+				</div> -->
 			</div>
 			<div class="actions">
 				<p class="actions__title">Comunidad</p>
@@ -79,11 +79,27 @@
 	</div>
 
 	<div class="single-product__similar">
-		<p class="actions-title">Productos similares</p>
+		<p class="actions-title">Obras similares</p>
 		
-		<section class="products">
+		<section class="works" data-columns>
 			{% for similarWork in similar %}
-			<div class="product-wrapper">
+
+		<article class="work">
+			<img src="{{ similarWork.photo }}">
+			<div class="cover">
+				{% if similarWork.liked == true %}
+					<div class="social-item active">
+						<i class="fa fa-heart"></i>
+					</div>
+				{% else %}
+					<div class="social-item">
+						<i class="fa fa-heart"></i>
+					</div>
+				{% endif %}
+			</div>
+		</article>
+
+			<!-- <div class="product-wrapper">
 				<article class="product">
 					<a class="product-image" href="/{{ similarWork.User.username}}/product/{{product.nameSlugify}}">
 						<img src="{{ similarWork.photo }}">
@@ -101,7 +117,7 @@
 						</div>
 					</div>
 				</article>
-			</div>
+			</div> -->
 			{% endfor %}
 		</section>
 	</div>

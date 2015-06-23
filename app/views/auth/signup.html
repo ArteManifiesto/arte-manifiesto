@@ -1,12 +1,12 @@
 
 {% extends '../partials/base.html' %}
-	
+
 	{% set path = 'signup' %}
 	{% set title = 'Arte Manifiesto | Signup' %}
 	{% set css = 'signup' %}
 
 {% block elements %}
-		
+
 		{% include '../partials/auth.html' %}
 
 {% endblock %}
@@ -16,15 +16,15 @@
 	<script src='https://www.google.com/recaptcha/api.js'></script>
 
 	<script type="text/javascript">
-		
+
 		var profile = {{profile|json|safe}}
 		console.log('profile: ', profile)
 
 	</script>
-	
+
 	<script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
-	
-	<script type="text/javascript" src="/js/lib/flash-message.js"></script>
+
+	<!-- // <script type="text/javascript" src="/js/lib/flash-message.js"></script> -->
 	<script type="text/javascript" src="/js/lib/auth.js"></script>
 
 	<script type="text/javascript" src="/js/signup.js"></script>

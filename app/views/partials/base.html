@@ -3,7 +3,7 @@
 <head>
 
 	<title>{{title}}</title>
-	
+
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -20,7 +20,7 @@
 		<div class="main-wrapper__header">
 
 			{% include 'header.html' %}
-		
+
 			{% include 'category-menu.html' %}
 
 		</div>
@@ -28,14 +28,13 @@
 			{% if path == 'signup' || path == 'login' %} background-container {% endif %}
 			{% if path == 'account' || path == 'photo' || path == 'addresses' || path == 'websites' || path == 'password' %} gray {% endif %}
 		">
-			
-			{% include '../partials/flash-message.html' %}
-			
+
+
 			{% block elements %} {% endblock %}
 
 		</div>
 		<div class="main-wrapper__footer">
-			
+
 			{% include 'footer.html' %}
 
 		</div>

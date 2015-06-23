@@ -50,6 +50,7 @@ app.set('port', process.env.PORT || config.port);
 global.db = db;
 
 var dev = process.env.NODE_RESTART;
+
 global.db.sequelize.sync({force: dev}).then(function () {
     var serverHandler = function () {
         var server = app.listen(app.get('port'), function () {
@@ -86,10 +87,9 @@ global.db.sequelize.sync({force: dev}).then(function () {
                 if (i == 0) {
                     username = 'juliocanares';
                     email = 'juliocanares@gmail.com';
-                }
-                else if (i == 1) {
-                    username = 'hanshavin';
-                    email = 'hansevangelista@gmail.com';
+                // } else if (i == 1) {
+                //     username = 'hanshavin';
+                //     email = 'hansevangelista@gmail.com';
                 } else if (i == 2) {
                     username = 'artjam';
                     email = 'artjam@gmail.com';

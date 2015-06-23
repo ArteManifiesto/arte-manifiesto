@@ -14,9 +14,9 @@ function Signup (el, data) {
 								el.querySelector('.lastname-error')]
 
 	var actives = [false, false, false, false, false]
-	
+
 	var valids = [false, false, false, false, false]
-	
+
 	var evals = [evalUsername, evalEmail, evalPassword, evalFirstname, evalLastname]
 
 	var facebookButton = el.querySelector('.facebook-button'),
@@ -32,6 +32,7 @@ function Signup (el, data) {
 
 		for (var i = 0; i < 5; i++) {
 			imputs[i].addEventListener('focusout', function () {
+				console.log('focusout!')
 				var index = this.getAttribute('index')
 				if(this.value){
 					actives[index] = true
@@ -112,7 +113,7 @@ function Signup (el, data) {
 	}
 
 	function evalEmail (value) {
-		
+
 		hide(errors[1])
 
 		if(value){
@@ -185,7 +186,7 @@ function Signup (el, data) {
 	function hide (el) {
 		el.style.display = 'none'
 	}
-	
+
 	function show (el, text) {
 		el.style.display = 'block'
 		el.innerHTML = text
@@ -220,7 +221,7 @@ function Login (el, data) {
 		flashMessage.hide()
 
 		$.post('/auth/login', $(el).serialize(), function (response) {
-			// console.log('response: ', response)
+			console.log('response: ', response)
 
 			if(response.status == 400){
 				submitButton.style.display = 'block'

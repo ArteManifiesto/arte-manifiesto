@@ -1,13 +1,13 @@
 {% extends '../partials/base.html' %}
 
 {% set path = 'profile' %}
-{% set title = 'Arte Manifiesto | profile' %}
+{% set title = 'Arte Manifiesto' %}
 {% set css = 'profile' %}
 
 {% block elements %}
 
-<section class="works" data-columns>
-</section>
+<!-- <section class="works" data-columns>
+</section> -->
 
 <!--
 <section class="products">
@@ -19,31 +19,36 @@
 </section>
 -->
 
-<section class="collections">
+<!-- <section class="collections">
 </section>
-
+ -->
 {% endblock %}
 {% block scripts %}
 
-<script>
-    var user = {{user | json | safe}};
-</script>
+// <script>
+//     var user = {{user | json | safe}};
+// </script>
 
-<script src="/js/vendor/jquery.min.js"></script>
+<!-- <script src="/js/vendor/jquery.min.js"></script>
 <script src="/js/vendor/hammer.min.js"></script>
 <script src="/js/vendor/underscore-min.js"></script>
 <script src="/js/vendor/salvattore.js"></script>
 <script src="/js/vendor/masonry.pkgd.min.js"></script>
 <script src="/js/app.min.js"></script>
+ -->
 
 <script>
-    $(function () {
-        new APP.RestClientManager();
-        new APP.TemplateManager();
+    // $(function () {
+    // });
 
-        var templates = ['work', 'product', 'user', 'collection'];
-        APP.TemplateManager.instance.loadTemplates(templates).done(function () {
-            console.log('templates loaded');
+        // new APP.RestClientManager();
+        // new APP.TemplateManager();
+
+        // var templates = ['work', 'product', 'user', 'collection'];
+        // APP.TemplateManager.instance.loadTemplates(templates).done(function () {
+        //     console.log('templates loaded');
+        // });
+
             /*APP.RestClientManager.instance.execute({
              url: DataApp.searchCollections,
              method: 'post'
@@ -55,7 +60,7 @@
              container.append(collection.view);
              }
              });*/
-        });
+
         /*
          APP.TemplateManager.instance.loadTemplateById('work', function () {
          APP.RestClientManager.instance.execute({
@@ -102,7 +107,6 @@
          }
          });
          });*/
-    });
 </script>
 
 {% endblock %}

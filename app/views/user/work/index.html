@@ -1,8 +1,8 @@
 {% extends '../../partials/base.html' %}
 
-{% set path = 'product' %}
-{% set title = 'Arte Manifiesto | Product' %}
-{% set css = 'single-product' %}
+{% set path = 'work' %}
+{% set title = 'Arte Manifiesto | Work' %}
+{% set css = 'single-work' %}
 
 {% block elements %}
 
@@ -11,6 +11,9 @@
 {% endblock %}
 
 {% block scripts %}
+
+    <script type="text/javascript" src="/js/vendor/salvattore.js"></script>
+
     <script type="text/javascript">
 
         var work = {{ work|json|safe }};
