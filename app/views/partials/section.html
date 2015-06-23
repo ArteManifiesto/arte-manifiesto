@@ -4,7 +4,9 @@
 <section class="section">
 	<div class="section__title">
 		<span class="section-title-text">
-			{% if path == 'users' %}
+			{% if path == 'works' %}
+				Obras
+			{% elseif path == 'users' %}
 				Artistas
 			{% elseif path == 'products' %}
 				Productos
@@ -54,7 +56,7 @@
 				{% elseif path == 'products' %}
 
 					<div class="filter__title">Categorías</div>
-					
+
 					{% for productType in productTypes %}
 						<div class="filter__item js-mainFilter" data-value="{{ productType.nameSlugify }}">{{ productType.name }}</div>
 					{% endfor %}
@@ -62,11 +64,11 @@
 				{% elseif path == 'works' %}
 
 					<div class="filter__title">Categorías</div>
-					
+
 					{% for category in categories %}
 						<div class="filter__item js-mainFilter" data-value="{{ category.nameSlugify }}">{{ category.name }}</div>
 					{% endfor %}
-				
+
 				{% endif %}
 
 			</div>
@@ -91,7 +93,7 @@
 			</div>
 		</div>
 		<div class="section__workspace__elements">
-			
+
 			{% if path == 'users' %}
 
 				{% include '../partials/users.html' %}
@@ -101,7 +103,7 @@
 						<a href="/users/specialty/all/page-1/">Ver todos los artistas</a>
 					</p>
 				</div>
-				
+
 			{% elseif path == 'products' %}
 
 				{% include '../partials/products.html' %}
@@ -111,7 +113,7 @@
 						<a href="/products/type/all/page-1/">Ver todos los productos</a>
 					</p>
 				</div>
-				
+
 			{% elseif path == 'works' %}
 
 				{% include '../partials/works.html' %}

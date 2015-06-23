@@ -25,13 +25,13 @@ work-width = 150px
 			width 100%
 			display none
 			background rgba(black, 0.1)
+			cursor pointer
 			.social-item
 				margin auto
 				color white
 				border-radius 50%
 				padding .5rem
 				font-size 2em
-				cursor pointer
 				display flex
 				&.active
 					color #3000ff
@@ -39,13 +39,13 @@ work-width = 150px
 	&:hover
 		.cover
 			display flex
-			
+
 
 for i in (1..(columns - 1))
 	@media screen and (min-width: work-width*i+1) and (max-width: work-width*(i+1))
 		.works[data-columns]::before
 			content str(i) + ' .column.size-1of' + str(i)
-	
+
 @media screen and (min-width: work-width*(columns)+1)
 	.works[data-columns]::before
 		content str(columns) + ' .column.size-1of' + str(columns)

@@ -1137,6 +1137,7 @@ body {
   width: 100%;
   display: none;
   background: rgba(0,0,0,0.1);
+  cursor: pointer;
 }
 .works .work .cover .social-item {
   margin: auto;
@@ -1145,7 +1146,6 @@ body {
   border-radius: 50%;
   padding: 0.5rem;
   font-size: 2em;
-  cursor: pointer;
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;

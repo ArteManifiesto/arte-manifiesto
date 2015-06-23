@@ -1,6 +1,6 @@
 
 function Products (data) {
-	
+
 	window.history.pushState({}, "", url)
 
 	var	makeObject = data.makeObject;
@@ -25,7 +25,7 @@ function Products (data) {
 	var searcher = document.querySelector('.js-searcher')
 	var searchOptions = document.querySelector('.js-search-options')
 	var optionsEl = searchOptions.querySelectorAll('.search-option')
-	console.log('optionsEl: ', optionsEl)
+	// console.log('optionsEl: ', optionsEl)
 	var optionTextsEl = searchOptions.querySelectorAll('.search-text')
 	var navigation = document.querySelector('.navigation')
 	var navigationTexts = document.querySelectorAll('.navigation-text')
@@ -67,7 +67,7 @@ function Products (data) {
 
 		// Closed options
 		searcher.addEventListener('focusout', function () {
-			console.log('focusout')
+			// console.log('focusout')
 			setTimeout(function () {
 				searchOptions.style.display = 'none'
 			}, 150)
@@ -123,13 +123,13 @@ function Products (data) {
 	}
 
 	function more () {
-		
+
 		if(pagination.page == pagination.pages) return
 
 		url = url.replace('page-' + pagination.page, 'page-' + ++pagination.page)
 		getData(true)
 	}
-	
+
 	function changeTitle (value) {
 
 		var tag = getUrlParameter('tag');
@@ -182,8 +182,8 @@ function Products (data) {
 	function changeFeatured (featuredValue) {
 
 		var featured = getUrlParameter('featured')
-    console.log('featured: ', featured)
-		
+    // console.log('featured: ', featured)
+
 		if(featured == undefined) {
 			url = url + '&featured'
 		} else {
@@ -205,7 +205,7 @@ function Products (data) {
 	}
 
 	function changeCategory (value) {
-		console.log('value: ', value)
+		// console.log('value: ', value)
 
 		category = value
 		var currentCategory = url.split('/')[5]
@@ -236,8 +236,8 @@ function Products (data) {
 		orderValue = value
 
 		var order = getUrlParameter('order')
-    console.log('order: ', order)
-		
+    // console.log('order: ', order)
+
 		url = url.replace(order, orderValue)
 		url = url.replace('page-' + pagination.page, 'page-1')
 
@@ -292,7 +292,7 @@ function Products (data) {
 
 		looking = true
 		loading.style.display = 'block'
-		
+
 		console.log('url: ', url)
 		$.post( url, {idUser: idUser}, function( data ) {
 			console.log('data: ', data)
@@ -320,7 +320,7 @@ function Products (data) {
 			// }
 		})
 	}
-	
+
 	function getUrlParameter(sParam) {
 		var sPageURL = window.location.search.substring(1)
 		var sURLVariables = sPageURL.split('&')

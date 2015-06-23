@@ -19,7 +19,18 @@ window.section = new Section({
 })
 
 function createWorkObject(el, model) {
-	new Work(el, model)
+
+	if(isMobile()){
+
+		console.log('Mobile Browser')
+		new mobileWork(el, model)
+
+	} else {
+
+		console.log('Desktop Browser')
+		new Work(el, model)
+
+	}
 }
 
 var workEls = document.querySelectorAll('.work')
@@ -27,4 +38,20 @@ var workEls = document.querySelectorAll('.work')
 for (var i = 0; i < workEls.length; i++){
 	var index = workEls[i].getAttribute('data-index')
 	createWorkObject(workEls[i], works[index-1])
+}
+
+function isMobile() {
+	// return true
+
+	if (sessionStorage.desktop) // desktop storage
+	return false;
+	else if (localStorage.mobile) // mobile storage
+	return true;
+
+	// alternative
+	var mobile = ['iphone','ipad','android','blackberry','nokia','opera mini','windows mobile','windows phone','iemobile'];
+	for (var i in mobile) if (navigator.userAgent.toLowerCase().indexOf(mobile[i].toLowerCase()) > 0) return true;
+
+	// nothing found.. assume desktop
+	return false;
 }

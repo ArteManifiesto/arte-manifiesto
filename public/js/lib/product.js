@@ -10,7 +10,7 @@ function Product (el, data) {
 		likesEl = buttonLike.querySelector('span'),
 
 		buttonCollect = el.querySelector('.wish-list'),
-		
+
 		coverLike = el.querySelectorAll('.cover .fa')[0]
 		coverCollection = el.querySelectorAll('.cover .fa')[1]
 		singleUrl = data.url;
@@ -19,7 +19,7 @@ function Product (el, data) {
 	function setup () {
 
 		if(isMobile()){
-			// console.log('Mobile Browser')
+			console.log('Mobile Browser')
 			var mc = new Hammer.Manager(el.querySelector('.cover'));
 			mc.add( new Hammer.Tap({ event: 'singletap' }) );
 			// mc.get('singletap').requireFailure('doubletap');
@@ -163,11 +163,11 @@ function Collect (el) {
 		el.classList.add('load')
 
 		if(input.value){
-			
+
 			var url = '/' + user.username + '/collection/create'
 
 			$.post(url, {name: input.value}, function (response) {
-				
+
 				if(response.status == 200) {
 					insides.push(response.data.collection.id)
 					addToCollections(insides)
@@ -192,7 +192,7 @@ function Collect (el) {
 				console.log(response)
 				el.classList.remove('load')
 				el.style.display = 'none'
-				
+
 				addWrapp.classList.remove('visible')
 				newText.style.display = 'block'
 				input.value = ''
@@ -242,7 +242,7 @@ function Collect (el) {
 			console.log('entras')
 			newPos[1] = pos[1] - collectHeight/2 - margin
 		}
-		
+
 		$(".collect").offset({ top: newPos[1], left: newPos[0] })
 
 
