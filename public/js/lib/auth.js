@@ -226,7 +226,8 @@ function Login (el, data) {
 			if(response.status == 400){
 				submitButton.style.display = 'block'
 				loadingSubmit.style.display = 'none'
-				flashMessage.show('error', response.data)
+				// flashMessage.show('error', response.data.message)
+				flashMessage.show('error', 'Email o password incorrecto')
 			}
 
 			if(response.status == 200){
