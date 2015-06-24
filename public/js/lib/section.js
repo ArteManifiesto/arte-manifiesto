@@ -48,11 +48,13 @@ function Section(data) {
                 filterLeft.classList.remove('visible')
                 elementsCotainer.classList.remove('moveLeft')
                 container.classList.remove('moveLeft')
+                filterLeftButton.classList.remove('active')
             }
             else {
                 filterLeft.classList.add('visible')
                 elementsCotainer.classList.add('moveLeft')
                 container.classList.add('moveLeft')
+                filterLeftButton.classList.add('active')
             }
             leftVisible = leftVisible ? false : true
         })
@@ -61,11 +63,13 @@ function Section(data) {
                 filterRight.classList.remove('visible')
                 elementsCotainer.classList.remove('moveRight')
                 container.classList.remove('moveRight')
+                filterRightButton.classList.remove('active')
             }
             else {
                 filterRight.classList.add('visible')
                 elementsCotainer.classList.add('moveRight')
                 container.classList.add('moveRight')
+                filterRightButton.classList.add('active')
             }
             rightVisible = rightVisible ? false : true
         })
@@ -103,7 +107,6 @@ function Section(data) {
             var parametersFilter = document.querySelectorAll('.' + parameters[i].name)
             setupParameters(parametersFilter, parameters[i].url)
         }
-        ;
     }
 
     function setupParameters(parameters, partialUrl) {
@@ -112,7 +115,6 @@ function Section(data) {
                 changeParameter(this.getAttribute('data-value'), partialUrl)
             })
         }
-        ;
     }
 
     function changeParameter(value, partialUrl) {

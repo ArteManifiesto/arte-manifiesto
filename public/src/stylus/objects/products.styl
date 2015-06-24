@@ -71,7 +71,7 @@
 .product-image:hover
 	.cover
 		display flex
-		
+
 
 // product-width = 200px
 product-width = 180px
@@ -83,13 +83,13 @@ product-width = 180px
 		.product-wrapper
 			flex 1 50%
 			max-width 50%
-			
+
 @media screen and (min-width: product-width*3)
 	.products
 		.product-wrapper
 			flex 1 33.333%
 			max-width 33.333%
-			
+
 @media screen and (min-width: product-width*4)
 	.products
 		.product-wrapper
@@ -101,22 +101,31 @@ product-width = 180px
 		.product-wrapper
 			flex 1 20%
 			max-width 20%
-			
+
 @media screen and (min-width: max-width)
-	.products.moveLeft
-		.product-wrapper
-			flex 1 25%
-			max-width 25%
-	.products.moveRight
+	.products
 		.product-wrapper
 			flex 1 25%
 			max-width 25%
 
-	.products.moveLeft.moveRight
+	.products.moveRight
 		.product-wrapper
 			flex 1 33.333%
 			max-width 33.333%
-		
+
+	.products.moveLeft
+		.product-wrapper
+			flex 1 20%
+			max-width 20%
+
+
+	.products.moveLeft.moveRight
+		.product-wrapper
+			flex 1 25%
+			max-width 25%
+			// flex 1 33.333%
+			// max-width 33.333%
+
 /*------------------------------------*
 	$ COLLECT
 *------------------------------------*/
@@ -169,7 +178,7 @@ product-width = 180px
 	.button-solid
 		.fa
 			display inline
-		
+
 
 @keyframes load
 	0%
@@ -178,7 +187,7 @@ product-width = 180px
 		transform rotate(-180deg)
 	100%
 		transform rotate(-360deg)
-		
+
 .checkbox-list
 	&__item
 		display flex
@@ -195,10 +204,9 @@ product-width = 180px
 		.fa-check-square-o
 			color rgba(green ,5)
 			display none
-	
+
 .checkbox-list__item.active
 	.fa-check-square-o
 		display block
 	.fa-square-o
 		display none
-		

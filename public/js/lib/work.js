@@ -66,12 +66,12 @@ function mobileWork (el, data) {
 		mc.get('singletap').requireFailure('doubletap');
 
 		mc.on("singletap", function(ev) {
-			console.log('singletap!')
+			// console.log('singletap!')
 			location.href = singleUrl
 		})
 
 		mc.on("doubletap", function(ev) {
-			console.log('doubletap!')
+			// console.log('doubletap!')
 			if (!user) {
 				location.href = '/auth/login/?returnTo=' + location.href
 				return

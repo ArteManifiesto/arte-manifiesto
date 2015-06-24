@@ -142,7 +142,7 @@ input[type="submit"] {
   font-family: 'Oswald';
   font-size: 1.5rem;
   color: #585858;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
 }
 .navigation-text {
   font-family: 'Oswald';
@@ -877,7 +877,7 @@ body {
   }
 }
 @media screen and (min-width: 1100px) {
-  .products.moveLeft .product-wrapper {
+  .products .product-wrapper {
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
     -o-box-flex: 1;
@@ -892,20 +892,30 @@ body {
     -moz-box-flex: 1;
     -o-box-flex: 1;
     box-flex: 1;
-    -webkit-flex: 1 25%;
-    -ms-flex: 1 25%;
-    flex: 1 25%;
-    max-width: 25%;
+    -webkit-flex: 1 33.333%;
+    -ms-flex: 1 33.333%;
+    flex: 1 33.333%;
+    max-width: 33.333%;
+  }
+  .products.moveLeft .product-wrapper {
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -o-box-flex: 1;
+    box-flex: 1;
+    -webkit-flex: 1 20%;
+    -ms-flex: 1 20%;
+    flex: 1 20%;
+    max-width: 20%;
   }
   .products.moveLeft.moveRight .product-wrapper {
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
     -o-box-flex: 1;
     box-flex: 1;
-    -webkit-flex: 1 33.333%;
-    -ms-flex: 1 33.333%;
-    flex: 1 33.333%;
-    max-width: 33.333%;
+    -webkit-flex: 1 25%;
+    -ms-flex: 1 25%;
+    flex: 1 25%;
+    max-width: 25%;
   }
 }
 .collect {

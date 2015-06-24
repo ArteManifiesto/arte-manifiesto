@@ -87,9 +87,9 @@ global.db.sequelize.sync({force: dev}).then(function () {
                 if (i == 0) {
                     username = 'juliocanares';
                     email = 'juliocanares@gmail.com';
-                // } else if (i == 1) {
-                //     username = 'hanshavin';
-                //     email = 'hansevangelista@gmail.com';
+                } else if (i == 1) {
+                    username = 'hanshavin';
+                    email = 'hansevangelista@gmail.com';
                 } else if (i == 2) {
                     username = 'artjam';
                     email = 'artjam@gmail.com';

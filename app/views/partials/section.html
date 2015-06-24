@@ -9,7 +9,7 @@
 			{% elseif path == 'users' %}
 				Artistas
 			{% elseif path == 'products' %}
-				Productos
+				Encuentra los mejores productos de nuestros artistas
 			{% endif %}
 		</span>
 	</div>
@@ -37,7 +37,7 @@
 	<div class="section__workspace">
 		<div class="section__workspace__filter">
 			<div class="filter">
-				<div class="filter__title">Featured</div>
+				<div class="filter__title">Ver solo</div>
 				<div class="filter__fueatured">
 					<input name="question" type="checkbox" id="question">
 					<label for="question" class="">Recomendados</label>
@@ -55,7 +55,7 @@
 
 				{% elseif path == 'products' %}
 
-					<div class="filter__title">Categorías</div>
+					<div class="filter__title">Productos</div>
 
 					{% for productType in productTypes %}
 						<div class="filter__item js-mainFilter" data-value="{{ productType.nameSlugify }}">{{ productType.name }}</div>
@@ -78,19 +78,20 @@
 				<div class="filter__title">Orden</div>
 				<div class="filter__item js-order" data-value="popularity">Más popular</div>
 				<div class="filter__item js-order" data-value="views">Más visto</div>
+				<div class="filter__item js-order" data-value="newest">Más vendido</div>
 				<div class="filter__item js-order" data-value="newest">Más reciente</div>
 				{% if path == 'products' %}
 					<div class="filter__item js-order" data-value="price_asc">Menor precio</div>
 					<div class="filter__item js-order" data-value="price_desc">Mayor precio</div>
 				{% endif %}
 			</div>
-			<div class="filter">
+			<!-- <div class="filter">
 				<div class="filter__title">Tiempo</div>
 				<div class="filter__item js-time" data-value="day">Día</div>
 				<div class="filter__item js-time" data-value="week">Semana</div>
 				<div class="filter__item js-time" data-value="month">Mes</div>
 				<div class="filter__item js-time" data-value="year">Año</div>
-			</div>
+			</div> -->
 		</div>
 		<div class="section__workspace__elements">
 

@@ -4,7 +4,7 @@
 .section
 	&__title
 		margin auto
-		padding 1rem
+		padding 1.5rem 1rem
 		text-align center
 		max-width max-width
 	&__navigation
@@ -25,6 +25,9 @@
 			margin .5rem 1rem
 		.button-filter
 			margin .5rem 1rem
+			&.active
+				background #78909C
+				color white
 	&__workspace
 		margin auto
 		overflow hidden
@@ -81,12 +84,32 @@
 		&__workspace
 			&__elements
 				transition padding .5s
+				padding-left 10rem
 				&.moveLeft
-					padding-left 10rem
+					padding-left 0
 				&.moveRight
 					padding-right 10rem
+
 	.filter
 		width 9rem
+
+	.section
+		&__workspace
+			&__filter
+				&:nth-child(1)
+					transform translate(0%, 0)
+					&.visible
+						transform translate(-120%, 0)
+
+	.section
+		&__filters
+			.button-filter:nth-child(2)
+				background #78909C
+				color white
+				&.active
+					background white
+					color black
+
 
 @keyframes circle
 	0%
@@ -115,7 +138,7 @@
 				max-width 400px
 				margin-left auto
 				margin-right auto
-				
+
 
 /*------------------------------------*
 	$ FILTERS
@@ -131,7 +154,7 @@
 		background-image linear-gradient(top,#fff 0,#f6f6f6 100%)
 	&:not(:first-child)
 		border-top solid 1px #ddd
-			
+
 	&__item
 		cursor pointer
 		padding .5rem 1rem
@@ -139,7 +162,7 @@
 		color #444
 		&.selected
 			background rgb(237, 237, 237)
-				
+
 	&__price
 		padding 1rem 1rem 2rem 1rem
 	&__fueatured

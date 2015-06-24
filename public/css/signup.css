@@ -142,7 +142,7 @@ input[type="submit"] {
   font-family: 'Oswald';
   font-size: 1.5rem;
   color: #585858;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
 }
 .navigation-text {
   font-family: 'Oswald';

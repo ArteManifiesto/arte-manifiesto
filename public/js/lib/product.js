@@ -6,10 +6,12 @@ function Product (el, data) {
 		likes = data.likes,
 		liked = data.liked,
 
+		buttonLikeContainer = el.querySelector('.like')
 		buttonLike = el.querySelector('.button-like'),
 		likesEl = buttonLike.querySelector('span'),
 
-		buttonCollect = el.querySelector('.wish-list'),
+		buttonCollectContainer = el.querySelector('.wish-list')
+		buttonCollect = el.querySelector('.button-wish-list'),
 
 		coverLike = el.querySelectorAll('.cover .fa')[0]
 		coverCollection = el.querySelectorAll('.cover .fa')[1]
@@ -20,6 +22,12 @@ function Product (el, data) {
 
 		if(isMobile()){
 			console.log('Mobile Browser')
+
+			window.buttonLike = buttonLike
+			console.log('buttonLike', buttonLike)
+
+			buttonLike.style.display = 'block'
+
 			var mc = new Hammer.Manager(el.querySelector('.cover'));
 			mc.add( new Hammer.Tap({ event: 'singletap' }) );
 			// mc.get('singletap').requireFailure('doubletap');
@@ -277,7 +285,7 @@ function Collect (el) {
 
 
 function isMobile() {
-	// return true
+	return true
 
 	if (sessionStorage.desktop) // desktop storage
 	return false;

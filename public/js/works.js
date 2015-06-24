@@ -41,7 +41,7 @@ for (var i = 0; i < workEls.length; i++){
 }
 
 function isMobile() {
-	return true
+	// return true
 
 	if (sessionStorage.desktop) // desktop storage
 	return false;
