@@ -97,7 +97,10 @@ function Section(data) {
 
         var mainFilters = document.querySelectorAll('.' + mainFilter.name)
 
+        new Filter(mainFilters)
+
         for (var i = mainFilters.length - 1; i >= 0; i--) {
+
             mainFilters[i].addEventListener('click', function () {
                 changeMainFilter(this.getAttribute('data-value'))
             })
@@ -106,6 +109,8 @@ function Section(data) {
         for (var i = parameters.length - 1; i >= 0; i--) {
             var parametersFilter = document.querySelectorAll('.' + parameters[i].name)
             setupParameters(parametersFilter, parameters[i].url)
+
+            new Filter(parametersFilter)
         }
     }
 
@@ -279,5 +284,27 @@ function getUrlParameter(sParam) {
         var sParameterName = sURLVariables[i].split('=')
         if (sParameterName[0] == sParam)
             return sParameterName[1]
+    }
+}
+
+
+function Filter (filters) {
+
+    var current = 0
+
+    for (var i = 0; i < filters.length; i++) {
+        var filter = filters[i]
+
+        filter.setAttribute('index', i)
+
+        filter.addEventListener('click', function () {
+            var index = this.getAttribute('index')
+            console.log('index', index)
+
+            filters[current].classList.remove('selected')
+            filters[index].classList.add('selected')
+            current = index
+
+        })
     }
 }

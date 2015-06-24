@@ -1108,7 +1108,7 @@ body {
   color: #444;
 }
 .filter__item.selected {
-  background: #ededed;
+  background: #fff59d;
 }
 .filter__price {
   padding: 1rem 1rem 2rem 1rem;
