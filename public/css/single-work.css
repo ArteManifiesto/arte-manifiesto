@@ -890,16 +890,6 @@ body {
     flex: 1 25%;
     max-width: 25%;
   }
-  .products.moveRight .product-wrapper {
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    -o-box-flex: 1;
-    box-flex: 1;
-    -webkit-flex: 1 33.333%;
-    -ms-flex: 1 33.333%;
-    flex: 1 33.333%;
-    max-width: 33.333%;
-  }
   .products.moveLeft .product-wrapper {
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
@@ -909,16 +899,6 @@ body {
     -ms-flex: 1 20%;
     flex: 1 20%;
     max-width: 20%;
-  }
-  .products.moveLeft.moveRight .product-wrapper {
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    -o-box-flex: 1;
-    box-flex: 1;
-    -webkit-flex: 1 25%;
-    -ms-flex: 1 25%;
-    flex: 1 25%;
-    max-width: 25%;
   }
 }
 .collect {

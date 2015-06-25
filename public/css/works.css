@@ -590,11 +590,33 @@ body {
   color: #555;
   font-size: 1rem;
 }
-.search i {
+.search > i {
   position: absolute;
   top: 0.5rem;
   left: 0.75em;
   color: #808080;
+}
+.search .text {
+  display: none;
+  background: #008000;
+  color: #fff;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  position: absolute;
+  font-family: 'Raleway';
+  font-weight: 600;
+  top: 0.35rem;
+  left: 2rem;
+}
+.search .text span {
+  padding: 0.275rem 0.5rem;
+  font-size: 0.85rem;
+  display: inline-block;
+  border-right: solid 1px #fff;
+}
+.search .text i {
+  padding: 0.25rem;
+  cursor: pointer;
 }
 .search .options {
   display: none;
@@ -1012,9 +1034,6 @@ body {
   }
   .section__workspace__elements.moveLeft {
     padding-left: 0;
-  }
-  .section__workspace__elements.moveRight {
-    padding-right: 10rem;
   }
   .filter {
     width: 9rem;

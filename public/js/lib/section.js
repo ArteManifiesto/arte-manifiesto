@@ -79,7 +79,7 @@ function Section(data) {
 
         searchEl.addEventListener('search', function () {
             changeSearch(search.values().text, search.values().url)
-            navigationText.innerHTML = search.values().text
+            // navigationText.innerHTML = search.values().text
             navigation.classList.add('visible')
         })
 

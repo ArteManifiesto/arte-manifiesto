@@ -13,13 +13,17 @@
 			{% endif %}
 		</span>
 	</div>
-	<div class="section__navigation">
+	<!-- <div class="section__navigation">
 		<span class="navigation-text">Nombre</span>&nbsp; <i class="fa fa-angle-right"></i>&nbsp; <span class="navigation-text js-navigation-text">Cats</span>
-	</div>
+	</div> -->
 	<div class="section__filters">
 		<div class="search">
 			<i class="fa fa-search"></i>
 			<input class="js-searcher" type="text" placeholder="Busca Productos por Nombre">
+			<div class="text">
+				<span>hola esto es un texto de busqueda!</span>
+				<i class="fa fa-times"></i>
+			</div>
 			<ul class="options">
 				{% if path == 'users' %}
 					<li class="option" data-search='username'>Buscar Username: <span class="search-text"></span></li>
@@ -78,7 +82,7 @@
 				<div class="filter__title">Orden</div>
 				<div class="filter__item js-order" data-value="popularity">Más popular</div>
 				<div class="filter__item js-order" data-value="views">Más visto</div>
-				<div class="filter__item js-order" data-value="newest">Más vendido</div>
+				<!-- <div class="filter__item js-order" data-value="newest">Más vendido</div> -->
 				<div class="filter__item js-order" data-value="newest">Más reciente</div>
 				{% if path == 'products' %}
 					<div class="filter__item js-order" data-value="price_asc">Menor precio</div>
