@@ -19,12 +19,13 @@ function Search (el) {
 		console.log('textContainer', textContainer)
 
 		closedTextContainer.addEventListener('click', function () {
-			console.log('click!')
-			console.log('textContainer', textContainer)
+			// console.log('click!')
+			// console.log('textContainer', textContainer)
+			input.value = ''
 			textContainer.style.display = 'none'
 		})
 
-		for (var i = 0; i < options.length; i++){
+		for (var i = 0; i < options.length; i++) {
 			options[i].setAttribute('index', i)
 		}
 
@@ -38,9 +39,16 @@ function Search (el) {
 				search()
 			})
 
-		// input.addEventListener('focusin', function () {
-		// 	if(text != '') optionsContainer.classList.add('visible')
-		// })
+		input.addEventListener('focusin', function () {
+			console.log('focusin!')
+			hideText()
+			// if(text != '') optionsContainer.classList.add('visible')
+		})
+
+		input.addEventListener('click', function () {
+			console.log('click!')
+			hideText()
+		})
 
 		input.addEventListener('input', function() {
 			text = input.value
@@ -82,11 +90,20 @@ function Search (el) {
 
 	function search () {
 		console.log('serarch!')
+		showText()
+		el.dispatchEvent(event)
+	}
+
+	function showText () {
 		if(text != '') {
 			textContainer.querySelector('span').innerHTML = text
 			textContainer.style.display = 'block'
 		}
-		el.dispatchEvent(event)
+	}
+
+	function hideText () {
+		console.log('hideText!')
+		textContainer.style.display = 'none'
 	}
 
 	function values () {

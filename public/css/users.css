@@ -981,7 +981,7 @@ body {
   transform: translate(0%, 0);
 }
 .section__workspace__elements {
-  min-height: 500px;
+  min-height: 450px;
 }
 .section__workspace__elements .loading {
   color: #aaa;
@@ -1013,11 +1013,11 @@ body {
   font-size: 1rem;
   fon-weight: 600;
 }
-.section__workspace__elements .more {
+.section__workspace .more {
   margin: 2rem auto;
   text-align: center;
 }
-.section__workspace__elements .more.hidden {
+.section__workspace .more.hidden {
   display: none;
 }
 @media (min-width: 1100px) {

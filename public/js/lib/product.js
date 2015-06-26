@@ -6,33 +6,40 @@ function Product (el, data) {
 		likes = data.likes,
 		liked = data.liked,
 
-		buttonLikeContainer = el.querySelector('.like')
+		usersContainer = el.querySelector('.users'),
+
+		buttonLikeContainer = el.querySelector('.like'),
 		buttonLike = el.querySelector('.button-like'),
 		likesEl = buttonLike.querySelector('span'),
 
-		buttonCollectContainer = el.querySelector('.wish-list')
+		buttonCollectContainer = el.querySelector('.wish-list'),
 		buttonCollect = el.querySelector('.button-wish-list'),
 
-		coverLike = el.querySelectorAll('.cover .fa')[0]
-		coverCollection = el.querySelectorAll('.cover .fa')[1]
+		cover = el.querySelector('.cover'),
+		coverLike = el.querySelectorAll('.cover .fa')[0],
+		coverCollection = el.querySelectorAll('.cover .fa')[1],
 		singleUrl = data.url;
 
+		console.log('conver', cover)
 
 	function setup () {
 
 		if(isMobile()){
 			console.log('Mobile Browser')
 
-			window.buttonLike = buttonLike
-			console.log('buttonLike', buttonLike)
+			// window.buttonLike = buttonLike
+			// console.log('buttonLike', buttonLike)
+			cover.style.display = 'none'
+			usersContainer.style.display = 'none'
+			buttonLikeContainer.style.display = 'block'
+			buttonCollectContainer.style.display = 'block'
 
-			buttonLike.style.display = 'block'
-
-			var mc = new Hammer.Manager(el.querySelector('.cover'));
+			var mc = new Hammer.Manager(el.querySelector('img'));
 			mc.add( new Hammer.Tap({ event: 'singletap' }) );
 			// mc.get('singletap').requireFailure('doubletap');
 
 			mc.on("singletap", function(ev) {
+				console.log('singletap')
 				location.href = singleUrl
 			})
 
@@ -57,7 +64,14 @@ function Product (el, data) {
 		} else {
 			// console.log('Desktop Browser');
 			console.log('Desktop Browser')
-			coverLike.addEventListener('click', function () {
+
+			cover.addEventListener('click', function () {
+				location.href = singleUrl
+			})
+
+			coverLike.addEventListener('click', function (event) {
+				event.stopPropagation()
+
 				if (!user) {
 					location.href = '/auth/login/?returnTo=' + location.href
 					return
@@ -67,6 +81,8 @@ function Product (el, data) {
 			})
 
 			coverCollection.addEventListener('click', function (e) {
+				event.stopPropagation()
+
 				if (!user) {
 					location.href = '/auth/login/?returnTo=' + location.href
 					return
@@ -285,7 +301,7 @@ function Collect (el) {
 
 
 function isMobile() {
-	return true
+	// return true
 
 	if (sessionStorage.desktop) // desktop storage
 	return false;
