@@ -1,23 +1,27 @@
 
 function Signup (el, data) {
 
-	var imputs = [el.querySelector('input[name="username"]'),
-								el.querySelector('input[name="email"]'),
+	// var imputs = [el.querySelector('input[name="username"]'),
+	// 							el.querySelector('input[name="email"]'),
+	var imputs = [el.querySelector('input[name="email"]'),
 								el.querySelector('input[name="password"]'),
 								el.querySelector('input[name="firstname"]'),
 								el.querySelector('input[name="lastname"]')]
 
-	var errors = [el.querySelector('.username-error'),
-								el.querySelector('.email-error'),
+	// var errors = [el.querySelector('.username-error'),
+	var errors = [el.querySelector('.email-error'),
 								el.querySelector('.password-error'),
 								el.querySelector('.firstname-error'),
 								el.querySelector('.lastname-error')]
 
-	var actives = [false, false, false, false, false]
+	// var actives = [false, false, false, false, false]
+	var actives = [false, false, false, false]
 
-	var valids = [false, false, false, false, false]
+	// var valids = [false, false, false, false, false]
+	var valids = [false, false, false, false]
 
-	var evals = [evalUsername, evalEmail, evalPassword, evalFirstname, evalLastname]
+	// var evals = [evalUsername, evalEmail, evalPassword, evalFirstname, evalLastname]
+	var evals = [evalEmail, evalPassword, evalFirstname, evalLastname]
 
 	var facebookButton = el.querySelector('.facebook-button'),
 			loadingFacebook = el.querySelectorAll('.loading')[0];
@@ -28,9 +32,11 @@ function Signup (el, data) {
 
 	function setup () {
 
-		for (var i = 0; i < 5; i++) imputs[i].setAttribute('index', i)
+		// for (var i = 0; i < 5; i++) imputs[i].setAttribute('index', i)
+		for (var i = 0; i < 4; i++) imputs[i].setAttribute('index', i)
 
-		for (var i = 0; i < 5; i++) {
+		// for (var i = 0; i < 5; i++) {
+		for (var i = 0; i < 4; i++) {
 			imputs[i].addEventListener('focusout', function () {
 				console.log('focusout!')
 				var index = this.getAttribute('index')
@@ -60,7 +66,8 @@ function Signup (el, data) {
 
 		var submit = true
 
-		for (var i = 4; i >= 0; i--) {
+		// for (var i = 4; i >= 0; i--) {
+		for (var i = 3; i >= 0; i--) {
 			if(!valids[i]){
 				actives[i] = true
 				evals[i](imputs[i].value)
@@ -92,44 +99,61 @@ function Signup (el, data) {
 		}
 	}
 
-	function evalUsername (value) {
+	// function evalUsername (value) {
 
-		hide(errors[0])
+	// 	hide(errors[0])
 
-		if(value){
-			$.post('/auth/check/?property=username&value=' + value, function (response) {
-				// console.log('response: ', response)
-				if(!response.data.available){
-					show(errors[0], value + ' ya esta en uso')
-					valids[0] = false
-				} else {
-					valids[0] = true
-				}
-			})
-		} else {
-			show(errors[0], 'campo requerido')
-			valids[0] = false
-		}
-	}
+	// 	if(value){
+	// 		$.post('/auth/check/?property=username&value=' + value, function (response) {
+	// 			// console.log('response: ', response)
+	// 			if(!response.data.available){
+	// 				show(errors[0], value + ' ya esta en uso')
+	// 				valids[0] = false
+	// 			} else {
+	// 				valids[0] = true
+	// 			}
+	// 		})
+	// 	} else {
+	// 		show(errors[0], 'campo requerido')
+	// 		valids[0] = false
+	// 	}
+	// }
 
 	function evalEmail (value) {
 
-		hide(errors[1])
+		hide(errors[0])
 
 		if(value){
 			if(validateEmail(value)){
 				$.post('/auth/check/?property=email&value=' + value, function (response) {
 					// console.log('response: ', response)
 					if(!response.data.available){
-						show(errors[1], value + ' ya esta en uso')
-						valids[1] = false
+						show(errors[0], value + ' ya esta en uso')
+						valids[0] = false
 					} else {
-						valids[1] = true
+						valids[0] = true
 					}
 				})
 			} else {
-				show(errors[1], 'formato incorrecto')
+				show(errors[0], 'formato incorrecto')
+				valids[0] = false
+			}
+		} else {
+			show(errors[0], 'campo requerido')
+			valids[0] = false
+		}
+	}
+
+	function evalPassword (value) {
+
+		hide(errors[1])
+
+		if(value){
+			if(value.length < 6){
+				show(errors[1], 'minimo 6 caracteres')
 				valids[1] = false
+			} else {
+				valids[1] = true
 			}
 		} else {
 			show(errors[1], 'campo requerido')
@@ -137,24 +161,19 @@ function Signup (el, data) {
 		}
 	}
 
-	function evalPassword (value) {
+	function evalFirstname (value) {
 
 		hide(errors[2])
 
 		if(value){
-			if(value.length < 6){
-				show(errors[2], 'minimo 6 caracteres')
-				valids[2] = false
-			} else {
-				valids[2] = true
-			}
+			valids[2] = true
 		} else {
 			show(errors[2], 'campo requerido')
 			valids[2] = false
 		}
 	}
 
-	function evalFirstname (value) {
+	function evalLastname (value) {
 
 		hide(errors[3])
 
@@ -163,18 +182,6 @@ function Signup (el, data) {
 		} else {
 			show(errors[3], 'campo requerido')
 			valids[3] = false
-		}
-	}
-
-	function evalLastname (value) {
-
-		hide(errors[4])
-
-		if(value){
-			valids[4] = true
-		} else {
-			show(errors[4], 'campo requerido')
-			valids[4] = false
 		}
 	}
 
