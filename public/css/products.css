@@ -983,23 +983,6 @@ body {
 .section__workspace__elements {
   min-height: 450px;
 }
-.section__workspace__elements .loading {
-  color: #aaa;
-  margin: 2rem;
-  display: none;
-  font-size: 1.75rem;
-  text-align: center;
-}
-.section__workspace__elements .loading.visible {
-  display: block;
-}
-.section__workspace__elements .loading .fa {
-  -webkit-animation: 1.5s circle infinite;
-  -moz-animation: 1.5s circle infinite;
-  -o-animation: 1.5s circle infinite;
-  -ms-animation: 1.5s circle infinite;
-  animation: 1.5s circle infinite;
-}
 .section__workspace__elements .empty-result {
   display: none;
   padding: 2rem 1rem;
@@ -1019,6 +1002,23 @@ body {
 }
 .section__workspace .more.hidden {
   display: none;
+}
+.section__workspace .loading {
+  color: #aaa;
+  margin: 2rem;
+  display: none;
+  font-size: 1.75rem;
+  text-align: center;
+}
+.section__workspace .loading.visible {
+  display: block;
+}
+.section__workspace .loading .fa {
+  -webkit-animation: 1.5s circle infinite;
+  -moz-animation: 1.5s circle infinite;
+  -o-animation: 1.5s circle infinite;
+  -ms-animation: 1.5s circle infinite;
+  animation: 1.5s circle infinite;
 }
 @media (min-width: 1100px) {
   .section__workspace__elements {
@@ -1157,6 +1157,45 @@ body {
 .filter.solid .filter__title {
   font-weight: 500;
   padding: 0.75rem 1rem;
+}
+.pagination-container {
+  display: table;
+  margin: 2rem auto;
+}
+.pagination {
+  color: #333;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  font-size: 0.9rem;
+  font-family: 'Raleway';
+}
+.pagination .page {
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  border-left: solid 1px #ddd;
+  border-top: solid 1px #ddd;
+  border-bottom: solid 1px #ddd;
+}
+.pagination .page.selected {
+  color: #fff;
+  background: rgba(120,144,156,0.5);
+}
+.pagination .page:hover {
+  color: #fff;
+  background: rgba(120,144,156,0.5);
+}
+.pagination .page:first-child {
+  -webkit-border-radius: 5px 0 0 5px;
+  border-radius: 5px 0 0 5px;
+}
+.pagination .page:last-child {
+  -webkit-border-radius: 0 5px 5px 0;
+  border-radius: 0 5px 5px 0;
+  border-right: solid 1px #ddd;
 }
 @-moz-keyframes circle {
   0% {

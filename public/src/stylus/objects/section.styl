@@ -53,16 +53,6 @@
 					transform translate(0%, 0)
 		&__elements
 			min-height 450px
-			.loading
-				color #aaa
-				margin 2rem
-				display none
-				font-size 1.75rem
-				text-align center
-				&.visible
-					display block
-				.fa
-					animation 1.5s circle infinite
 			.empty-result
 				display none
 				padding 2rem 1rem
@@ -78,6 +68,16 @@
 			text-align center
 			&.hidden
 				display none
+		.loading
+			color #aaa
+			margin 2rem
+			display none
+			font-size 1.75rem
+			text-align center
+			&.visible
+				display block
+			.fa
+				animation 1.5s circle infinite
 
 @media (min-width: max-width)
 	.section
@@ -182,3 +182,34 @@
 	.filter__title
 		font-weight: 500;
 		padding: 0.75rem 1rem;
+
+
+
+/*------------------------------------*
+	$ PAGINATIONS
+*------------------------------------*/
+.pagination-container
+	display table
+	margin 2rem auto
+.pagination
+	color #333
+	display flex
+	font-size .9rem
+	font-family 'Raleway'
+	.page
+		cursor pointer
+		padding .75rem 1rem
+		border-left solid 1px #ddd
+		border-top solid 1px #ddd
+		border-bottom solid 1px #ddd
+		&.selected
+			color white
+			background rgba(#78909c, .5)
+		&:hover
+			color white
+			background rgba(#78909c, .5)
+		&:first-child
+			border-radius 5px 0 0 5px
+		&:last-child
+			border-radius 0 5px 5px 0
+			border-right solid 1px #ddd

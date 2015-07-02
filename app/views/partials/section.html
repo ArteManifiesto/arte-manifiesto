@@ -131,12 +131,24 @@
 
 			{% endif %}
 
-			<div class="loading"><i class="fa fa-spinner"></i></div>
-
 		</div>
 
 		<div class="more {% if pagination.page >= pagination.pages %} hidden {% endif %}">
 			<button class="button-solid" data-color='red'>Ver más</button>
 		</div>
+
+		<div class="loading"><i class="fa fa-spinner"></i></div>
+
+		<div class="pagination-container">
+			<ul class="pagination">
+				<li class="page">1</li>
+				<li class="page selected">2</li>
+				<li class="page">3</li>
+				<li class="page">4</li>
+				<li class="page">5</li>
+				<li class="page">... 120</li>
+			</ul>
+		</div>
+
 	</div>
 </section>
