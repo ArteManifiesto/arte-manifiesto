@@ -7,39 +7,113 @@
 @import 'elements/inputs.styl'
 
 .Profile
-	max-width max-width
+	max-width (max-width/1.5)
 	margin auto
-	padding 2rem 1rem
-	&-inner
-		border 1px solid #ddd
+	padding .25rem
 	&-section
-		padding 1.5rem 1rem
-		&:not(:last-child)
-			border-bottom 1px solid #ddd
+		padding .25rem
 		&-title
-			font-size 1.15rem
 		&-input
 		&-textarea
-		// &-inputDouble
+		&-avatar
 			margin .5rem
-		&-button
-			display table
-			margin auto
-		// &-inputDouble
-		// 	display flex
-		// 	align-items center
-		// 	span
-		// 		flex 1
+		&-title
+			font-size 1.15rem
+		&-avatar
+			&-img
+				max-width 120px
+				margin auto
+			&-options
+				display flex
+				justify-content center
+			&-option
+				padding .5rem
+				display flex
+				align-items center
+				label
+					font-size .7rem
+		&-options
+			display flex
+			flex-wrap: wrap;
+			justify-content: center;
+		&-option
+			max-width 150px
+			background #f6f6f6
+			margin .5rem
+			img
+			p
+				padding .5rem
+			p
+				font-family: 'Raleway';
+				cursor: pointer;
+				font-size: 0.8rem;
+				letter-spacing: 1px;
+				text-align center
+	button
+		display table
+		margin 1rem auto
+
+.checkbox-list
+	max-height 200px
+	overflow auto
+	&__item
+		display flex
+		align-items center
+		padding .25rem
+		font-family 'Raleway'
+		cursor pointer
+		font-size .8rem
+		letter-spacing 1px
+		&:hover
+			background #eee
+		span
+			padding-left .25rem
+
+
+@media (min-width: 720px)
+	.carousel
+		height: 10.65rem;
 
 @media (min-width: 1000px)
-	.Profile
-		&-section
-			&-input
-				display inline-block
-				vertical-align top
-				width 47.85%
-
 	.column
-		width 50%
+		width 49.715%
 		display inline-block
 		vertical-align top
+	.column2
+		display: inline-block;
+		vertical-align: top;
+		width: 44.9%;
+		margin: 0 .5rem;
+
+// .Profile
+// 	max-width max-width
+// 	margin auto
+// 	padding 2rem 1rem
+// 	// &-inner
+// 	// 	border 1px solid #ddd
+// 	&-section
+// 		padding 1.5rem 1rem
+// 		// &:not(:last-child)
+// 			// border-bottom 1px solid #ddd
+// 		&-title
+// 			font-size 1.15rem
+// 		&-input
+// 		&-textarea
+// 		// &-inputDouble
+// 			margin .5rem
+// 		&-button
+// 			display table
+// 			margin auto
+// 		// &-inputDouble
+// 		// 	display flex
+// 		// 	align-items center
+// 		// 	span
+// 		// 		flex 1
+
+// @media (min-width: 1000px)
+// 	.Profile
+// 		&-section
+// 			&-input
+// 				display inline-block
+// 				vertical-align top
+// 				width 47.85%
