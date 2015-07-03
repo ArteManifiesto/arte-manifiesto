@@ -1,0 +1,45 @@
+/*------------------------------------*
+	$ ACCOUNT
+*------------------------------------*/
+@import 'base.styl'
+
+@import 'elements/buttons.styl'
+@import 'elements/inputs.styl'
+
+.Profile
+	max-width max-width
+	margin auto
+	padding 2rem 1rem
+	&-inner
+		border 1px solid #ddd
+	&-section
+		padding 1.5rem 1rem
+		&:not(:last-child)
+			border-bottom 1px solid #ddd
+		&-title
+			font-size 1.15rem
+		&-input
+		&-textarea
+		// &-inputDouble
+			margin .5rem
+		&-button
+			display table
+			margin auto
+		// &-inputDouble
+		// 	display flex
+		// 	align-items center
+		// 	span
+		// 		flex 1
+
+@media (min-width: 1000px)
+	.Profile
+		&-section
+			&-input
+				display inline-block
+				vertical-align top
+				width 47.85%
+
+	.column
+		width 50%
+		display inline-block
+		vertical-align top

@@ -1,13 +1,71 @@
 {% extends '../partials/base.html' %}
 
 {% set path = 'interests' %}
-{% set title = 'Arte Manifiesto | Intereses' %}
+{% set title = 'Arte Manifiesto | Completar Perfil' %}
 
 {% block stylesheets %}
-
+	<link rel="stylesheet" type="text/css" href="/css/complite-profile.css">
 {% endblock %}
 
 {% block elements %}
+
+	<div class="Profile">
+		<div class="Profile-inner">
+			<div class="Profile-section">
+				<p class="Profile-section-title section-title-text">Datos Basicos</p>
+				<div class="column">
+					fotex!
+				</div>
+				<div class="column">
+					<div class="Profile-section-input">
+						<input class="input" type="text" name="username" placeholder="username">
+					</div>
+					<div class="Profile-section-input">
+						<input class="input" type="text" name="ciudad" placeholder="ciudad">
+					</div>
+					<div class="Profile-section-input">
+						<input class="input" type="text" name="pais" placeholder="pais">
+					</div>
+					<div class="Profile-section-input">
+						<select class="input" name="gender">
+							<option disabled selected>Género</option>
+							<option value="Male">Masculino</option>
+							<option value="Female">Femenino</option>
+						</select>
+					</div>
+					<div class="Profile-section-input">
+						<input class="input" type="text" name="fecha-nacimiento" placeholder="fecha-nacimiento">
+					</div>
+				</div>
+			</div>
+			<div class="Profile-section">
+				<p class="Profile-section-title section-title-text">Redes sociales</p>
+				<div class="Profile-section-input">
+					<input class="input" type="url" name="facebook" placeholder="facebook">
+				</div>
+				<div class="Profile-section-input">
+					<input class="input" type="url" name="twitter" placeholder="twitter">
+				</div>
+				<div class="Profile-section-input">
+					<input class="input" type="url" name="behance" placeholder="behance">
+				</div>
+				<div class="Profile-section-input">
+					<input class="input" type="url" name="tumblr" placeholder="tumblr">
+				</div>
+			</div>
+			<div class="Profile-section">
+				<p class="Profile-section-title section-title-text">Mi Manifiesto</p>
+				<div class="Profile-section-textarea">
+					<textarea class="input textarea"></textarea>
+				</div>
+			</div>
+			<div class="Profile-section">
+				<div class="Profile-section-button">
+					<button class="button-solid" data-color='red'>Guardar</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 {% endblock %}
 
@@ -15,3 +73,9 @@
 {% block scripts %}
 
 {% endblock %}
+<!-- 				<div class="Profile-section-inputDouble">
+					<span>www.artemanifiesto.com/</span>
+					<span>
+						<input class="input" type="text" name="ciudad" placeholder="ciudad">
+					</span>
+				</div> -->
