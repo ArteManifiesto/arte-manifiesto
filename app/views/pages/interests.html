@@ -31,11 +31,22 @@
 			</div>
 			<div class="column">
 				<div class="Profile-section-input">
-					<input class="input" type="text" name="username" placeholder="username">
+					<span>artemanifiesto.com/</span>&nbsp;
+					<div>
+						<input class="input" type="text" name="username" placeholder="username">
+					</div>
 				</div>
+
+<!-- 				<div class="Profile-section-input column2">
+					<span>ciudad</span>&nbsp;
+					<div>
+						<input class="input" type="text" name="ciudad">
+					</div>
+				</div> -->
 				<div class="Profile-section-input column2">
 					<input class="input" type="text" name="ciudad" placeholder="ciudad">
 				</div>
+
 				<div class="Profile-section-input column2">
 					<input class="input" type="text" name="pais" placeholder="pais">
 				</div>
@@ -47,7 +58,10 @@
 					</select>
 				</div>
 				<div class="Profile-section-input">
-					<input class="input" type="text" name="fecha-nacimiento" placeholder="fecha-nacimiento">
+					<span>Fecha de nacimiento</span>&nbsp;
+					<div>
+						<input class="input" type="date" name="fecha-nacimiento" placeholder="fecha-nacimiento">
+					</div>
 				</div>
 			</div>
 		</div>
@@ -131,7 +145,7 @@
 		</div>
 		<div class="Profile-section">
 			<p class="Profile-section-title section-title-text">Especialidades</p>
-			<div class="Profile-section-input">
+			<!-- <div class="Profile-section-input"> -->
 				<ul class="checkbox-list">
 					<li class="checkbox-list__item">
 						<input type="checkbox" name="category" value="arte-urbano"> <span>Arte Urbano</span>
@@ -167,7 +181,7 @@
 						<input type="checkbox" name="category" value="escultura"> <span>Escultura</span>
 					</li>
 				</ul>
-			</div>
+			<!-- </div> -->
 		</div>
 		<button class="button-solid" data-color='red'>Guardar</button>
 	</div>
@@ -176,66 +190,5 @@
 
 
 {% block scripts %}
-
+	<script type="text/javascript" src="/js/complite-profile.js"></script>
 {% endblock %}
-
-	<!-- <div class="Profile">
-		<div class="Profile-inner">
-			<div class="Profile-section">
-				<p class="Profile-section-title section-title-text">Datos Basicos</p>
-				<div class="column">
-					fotex!
-				</div>
-				<div class="column">
-					<div class="Profile-section-input">
-						<input class="input" type="text" name="username" placeholder="username">
-					</div>
-					<div class="Profile-section-input">
-						<input class="input" type="text" name="ciudad" placeholder="ciudad">
-					</div>
-					<div class="Profile-section-input">
-						<input class="input" type="text" name="pais" placeholder="pais">
-					</div>
-					<div class="Profile-section-input">
-						<select class="input" name="gender">
-							<option disabled selected>Género</option>
-							<option value="Male">Masculino</option>
-							<option value="Female">Femenino</option>
-						</select>
-					</div>
-					<div class="Profile-section-input">
-						<input class="input" type="text" name="fecha-nacimiento" placeholder="fecha-nacimiento">
-					</div>
-				</div>
-			</div>
-			<div class="Profile-section">
-				<p class="Profile-section-title section-title-text">Redes sociales</p>
-				<div class="Profile-section-input">
-					<input class="input" type="url" name="facebook" placeholder="facebook">
-				</div>
-				<div class="Profile-section-input">
-					<input class="input" type="url" name="twitter" placeholder="twitter">
-				</div>
-				<div class="Profile-section-input">
-					<input class="input" type="url" name="behance" placeholder="behance">
-				</div>
-				<div class="Profile-section-input">
-					<input class="input" type="url" name="tumblr" placeholder="tumblr">
-				</div>
-			</div>
-			<div class="Profile-section">
-				<p class="Profile-section-title section-title-text">Mi Manifiesto</p>
-				<div class="Profile-section-textarea">
-					<textarea class="input textarea"></textarea>
-				</div>
-			</div>
-		</div>
-		<button class="button-solid" data-color='red'>Guardar</button>
-	</div> -->
-
-<!-- 				<div class="Profile-section-inputDouble">
-					<span>www.artemanifiesto.com/</span>
-					<span>
-						<input class="input" type="text" name="ciudad" placeholder="ciudad">
-					</span>
-				</div> -->

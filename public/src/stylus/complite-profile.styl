@@ -6,6 +6,9 @@
 @import 'elements/buttons.styl'
 @import 'elements/inputs.styl'
 
+.input
+	font-size .9rem
+
 .Profile
 	max-width (max-width/1.5)
 	margin auto
@@ -17,6 +20,15 @@
 		&-textarea
 		&-avatar
 			margin .5rem
+		&-input
+			display flex
+			align-items center
+			span
+				letter-spacing 1px
+				font-family 'Raleway'
+				font-size .85rem
+			div
+				flex 1
 		&-title
 			font-size 1.15rem
 		&-avatar
@@ -37,7 +49,7 @@
 			flex-wrap: wrap;
 			justify-content: center;
 		&-option
-			max-width 150px
+			max-width 200px
 			background #f6f6f6
 			margin .5rem
 			img
@@ -75,6 +87,8 @@
 		height: 10.65rem;
 
 @media (min-width: 1000px)
+	.Profile
+		max-width (max-width/1.25)
 	.column
 		width 49.715%
 		display inline-block
@@ -82,7 +96,8 @@
 	.column2
 		display: inline-block;
 		vertical-align: top;
-		width: 44.9%;
+		// width: 44.9%;
+		width: 45.813%;
 		margin: 0 .5rem;
 
 // .Profile
