@@ -35,6 +35,31 @@
 			&-img
 				max-width 120px
 				margin auto
+				position relative
+				&:hover
+					.cover
+						display flex
+				.cover
+					position absolute
+					top 0
+					width 100%
+					height 100%
+					background rgba(black, .25)
+					// display flex
+					display none
+					i
+						margin auto
+						font-size 2rem
+						// color rgba(white, .5)
+						color white
+					input
+						position absolute
+						top 0
+						left 0
+						height 100%
+						width 100%
+						opacity 0
+						cursor pointer
 			&-options
 				display flex
 				justify-content center
@@ -44,6 +69,7 @@
 				align-items center
 				label
 					font-size .7rem
+
 		&-options
 			display flex
 			flex-wrap: wrap;
@@ -52,6 +78,23 @@
 			max-width 200px
 			background #f6f6f6
 			margin .5rem
+			position relative
+			cursor pointer
+			.cover
+				position absolute
+				top 0
+				left 0
+				bottom 0
+				width 100%
+				display flex
+				.fa
+					margin auto
+					color white
+					font-size 2rem
+					border-radius 50%
+					padding .5rem
+					background #f54545
+					border solid 5px white
 			img
 			p
 				padding .5rem
