@@ -80,17 +80,20 @@
 			margin .5rem
 			position relative
 			cursor pointer
+			&[selected="true"]
+				.cover
+					display flex
 			.cover
 				position absolute
 				top 0
 				left 0
 				bottom 0
 				width 100%
-				display flex
+				display none
 				.fa
 					margin auto
 					color white
-					font-size 2rem
+					font-size 1.5rem
 					border-radius 50%
 					padding .5rem
 					background #f54545
@@ -119,6 +122,8 @@
 		cursor pointer
 		font-size .8rem
 		letter-spacing 1px
+		&[selected='true']
+			background #eee
 		&:hover
 			background #eee
 		span

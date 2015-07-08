@@ -1019,12 +1019,7 @@ body {
   position: relative;
   cursor: pointer;
 }
-.Profile-section-option .cover {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 100%;
+.Profile-section-option[selected="true"] .cover {
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;
@@ -1032,10 +1027,18 @@ body {
   display: box;
   display: flex;
 }
+.Profile-section-option .cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  display: none;
+}
 .Profile-section-option .cover .fa {
   margin: auto;
   color: #fff;
-  font-size: 2rem;
+  font-size: 1.5rem;
   -webkit-border-radius: 50%;
   border-radius: 50%;
   padding: 0.5rem;
@@ -1079,6 +1082,9 @@ body {
   cursor: pointer;
   font-size: 0.8rem;
   letter-spacing: 1px;
+}
+.checkbox-list__item[selected='true'] {
+  background: #eee;
 }
 .checkbox-list__item:hover {
   background: #eee;
