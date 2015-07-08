@@ -1,5 +1,51 @@
+
+function Options () {
+
+	var options = document.querySelectorAll('.checkbox-list__item')
+
+	function setup () {
+
+		for (var i = options.length - 1; i >= 0; i--)
+			options[i].setAttribute('selected', false)
+
+		for (var i = options.length - 1; i >= 0; i--) {
+			options[i].addEventListener('click', function () {
+
+				var selected = this.getAttribute('selected')
+
+				if(selected == 'true') {
+					this.classList.remove('active')
+					this.setAttribute('selected', false)
+					this.querySelector('input').checked = false
+				} else {
+					this.classList.add('active')
+					this.setAttribute('selected', true)
+					this.querySelector('input').checked = true
+				}
+			})
+		}
+	}
+
+	function getSelecteds () {
+		var ret = []
+		for (var i = options.length - 1; i >= 0; i--){
+			var selected = options[i].getAttribute('selected')
+			if(selected == 'true') ret.push(i)
+		}
+		return ret
+	}
+
+	setup()
+
+	return {
+		getSelecteds: getSelecteds
+	}
+}
+
+var options = new Options()
+
 function AddWork (el, data) {
-	
+
 	var title = el.querySelector('input[name=title]'),
 			description = el.querySelector('textarea[name=description]'),
 			categorys = el.querySelectorAll('input[name=category]');

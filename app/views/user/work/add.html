@@ -6,28 +6,28 @@
 
 {% block stylesheets %}
 	<link rel="stylesheet" type="text/css" href="/css/vendor/wysiwyg-editor.css">
-	<style>
-	    .wysiwyg-plugin-list {
-	        max-height: 8em;
-	        overflow: auto;
-	        overflow-x: hidden;
-	        overflow-y: scroll;
-	    }
-	    
-	    .wysiwyg-plugin-list a,
-	    .wysiwyg-plugin-list a:link,
-	    .wysiwyg-plugin-list a:visited {
-	        display: block;
-	        color: black;
-	        padding: 5px 10px;
-	        text-decoration: none;
-	        cursor: pointer;
-	    }
+	/*<style>
+		.wysiwyg-plugin-list {
+			max-height: 8em;
+			overflow: auto;
+			overflow-x: hidden;
+			overflow-y: scroll;
+		}
 
-	    .wysiwyg-plugin-list a:hover {
-	        color: HighlightText;
-	        background-color: Highlight;
-	    }
+		.wysiwyg-plugin-list a,
+		.wysiwyg-plugin-list a:link,
+		.wysiwyg-plugin-list a:visited {
+			display: block;
+			color: black;
+			padding: 5px 10px;
+			text-decoration: none;
+			cursor: pointer;
+		}
+
+		.wysiwyg-plugin-list a:hover {
+			color: HighlightText;
+			background-color: Highlight;
+		}
 
 		#direct_upload_jquery {
 			width: 100%;
@@ -35,7 +35,7 @@
 			background: gray;
 		}
 
-	</style>
+	</style>*/
 {% endblock %}
 
 {% block elements %}
@@ -46,10 +46,10 @@
 		</p>
 		<div class="add-work__images">
 			<div class="upload-images">
-				
+
 				<div class="upload-image defout">
 					<input type="file" name="file"/>
-					
+
 					<div class="inner">
 						<div style="">
 							<i class="fa fa-cloud-upload"></i>
@@ -61,7 +61,7 @@
 
 				<div class="upload-image preview">
 					<input type="file" name="file"/>
-					
+
 					<img src="/img/works/obra12.jpg">
 
 					<div class="inner">
@@ -134,235 +134,235 @@
 
 	<script type="text/javascript">
 
-	var categories = {{ categories|json|safe }}
-	console.log('categories: ', categories)
+	// var categories = {{ categories|json|safe }}
+	// console.log('categories: ', categories)
 
-	    $(function () {
-	        var element = $('.description');
-	        element.wysiwyg({
-	            classes: 'input',
-	            toolbar: 'top',
-	            buttons: {
-	                insertimage: {
-	                    title: 'Insertar Imagen',
-	                    image: '\uf030'
-	                },
-	                bold: {
-	                    title: 'negrita (Ctrl+B)',
-	                    image: '\uf032',
-	                    hotkey: 'b'
-	                },
-	                italic: {
-	                    title: 'Curva (Ctrl+I)',
-	                    image: '\uf033',
-	                    hotkey: 'i'
-	                },
-	                underline: {
-	                    title: 'Subrayar (Ctrl+U)',
-	                    image: '\uf0cd',
-	                    hotkey: 'u'
-	                },
-	                fontname: {
-	                    title: 'Font',
-	                    image: '\uf031',
-	                    popup: function ($popup, $button) {
-	                        var list_fontnames = {
-	                            'Arial, Helvetica': 'Arial,Helvetica',
-	                            'Verdana': 'Verdana,Geneva',
-	                            'Georgia': 'Georgia',
-	                            'Courier New': 'Courier New,Courier',
-	                            'Times New Roman': 'Times New Roman,Times'
-	                        };
-	                        var $list = $('<div/>').addClass('wysiwyg-plugin-list')
-	                                .attr('unselectable', 'on');
-	                        $.each(list_fontnames, function (name, font) {
-	                            var $link = $('<a/>').attr('href', '#')
-	                                    .css('font-family', font)
-	                                    .html(name)
-	                                    .click(function (event) {
-	                                        $(element).wysiwyg('shell').fontName(font).closePopup();
-	                                        event.stopPropagation();
-	                                        event.preventDefault();
-	                                        return false;
-	                                    });
-	                            $list.append($link);
-	                        });
-	                        $popup.append($list);
-	                    },
-	                },
-	                fontsize: {
-	                    title: 'Size',
-	                    image: '\uf034',
-	                    popup: function ($popup, $button) {
-	                        var i, list_fontsizes = [];
-	                        for (i = 8; i <= 11; ++i)
-	                            list_fontsizes.push(i + 'px');
-	                        for (i = 12; i <= 28; i += 2)
-	                            list_fontsizes.push(i + 'px');
-	                        list_fontsizes.push('36px');
-	                        list_fontsizes.push('48px');
-	                        list_fontsizes.push('72px');
-	                        var $list = $('<div/>').addClass('wysiwyg-plugin-list')
-	                                .attr('unselectable', 'on');
-	                        $.each(list_fontsizes, function (index, size) {
-	                            var $link = $('<a/>').attr('href', '#')
-	                                    .html(size)
-	                                    .click(function (event) {
-	                                        element.wysiwyg('shell').fontSize(7).closePopup();
-	                                        element.wysiwyg('container')
-	                                                .find('font[size=7]')
-	                                                .removeAttr("size")
-	                                                .css("font-size", size);
-	                                        event.stopPropagation();
-	                                        event.preventDefault();
-	                                        return false;
-	                                    });
-	                            $list.append($link);
-	                        });
-	                        $popup.append($list);
-	                    }
-	                },
-	                strikethrough: {
-	                    title: 'Tachar (Ctrl+S)',
-	                    image: '\uf0cc',
-	                    hotkey: 's'
-	                },
-	                forecolor: {
-	                    title: 'Color de texto',
-	                    image: '\uf1fc'
-	                },
-	                highlight: {
-	                    title: 'Color de fondo',
-	                    image: '\uf043'
-	                },
-	                alignleft: {
-	                    title: 'Left',
-	                    image: '\uf036',
-	                    showselection: false    // wanted on selection
-	                },
-	                aligncenter: {
-	                    title: 'Center',
-	                    image: '\uf037'
-	                },
-	                alignright: {
-	                    title: 'Right',
-	                    image: '\uf038'
-	                },
-	                alignjustify: {
-	                    title: 'Justify',
-	                    image: '\uf039'
-	                },
-	                orderedList: {
-	                    title: 'Lista ordenada',
-	                    image: '\uf0cb'
-	                },
-	                unorderedList: {
-	                    title: 'Lista desordenada',
-	                    image: '\uf0ca'
-	                },
-	                removeformat: {
-	                    title: 'Remover formato',
-	                    image: '\uf12d'
-	                }
-	            },
-	            submit: {
-	                title: 'Submit',
-	                image: '\uf00c'
-	            },
-	            placeholderUrl: '/img/logo.png'
-	        });
+	    // $(function () {
+	    //     var element = $('.description');
+	    //     element.wysiwyg({
+	    //         classes: 'input',
+	    //         toolbar: 'top',
+	    //         buttons: {
+	    //             insertimage: {
+	    //                 title: 'Insertar Imagen',
+	    //                 image: '\uf030'
+	    //             },
+	    //             bold: {
+	    //                 title: 'negrita (Ctrl+B)',
+	    //                 image: '\uf032',
+	    //                 hotkey: 'b'
+	    //             },
+	    //             italic: {
+	    //                 title: 'Curva (Ctrl+I)',
+	    //                 image: '\uf033',
+	    //                 hotkey: 'i'
+	    //             },
+	    //             underline: {
+	    //                 title: 'Subrayar (Ctrl+U)',
+	    //                 image: '\uf0cd',
+	    //                 hotkey: 'u'
+	    //             },
+	    //             fontname: {
+	    //                 title: 'Font',
+	    //                 image: '\uf031',
+	    //                 popup: function ($popup, $button) {
+	    //                     var list_fontnames = {
+	    //                         'Arial, Helvetica': 'Arial,Helvetica',
+	    //                         'Verdana': 'Verdana,Geneva',
+	    //                         'Georgia': 'Georgia',
+	    //                         'Courier New': 'Courier New,Courier',
+	    //                         'Times New Roman': 'Times New Roman,Times'
+	    //                     };
+	    //                     var $list = $('<div/>').addClass('wysiwyg-plugin-list')
+	    //                             .attr('unselectable', 'on');
+	    //                     $.each(list_fontnames, function (name, font) {
+	    //                         var $link = $('<a/>').attr('href', '#')
+	    //                                 .css('font-family', font)
+	    //                                 .html(name)
+	    //                                 .click(function (event) {
+	    //                                     $(element).wysiwyg('shell').fontName(font).closePopup();
+	    //                                     event.stopPropagation();
+	    //                                     event.preventDefault();
+	    //                                     return false;
+	    //                                 });
+	    //                         $list.append($link);
+	    //                     });
+	    //                     $popup.append($list);
+	    //                 },
+	    //             },
+	    //             fontsize: {
+	    //                 title: 'Size',
+	    //                 image: '\uf034',
+	    //                 popup: function ($popup, $button) {
+	    //                     var i, list_fontsizes = [];
+	    //                     for (i = 8; i <= 11; ++i)
+	    //                         list_fontsizes.push(i + 'px');
+	    //                     for (i = 12; i <= 28; i += 2)
+	    //                         list_fontsizes.push(i + 'px');
+	    //                     list_fontsizes.push('36px');
+	    //                     list_fontsizes.push('48px');
+	    //                     list_fontsizes.push('72px');
+	    //                     var $list = $('<div/>').addClass('wysiwyg-plugin-list')
+	    //                             .attr('unselectable', 'on');
+	    //                     $.each(list_fontsizes, function (index, size) {
+	    //                         var $link = $('<a/>').attr('href', '#')
+	    //                                 .html(size)
+	    //                                 .click(function (event) {
+	    //                                     element.wysiwyg('shell').fontSize(7).closePopup();
+	    //                                     element.wysiwyg('container')
+	    //                                             .find('font[size=7]')
+	    //                                             .removeAttr("size")
+	    //                                             .css("font-size", size);
+	    //                                     event.stopPropagation();
+	    //                                     event.preventDefault();
+	    //                                     return false;
+	    //                                 });
+	    //                         $list.append($link);
+	    //                     });
+	    //                     $popup.append($list);
+	    //                 }
+	    //             },
+	    //             strikethrough: {
+	    //                 title: 'Tachar (Ctrl+S)',
+	    //                 image: '\uf0cc',
+	    //                 hotkey: 's'
+	    //             },
+	    //             forecolor: {
+	    //                 title: 'Color de texto',
+	    //                 image: '\uf1fc'
+	    //             },
+	    //             highlight: {
+	    //                 title: 'Color de fondo',
+	    //                 image: '\uf043'
+	    //             },
+	    //             alignleft: {
+	    //                 title: 'Left',
+	    //                 image: '\uf036',
+	    //                 showselection: false    // wanted on selection
+	    //             },
+	    //             aligncenter: {
+	    //                 title: 'Center',
+	    //                 image: '\uf037'
+	    //             },
+	    //             alignright: {
+	    //                 title: 'Right',
+	    //                 image: '\uf038'
+	    //             },
+	    //             alignjustify: {
+	    //                 title: 'Justify',
+	    //                 image: '\uf039'
+	    //             },
+	    //             orderedList: {
+	    //                 title: 'Lista ordenada',
+	    //                 image: '\uf0cb'
+	    //             },
+	    //             unorderedList: {
+	    //                 title: 'Lista desordenada',
+	    //                 image: '\uf0ca'
+	    //             },
+	    //             removeformat: {
+	    //                 title: 'Remover formato',
+	    //                 image: '\uf12d'
+	    //             }
+	    //         },
+	    //         submit: {
+	    //             title: 'Submit',
+	    //             image: '\uf00c'
+	    //         },
+	    //         placeholderUrl: '/img/logo.png'
+	    //     });
 
 
-	        var currentPublicID;
-	        var uploadButton = $('<button/>')
-	                .prop('disabled', true)
-	                .text('Processing...')
-	                .on('click', function () {
-	                    var $this = $(this),
-	                            data = $this.data();
-	                    $this
-	                            .off('click')
-	                            .text('Abort')
-	                            .on('click', function () {
-	                                $this.remove();
-	                                data.abort();
-	                            });
-	                    data.submit().always(function () {
-	                        $this.remove();
-	                    });
-	                });
+	    //     var currentPublicID;
+	    //     var uploadButton = $('<button/>')
+	    //             .prop('disabled', true)
+	    //             .text('Processing...')
+	    //             .on('click', function () {
+	    //                 var $this = $(this),
+	    //                         data = $this.data();
+	    //                 $this
+	    //                         .off('click')
+	    //                         .text('Abort')
+	    //                         .on('click', function () {
+	    //                             $this.remove();
+	    //                             data.abort();
+	    //                         });
+	    //                 data.submit().always(function () {
+	    //                     $this.remove();
+	    //                 });
+	    //             });
 
-	        $.cloudinary.config({cloud_name: 'arte-manifiesto'});
+	    //     $.cloudinary.config({cloud_name: 'arte-manifiesto'});
 
-	        $(".cloudinary_fileupload").unsigned_cloudinary_upload(
-	                'ky9z5ill',
-	                {cloud_name: 'arte-manifiesto'},
-	                {
-	                    dataType: 'json',
-	                    acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-	                    maxFileSize: 5000000, // 5 MB
-	                    // Enable image resizing, except for Android and Opera,
-	                    // which actually support image resizing, but fail to
-	                    // send Blob objects via XHR requests:
-	                    disableImageResize: /Android(?!.*Chrome)|Opera/
-	                            .test(window.navigator.userAgent),
-	                    previewMaxWidth: 100,
-	                    previewMaxHeight: 100,
-	                    previewCrop: true,
-	                    imageMaxWidth: 1000,
-	                    imageMaxHeight: 1000,
-	                    multiple: true,
-	                    autoUpload:true,
-	                    dropZone: "#direct_upload_jquery",
-	                    start: function (e) {
-	                        if (currentPublicID) {
+	    //     $(".cloudinary_fileupload").unsigned_cloudinary_upload(
+	    //             'ky9z5ill',
+	    //             {cloud_name: 'arte-manifiesto'},
+	    //             {
+	    //                 dataType: 'json',
+	    //                 acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+	    //                 maxFileSize: 5000000, // 5 MB
+	    //                 // Enable image resizing, except for Android and Opera,
+	    //                 // which actually support image resizing, but fail to
+	    //                 // send Blob objects via XHR requests:
+	    //                 disableImageResize: /Android(?!.*Chrome)|Opera/
+	    //                         .test(window.navigator.userAgent),
+	    //                 previewMaxWidth: 100,
+	    //                 previewMaxHeight: 100,
+	    //                 previewCrop: true,
+	    //                 imageMaxWidth: 1000,
+	    //                 imageMaxHeight: 1000,
+	    //                 multiple: true,
+	    //                 autoUpload:true,
+	    //                 dropZone: "#direct_upload_jquery",
+	    //                 start: function (e) {
+	    //                     if (currentPublicID) {
 
-	                        }
-	                        console.log('start');
-	                    },
-	                    fail: function (e, data) {
-	                        console.log('fail', e, data);
-	                    }
-	                })
-	                // .on('fileuploadadd', function (e, data) {
+	    //                     }
+	    //                     console.log('start');
+	    //                 },
+	    //                 fail: function (e, data) {
+	    //                     console.log('fail', e, data);
+	    //                 }
+	    //             })
+	    //             // .on('fileuploadadd', function (e, data) {
 
-	                //     data.context = $('<div/>').appendTo('#files');
-	                //     $.each(data.files, function (index, file) {
-	                //         var node = $('<p/>')
-	                //                 .append($('<span/>').text(file.name));
-	                //         if (!index) {
-	                //             node
-	                //                     .append('<br>')
-	                //                     .append(uploadButton.clone(true).data(data));
-	                //         }
-	                //         node.appendTo(data.context);
-	                //     });                
-	                //   })
-	                .on("cloudinaryprogress", function (e, data) {
-	                    console.log('cloudinaryprogress', data);
-	                    console.log(Math.round((data.loaded * 100.0) / data.total))
-	                }).
-	                on("cloudinaryprogressall", function (e, data) {
-	                    console.log('cloudinaryprogressall', data);
-	                    console.log(Math.round((data.loaded * 100.0) / data.total));
-	                }).
-	                on("cloudinarydone", function (e, data) {
-	                		console.log('done!')
-	                    console.log(data);
+	    //             //     data.context = $('<div/>').appendTo('#files');
+	    //             //     $.each(data.files, function (index, file) {
+	    //             //         var node = $('<p/>')
+	    //             //                 .append($('<span/>').text(file.name));
+	    //             //         if (!index) {
+	    //             //             node
+	    //             //                     .append('<br>')
+	    //             //                     .append(uploadButton.clone(true).data(data));
+	    //             //         }
+	    //             //         node.appendTo(data.context);
+	    //             //     });
+	    //             //   })
+	    //             .on("cloudinaryprogress", function (e, data) {
+	    //                 console.log('cloudinaryprogress', data);
+	    //                 console.log(Math.round((data.loaded * 100.0) / data.total))
+	    //             }).
+	    //             on("cloudinaryprogressall", function (e, data) {
+	    //                 console.log('cloudinaryprogressall', data);
+	    //                 console.log(Math.round((data.loaded * 100.0) / data.total));
+	    //             }).
+	    //             on("cloudinarydone", function (e, data) {
+	    //             		console.log('done!')
+	    //                 console.log(data);
 
-	                    currentPublicID = data.result.public_id;
+	    //                 currentPublicID = data.result.public_id;
 
-	                    return true;
-	                    // $('.preview').append(
-	                    //         $.cloudinary.image(data.result.public_id, {
-	                    //             format: data.result.format, version: data.result.version,
-	                    //             width: 100
-	                    //         })
-	                    // );
-	                    // console.log(data.result.public_id);
-	                });
+	    //                 return true;
+	    //                 // $('.preview').append(
+	    //                 //         $.cloudinary.image(data.result.public_id, {
+	    //                 //             format: data.result.format, version: data.result.version,
+	    //                 //             width: 100
+	    //                 //         })
+	    //                 // );
+	    //                 // console.log(data.result.public_id);
+	    //             });
 
-	    });
+	    // });
 	</script>
 
 {% endblock %}

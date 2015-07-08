@@ -198,3 +198,24 @@
 // 				&:not(:first-child)
 // 					background blue
 // 					margin-left .5rem
+
+/*------------------------------------*
+	$ CHECKBOX LIST
+*------------------------------------*/
+.checkbox-list
+	max-height 200px
+	overflow auto
+	&__item
+		display flex
+		align-items center
+		padding .25rem
+		font-family 'Raleway'
+		cursor pointer
+		font-size .8rem
+		letter-spacing 1px
+		&[selected='true']
+			background #eee
+		&:hover
+			background #eee
+		span
+			padding-left .25rem
