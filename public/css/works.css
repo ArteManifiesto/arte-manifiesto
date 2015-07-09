@@ -330,6 +330,23 @@ input[type="submit"] {
 .account-menu__item b {
   font-weight: 400;
 }
+.single-menu {
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  font-family: 'Roboto Condensed';
+}
+.single-menu__item {
+  display: table-cell;
+  padding: 0 0.5rem;
+  color: #aaa;
+  cursor: pointer;
+}
+.single-menu__item.selected {
+  color: #000;
+}
+.single-menu__item:not(:first-child) {
+  border-left: solid 1px #666;
+}
 .header {
   display: -webkit-box;
   display: -moz-box;

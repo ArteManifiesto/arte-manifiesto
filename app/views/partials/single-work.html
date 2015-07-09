@@ -3,27 +3,18 @@
 ********************************************************************* -->
 <div class="single-product">
 
-	<div class="single-product__header">
-		
-		<div class="single-product__title">
-			<p class="single-product-text">{{work.name}}</p>
-		</div>
-
-		<div class="single-product__artist">
-			from
-			<span class="avatar"><img src="{{work.User.photo}}"></span>
-			<span class="name">{{work.User.firstname}} {{work.User.lastname}}</span>
-		</div>
-
-	</div>
-
 	<div class="single-product__info">
-		
+
 		<figure class="single-product__info__image">
 			<img src="{{work.photo}}">
+			<p class="single-product-text">{{work.name}}</p>
 		</figure>
-		
-		<div class="single-product__info__data">
+
+		<!-- <div class="single-product__info__data">
+
+			<p class="single-product-text">{{work.name}}</p>
+
+
 			<div class="actions">
 				<div class="actions__social">
 
@@ -31,7 +22,6 @@
 					{% if work.liked %}
 						<button class="button-liner disabled js-buttonLike">
 							<div class="button-liner__action">Likes</div>
-							<!-- <div class="button-liner__number">{{product.likes}}</div> -->
 							<div class="button-liner__number">{{work.getDataValue('likes')}}</div>
 						</button>
 					{% else %}
@@ -42,14 +32,10 @@
 					{% endif %}
 					</span>
 
-					<!-- <span class="price">S/.{{work.price}}</span> -->
-
 				</div>
-				
-				<!-- <div class="actions__buy">
-					<a href="/checkout/{{work.nameSlugify}}" class="button-solid" data-size='large' data-color='red' data-expand='true'>Comprar</a>
-				</div> -->
 			</div>
+
+
 			<div class="actions">
 				<p class="actions__title">Comunidad</p>
 				<div class="actions__people">
@@ -64,7 +50,114 @@
 					{% endfor %}
 				</div>
 			</div>
-			<div class="actions">
+		</div> -->
+
+	</div>
+
+	<div class="single-product__social">
+		<span class="like">
+		{% if work.liked %}
+			<button class="button-liner disabled js-buttonLike">
+				<div class="button-liner__action">Likes</div>
+				<div class="button-liner__number">{{work.getDataValue('likes')}}</div>
+			</button>
+		{% else %}
+			<button class="button-liner js-buttonLike">
+				<div class="button-liner__action">Likes</div>
+				<div class="button-liner__number">{{work.likes}}</div>
+			</button>
+		{% endif %}
+		</span>
+	</div>
+
+	<div class="double-columns">
+
+		<div class="single-product__artist">
+			<span class="avatar"><img src="{{work.User.photo}}"></span>
+			<span class="name">{{work.User.firstname}} {{work.User.lastname}}</span>
+		</div>
+
+		<div class="single-product__menu">
+			<ul class="single-menu">
+				<li class="single-menu__item selected">Manifiesto</li>
+				<li class="single-menu__item">Productos</li>
+				<li class="single-menu__item">Comentarios</li>
+			</ul>
+		</div>
+
+	</div>
+
+	<div class="single-product__manifest">
+		<p>Manifiesto</p>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		<p>tags</p>
+		<p>holi, boli, crayoli</p>
+
+	</div>
+
+	<div class="single-product__more">
+
+		<!-- <p class="single-product-text">Mas arte</p> -->
+
+		<div class="single-product__similar">
+			<p class="actions-title">Mas arte del autor</p>
+			<section class="works" data-columns>
+				{% for i in [0,1,2,3,4,5] %}
+
+					<article class="work">
+						<img src="{{ similar[i].photo }}">
+						<div class="cover">
+							{% if similar[i].liked == true %}
+								<div class="social-item active">
+									<i class="fa fa-heart"></i>
+								</div>
+							{% else %}
+								<div class="social-item">
+									<i class="fa fa-heart"></i>
+								</div>
+							{% endif %}
+						</div>
+					</article>
+
+				{% endfor %}
+			</section>
+		</div>
+		<div class="single-product__similar">
+			<p class="actions-title">Arte relacionado</p>
+			<section class="works" data-columns>
+				{% for i in [0,1,2,3,4,5] %}
+					<article class="work">
+						<img src="{{ similar[i].photo }}">
+						<div class="cover">
+							{% if similar[i].liked == true %}
+								<div class="social-item active">
+									<i class="fa fa-heart"></i>
+								</div>
+							{% else %}
+								<div class="social-item">
+									<i class="fa fa-heart"></i>
+								</div>
+							{% endif %}
+						</div>
+					</article>
+
+				{% endfor %}
+			</section>
+		</div>
+
+	</div>
+
+
+</div>
+
+					<!-- <span class="price">S/.{{work.price}}</span> -->
+
+			<!-- <div class="actions">
 				<p class="actions__title">Mas del artista</p>
 				<div class="actions__more">
 					{% for work in more %}
@@ -73,31 +166,25 @@
 						</a>
 					{% endfor %}
 				</div>
-			</div>
+			</div> -->
+
+				<!-- <div class="actions__buy">
+					<a href="/checkout/{{work.nameSlugify}}" class="button-solid" data-size='large' data-color='red' data-expand='true'>Comprar</a>
+				</div> -->
+
+<!-- 	<div class="single-product__header">
+
+		<div class="single-product__title">
+			<p class="single-product-text">{{work.name}}</p>
 		</div>
 
-	</div>
+		<div class="single-product__artist">
+			from
+			<span class="avatar"><img src="{{work.User.photo}}"></span>
+			<span class="name">{{work.User.firstname}} {{work.User.lastname}}</span>
+		</div>
 
-	<div class="single-product__similar">
-		<p class="actions-title">Obras similares</p>
-		
-		<section class="works" data-columns>
-			{% for similarWork in similar %}
-
-		<article class="work">
-			<img src="{{ similarWork.photo }}">
-			<div class="cover">
-				{% if similarWork.liked == true %}
-					<div class="social-item active">
-						<i class="fa fa-heart"></i>
-					</div>
-				{% else %}
-					<div class="social-item">
-						<i class="fa fa-heart"></i>
-					</div>
-				{% endif %}
-			</div>
-		</article>
+	</div> -->
 
 			<!-- <div class="product-wrapper">
 				<article class="product">
@@ -118,8 +205,3 @@
 					</div>
 				</article>
 			</div> -->
-			{% endfor %}
-		</section>
-	</div>
-
-</div>
