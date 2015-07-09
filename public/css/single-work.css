@@ -722,6 +722,7 @@ body {
   -o-transition: box-shadow ease-in-out 125ms;
   -ms-transition: box-shadow ease-in-out 125ms;
   transition: box-shadow ease-in-out 125ms;
+  background: #fff;
 }
 .product .product-image {
   position: relative;
@@ -908,6 +909,16 @@ body {
     max-width: 25%;
   }
   .products.moveLeft .product-wrapper {
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -o-box-flex: 1;
+    box-flex: 1;
+    -webkit-flex: 1 20%;
+    -ms-flex: 1 20%;
+    flex: 1 20%;
+    max-width: 20%;
+  }
+  .products.no-filters .product-wrapper {
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
     -o-box-flex: 1;
