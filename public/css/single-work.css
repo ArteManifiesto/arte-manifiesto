@@ -1233,7 +1233,6 @@ body {
 .single-product__artist {
   font-family: 'Roboto Condensed';
   letter-spacing: 1px;
-  font-size: 1.15rem;
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;
@@ -1254,6 +1253,26 @@ body {
 .single-product__artist .avatar img {
   -webkit-border-radius: 50%;
   border-radius: 50%;
+}
+.single-product__artist .info .name {
+  font-size: 1.25rem;
+}
+.single-product__artist .info .info {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -o-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.single-product__artist .info .info button {
+  margin: 0.5rem;
 }
 .single-product__info__image img {
   width: auto;
@@ -1359,6 +1378,47 @@ body {
   margin: auto;
   padding: 0.5rem 1rem 1.5rem 1rem;
 }
+.single-product__manifest {
+  font-family: "Roboto Condensed";
+  font-weight: 300;
+  letter-spacing: 1px;
+  font-size: 0.9rem;
+  padding: 0.5rem 0.75rem;
+}
+.single-product__manifest .title {
+  color: #585858;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-top: 1rem;
+  font-size: 1.15rem;
+}
+.single-product__manifest p {
+  padding: 0.25rem;
+}
+.single-product__manifest .people {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-lines: multiple;
+  -moz-box-lines: multiple;
+  -o-box-lines: multiple;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding: 0.25rem 0;
+}
+.single-product__manifest .people .people-item {
+  padding: 0.25rem;
+}
+.single-product__manifest .people .people-item img {
+  width: 2.25rem;
+  height: 2.25rem;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
 .single-product__more {
   margin: 3rem 0;
   background: #f6f6f6;
@@ -1378,6 +1438,9 @@ body {
   -ms-flex-pack: end;
   -webkit-justify-content: flex-end;
   justify-content: flex-end;
+}
+.single-product__similar {
+  padding: 0.5rem 0;
 }
 .single-product__similar .actions-title {
   color: #444;
@@ -1400,6 +1463,7 @@ body {
 }
 .double-columns {
   background: #f6f6f6;
+  padding: 0.5rem 0;
 }
 @media (min-width: 400px) {
   .more-image {

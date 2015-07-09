@@ -10,48 +10,6 @@
 			<p class="single-product-text">{{work.name}}</p>
 		</figure>
 
-		<!-- <div class="single-product__info__data">
-
-			<p class="single-product-text">{{work.name}}</p>
-
-
-			<div class="actions">
-				<div class="actions__social">
-
-					<span class="like">
-					{% if work.liked %}
-						<button class="button-liner disabled js-buttonLike">
-							<div class="button-liner__action">Likes</div>
-							<div class="button-liner__number">{{work.getDataValue('likes')}}</div>
-						</button>
-					{% else %}
-						<button class="button-liner js-buttonLike">
-							<div class="button-liner__action">Likes</div>
-							<div class="button-liner__number">{{work.likes}}</div>
-						</button>
-					{% endif %}
-					</span>
-
-				</div>
-			</div>
-
-
-			<div class="actions">
-				<p class="actions__title">Comunidad</p>
-				<div class="actions__people">
-					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
-					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
-					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
-					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
-					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
-					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
-					{% for userLike in product.userLikes %}
-						<div class="people-item"><img src="{{userLike.photo}}"></div>
-					{% endfor %}
-				</div>
-			</div>
-		</div> -->
-
 	</div>
 
 	<div class="single-product__social">
@@ -74,7 +32,19 @@
 
 		<div class="single-product__artist">
 			<span class="avatar"><img src="{{work.User.photo}}"></span>
-			<span class="name">{{work.User.firstname}} {{work.User.lastname}}</span>
+			<div class="info">
+				<span class="name">{{work.User.firstname}} {{work.User.lastname}}</span>
+				<div class="info">
+					<p class="city skinny-text" data-color='light'><i class="fa fa-map-marker"></i> Lima</p>
+					<button class="button-liner disabled js-followButton" data-size="small" data-following="true" data-userId="{{ profile.id }}">
+					<!-- <button class="button-liner js-followButton" data-size="small" data-following="false" data-userId="{{ profile.id }}"> -->
+						<span class="button-liner__action folllow">Seguir</span>
+						<span class="button-liner__action following"><i class="fa fa-check"></i> Siguiendo</span>
+						<span class="button-liner__action cancel"><i class="fa fa-times-circle"></i> Cancelar</span>
+						<span class="button-liner__number">20</span>
+					</button>
+				</div>
+			</div>
 		</div>
 
 		<div class="single-product__menu">
@@ -88,15 +58,44 @@
 	</div>
 
 	<div class="single-product__manifest">
-		<p>Manifiesto</p>
+		<p class="title">Manifiesto</p>
 		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
 		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
 		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
 		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-		<p>tags</p>
+		<p class="title">tags</p>
 		<p>holi, boli, crayoli</p>
+
+		<p class="title">Comunidad</p>
+
+		<div class="people">
+			<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+			<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+			<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+			<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+			<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+			<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+			{% for userLike in product.userLikes %}
+				<div class="people-item"><img src="{{userLike.photo}}"></div>
+			{% endfor %}
+		</div>
+
+		<!-- <div class="actions">
+			<p class="actions__title">Comunidad</p>
+			<div class="actions__people">
+				<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+				<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+				<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+				<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+				<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+				<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+				{% for userLike in product.userLikes %}
+					<div class="people-item"><img src="{{userLike.photo}}"></div>
+				{% endfor %}
+			</div>
+		</div> -->
 
 	</div>
 
@@ -155,6 +154,49 @@
 
 </div>
 
+
+		<!-- <div class="single-product__info__data">
+
+			<p class="single-product-text">{{work.name}}</p>
+
+
+			<div class="actions">
+				<div class="actions__social">
+
+					<span class="like">
+					{% if work.liked %}
+						<button class="button-liner disabled js-buttonLike">
+							<div class="button-liner__action">Likes</div>
+							<div class="button-liner__number">{{work.getDataValue('likes')}}</div>
+						</button>
+					{% else %}
+						<button class="button-liner js-buttonLike">
+							<div class="button-liner__action">Likes</div>
+							<div class="button-liner__number">{{work.likes}}</div>
+						</button>
+					{% endif %}
+					</span>
+
+				</div>
+			</div>
+
+
+			<div class="actions">
+				<p class="actions__title">Comunidad</p>
+				<div class="actions__people">
+					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+					{% for userLike in product.userLikes %}
+						<div class="people-item"><img src="{{userLike.photo}}"></div>
+					{% endfor %}
+				</div>
+			</div>
+		</div> -->
+
 					<!-- <span class="price">S/.{{work.price}}</span> -->
 
 			<!-- <div class="actions">
@@ -204,4 +246,4 @@
 						</div>
 					</div>
 				</article>
-			</div> -->
+			</div>

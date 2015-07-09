@@ -61,5 +61,8 @@
     "gulp-uglify": "*",
     "nib": "*",
     "open": "0.0.5"
+  },
+  "scripts": {
+    "style": "stylus -u nib -w -o public/css public/src/stylus/"
   }
 }
