@@ -1,0 +1,29 @@
+/*------------------------------------*
+	$ PRODUCTS
+*------------------------------------*/
+@import 'base.styl'
+
+@import 'elements/inputs.styl'
+@import 'elements/buttons.styl'
+
+
+.cart
+	margin 1rem
+	border 1px solid #ddd
+	&-item
+		&:not(:last-child)
+			border-bottom 1px solid #ddd
+		padding .5rem
+		display flex
+		justify-content space-between
+		align-items center
+		&-product
+			display flex
+			align-items center
+		&-image
+			max-width 60px
+		&-name
+			padding-left .5rem
+			font-family: 'Oswald';
+			letter-spacing: 0.75px;
+			color: #585858;

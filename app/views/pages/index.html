@@ -4,223 +4,43 @@
 {% set title = 'Arte Manifiesto | Completar Perfil' %}
 
 {% block stylesheets %}
-	<link rel="stylesheet" type="text/css" href="/css/complite-profile.css">
+	<link rel="stylesheet" type="text/css" href="/css/cart.css">
 {% endblock %}
 
 {% block elements %}
 
-	<div class="Profile">
-		<div class="Profile-section">
-			<p class="Profile-section-title section-title-text">Datos Basicos</p>
-			<div class="column">
-				<div class="Profile-section-avatar">
-					<div class="Profile-section-avatar-img">
-						<img src="http://www.furcontest.com/imagenes/default.png">
-						<div class="cover">
-							<i class="fa fa-camera"></i>
-							<input type="file">
-						</div>
-					</div>
-					<div class="Profile-section-avatar-options">
-						<div class="Profile-section-avatar-option">
-							<input type="radio" name="avatar" value="custom" id="avatar-custom">
-							<label class="medium-text" for="avatar-custom">Personalizada</label>
-						</div>
-						<div class="Profile-section-avatar-option">
-							<input type="radio" name="avatar" value="facebook" id="avatar-facebook" checked>
-							<label class="medium-text" for="avatar-facebook">Facebook</label>
-						</div>
-					</div>
+	<div class="cart">
+		<div class="cart-item">
+
+			<div class="cart-item-product">
+
+				<figure class="cart-item-image"> <img src="/img/products/product15.jpg"> </figure>
+
+				<div class="cart-item-name">
+					<p>Samsung Galaxy Case/Skin</p>
+					<p class="skinny-text" data-color="light">product model</p>
 				</div>
+
 			</div>
-			<div class="column">
-				<div class="Profile-section-input">
-					<span>artemanifiesto.com/</span>&nbsp;
-					<div>
-						<input class="input" type="text" name="username" placeholder="username">
-					</div>
+
+			<div class="cart-item-setings">
+
+				<div class="cart-item-name">
+					<p>Samsung Galaxy Case/Skin</p>
+					<p class="skinny-text" data-color="light">product model</p>
 				</div>
-				<div class="Profile-section-input column2">
-					<input class="input" type="text" name="city" placeholder="ciudad">
-				</div>
-				<div class="Profile-section-input column2">
-					<input class="input" type="text" name="country" placeholder="pais">
-				</div>
-				<div class="Profile-section-input">
-					<select class="input" name="gender">
-						<option disabled selected>Género</option>
-						<option value="Male">Masculino</option>
-						<option value="Female">Femenino</option>
-					</select>
-				</div>
-				<div class="Profile-section-input">
-					<span>Fecha de nacimiento</span>&nbsp;
-					<div>
-						<input class="input" type="date" name="birthday" placeholder="fecha-nacimiento">
-					</div>
-				</div>
+
 			</div>
+
 		</div>
-		<div class="Profile-section">
-			<p class="Profile-section-title section-title-text">Redes sociales</p>
-			<div class="column">
-				<div class="Profile-section-input">
-					<input class="input" type="url" name="facebook" placeholder="facebook">
-				</div>
-				<div class="Profile-section-input">
-					<input class="input" type="url" name="twitter" placeholder="twitter">
-				</div>
-			</div>
-			<div class="column">
-				<div class="Profile-section-input">
-					<input class="input" type="url" name="behance" placeholder="behance">
-				</div>
-				<div class="Profile-section-input">
-					<input class="input" type="url" name="tumblr" placeholder="tumblr">
-				</div>
-			</div>
-		</div>
-		<div class="Profile-section">
-			<p class="Profile-section-title section-title-text">Mi Manifiesto</p>
-			<div class="Profile-section-textarea">
-				<textarea class="input textarea"></textarea>
-			</div>
-		</div>
-		<div class="Profile-section">
-			<p class="Profile-section-title section-title-text">Intereses</p>
-			<div class="Profile-section-options">
-				<div class="Profile-section-option">
-					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
-					<p>Arte Urbano</p>
-					<div class="cover">
-						<i class="fa fa-check"></i>
-					</div>
-				</div>
-				<div class="Profile-section-option">
-					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
-					<p>Arte Urbano</p>
-					<div class="cover">
-						<i class="fa fa-check"></i>
-					</div>
-				</div>
-				<div class="Profile-section-option">
-					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
-					<p>Arte Urbano</p>
-					<div class="cover">
-						<i class="fa fa-check"></i>
-					</div>
-				</div>
-				<div class="Profile-section-option">
-					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
-					<p>Arte Urbano</p>
-					<div class="cover">
-						<i class="fa fa-check"></i>
-					</div>
-				</div>
-				<div class="Profile-section-option">
-					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
-					<p>Arte Urbano</p>
-					<div class="cover">
-						<i class="fa fa-check"></i>
-					</div>
-				</div>
-				<div class="Profile-section-option">
-					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
-					<p>Arte Urbano</p>
-					<div class="cover">
-						<i class="fa fa-check"></i>
-					</div>
-				</div>
-				<div class="Profile-section-option">
-					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
-					<p>Arte Urbano</p>
-					<div class="cover">
-						<i class="fa fa-check"></i>
-					</div>
-				</div>
-				<div class="Profile-section-option">
-					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
-					<p>Arte Urbano</p>
-					<div class="cover">
-						<i class="fa fa-check"></i>
-					</div>
-				</div>
-				<div class="Profile-section-option">
-					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
-					<p>Arte Urbano</p>
-					<div class="cover">
-						<i class="fa fa-check"></i>
-					</div>
-				</div>
-				<div class="Profile-section-option">
-					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
-					<p>Arte Urbano</p>
-					<div class="cover">
-						<i class="fa fa-check"></i>
-					</div>
-				</div>
-				<div class="Profile-section-option">
-					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
-					<p>Arte Urbano</p>
-					<div class="cover">
-						<i class="fa fa-check"></i>
-					</div>
-				</div>
-				<div class="Profile-section-option">
-					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
-					<p>Arte Urbano</p>
-					<div class="cover">
-						<i class="fa fa-check"></i>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="Profile-section">
-			<p class="Profile-section-title section-title-text">Especialidades</p>
-			<!-- <div class="Profile-section-input"> -->
-			<ul class="checkbox-list">
-				<li class="checkbox-list__item">
-					<input type="checkbox" name="category" value="arte-urbano"> <span>Arte Urbano</span>
-				</li>
-				<li class="checkbox-list__item">
-					<input type="checkbox" name="category" value="collage"> <span>Collage</span>
-				</li>
-				<li class="checkbox-list__item">
-					<input type="checkbox" name="category" value="dibujo"> <span>Dibujo</span>
-				</li>
-				<li class="checkbox-list__item">
-					<input type="checkbox" name="category" value="fotografa"> <span>Fotografía</span>
-				</li>
-				<li class="checkbox-list__item">
-					<input type="checkbox" name="category" value="grabado"> <span>Grabado</span>
-				</li>
-				<li class="checkbox-list__item">
-					<input type="checkbox" name="category" value="ilustracin"> <span>Ilustración</span>
-				</li>
-				<li class="checkbox-list__item">
-					<input type="checkbox" name="category" value="instalacin"> <span>Instalación</span>
-				</li>
-				<li class="checkbox-list__item">
-					<input type="checkbox" name="category" value="pintura"> <span>Pintura</span>
-				</li>
-				<li class="checkbox-list__item">
-					<input type="checkbox" name="category" value="tcnica-mixta"> <span>Técnica Mixta</span>
-				</li>
-				<li class="checkbox-list__item">
-					<input type="checkbox" name="category" value="digital"> <span>Digital</span>
-				</li>
-				<li class="checkbox-list__item">
-					<input type="checkbox" name="category" value="escultura"> <span>Escultura</span>
-				</li>
-			</ul>
-			<!-- </div> -->
-		</div>
-		<button class="button-solid" data-color='red'>Guardar</button>
+		<div class="cart-item">2</div>
+		<div class="cart-item">3</div>
 	</div>
+
 
 {% endblock %}
 
 
 {% block scripts %}
-	<script type="text/javascript" src="/js/complite-profile.js"></script>
+
 {% endblock %}
