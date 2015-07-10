@@ -8,16 +8,19 @@
 
 
 .cart
-	margin 1rem
+	max-width 800px
+	margin 2rem auto
 	border 1px solid #ddd
 	&-item
 		&:not(:last-child)
 			border-bottom 1px solid #ddd
+		color: #585858;
 		padding .5rem
 		display flex
 		justify-content space-between
 		align-items center
 		&-product
+		&-setings
 			display flex
 			align-items center
 		&-image
@@ -26,4 +29,17 @@
 			padding-left .5rem
 			font-family: 'Oswald';
 			letter-spacing: 0.75px;
-			color: #585858;
+		&-price
+			font-family: 'Oswald';
+			letter-spacing: 0.75px;
+			font-size .9rem
+			padding .5rem
+		&-quantity
+			padding .5rem
+			input
+				width 2rem
+				color: #585858;
+		&-closed
+			padding .5rem
+			font-size 1.25rem
+			cursor pointer

@@ -925,10 +925,12 @@ body {
   border-radius: 50%;
 }
 .cart {
-  margin: 1rem;
+  max-width: 800px;
+  margin: 2rem auto;
   border: 1px solid #ddd;
 }
 .cart-item {
+  color: #585858;
   padding: 0.5rem;
   display: -webkit-box;
   display: -moz-box;
@@ -952,7 +954,8 @@ body {
 .cart-item:not(:last-child) {
   border-bottom: 1px solid #ddd;
 }
-.cart-item-product {
+.cart-item-product,
+.cart-item-setings {
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;
@@ -973,5 +976,22 @@ body {
   padding-left: 0.5rem;
   font-family: 'Oswald';
   letter-spacing: 0.75px;
+}
+.cart-item-price {
+  font-family: 'Oswald';
+  letter-spacing: 0.75px;
+  font-size: 0.9rem;
+  padding: 0.5rem;
+}
+.cart-item-quantity {
+  padding: 0.5rem;
+}
+.cart-item-quantity input {
+  width: 2rem;
   color: #585858;
+}
+.cart-item-closed {
+  padding: 0.5rem;
+  font-size: 1.25rem;
+  cursor: pointer;
 }
