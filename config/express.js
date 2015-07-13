@@ -57,17 +57,16 @@ module.exports = function (app, passport) {
     app.use(passport.initialize());
     app.use(passport.session());
 
-    app.use(middlewares.checkEmail);
-    //app.use(middlewares.checkFillData);
-
     app.use(function (req, res, next) {
         req.viewer = req.user ? req.user.id : -1;
         res.locals = {
             user: req.user,
             successMessage: req.flash('successMessage'),
-            errorMessage: req.flash('errorMessage'),
-            emailMessage: req.flash('emailMessage')
+            errorMessage: req.flash('errorMessage')
         };
         next();
     });
+
+    app.use(middlewares.check);
+
 };

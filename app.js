@@ -4,6 +4,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
  * Load dependencies
  * ====================================================
  */
+
 var express = require('express');
 var utils = require('./config/utils');
 var config = require('./config/config');
@@ -11,6 +12,7 @@ var db = require('./config/sequelize');
 var passport = require('./config/passport');
 var _ = require('lodash');
 var open = require("open");
+
 /**
  * configuration lodash
  */
@@ -58,7 +60,7 @@ global.db.sequelize.sync({force: dev}).then(function () {
             console.log('Express server listening  on ' + url);
             //open(url);
         });
-    }
+    };
     if (dev) {
         var Chance = require('chance');
         var chance = new Chance();
@@ -83,7 +85,7 @@ global.db.sequelize.sync({force: dev}).then(function () {
         promises.push(global.db.ProductType.bulkCreate(products));
         global.db.Sequelize.Promise.all(promises).then(function () {
             var username, email;
-            for (i = 0; i < 10; i++) {
+            for (i = 0; i < 5; i++) {
                 if (i == 0) {
                     username = 'juliocanares';
                     email = 'juliocanares@gmail.com';

@@ -37,7 +37,7 @@
 				<div class="Profile-section-input">
 					<span>artemanifiesto.com/</span>&nbsp;
 					<div>
-						<input class="input" type="text" name="username" placeholder="username">
+						<input class="input" type="text" value="{{user.username}}" name="username" placeholder="username">
 					</div>
 				</div>
 				<div class="Profile-section-input column2">
@@ -222,5 +222,9 @@
 
 
 {% block scripts %}
+<script>
+	var user = {{user|json|safe}};
+	console.log(user);
+</script>
 	<script type="text/javascript" src="/js/complite-profile.js"></script>
 {% endblock %}

@@ -33,6 +33,8 @@ module.exports = function (sequelize, DataTypes) {
             salt: DataTypes.STRING,
 
             verified: {type: DataTypes.BOOLEAN, defaultValue: false},
+            filled: {type: DataTypes.BOOLEAN, defaultValue: false},
+
             tokenVerifyEmail: DataTypes.STRING,
             tokenResetPassword: DataTypes.STRING,
             tokenResetPasswordExpires: DataTypes.DATE
@@ -199,6 +201,7 @@ module.exports = function (sequelize, DataTypes) {
             hooks: {
                 afterCreate: function (user, options) {
                     options.password = options.password || '123';
+                    user.username = 'user' + moment();
                     user.salt = user.makeSalt();
                     user.hashedPassword = user.encryptPassword(options.password, user.salt);
                     user.tokenVerifyEmail = uuid.v4();

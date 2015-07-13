@@ -32,7 +32,7 @@ exports.user = function (req, res, next) {
     var excepts = ['css', 'img', 'favicon.ico'];
     console.log('paramsss ; ', req.params, req.url);
 
-    if (req.params.username === 'img'){
+    if (req.params.username === 'img') {
         return next('route');
     }
 
@@ -141,10 +141,21 @@ exports.checkFillData = function (req, res, next) {
         });
     });
 };
-exports.checkEmail = function (req, res, next) {
+
+exports.check = function (req, res, next) {
     if (!req.user)
         return next();
-    if (req.user.verified) return next();
-    req.flash('errorMessage', 'Email sin confirmar');
-    next();
-}
+    
+    if (!req.user.verified)
+        return res.render('pages/confirm-email');
+
+    if (!req.user.filled) {
+        return global.db.Category.findAll().then(function (categories) {
+            return res.render('pages/complete-profile', {
+                categories: categories
+            });
+        });
+    }
+
+    return next();
+};

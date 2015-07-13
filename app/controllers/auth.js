@@ -2,11 +2,12 @@ var passport = require('passport');
 var moment = require('moment');
 var config = require('../../config/config');
 var simple_recaptcha = require('simple-recaptcha-new');
+var uuid = require('node-uuid');
 
 var checkReturnTo = function (req, res) {
     var returnTo = req.query.returnTo || req.protocol + '://' + req.get('host');
     res.cookie('returnTo', returnTo, {maxAge: 900000, httpOnly: true});
-}
+};
 
 /**
  * Show the view page for signup
@@ -23,16 +24,8 @@ exports.signupPage = function (req, res) {
  */
 exports.signup = function (req, res) {
     console.log(req.body);
-    var promises = [
-        check('username', req.body.username),
-        check('email', req.body.email)
-    ];
-
-    global.db.Sequelize.Promise.all(promises).then(function (data) {
-        var usernameAvailable = data[0], emailAvailable = data[1], errors = [];
-
-        if (!usernameAvailable)
-            errors.push({username: 'Username no esta disponible'});
+    check('email', req.body.email).then(function (emailAvailable) {
+        var errors = [];
 
         if (!emailAvailable)
             errors.push({email: 'Email no esta disponible'});
@@ -83,7 +76,7 @@ exports.check = function (req, res) {
     check(req.query.property, req.query.value).then(function (available) {
         return res.ok({available: available}, 'Disponibilidad de recursos');
     });
-}
+};
 
 /**
  * Show the view page for login
