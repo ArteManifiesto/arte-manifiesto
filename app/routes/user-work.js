@@ -1,18 +1,17 @@
 var express = require('express');
 var router = express.Router({mergeParams: true});
-var config = require('../../config/config');
-var controller = require(config.controllersDir + "/user-work");
-var middlewares = require(config.middlewaresDir + "/app");
 
-var isLoggedAndOwner = [middlewares.isLogged, middlewares.isOwner];
+var controller = require(global.cf.controllers + "/user-work");
+
+var isLoggedAndOwner = [global.md.isLogged, global.md.isOwner];
 var entity = 'Work';
 
-router.use(middlewares.entity(entity));
+router.use(global.md.entity(entity));
 
 router.get('/add', isLoggedAndOwner, controller.add);
 
-router.get('/:nameSlugify', middlewares.nameSlugify(entity), controller.index);
-router.get('/:nameSlugify/edit', isLoggedAndOwner, middlewares.nameSlugify(entity), controller.edit);
+router.get('/:nameSlugify', global.md.nameSlugify(entity), controller.index);
+router.get('/:nameSlugify/edit', isLoggedAndOwner, global.md.nameSlugify(entity), controller.edit);
 
 router.post('/create', isLoggedAndOwner, controller.create);
 router.post('/delete', isLoggedAndOwner, controller.delete);

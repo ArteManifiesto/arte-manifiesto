@@ -3,7 +3,10 @@ module.exports = {
         name: "am",
         username: "root",
         password: process.env.DB_PASSWORD,
-        dialect: "mysql"
+        options: {
+            dialect: "mysql",
+            timezone: '-05:00'
+        }
     },
     app: {
         name: "Arte Manifiesto"

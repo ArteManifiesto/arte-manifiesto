@@ -3,17 +3,16 @@ var router = express.Router();
 router.mergeParams = true;
 
 var config = require('../../config/config');
-var controller = require(config.controllersDir + "/user");
-var accountRouter = require(config.routesDir + "/user-account");
-var cartRouter = require(config.routesDir + '/user-cart');
-var workRouter = require(config.routesDir + "/user-work");
-var productRouter = require(config.routesDir + "/user-product");
-var collectionRouter = require(config.routesDir + "/user-collection");
+var controller = require(global.cf.controllers + "/user");
+var accountRouter = require(global.cf.routes + "/user-account");
+var cartRouter = require(global.cf.routes + '/user-cart');
+var workRouter = require(global.cf.routes + "/user-work");
+var productRouter = require(global.cf.routes + "/user-product");
+var collectionRouter = require(global.cf.routes + "/user-collection");
 
-var middlewares = require(config.middlewaresDir + "/app");
-var isLoggedAndOwner = [middlewares.isLogged, middlewares.isOwner];
+var isLoggedAndOwner = [global.md.isLogged, global.md.isOwner];
 
-router.use(middlewares.user);
+router.use(global.md.user);
 
 router.get(['/', '/portfolio'], controller.profile);
 router.get('/likes/works', controller.profile);
@@ -29,10 +28,10 @@ router.use('/collection', collectionRouter);
 router.use('/account', isLoggedAndOwner, accountRouter);
 router.use('/cart', isLoggedAndOwner, cartRouter);
 
-router.post('/follow', isLoggedAndOwner, middlewares.userTo, controller.follow);
-router.post('/unfollow', isLoggedAndOwner, middlewares.userTo, controller.unFollow);
-router.post('/featured', isLoggedAndOwner, middlewares.userTo, controller.featured);
-router.post('/unfeatured', isLoggedAndOwner, middlewares.userTo, controller.unFeatured);
+router.post('/follow', isLoggedAndOwner, global.md.userTo, controller.follow);
+router.post('/unfollow', isLoggedAndOwner, global.md.userTo, controller.unFollow);
+router.post('/featured', isLoggedAndOwner, global.md.userTo, controller.featured);
+router.post('/unfeatured', isLoggedAndOwner, global.md.userTo, controller.unFeatured);
 
 router.post(['/:page', '/portfolio/:page'], controller.portfolio);
 router.post('/store/:page', controller.store);

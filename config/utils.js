@@ -2,6 +2,20 @@ var moment = require('moment');
 var email = require('../app/controllers/email');
 var _ = require('lodash');
 
+
+global.fbPermissions = [
+    'email', 'user_about_me',
+    'user_birthday', 'user_friends',
+    'user_website'
+];
+
+global.lift = function(app){
+    var server = app.listen(app.get('port'), function () {
+        var url = 'http://127.0.0.1:' + server.address().port + '/auth/login';
+        console.log('Express server listening  on ' + url);
+    });
+};
+
 global.config = {
     search: {
         entities: ['works', 'users', 'products'],
@@ -161,6 +175,7 @@ global.emails = {
     }
 };
 
+
 global.getPaginationEntity = function (options, query) {
     var pages = global.getPagination(options.page, options.limit);
     query = _.assign(query, {offset: pages.offset, limit: pages.limit});
@@ -201,8 +216,8 @@ global.objectToParameters = function (element) {
     return Object.keys(element).map(function (key) {
         return key + '=' + element[key];
     }).join('&');
-}
+};
 
 global.replaceAt = function (text, index, character) {
     return text.substr(0, index) + character + text.substr(index + character.length);
-}
+};

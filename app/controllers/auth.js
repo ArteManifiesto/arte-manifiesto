@@ -110,7 +110,7 @@ exports.facebookCallback = function (req, res) {
 
         return res.redirect('/auth/signup');
     })(req, res);
-}
+};
 
 /**
  * User logout
@@ -210,5 +210,17 @@ exports.resetVerify = function (req, res) {
             req.flash('successMessage', 'Contraseña actualizada');
             loginUser(req, res, user);
         });
+    });
+};
+
+exports.forward = function (req, res) {
+    var params = {
+        to: req.user.email, user: req.user.firstname,
+        url: req.protocol + '://' + req.get('host') +
+        '/auth/verify/' + req.user.tokenVerifyEmail
+    };
+
+    global.emails.verify(params).then(function () {
+        return res.ok(null, 'email sent');
     });
 };

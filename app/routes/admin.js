@@ -1,8 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
-var config = require('../../config/config');
-var controller = require(config.controllersDir + "/admin");
+var controller = require(global.cf.controllers + "/admin");
 
 router.get('/' , controller.index);
 

@@ -143,9 +143,15 @@ exports.checkFillData = function (req, res, next) {
 };
 
 exports.check = function (req, res, next) {
-    if (!req.user)
+    var excepts = [
+        '/auth/logout',
+        '/auth/verify',
+        '/auth/forward'
+    ];
+
+    if (!req.user || excepts.indexOf(req.url) > -1)
         return next();
-    
+
     if (!req.user.verified)
         return res.render('pages/confirm-email');
 

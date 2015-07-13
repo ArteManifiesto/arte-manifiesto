@@ -1,16 +1,14 @@
 var express = require('express');
 var router = express.Router({mergeParams: true});
 
-var config = require('../../config/config');
-var controller = require(config.controllersDir + "/user-collection");
-var middlewares = require(config.middlewaresDir + "/app");
+var controller = require(global.cf.controllers + "/user-collection");
 
-var isLoggedAndOwner = [middlewares.isLogged, middlewares.isOwner];
+var isLoggedAndOwner = [global.md.isLogged, global.md.isOwner];
 var entity = 'Collection';
 
-router.use(middlewares.entity(entity));
+router.use(global.md.entity(entity));
 
-router.get('/:nameSlugify', middlewares.nameSlugify(entity), controller.index);
+router.get('/:nameSlugify', global.md.nameSlugify(entity), controller.index);
 
 router.post('/all', isLoggedAndOwner, controller.all);
 router.post('/create', isLoggedAndOwner, controller.create);

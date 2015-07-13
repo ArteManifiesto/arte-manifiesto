@@ -11,20 +11,13 @@ var flash = require('connect-flash');
 var multer = require('multer');
 var swig = require('swig');
 
-/**
- * Load configuration
- * ====================================================
- */
-var config = require('./config');
-var middlewares = require(config.middlewaresDir + "/app");
-
 module.exports = function (app, passport) {
     /**
      * View engine setup
      * ====================================================
      */
     app.engine('html', swig.renderFile);
-    app.set('views', config.viewsDir);
+    app.set('views', global.cf.views);
     app.set('view engine', 'html');
     app.set('view cache', false);
 
@@ -36,11 +29,15 @@ module.exports = function (app, passport) {
      */
     app.use(morgan('dev'));
     app.use(cookieParser('luelennuckyinleDfOfkugGEsErLQQDcS'));
-    app.use(expressSession({secret: 'o/g8Ffy=]Nw(J624m7)c2;)/;EJy^6448', resave: false, saveUninitialized: false}));
+    app.use(expressSession({
+        secret: '123',
+        resave: false,
+        saveUninitialized: false
+    }));
     app.use(flash());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: false}));
-    app.use(express.static(config.publicDir));
+    app.use(express.static(global.cf.public));
 
     app.use(multer({
         dest: './public/uploads/',
@@ -48,7 +45,6 @@ module.exports = function (app, passport) {
             return Date.now()
         }
     }));
-
 
     /**
      * Passport initialize
@@ -67,6 +63,6 @@ module.exports = function (app, passport) {
         next();
     });
 
-    app.use(middlewares.check);
+    app.use(global.md.check);
 
 };

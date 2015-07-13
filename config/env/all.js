@@ -4,10 +4,10 @@ var path = require('path'),
 module.exports = {
     root: rootPath,
     port: process.env.PORT || 3000,
-    modelsDir: rootPath + '/app/models',
-    viewsDir: rootPath + '/app/views',
-    controllersDir: rootPath + '/app/controllers',
-    routesDir: rootPath + '/app/routes',
-    publicDir: rootPath + '/public',
-    middlewaresDir: rootPath + '/config/middlewares'
+    models: rootPath + '/app/models',
+    views: rootPath + '/app/views',
+    controllers: rootPath + '/app/controllers',
+    middlewares: rootPath + '/config/middlewares',
+    routes: rootPath + '/app/routes',
+    public: rootPath + '/public'
 };

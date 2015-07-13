@@ -1,8 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var config = require('../../config/config');
-var controller = require(config.controllersDir + "/pages");
-var middlewares = require(config.middlewaresDir + '/app');
+
+var controller = require(global.cf.controllers + "/pages");
 
 router.get('/', controller.index);
 
@@ -14,8 +13,5 @@ router.get('/products/type/:value/:page', controller.products);
 
 router.get('/store/:nameProduct/', controller.storeProduct);
 router.get('/pay/:idProduct', controller.productPay);
-
-router.get('/interests', middlewares.isLogged, controller.interests);
-router.get('/specialties', middlewares.isLogged, controller.specialties);
 
 module.exports = router;
