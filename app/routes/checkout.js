@@ -4,8 +4,7 @@ router.mergeParams = true;
 
 var controller = require(global.cf.controllers + "/checkout");
 
-router.get('/', controller.index);
-router.get('/shipping', controller.shipping);
+router.get(['/', '/shipping'], controller.shipping);
 router.get('/payment', controller.payment);
 router.get('/review', controller.review);
 router.get('/complete', controller.complete);

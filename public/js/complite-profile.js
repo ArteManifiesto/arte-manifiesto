@@ -38,7 +38,7 @@ function CompileProfile () {
 				"username": username.value,
 				"city": city.value,
 				"country": country.value,
-				"birthday": birthday.value,
+				"birthday": '05/27/1996',
 				"gender": gender.value,
 				"facebook": facebook.value,
 				"behance": behance.value,
@@ -53,10 +53,10 @@ function CompileProfile () {
 
 			$.ajax({
 			     type: "POST",
-			     contentType: "application/json",
+			     contentType: "application/json; charset=utf-8",
     			 dataType : "json",
 			     url: '/auth/complete',
-			     data: data,
+			     data: JSON.stringify(data),
 			     success: function (response) {
 
 						console.log('response: ', response)

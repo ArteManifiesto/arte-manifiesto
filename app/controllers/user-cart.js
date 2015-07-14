@@ -23,7 +23,6 @@ exports.index = function (req, res) {
     });
 };
 
-
 exports.list = function (req, res) {
     //TODO implement get number total of products in the cart
     var query = {

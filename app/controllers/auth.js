@@ -227,6 +227,8 @@ exports.resend = function (req, res) {
 
 
 exports.complete = function (req, res) {
+
+    console.log(req.body);
     var specialtiesQuery = {where: {id: {$in: req.body.specialties}}};
     var interestsQuery = {where: {id: {$in: req.body.interests}}};
 
