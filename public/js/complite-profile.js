@@ -20,18 +20,49 @@ function CompileProfile () {
 
 		saveButton.addEventListener('click', function () {
 
-			console.log('username', username.value)
-			console.log('city', city.value)
-			console.log('country', country.value)
-			console.log('gender', gender.value)
-			console.log('birthday', birthday.value)
-			console.log('facebook', facebook.value)
-			console.log('twitter', twitter.value)
-			console.log('behance', behance.value)
-			console.log('tumblr', tumblr.value)
-			console.log('manifest', manifest.value)
+			// console.log('username', username.value)
+			// console.log('city', city.value)
+			// console.log('country', country.value)
+			// console.log('gender', gender.value)
+			// console.log('birthday', birthday.value)
+			// console.log('facebook', facebook.value)
+			// console.log('twitter', twitter.value)
+			// console.log('behance', behance.value)
+			// console.log('tumblr', tumblr.value)
+			// console.log('manifest', manifest.value)
+			// console.log('interests', options.getSelecteds())
+			// console.log('specialties', options2.getSelecteds())
 
-			console.log('manifest', manifest.value)
+			var data = {
+				"photo":"http://www.juliocanares.com/cv/headshot.png",
+				"username": username.value,
+				"city": city.value,
+				"country": country.value,
+				"birthday": birthday.value,
+				"gender": gender.value,
+				"facebook": facebook.value,
+				"behance": behance.value,
+				"tumblr": tumblr.value,
+				"twitter": twitter.value,
+				"biography": manifest.value,
+				"interests": options.getSelecteds(),
+				"specialties": options2.getSelecteds()
+			}
+
+			console.log('data: ', data)
+
+			$.ajax({
+			     type: "POST",
+			     contentType: "application/json",
+    			 dataType : "json",
+			     url: '/auth/complete',
+			     data: data,
+			     success: function (response) {
+
+						console.log('response: ', response)
+
+			     }
+			  });
 
 		})
 

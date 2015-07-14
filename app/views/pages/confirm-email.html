@@ -1,13 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+{% extends '../partials/base.html' %}
 
-<h1>
-    complete pe ctv :v
-</h1>
-</body>
-</html>
+{% set path = 'interests' %}
+{% set title = 'Arte Manifiesto | Completar Perfil' %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="/css/complite-profile.css">
+{% endblock %}
+
+{% block elements %}
+	<h1>Felicidades</h1>
+	<p>Te hemos enviado un email a {{ user.email }} </p>
+	<br>
+	<p>Por favor confirma en tu correo para continuar</p>
+	<br>
+	<br>
+	<p>Si no recibiste el email dale click en <a href="">reenviar</a></p>
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+	var user = {{user|json|safe}};
+	console.log('user', user);
+</script>
+
+{% endblock %}
