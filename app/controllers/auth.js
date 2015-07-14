@@ -243,11 +243,7 @@ exports.complete = function (req, res) {
             req.user.updateAttributes({filled: true})
         ];
         global.db.Sequelize.Promise.all(promises).then(function () {
-            if (req.xhr)
-                return res.ok(null, 'user updated data');
-
-            req.flash('successMessage', 'Perfil completado');
-            return res.redirect('back')
+            return res.ok(null, 'perfil completado');
         });
     });
 
