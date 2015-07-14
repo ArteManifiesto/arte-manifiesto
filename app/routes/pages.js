@@ -15,7 +15,4 @@ router.get('/store/:nameProduct/', controller.storeProduct);
 router.get('/pay/:idProduct', controller.productPay);
 
 
-router.post('/cprofile', controller.completeProfile);
-
-
 module.exports = router;

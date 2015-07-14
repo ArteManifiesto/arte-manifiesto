@@ -116,15 +116,3 @@ exports.productPay = function (req, res) {
         });
     });
 };
-
-exports.completeProfile = function (req, res) {
-    var specialties = req.body.specialties,
-        interests = req.body.interests,
-        websites = req.body.websites;
-
-
-    var userData = global.getOnly([
-        'username','city','country',
-        'gender','birthday',    
-    ])
-};

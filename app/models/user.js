@@ -23,8 +23,12 @@ module.exports = function (sequelize, DataTypes) {
 
             school: DataTypes.STRING,
 
+            facebook: DataTypes.STRING,
+            behance: DataTypes.STRING,
+            twitter: DataTypes.STRING,
+            tumblr: DataTypes.STRING,
+
             featured: {type: DataTypes.BOOLEAN, defaultValue: false},
-            isAdmin: {type: DataTypes.BOOLEAN, defaultValue: false},
             views: {type: DataTypes.INTEGER, defaultValue: 0},
             url: {type: DataTypes.STRING},
             popularity: {type: DataTypes.INTEGER, defaultValue: 0},
@@ -32,6 +36,7 @@ module.exports = function (sequelize, DataTypes) {
             hashedPassword: DataTypes.STRING,
             salt: DataTypes.STRING,
 
+            isAdmin: {type: DataTypes.BOOLEAN, defaultValue: false},
             verified: {type: DataTypes.BOOLEAN, defaultValue: false},
             filled: {type: DataTypes.BOOLEAN, defaultValue: false},
 

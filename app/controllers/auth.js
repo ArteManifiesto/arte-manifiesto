@@ -224,3 +224,31 @@ exports.resend = function (req, res) {
         return res.ok(null, 'email sent');
     });
 };
+
+
+exports.complete = function (req, res) {
+    var specialtiesQuery = {where: {id: {$in: req.body.specialties}}};
+    var interestsQuery = {where: {id: {$in: req.body.interests}}};
+
+    var promises = [
+        global.db.Category.findAll(specialtiesQuery),
+        global.db.Category.findAll(interestsQuery),
+        req.user.updateAttributes(req.body)
+    ];
+
+    global.db.Sequelize.Promise.all(promises).then(function (result) {
+        promises = [
+            req.user.setSpecialties(result[0]),
+            req.user.setInterests(result[1]),
+            req.user.updateAttributes({filled: true})
+        ];
+        global.db.Sequelize.Promise.all(promises).then(function () {
+            if (req.xhr)
+                return res.ok(null, 'user updated data');
+
+            req.flash('successMessage', 'Perfil completado');
+            return res.redirect('back')
+        });
+    });
+
+};

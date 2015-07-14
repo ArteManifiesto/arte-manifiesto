@@ -143,13 +143,7 @@ exports.checkFillData = function (req, res, next) {
 };
 
 exports.check = function (req, res, next) {
-    var excepts = [
-        '/auth/logout',
-        '/auth/verify',
-        '/auth/resend'
-    ];
-
-    if (!req.user || excepts.indexOf(req.url) > -1)
+    if (!req.user || req.url.indexOf('auth') > -1)
         return next();
 
     if (!req.user.verified)
