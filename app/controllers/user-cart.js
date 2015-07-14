@@ -16,7 +16,10 @@ exports.index = function (req, res) {
             else
                 result[productCart.Product.User.username] = [productCart];
         }
-        return res.ok(result, 'Productos listados');
+
+        return res.render(basePath + 'index', {
+            products: result
+        });
     });
 };
 
