@@ -6,8 +6,11 @@ var controller = require(global.cf.controllers + "/user-cart");
 
 router.get('/', controller.index);
 
-router.post('/items' , controller.items);
-router.post('/add' , controller.add);
-router.post('/remove' , controller.remove);
+router.post('/list', controller.list);
+
+router.post('/add', controller.add);
+router.post('/remove', controller.remove);
+
+router.post('/items', controller.items);
 
 module.exports = router;
