@@ -9,7 +9,7 @@ global.fbPermissions = [
     'user_website'
 ];
 
-global.lift = function(app){
+global.lift = function (app) {
     var server = app.listen(app.get('port'), function () {
         var url = 'http://127.0.0.1:' + server.address().port + '/auth/login';
         console.log('Express server listening  on ' + url);
@@ -220,4 +220,9 @@ global.objectToParameters = function (element) {
 
 global.replaceAt = function (text, index, character) {
     return text.substr(0, index) + character + text.substr(index + character.length);
+};
+
+
+global.getOnly = function (entity, items) {
+    return {};
 };

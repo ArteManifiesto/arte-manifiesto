@@ -117,17 +117,14 @@ exports.productPay = function (req, res) {
     });
 };
 
-exports.interests = function (req, res) {
-    global.db.Category.findAll().then(function (interests) {
-        return res.render(basePath + 'interests', {
-            interests: interests
-        });
-    });
-}
-exports.specialties = function (req, res) {
-    global.db.Category.findAll().then(function (specialties) {
-        return res.render(basePath + 'specialties', {
-            specialties: specialties
-        });
-    });
-}
+exports.completeProfile = function (req, res) {
+    var specialties = req.body.specialties,
+        interests = req.body.interests,
+        websites = req.body.websites;
+
+
+    var userData = global.getOnly([
+        'username','city','country',
+        'gender','birthday',    
+    ])
+};

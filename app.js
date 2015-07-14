@@ -9,13 +9,13 @@ var express = require('express');
 global.cf = require('./config/config');
 global.md = require('./config/middlewares');
 global.db = require('./config/sequelize');
+global.utils = require('./config/utils');
 
 /**
  * Setup utilities
  * ====================================================
  */
 var seeds = require('./config/seeds');
-var utils = require('./config/utils');
 var _ = require('lodash');
 
 /**
@@ -39,7 +39,6 @@ global.db.sequelize.sync({force: dev}).then(function () {
         return seeds.start().then(function () {
             global.lift(app);
         });
-    
     global.lift(app);
 });
 

@@ -146,7 +146,7 @@ exports.check = function (req, res, next) {
     var excepts = [
         '/auth/logout',
         '/auth/verify',
-        '/auth/forward'
+        '/auth/resend'
     ];
 
     if (!req.user || excepts.indexOf(req.url) > -1)

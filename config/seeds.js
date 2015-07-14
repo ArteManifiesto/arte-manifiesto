@@ -13,7 +13,6 @@ exports.start = function () {
     });
 };
 
-
 var seedCategory = function () {
     var categories = [
         {name: 'Arte Urbano'}, {name: 'Collage'}, {name: 'Dibujo'},

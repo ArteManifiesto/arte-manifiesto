@@ -213,7 +213,7 @@ exports.resetVerify = function (req, res) {
     });
 };
 
-exports.forward = function (req, res) {
+exports.resend = function (req, res) {
     var params = {
         to: req.user.email, user: req.user.firstname,
         url: req.protocol + '://' + req.get('host') +

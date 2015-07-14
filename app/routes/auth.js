@@ -18,7 +18,9 @@ router.get('/facebook/callback', controller.facebookCallback);
 router.post('/login', controller.login);
 router.post('/signup', controller.signup);
 router.post('/check', controller.check);
-//router.post('/forward', controller.forward, middlewares);
+
+router.post('/resend', global.md.isLogged, controller.resend);
+
 router.post('/forgot', controller.forgotCreate);
 router.post('/reset/:token', controller.resetVerify);
 
