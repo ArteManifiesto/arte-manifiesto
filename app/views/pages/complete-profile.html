@@ -89,97 +89,135 @@
 		<div class="Profile-section">
 			<p class="Profile-section-title section-title-text">Intereses</p>
 			<div class="Profile-section-options">
-				<div class="Profile-section-option">
-					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
-					<p>Arte Urbano</p>
-					<div class="cover">
-						<i class="fa fa-check"></i>
+				{% for categorie in categories %}
+					<div class="Profile-section-option" data-id={{ categorie.id }}>
+						<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
+						<p>{{ categorie.name }}</p>
+						<div class="cover">
+							<i class="fa fa-check"></i>
+						</div>
 					</div>
-				</div>
-				<div class="Profile-section-option">
-					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
-					<p>Arte Urbano</p>
-					<div class="cover">
-						<i class="fa fa-check"></i>
-					</div>
-				</div>
-				<div class="Profile-section-option">
-					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
-					<p>Arte Urbano</p>
-					<div class="cover">
-						<i class="fa fa-check"></i>
-					</div>
-				</div>
-				<div class="Profile-section-option">
-					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
-					<p>Arte Urbano</p>
-					<div class="cover">
-						<i class="fa fa-check"></i>
-					</div>
-				</div>
-				<div class="Profile-section-option">
-					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
-					<p>Arte Urbano</p>
-					<div class="cover">
-						<i class="fa fa-check"></i>
-					</div>
-				</div>
-				<div class="Profile-section-option">
-					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
-					<p>Arte Urbano</p>
-					<div class="cover">
-						<i class="fa fa-check"></i>
-					</div>
-				</div>
-				<div class="Profile-section-option">
-					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
-					<p>Arte Urbano</p>
-					<div class="cover">
-						<i class="fa fa-check"></i>
-					</div>
-				</div>
-				<div class="Profile-section-option">
-					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
-					<p>Arte Urbano</p>
-					<div class="cover">
-						<i class="fa fa-check"></i>
-					</div>
-				</div>
-				<div class="Profile-section-option">
-					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
-					<p>Arte Urbano</p>
-					<div class="cover">
-						<i class="fa fa-check"></i>
-					</div>
-				</div>
-				<div class="Profile-section-option">
-					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
-					<p>Arte Urbano</p>
-					<div class="cover">
-						<i class="fa fa-check"></i>
-					</div>
-				</div>
-				<div class="Profile-section-option">
-					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
-					<p>Arte Urbano</p>
-					<div class="cover">
-						<i class="fa fa-check"></i>
-					</div>
-				</div>
-				<div class="Profile-section-option">
-					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
-					<p>Arte Urbano</p>
-					<div class="cover">
-						<i class="fa fa-check"></i>
-					</div>
-				</div>
+				{% endfor %}
 			</div>
 		</div>
 		<div class="Profile-section">
 			<p class="Profile-section-title section-title-text">Especialidades</p>
-			<!-- <div class="Profile-section-input"> -->
 			<ul class="checkbox-list">
-				<li class="checkbox-list__item">
+				{% for categorie in categories %}
+					<li class="checkbox-list__item" data-id="{{ categorie.id }}">
+						<input type="checkbox" name="category" value="arte-urbano"> <span>{{ categorie.name }}</span>
+					</li>
+				{% endfor %}
+
+			</ul>
+		</div>
+		<button class="button-solid" data-color='red'>Guardar</button>
+	</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+	<script>
+		var user = {{user|json|safe}};
+		console.log('user: ', user);
+
+		var categories = {{categories|json|safe}};
+		console.log('categories: ', categories);
+	</script>
+
+	<script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/complite-profile.js"></script>
+
+{% endblock %}
+
+				<!-- <div class="Profile-section-option">
+					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
+					<p>Arte Urbano</p>
+					<div class="cover">
+						<i class="fa fa-check"></i>
+					</div>
+				</div>
+				<div class="Profile-section-option">
+					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
+					<p>Arte Urbano</p>
+					<div class="cover">
+						<i class="fa fa-check"></i>
+					</div>
+				</div>
+				<div class="Profile-section-option">
+					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
+					<p>Arte Urbano</p>
+					<div class="cover">
+						<i class="fa fa-check"></i>
+					</div>
+				</div>
+				<div class="Profile-section-option">
+					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
+					<p>Arte Urbano</p>
+					<div class="cover">
+						<i class="fa fa-check"></i>
+					</div>
+				</div>
+				<div class="Profile-section-option">
+					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
+					<p>Arte Urbano</p>
+					<div class="cover">
+						<i class="fa fa-check"></i>
+					</div>
+				</div>
+				<div class="Profile-section-option">
+					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
+					<p>Arte Urbano</p>
+					<div class="cover">
+						<i class="fa fa-check"></i>
+					</div>
+				</div>
+				<div class="Profile-section-option">
+					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
+					<p>Arte Urbano</p>
+					<div class="cover">
+						<i class="fa fa-check"></i>
+					</div>
+				</div>
+				<div class="Profile-section-option">
+					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
+					<p>Arte Urbano</p>
+					<div class="cover">
+						<i class="fa fa-check"></i>
+					</div>
+				</div>
+				<div class="Profile-section-option">
+					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
+					<p>Arte Urbano</p>
+					<div class="cover">
+						<i class="fa fa-check"></i>
+					</div>
+				</div>
+				<div class="Profile-section-option">
+					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
+					<p>Arte Urbano</p>
+					<div class="cover">
+						<i class="fa fa-check"></i>
+					</div>
+				</div>
+				<div class="Profile-section-option">
+					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
+					<p>Arte Urbano</p>
+					<div class="cover">
+						<i class="fa fa-check"></i>
+					</div>
+				</div>
+				<div class="Profile-section-option">
+					<img src="http://conexiones.digital/wp-content/uploads/2015/06/mural.gif">
+					<p>Arte Urbano</p>
+					<div class="cover">
+						<i class="fa fa-check"></i>
+					</div>
+				</div> -->
+
+				<!-- <li class="checkbox-list__item">
 					<input type="checkbox" name="category" value="arte-urbano"> <span>Arte Urbano</span>
 				</li>
 				<li class="checkbox-list__item">
@@ -211,24 +249,4 @@
 				</li>
 				<li class="checkbox-list__item">
 					<input type="checkbox" name="category" value="escultura"> <span>Escultura</span>
-				</li>
-			</ul>
-			<!-- </div> -->
-		</div>
-		<button class="button-solid" data-color='red'>Guardar</button>
-	</div>
-
-{% endblock %}
-
-
-{% block scripts %}
-
-	<script>
-		var user = {{user|json|safe}};
-		console.log(user);
-	</script>
-
-	<script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
-	<script type="text/javascript" src="/js/complite-profile.js"></script>
-
-{% endblock %}
+				</li> -->

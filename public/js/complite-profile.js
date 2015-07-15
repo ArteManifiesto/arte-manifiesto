@@ -60,6 +60,7 @@ function CompileProfile () {
 			     success: function (response) {
 
 						console.log('response: ', response)
+						if(response.status == 200) location.reload()
 
 			     }
 			  });
@@ -101,7 +102,11 @@ function Options () {
 		var ret = []
 		for (var i = options.length - 1; i >= 0; i--){
 			var selected = options[i].getAttribute('selected')
-			if(selected == 'true') ret.push(i)
+			if(selected == 'true') {
+				var itemId = options[i].getAttribute('data-id')
+				console.log('itemId: ', itemId)
+				ret.push(itemId)
+			}
 		}
 		return ret
 	}
@@ -144,7 +149,11 @@ function Options2 () {
 		var ret = []
 		for (var i = options.length - 1; i >= 0; i--){
 			var selected = options[i].getAttribute('selected')
-			if(selected == 'true') ret.push(i)
+			if(selected == 'true') {
+				var itemId = options[i].getAttribute('data-id')
+				console.log('itemId: ', itemId)
+				ret.push(itemId)
+			}
 		}
 		return ret
 	}
