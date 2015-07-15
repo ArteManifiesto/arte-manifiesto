@@ -12,20 +12,24 @@
 
 	{% for a, b in products %}
 
-		<div class="cart">
+		<div class="cart js-{{a}}" data-shipping="7">
 
 			{% for product in b %}
-				<div class="cart-item">
+				<div class="cart-item" data-price="{{ product.Product.price }}">
 					<div class="cart-item-product">
-						<figure class="cart-item-image"> <img src="/img/products/product15.jpg"> </figure>
+						<figure class="cart-item-image"> <img src="{{ product.Product.photo }}"> </figure>
 						<div class="cart-item-name">
-							<p>Samsung Galaxy Case/Skin</p>
+							<p>{{ product.Product.name }}</p>
 							<p class="skinny-text" data-color="light">product model</p>
 						</div>
 					</div>
 					<div class="cart-item-setings">
-						<div class="cart-item-price">S/. 20.00</div>
-						<div class="cart-item-quantity"> <input value="1" type="number" min="1" max="9"> </div>
+						<div class="cart-item-price">S/. {{ product.Product.price }}.00</div>
+						<div class="cart-item-quantity"> <input
+																								data-username="{{ product.Product.User.username }}"
+																								data-id="{{ product.Product.id }}"
+																								data-cart="js-{{a}}"
+																								value="{{ product.items }}" type="number" min="1" max="9"> </div>
 						<div class="cart-item-closed"><i class="fa fa-times-circle"></i></div>
 					</div>
 				</div>
@@ -35,7 +39,7 @@
 				<table class="prices">
 				  <tr>
 				    <td>Subtotal</td>
-				    <td>S/. 120.00</td>
+				    <td>S/. <span class="js-subTotal"></span>.00</td>
 				  </tr>
 				  <tr>
 				    <td>Envio</td>
@@ -43,13 +47,33 @@
 				  </tr>
 				  <tr class="total">
 				    <td>Total</td>
-				    <td>S/. 127.00</td>
+				    <td>S/. <span class="js-total"></span>.00</td>
 				  </tr>
 				</table>
 			</div>
 		</div>
 
 	{% endfor %}
+
+
+{% endblock %}
+
+
+{% block scripts %}
+
+	<script>
+		var user = {{user|json|safe}};
+		console.log('user: ', user);
+
+		var products = {{products|json|safe}};
+		console.log('products: ', products);
+	</script>
+
+	<script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/cart.js"></script>
+
+{% endblock %}
+
 
 <!-- 	<div class="cart">
 		<div class="cart-item">
@@ -125,19 +149,3 @@
 			</table>
 		</div>
 	</div> -->
-
-
-{% endblock %}
-
-
-{% block scripts %}
-
-	<script>
-		var products = {{products|json|safe}};
-		console.log('products: ', products);
-	</script>
-
-	<script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
-	<!-- // <script type="text/javascript" src="/js/cart.js"></script> -->
-
-{% endblock %}
