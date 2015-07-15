@@ -34,7 +34,7 @@
 				</div>
 
 				<div class="actions__buy">
-					<a href="/checkout/{{product.nameSlugify}}" class="button-solid" data-size='large' data-color='red' data-expand='true'>Comprar</a>
+					<a class="button-solid js-addCart" data-size='large' data-color='red' data-expand='true'>Comprar</a>
 				</div>
 			</div>
 		</div>
@@ -104,23 +104,23 @@
 		<div class="single-product__similar">
 			<p class="actions-title">Mas Productos</p>
 			<section class="products no-filters">
-				{% for i in [0,1,2,3,4,5] %}
+				{% for similar in similar %}
 					<div class="product-wrapper">
 						<article class="product">
 
 							<div class="product-image">
-								<img src="{{ similar[i].photo }}">
+								<img src="{{ similar.photo }}">
 								<div class="cover">
-									<i class="fa fa-heart {% if similar[i].liked %}active{% endif %}"></i>
+									<i class="fa fa-heart {% if similar.liked %}active{% endif %}"></i>
 									<i class="fa fa-th-list"></i>
 								</div>
 							</div>
 
 							<div class="product-title">
-								<div class="title">{{similar[i].name}}</div>
+								<div class="title">{{similar.name}}</div>
 							</div>
 							<div class="product-info">
-								<div class="price">s./{{similar[i].price}}</div>
+								<div class="price">s./{{similar.price}}</div>
 
 								<div class="users">
 									<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg">
@@ -129,7 +129,7 @@
 								</div>
 
 								<div class="like">
-									<span class="button-like {% if similar[i].liked %}active{% endif %}"> <i class="fa fa-heart"></i><i class="fa fa-heart-o"></i> <span>{{similar[i].likes}}</span> </span>
+									<span class="button-like {% if similar.liked %}active{% endif %}"> <i class="fa fa-heart"></i><i class="fa fa-heart-o"></i> <span>{{similar.likes}}</span> </span>
 								</div>
 
 								<div class="wish-list">
@@ -144,23 +144,23 @@
 		<div class="single-product__similar">
 			<p class="actions-title">Productos similares</p>
 			<section class="products no-filters">
-				{% for i in [0,1,2,3,4,5] %}
+				{% for similar in similar %}
 					<div class="product-wrapper">
 						<article class="product">
 
 							<div class="product-image">
-								<img src="{{ similar[i].photo }}">
+								<img src="{{ similar.photo }}">
 								<div class="cover">
-									<i class="fa fa-heart {% if similar[i].liked %}active{% endif %}"></i>
+									<i class="fa fa-heart {% if similar.liked %}active{% endif %}"></i>
 									<i class="fa fa-th-list"></i>
 								</div>
 							</div>
 
 							<div class="product-title">
-								<div class="title">{{similar[i].name}}</div>
+								<div class="title">{{similar.name}}</div>
 							</div>
 							<div class="product-info">
-								<div class="price">s./{{similar[i].price}}</div>
+								<div class="price">s./{{similar.price}}</div>
 
 								<div class="users">
 									<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg">
@@ -169,7 +169,7 @@
 								</div>
 
 								<div class="like">
-									<span class="button-like {% if similar[i].liked %}active{% endif %}"> <i class="fa fa-heart"></i><i class="fa fa-heart-o"></i> <span>{{similar[i].likes}}</span> </span>
+									<span class="button-like {% if similar.liked %}active{% endif %}"> <i class="fa fa-heart"></i><i class="fa fa-heart-o"></i> <span>{{similar.likes}}</span> </span>
 								</div>
 
 								<div class="wish-list">
@@ -184,71 +184,3 @@
 	</div>
 
 </div>
-
-	<!-- <div class="single-product__header">
-
-		<div class="single-product__title">
-			<p class="single-product-text">{{product.name}}</p>
-		</div>
-
-		<div class="single-product__artist">
-			from
-			<span class="avatar"><img src="{{product.User.photo}}"></span>
-			<span class="name">{{product.User.firstname}} {{product.User.lastname}}</span>
-		</div>
-
-	</div> -->
-
-			<!-- <div class="actions">
-				<p class="actions__title">Comunidad</p>
-				<div class="actions__people">
-					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
-					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
-					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
-					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
-					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
-					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
-					{% for userLike in product.userLikes %}
-						<div class="people-item"><img src="{{userLike.photo}}"></div>
-					{% endfor %}
-				</div>
-			</div> -->
-			<!-- <div class="actions">
-				<p class="actions__title">Mas del artista</p>
-				<div class="actions__more">
-					{% for product in more %}
-						<a class="more-image" href="/{{ product.User.username}}/product/{{product.nameSlugify}}">
-							<img src="{{ product.photo }}">
-						</a>
-					{% endfor %}
-				</div>
-			</div> -->
-
-	<!-- ********************************************************************
-			$ PRODUCTS
-		********************************************************************* -->
-		<!-- <p>Mas productos</p>
-
-		<section class="products">
-			{% for product in more %}
-			<div class="product-wrapper">
-				<article class="product">
-					<a class="product-image" href="/{{ product.User.username}}/product/{{product.nameSlugify}}">
-						<img src="{{ product.photo }}">
-					</a>
-					<div class="product-title">
-						<div class="title">{{product.name}}</div>
-					</div>
-					<div class="product-info">
-						<div class="price">s./{{product.price}}</div>
-						<div class="like">
-							<span class="button-like"> <i class="fa fa-heart-o"></i> <span>{{product.likes}}</span> </span>
-						</div>
-						<div class="wish-list">
-							<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
-						</div>
-					</div>
-				</article>
-			</div>
-			{% endfor %}
-		</section> -->

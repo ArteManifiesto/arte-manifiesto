@@ -11,6 +11,9 @@
 {% endblock %}
 
 {% block scripts %}
+
+	<script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
+
 	<script type="text/javascript">
 
 		var product = {{ product|json|safe }};
@@ -27,6 +30,24 @@
 
 		var user = {{ user|json|safe }}
 		console.log('user: ', user);
+
+		var addCartButton = document.querySelector('.js-addCart')
+		addCartButton.addEventListener('click', function () {
+			// console.log('click!')
+
+			var data = {
+						"idProduct": product.id,
+						"option":1
+					},
+					url = '/' + user.username + '/cart/add';
+
+					console.log('url: ', url)
+
+			$.post(url, data, function (response) {
+				console.log('response: ', response)
+			})
+
+		})
 
 	</script>
 {% endblock %}

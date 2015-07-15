@@ -1,5 +1,5 @@
 /*------------------------------------*
-	$ PRODUCTS
+	$ CART
 *------------------------------------*/
 body {
   margin: 0;
@@ -994,4 +994,38 @@ body {
   padding: 0.5rem;
   font-size: 1.25rem;
   cursor: pointer;
+  color: #aaa;
+}
+.cart-totals {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-pack: end;
+  -moz-box-pack: end;
+  -o-box-pack: end;
+  -ms-flex-pack: end;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+  padding: 0.5rem 1rem;
+}
+.cart-totals .prices {
+  font-family: 'Oswald';
+  color: #585858;
+  font-weight: 400;
+  letter-spacing: 0.75px;
+  font-size: 0.9rem;
+}
+.cart-totals .prices td {
+  text-align: right;
+  padding-left: 1rem;
+}
+.cart-totals .prices .total {
+  color: #e41421;
+  font-size: 1rem;
+}
+.cart-totals .prices .total td:nth-child(2) {
+  font-size: 1.15rem;
 }
