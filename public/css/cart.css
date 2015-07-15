@@ -954,6 +954,9 @@ body {
 .cart-item:not(:last-child) {
   border-bottom: 1px solid #ddd;
 }
+.cart-item:hover {
+  background: #eee;
+}
 .cart-item-product,
 .cart-item-setings {
   display: -webkit-box;
