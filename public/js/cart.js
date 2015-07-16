@@ -59,4 +59,30 @@ for(var i = 0; i < inputs.length; i++) {
 	})
 }
 
+var closeds = document.querySelectorAll('.js-closed')
+
+for(var i = 0; i < closeds.length; i++) {
+	closeds[i].addEventListener('click', function() {
+
+    var value = parseInt(this.value),
+    		cartClass = this.getAttribute('data-cart'),
+    		idProduct = this.getAttribute('data-id'),
+    		url = '/' + user.username + '/cart/items',
+    		data = {
+					"idProduct": idProduct,
+					"option":1 ,
+					"items": value
+		    };
+
+    // console.log('url', url)
+    // console.log('data', data)
+    $.post(url, data, function (response) {
+    	console.log('response', response)
+
+    	calculateTotals(document.querySelector('.' + cartClass))
+    })
+
+	})
+}
+
 init()

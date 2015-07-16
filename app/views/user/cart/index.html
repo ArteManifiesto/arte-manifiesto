@@ -26,11 +26,10 @@
 					<div class="cart-item-setings">
 						<div class="cart-item-price">S/. {{ product.Product.price }}.00</div>
 						<div class="cart-item-quantity"> <input
-																								data-username="{{ product.Product.User.username }}"
 																								data-id="{{ product.Product.id }}"
 																								data-cart="js-{{a}}"
 																								value="{{ product.items }}" type="number" min="1" max="9"> </div>
-						<div class="cart-item-closed"><i class="fa fa-times-circle"></i></div>
+						<div class="cart-item-closed"><i class="js-closed fa fa-times-circle"></i></div>
 					</div>
 				</div>
 			{% endfor %}
