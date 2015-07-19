@@ -14,14 +14,29 @@
 	<p>Por favor confirma en tu correo para continuar</p>
 	<br>
 	<br>
-	<p>Si no recibiste el email dale click en <a href="">reenviar</a></p>
+	<p>Si no recibiste el email dale click en <a class="resend">reenviar</a></p>
 {% endblock %}
 
 
 {% block scripts %}
-<script>
-	var user = {{user|json|safe}};
-	console.log('user', user);
-</script>
+
+	<script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
+
+	<script>
+		var user = {{user|json|safe}};
+		console.log('user', user);
+
+		var resend = document.querySelector('.resend')
+		// console.log('resend: ', resend)
+
+		resend.addEventListener('click', function () {
+			// console.log('resend')
+
+			$.post('/auth/resend', function (response) {
+				console.log('response: ', response)
+			})
+		})
+
+	</script>
 
 {% endblock %}
