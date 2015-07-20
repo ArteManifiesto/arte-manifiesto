@@ -11,11 +11,15 @@ function init () {
 
 function calculateTotals (el) {
 
+	console.log('el: ', el)
+
 	var items = el.querySelectorAll('.cart-item'),
 			total = 0,
 			shipping = parseInt(el.getAttribute('data-shipping')),
 			subTotalEl = el.querySelector('.js-subTotal');
 			totalEl = el.querySelector('.js-total');
+
+	if(items.length == 0) el.remove()
 
 	for (var i = 0; i < items.length; i++) {
 
@@ -33,7 +37,6 @@ function calculateTotals (el) {
 
 
 var inputs = document.querySelectorAll('input[type=number]')
-// console.log('inputs', inputs)
 
 for(var i = 0; i < inputs.length; i++) {
 	inputs[i].addEventListener('input', function() {
@@ -48,40 +51,37 @@ for(var i = 0; i < inputs.length; i++) {
 					"items": value
 		    };
 
-    // console.log('url', url)
-    // console.log('data', data)
     $.post(url, data, function (response) {
     	console.log('response', response)
 
     	calculateTotals(document.querySelector('.' + cartClass))
     })
-
 	})
 }
 
 var closeds = document.querySelectorAll('.js-closed')
 
 for(var i = 0; i < closeds.length; i++) {
+
 	closeds[i].addEventListener('click', function() {
 
-    var value = parseInt(this.value),
-    		cartClass = this.getAttribute('data-cart'),
-    		idProduct = this.getAttribute('data-id'),
-    		url = '/' + user.username + '/cart/items',
-    		data = {
+		var item = this.parentElement.parentElement,
+				url = '/' + user.username + '/cart/remove',
+				idProduct = this.getAttribute('data-id'),
+				data = {
 					"idProduct": idProduct,
-					"option":1 ,
-					"items": value
-		    };
+					"option": 1
+				};
 
-    // console.log('url', url)
-    // console.log('data', data)
     $.post(url, data, function (response) {
     	console.log('response', response)
 
-    	calculateTotals(document.querySelector('.' + cartClass))
+    	if(response.status == 200) {
+				var cart = item.parentElement
+				item.remove()
+				calculateTotals(cart)
+    	}
     })
-
 	})
 }
 
