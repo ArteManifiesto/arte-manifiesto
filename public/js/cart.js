@@ -77,7 +77,7 @@ for(var i = 0; i < closeds.length; i++) {
     	console.log('response', response)
 
     	if(response.status == 200) {
-				var cart = item.parentElement
+				var cart = item.parentElement.parentElement
 				item.remove()
 				calculateTotals(cart)
     	}

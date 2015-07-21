@@ -9,11 +9,12 @@
 
 {% block elements %}
 
-
 	{% for a, b in products %}
 
-		<div class="cart js-{{a}}" data-shipping="7">
+	<div class="cart js-{{a}}" data-shipping="7">
 
+		<p>{{ b[0].Product.User.fullname }}</p>
+		<div class="cart-inner">
 			{% for product in b %}
 				<div class="cart-item" data-price="{{ product.Product.price }}">
 					<div class="cart-item-product">
@@ -34,7 +35,6 @@
 					</div>
 				</div>
 			{% endfor %}
-
 			<div class="cart-totals">
 				<table class="prices">
 				  <tr>
@@ -53,8 +53,9 @@
 			</div>
 		</div>
 
-	{% endfor %}
+	</div>
 
+	{% endfor %}
 
 {% endblock %}
 

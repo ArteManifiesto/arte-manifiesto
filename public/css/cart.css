@@ -925,8 +925,18 @@ body {
   border-radius: 50%;
 }
 .cart {
+  padding: 1rem 0.5rem;
+}
+.cart >p {
+  color: #59c097;
   max-width: 800px;
-  margin: 2rem auto;
+  margin: 0.5rem auto;
+  font-family: 'Roboto Condensed';
+  letter-spacing: 0.5px;
+}
+.cart-inner {
+  max-width: 800px;
+  margin: 0 auto;
   border: 1px solid #bbb;
 }
 .cart-item {
