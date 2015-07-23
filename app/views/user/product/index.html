@@ -31,23 +31,31 @@
 		var user = {{ user|json|safe }}
 		console.log('user: ', user);
 
+		var buttonSolidText = document.querySelector('.button-solid p')
+		console.log('buttonSolidText: ', buttonSolidText)
+
+		var buttonSolidLoad = document.querySelector('.button-solid i')
+		console.log('buttonSolidLoad: ', buttonSolidLoad)
+
 		var addCartButton = document.querySelector('.js-addCart')
 		addCartButton.addEventListener('click', function () {
-			// console.log('click!')
 
 			var data = {
 						"idProduct": product.id,
 						"option":1
 					},
 					url = '/' + user.username + '/cart/add';
+			// console.log('url: ', url)
 
-					console.log('url: ', url)
+			buttonSolidText.style.display = 'none'
+			buttonSolidLoad.style.display = 'block'
 
 			$.post(url, data, function (response) {
-				console.log('response: ', response)
+
+				buttonSolidText.style.display = 'block'
+				buttonSolidLoad.style.display = 'none'
+				// console.log('response: ', response)
 			})
-
 		})
-
 	</script>
 {% endblock %}
