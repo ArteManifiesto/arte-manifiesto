@@ -1,16 +1,43 @@
-console.log('account-menu!!')
 
 function AccountMenu () {
 
-	console.log('avatar!')
-
-	var hoverAvatar = false,
+	var avatar = document.querySelector('.skinny-menu__avatar'),
+			menu = document.querySelector('.account-menu'),
+			hoverAvatar = false,
 			hoverMenu = false;
 
 	function setup () {
-		console.log('setup!')
 
-		hoverAvatar
+		avatar.addEventListener('mouseover', function () {
+			// console.log('avatar mouseover')
+			hoverAvatar = true
+			menu.classList.add('visible')
+		})
+
+		avatar.addEventListener('mouseout', function () {
+			// console.log('avatar mouseover')
+			hoverAvatar = false
+
+			setTimeout(function () {
+				if(!hoverAvatar && !hoverMenu)
+					menu.classList.remove('visible')
+			}, 100)
+		})
+
+		menu.addEventListener('mouseover', function () {
+			hoverMenu = true
+			// console.log('menu mouseover')
+			// menu.style.background = 'red'
+		})
+		menu.addEventListener('mouseout', function () {
+			// console.log('menu mouseout')
+			hoverMenu = false
+
+			setTimeout(function () {
+				if(!hoverAvatar && !hoverMenu)
+					menu.classList.remove('visible')
+			}, 100)
+		})
 	}
 
 	setup()
