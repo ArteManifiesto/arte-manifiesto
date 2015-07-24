@@ -52,7 +52,7 @@ function Profile (el, data) {
 
 		for (var i = buttons.length - 1; i >= 0; i--)
 			buttons[i].setAttribute('index', i)
-		
+
 		for (var i = buttons.length - 1; i >= 0; i--) {
 			buttons[i].addEventListener('click', function () {
 				var indexValue = this.getAttribute('index')
@@ -74,14 +74,14 @@ function Profile (el, data) {
 		url = '/' + profile.username + '/' + paths[index] + '/page-' + ++page
 
 		containers[index].querySelector('.loading').style.display = 'block'
-		
+
 		console.log('url: ', url)
 		$.post( url, function( response ) {
 			console.log('response: ', response)
 
 			if(callback) callback()
 			containers[index].querySelector('.loading').style.display = 'none'
-			
+
 			paginations[index] = response.pagination
 
 			if(index == 0) addElements(response.works)
@@ -103,7 +103,7 @@ function Profile (el, data) {
 	}
 
 	function render () {
-		
+
 		url = '/' + profile.username + '/' + paths[index] + '/page-1'
 		page = 1
 		var newUrl = '/' + profile.username + '/' + paths[index]

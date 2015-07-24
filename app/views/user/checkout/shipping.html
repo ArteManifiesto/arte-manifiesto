@@ -1,7 +1,7 @@
 {% extends '../../partials/base.html' %}
 
-{% set path = 'cart' %}
-{% set title = 'Arte Manifiesto | Cart' %}
+{% set path = 'shipping' %}
+{% set title = 'Arte Manifiesto | Shipping' %}
 
 {% block stylesheets %}
 	<link rel="stylesheet" type="text/css" href="/css/shipping.css">
@@ -9,9 +9,9 @@
 
 {% block elements %}
 	<section class="addresses">
-		<article class="address selected">
+		<article class="address selected" data-pos="0">
 			<div class="address-check">
-				<input type="radio" name="address" value="1" selected>
+				<input type="radio" name="address" value="1" checked>
 			</div>
 			<div class="address-info">
 				<p class="address-info-title">Hans holi</p>
@@ -21,7 +21,7 @@
 				<p class="address-info-text">Ph: 51 908552187</p>
 			</div>
 		</article>
-		<article class="address">
+		<article class="address" data-pos="1">
 			<div class="address-check">
 				<input type="radio" name="address" value="2">
 			</div>
@@ -33,7 +33,7 @@
 				<p class="address-info-text">Ph: 51 908552187</p>
 			</div>
 		</article>
-		<article class="address">
+		<article class="address" data-pos="2">
 			<div class="address-check">
 				<input type="radio" name="address" value="0">
 			</div>
@@ -91,7 +91,7 @@
 		console.log('addresses: ', addresses);
 	</script>
 
-<!-- 	// <script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
-	// <script type="text/javascript" src="/js/cart.js"></script>
- -->
+	<script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/shipping.js"></script>
+
 {% endblock %}

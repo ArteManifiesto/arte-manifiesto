@@ -299,12 +299,6 @@ input[type="submit"] {
   -o-transform: translate(0, 100%);
   -ms-transform: translate(0, 100%);
   transform: translate(0, 100%);
-  display: -webkit-box;
-  display: -moz-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: box;
-  display: flex;
   -webkit-box-orient: vertical;
   -moz-box-orient: vertical;
   -o-box-orient: vertical;
@@ -319,6 +313,15 @@ input[type="submit"] {
   padding: 0.5rem;
   letter-spacing: 1px;
   border: solid 1px #eee;
+  display: none;
+}
+.account-menu.visible {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
 }
 .account-menu__item {
   color: #333;

@@ -105,7 +105,6 @@
 	bottom 0
 	right 1rem
 	transform translate(0, 100%)
-	display flex
 	flex-direction column
 	background white
 	z-index 1
@@ -115,14 +114,17 @@
 	padding .5rem
 	letter-spacing 1px
 	border solid 1px #eee
+	display none
+	&.visible
+		display flex
 	&__item
 		color #333
 		padding .5rem
 		&:hover
-			// background #eee
 			color black
 		b
 			font-weight 400
+
 
 /*------------------------------------*
 	$ SINGLE-MENU
