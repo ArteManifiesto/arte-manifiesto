@@ -1,0 +1,46 @@
+/*------------------------------------*
+	$ SHIPPING
+*------------------------------------*/
+@import 'base.styl'
+
+@import 'elements/inputs.styl'
+@import 'elements/buttons.styl'
+
+
+.addresses
+	border solid 1px #ddd
+	// display table
+	max-width 500px
+	margin 2rem auto
+	border-radius 4px
+.address
+	display flex
+	align-items center
+	font-family: 'Roboto Condensed';
+	cursor pointer
+	&.selected
+		background #e9f3f5
+	&:not(:first-child)
+		border-top solid 1px #ddd
+	&-check
+		padding .5rem
+	&-info
+		padding .5rem
+		letter-spacing: .5px;
+		&-title
+			padding-bottom .25rem
+			color: #111;
+		&-text
+			color: #333;
+			font-size .9rem
+			font-weight: 300;
+
+
+.shipping-form
+	box-shadow: none;
+	border none
+
+.button-solid
+	margin auto
+	display table
+	margin-bottom 2rem

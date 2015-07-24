@@ -45,16 +45,16 @@
 						"option":1
 					},
 					url = '/' + user.username + '/cart/add';
-			// console.log('url: ', url)
+			console.log('url: ', url)
 
 			buttonSolidText.style.display = 'none'
 			buttonSolidLoad.style.display = 'block'
 
 			$.post(url, data, function (response) {
+				console.log('response: ', response)
 
 				buttonSolidText.style.display = 'block'
 				buttonSolidLoad.style.display = 'none'
-				// console.log('response: ', response)
 			})
 		})
 	</script>
