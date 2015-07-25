@@ -1,20 +1,24 @@
 {% extends '../partials/base.html' %}
 
-{% set path = 'interests' %}
-{% set title = 'Arte Manifiesto | Completar Perfil' %}
+{% set path = 'confirm-email' %}
+{% set title = 'Arte Manifiesto | Confirmar Email' %}
 
 {% block stylesheets %}
-	<link rel="stylesheet" type="text/css" href="/css/complite-profile.css">
+	<link rel="stylesheet" type="text/css" href="/css/confirm-email.css">
 {% endblock %}
 
 {% block elements %}
-	<h1>Felicidades</h1>
-	<p>Te hemos enviado un email a {{ user.email }} </p>
-	<br>
-	<p>Por favor confirma en tu correo para continuar</p>
-	<br>
-	<br>
-	<p>Si no recibiste el email dale click en <a class="resend">reenviar</a></p>
+	<section class="confim-email">
+		<h1 class="title">Felicidades</h1>
+		<p class="subtitle">Te hemos enviado un email a <span class="email"> {{ user.email }} </span></p>
+		<p class="subtitle">Por favor confirma en tu correo para continuar</p>
+		<p class="resend-container">Si no recibiste el email dale click en &nbsp;
+			<button class="button-filter resend">
+				<i class="fa fa-spinner"></i>
+				Reenviar
+			</button>
+		</p>
+	</section>
 {% endblock %}
 
 
@@ -26,13 +30,14 @@
 		var user = {{user|json|safe}};
 		console.log('user', user);
 
-		var resend = document.querySelector('.resend')
-		// console.log('resend: ', resend)
+		var resend = document.querySelector('.resend'),
+				load = resend.querySelector('i')
 
 		resend.addEventListener('click', function () {
 			// console.log('resend')
-
+			load.style.display = 'inline-block'
 			$.post('/auth/resend', function (response) {
+				load.style.display = 'none'
 				console.log('response: ', response)
 			})
 		})
