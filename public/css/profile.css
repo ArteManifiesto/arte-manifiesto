@@ -1410,35 +1410,35 @@ body {
   }
 }
 @media screen and (min-width: 1100px) {
+  .users .user-wrapper {
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -o-box-flex: 1;
+    box-flex: 1;
+    -webkit-flex: 1 25%;
+    -ms-flex: 1 25%;
+    flex: 1 25%;
+    max-width: 25%;
+  }
   .users.moveLeft .user-wrapper {
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
     -o-box-flex: 1;
     box-flex: 1;
-    -webkit-flex: 1 25%;
-    -ms-flex: 1 25%;
-    flex: 1 25%;
-    max-width: 25%;
+    -webkit-flex: 1 20%;
+    -ms-flex: 1 20%;
+    flex: 1 20%;
+    max-width: 20%;
   }
-  .users.moveRight .user-wrapper {
+  .users.no-filters .user-wrapper {
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
     -o-box-flex: 1;
     box-flex: 1;
-    -webkit-flex: 1 25%;
-    -ms-flex: 1 25%;
-    flex: 1 25%;
-    max-width: 25%;
-  }
-  .users.moveLeft.moveRight .user-wrapper {
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    -o-box-flex: 1;
-    box-flex: 1;
-    -webkit-flex: 1 33.333%;
-    -ms-flex: 1 33.333%;
-    flex: 1 33.333%;
-    max-width: 33.333%;
+    -webkit-flex: 1 20%;
+    -ms-flex: 1 20%;
+    flex: 1 20%;
+    max-width: 20%;
   }
 }
 .collections {

@@ -2,11 +2,11 @@
     <div class="account__menu">
         <div class="filter solid">
             <div class="filter__title">Ajustes de Cuenta</div>
-            <a href="/{{ user.username }}/account" class="filter__item">Perfil</a>
-            <a href="/{{ user.username }}/account/photo" class="filter__item">Foto de Perfil</a>
-            <a href="/{{ user.username }}/account/addresses" class="filter__item">Direcciones de envío</a>
+            <a href="/{{ user.username }}/account" class="filter__item {% if path == 'account' %} selected {% endif %}">Perfil</a>
+            <a href="/{{ user.username }}/account/photo" class="filter__item {% if path == 'photo' %} selected {% endif %}">Foto de Perfil</a>
+            <a href="/{{ user.username }}/account/addresses" class="filter__item {% if path == 'addresses' %} selected {% endif %}">Direcciones de envío</a>
             <a href="/{{ user.username }}/account/websites" class="filter__item">Websites</a>
-            <a href="/{{ user.username }}/account/password" class="filter__item">Cambiar Password</a>
+            <a href="/{{ user.username }}/account/password" class="filter__item {% if path == 'password' %} selected {% endif %}">Cambiar Password</a>
         </div>
     </div>
     <div class="account__data">

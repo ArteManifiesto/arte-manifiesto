@@ -48,7 +48,7 @@
 		top 0
 		right 0
 		transform translate(-12.5%, -37.5%)
-		
+
 // user-width = 200px
 user-width = 180px
 
@@ -59,13 +59,13 @@ user-width = 180px
 		.user-wrapper
 			flex 1 50%
 			max-width 50%
-			
+
 @media screen and (min-width: user-width*3)
 	.users
 		.user-wrapper
 			flex 1 33.333%
 			max-width 33.333%
-			
+
 @media screen and (min-width: user-width*4)
 	.users
 		.user-wrapper
@@ -79,16 +79,17 @@ user-width = 180px
 			max-width 20%
 
 @media screen and (min-width: max-width)
-	.users.moveLeft
-		.user-wrapper
-			flex 1 25%
-			max-width 25%
-	.users.moveRight
+	.users
 		.user-wrapper
 			flex 1 25%
 			max-width 25%
 
-	.users.moveLeft.moveRight
+	.users.moveLeft
 		.user-wrapper
-			flex 1 33.333%
-			max-width 33.333%
+			flex 1 20%
+			max-width 20%
+
+	.users.no-filters
+		.user-wrapper
+			flex 1 20%
+			max-width 20%
