@@ -8,6 +8,8 @@ function AccountMenu () {
 
 	function setup () {
 
+		if(!avatar) return
+
 		avatar.addEventListener('mouseover', function () {
 			// console.log('avatar mouseover')
 			hoverAvatar = true
