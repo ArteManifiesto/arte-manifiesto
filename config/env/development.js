@@ -17,7 +17,7 @@ module.exports = {
         callbackURL: "http://localhost:3000/auth/facebook/callback/"
     },
     recaptcha: {
-        publicKey: '6LcbDwcTAAAAAIexPkpMRGp4fTveLvMzll_XPH3Q',
-        privateKey: '6LcbDwcTAAAAANqfkOQEy1IneZnIz_jaHZvUeuCB'
+        publicKey: '6LdnUQoTAAAAALPzF3glOaqzGcbhBrmT1yQwVYls',
+        privateKey: '6LdnUQoTAAAAACVrGpYvAvGv3ylnBsnkIHXdPLX9'
     }
 };
