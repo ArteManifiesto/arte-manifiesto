@@ -21,26 +21,26 @@
                     <form class="form-container" action="">
                         <div class="input-container">
                             <label>Usuario</label>
-                            <input class="input" type="text" placeholder=""/>
+                            <input class="input" type="text" placeholder="username" value="{{ user.username }}" />
                         </div>
                         <div class="input-container">
                             <label>nombres</label>
-                            <input class="input" type="text" placeholder=""/>
+                            <input class="input" type="text" placeholder="nombres" value="{{ user.firstname }}"/>
                         </div>
                         <div class="input-container">
                             <label>apellidos</label>
-                            <input class="input" type="text" placeholder=""/>
+                            <input class="input" type="text" placeholder="appellidos" value="{{ user.lastname }}"/>
                         </div>
                         <div class="input-container">
                             <label>email</label>
-                            <input class="input" type="email" placeholder=""/>
+                            <input class="input" type="email" placeholder="email" value="{{ user.email }}" />
                         </div>
                         <div class="input-container">
                             <label>genero</label>
                             <select class="input" name="gender">
-                                <option disabled {% if !profile.gender %}selected{% endif %}>Género</option>
-                                <option value="Male" {% if profile.gender === 'male' %}selected{% endif %}>Masculino</option>
-                                <option value="Female" {% if profile.gender === 'female' %}selected{% endif %}>Femenino</option>
+                                <option disabled {% if user.gender == 'Género' %}selected{% endif %}>Género</option>
+                                <option value="Male" {% if user.gender === 'male' %}selected{% endif %}>Masculino</option>
+                                <option value="Female" {% if user.gender === 'female' %}selected{% endif %}>Femenino</option>
                             </select>
                         </div>
                         <div class="input-container">
@@ -48,60 +48,60 @@
                             <div>
                                 <div class="input-container-inner">
                                     <label>Web</label>
-                                    <input class="input" type="text" placeholder=""/>
+                                    <input class="input" type="text" placeholder="" value="{{ user.facebook }}" />
                                 </div>
                                 <div class="input-container-inner">
                                     <label>Facebook</label>
-                                    <input class="input" type="text" placeholder=""/>
+                                    <input class="input" type="text" placeholder="" value="{{ user.facebook }}" />
                                 </div>
                                 <div class="input-container-inner">
                                     <label>Twitter</label>
-                                    <input class="input" type="text" placeholder=""/>
+                                    <input class="input" type="text" placeholder="" value="{{ user.twitter }}" />
                                 </div>
                                 <div class="input-container-inner">
                                     <label>Instagram</label>
-                                    <input class="input" type="text" placeholder=""/>
+                                    <input class="input" type="text" placeholder="" value="{{ user.facebook }}" />
                                 </div>
                                 <div class="input-container-inner">
                                     <label>Tumblr</label>
-                                    <input class="input" type="text" placeholder=""/>
+                                    <input class="input" type="text" placeholder="" value="{{ user.tumblr }}" />
                                 </div>
                                 <div class="input-container-inner">
                                     <label>Behance</label>
-                                    <input class="input" type="text" placeholder=""/>
+                                    <input class="input" type="text" placeholder="" value="{{ user.behance }}" />
                                 </div>
                             </div>
                         </div>
                         <div class="input-container">
-                            <label>biografia</label>
-                            <textarea class="input textarea" placeholder=""></textarea>
+                            <label>manifiesto</label>
+                            <textarea class="input textarea" placeholder="" value="{{ user.biography }}"></textarea>
                         </div>
                         <div class="input-container">
                             <label>pais</label>
-                            <input class="input" type="text" placeholder=""/>
+                            <input class="input" type="text" placeholder="" value="{{ user.country }}"/>
                         </div>
                         <div class="input-container">
                             <label>ciudad</label>
-                            <input class="input" type="text" placeholder=""/>
+                            <input class="input" type="text" placeholder="" value="{{ user.city }}"/>
                         </div>
                         <div class="input-container">
                             <label>cumpleahos</label>
-                            <input class="input" type="date" placeholder=""/>
+                            <input class="input" type="date" placeholder="" value="{{ user.birthday }}"/>
                         </div>
                         <div class="input-container">
                             <label>especialidades</label>
-                            <input class="input" type="text" placeholder=""/>
+                            <input class="input" type="text" placeholder="" value="{{ user.country }}"/>
                         </div>
                         <div class="input-container">
                             <label>intereses</label>
-                            <input class="input" type="text" placeholder=""/>
+                            <input class="input" type="text" placeholder="" value="{{ user.country }}"/>
                         </div>
-                        {% if user.isArtist %}
+                        <!-- {% if user.isArtist %}
                         <div class="input-container">
                             <label>escuela</label>
                             <input class="input" type="text" placeholder=""/>
                         </div>
-                        {% endif %}
+                        {% endif %} -->
 
                         <input class="button-solid" data-size='' data-color='red' data-expand='' value="Guardar Cambios" type="submit">
 

@@ -19,9 +19,12 @@
 
     var errorMessage = {{ errorMessage|json|safe }}
     console.log('errorMessage: ', errorMessage)
-    
+
     var user = {{ user|json|safe }}
     console.log('user: ', user)
+
+    var profile = {{ profile|json|safe }}
+    console.log('profile: ', profile)
 </script>
 
 {% endblock %}
