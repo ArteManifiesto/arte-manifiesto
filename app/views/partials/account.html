@@ -5,7 +5,7 @@
             <a href="/{{ user.username }}/account" class="filter__item {% if path == 'account' %} selected {% endif %}">Perfil</a>
             <a href="/{{ user.username }}/account/photo" class="filter__item {% if path == 'photo' %} selected {% endif %}">Foto de Perfil</a>
             <a href="/{{ user.username }}/account/addresses" class="filter__item {% if path == 'addresses' %} selected {% endif %}">Direcciones de envío</a>
-            <a href="/{{ user.username }}/account/websites" class="filter__item">Websites</a>
+            <!-- <a href="/{{ user.username }}/account/websites" class="filter__item">Websites</a> -->
             <a href="/{{ user.username }}/account/password" class="filter__item {% if path == 'password' %} selected {% endif %}">Cambiar Password</a>
         </div>
     </div>
@@ -42,6 +42,35 @@
                                 <option value="Male" {% if profile.gender === 'male' %}selected{% endif %}>Masculino</option>
                                 <option value="Female" {% if profile.gender === 'female' %}selected{% endif %}>Femenino</option>
                             </select>
+                        </div>
+                        <div class="input-container">
+                            <label>websites</label>
+                            <div>
+                                <div class="input-container-inner">
+                                    <label>Web</label>
+                                    <input class="input" type="text" placeholder=""/>
+                                </div>
+                                <div class="input-container-inner">
+                                    <label>Facebook</label>
+                                    <input class="input" type="text" placeholder=""/>
+                                </div>
+                                <div class="input-container-inner">
+                                    <label>Twitter</label>
+                                    <input class="input" type="text" placeholder=""/>
+                                </div>
+                                <div class="input-container-inner">
+                                    <label>Instagram</label>
+                                    <input class="input" type="text" placeholder=""/>
+                                </div>
+                                <div class="input-container-inner">
+                                    <label>Tumblr</label>
+                                    <input class="input" type="text" placeholder=""/>
+                                </div>
+                                <div class="input-container-inner">
+                                    <label>Behance</label>
+                                    <input class="input" type="text" placeholder=""/>
+                                </div>
+                            </div>
                         </div>
                         <div class="input-container">
                             <label>biografia</label>

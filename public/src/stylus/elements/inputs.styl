@@ -102,6 +102,8 @@
 			font-family 'Raleway'
 			text-transform uppercase
 			min-width 9rem
+		>div
+			flex 1
 		.avatars
 			display flex
 			width 100%
@@ -117,6 +119,13 @@
 	.button-solid
 		margin 1.5rem auto
 		display table
+
+@media(min-width: 900px)
+	.input-container
+		&-inner
+			display: flex;
+			align-items: center;
+			padding .25rem
 
 .shipping-form
 	border solid 1px #ddd
@@ -219,3 +228,12 @@
 			background #eee
 		span
 			padding-left .25rem
+
+
+
+/*------------------------------------*
+	$ DATE
+*------------------------------------*/
+// .date
+	// display table
+	// padding .25rem

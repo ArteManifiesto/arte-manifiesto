@@ -1,17 +1,17 @@
 {% extends '../partials/base.html' %}
-	
+
 	{% set path = 'profile' %}
 	{% set title = 'Arte Manifiesto | profile' %}
 	{% set css = 'profile' %}
 
 {% block elements %}
-	
+
 	{% include '../partials/profile.html' %}
 
 {% endblock %}
 
 {% block scripts %}
-	
+
 	<script type="text/template" id="work-template">
 		<article class="work">
 			<img src="<%= photo %>">
@@ -140,7 +140,7 @@
 				<a class="collection__user" href="#">De <span><%= User.username %></span></a>
 				<div class="collection__description"><%= description %></div>
 			</div>
-		</div>	
+		</div>
 	</script>
 
 	<script>
@@ -160,16 +160,19 @@
 		var user = {{ user|json|safe }};
 		console.log('user: ', user);
 
+		var tutorial = {{ tutorial|json|safe }};
+		console.log('tutorial: ', tutorial);
+
 	</script>
 
 	<script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
 	<script type="text/javascript" src="/js/vendor/underscore-min.js"></script>
 	<script type="text/javascript" src="/js/vendor/salvattore.js"></script>
-	
+
 	<script type="text/javascript" src="/js/lib/user.js"></script>
 	<script type="text/javascript" src="/js/lib/product.js"></script>
 	<script type="text/javascript" src="/js/lib/work.js"></script>
-	
+
 	<script type="text/javascript" src="/js/profile.js"></script>
 
 {% endblock %}
