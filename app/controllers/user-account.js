@@ -16,9 +16,11 @@ exports.index = function (req, res) {
 };
 
 exports.update = function (req, res) {
-    var specialtiesData = JSON.parse(req.body.specialties);
-    var interestsData = JSON.parse(req.body.interests);
-
+    console.log(req.body);
+    
+    var specialtiesData = req.body.specialties;
+    var interestsData = req.body.interests;
+    
     var promises = [
         global.db.Category.findAll({where: {id: {in: specialtiesData}}}),
         global.db.Category.findAll({where: {id: {in: interestsData}}})
@@ -80,28 +82,6 @@ exports.addressUpdate = function (req, res) {
             });
         });
     })
-};
-
-exports.websites = function (req, res) {
-    req.user.getWebsites().then(function (websites) {
-        return res.render(basePath + 'websites', {websites: websites});
-    });
-};
-
-exports.wesitesUpdate = function (req, res) {
-    var i, website, promises = [];
-    for (i = 0; i < req.body.websites.length; i++) {
-        website = req.body.websites[i];
-        promises.push(global.db.Website.create(website));
-    }
-    global.db.Sequelize.Promise.all(promises).then(function (websites) {
-        req.user.setWebsites(websites).then(function () {
-            if (req.xhr)
-                return res.ok({websites: websites}, 'Websites actualizados');
-            req.flash('successMessage', 'Websites actualizados');
-            return res.redirect('back');
-        });
-    });
 };
 
 exports.password = function (req, res) {
