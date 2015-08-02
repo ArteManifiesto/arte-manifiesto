@@ -25,7 +25,7 @@
                         </div>
                         <div class="input-container">
                             <label>nombres</label>
-                            <input class="input" type="text" placeholder="nombres" value="{{ user.firstname }}" name="name" />
+                            <input class="input" type="text" placeholder="nombres" value="{{ user.firstname }}" name="firstname" />
                         </div>
                         <div class="input-container">
                             <label>apellidos</label>
@@ -92,14 +92,8 @@
                             <label>intereses</label>
                              <ul class="checkbox-list">
                                 {% for categorie in categories %}
-                                    <li class="checkbox-list__item" data-id="{{ categorie.id }}">
-                                        <input type="checkbox" name="category" value="arte-urbano"
-                                            {% for specialtie in specialties %}
-                                                {% if specialtie.id == categorie.id %}
-                                                    checked
-                                                {% endif %}
-                                            {% endfor %}
-                                        >
+                                    <li class="checkbox-list__item js-options1" data-id="{{ categorie.id }}">
+                                        <input type="checkbox" name="category" value="arte-urbano">
                                         <span>{{ categorie.name }}</span>
                                     </li>
                                 {% endfor %}
@@ -109,14 +103,8 @@
                             <label>especialidades</label>
                             <ul class="checkbox-list">
                                 {% for categorie in categories %}
-                                    <li class="checkbox-list__item" data-id="{{ categorie.id }}">
-                                        <input type="checkbox" name="category" value="arte-urbano"
-                                            {% for specialtie in specialties %}
-                                                {% if specialtie.id == categorie.id %}
-                                                    checked
-                                                {% endif %}
-                                            {% endfor %}
-                                        >
+                                    <li class="checkbox-list__item js-options2" data-id="{{ categorie.id }}">
+                                        <input type="checkbox" name="category" value="arte-urbano">
                                         <span>{{ categorie.name }}</span>
                                     </li>
                                 {% endfor %}
