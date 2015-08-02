@@ -1,0 +1,189 @@
+
+function Account () {
+
+	var username = document.querySelector('input[name="username"]'),
+			name = document.querySelector('input[name="name"]'),
+			lastname = document.querySelector('input[name="lastname"]'),
+			city = document.querySelector('input[name="city"]'),
+			country = document.querySelector('input[name="country"]'),
+			gender = document.querySelector('select[name="gender"]'),
+			birthday = document.querySelector('input[name="birthday"]'),
+			facebook = document.querySelector('input[name="facebook"]'),
+			twitter = document.querySelector('input[name="twitter"]'),
+			behance = document.querySelector('input[name="behance"]'),
+			tumblr = document.querySelector('input[name="tumblr"]'),
+			manifest = document.querySelector('textarea'),
+			saveButton = document.querySelector('.button-solid');
+
+			// console.log('username', username)
+			// console.log('name', name)
+			// console.log('lastname', lastname)
+			// console.log('city', city)
+			// console.log('country', country)
+			// console.log('gender', gender)
+			// console.log('birthday', birthday)
+			// console.log('facebook', facebook)
+			// console.log('twitter', twitter)
+			// console.log('behance', behance)
+			// console.log('tumblr', tumblr)
+			// console.log('manifest', manifest)
+			// console.log('interests', options.getSelecteds())
+			// console.log('specialties', options2.getSelecteds())
+
+
+	function setup () {
+
+		saveButton.addEventListener('click', function () {
+
+			// console.log('username', username.value)
+			// console.log('name', name.value)
+			// console.log('lastname', lastname.value)
+			// console.log('city', city.value)
+			// console.log('country', country.value)
+			// console.log('gender', gender.value)
+			// // console.log('birthday', birthday.value)
+			// console.log('facebook', facebook.value)
+			// console.log('twitter', twitter.value)
+			// console.log('behance', behance.value)
+			// console.log('tumblr', tumblr.value)
+			// console.log('manifest', manifest.value)
+			// console.log('interests', options.getSelecteds())
+			// console.log('specialties', options2.getSelecteds())
+
+			var data = {
+				"photo":"http://www.juliocanares.com/cv/headshot.png",
+				"username": username.value,
+				"name": name.value,
+				"lastname": lastname.value,
+				"city": city.value,
+				"country": country.value,
+				"birthday": '05/27/1996',
+				"gender": 'male',
+				"facebook": facebook.value,
+				"behance": behance.value,
+				"tumblr": tumblr.value,
+				"twitter": twitter.value,
+				"biography": '17-05-1990',
+				"interests": [0,1],
+				"specialties": [0,1]
+			}
+
+			console.log('data: ', data)
+
+			$.ajax({
+			     type: "POST",
+			     contentType: "application/json; charset=utf-8",
+    			 dataType : "json",
+			     url: '/' + user.username + '/account/',
+			     data: JSON.stringify(data),
+			     success: function (response) {
+
+						console.log('response: ', response)
+						// if(response.status == 200) location.reload()
+
+			     }
+			  });
+
+		})
+
+	}
+
+	setup()
+}
+
+
+// function Options () {
+
+// 	var options = document.querySelectorAll('.Profile-section-option')
+
+// 	function setup () {
+
+// 		for (var i = options.length - 1; i >= 0; i--)
+// 			options[i].setAttribute('selected', false)
+
+// 		for (var i = options.length - 1; i >= 0; i--) {
+// 			options[i].addEventListener('click', function () {
+
+// 				var selected = this.getAttribute('selected')
+
+// 				if(selected == 'true') {
+// 					this.classList.remove('active')
+// 					this.setAttribute('selected', false)
+// 				} else {
+// 					this.classList.add('active')
+// 					this.setAttribute('selected', true)
+// 				}
+// 			})
+// 		}
+// 	}
+
+// 	function getSelecteds () {
+// 		var ret = []
+// 		for (var i = options.length - 1; i >= 0; i--){
+// 			var selected = options[i].getAttribute('selected')
+// 			if(selected == 'true') {
+// 				var itemId = options[i].getAttribute('data-id')
+// 				console.log('itemId: ', itemId)
+// 				ret.push(itemId)
+// 			}
+// 		}
+// 		return ret
+// 	}
+
+// 	setup()
+
+// 	return {
+// 		getSelecteds: getSelecteds
+// 	}
+// }
+
+// function Options2 () {
+
+// 	var options = document.querySelectorAll('.checkbox-list__item')
+
+// 	function setup () {
+
+// 		for (var i = options.length - 1; i >= 0; i--)
+// 			options[i].setAttribute('selected', false)
+
+// 		for (var i = options.length - 1; i >= 0; i--) {
+// 			options[i].addEventListener('click', function () {
+
+// 				var selected = this.getAttribute('selected')
+
+// 				if(selected == 'true') {
+// 					this.classList.remove('active')
+// 					this.setAttribute('selected', false)
+// 					this.querySelector('input').checked = false
+// 				} else {
+// 					this.classList.add('active')
+// 					this.setAttribute('selected', true)
+// 					this.querySelector('input').checked = true
+// 				}
+// 			})
+// 		}
+// 	}
+
+// 	function getSelecteds () {
+// 		var ret = []
+// 		for (var i = options.length - 1; i >= 0; i--){
+// 			var selected = options[i].getAttribute('selected')
+// 			if(selected == 'true') {
+// 				var itemId = options[i].getAttribute('data-id')
+// 				console.log('itemId: ', itemId)
+// 				ret.push(itemId)
+// 			}
+// 		}
+// 		return ret
+// 	}
+
+// 	setup()
+
+// 	return {
+// 		getSelecteds: getSelecteds
+// 	}
+// }
+
+// var options = new Options()
+// var options2 = new Options2()
+var account = new Account()

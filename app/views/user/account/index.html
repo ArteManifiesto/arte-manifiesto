@@ -14,6 +14,7 @@
 
 <script type="text/javascript">
     console.log('index!')
+
     var successMessage = {{ successMessage|json|safe }}
     console.log('successMessage: ', successMessage)
 
@@ -23,8 +24,17 @@
     var user = {{ user|json|safe }}
     console.log('user: ', user)
 
-    var profile = {{ profile|json|safe }}
-    console.log('profile: ', profile)
+    var categories = {{ categories|json|safe }}
+    console.log('categories: ', categories)
+
+    var specialties = {{ specialties|json|safe }}
+    console.log('specialties: ', specialties)
+
+    var interests = {{ interests|json|safe }}
+    console.log('interests: ', interests)
 </script>
+
+<script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
+<script type="text/javascript" src="/js/account.js"></script>
 
 {% endblock %}

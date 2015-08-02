@@ -817,6 +817,18 @@ body {
   padding: 2rem 1rem;
   border-bottom: solid 1px #ddd;
 }
+.form-container .input-container .checkbox-list {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -o-box-flex: 1;
+  box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+.form-container .input-container-inner input {
+  margin: 0.5rem 0 1rem 0;
+}
 .form-container .input-container label {
   color: #585858;
   font-weight: 600;

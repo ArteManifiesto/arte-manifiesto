@@ -18,22 +18,22 @@
                     <p class="section-title-text">Edita tu perfil</p>
                 </div>
                 <div class="section-edit__form">
-                    <form class="form-container" action="">
+                    <div class="form-container">
                         <div class="input-container">
                             <label>Usuario</label>
-                            <input class="input" type="text" placeholder="username" value="{{ user.username }}" />
+                            <input class="input" type="text" placeholder="username" value="{{ user.username }}" name="username" />
                         </div>
                         <div class="input-container">
                             <label>nombres</label>
-                            <input class="input" type="text" placeholder="nombres" value="{{ user.firstname }}"/>
+                            <input class="input" type="text" placeholder="nombres" value="{{ user.firstname }}" name="name" />
                         </div>
                         <div class="input-container">
                             <label>apellidos</label>
-                            <input class="input" type="text" placeholder="appellidos" value="{{ user.lastname }}"/>
+                            <input class="input" type="text" placeholder="appellidos" value="{{ user.lastname }}" name="lastname" />
                         </div>
                         <div class="input-container">
                             <label>email</label>
-                            <input class="input" type="email" placeholder="email" value="{{ user.email }}" />
+                            <input class="input" type="email" placeholder="email" value="{{ user.email }}" name="email" />
                         </div>
                         <div class="input-container">
                             <label>genero</label>
@@ -46,66 +46,86 @@
                         <div class="input-container">
                             <label>websites</label>
                             <div>
-                                <div class="input-container-inner">
+                                <!-- <div class="input-container-inner">
                                     <label>Web</label>
                                     <input class="input" type="text" placeholder="" value="{{ user.facebook }}" />
-                                </div>
+                                </div> -->
                                 <div class="input-container-inner">
                                     <label>Facebook</label>
-                                    <input class="input" type="text" placeholder="" value="{{ user.facebook }}" />
+                                    <input class="input" type="text" placeholder="" value="{{ user.facebook }}" name="facebook" />
                                 </div>
                                 <div class="input-container-inner">
                                     <label>Twitter</label>
-                                    <input class="input" type="text" placeholder="" value="{{ user.twitter }}" />
+                                    <input class="input" type="text" placeholder="" value="{{ user.twitter }}" name="twitter" />
                                 </div>
-                                <div class="input-container-inner">
+                                <!-- <div class="input-container-inner">
                                     <label>Instagram</label>
                                     <input class="input" type="text" placeholder="" value="{{ user.facebook }}" />
-                                </div>
+                                </div> -->
                                 <div class="input-container-inner">
                                     <label>Tumblr</label>
-                                    <input class="input" type="text" placeholder="" value="{{ user.tumblr }}" />
+                                    <input class="input" type="text" placeholder="" value="{{ user.tumblr }}" name="tumblr" />
                                 </div>
                                 <div class="input-container-inner">
                                     <label>Behance</label>
-                                    <input class="input" type="text" placeholder="" value="{{ user.behance }}" />
+                                    <input class="input" type="text" placeholder="" value="{{ user.behance }}" name="behance" />
                                 </div>
                             </div>
                         </div>
                         <div class="input-container">
                             <label>manifiesto</label>
-                            <textarea class="input textarea" placeholder="">{{ user.biography }}</textarea>
+                            <textarea class="input textarea">{{ user.biography }}</textarea>
                         </div>
                         <div class="input-container">
                             <label>pais</label>
-                            <input class="input" type="text" placeholder="" value="{{ user.country }}"/>
+                            <input class="input" type="text" placeholder="" value="{{ user.country }}" name="country" />
                         </div>
                         <div class="input-container">
                             <label>ciudad</label>
-                            <input class="input" type="text" placeholder="" value="{{ user.city }}"/>
+                            <input class="input" type="text" placeholder="" value="{{ user.city }}" name="city" />
                         </div>
                         <div class="input-container">
                             <label>cumpleahos</label>
-                            <input class="input" type="date" placeholder="" value="{{ user.birthday }}"/>
-                        </div>
-                        <div class="input-container">
-                            <label>especialidades</label>
-                            <input class="input" type="text" placeholder="" value="{{ user.country }}"/>
+                            <input class="input" type="date" placeholder="" value="{{ user.birthday }}" name="lastname" />
                         </div>
                         <div class="input-container">
                             <label>intereses</label>
-                            <input class="input" type="text" placeholder="" value="{{ user.country }}"/>
+                             <ul class="checkbox-list">
+                                {% for categorie in categories %}
+                                    <li class="checkbox-list__item" data-id="{{ categorie.id }}">
+                                        <input type="checkbox" name="category" value="arte-urbano"
+                                            {% for specialtie in specialties %}
+                                                {% if specialtie.id == categorie.id %}
+                                                    checked
+                                                {% endif %}
+                                            {% endfor %}
+                                        >
+                                        <span>{{ categorie.name }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
                         </div>
-                        <!-- {% if user.isArtist %}
                         <div class="input-container">
-                            <label>escuela</label>
-                            <input class="input" type="text" placeholder=""/>
+                            <label>especialidades</label>
+                            <ul class="checkbox-list">
+                                {% for categorie in categories %}
+                                    <li class="checkbox-list__item" data-id="{{ categorie.id }}">
+                                        <input type="checkbox" name="category" value="arte-urbano"
+                                            {% for specialtie in specialties %}
+                                                {% if specialtie.id == categorie.id %}
+                                                    checked
+                                                {% endif %}
+                                            {% endfor %}
+                                        >
+                                        <span>{{ categorie.name }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
                         </div>
-                        {% endif %} -->
 
                         <input class="button-solid" data-size='' data-color='red' data-expand='' value="Guardar Cambios" type="submit">
 
-                    </form>
+                    </div>
                 </div>
             </section>
         {% elseif path == 'photo' %}
