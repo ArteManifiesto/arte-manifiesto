@@ -1,8 +1,8 @@
 
 var flashMessage = new FlasMessage(document.querySelector('.flash-message-container'))
 
-var loginForm = document.querySelectorAll('.auth__form')[0]
-var rememberForm = document.querySelectorAll('.auth__form')[1]
+var loginForm = document.querySelectorAll('.auth__form')[1]
+var rememberForm = document.querySelectorAll('.auth__form')[2]
 
 var toRemember = loginForm.querySelector('.italic-text')
 var toLogin = rememberForm.querySelector('.italic-text')

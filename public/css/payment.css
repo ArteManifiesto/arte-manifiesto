@@ -44,6 +44,9 @@ input[type="submit"] {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+a:hover {
+  text-decoration: none;
+}
 .logo {
   padding: 0.5rem 1rem;
 }
