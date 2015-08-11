@@ -7,20 +7,57 @@
 		<img class="logo__normal" src="/img/logo.png">
 	</a>
 	<nav class="skinny-menu" data-icon='true'>
-		<a class="skinny-menu__item {% if path == 'works' %} active {% endif %}" href="/works/category/all/page-1">
-			<i class="skinny-menu__item__icon fa fa-heart-o"></i>
-			<span class="skinny-menu__item__text">Obras</span>
-		</a>
-		<a class="skinny-menu__item {% if path == 'users' %} active {% endif %}" href="/users/specialty/all/page-1">
-			<i class="skinny-menu__item__icon fa fa-paint-brush"></i>
-			<span class="skinny-menu__item__text">Artístas</span>
-		</a>
+
+		{% if user %}
+			<div class="dropdown">
+			  <div href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+			    <i class="skinny-menu__item__icon fa fa-eye"></i>
+			    <span class="skinny-menu__item__text">Descubre</span>
+			    <span class="caret"></span>
+			  </div>
+			  <ul class="dropdown-menu dropdown-menu-right">
+			    <li><a href="#">Obras</a></li>
+			    <li><a href="#">Artistas</a></li>
+			    <li><a href="#">Colecciones</a></li>
+			  </ul>
+			</div>
+		{% else %}
+			<a class="skinny-menu__item {% if path == 'works' %} active {% endif %}" href="/works/category/all/page-1">
+				<i class="skinny-menu__item__icon fa fa-heart-o"></i>
+				<span class="skinny-menu__item__text">Obras</span>
+			</a>
+			<a class="skinny-menu__item {% if path == 'users' %} active {% endif %}" href="/users/specialty/all/page-1">
+				<i class="skinny-menu__item__icon fa fa-paint-brush"></i>
+				<span class="skinny-menu__item__text">Artístas</span>
+			</a>
+			<a class="skinny-menu__item {% if path == 'collections' %} active {% endif %}" href="/users/specialty/all/page-1">
+				<i class="skinny-menu__item__icon fa fa-paint-brush"></i>
+				<span class="skinny-menu__item__text">Colleciones</span>
+			</a>
+		{% endif %}
+
 		<a class="skinny-menu__item {% if path == 'products' %} active {% endif %}" href="/products/type/all/page-1/">
 			<i class="skinny-menu__item__icon fa fa-diamond"></i>
-			<span class="skinny-menu__item__text">Tienda</span>
+			<span class="skinny-menu__item__text">Market</span>
 		</a>
+
 		{% if user %}
-			<a class="skinny-menu__avatar" href="/{{ user.username }}">
+			<a class="skinny-menu__item {% if path == 'feed' %} active {% endif %}" href="/products/type/all/page-1/">
+				<i class="skinny-menu__item__icon fa fa-users"></i>
+				<span class="skinny-menu__item__text">Feed</span>
+			</a>
+			<!-- Feed -->
+			<div class="dropdown">
+			  <div href="#" class="dropdown-toggle am-notifications" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+			    <i class="fa fa-bell-o"></i>
+			    {% if notifications > 0 %}
+			      <small>{{notifications}}</small>
+			    {% endif %}
+			  </div>
+			  <ul class="dropdown-menu dropdown-menu-right">
+			  </ul>
+			</div>
+			<!-- <a class="skinny-menu__avatar" href="/{{ user.username }}">
 				<div class="button-avatar">
 					{% if user.photo %}
 						<img src="{{ user.photo }}">
@@ -28,23 +65,46 @@
 						<img src="http://www.furcontest.com/imagenes/default.png">
 					{% endif %}
 				</div>
-			</a>
+			</a> -->
+			<!-- Avatar -->
+			<div class="dropdown">
+			  <div href="#" class="dropdown-toggle am-avatar" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+			    <img src="/img/artists/artist2.jpg" class="img-circle">
+			    <span class="caret"></span>
+			  </div>
+			  <ul class="dropdown-menu dropdown-menu-right">
+			    <li><a href="/{{ user.username }}">Hans Evangelista</a></li>
+			    <li role="separator" class="divider"></li>
+			    <li><a href="#">Portafolio</a></li>
+			    <li><a href="#">Tienda</a></li>
+			    <li><a href="#">Colecciones</a></li>
+			    <li><a href="#">Likes</a></li>
+			    <li role="separator" class="divider"></li>
+			    <li><a href="#">Carrito <i class="fa fa-shopping-cart"></i></a></li>
+			    <li><a href="#">Pedidos</a></li>
+			    <li><a href="#">Ventas</a></li>
+			    <li role="separator" class="divider"></li>
+			    <li><a href="/{{ user.username }}/account">Administrar Cuenta</a></li>
+			    <li role="separator" class="divider"></li>
+			    <li><a href="/auth/logout">Cerrar Sesión</a></li>
+			  </ul>
+			</div>
 		{% else %}
-			<a class="skinny-menu__item {% if path == 'signup' %} active {% endif %}" href="/auth/signup">
+			<!-- <a class="skinny-menu__item {% if path == 'signup' %} active {% endif %}" href="/auth/signup">
 				<i class="skinny-menu__item__icon fa fa-user"></i>
 				<span class="skinny-menu__item__text">Registro</span>
-			</a>
+			</a> -->
 			<a class="skinny-menu__item {% if path == 'login' %} active {% endif %}" href="/auth/login">
 				<i class="skinny-menu__item__icon fa fa-user"></i>
 				<span class="skinny-menu__item__text">Ingresar</span>
 			</a>
 		{% endif %}
 	</nav>
-	<div class="account-menu">
+	<!-- <div class="account-menu">
 		<a href="/{{ user.username }}" class="account-menu__item"><b>Hans Evangelista</b></a>
 		<a href="/{{ user.username }}/account" class="account-menu__item">Account</a>
 		<a href="#" class="account-menu__item">Menu</a>
 		<a href="#" class="account-menu__item">Subir Obra</a>
 		<a href="/auth/logout" class="account-menu__item">Logout</a>
-	</div>
+	</div> -->
 </header>
