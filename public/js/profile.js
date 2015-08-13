@@ -199,4 +199,16 @@ window.profileObj = new Profile(document.querySelector('.profile'), {
 
 new User(document.querySelector('.profile__info'), profile)
 
-// window.collect = new Collect(document.querySelector('.collect'))
+
+var tabs = document.querySelectorAll('.square-menu__item'),
+		currentTab = tabs[0];
+
+for (var i = 0; i <= tabs.length; i++) {
+
+	tabs[i].addEventListener('click', function () {
+		currentTab.setAttribute("selected", false)
+		currentTab = this
+		currentTab.setAttribute("selected", true)
+	})
+
+};

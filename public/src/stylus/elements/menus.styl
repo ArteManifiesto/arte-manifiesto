@@ -69,7 +69,7 @@
 	$ SQUARE-MENU
 *------------------------------------*/
 .square-menu-container
-	height 3.5rem
+	height 3.35rem
 	overflow hidden
 	max-width max-width
 	margin auto
@@ -91,6 +91,9 @@
 		background white
 		cursor pointer
 		position relative
+		font-size: .85rem;
+		&[selected=true]
+			background: #fff59d;
 		&:not(:first-child)
 			margin-left .5rem
 		&:not(:last-child)

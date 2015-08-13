@@ -263,7 +263,7 @@ a:hover {
   }
 }
 .square-menu-container {
-  height: 3.5rem;
+  height: 3.35rem;
   overflow: hidden;
   max-width: 1100px;
   margin: auto;
@@ -286,6 +286,10 @@ a:hover {
   background: #fff;
   cursor: pointer;
   position: relative;
+  font-size: 0.85rem;
+}
+.square-menu__item[selected=true] {
+  background: #fff59d;
 }
 .square-menu__item:not(:first-child) {
   margin-left: 0.5rem;
@@ -638,6 +642,9 @@ body {
   .am-interest img {
     height: 150px;
   }
+}
+.dropdown-menu {
+  font-size: 0.8rem !important;
 }
 .input {
   font-size: 1rem;

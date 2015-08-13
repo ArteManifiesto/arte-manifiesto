@@ -16,9 +16,9 @@
 			    <span class="caret"></span>
 			  </div>
 			  <ul class="dropdown-menu dropdown-menu-right">
-			    <li><a href="#">Obras</a></li>
-			    <li><a href="#">Artistas</a></li>
-			    <li><a href="#">Colecciones</a></li>
+			    <li><a href="/works/category/all/page-1">Obras</a></li>
+			    <li><a href="/users/specialty/all/page-1">Artistas</a></li>
+			    <li><a href="/users/specialty/all/page-1">Colecciones</a></li>
 			  </ul>
 			</div>
 		{% else %}
@@ -85,7 +85,7 @@
 			    <li><a href="#">Colecciones</a></li>
 			    <li><a href="#">Likes</a></li>
 			    <li role="separator" class="divider"></li>
-			    <li><a href="#">Carrito <i class="fa fa-shopping-cart"></i></a></li>
+			    <li><a href="/{{ user.username }}/cart">Carrito <i class="fa fa-shopping-cart"></i></a></li>
 			    <li><a href="#">Pedidos</a></li>
 			    <li><a href="#">Ventas</a></li>
 			    <li role="separator" class="divider"></li>

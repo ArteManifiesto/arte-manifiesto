@@ -51,7 +51,7 @@
 			<div class="info">
 				<span class="name">{{product.User.firstname}} {{product.User.lastname}}</span>
 				<div class="info">
-					<p class="city skinny-text" data-color='light'><i class="fa fa-map-marker"></i> Lima</p>
+					<p class="city skinny-text" data-color='light'><i class="fa fa-map-marker"></i> {{ product.User.city }}, {{ product.User.country }}</p>
 					<button class="button-liner js-followButton" data-size="small" data-following="false" data-userId="{{ profile.id }}">
 						<span class="button-liner__action folllow">Seguir</span>
 						<span class="button-liner__action following"><i class="fa fa-check"></i> Siguiendo</span>

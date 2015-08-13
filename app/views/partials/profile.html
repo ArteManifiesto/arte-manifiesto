@@ -15,7 +15,7 @@
 		<div class="profile__data">
 			<p class="profile-text">{{ profile.firstname }} {{ profile.lastname }}</p>
 			<div class="profile__info">
-				<p class="skinny-text" data-color='light'><i class="fa fa-map-marker"></i> Lima</p>
+				<p class="skinny-text" data-color='light'><i class="fa fa-map-marker"></i> {{ profile.city }}, {{ profile.country }}</p>
 				{% if profile.following %}
 					<button class="button-liner disabled js-followButton" data-size="small" data-following="true" data-userId="{{ profile.id }}">
 				{% else %}
@@ -32,13 +32,13 @@
 	<div class="profile__menu">
 		<div class="square-menu-container">
 			<div class="square-menu">
-				<div class="square-menu__item">Portafolio {{data[0]}}</div>
-				<div class="square-menu__item">Tienda {{data[1]}}</div>
-				<div class="square-menu__item">Obras favoritas {{data[2]}}</div>
-				<div class="square-menu__item">Productos favoritos {{data[3]}}</div>
-				<div class="square-menu__item">Colecciones {{data[4]}}</div>
-				<div class="square-menu__item">Seguidores {{data[5]}}</div>
-				<div class="square-menu__item">Siguiendo {{data[6]}}</div>
+				<div class="square-menu__item" selected="true">Portafolio {{data[0]}}</div>
+				<div class="square-menu__item" selected="false">Tienda {{data[1]}}</div>
+				<div class="square-menu__item" selected="false">Obras favoritas {{data[2]}}</div>
+				<div class="square-menu__item" selected="false">Productos favoritos {{data[3]}}</div>
+				<div class="square-menu__item" selected="false">Colecciones {{data[4]}}</div>
+				<div class="square-menu__item" selected="false">Seguidores {{data[5]}}</div>
+				<div class="square-menu__item" selected="false">Siguiendo {{data[6]}}</div>
 			</div>
 		</div>
 	</div>
