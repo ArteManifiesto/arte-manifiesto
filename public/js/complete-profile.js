@@ -1,9 +1,11 @@
 
-function CompileProfile () {
+function CompleProfile () {
 
 	var username = document.querySelector('input[name="username"]'),
+			firstname = document.querySelector('input[name="firstname"]'),
+			lastname = document.querySelector('input[name="lastname"]'),
 			city = document.querySelector('input[name="city"]'),
-			country = document.querySelector('input[name="country"]'),
+			country = document.querySelector('select[name="country"]'),
 			gender = document.querySelector('select[name="gender"]'),
 			birthday = document.querySelector('input[name="birthday"]'),
 			facebook = document.querySelector('input[name="facebook"]'),
@@ -12,30 +14,20 @@ function CompileProfile () {
 			tumblr = document.querySelector('input[name="tumblr"]'),
 			manifest = document.querySelector('textarea'),
 
-			saveButton = document.querySelector('.button-solid');
+			saveButton = document.querySelector('.button-solid'),
+			error = document.querySelector('.error-message');
 
-			console.log('saveButton', saveButton)
 
 	function setup () {
 
 		saveButton.addEventListener('click', function () {
-
-			// console.log('username', username.value)
-			// console.log('city', city.value)
-			// console.log('country', country.value)
-			// console.log('gender', gender.value)
-			// console.log('birthday', birthday.value)
-			// console.log('facebook', facebook.value)
-			// console.log('twitter', twitter.value)
-			// console.log('behance', behance.value)
-			// console.log('tumblr', tumblr.value)
-			// console.log('manifest', manifest.value)
-			// console.log('interests', options.getSelecteds())
-			// console.log('specialties', options2.getSelecteds())
+			error.style.display = 'none'
 
 			var data = {
-				"photo":"http://www.juliocanares.com/cv/headshot.png",
+				"photo":"/img/artists/artist2.jpg",
 				"username": username.value,
+				"firstname": firstname.value,
+				"lastname": lastname.value,
 				"city": city.value,
 				"country": country.value,
 				"birthday": '05/27/1996',
@@ -47,6 +39,32 @@ function CompileProfile () {
 				"biography": manifest.value,
 				"interests": options.getSelecteds(),
 				"specialties": options2.getSelecteds()
+			}
+
+			if(data.username == ""){
+				error.style.display = 'table'
+				error.innerHTML = 'escoja su username'
+				return
+			}
+			if(data.firstname == ""){
+				error.style.display = 'table'
+				error.innerHTML = 'ingrese su nombre'
+				return
+			}
+			if(data.lastname == ""){
+				error.style.display = 'table'
+				error.innerHTML = 'ingrese su apellido'
+				return
+			}
+			if(data.gender == ""){
+				error.style.display = 'table'
+				error.innerHTML = 'escoja su genero'
+				return
+			}
+			if(data.country == ""){
+				error.style.display = 'table'
+				error.innerHTML = 'escoja su pais'
+				return
 			}
 
 			console.log('data: ', data)
@@ -167,4 +185,4 @@ function Options2 () {
 
 var options = new Options()
 var options2 = new Options2()
-var compileProfile = new CompileProfile()
+var compleProfile = new CompleProfile()

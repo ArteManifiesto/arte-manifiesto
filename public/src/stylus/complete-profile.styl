@@ -6,6 +6,16 @@
 @import 'elements/buttons.styl'
 @import 'elements/inputs.styl'
 
+
+.am-complete-profile
+	max-width 700px
+	margin auto
+	padding 2rem 1.5rem
+	&-submit
+		display table
+		margin auto
+
+
 .input
 	font-size .9rem
 
@@ -14,12 +24,11 @@
 	margin auto
 	padding .25rem
 	&-section
-		padding .25rem
-		&-title
-		&-input
-		&-textarea
-		&-avatar
-			margin .5rem
+		padding .25rem .5rem
+		// &-title
+		// &-input
+		// &-textarea
+		// &-avatar
 		&-input
 			display flex
 			align-items center
@@ -31,6 +40,7 @@
 				flex 1
 		&-title
 			font-size 1.15rem
+			margin .5rem 0
 		&-avatar
 			&-img
 				max-width 120px
@@ -115,8 +125,8 @@
 		height: 10.65rem;
 
 @media (min-width: 1000px)
-	.Profile
-		max-width (max-width/1.25)
+	// .Profile
+		// max-width (max-width/1.25)
 	.column
 		width 49.715%
 		display inline-block
@@ -126,3 +136,14 @@
 		vertical-align: top;
 		width: 45.813%;
 		margin: 0 .5rem;
+
+
+.error-message
+	font-family: 'Raleway';
+	color: #f54545;
+	font-weight: 600;
+	letter-spacing: .5px;
+	font-size: .95rem;
+	display: table;
+	margin: 1rem auto;
+	display none

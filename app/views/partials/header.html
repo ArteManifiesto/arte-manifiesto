@@ -69,7 +69,12 @@
 			<!-- Avatar -->
 			<div class="dropdown">
 			  <div href="#" class="dropdown-toggle am-avatar" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-			    <img src="/img/artists/artist2.jpg" class="img-circle">
+			    <!-- <img src="/img/artists/artist2.jpg" class="img-circle"> -->
+			    {% if user.photo %}
+						<img src="{{ user.photo }}" class="img-circle">
+					{% else %}
+						<img src="http://www.furcontest.com/imagenes/default.png" class="img-circle">
+					{% endif %}
 			    <span class="caret"></span>
 			  </div>
 			  <ul class="dropdown-menu dropdown-menu-right">
