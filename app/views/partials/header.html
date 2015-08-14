@@ -18,7 +18,7 @@
 			  <ul class="dropdown-menu dropdown-menu-right">
 			    <li><a href="/works/category/all/page-1">Obras</a></li>
 			    <li><a href="/users/specialty/all/page-1">Artistas</a></li>
-			    <li><a href="/users/specialty/all/page-1">Colecciones</a></li>
+			    <!-- <li><a href="/users/specialty/all/page-1">Colecciones</a></li> -->
 			  </ul>
 			</div>
 		{% else %}
@@ -42,14 +42,14 @@
 		</a>
 
 		{% if user %}
-			<a class="skinny-menu__item {% if path == 'feed' %} active {% endif %}" href="/products/type/all/page-1/">
+			<a class="skinny-menu__item {% if path == 'feed' %} active {% endif %}" href="#" style="  padding-right: .5rem;">
 				<i class="skinny-menu__item__icon fa fa-users"></i>
 				<span class="skinny-menu__item__text">Feed</span>
 			</a>
 			<!-- Feed -->
-			<div class="dropdown">
+			<div class="dropdown" style="  padding-left: .5rem;">
 			  <div href="#" class="dropdown-toggle am-notifications" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-			    <i class="fa fa-bell-o"></i>
+			    <i class="fa fa-bell-o"></i> 10
 			    {% if notifications > 0 %}
 			      <small>{{notifications}}</small>
 			    {% endif %}
@@ -75,15 +75,15 @@
 					{% else %}
 						<img src="http://www.furcontest.com/imagenes/default.png" class="img-circle">
 					{% endif %}
-			    <span class="caret"></span>
+			    <span class="caret" style="margin-left: .25rem;"></span>
 			  </div>
 			  <ul class="dropdown-menu dropdown-menu-right">
 			    <li><a href="/{{ user.username }}">Hans Evangelista</a></li>
 			    <li role="separator" class="divider"></li>
-			    <li><a href="#">Portafolio</a></li>
-			    <li><a href="#">Tienda</a></li>
-			    <li><a href="#">Colecciones</a></li>
-			    <li><a href="#">Likes</a></li>
+			    <li><a href="/{{ user.username }}/portfolio">Portafolio</a></li>
+			    <li><a href="/{{ user.username }}/store">Tienda</a></li>
+			    <li><a href="/{{ user.username }}/collections">Colecciones</a></li>
+			    <li><a href="/{{ user.username }}/likes/works">Likes</a></li>
 			    <li role="separator" class="divider"></li>
 			    <li><a href="/{{ user.username }}/cart">Carrito <i class="fa fa-shopping-cart"></i></a></li>
 			    <li><a href="#">Pedidos</a></li>

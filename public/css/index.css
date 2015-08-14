@@ -57,7 +57,7 @@ a:hover {
   max-width: 11rem;
   display: none;
 }
-@media (min-width: 300px) {
+@media (min-width: 500px) {
   .logo__small {
     display: none;
   }
@@ -65,7 +65,7 @@ a:hover {
     display: block;
   }
 }
-@media (min-width: 450px) {
+@media (min-width: 550px) {
   .logo__normal {
     max-width: 13.5rem;
   }
@@ -254,7 +254,7 @@ a:hover {
 .skinny-menu[data-icon='true'] .skinny-menu__item__text {
   display: none;
 }
-@media (min-width: 590px) {
+@media (min-width: 670px) {
   .skinny-menu[data-icon='true'] .skinny-menu__item__text {
     display: inline;
   }
@@ -296,6 +296,14 @@ a:hover {
 }
 .square-menu__item:not(:last-child) {
   margin-right: 0.5rem;
+}
+.square-menu__item small {
+  background: #fff;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding: 0 0.35rem;
+  text-align: center;
+  display: inline-block;
 }
 .account-menu {
   position: absolute;

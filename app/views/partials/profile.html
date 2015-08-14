@@ -32,13 +32,45 @@
 	<div class="profile__menu">
 		<div class="square-menu-container">
 			<div class="square-menu">
-				<div class="square-menu__item" selected="true">Portafolio {{data[0]}}</div>
-				<div class="square-menu__item" selected="false">Tienda {{data[1]}}</div>
-				<div class="square-menu__item" selected="false">Obras favoritas {{data[2]}}</div>
-				<div class="square-menu__item" selected="false">Productos favoritos {{data[3]}}</div>
-				<div class="square-menu__item" selected="false">Colecciones {{data[4]}}</div>
-				<div class="square-menu__item" selected="false">Seguidores {{data[5]}}</div>
-				<div class="square-menu__item" selected="false">Siguiendo {{data[6]}}</div>
+
+				<div class="square-menu__item" selected="true">Portafolio <small>{{data[0]}}</small></div>
+				<div class="square-menu__item" selected="false">Tienda <small>{{data[1]}}</small></div>
+				<div class="square-menu__item" selected="false">Obras favoritas <small>{{data[2]}}</small></div>
+				<div class="square-menu__item" selected="false">Productos favoritos <small>{{data[3]}}</small></div>
+
+				<!-- <div class="dropdown">
+				  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+				    Dropdown
+				    <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+				    <li><a href="#">Action</a></li>
+				    <li><a href="#">Another action</a></li>
+				    <li><a href="#">Something else here</a></li>
+				    <li><a href="#">Separated link</a></li>
+				  </ul>
+				</div> -->
+
+				<!-- <div class="square-menu__item" selected="false">
+
+					<div class="dropdown">
+					  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+					    Dropdown
+					    <span class="caret"></span>
+					  </button>
+					  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+					    <li><a href="#">Action</a></li>
+					    <li><a href="#">Another action</a></li>
+					    <li><a href="#">Something else here</a></li>
+					    <li><a href="#">Separated link</a></li>
+					  </ul>
+					</div>
+
+				</div> -->
+
+				<div class="square-menu__item" selected="false">Colecciones <small>{{data[4]}}</small></div>
+				<div class="square-menu__item" selected="false">Seguidores <small>{{data[5]}}</small></div>
+				<div class="square-menu__item" selected="false">Siguiendo <small>{{data[6]}}</small></div>
 			</div>
 		</div>
 	</div>
@@ -59,7 +91,7 @@
 			<div class="empty">No tine obras favoritas</div>
 		</div>
 		<div class="profile__element">
-			{% include '../partials/products.html' %}
+			<section class="products no-filters"></section>
 			<div class="loading"><i class="fa fa-spinner"></i></div>
 			<div class="empty">No tiene productos favoritos</div>
 		</div>
@@ -69,12 +101,12 @@
 			<div class="empty">No tiene coleciones</div>
 		</div>
 		<div class="profile__element">
-			<section class="users"></section>
+			<section class="users no-filters"></section>
 			<div class="loading"><i class="fa fa-spinner"></i></div>
 			<div class="empty">No tiene seguidores</div>
 		</div>
 		<div class="profile__element">
-			<section class="users"></section>
+			<section class="users no-filters"></section>
 			<div class="loading"><i class="fa fa-spinner"></i></div>
 			<div class="empty">No siguie a ningun artista</div>
 		</div>

@@ -57,7 +57,7 @@ a:hover {
   max-width: 11rem;
   display: none;
 }
-@media (min-width: 300px) {
+@media (min-width: 500px) {
   .logo__small {
     display: none;
   }
@@ -65,7 +65,7 @@ a:hover {
     display: block;
   }
 }
-@media (min-width: 450px) {
+@media (min-width: 550px) {
   .logo__normal {
     max-width: 13.5rem;
   }
@@ -254,7 +254,7 @@ a:hover {
 .skinny-menu[data-icon='true'] .skinny-menu__item__text {
   display: none;
 }
-@media (min-width: 590px) {
+@media (min-width: 670px) {
   .skinny-menu[data-icon='true'] .skinny-menu__item__text {
     display: inline;
   }
@@ -296,6 +296,14 @@ a:hover {
 }
 .square-menu__item:not(:last-child) {
   margin-right: 0.5rem;
+}
+.square-menu__item small {
+  background: #fff;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding: 0 0.35rem;
+  text-align: center;
+  display: inline-block;
 }
 .account-menu {
   position: absolute;
@@ -1667,6 +1675,18 @@ body {
     max-width: 25%;
   }
 }
+@media screen and (min-width: 1250px) {
+  .collections .collection-wrapper {
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -o-box-flex: 1;
+    box-flex: 1;
+    -webkit-flex: 1 20%;
+    -ms-flex: 1 20%;
+    flex: 1 20%;
+    max-width: 20%;
+  }
+}
 .profile {
   background: #f6f6f6;
   overflow: hidden;
@@ -1756,7 +1776,7 @@ body {
   text-transform: uppercase;
   font-size: 1.5rem;
 }
-@media (min-width: 590px) {
+@media (min-width: 670px) {
   .profile__avatar {
     width: 7rem;
   }

@@ -5,11 +5,11 @@
 	<div class="section__title">
 		<span class="section-title-text">
 			{% if path == 'works' %}
-				Obras
+				Mas de 1500 artistas
 			{% elseif path == 'users' %}
-				Artistas
+				Mas de 3000 obras de los mejores artistas
 			{% elseif path == 'products' %}
-				Encuentra los mejores productos de nuestros artistas
+				Existen mas de 5000 productos
 			{% endif %}
 		</span>
 	</div>
@@ -54,7 +54,7 @@
 					<div class="filter__title">Categorías</div>
 
 					{% for category in categories %}
-						<div class="filter__item js-mainFilter" data-value="{{ category.nameSlugify }}">{{ category.name }}</div>
+						<div class="filter__item js-mainFilter" data-value="{{ category.nameSlugify }}"><span class="name">{{ category.name }}</span> <span>20</span></div>
 					{% endfor %}
 
 				{% elseif path == 'products' %}
@@ -131,13 +131,14 @@
 
 			{% endif %}
 
+			<div class="loading"><i class="fa fa-spinner"></i></div>
+
 		</div>
 
 		<div class="more {% if pagination.page >= pagination.pages %} hidden {% endif %}">
 			<button class="button-solid" data-color='red'>Ver más</button>
 		</div>
 
-		<div class="loading"><i class="fa fa-spinner"></i></div>
 
 		<div class="pagination-container">
 			<ul class="pagination">
