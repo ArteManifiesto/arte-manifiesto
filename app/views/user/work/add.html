@@ -6,8 +6,8 @@
 
 {% block stylesheets %}
 	<link rel="stylesheet" type="text/css" href="/css/vendor/wysiwyg-editor.css">
-	/*<style>
-		.wysiwyg-plugin-list {
+	<style>
+		/*.wysiwyg-plugin-list {
 			max-height: 8em;
 			overflow: auto;
 			overflow-x: hidden;
@@ -33,9 +33,8 @@
 			width: 100%;
 			height: 500px;
 			background: gray;
-		}
-
-	</style>*/
+		}*/
+	</style>
 {% endblock %}
 
 {% block elements %}
@@ -47,7 +46,7 @@
 		<div class="add-work__images">
 			<div class="upload-images">
 
-				<div class="upload-image defout">
+<!-- 				<div class="upload-image defout">
 					<input type="file" name="file"/>
 
 					<div class="inner">
@@ -57,7 +56,7 @@
 						</div>
 					</div>
 
-				</div>
+				</div> -->
 
 				<div class="upload-image preview">
 					<input type="file" name="file"/>
@@ -74,24 +73,31 @@
 		<div class="add-work__data">
 			<form class="work-data">
 				<div class="work-data__input">
-					<p class="title">Title</p>
+					<p class="title">Titulo</p>
 					<input class="input" name="title" placeholder="Titulo, de 4 a 8 palabras es bueno" type="text">
 					<p class="error-title">error-title</p>
 				</div>
 				<div class="work-data__input">
-					<p class="title">Descripcion</p>
-					<textarea name="description" class="input description" style="resize:none" placeholder="Descipcion, hagalo en 140 caracteres"></textarea>
+					<p class="title">Manifiesto</p>
+					<textarea name="description" class="input description" style="resize:none" placeholder="Descipcion, hagalo en 140 caracteres" rows="4"></textarea>
 					<p class="error-description">error-description</p>
 				</div>
 				<div class="work-data__input">
 					<p class="title">Categorias</p>
-					<ul class="checkbox-list">
+					<div>
+						{% for category in categories %}
+						<label class="checkbox-inline">
+						  <input type="checkbox" id="inlineCheckbox1" value="{{category.nameSlugify}}"> {{category.name}}
+						</label>
+						{% endfor %}
+					</div>
+					<!-- <ul class="checkbox-list">
 						{% for category in categories %}
 						<li class="checkbox-list__item">
 							<input type="checkbox" name="category" value="{{category.nameSlugify}}"> <span>{{category.name}}</span>
 						</li>
 						{% endfor %}
-					</ul>
+					</ul> -->
 					<p class="error-categorys">error-categorys</p>
 				</div>
 				<div class="work-data__input">
@@ -366,22 +372,3 @@
 	</script>
 
 {% endblock %}
-
-				<!-- <div class="upload-image">
-					<img src="/img/works/obra2.jpg">
-				</div>
-				<div class="upload-image">
-					<img src="/img/works/obra10.jpg">
-				</div>
-				<div class="upload-image">
-					<img src="/img/works/obra12.jpg">
-				</div>
-				<div class="upload-image">
-					<img src="/img/works/obra10.jpg">
-				</div>
-				<div class="upload-image">
-					<img src="/img/works/obra12.jpg">
-				</div>
-				<div class="upload-image">
-					<img src="/img/works/obra10.jpg">
-				</div> -->

@@ -54,7 +54,9 @@
 					<div class="filter__title">Categorías</div>
 
 					{% for category in categories %}
-						<div class="filter__item js-mainFilter" data-value="{{ category.nameSlugify }}"><span class="name">{{ category.name }}</span> <span>20</span></div>
+						<div class="filter__item js-mainFilter" data-value="{{ category.nameSlugify }}">
+							<span class="name">{{ category.name }}</span> <small>200</small>
+						</div>
 					{% endfor %}
 
 				{% elseif path == 'products' %}
@@ -62,7 +64,9 @@
 					<div class="filter__title">Productos</div>
 
 					{% for productType in productTypes %}
-						<div class="filter__item js-mainFilter" data-value="{{ productType.nameSlugify }}">{{ productType.name }}</div>
+						<div class="filter__item js-mainFilter" data-value="{{ productType.nameSlugify }}">
+							<span class="name">{{ productType.name }}</span> <small>1500</small>
+						</div>
 					{% endfor %}
 
 				{% elseif path == 'works' %}
@@ -70,7 +74,9 @@
 					<div class="filter__title">Categorías</div>
 
 					{% for category in categories %}
-						<div class="filter__item js-mainFilter" data-value="{{ category.nameSlugify }}">{{ category.name }}</div>
+						<div class="filter__item js-mainFilter" data-value="{{ category.nameSlugify }}">
+							<span class="name">{{ category.name }}</span> <small>300</small>
+						</div>
 					{% endfor %}
 
 				{% endif %}
@@ -135,21 +141,34 @@
 
 		</div>
 
-		<div class="more {% if pagination.page >= pagination.pages %} hidden {% endif %}">
-			<button class="button-solid" data-color='red'>Ver más</button>
-		</div>
 
+		{% if path == 'works' ||  path == 'users' %}
 
-		<div class="pagination-container">
-			<ul class="pagination">
-				<li class="page">1</li>
-				<li class="page selected">2</li>
-				<li class="page">3</li>
-				<li class="page">4</li>
-				<li class="page">5</li>
-				<li class="page">... 120</li>
-			</ul>
-		</div>
+			<!-- <div class="more {% if pagination.page >= pagination.pages %} hidden {% endif %}"> -->
+			<div class="more">
+				<button class="button-solid" data-color='red'>Ver más</button>
+			</div>
+
+		{% endif %}
+
+		{% if path == 'products' %}
+
+			<div class="more hidden">
+				<button class="button-solid" data-color='red'>Ver más</button>
+			</div>
+
+			<div class="pagination-container">
+				<ul class="pagination">
+					<li class="page">1</li>
+					<li class="page selected">2</li>
+					<li class="page">3</li>
+					<li class="page">4</li>
+					<li class="page">5</li>
+					<li class="page">... 120</li>
+				</ul>
+			</div>
+
+		{% endif %}
 
 	</div>
 </section>

@@ -8,7 +8,7 @@
 *------------------------------------*/
 str(x)
 	return '' + unit(x, '')
-	
+
 @import 'elements/buttons.styl'
 
 @import 'objects/works.styl'
@@ -55,14 +55,14 @@ str(x)
 	display none
 	.fa
 		animation 1.5s circle infinite
-		
+
 .more
 	padding 1rem 0
 	text-align center
 	background white
 	&.hidden
 		display none
-			
+
 @keyframes circle
 	0%
 		transform rotate(0)
@@ -92,3 +92,23 @@ str(x)
 	.profile
 		&__avatar
 			width 9rem
+
+
+.upload-work
+	background: #f6f6f6;
+	height: 200px;
+	width: 150px;
+	margin auto
+	margin-bottom 4rem
+	padding .5rem
+
+	text-align: center;
+	font-family: "Roboto Condensed";
+	font-size: 1.25rem;
+	color: #585858;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	i
+		font-size 2rem

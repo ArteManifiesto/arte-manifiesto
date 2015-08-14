@@ -297,14 +297,6 @@ a:hover {
 .square-menu__item:not(:last-child) {
   margin-right: 0.5rem;
 }
-.square-menu__item small {
-  background: #fff;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  padding: 0 0.35rem;
-  text-align: center;
-  display: inline-block;
-}
 .account-menu {
   position: absolute;
   bottom: 0;
@@ -578,6 +570,9 @@ body {
   -ms-flex-direction: column;
   flex-direction: column;
 }
+.main-wrapper__header {
+  border-bottom: 1px solid #eee;
+}
 .main-wrapper__content {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
@@ -695,6 +690,9 @@ body {
 }
 .button-solid[data-color='red'] {
   background: #f54545;
+}
+.button-solid[data-color='red']:hover {
+  color: #fff;
 }
 .button-solid[data-color='gray'] {
   background: #cfcfcf;
@@ -1058,7 +1056,7 @@ body {
   padding-left: 0.25rem;
 }
 .add-work {
-  max-width: 1100px;
+  max-width: 880px;
   margin: auto;
 }
 .add-work__title {
@@ -1078,6 +1076,7 @@ body {
   font-family: 'Roboto Condensed';
   color: #444;
   letter-spacing: 0.75px;
+  font-size: 1.15rem;
 }
 .add-work__data .input {
   margin: 0.25rem 0;
@@ -1086,7 +1085,7 @@ body {
   margin: 0.25rem 0;
 }
 .work-data__input {
-  padding: 0.5rem;
+  padding: 1rem 0.5rem;
 }
 .work-data__input .error-title,
 .work-data__input .error-description,
@@ -1253,5 +1252,27 @@ body {
   font-size: 0.8rem;
 }
 .radio-list label {
-  padding-right: 0.5rem;
+  padding-right: 1rem;
+  font-weight: 400;
+  padding-left: 0.25rem;
+}
+.radio-list input {
+  margin-top: -5px;
+}
+.checkbox-inline {
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -o-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  padding: 0.25rem;
+  font-family: 'Raleway';
+  cursor: pointer;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  padding-left: 0.5rem;
+}
+.checkbox-inline input {
+  margin-left: -15px !important;
 }

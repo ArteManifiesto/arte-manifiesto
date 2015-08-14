@@ -203,7 +203,7 @@ new User(document.querySelector('.profile__info'), profile)
 var tabs = document.querySelectorAll('.square-menu__item'),
 		currentTab = tabs[0];
 
-for (var i = 0; i <= tabs.length; i++) {
+for (var i = 0; i < tabs.length; i++) {
 
 	tabs[i].addEventListener('click', function () {
 		currentTab.setAttribute("selected", false)

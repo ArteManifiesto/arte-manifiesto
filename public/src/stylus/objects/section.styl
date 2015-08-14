@@ -85,14 +85,14 @@
 		&__workspace
 			&__elements
 				transition padding .5s
-				padding-left 10rem
+				padding-left 10.5rem
 				&.moveLeft
 					padding-left 0
 				// &.moveRight
 				// 	padding-right 10rem
 
-	.filter
-		width 9rem
+	// .filter
+	// 	width 10rem
 
 	.section
 		&__workspace
@@ -147,6 +147,7 @@
 .filter
 	font-size .85rem
 	font-family 'Raleway'
+	min-width 9.5rem
 	&__title
 		font-weight 600
 		padding .5rem 1rem
@@ -160,20 +161,31 @@
 		cursor pointer
 		padding .5rem 1rem
 		display block
+
+		display: table;
+		width: 100%;
+
 		color #444
 		&.selected
 			// background rgb(237, 237, 237)
 			background: #FFF59D;
-		.name
-			width 5.75rem
-			display: inline-block;
+		span
+		small
+			display table-cell
+		small
+			text-align right
+			// width 6rem
+			// display: inline-block;
 
 	&__price
 		padding 1rem 1rem 2rem 1rem
 	&__fueatured
 		display flex
-		align-items center
-		padding 1rem .5rem
+		padding 1rem
+		label
+			cursor pointer
+			font-weight: 400;
+			padding-left .25rem
 
 .filter.solid
 	font-family: 'Roboto Condensed';

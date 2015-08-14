@@ -90,11 +90,11 @@
 				<p class="title">Comunidad</p>
 				<div class="people">
 					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+					<div class="people-item"><img src="/img/artists/artist3.jpg"></div>
+					<div class="people-item"><img src="/img/artists/artist4.jpg"></div>
+					<div class="people-item"><img src="/img/artists/artist1.jpg"></div>
 					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
-					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
-					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
-					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
-					<div class="people-item"><img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg"></div>
+					<div class="people-item"><img src="/img/artists/artist2.jpg"></div>
 					{% for userLike in product.userLikes %}
 						<div class="people-item"><img src="{{userLike.photo}}"></div>
 					{% endfor %}
@@ -114,7 +114,7 @@
 							<div class="product-image">
 								<img src="{{ similar.photo }}">
 								<div class="cover">
-									<i class="fa fa-heart {% if similar.liked %}active{% endif %}"></i>
+									<i class="fa fa-heart {% if similar.liked == true %}active{% endif %}"></i>
 									<i class="fa fa-th-list"></i>
 								</div>
 							</div>
@@ -126,9 +126,9 @@
 								<div class="price">s./{{similar.price}}</div>
 
 								<div class="users">
+									<img src="/img/artists/artist4.jpg">
 									<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg">
-									<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg">
-									<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg">
+									<img src="/img/artists/artist3.jpg">
 								</div>
 
 								<div class="like">
@@ -154,7 +154,7 @@
 							<div class="product-image">
 								<img src="{{ similar.photo }}">
 								<div class="cover">
-									<i class="fa fa-heart {% if similar.liked %}active{% endif %}"></i>
+									<i class="fa fa-heart {% if similar.liked == true %}active{% endif %}"></i>
 									<i class="fa fa-th-list"></i>
 								</div>
 							</div>
@@ -166,9 +166,9 @@
 								<div class="price">s./{{similar.price}}</div>
 
 								<div class="users">
+									<img src="/img/artists/artist4.jpg">
 									<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg">
-									<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg">
-									<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150/v1430433775/artjam_pokjgd.jpg">
+									<img src="/img/artists/artist3.jpg">
 								</div>
 
 								<div class="like">

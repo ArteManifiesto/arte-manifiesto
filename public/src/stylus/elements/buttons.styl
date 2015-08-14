@@ -16,8 +16,8 @@
 	&[data-expand='true']
 		display block
 		text-align center
-		
-		
+
+
 /*------------------------------------*
 	$ BUTTON SOLID
 *------------------------------------*/
@@ -30,22 +30,25 @@
 	display table-cell
 	text-transform uppercase
 	font-family 'Roboto Condensed'
-	
+
 	&[data-size='small']
 		font-size .85rem
 	&[data-size='large']
 		font-size 1.15rem
-		
+
 	&[data-color='red']
 		background #f54545
+		&:hover
+			color white
+
 	&[data-color='gray']
 		background #cfcfcf
-		
+
 	&[data-expand='true']
 		display block
 		text-align center
 		width 100%
-		
+
 
 /*------------------------------------*
 	$ BUTTON FILTER
@@ -55,8 +58,8 @@
 	font-family 'Raleway'
 	border 1px solid #ddd
 	cursor pointer
-	
-	
+
+
 /*------------------------------------*
 	$ BUTTON LINER
 *------------------------------------*/
@@ -80,12 +83,12 @@
 		padding .5em
 		display table-cell
 		border-left 1px solid #bbb
-	
+
 	&[data-size='small']
 		font-size .85rem
 	&[data-size='large']
 		font-size 1.15rem
-	
+
 .button-liner.disabled
 	color #aaa
 	border-color #ccc
@@ -102,7 +105,7 @@
 				display none
 			&.cancel
 				display table-cell
-				
+
 
 /*------------------------------------*
 	$ BUTTON LIKE / WISH-LIST
@@ -118,7 +121,7 @@
 	.fa-heart
 		color #f54545
 		display none
-		
+
 .button-like
 .button-wish-list
 	&.active
@@ -126,8 +129,8 @@
 			display inline
 		.fa-heart-o
 			display none
-			
-			
+
+
 /*------------------------------------*
 	$ AVATAR
 *------------------------------------*/

@@ -297,14 +297,6 @@ a:hover {
 .square-menu__item:not(:last-child) {
   margin-right: 0.5rem;
 }
-.square-menu__item small {
-  background: #fff;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  padding: 0 0.35rem;
-  text-align: center;
-  display: inline-block;
-}
 .account-menu {
   position: absolute;
   bottom: 0;
@@ -578,6 +570,9 @@ body {
   -ms-flex-direction: column;
   flex-direction: column;
 }
+.main-wrapper__header {
+  border-bottom: 1px solid #eee;
+}
 .main-wrapper__content {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
@@ -698,6 +693,9 @@ body {
 }
 .button-solid[data-color='red'] {
   background: #f54545;
+}
+.button-solid[data-color='red']:hover {
+  color: #fff;
 }
 .button-solid[data-color='gray'] {
   background: #cfcfcf;
@@ -1788,6 +1786,39 @@ body {
   .profile__avatar {
     width: 9rem;
   }
+}
+.upload-work {
+  background: #f6f6f6;
+  height: 200px;
+  width: 150px;
+  margin: auto;
+  margin-bottom: 4rem;
+  padding: 0.5rem;
+  text-align: center;
+  font-family: "Roboto Condensed";
+  font-size: 1.25rem;
+  color: #585858;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -o-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -o-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+.upload-work i {
+  font-size: 2rem;
 }
 @-moz-keyframes circle {
   0% {

@@ -297,14 +297,6 @@ a:hover {
 .square-menu__item:not(:last-child) {
   margin-right: 0.5rem;
 }
-.square-menu__item small {
-  background: #fff;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  padding: 0 0.35rem;
-  text-align: center;
-  display: inline-block;
-}
 .account-menu {
   position: absolute;
   bottom: 0;
@@ -577,6 +569,9 @@ body {
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
+}
+.main-wrapper__header {
+  border-bottom: 1px solid #eee;
 }
 .main-wrapper__content {
   -webkit-box-flex: 1;

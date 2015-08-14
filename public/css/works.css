@@ -297,14 +297,6 @@ a:hover {
 .square-menu__item:not(:last-child) {
   margin-right: 0.5rem;
 }
-.square-menu__item small {
-  background: #fff;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  padding: 0 0.35rem;
-  text-align: center;
-  display: inline-block;
-}
 .account-menu {
   position: absolute;
   bottom: 0;
@@ -577,6 +569,9 @@ body {
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
+}
+.main-wrapper__header {
+  border-bottom: 1px solid #eee;
 }
 .main-wrapper__content {
   -webkit-box-flex: 1;
@@ -969,6 +964,9 @@ body {
 .button-solid[data-color='red'] {
   background: #f54545;
 }
+.button-solid[data-color='red']:hover {
+  color: #fff;
+}
 .button-solid[data-color='gray'] {
   background: #cfcfcf;
 }
@@ -1212,13 +1210,10 @@ body {
     -o-transition: padding 0.5s;
     -ms-transition: padding 0.5s;
     transition: padding 0.5s;
-    padding-left: 10rem;
+    padding-left: 10.5rem;
   }
   .section__workspace__elements.moveLeft {
     padding-left: 0;
-  }
-  .filter {
-    width: 9rem;
   }
   .section__workspace__filter:nth-child(1) {
     -webkit-transform: translate(0%, 0);
@@ -1286,6 +1281,7 @@ body {
 .filter {
   font-size: 0.85rem;
   font-family: 'Raleway';
+  min-width: 9.5rem;
 }
 .filter__title {
   font-weight: 600;
@@ -1306,14 +1302,19 @@ body {
   cursor: pointer;
   padding: 0.5rem 1rem;
   display: block;
+  display: table;
+  width: 100%;
   color: #444;
 }
 .filter__item.selected {
   background: #fff59d;
 }
-.filter__item .name {
-  width: 5.75rem;
-  display: inline-block;
+.filter__item span,
+.filter__item small {
+  display: table-cell;
+}
+.filter__item small {
+  text-align: right;
 }
 .filter__price {
   padding: 1rem 1rem 2rem 1rem;
@@ -1325,13 +1326,12 @@ body {
   display: -ms-flexbox;
   display: box;
   display: flex;
-  -webkit-box-align: center;
-  -moz-box-align: center;
-  -o-box-align: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  align-items: center;
-  padding: 1rem 0.5rem;
+  padding: 1rem;
+}
+.filter__fueatured label {
+  cursor: pointer;
+  font-weight: 400;
+  padding-left: 0.25rem;
 }
 .filter.solid {
   font-family: 'Roboto Condensed';
