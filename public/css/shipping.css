@@ -690,14 +690,14 @@ body {
   -webkit-border-radius: 4px;
   border-radius: 4px;
   border: 1px solid #ccc;
-  padding: 0.5em 0 0.5em 2em;
+  padding: 0.5em 2em 0.5em 0.75rem;
   color: #555;
   font-size: 1rem;
 }
 .search > i {
   position: absolute;
-  top: 0.5rem;
-  left: 0.75em;
+  top: 0.75rem;
+  right: 0.75em;
   color: #808080;
 }
 .search .text {
@@ -887,6 +887,71 @@ body {
   margin: 1rem 0.5rem;
   font-size: 0.9rem;
 }
+.shipping-container {
+  border: solid 1px #ddd;
+  -webkit-box-shadow: rgba(0,0,0,0.35) 0 0 10px;
+  box-shadow: rgba(0,0,0,0.35) 0 0 10px;
+  padding: 1rem;
+}
+.shippinges {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-lines: multiple;
+  -moz-box-lines: multiple;
+  -o-box-lines: multiple;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.shippinges .shipping {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -o-box-flex: 1;
+  box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  max-width: 50%;
+  padding: 0.5rem;
+}
+.shippinges .shipping-inner {
+  padding: 1rem;
+  background: #e9f3f5;
+  font-family: 'Roboto Condensed';
+  -webkit-box-shadow: 1px 1px 0 #e7e7e7;
+  box-shadow: 1px 1px 0 #e7e7e7;
+  letter-spacing: 0.5px;
+}
+.shippinges .shipping-title {
+  font-size: 1.15rem;
+  padding-bottom: 0.5rem;
+}
+.shippinges .shipping-subtitle {
+  font-weight: 300;
+  font-size: 0.95rem;
+}
+.shippinges .shipping-buttons {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-pack: end;
+  -moz-box-pack: end;
+  -o-box-pack: end;
+  -ms-flex-pack: end;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+}
+.shippinges .shipping-buttons button:not(:first-child) {
+  background: #00f;
+  margin-left: 0.5rem;
+}
 .checkbox-list {
   max-height: 200px;
   overflow: auto;
@@ -988,6 +1053,9 @@ body {
   text-transform: uppercase;
   font-family: 'Roboto Condensed';
 }
+.button-liner:hover {
+  background-color: #fff59d;
+}
 .button-liner__action {
   padding: 0.5em;
   display: table-cell;
@@ -1026,6 +1094,9 @@ body {
 .button-liner.disabled:hover .button-liner__action.cancel {
   display: table-cell;
 }
+.button-liner.disabled:hover {
+  background-color: #fff;
+}
 .button-like,
 .button-wish-list {
   color: #444;
@@ -1054,6 +1125,16 @@ body {
 .button-avatar img {
   -webkit-border-radius: 50%;
   border-radius: 50%;
+}
+.title {
+  font-family: 'Oswald';
+  font-size: 1.5rem;
+  color: #585858;
+  letter-spacing: 1px;
+  padding: 0 1rem;
+  padding-top: 2rem;
+  margin: auto;
+  display: table;
 }
 .addresses {
   border: solid 1px #ddd;
@@ -1106,6 +1187,14 @@ body {
   border: none;
   border-top: solid 1px #ddd;
   display: none;
+}
+.shipping-form label {
+  font-weight: 400;
+}
+.shipping-form input {
+  font-family: Arial;
+  font-size: 0.9rem !important;
+  color: #777;
 }
 .button-solid {
   margin: auto;

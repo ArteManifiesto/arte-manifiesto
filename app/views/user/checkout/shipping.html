@@ -8,6 +8,9 @@
 {% endblock %}
 
 {% block elements %}
+
+	<p class="title">Checkout Direccion</p>
+
 	<section class="addresses">
 		<article class="address selected" data-pos="0">
 			<div class="address-check">
@@ -43,14 +46,14 @@
 		</article>
 
 		<form class="shipping-form" action="">
-			<div class="input-container">
+			<!-- <div class="input-container">
 			    <label>Ciudad</label>
 			    <select class="input" name="gender">
 			        <option disabled selected>Lima</option>
 			        <option value="Male">Trujillo</option>
 			        <option value="Female">Arequipa</option>
 			    </select>
-			</div>
+			</div> -->
 			<div class="input-container">
 			    <label>Nombre</label>
 			    <input class="input" type="text" placeholder=""/>
@@ -79,7 +82,7 @@
 
 	</section>
 
-	<input class="button-solid" data-size='' data-color='red' data-expand='' value="Guardar y continuar" type="submit">
+	<a href="/checkout/payment" class="button-solid" data-size='' data-color='red'>Guardar y continuar</a>
 
 {% endblock %}
 

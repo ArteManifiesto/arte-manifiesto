@@ -55,7 +55,7 @@
 
 					{% for category in categories %}
 						<div class="filter__item js-mainFilter" data-value="{{ category.nameSlugify }}">
-							<span class="name">{{ category.name }}</span> <small>200</small>
+							<span class="name">{{ category.name }} <small style="display: inline-block;">(200)</small></span> <!-- <small>200</small> -->
 						</div>
 					{% endfor %}
 
@@ -65,7 +65,7 @@
 
 					{% for productType in productTypes %}
 						<div class="filter__item js-mainFilter" data-value="{{ productType.nameSlugify }}">
-							<span class="name">{{ productType.name }}</span> <small>1500</small>
+							<span class="name">{{ productType.name }} <small style="display: inline-block;">(500)</small></span> <!-- <small>1500</small> -->
 						</div>
 					{% endfor %}
 
@@ -75,7 +75,7 @@
 
 					{% for category in categories %}
 						<div class="filter__item js-mainFilter" data-value="{{ category.nameSlugify }}">
-							<span class="name">{{ category.name }}</span> <small>300</small>
+							<span class="name">{{ category.name }} <small style="display: inline-block;">(300)</small></span> <!-- <small>300</small> -->
 						</div>
 					{% endfor %}
 

@@ -131,6 +131,20 @@ var options2 = new Options(document.querySelectorAll('.js-options2'))
 var account = new Account()
 
 
+var tag = document.querySelector('.fa.fa-caret-down')
+var menu = document.querySelector('.account__menu')
+var open = false
+
+tag.addEventListener('click', function () {
+	if(open) {
+		menu.style.display = 'none'
+		open = false
+	}
+	else {
+		menu.style.display = 'block'
+		open = true
+	}
+})
 
 			// console.log('username', username)
 			// console.log('name', name)

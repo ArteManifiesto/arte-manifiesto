@@ -718,6 +718,9 @@ body {
   text-transform: uppercase;
   font-family: 'Roboto Condensed';
 }
+.button-liner:hover {
+  background-color: #fff59d;
+}
 .button-liner__action {
   padding: 0.5em;
   display: table-cell;
@@ -755,6 +758,9 @@ body {
 }
 .button-liner.disabled:hover .button-liner__action.cancel {
   display: table-cell;
+}
+.button-liner.disabled:hover {
+  background-color: #fff;
 }
 .button-like,
 .button-wish-list {

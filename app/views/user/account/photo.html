@@ -17,6 +17,21 @@
 	var user = {{ user|json|safe }}
 	console.log('user: ', user)
 
+	var tag = document.querySelector('.fa.fa-caret-down')
+	var menu = document.querySelector('.account__menu')
+	var open = false
+
+	tag.addEventListener('click', function () {
+		if(open) {
+			menu.style.display = 'none'
+			open = false
+		}
+		else {
+			menu.style.display = 'block'
+			open = true
+		}
+	})
+
 </script>
 
 {% endblock %}

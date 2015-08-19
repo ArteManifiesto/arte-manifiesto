@@ -42,11 +42,11 @@
 		</a>
 
 		{% if user %}
+			<!-- Feed -->
 			<a class="skinny-menu__item {% if path == 'feed' %} active {% endif %}" href="#" style="  padding-right: .5rem;">
 				<i class="skinny-menu__item__icon fa fa-users"></i>
 				<span class="skinny-menu__item__text">Feed</span>
 			</a>
-			<!-- Feed -->
 			<div class="dropdown" style="  padding-left: .5rem;">
 			  <div href="#" class="dropdown-toggle am-notifications" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 			    <i class="fa fa-bell-o"></i> 10
@@ -57,17 +57,11 @@
 			  <ul class="dropdown-menu dropdown-menu-right">
 			  </ul>
 			</div>
-			<!-- <a class="skinny-menu__avatar" href="/{{ user.username }}">
-				<div class="button-avatar">
-					{% if user.photo %}
-						<img src="{{ user.photo }}">
-					{% else %}
-						<img src="http://www.furcontest.com/imagenes/default.png">
-					{% endif %}
-				</div>
-			</a> -->
-			<!-- Avatar -->
-			<div class="dropdown">
+			<a class="skinny-menu__item {% if path == 'feed' %} active {% endif %}" href="/{{ user.username }}/cart" style="  padding-right: .5rem;">
+				<i class="skinny-menu__item__icon fa fa-shopping-cart" style="font-size: 1.5rem;"></i>
+				<span class="skinny-menu__item__text" style="font-size: 1.5rem;"><i class="fa fa-shopping-cart"></i></span>
+			</a>
+			<div class="dropdown" style="padding-left: .5rem;">
 			  <div href="#" class="dropdown-toggle am-avatar" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 			    <!-- <img src="/img/artists/artist2.jpg" class="img-circle"> -->
 			    {% if user.photo %}
@@ -87,7 +81,7 @@
 			    <li><a href="/{{ user.username }}/work/add">Subir Obra</a></li>
 			    <li><a href="#">Vender Producto</a></li>
 			    <li role="separator" class="divider"></li>
-			    <li><a href="/{{ user.username }}/cart">Carrito <i class="fa fa-shopping-cart"></i></a></li>
+			    <!-- <li><a href="/{{ user.username }}/cart">Carrito <i class="fa fa-shopping-cart"></i></a></li> -->
 			    <li><a href="#">Pedidos</a></li>
 			    <li><a href="#">Ventas</a></li>
 			    <li role="separator" class="divider"></li>
@@ -107,11 +101,4 @@
 			</a>
 		{% endif %}
 	</nav>
-	<!-- <div class="account-menu">
-		<a href="/{{ user.username }}" class="account-menu__item"><b>Hans Evangelista</b></a>
-		<a href="/{{ user.username }}/account" class="account-menu__item">Account</a>
-		<a href="#" class="account-menu__item">Menu</a>
-		<a href="#" class="account-menu__item">Subir Obra</a>
-		<a href="/auth/logout" class="account-menu__item">Logout</a>
-	</div> -->
 </header>

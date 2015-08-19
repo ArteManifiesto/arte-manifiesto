@@ -18,7 +18,7 @@
 {% endblock %}
 
 {% block modal %}
-
+<!--
 	<div class="modal">
 		<div class="modal-box">
 
@@ -60,7 +60,7 @@
 			</form>
 
 		</div>
-	</div>
+	</div> -->
 
 	<!-- <form class="shipping-container" action="">
 	    <div class="input-container">
@@ -110,6 +110,22 @@
 
 	    var user = {{ user|json|safe }}
 	    console.log('user: ', user)
+
+	    var tag = document.querySelector('.fa.fa-caret-down')
+	    var menu = document.querySelector('.account__menu')
+	    var open = false
+
+	    tag.addEventListener('click', function () {
+	    	if(open) {
+	    		menu.style.display = 'none'
+	    		open = false
+	    	}
+	    	else {
+	    		menu.style.display = 'block'
+	    		open = true
+	    	}
+	    })
+
 	</script>
 
 {% endblock %}

@@ -4,8 +4,8 @@ function Profile (el, data) {
 
 	var templates =[_.template($( "#work-template" ).html()),
 									_.template($( "#product-template" ).html()),
-									_.template($( "#work-template" ).html()),
-									_.template($( "#product-template" ).html()),
+									// _.template($( "#work-template" ).html()),
+									// _.template($( "#product-template" ).html()),
 									_.template($( "#collection-template" ).html()),
 									_.template($( "#user-template" ).html()),
 									_.template($( "#user-template" ).html())]
@@ -14,8 +14,8 @@ function Profile (el, data) {
 
 	var paths = ['portfolio',
 							 'store',
-							 'likes/works',
-							 'likes/products',
+							 // 'likes/works',
+							 // 'likes/products',
 							 'collections',
 							 'followers',
 							 'followings']
@@ -86,11 +86,11 @@ function Profile (el, data) {
 
 			if(index == 0) addElements(response.works)
 			if(index == 1) addElements(response.products)
-			if(index == 2) addElements(response.works)
-			if(index == 3) addElements(response.products)
-			if(index == 4) addElements(response.collections)
-			if(index == 5) addElements(response.followers)
-			if(index == 6) addElements(response.followings)
+			// if(index == 2) addElements(response.works)
+			// if(index == 3) addElements(response.products)
+			if(index == 2) addElements(response.collections)
+			if(index == 3) addElements(response.followers)
+			if(index == 4) addElements(response.followings)
 
 		});
 	}
@@ -126,11 +126,11 @@ function Profile (el, data) {
 
 			if(index == 0) renderElements(response.works)
 			if(index == 1) renderElements(response.products)
-			if(index == 2) renderElements(response.works)
-			if(index == 3) renderElements(response.products)
-			if(index == 4) renderElements(response.collections)
-			if(index == 5) renderElements(response.followers)
-			if(index == 6) renderElements(response.followings)
+			// if(index == 2) renderElements(response.works)
+			// if(index == 3) renderElements(response.products)
+			if(index == 2) renderElements(response.collections)
+			if(index == 3) renderElements(response.followers)
+			if(index == 4) renderElements(response.followings)
 		});
 	}
 
@@ -151,13 +151,14 @@ function Profile (el, data) {
 			var object = makeObject(templates[index], elements[i])
 			if(index == 0) new Work(object, elements[i])
 			if(index == 1) new Product(object, elements[i])
-			if(index == 2) new Work(object, elements[i])
-			if(index == 3) new Product(object, elements[i])
+			// if(index == 2) new Work(object, elements[i])
+			// if(index == 3) new Product(object, elements[i])
 			// if(index == 4) new Collection(object, elements[i])
-			if(index == 5) new User(object, elements[i])
-			if(index == 6) new User(object, elements[i])
+			if(index == 3) new User(object, elements[i])
+			if(index == 4) new User(object, elements[i])
 
-			if(index != 0 && index != 2)
+			// if(index != 0 && index != 2)
+			if(index != 0)
 				containers[index].children[0].appendChild(object)
 			else
 				salvattore['append_elements'](containers[index].children[0], [object])
@@ -175,11 +176,11 @@ function Profile (el, data) {
 
 		if(index == 0) var els = containers[index].querySelectorAll('.work')
 		if(index == 1) var els = containers[index].querySelectorAll('.product-wrapper')
-		if(index == 2) var els = containers[index].querySelectorAll('.work')
-		if(index == 3) var els = containers[index].querySelectorAll('.product-wrapper')
-		if(index == 4) var els = containers[index].querySelectorAll('.collection-wrapper')
-		if(index == 5) var els = containers[index].querySelectorAll('.user-wrapper')
-		if(index == 6) var els = containers[index].querySelectorAll('.user-wrapper')
+		// if(index == 2) var els = containers[index].querySelectorAll('.work')
+		// if(index == 3) var els = containers[index].querySelectorAll('.product-wrapper')
+		if(index == 2) var els = containers[index].querySelectorAll('.collection-wrapper')
+		if(index == 3) var els = containers[index].querySelectorAll('.user-wrapper')
+		if(index == 4) var els = containers[index].querySelectorAll('.user-wrapper')
 
 		for (var i = 0; i < els.length; i++)
 			els[i].remove()
