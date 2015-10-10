@@ -53,6 +53,7 @@
     "simple-recaptcha-new": "^1.0.0",
     "swig": "^1.4.2"
   },
+  
   "devDependencies": {
     "gulp": "*",
     "gulp-concat": "*",
@@ -62,6 +63,7 @@
     "nib": "*",
     "open": "0.0.5"
   },
+  
   "scripts": {
     "style": "stylus -u nib -w -o public/css public/src/stylus/"
   }
