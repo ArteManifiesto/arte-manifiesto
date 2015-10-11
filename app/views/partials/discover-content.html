@@ -1,0 +1,76 @@
+
+	<!-- ********************************************************************
+		$ DISCOVER-CONTENT
+	********************************************************************* -->
+	<div class="grid-container u-padding-top-10 u-padding-bottom-40">
+		<div class="grid-20 u-padding-top-10">
+			<div class="am-Filter">
+				<div class="am-Filter-item">
+					<header class="am-Filter-header">
+						<i class="fa fa-bars"></i><p>Ver sólo</p>
+					</header>
+				</div>
+				<div class="am-Filter-item">
+					<div class="am-Filter-switch">
+						<div class="am-Switch-button">
+							<i class="fa fa-bars"></i>
+						</div>
+						<span>Seleccionado AM</span>
+					</div>
+				</div>
+				<div class="am-Filter-item">
+					<header class="am-Filter-header">
+						<i class="fa fa-bars"></i><p>Categorías</p>
+					</header>
+				</div>
+				<div class="am-Filter-item">
+					<p class="am-Filter-option"><span>PINTURA</span><i class="fa fa-chevron-right"></i></p>
+				</div>
+				<div class="am-Filter-item">
+					<p class="am-Filter-option"><span>ILUSTRACIÓN</span><i class="fa fa-chevron-right"></i></p>
+				</div>
+				<div class="am-Filter-item">
+					<p class="am-Filter-option" data-open='true'><span>FOTOGRAFÍA</span><i class="fa fa-chevron-down"></i></p>
+				</div>
+				<div class="am-Filter-item">
+					<ul class="am-Filter-subOptions">
+						<li>Blanco y negro</li>
+						<li>Retratos</li>
+						<li>Paisajes</li>
+						<li>Claroscuro</li>
+						<li>Ver Todos</li>
+					</ul>
+				</div>
+				<div class="am-Filter-item">
+					<p class="am-Filter-option"><span>STREET ART</span><i class="fa fa-chevron-right"></i></p>
+				</div>
+				<div class="am-Filter-item">
+					<p class="am-Filter-option"><span>TÉCNICA MIXTA</span><i class="fa fa-chevron-right"></i></p>
+				</div>
+			</div>
+		</div>
+		<div class="grid-80 grid-parent">
+
+			{% if path == 'discover-works' %}
+
+				{% include './layout-works.html' %}
+
+			{% elseif path == 'discover-artists' %}
+
+				{% include './layout-artists.html' %}
+
+			{% elseif path == 'discover-collections' %}
+
+				{% include './layout-collections.html' %}
+
+			{% elseif path == 'market' %}
+
+				{% include './layout-products.html' %}
+
+			{% endif %}
+
+		</div>
+		<div class="grid-80 prefix-20 u-margin-top-10">
+			<a class="am-More-button">I need more</a>
+		</div>
+	</div>

@@ -5,7 +5,6 @@ var express = require('express');
  * ====================================================
  */
 
-    console.log(global.cf);
 var pagesRouter = require(global.cf.routes + '/pages');
 var authRouter = require(global.cf.routes + '/auth');
 var adminRouter = require(global.cf.routes + '/admin');

@@ -1,52 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-	<title>{{title}}</title>
-
 	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 
+	<title>Arte Manifiesto</title>
 
-	<link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700|Roboto+Condensed:400,300,700|Raleway:400,100,200,300,500,700,600,800,900|Oswald:400,300,700|Hammersmith+One' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700,700italic|Montserrat:400,700' rel='stylesheet' type='text/css'>
 
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="/css/{{css}}.css">
-	{% block stylesheets %}{% endblock %}
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" type="text/css" href="/app.min.css">
+
+	{% block styles %} {% endblock %}
+
 </head>
 <body>
 
-	<div class="main-wrapper">
-		<div class="main-wrapper__header">
+	{% include 'header.html' %}
 
-			{% include 'header.html' %}
+	{% block elements %} {% endblock %}
 
-		</div>
-		<div class="main-wrapper__content
-			{% if path == 'signup' || path == 'login' %} background-container {% endif %}
-			{% if path == 'account' || path == 'photo' || path == 'addresses' || path == 'websites' || path == 'password' %} gray {% endif %}
-		">
+	{% include 'footer.html' %}
 
-
-			{% block elements %} {% endblock %}
-
-		</div>
-		<div class="main-wrapper__footer">
-
-			{% include 'footer.html' %}
-
-		</div>
-	</div>
-
-	{% block modal %} {% endblock %}
-
-	<script src="//code.jquery.com/jquery-2.1.4.js"></script>
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
-	<script type="text/javascript" src="/js/account-menu.js"></script>
-
+	<script>
+	  var ADAPT_CONFIG = {
+	    path: '/',
+	    dynamic: true,
+	    range: [
+	      '0 to 767px = unsemantic-grid-mobile.css',
+	      '767px = unsemantic-grid-desktop.css'
+	    ]
+	  };
+	</script>
+	<script src='/app.min.js'></script>
+	<script>
+    $(document).ready(onReady);
+	 	function onReady() {
+			new APP.AM();
+		}
+	</script>
 	{% block scripts %} {% endblock %}
-
 </body>
 </html>

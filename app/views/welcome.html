@@ -1,0 +1,25 @@
+{% extends './partials/base.html' %}
+
+
+{% block elements %}
+	<div class="am-welcome">
+		<div class="cover" style="background-image: url(img/banners/welcome.png)"></div>
+		<div class="am-welcome-box">
+			<img class="logo-img" src="img/logo-img.svg">
+			<img class="logo-text" src="img/logo-text.svg">
+			<p class="title">¡Felicitaciones!</p>
+			<p class="title">Bienvenido a la comunidad de Arte Manifiesto</p>
+			<p class="subtitle">Te hemos enviado un correo a <span>luis.augusto@artemanifiesto.com</span></p>
+			<p class="msg">Por favor revisa tu correo para continuar.</p>
+		</div>
+		<div class="am-welcome-help">
+			<div class="title">
+				<span class="line"></span>
+				<span class="text">AYUDA</span>
+				<span class="line"></span>
+			</div>
+			<p class="subtitle">Si no te llegó el correo, revisa en tu carpeta de SPAM ó pide que te reenviemos el correo.</p>
+			<button class="button-resend">REENVIAR CORREO</button>
+		</div>
+	</div>
+{% endblock %}

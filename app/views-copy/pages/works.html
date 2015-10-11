@@ -1,0 +1,58 @@
+
+{% extends '../partials/base.html' %}
+
+	{% set path = 'works' %}
+	{% set title = 'Arte Manifiesto | Obras' %}
+	{% set css = 'works' %}
+
+{% block elements %}
+
+	{% include '../partials/section.html' %}
+
+	<script type="text/template" id="template">
+		<article class="work">
+			<img src="<%= photo %>">
+			<div class="cover">
+				<% if (liked) { %>
+					<div class="social-item active">
+						<i class="fa fa-heart"></i>
+					</div>
+				<% } else { %>
+					<div class="social-item">
+						<i class="fa fa-heart"></i>
+					</div>
+				<% } %>
+			</div>
+		</article>
+	</script>
+
+{% endblock %}
+
+{% block scripts %}
+
+	<script type="text/javascript">
+		
+		var url = {{ url|json|safe }}
+		console.log('url: ', url)
+
+		var pagination = {{ pagination|json|safe }}
+		console.log('pagination: ', pagination)
+
+		var user = {{ user|json|safe }}
+		console.log('user: ', user)
+
+		var works = {{ works|json|safe }}
+		console.log('works: ', works)
+
+	</script>
+
+	<script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/vendor/underscore-min.js"></script>
+	<script type="text/javascript" src="/js/vendor/salvattore.js"></script>
+	<script type="text/javascript" src="/js/vendor/hammer.min.js"></script>
+	<script type="text/javascript" src="/js/lib/search.js"></script>
+	<script type="text/javascript" src="/js/lib/section.js"></script>
+	<script type="text/javascript" src="/js/lib/work.js"></script>
+	<script type="text/javascript" src="/js/works.js"></script>
+
+{% endblock %}

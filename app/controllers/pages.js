@@ -12,67 +12,55 @@ exports.index = function (req, res) {
     });
 };
 
-var searchHandler = function (req, res) {
+var searchHandler = function (entity, req, res) {
     var config = global.config.search;
+    entity = global.getParameter(config.entities, entity);
 
-    req.params.entity = global.getParameter(config.entities, req.params.entity);
-
-    req.query.order = global.getParameter(config.orders[req.params.entity], req.query.order);
+    req.query.order = global.getParameter(config.orders[entity], req.query.order);
 
     if (req.query.time)
         req.query.time = global.getParameter(config.times, req.query.time);
 
-    var item, currentParams = config.params[req.params.entity];
+    var item, currentParams = config.params[entity];
 
     for (item in req.query)
         if (currentParams.indexOf(item) == -1)
             delete req.query[item];
 
-    var searchable = _.capitalize(req.params.entity);
+    var searchable = _.capitalize(entity);
     return global["search" + searchable](req).then(function (data) {
-        data.url = global.generateUrlWithParams(data.pagination, req);
+        var query = global.encodeToQuery(req.query);
+        data.url = req.protocol + '://' + req.get('host') + req.path + '?' + query;
         return res.json(data);
     });
-}
-
-exports.search = function (req, res) {
-    console.log(req.body.viewer);
-    if (!req.body.viewer)
-        return searchHandler(req, res);
-
-    req.viewer = req.body.viewer;
-    return searchHandler(req, res);
 };
 
-
 var searchBridge = function (req) {
-    var options = {
-        method: 'POST',
-        body: {viewer: req.viewer},
-        json: true,
-        url: req.protocol + '://' + req.get('host') + '/search' + req.url
-    };
+    var body = {viewer: req.viewer};
+    var url = req.protocol + '://' + req.get('host') + req.url;
+    var options = {method: 'POST', body: body, json: true, url: url};
+
     return new Promise(function (resolve, reject) {
-        request.post(options, function (error, response, body) {
-            resolve(body);
-        });
+      request.post(options, function (error, response, body) {
+          resolve(body);
+      });
     });
 };
 
-var discover = function (req) {
-    req.url = req.url.replace(req.params.page, 'page-1');
-    return searchBridge(req).then(function (data) {
-        var query = {attributes: ['name', 'nameSlugify']};
-        return global.db.Category.findAll(query).then(function (categories) {
-            data.categories = categories;
-            return data;
-        });
+var discover = function (req, isProduct) {
+    var query = {attributes: ['id', 'name', 'nameSlugify']};
+    var promises = [
+      searchBridge(req),
+      global.db[isProduct ? 'ProductType' : 'Category'].findAll(query)
+    ];
+    return global.db.Sequelize.Promise.all(promises).then(function (data) {
+      return {items: data[0], categories: data[1]};
     });
 };
 
 exports.works = function (req, res) {
     discover(req).then(function (data) {
-        return res.render(basePath + 'works', data);
+        return res.render(basePath + 'works', {d: data});
     });
 };
 
@@ -83,36 +71,15 @@ exports.users = function (req, res) {
 };
 
 exports.products = function (req, res) {
-    searchBridge(req).then(function (data) {
-        var query = {attributes: ['id', 'name', 'nameSlugify']};
-        global.db.ProductType.findAll(query).then(function (productTypes) {
-            data.productTypes = productTypes;
-            return res.render(basePath + 'products', data);
-        });
-    });
+  discover(req, true).then(function (data) {
+    return res.render(basePath + 'products', data);
+  });
 };
 
-exports.storeProduct = function (req, res) {
-    var query = {where: {nameSlugify: req.params.nameProduct}};
-    global.db.Product.find(query).then(function (product) {
-        return res.render('store/product', {product: product});
-    });
-};
-
-exports.productPay = function (req, res) {
-    global.db.Product.find(req.params.idProduct).then(function (product) {
-        var username = 'luis.augusto-facilitator_api1.funka.pe';
-        var password = 'DA2FKBDA969MC9FG';
-        var signature = 'AFcWxV21C7fd0v3bYYYRCpSSRl31AVe8WaAZb1aHHZTwqH86Cv8a7XhB';
-        var returnUrl = 'http://localhost:3000';
-        var paypal = require('paypal-express-checkout').init(username, password, signature, returnUrl, returnUrl, true);
-        paypal.pay('20130001', product.price, product.name, 'USD', function (err, url) {
-            if (err) {
-                console.log(err);
-                return;
-            }
-            // redirect to paypal webpage
-            res.redirect(url);
-        });
-    });
+exports.search = function (entity, req, res) {
+    if (!req.body.viewer)
+        return searchHandler(entity, req, res);
+    
+    req.viewer = req.body.viewer;
+    return searchHandler(entity, req, res);
 };

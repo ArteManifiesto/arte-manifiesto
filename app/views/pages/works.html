@@ -1,58 +1,92 @@
-
 {% extends '../partials/base.html' %}
 
-	{% set path = 'works' %}
-	{% set title = 'Arte Manifiesto | Obras' %}
-	{% set css = 'works' %}
+{% set path = 'discover-works' %}
+
 
 {% block elements %}
 
-	{% include '../partials/section.html' %}
+{% set bannerTitle = 'Descubre obras y creaciones' %}
+{% set bannerImg = 'works.jpg' %}
+{% include '../partials/banner.html' %}
 
-	<script type="text/template" id="template">
-		<article class="work">
-			<img src="<%= photo %>">
-			<div class="cover">
-				<% if (liked) { %>
-					<div class="social-item active">
-						<i class="fa fa-heart"></i>
+<div class="grid-container u-padding-top-20">
+	<div class="grid-100 grid-parent">
+		<div class="discover-menu">
+			<div class="filter left">
+				<div class="am-Select">
+					CATEGORÍAS &nbsp;&nbsp;<i class="fa fa-caret-left"></i>
+				</div>
+				<div class="left-menu u-padding-top-10">
+					<div class="am-Filter filter-category">
+						<div class="am-Filter-item">
+							<header class="am-Filter-header">
+								<i class="fa fa-bars"></i><p>Ver sólo</p>
+							</header>
+						</div>
+						<div class="am-Filter-item">
+							<div class="am-Filter-switch">
+								<div class="am-Switch-button">
+									<i class="fa fa-bars"></i>
+								</div>
+								<span>Seleccionado AM</span>
+							</div>
+						</div>
+						<div class="am-Filter-item">
+							<header class="am-Filter-header">
+								<i class="fa fa-bars"></i><p>Categorías</p>
+							</header>
+						</div>
 					</div>
-				<% } else { %>
-					<div class="social-item">
-						<i class="fa fa-heart"></i>
-					</div>
-				<% } %>
+				</div>
 			</div>
-		</article>
-	</script>
+			<div class="text">
+				<p class="am-navigation-text">Fotografía > Blanco y negro (234)</p>
+			</div>
+			<div class="filter right">
+				<div class="am-Select">
+					ORDENAR &nbsp;&nbsp;<i class="fa fa-caret-down"></i>
+				</div>
+				<div class="right-menu u-padding-top-10">
+					<div class="am-Filter filter-order">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- defoult state 	= menu closed -->
+<!-- new state 			= menu open -->
+<!-- <div class="discover-content grid-container u-padding-top-10 u-padding-bottom-40"> -->
+<div class="discover-content menu_open grid-container u-padding-top-10 u-padding-bottom-40">
+	<div class="grid-100 grid-parent">
+		{% include '../partials/layout-works.html' %}
+	</div>
+	<div class="grid-100 u-margin-top-10">
+		<a class="am-More-button">I need more</a>
+	</div>
+</div>
 
 {% endblock %}
 
 {% block scripts %}
 
-	<script type="text/javascript">
-		
-		var url = {{ url|json|safe }}
-		console.log('url: ', url)
+<!-- ********************************************************************
+$ MASONRY
+********************************************************************* -->
+<script src="http://imagesloaded.desandro.com/imagesloaded.pkgd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js"></script>
 
-		var pagination = {{ pagination|json|safe }}
-		console.log('pagination: ', pagination)
+<script type="text/javascript">
+console.log({{ d|json|safe }});
 
-		var user = {{ user|json|safe }}
-		console.log('user: ', user)
+var $container = $('.grid');
 
-		var works = {{ works|json|safe }}
-		console.log('works: ', works)
-
-	</script>
-
-	<script type="text/javascript" src="/js/vendor/jquery.min.js"></script>
-	<script type="text/javascript" src="/js/vendor/underscore-min.js"></script>
-	<script type="text/javascript" src="/js/vendor/salvattore.js"></script>
-	<script type="text/javascript" src="/js/vendor/hammer.min.js"></script>
-	<script type="text/javascript" src="/js/lib/search.js"></script>
-	<script type="text/javascript" src="/js/lib/section.js"></script>
-	<script type="text/javascript" src="/js/lib/work.js"></script>
-	<script type="text/javascript" src="/js/works.js"></script>
+$container.imagesLoaded(function(){
+	$container.masonry({
+		itemSelector: '.grid-item'
+	});
+});
+</script>
 
 {% endblock %}

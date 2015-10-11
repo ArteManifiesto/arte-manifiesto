@@ -52,9 +52,9 @@ global.slugify = function (text) {
 global.discoverGenerator = function (entity, req) {
     var options = {};
     options.entity = entity;
-    options.name = req.params.entity;
+    options.name = 'items';
     options.page = req.params.page;
-    options.limit = 30;
+    options.limit = 10;
 
     var query = {where: {}, build: true};
     query.viewer = req.viewer;
@@ -83,6 +83,7 @@ global.discoverGenerator = function (entity, req) {
 }
 
 global.searchWorks = function (req) {
+    console.log(req.url);
     var discover = discoverGenerator('Work', req);
     discover.query.where.public = true;
     discover.query.order.push([global.db.sequelize.col('name')]);
@@ -144,14 +145,6 @@ global.getOrder = function (order) {
     return order;
 };
 
-global.generateUrlWithParams = function (pagination, req) {
-    var path = [
-        '', req.params.entity, req.params.filter,
-        req.params.value, 'page-' + pagination.page
-    ].join('/');
-
-    return req.protocol + '://' + req.get('host') + path + '/?' + global.encodeToQuery(req.query);
-};
 global.emails = {
     verify: function (options) {
         var params = {
@@ -196,8 +189,7 @@ global.getPaginationEntity = function (options, query) {
     }
 
     return global.db.Sequelize.Promise.all(promises).then(function (data) {
-        var total, result = {};
-        result[options.name] = data[0];
+        var total, result = {items: data[0]};
         if (!options.association)
             total = data[1];
         else

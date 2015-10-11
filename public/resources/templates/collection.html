@@ -1,0 +1,29 @@
+<article class="collection">
+    <a class="collection__images" href="<%= url %>">
+        <div class="imageColumn">
+            <% if (products[0] && products[0].photo) { %>
+            <div class="image-container" style="height: 100%; background-image: url('<%= products[0].photo %>')"></div>
+            <% } else { %>
+            <div class="image-container" style="height: 100%; background: #ccc; border: 1px solid white;"></div>
+            <% } %>
+        </div>
+        <div class="imageColumn">
+            <% if (products[1] && products[1].photo) { %>
+            <div class="image-container" style="height: 50%; background-image: url('<%= products[1].photo %>')"></div>
+            <% } else { %>
+            <div class="image-container" style="height: 50%; background: #ccc; border: 1px solid white;"></div>
+            <% } %>
+            <% if (products[2] && products[2].photo) { %>
+            <div class="image-container" style="height: 50%; background-image: url('<%= products[2].photo %>')"></div>
+            <% } else { %>
+            <div class="image-container" style="height: 50%; background: #ccc; border: 1px solid white;"></div>
+            <% } %>
+        </div>
+    </a>
+
+    <div class="collection__products"><%= numOfProducts %> Productos</div>
+    <div class="collection__name"><%= name %></div>
+    <a class="collection__user" href="#">De <span><%= User.username %></span></a>
+
+    <div class="collection__description"><%= description %></div>
+</article>
