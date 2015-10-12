@@ -1,11 +1,11 @@
 {% extends '../partials/base.html' %}
 
-{% set path = 'discover-works' %}
+{% set path = 'discover-users' %}
 
 {% block elements %}
 
-{% set bannerTitle = 'Descubre obras y creaciones' %}
-{% set bannerImg = 'works.jpg' %}
+{% set bannerTitle = 'Descubre nuevos artistas y creadores' %}
+{% set bannerImg = 'artists.jpg' %}
 {% include '../partials/banner.html' %}
 
 <div class="grid-container u-padding-top-20">
@@ -78,7 +78,7 @@ $(document).ready(onReady);
 function onReady() {
 	var data = {{ data|json|safe }};
 	console.log(data);
-	new APP.DiscoverScreen('work', APP.NavigationManager.NAVIGATION_INFINITE, data);
+	new APP.DiscoverScreen('user', APP.NavigationManager.NAVIGATION_INFINITE, data);
 
 	var $container = $('.grid');
 	$container.imagesLoaded(function(){

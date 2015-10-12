@@ -54,7 +54,7 @@ APP.Filters.prototype.filterItemHandler = function(meta, event) {
 	var currentFilter = 'current' + filterCapitalized;
 
 	this[currentFilter] = $(event.target).attr('data-value');
-
+	
 	DataApp.currentUrl = DataApp.currentUrl.replace(this[oldFilter], this[currentFilter]);
 	this[oldFilter] = this[currentFilter];
 

@@ -1,10 +1,10 @@
 {% extends '../partials/base.html' %}
 
-{% set path = 'discover-works' %}
+{% set path = 'discover-products' %}
 
 {% block elements %}
 
-{% set bannerTitle = 'Descubre obras y creaciones' %}
+{% set bannerTitle = 'La tienda de los creativos' %}
 {% set bannerImg = 'works.jpg' %}
 {% include '../partials/banner.html' %}
 
@@ -78,7 +78,7 @@ $(document).ready(onReady);
 function onReady() {
 	var data = {{ data|json|safe }};
 	console.log(data);
-	new APP.DiscoverScreen('work', APP.NavigationManager.NAVIGATION_INFINITE, data);
+	new APP.DiscoverScreen('product', APP.NavigationManager.NAVIGATION_INFINITE, data);
 
 	var $container = $('.grid');
 	$container.imagesLoaded(function(){

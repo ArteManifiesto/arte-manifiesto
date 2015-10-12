@@ -79,8 +79,8 @@ global.discoverGenerator = function (entity, req) {
     if (req.query.username)
         query.where.username = req.query.username;
 
-    if(req.params.value !== 'all')
-      query.include = [{model:global.db.Category, where:{nameSlugify: req.params.value}}];
+    //if(req.params.value !== 'all')
+      //query.include = [{model:global.db.Category, where:{nameSlugify: req.params.value}}];
 
     return {options: options, query: query};
 }
@@ -101,6 +101,7 @@ global.searchUsers = function (req) {
 global.searchProducts = function (req) {
     var discover = discoverGenerator('Product', req);
     discover.query.where.public = true;
+    discover.query.addUser = true;
     discover.query.order.push([global.db.sequelize.col('id')]);
     return global.getPaginationEntity(discover.options, discover.query);
 };

@@ -5,8 +5,10 @@
 var APP = APP || {};
 
 APP.Viewer = function (id, navigation, data, container) {
+  this.id = id;
   this.navigation = navigation;
   this.initialize = true;
+
   if(this.navigation) {
     this.navigationManager = new APP.NavigationManager(navigation);
     this.navigationManager.navigator.currentPage = data.pagination.page;
@@ -37,8 +39,7 @@ APP.Viewer.prototype.pageLoadEndHandler = function(event) {
 APP.Viewer.prototype.addItems = function(items, container) {
   var i = 0, item;
   for(i; i< items.length; i++) {
-    item = new APP.Work(items[i]);
-    console.log(this.initialize);
+    item = new APP[Utils.capitalize(this.id)](items[i]);
     if(this.navigation) {
       if(this.initialize) {
         $('.grid').append(item.view);
