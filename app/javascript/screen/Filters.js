@@ -11,7 +11,7 @@ APP.Filters = function (filters) {
 	this.oldOrder = this.filters.currentOrder;
 
 	this.currentCategory = this.currentOrder = null;
-	
+
 	this.buildFilters();
 	this.listeners();
 };
@@ -41,9 +41,10 @@ APP.Filters.prototype.filterItemHandler = function(meta, event) {
 	var oldFilter = 'old' + filterCapitalized;
 	var currentFilter = 'current' + filterCapitalized;
 
-	this[currentFilter] = $(event.target).html();
+	this[currentFilter] = $(event.target).attr('data-value');
+
 	DataApp.currentUrl = DataApp.currentUrl.replace(this[oldFilter], this[currentFilter]);
 	this[oldFilter] = this[currentFilter];
-
-	console.log(DataApp.currentUrl);
+	
+	Broadcaster.dispatchEvent('PAGE_RESET');
 };

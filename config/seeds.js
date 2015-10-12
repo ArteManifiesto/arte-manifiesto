@@ -16,8 +16,8 @@ exports.start = function () {
 var seedCategory = function () {
     var categories = [
         {name: 'Arte Urbano'}, {name: 'Collage'}, {name: 'Dibujo'},
-        {name: 'Fotografía'}, {name: 'Grabado'}, {name: 'Ilustración'},
-        {name: 'Instalación'}, {name: 'Pintura'}, {name: 'Técnica Mixta'},
+        {name: 'Fotografia'}, {name: 'Grabado'}, {name: 'Ilustracion'},
+        {name: 'Instalacion'}, {name: 'Pintura'}, {name: 'Tecnica Mixta'},
         {name: 'Digital'}, {name: 'Escultura'}
     ];
     return global.db.Category.bulkCreate(categories);

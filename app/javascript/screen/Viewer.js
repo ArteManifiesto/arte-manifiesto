@@ -8,19 +8,16 @@ APP.Viewer = function (id, navigation, data) {
   this.navigationManager = new APP.NavigationManager(navigation);
   this.navigationManager.navigator.currentPage = data.pagination.page;
   this.navigationManager.navigator.totalPages = data.pagination.pages;
-
   this.listeners();
 
-  for(var i=0; i< data.items.length; i++) {
-    $('.grid').append($(APP.TemplateManager.instance.getFromDoc('work-item')(data.items[i])));
-  }
+  this.addItems(data);
 };
 
 APP.Viewer.constructor = APP.Viewer;
 
 APP.Viewer.prototype.listeners = function() {
   Broadcaster.addEventListener('PAGE_LOAD_START', this.pageLoadStartHandler);
-  Broadcaster.addEventListener('PAGE_LOAD_END', this.pageLoadEndHandler);
+  Broadcaster.addEventListener('PAGE_LOAD_END', this.pageLoadEndHandler.bind(this));
 };
 
 APP.Viewer.prototype.pageLoadStartHandler = function() {
@@ -28,19 +25,22 @@ APP.Viewer.prototype.pageLoadStartHandler = function() {
 };
 
 APP.Viewer.prototype.pageLoadEndHandler = function(event) {
-  var items = event.data.items;
-  for(var i=0; i< items.length; i++) {
-    var item = $(APP.TemplateManager.instance.getFromDoc('work-item')(items[i]));
-    $('.grid').append(item).masonry('appended', item);
+  this.addItems(event.data, true);
+};
+
+APP.Viewer.prototype.addItems = function(data, initialized) {
+  var i = 0, item, items = data.items;
+  for(i; i< items.length; i++) {
+    item = new APP.Work(items[i]);
+    if(!initialized)
+      $('.grid').append(item.view)
+    else
+      $('.grid').append(item.view).masonry('appended', item.view);
   }
 };
 
-APP.Viewer.prototype.addItems = function() {
-
-};
-
 APP.Viewer.prototype.reset = function() {
-
+  this.navigationManager.navigator.reset();
 };
 
 APP.Viewer.prototype.clean = function() {

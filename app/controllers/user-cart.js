@@ -96,7 +96,6 @@ exports.remove = function (req, res) {
 
 exports.items = function (req, res) {
     req.body.option = req.body.option || 1;
-
     var query = {
         where: {
             ProductId: req.body.idProduct,

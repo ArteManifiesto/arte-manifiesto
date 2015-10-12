@@ -5,23 +5,17 @@
 var APP = APP || {};
 
 APP.BaseElement = function (data, id) {
-    this.template = _.template(APP.TemplateManager.instance.templates[id]);
+    this.template = APP.TemplateManager.instance.getFromDoc(id);
     this.data = data;
     this.view = $(this.template(this.data));
     this.rawView = this.view[0];
 
-    this.setupUI();
     this.listeners();
 };
 
 APP.BaseElement.prototype = Object.create(Object.prototype);
 
 APP.BaseElement.constructor = APP.BaseElement;
-
-APP.BaseElement.prototype.setupUI = function () {
-
-}
-
 
 APP.BaseElement.prototype.listeners = function () {
 

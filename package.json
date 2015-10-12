@@ -48,12 +48,12 @@
     "recaptcha": "^1.2.1",
     "request": "^2.55.0",
     "sendgrid": "^1.6.1",
-    "sequelize": "3.0.1",
+    "sequelize": "3.11.0",
     "sequelize-cli": "^1.5.0",
     "simple-recaptcha-new": "^1.0.0",
     "swig": "^1.4.2"
   },
-  
+
   "devDependencies": {
     "gulp": "*",
     "gulp-concat": "*",
@@ -63,7 +63,7 @@
     "nib": "*",
     "open": "0.0.5"
   },
-  
+
   "scripts": {
     "style": "stylus -u nib -w -o public/css public/src/stylus/"
   }

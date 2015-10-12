@@ -54,7 +54,7 @@ global.discoverGenerator = function (entity, req) {
     options.entity = entity;
     options.name = 'items';
     options.page = req.params.page;
-    options.limit = 15;
+    options.limit = 20;
 
     var query = {where: {}, build: true};
     query.viewer = req.viewer;
@@ -62,7 +62,7 @@ global.discoverGenerator = function (entity, req) {
 
     if (req.query.featured)
         query.where.featured = req.query.featured;
-    
+
     if (req.query.time)
         query.where.createdAt = {
             $between: [moment().startOf(req.query.time).toDate(), moment().toDate()]
@@ -78,6 +78,9 @@ global.discoverGenerator = function (entity, req) {
 
     if (req.query.username)
         query.where.username = req.query.username;
+
+    //if(req.params.value !== 'all')
+      //query.include = [{model:global.db.Category, where:{nameSlugify: req.params.value}}];
 
     return {options: options, query: query};
 }
@@ -115,6 +118,7 @@ global.getParameter = function (data, value) {
     if (index < 0)index = 0;
     return data[index];
 };
+
 global.encodeToQuery = function (data) {
     var ret = [];
     var param;
