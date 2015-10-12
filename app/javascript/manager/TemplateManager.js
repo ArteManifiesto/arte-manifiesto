@@ -24,3 +24,11 @@ APP.TemplateManager.prototype.loadTemplates = function (ids) {
             scope.templates[ids[i]] = _.template(arguments[i][0]);
     });
 };
+
+APP.TemplateManager.prototype.getFromDoc = function(id) {
+  if(this.templates[id])
+    return this.templates[id];
+
+  this.templates[id] = _.template($("#template-" + id).html());
+  return this.templates[id];
+};

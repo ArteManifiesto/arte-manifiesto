@@ -4,39 +4,39 @@
  */
 var APP = APP || {};
 
-APP.FilterScreen = function (filters) {
+APP.Filters = function (filters) {
 	this.filters = filters;
 
 	this.oldCategory = this.filters.currentCategory;
 	this.oldOrder = this.filters.currentOrder;
 
 	this.currentCategory = this.currentOrder = null;
-
+	
 	this.buildFilters();
 	this.listeners();
 };
 
-APP.FilterScreen.constructor = APP.FilterScreen;
+APP.Filters.constructor = APP.Filters;
 
-APP.FilterScreen.prototype.buildFilters = function() {
+APP.Filters.prototype.buildFilters = function() {
 	var itemRenderer = function(data, meta) {
-		var item;
+		var item = APP.TemplateManager.instance.getFromDoc('filter-item');
 		$.each(data, function(index, value){
+			value = _.isObject(value) ? value : {name: value}
 			value.meta = meta;
-			item = APP.TemplateManager.instance.templates['filter-item'](value);
-			$('.filter-' + meta).append(item);
+			$('.filter-' + meta).append(item(value));
 		});
 	};
 	itemRenderer(this.filters.categories, 'category');
-	itemRenderer(this.filters.orders, 'order');
+	itemRenderer(this.filters.order, 'order');
 };
 
-APP.FilterScreen.prototype.listeners = function () {
+APP.Filters.prototype.listeners = function () {
 	$("[data-meta='category']").on('click', this.filterItemHandler.bind(this, 'category'));
 	$("[data-meta='order']").on('click', this.filterItemHandler.bind(this, 'order'));
 };
 
-APP.FilterScreen.prototype.filterItemHandler = function(meta, event) {
+APP.Filters.prototype.filterItemHandler = function(meta, event) {
 	var filterCapitalized = Utils.capitalize(meta);
 	var oldFilter = 'old' + filterCapitalized;
 	var currentFilter = 'current' + filterCapitalized;

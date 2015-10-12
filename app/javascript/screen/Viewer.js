@@ -1,12 +1,16 @@
 /**
- *Author : www.juliocanares.com/cv
- *Email : juliocanares@gmail.com
- */
+*Author : www.juliocanares.com/cv
+*Email : juliocanares@gmail.com
+*/
 var APP = APP || {};
 
 APP.Viewer = function (id, navigation, initialData) {
-    this.navigationManager = new APP.NavigationManager(navigation);
-    this.listeners();
+  this.navigationManager = new APP.NavigationManager(navigation);
+  this.listeners();
+
+  for(var i=0; i< initialData.length; i++) {
+    $('.grid').append($(APP.TemplateManager.instance.getFromDoc('work-item')(initialData[i])));
+  }
 };
 
 APP.Viewer.constructor = APP.Viewer;

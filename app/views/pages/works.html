@@ -60,7 +60,8 @@
 <!-- <div class="discover-content grid-container u-padding-top-10 u-padding-bottom-40"> -->
 <div class="discover-content menu_open grid-container u-padding-top-10 u-padding-bottom-40">
 	<div class="grid-100 grid-parent">
-		{% include '../partials/layout-works.html' %}
+		<div class="grid work-layout-discover">
+		</div>
 	</div>
 	<div class="grid-100 u-margin-top-10">
 		<a class="am-More-button">I need more</a>
@@ -76,17 +77,27 @@ $ MASONRY
 ********************************************************************* -->
 <script src="http://imagesloaded.desandro.com/imagesloaded.pkgd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js"></script>
-
 <script type="text/javascript">
-console.log({{ d|json|safe }});
+$(document).ready(onReady);
+function onReady() {
+	var data = {{ data|json|safe }};
+	
+	var filters = {
+		categories: data.categories,
+		order: data.order,
+		currentCategory: data.currentCategory,
+		currentOrder: data.currentOrder
+	};
+	var initialData = data.items;
+	new APP.DiscoverScreen('works', APP.NavigationManager.NAVIGATION_PAGINATION, initialData, filters);
 
-var $container = $('.grid');
-
-$container.imagesLoaded(function(){
-	$container.masonry({
-		itemSelector: '.grid-item'
+	var $container = $('.grid');
+	$container.imagesLoaded(function(){
+		$container.masonry({
+			itemSelector: '.grid-item'
+		});
 	});
-});
+}
 </script>
 
 {% endblock %}

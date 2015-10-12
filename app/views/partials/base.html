@@ -41,5 +41,23 @@
 		}
 	</script>
 	{% block scripts %} {% endblock %}
+
+	<script type="text/template" id="template-filter-item">
+		<div class="am-Filter-item">
+			<% if (meta === "category") { %>
+				<p class="am-Filter-option" data-meta=<%= meta %> data-value=<%= nameSlugify %> ><%= name %></p>
+			<% } %>
+			<% if (meta === "order") { %>
+				<p class="am-Filter-option" data-meta=<%= meta %> data-value=<%= name %> ><%= name %></p>
+			<% } %>
+		</div>
+	</script>
+
+	<script type="text/template" id="template-work-item">
+		<div class="grid-item">
+			<img src="<%= photo %>">
+		</div>
+	</script>
+
 </body>
 </html>

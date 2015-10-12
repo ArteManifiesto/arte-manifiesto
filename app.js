@@ -32,7 +32,7 @@ require('./config/errors')(app);
 
 app.set('port', process.env.PORT || cf.port);
 
-var dev = process.env.NODE_RESTART;
+var dev = false;
 
 global.db.sequelize.sync({force: dev}).then(function () {
     if (dev)

@@ -31,6 +31,8 @@ var searchHandler = function (entity, req, res) {
     return global["search" + searchable](req).then(function (data) {
         var query = global.encodeToQuery(req.query);
         data.url = req.protocol + '://' + req.get('host') + req.path + '?' + query;
+        data.currentCategory = req.params.value;
+        data.currentOrder = req.query.order;
         return res.json(data);
     });
 };
@@ -47,31 +49,35 @@ var searchBridge = function (req) {
     });
 };
 
-var discover = function (req, isProduct) {
+var discover = function (req, entity) {
+    console.log(req.query);
     var query = {attributes: ['id', 'name', 'nameSlugify']};
     var promises = [
       searchBridge(req),
-      global.db[isProduct ? 'ProductType' : 'Category'].findAll(query)
+      global.db[entity === 'products' ? 'ProductType' : 'Category'].findAll(query)
     ];
     return global.db.Sequelize.Promise.all(promises).then(function (data) {
-      return {items: data[0], categories: data[1]};
+      var order = global.config.search.orders[entity];
+      data[0].categories = data[1];
+      data[0].order = order;
+      return {data: data[0]};
     });
 };
 
 exports.works = function (req, res) {
-    discover(req).then(function (data) {
-        return res.render(basePath + 'works', {d: data});
+    discover(req, 'works').then(function (data) {
+        return res.render(basePath + 'works', data);
     });
 };
 
 exports.users = function (req, res) {
-    discover(req).then(function (data) {
+    discover(req, 'users').then(function (data) {
         return res.render(basePath + 'users', data);
     });
 };
 
 exports.products = function (req, res) {
-  discover(req, true).then(function (data) {
+  discover(req, 'products').then(function (data) {
     return res.render(basePath + 'products', data);
   });
 };
@@ -79,7 +85,7 @@ exports.products = function (req, res) {
 exports.search = function (entity, req, res) {
     if (!req.body.viewer)
         return searchHandler(entity, req, res);
-    
+
     req.viewer = req.body.viewer;
     return searchHandler(entity, req, res);
 };

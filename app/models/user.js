@@ -250,7 +250,7 @@ module.exports = function (sequelize, DataTypes) {
                             promises.push(global.db.Work.create({
                                 name: chance.name(),
                                 description: chance.paragraph(),
-                                photo: '/img/works/obra' + (_.random(1, 12).toString()) + '.jpg',
+                                photo: '/img/works/work' + (_.random(1, 12).toString()) + '.jpg',
                                 public: true
                             }, {user: user}));
                         }
