@@ -26,7 +26,7 @@ Utils = {
     },
     paginationButtons: function (currentPage, totalPages, maxButtons) {
         var i, result = [1], middle = Math.floor(maxButtons / 2);
-
+        
         if (currentPage > totalPages)
             return null;
 

@@ -8,7 +8,7 @@ APP.NavigationManager = function (navigation) {
   this.navigator;
   switch(navigation) {
     case APP.NavigationManager.NAVIGATION_PAGINATION:
-      this.navigator = new APP.PaginableNavigation();
+      this.navigator = new APP.PaginationNavigation();
     break;
     case APP.NavigationManager.NAVIGATION_INFINITE:
     default:

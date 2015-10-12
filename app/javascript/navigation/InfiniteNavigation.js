@@ -6,7 +6,6 @@ var APP = APP || {};
 
 APP.InfiniteNavigation = function () {
   APP.BaseNavigation.call(this);
-    this.listeners();
 };
 
 APP.InfiniteNavigation.prototype = Object.create(APP.BaseNavigation.prototype);

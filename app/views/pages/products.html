@@ -62,6 +62,11 @@
 		<div class="grid work-layout-discover">
 		</div>
 	</div>
+	<div class="grid-100 u-margin-top-10">
+		<ul class="am-Pagination">
+
+		</ul>
+	</div>
 </div>
 
 {% endblock %}
@@ -78,7 +83,7 @@ $(document).ready(onReady);
 function onReady() {
 	var data = {{ data|json|safe }};
 	console.log(data);
-	new APP.DiscoverScreen('product', APP.NavigationManager.NAVIGATION_INFINITE, data);
+	new APP.DiscoverScreen('product', APP.NavigationManager.NAVIGATION_PAGINATION, data);
 
 	var $container = $('.grid');
 	$container.imagesLoaded(function(){
