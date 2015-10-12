@@ -65,6 +65,6 @@
   },
 
   "scripts": {
-    "style": "stylus -u nib -w -o public/css public/src/stylus/"
+    "style": "stylus -u nib -w -c -o public/ app/styles/app.min.styl"
   }
 }
