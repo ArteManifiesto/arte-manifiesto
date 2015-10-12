@@ -7,7 +7,7 @@ var APP = APP || {};
 APP.BaseNavigation = function () {
   this.currentPage = 0;
   this.totalPages = 0;
-
+  
   this.pagesCache = {};
   this.currentPageData;
 };
@@ -55,8 +55,6 @@ APP.BaseNavigation.prototype.updateUrl = function () {
 };
 
 APP.BaseNavigation.prototype.reset = function () {
-  this.currentPage = 1;
-  //this.pagesCache = {};
   this.currentPageData = null;
   this.gotoPage(1, true);
 };

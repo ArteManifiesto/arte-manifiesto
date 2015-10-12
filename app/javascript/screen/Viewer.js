@@ -4,13 +4,18 @@
 */
 var APP = APP || {};
 
-APP.Viewer = function (id, navigation, data) {
-  this.navigationManager = new APP.NavigationManager(navigation);
-  this.navigationManager.navigator.currentPage = data.pagination.page;
-  this.navigationManager.navigator.totalPages = data.pagination.pages;
-  this.listeners();
-
-  this.addItems(data);
+APP.Viewer = function (id, navigation, data, container) {
+  this.navigation = navigation;
+  this.initialize = true;
+  if(this.navigation) {
+    this.navigationManager = new APP.NavigationManager(navigation);
+    this.navigationManager.navigator.currentPage = data.pagination.page;
+    this.navigationManager.navigator.totalPages = data.pagination.pages;
+    this.listeners();
+    this.addItems(data.items);
+  }else {
+    this.addItems(data, container);
+  }
 };
 
 APP.Viewer.constructor = APP.Viewer;
@@ -18,6 +23,7 @@ APP.Viewer.constructor = APP.Viewer;
 APP.Viewer.prototype.listeners = function() {
   Broadcaster.addEventListener('PAGE_LOAD_START', this.pageLoadStartHandler);
   Broadcaster.addEventListener('PAGE_LOAD_END', this.pageLoadEndHandler.bind(this));
+  Broadcaster.addEventListener('PAGE_RESET', this.pageResetHandler.bind(this));
 };
 
 APP.Viewer.prototype.pageLoadStartHandler = function() {
@@ -25,21 +31,32 @@ APP.Viewer.prototype.pageLoadStartHandler = function() {
 };
 
 APP.Viewer.prototype.pageLoadEndHandler = function(event) {
-  this.addItems(event.data, true);
+  this.initialize = false;
+  this.addItems(event.data.items);
 };
 
-APP.Viewer.prototype.addItems = function(data, initialized) {
-  var i = 0, item, items = data.items;
+APP.Viewer.prototype.addItems = function(items, container) {
+  var i = 0, item;
   for(i; i< items.length; i++) {
     item = new APP.Work(items[i]);
-    if(!initialized)
-      $('.grid').append(item.view)
-    else
-      $('.grid').append(item.view).masonry('appended', item.view);
+    console.log(this.initialize);
+    if(this.navigation) {
+      if(this.initialize) {
+        $('.grid').append(item.view);
+      }
+      else {
+        $('.grid').append(item.view).masonry('appended', item.view);
+      }
+    }else {
+      container.append(item.view);
+    }
   }
 };
 
-APP.Viewer.prototype.reset = function() {
+APP.Viewer.prototype.pageResetHandler = function() {
+  var $container = $('.grid');
+  $container.masonry('remove', $container.find('.grid-item')).masonry();
+  this.initialize = false;
   this.navigationManager.navigator.reset();
 };
 

@@ -249,7 +249,7 @@ module.exports = function (sequelize, DataTypes) {
                         for (i = 0; i < 3; i++) {
                             promises.push(global.db.Work.create({
                                 name: chance.name(),
-                                description: chance.paragraph(),
+                                description: "We weren't quite sure what to expect, but you blew us away—with everything from direct, powerful descriptions of your work to rhymes and poems to even a Vine resume.",
                                 photo: '/img/works/work' + (_.random(1, 12).toString()) + '.jpg',
                                 public: true
                             }, {user: user}));

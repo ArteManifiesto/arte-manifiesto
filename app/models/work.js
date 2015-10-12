@@ -142,8 +142,10 @@ module.exports = function (sequelize, DataTypes) {
                     return work.save();
                 },
                 beforeFind: function (options, fn) {
-                    if (options.addUser)
-                        options.include = [{model: global.db.User}];
+                    if (options.addUser){
+                        options.include = options.include || [];
+                        options.include.push({model: global.db.User});
+                    }
                     fn(null, options);
                 },
                 afterFind: function (items, options, fn) {

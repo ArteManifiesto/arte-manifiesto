@@ -40,15 +40,17 @@
 			new APP.AM();
 		}
 	</script>
-	{% block scripts %} {% endblock %}
-
 	<script type="text/template" id="template-filter-item">
 		<div class="am-Filter-item">
 			<% if (meta === "category") { %>
-				<p class="am-Filter-option" data-meta=<%= meta %> data-value=<%= nameSlugify %> ><%= name %></p>
+				<p class="am-Filter-option" data-meta=<%= meta %> data-value=<%= nameSlugify %> ><%= name %>
+					<i class="fa fa-chevron-right"></i>
+				</p>
 			<% } %>
 			<% if (meta === "order") { %>
-				<p class="am-Filter-option" data-meta=<%= meta %> data-value=<%= name %> ><%= name %></p>
+				<p class="am-Filter-option" data-meta=<%= meta %> data-value=<%= name %> ><%= name %>
+					<i class="fa fa-chevron-right"></i>
+				</p>
 			<% } %>
 		</div>
 	</script>
@@ -58,6 +60,6 @@
 			<img src="<%= photo %>">
 		</div>
 	</script>
-
+	{% block scripts %} {% endblock %}
 </body>
 </html>

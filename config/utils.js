@@ -61,7 +61,7 @@ global.discoverGenerator = function (entity, req) {
     query.order = [global.getOrder(req.query.order)]
 
     if (req.query.featured)
-        query.where.featured = req.query.featured;
+        query.where.featured = true;
 
     if (req.query.time)
         query.where.createdAt = {

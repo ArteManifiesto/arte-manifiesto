@@ -1,17 +1,11 @@
-{% extends './partials/base.html' %}
-
-
+{% extends '../../partials/base.html' %}
 {% block elements %}
-
-	<!-- ********************************************************************
-		$ SINGLE INFO
-	********************************************************************* -->
 	<div class="grid-container u-margin-top-30">
 		<div class="grid-100">
 			<div class="single-info">
 				<div class="single-image">
 					<div class="single-image-inner">
-						<img src="img/work.jpg">
+						<img src="{{work.photo}}">
 						<div class="actions u-padding-top-20 u-padding-bottom-20">
 							<div class="action">
 								<i class="fa fa-diamond valuation"></i>
@@ -27,17 +21,18 @@
 				<div class="single-data u-padding-bottom-40">
 					<div class="FollowArtist u-padding-bottom-10">
 						<div>
-							<p class="u-padding-bottom-7 big"><strong>SEBASTIÁN SUAREZ</strong></p>
+							<p class="u-padding-bottom-7 big"><strong>{{work.User.firstname}}</strong></p>
 							<button class="am-Follow-button">+ SEGUIR</button>
 						</div>
 					</div>
 					<div class="u-separator"></div>
-					<p class="am-Single-title-text u-margin-top-15">Los pajaritos ya no cantan como antes, cómo antes cantaban, 2014</p>
+					<p class="am-Single-title-text u-margin-top-15">{{work.description}}</p>
 					<p class="am-Single-text u-margin-top-10">42 cm x 42 cm</p>
-					<p class="am-Single-text u-margin-top-10">Serie: <strong>Los noctámbulos y otros demonios.</strong></p>
 					<p class="am-Single-text u-margin-top-10">Estado: <strong>Disponible original y productos</strong></p>
 					<p class="am-Single-text u-margin-top-20">Categoría:</p>
-					<span class="am-Category-box u-margin-top-7">TÉCNICA MIXTA</span>
+					{% for category in work.Categories %}
+						<span class="am-Category-box u-margin-top-7">{{category.name}}</span>
+					{% endfor %}
 					<div class="info-box u-margin-top-25">
 						<div class="header">
 							<p class="selected">ORIGINAL</p>
@@ -57,12 +52,12 @@
 						  <tr>
 						    <td><i class="fa fa-eye"></i></td>
 						    <td><p>VISTAS</p></td>
-						    <td><span>2,342</span></td>
+						    <td><span>{{work.views}}</span></td>
 						  </tr>
 						  <tr>
 						    <td><i class="fa fa-diamond"></i></td>
 						    <td><p>VALORACIONES</p></td>
-						    <td><span>252</span></td>
+						    <td><span>{{work.likes || 0}}</span></td>
 						  </tr>
 						</table>
 					</div>
@@ -81,10 +76,10 @@
 				<div class="single-menu">
 					<div class="artist">
 						<div class="FollowArtist">
-							<img src="img/avatar.jpg">
+							<img src="{{work.User.photo}}">
 							<div>
-								<p class="u-padding-bottom-4" style="font-weight: bold;">SEBASTIÁN SUAREZ</p>
-								<p class="u-padding-bottom-7"> <strong></strong> Lima, Perú</p>
+								<p class="u-padding-bottom-4" style="font-weight: bold;">{{work.User.firstname}}</p>
+								<p class="u-padding-bottom-7"> <strong></strong> {{work.User.city}}, {{work.User.country}}</p>
 								<button class="am-Follow-button">+ SEGUIR</button>
 							</div>
 						</div>
@@ -128,30 +123,30 @@
 	<div class="grid-container u-margin-top-20">
 		<div class="grid-100 grid-parent">
 			<div class="more-images">
-				<div class="am-MoreImages" style="background-image: url(img/products/Wall-art-1.jpg);"></div>
-				<div class="am-MoreImages" style="background-image: url(img/products/Wall-Art-Art-print.jpg);"></div>
-				<div class="am-MoreImages" style="background-image: url(img/products/Wall-Art-Canvas-print.jpg);"></div>
-				<div class="am-MoreImages" style="background-image: url(img/products/wall-art-photo-print.jpg);"></div>
-				<div class="am-MoreImages" style="background-image: url(img/products/Wall-art-photo-print.jpg);"></div>
+				<div class="am-MoreImages" style="background-image: url(/img/products/Wall-art-1.jpg);"></div>
+				<div class="am-MoreImages" style="background-image: url(/img/products/Wall-Art-Art-print.jpg);"></div>
+				<div class="am-MoreImages" style="background-image: url(/img/products/Wall-Art-Canvas-print.jpg);"></div>
+				<div class="am-MoreImages" style="background-image: url(/img/products/wall-art-photo-print.jpg);"></div>
+				<div class="am-MoreImages" style="background-image: url(/img/products/Wall-art-photo-print.jpg);"></div>
 			</div>
 		</div>
 	</div>
 
 	<!-- <div class="grid-container u-margin-top-20">
 		<div class="grid-20 mobile-grid-33">
-			<div class="am-MoreImages" style="background-image: url(img/products/Wall-art-1.jpg);"></div>
+			<div class="am-MoreImages" style="background-image: url(/img/products/Wall-art-1.jpg);"></div>
 		</div>
 		<div class="grid-20 mobile-grid-33">
-			<div class="am-MoreImages" style="background-image: url(img/products/Wall-Art-Art-print.jpg);"></div>
+			<div class="am-MoreImages" style="background-image: url(/img/products/Wall-Art-Art-print.jpg);"></div>
 		</div>
 		<div class="grid-20 mobile-grid-33">
-			<div class="am-MoreImages" style="background-image: url(img/products/Wall-Art-Canvas-print.jpg);"></div>
+			<div class="am-MoreImages" style="background-image: url(/img/products/Wall-Art-Canvas-print.jpg);"></div>
 		</div>
 		<div class="grid-20 mobile-grid-33">
-			<div class="am-MoreImages" style="background-image: url(img/products/wall-art-photo-print.jpg);"></div>
+			<div class="am-MoreImages" style="background-image: url(/img/products/wall-art-photo-print.jpg);"></div>
 		</div>
 		<div class="grid-20 mobile-grid-33">
-			<div class="am-MoreImages" style="background-image: url(img/products/Wall-art-photo-print.jpg);"></div>
+			<div class="am-MoreImages" style="background-image: url(/img/products/Wall-art-photo-print.jpg);"></div>
 		</div>
 	</div> -->
 
@@ -165,30 +160,30 @@
 	<div class="grid-container u-margin-top-20">
 		<div class="grid-100 grid-parent">
 			<div class="more-images">
-				<div class="am-MoreImages" style="background-image: url(img/products/Home-Decor-Mug.jpg);"></div>
-				<div class="am-MoreImages" style="background-image: url(img/products/Home-Decor-Throw-Pillow.jpg);"></div>
-				<div class="am-MoreImages" style="background-image: url(img/products/Cases_Skins-Iphone-Case.jpg);"></div>
-				<div class="am-MoreImages" style="background-image: url(img/products/Cases_Skins-Galaxy-Case.jpg);"></div>
-				<div class="am-MoreImages" style="background-image: url(img/products/Cases_Skin-Ipad.jpg);"></div>
+				<div class="am-MoreImages" style="background-image: url(/img/products/Home-Decor-Mug.jpg);"></div>
+				<div class="am-MoreImages" style="background-image: url(/img/products/Home-Decor-Throw-Pillow.jpg);"></div>
+				<div class="am-MoreImages" style="background-image: url(/img/products/Cases_Skins-Iphone-Case.jpg);"></div>
+				<div class="am-MoreImages" style="background-image: url(/img/products/Cases_Skins-Galaxy-Case.jpg);"></div>
+				<div class="am-MoreImages" style="background-image: url(/img/products/Cases_Skin-Ipad.jpg);"></div>
 			</div>
 		</div>
 	</div>
 
 	<!-- <div class="grid-container u-margin-top-20">
 		<div class="grid-20 mobile-grid-33">
-			<div class="am-MoreImages" style="background-image: url(img/products/Home-Decor-Mug.jpg);"></div>
+			<div class="am-MoreImages" style="background-image: url(/img/products/Home-Decor-Mug.jpg);"></div>
 		</div>
 		<div class="grid-20 mobile-grid-33">
-			<div class="am-MoreImages" style="background-image: url(img/products/Home-Decor-Throw-Pillow.jpg);"></div>
+			<div class="am-MoreImages" style="background-image: url(/img/products/Home-Decor-Throw-Pillow.jpg);"></div>
 		</div>
 		<div class="grid-20 mobile-grid-33">
-			<div class="am-MoreImages" style="background-image: url(img/products/Cases_Skins-Iphone-Case.jpg);"></div>
+			<div class="am-MoreImages" style="background-image: url(/img/products/Cases_Skins-Iphone-Case.jpg);"></div>
 		</div>
 		<div class="grid-20 mobile-grid-33">
-			<div class="am-MoreImages" style="background-image: url(img/products/Cases_Skins-Galaxy-Case.jpg);"></div>
+			<div class="am-MoreImages" style="background-image: url(/img/products/Cases_Skins-Galaxy-Case.jpg);"></div>
 		</div>
 		<div class="grid-20 mobile-grid-33">
-			<div class="am-MoreImages" style="background-image: url(img/products/Cases_Skin-Ipad.jpg);"></div>
+			<div class="am-MoreImages" style="background-image: url(/img/products/Cases_Skin-Ipad.jpg);"></div>
 		</div>
 	</div> -->
 
@@ -202,21 +197,20 @@
 	<div class="grid-container u-margin-top-20">
 		<div class="grid-100 grid-parent">
 			<div class="more-images">
-				<div class="am-MoreImages" style="background-image: url(img/products/Apparel-Unisex-t-shirt.jpg);"></div>
-				<div class="am-MoreImages" style="background-image: url(img/products/Apparel-Girls-T-shirts.jpg);"></div>
+				<div class="am-MoreImages" style="background-image: url(/img/products/Apparel-Unisex-t-shirt.jpg);"></div>
+				<div class="am-MoreImages" style="background-image: url(/img/products/Apparel-Girls-T-shirts.jpg);"></div>
 			</div>
 		</div>
 	</div>
 
 	<!-- <div class="grid-container u-margin-top-20">
 		<div class="grid-20 mobile-grid-33">
-			<div class="am-MoreImages" style="background-image: url(img/products/Apparel-Unisex-t-shirt.jpg);"></div>
+			<div class="am-MoreImages" style="background-image: url(/img/products/Apparel-Unisex-t-shirt.jpg);"></div>
 		</div>
 		<div class="grid-20 mobile-grid-33">
-			<div class="am-MoreImages" style="background-image: url(img/products/Apparel-Girls-T-shirts.jpg);"></div>
+			<div class="am-MoreImages" style="background-image: url(/img/products/Apparel-Girls-T-shirts.jpg);"></div>
 		</div>
 	</div> -->
-
 
 	<!-- ********************************************************************
 		$ MORE
@@ -232,12 +226,8 @@
 
 	<div class="grid-container">
 		<div class="grid-100 grid-parent">
-			<div class="more-images">
-				<div class="am-MoreImages" style="background-image: url(img/works/work15.jpg);"></div>
-				<div class="am-MoreImages" style="background-image: url(img/works/work16.jpg);"></div>
-				<div class="am-MoreImages" style="background-image: url(img/works/work17.jpg);"></div>
-				<div class="am-MoreImages" style="background-image: url(img/works/work15.jpg);"></div>
-				<div class="am-MoreImages" style="background-image: url(img/works/work16.jpg);"></div>
+			<div class="more-images more-works">
+
 			</div>
 		</div>
 	</div>
@@ -253,17 +243,10 @@
 
 	<div class="grid-container">
 		<div class="grid-100 grid-parent">
-			<div class="more-images">
-				<div class="am-MoreImages" style="background-image: url(img/works/work11.jpg);"></div>
-				<div class="am-MoreImages" style="background-image: url(img/works/work1.jpg);"></div>
-				<div class="am-MoreImages" style="background-image: url(img/works/work13.jpg);"></div>
-				<div class="am-MoreImages" style="background-image: url(img/works/work4.jpg);"></div>
-				<div class="am-MoreImages" style="background-image: url(img/works/work14.jpg);"></div>
+			<div class="more-images similar-works">
 			</div>
 		</div>
 	</div>
-
-
 
 	<!-- ********************************************************************
 		$ RESPORT
@@ -279,4 +262,18 @@
 		</div>
 	</div>
 
+{% endblock %}
+
+{% block scripts %}
+	<script>
+	$(document).ready(onReady);
+	function onReady() {
+			var work = {{work|json|safe}};
+			console.log(work);
+			var more = {{more|json|safe}};
+			var similar = {{similar|json|safe}};
+			new APP.Viewer('work', null, more, $('.more-works'));
+			new APP.Viewer('work', null, similar, $('.similar-works'));
+	}
+	</script>
 {% endblock %}

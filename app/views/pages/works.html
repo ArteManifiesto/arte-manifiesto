@@ -82,11 +82,12 @@ $(document).ready(onReady);
 function onReady() {
 	var data = {{ data|json|safe }};
 	console.log(data);
-	new APP.DiscoverScreen('works', APP.NavigationManager.NAVIGATION_PAGINATION, data);
+	new APP.DiscoverScreen('works', APP.NavigationManager.NAVIGATION_INFINITE, data);
 
 	var $container = $('.grid');
 	$container.imagesLoaded(function(){
 		$container.masonry({
+			columnWidth: 120,
 			itemSelector: '.grid-item'
 		});
 	});

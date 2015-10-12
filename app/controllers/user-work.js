@@ -10,10 +10,15 @@ exports.index = function (req, res) {
         req.work.getProducts({build: true, viewer: req.viewer})
     ];
     global.db.Sequelize.Promise.all(promises).then(function (result) {
-        return res.render(basePath + 'index', {
-            work: req.work, userLikes: result[1],
-            more: result[2], similar: result[3],
-            products: result[4]
+        var query = { where:{id: req.work.id}, include:[global.db.Category],
+          viewer: req.viewer, build: true, addUser: true
+        }
+        global.db.Work.find(query).then(function(work) {
+          return res.render(basePath + 'index', {
+              work: work, userLikes: result[1],
+              more: result[2], similar: result[3],
+              products: result[4]
+          });
         });
     });
 };

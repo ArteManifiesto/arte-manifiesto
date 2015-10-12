@@ -5,9 +5,6 @@
 var APP = APP || {};
 
 APP.NavigationManager = function (navigation) {
-  APP.NavigationManager.NAVIGATION_INFINITE = 'infinite';
-  APP.NavigationManager.NAVIGATION_PAGINATION = 'pagination';
-
   this.navigator;
   switch(navigation) {
     case APP.NavigationManager.NAVIGATION_PAGINATION:
@@ -19,6 +16,8 @@ APP.NavigationManager = function (navigation) {
     break;
   }
 };
+APP.NavigationManager.NAVIGATION_INFINITE = 'infinite';
+APP.NavigationManager.NAVIGATION_PAGINATION = 'pagination';
 
 APP.NavigationManager.prototype = Object.create(Object.prototype);
 
