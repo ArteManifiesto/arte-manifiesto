@@ -4,9 +4,9 @@
  */
 var APP = APP || {};
 
-APP.DiscoverScreen = function (id, navigation, iData, filters) {
-    this.viewer =  new APP.Viewer(id, navigation, iData);
-    this.filters =  new APP.Filters(filters);
+APP.DiscoverScreen = function (id, navigation, data) {
+    this.viewer =  new APP.Viewer(id, navigation, data);
+    this.filters =  new APP.Filters(data.filters);
 };
 
 APP.DiscoverScreen.constructor = APP.DiscoverScreen;

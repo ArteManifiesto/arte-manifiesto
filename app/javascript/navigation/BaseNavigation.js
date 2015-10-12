@@ -7,13 +7,46 @@ var APP = APP || {};
 APP.BaseNavigation = function () {
   this.currentPage = 0;
   this.totalPages = 0;
-  this.urlData;
+
+  this.pagesCache = {};
+  this.currentPageData;
 };
 
 APP.BaseNavigation.constructor = APP.BaseNavigation;
 
+APP.BaseNavigation.prototype.listeners = function() {
+
+};
+
+APP.BaseNavigation.prototype.gotoPage = function (next) {
+    var nextPage = next || this.currentPage + 1;
+    if (this.currentPage === nextPage)return;
+    if (this.currentPage === 0)this.currentPage = 1;
+
+    this.newPageUrl(nextPage);
+
+    if (this.pagesCache[nextPage])
+        return this.afterGetData(this.pagesCache[nextPage]);
+
+    Utils.getData({url: DataApp.currentUrl}).done(this.afterGetData.bind(this));
+};
+
+
+APP.BaseNavigation.prototype.afterGetData = function (response) {
+    this.currentPage = response.pagination.page;
+    this.totalPages = response.pagination.pages;
+
+    if (this.currentPage > response.pagination.pages)return;
+
+    this.pagesCache[this.currentPage] = response;
+    this.currentPageData = response;
+
+    Broadcaster.dispatchEvent("PAGE_LOAD_END", {data: response});
+}
+
 APP.BaseNavigation.prototype.newPageUrl = function (newPage) {
-  return DataApp.currentUrl.replace('page-' + this.currentPage, 'page-' + newPage);
+  console.log('newPage',newPage);
+  DataApp.currentUrl = DataApp.currentUrl.replace('page-' + this.currentPage, 'page-' + newPage);
 };
 
 APP.BaseNavigation.prototype.updateUrl = function () {

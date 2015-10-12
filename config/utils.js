@@ -54,7 +54,7 @@ global.discoverGenerator = function (entity, req) {
     options.entity = entity;
     options.name = 'items';
     options.page = req.params.page;
-    options.limit = 30;
+    options.limit = 15;
 
     var query = {where: {}, build: true};
     query.viewer = req.viewer;
@@ -62,7 +62,7 @@ global.discoverGenerator = function (entity, req) {
 
     if (req.query.featured)
         query.where.featured = req.query.featured;
-
+    
     if (req.query.time)
         query.where.createdAt = {
             $between: [moment().startOf(req.query.time).toDate(), moment().toDate()]

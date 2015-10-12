@@ -31,8 +31,10 @@ var searchHandler = function (entity, req, res) {
     return global["search" + searchable](req).then(function (data) {
         var query = global.encodeToQuery(req.query);
         data.url = req.protocol + '://' + req.get('host') + req.path + '?' + query;
-        data.currentCategory = req.params.value;
-        data.currentOrder = req.query.order;
+        data.filters = {
+          currentCategory : req.params.value,
+          currentOrder : req.query.order
+        }
         return res.json(data);
     });
 };
@@ -58,8 +60,8 @@ var discover = function (req, entity) {
     ];
     return global.db.Sequelize.Promise.all(promises).then(function (data) {
       var order = global.config.search.orders[entity];
-      data[0].categories = data[1];
-      data[0].order = order;
+      data[0].filters.categories = data[1];
+      data[0].filters.order = order;
       return {data: data[0]};
     });
 };

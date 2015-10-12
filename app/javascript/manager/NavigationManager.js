@@ -8,14 +8,14 @@ APP.NavigationManager = function (navigation) {
   APP.NavigationManager.NAVIGATION_INFINITE = 'infinite';
   APP.NavigationManager.NAVIGATION_PAGINATION = 'pagination';
 
-  this.navigation;
+  this.navigator;
   switch(navigation) {
     case APP.NavigationManager.NAVIGATION_PAGINATION:
-      this.navigation = new APP.PaginableNavigation();
+      this.navigator = new APP.PaginableNavigation();
     break;
     case APP.NavigationManager.NAVIGATION_INFINITE:
     default:
-      this.navigation = new APP.InfiniteNavigation();
+      this.navigator = new APP.InfiniteNavigation();
     break;
   }
 };

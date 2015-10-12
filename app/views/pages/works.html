@@ -81,15 +81,8 @@ $ MASONRY
 $(document).ready(onReady);
 function onReady() {
 	var data = {{ data|json|safe }};
-	
-	var filters = {
-		categories: data.categories,
-		order: data.order,
-		currentCategory: data.currentCategory,
-		currentOrder: data.currentOrder
-	};
-	var initialData = data.items;
-	new APP.DiscoverScreen('works', APP.NavigationManager.NAVIGATION_PAGINATION, initialData, filters);
+	console.log(data);
+	new APP.DiscoverScreen('works', APP.NavigationManager.NAVIGATION_PAGINATION, data);
 
 	var $container = $('.grid');
 	$container.imagesLoaded(function(){

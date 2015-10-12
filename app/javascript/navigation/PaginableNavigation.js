@@ -6,7 +6,7 @@ var APP = APP || {};
 
 APP.PaginableNavigation = function () {
     this.maxButtons = 7;
-    
+
     this.pagesCache = {};
     this.currentPageData;
 
@@ -51,7 +51,7 @@ APP.PaginableNavigation.prototype.afterGetData = function (response) {
 
     this.pagesCache[this.currentPage] = response;
     this.currentPageData = response;
-
+    
     this.build();
 }
 

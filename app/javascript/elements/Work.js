@@ -5,11 +5,11 @@
 var APP = APP || {};
 
 APP.Work = function (data) {
-    APP.BaseElement.call(this, data, 'work');
+    //APP.BaseElement.call(this, data, 'work');
     this.liked = this.data.liked;
 };
 
-APP.Work.prototype = Object.create(APP.BaseElement.prototype);
+//APP.Work.prototype = Object.create(APP.BaseElement.prototype);
 
 APP.Work.constructor = APP.Work;
 
