@@ -13,6 +13,10 @@ APP.PaginationNavigation.prototype = Object.create(APP.BaseNavigation.prototype)
 
 APP.PaginationNavigation.constructor = APP.PaginationNavigation;
 
+APP.PaginationNavigation.prototype.start = function() {
+  this.makeButtons();
+};
+
 APP.PaginationNavigation.prototype.listeners = function () {
   $(document).on('click', '.np-page-button', this.pagesHandler.bind(this));
 };
@@ -28,11 +32,12 @@ APP.PaginationNavigation.prototype.build = function () {
 };
 
 APP.PaginationNavigation.prototype.makeButtons = function () {
+    $('.am-Pagination').empty();
     var numbers = Utils.paginationButtons(this.currentPage, this.totalPages, this.maxButtons);
     var i = 0;
     for (i; i < numbers.length; i++) {
-      console.log(i);
-      var view = $('<li><a>'+ numbers[i] +'</a></li>');
+      var link = DataApp.currentUrl.replace('page-' + + this.currentPage,'page-' + numbers[i]);
+      var view = $('<li style="display:inline-block;margin:10px;"><a class="np-page-button" href="'+link+'">'+ numbers[i] +'</a></li>');
       $('.am-Pagination').append(view);
     }
 };

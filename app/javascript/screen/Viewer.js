@@ -8,11 +8,12 @@ APP.Viewer = function (id, navigation, data, container) {
   this.id = id;
   this.navigation = navigation;
   this.initialize = true;
-
+  console.log(data);
   if(this.navigation) {
     this.navigationManager = new APP.NavigationManager(navigation);
     this.navigationManager.navigator.currentPage = data.pagination.page;
     this.navigationManager.navigator.totalPages = data.pagination.pages;
+    this.navigationManager.navigator.start();
     this.listeners();
     this.addItems(data.items);
   }else {
@@ -41,6 +42,8 @@ APP.Viewer.prototype.addItems = function(items, container) {
   for(i; i< items.length; i++) {
     item = new APP[Utils.capitalize(this.id)](items[i]);
     if(this.navigation) {
+      if(this.navigation === APP.NavigationManager.NAVIGATION_PAGINATION && !this.initialize)
+        this.clean(); 
       if(this.initialize) {
         $('.grid').append(item.view);
       }
@@ -54,8 +57,11 @@ APP.Viewer.prototype.addItems = function(items, container) {
 };
 
 APP.Viewer.prototype.reset = function() {
-  var container = $('.grid');
-  container.masonry('remove', container.find('.grid-item')).masonry();
-  this.initialize = false;
+  this.clean();
   this.navigationManager.navigator.reset();
 };
+APP.Viewer.prototype.clean = function(){
+    var container = $('.grid');
+    container.masonry('remove', container.find('.grid-item')).masonry();
+    this.initialize = false;
+}

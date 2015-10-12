@@ -15,6 +15,9 @@ APP.BaseNavigation = function () {
 
 APP.BaseNavigation.constructor = APP.BaseNavigation;
 
+APP.BaseNavigation.prototype.start = function(){
+}
+
 APP.BaseNavigation.prototype.listeners = function() {
 
 };
