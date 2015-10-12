@@ -23,7 +23,6 @@ APP.Viewer.constructor = APP.Viewer;
 APP.Viewer.prototype.listeners = function() {
   Broadcaster.addEventListener('PAGE_LOAD_START', this.pageLoadStartHandler);
   Broadcaster.addEventListener('PAGE_LOAD_END', this.pageLoadEndHandler.bind(this));
-  Broadcaster.addEventListener('PAGE_RESET', this.pageResetHandler.bind(this));
 };
 
 APP.Viewer.prototype.pageLoadStartHandler = function() {
@@ -53,13 +52,9 @@ APP.Viewer.prototype.addItems = function(items, container) {
   }
 };
 
-APP.Viewer.prototype.pageResetHandler = function() {
-  var $container = $('.grid');
-  $container.masonry('remove', $container.find('.grid-item')).masonry();
+APP.Viewer.prototype.reset = function() {
+  var container = $('.grid');
+  container.masonry('remove', container.find('.grid-item')).masonry();
   this.initialize = false;
   this.navigationManager.navigator.reset();
-};
-
-APP.Viewer.prototype.clean = function() {
-
 };

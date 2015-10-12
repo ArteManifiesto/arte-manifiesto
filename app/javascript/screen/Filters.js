@@ -45,7 +45,7 @@ APP.Filters.prototype.featuredHandler = function() {
 		DataApp.currentUrl = DataApp.currentUrl + '&featured=1';
 	}
 	this.isFeatured = !this.isFeatured;
-	Broadcaster.dispatchEvent('PAGE_RESET');
+	Broadcaster.dispatchEvent('FILTER_CHANGED');
 };
 
 APP.Filters.prototype.filterItemHandler = function(meta, event) {
@@ -58,5 +58,5 @@ APP.Filters.prototype.filterItemHandler = function(meta, event) {
 	DataApp.currentUrl = DataApp.currentUrl.replace(this[oldFilter], this[currentFilter]);
 	this[oldFilter] = this[currentFilter];
 
-	Broadcaster.dispatchEvent('PAGE_RESET');
+	Broadcaster.dispatchEvent('FILTER_CHANGED',{meta:meta, newValue: this[currentFilter]});
 };
