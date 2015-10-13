@@ -8,7 +8,6 @@ APP.Viewer = function (id, navigation, data, container) {
   this.id = id;
   this.navigation = navigation;
   this.initialize = true;
-  console.log(data);
   if(this.navigation) {
     this.navigationManager = new APP.NavigationManager(navigation);
     this.navigationManager.navigator.currentPage = data.pagination.page;
@@ -36,14 +35,14 @@ APP.Viewer.prototype.pageLoadEndHandler = function(event) {
   this.initialize = false;
   this.addItems(event.data.items);
 };
-
 APP.Viewer.prototype.addItems = function(items, container) {
+  if(this.navigation === APP.NavigationManager.NAVIGATION_PAGINATION && !this.initialize) {
+      this.clean();
+  }
   var i = 0, item;
   for(i; i< items.length; i++) {
     item = new APP[Utils.capitalize(this.id)](items[i]);
     if(this.navigation) {
-      if(this.navigation === APP.NavigationManager.NAVIGATION_PAGINATION && !this.initialize)
-        this.clean(); 
       if(this.initialize) {
         $('.grid').append(item.view);
       }
@@ -60,7 +59,7 @@ APP.Viewer.prototype.reset = function() {
   this.clean();
   this.navigationManager.navigator.reset();
 };
-APP.Viewer.prototype.clean = function(){
+APP.Viewer.prototype.clean = function() {
     var container = $('.grid');
     container.masonry('remove', container.find('.grid-item')).masonry();
     this.initialize = false;
