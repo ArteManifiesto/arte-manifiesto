@@ -7,7 +7,6 @@ var APP = APP || {};
 APP.Viewer = function (id, container, navigation, data) {
   this.container = container;
   this.setupMasonry();
-
   this.id = id;
   this.navigation = navigation;
   this.initialize = true;
@@ -27,7 +26,7 @@ APP.Viewer = function (id, container, navigation, data) {
       this.addItems(data.items);
     else
       this.navigationManager.navigator.gotoPage(1, true);
-  }else {
+  } else {
     if(data)
       this.addItems(data);
     else
@@ -41,6 +40,7 @@ APP.Viewer.prototype.setupMasonry = function() {
   var scope = this;
   this.container.imagesLoaded(function(){
 		scope.container.masonry({
+      columnWidth: 120,
 			itemSelector: '.grid-item'
 		});
 	});

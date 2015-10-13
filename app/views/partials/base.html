@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
 	<link rel="stylesheet" type="text/css" href="/app.min.css">
-	
+
 	{% block styles %} {% endblock %}
 
 </head>
@@ -42,6 +42,7 @@
 			new APP.AM();
 		}
 	</script>
+
 	<script type="text/template" id="template-filter-item">
 		<div class="am-Filter-item">
 			<% if (meta === "category") { %>
@@ -87,6 +88,7 @@
 	  	</div>
 	  </div>
 	</script>
+
 	<script type="text/template" id="template-product">
 		<div class="grid-item">
 	  	<div class="product-card">
@@ -104,6 +106,13 @@
 	  	</div>
 	  </div>
 	</script>
+
+	<script type="text/template" id="template-carrousel-item">
+		<div class="am-MoreImages">
+			<img src='<%=photo%>'/>
+		</div>
+	</script>
+
 	{% block scripts %} {% endblock %}
 </body>
 </html>

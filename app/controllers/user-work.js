@@ -7,7 +7,7 @@ exports.index = function (req, res) {
         req.work.userLikes(),
         req.work.more(),
         req.work.similar(req.viewer),
-        req.work.getProducts({build: true, viewer: req.viewer})
+        req.work.getProducts({build: true, viewer: req.viewer, addUser:true})
     ];
     global.db.Sequelize.Promise.all(promises).then(function (result) {
         var query = { where:{id: req.work.id}, include:[global.db.Category],
