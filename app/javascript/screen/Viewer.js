@@ -14,13 +14,24 @@ APP.Viewer = function (id, container, navigation, data) {
 
   if(this.navigation) {
     this.navigationManager = new APP.NavigationManager(navigation);
-    this.navigationManager.navigator.currentPage = data.pagination.page;
-    this.navigationManager.navigator.totalPages = data.pagination.pages;
+    if(data) {
+      this.navigationManager.navigator.currentPage = data.pagination.page;
+      this.navigationManager.navigator.totalPages = data.pagination.pages;
+    }else {
+      this.navigationManager.navigator.currentPage = 1;
+      this.navigationManager.navigator.totalPages = 1;
+    }
     this.navigationManager.navigator.start();
     this.listeners();
-    this.addItems(data.items);
+    if(data)
+      this.addItems(data.items);
+    else
+      this.navigationManager.navigator.gotoPage(1, true);
   }else {
-    this.addItems(data);
+    if(data)
+      this.addItems(data);
+    else
+      this.navigationManager.navigator.gotoPage(1, true);
   }
 };
 

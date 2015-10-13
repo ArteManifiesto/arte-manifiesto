@@ -17,7 +17,5 @@ APP.DiscoverScreen.prototype.listeners = function() {
 };
 
 APP.DiscoverScreen.prototype.filterChangedHandler = function(event) {
-  if(event.meta === 'category')
-    $('.am-navigation-text').html(event.newValue);
   this.viewer.reset();
 };

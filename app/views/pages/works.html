@@ -64,11 +64,9 @@
 
 {% block scripts %}
 <script type="text/javascript">
-	$(document).ready(onReady);
-	function onReady() {
-		var data = {{data|json|safe}};
-		new APP.DiscoverScreen('work', $('.grid'), APP.NavigationManager.INFINITE, data);
-	}
+	$(document).ready(function() {
+		new APP.DiscoverScreen('work', $('.grid'), 'infinite', {{data|json|safe}});
+	});
 </script>
 
 {% endblock %}

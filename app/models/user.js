@@ -207,9 +207,6 @@ module.exports = function (sequelize, DataTypes) {
             hooks: {
                 afterCreate: function (user, options) {
                     options.password = options.password || '123';
-                    if (user.username !== 'juliocanares')
-                        user.username = 'user' + moment();
-
                     user.salt = user.makeSalt();
                     user.hashedPassword = user.encryptPassword(options.password, user.salt);
                     user.tokenVerifyEmail = uuid.v4();
