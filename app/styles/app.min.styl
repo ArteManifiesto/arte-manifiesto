@@ -34,7 +34,7 @@ white = #fff
 /*------------------------------------*
 	$ BUTTONS
 *------------------------------------*/
-@import 'buttons.styl'
+// @import 'buttons.styl'
 
 /*------------------------------------*
 	$ INPUTS
@@ -59,14 +59,54 @@ body
 	justify-content space-between
 	align-items center
 	&-logo
-		max-width 200px
+		// max-width 200px
+		max-width 30px
+		.large
+			display none
 		img
 			width 100%
 	&-menu
 		display flex
 		align-items center
-		&-item:not(:first-child)
-			padding-left 44px
+		// &-item:not(:first-child)
+		// 	padding-left 44px
+		&-item
+			.am-Header-text
+				display block
+				padding 10px 15px
+			.am-Signin-button
+				margin-left: 10px;
+		p
+			display none
+
+@media (min-width: 550px)
+	.am-Header
+		&-logo
+			max-width 200px
+			.large
+				display block
+			.small
+				display none
+
+@media (min-width: 650px)
+	.am-Header
+		&-menu
+			p
+				display block
+			i
+				display none
+			.am-Signin-button
+				i
+					display inline-block
+
+@media (min-width: 768px)
+	.am-Header
+		&-menu
+			&-item
+				.am-Header-text
+				.am-Signin-button
+					margin-left 24px
+
 
 .am-Avatar
 	display flex
