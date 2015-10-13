@@ -11,7 +11,7 @@
 <div class="grid-container u-padding-top-20">
 	<div class="grid-100 grid-parent">
 		<div class="discover-menu">
-			<div class="filter left">
+			<div class="filter left" data-state="open">
 				<div class="am-Select">
 					CATEGORÍAS &nbsp;&nbsp;<i class="fa fa-caret-left"></i>
 				</div>
@@ -41,7 +41,7 @@
 			<div class="text">
 				<p class="am-navigation-text uppercase">{{data.filters.currentCategory}}</p>
 			</div>
-			<div class="filter right">
+			<div class="filter right" data-state="closed">
 				<div class="am-Select">
 					ORDENAR &nbsp;&nbsp;<i class="fa fa-caret-down"></i>
 				</div>
@@ -54,7 +54,7 @@
 	</div>
 </div>
 
-<div class="discover-content menu_open grid-container u-padding-top-10 u-padding-bottom-40">
+<div class="discover-content grid-container u-padding-top-10 u-padding-bottom-40" data-state="expand">
 	<div class="grid-100 grid-parent">
 		<div class="grid work-layout-discover">
 		</div>
@@ -64,11 +64,55 @@
 
 {% block scripts %}
 <script type="text/javascript">
-	$(document).ready(onReady);
-	function onReady() {
-		var data = {{data|json|safe}};
-		new APP.DiscoverScreen('work', $('.grid'), APP.NavigationManager.INFINITE, data);
-	}
+
+$(document).ready(onReady);
+
+function onReady() {
+
+	var data = {{ data|json|safe }};
+	console.log(data);
+	new APP.DiscoverScreen('work', APP.NavigationManager.NAVIGATION_INFINITE, data);
+
+	// Masory
+	var $container = $('.grid');
+	$container.imagesLoaded(function(){
+		$container.masonry({
+			// columnWidth: 120,
+			itemSelector: '.grid-item'
+		});
+	});
+
+
+	// Open and Closed filters
+	var filterRight = $('.filter.right')
+	var rightSelect = $('.filter.right .am-Select')
+
+	$(rightSelect).click(function () {
+		var state = filterRight.attr('data-state')
+		if(state == 'closed') filterRight.attr('data-state', 'open')
+		else filterRight.attr('data-state', 'closed')
+	})
+
+	var filterLeft = $('.filter.left')
+	var leftSelect = $('.filter.left .am-Select')
+	var discoverContent = $('.discover-content')
+
+	$(leftSelect).click(function () {
+		var state = filterLeft.attr('data-state')
+		if(state == 'closed') {
+			filterLeft.attr('data-state', 'open')
+			discoverContent.attr('data-state', 'expand')
+		}
+		else{
+			filterLeft.attr('data-state', 'closed')
+			discoverContent.attr('data-state', 'reduce')
+		}
+	})
+
+	// Switch button
+
+
+}
 </script>
 
 {% endblock %}

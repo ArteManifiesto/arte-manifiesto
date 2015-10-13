@@ -47,6 +47,9 @@ white = #fff
 @import 'filters.styl'
 
 
+body
+	overflow-x hidden
+
 
 /*------------------------------------*
 	$ HEADER
@@ -993,38 +996,18 @@ white = #fff
 			width 25%
 
 @media (min-width: 1000px)
-	// defoult state 	= menu closed
 	.work-layout-discover
 		.grid-item
 			width 20%
-	// new state 			= menu open
-	.discover-content.menu_open
-		.work-layout-discover
-			margin-left 20%
-			.grid-item
-				width 25%
+	.discover-content
+		&[data-state="expand"]
+			.work-layout-discover
+				margin-left 20%
+				.grid-item
+					width 25%
 
-		.am-More-button
-			margin-left 20%
-
-
-/*------------------------------------*
-	$ DISCOVER LEFT MENU
-*------------------------------------*/
-// .left-menu
-// 	position absolute
-// 	z-index 1
-// 	max-width 240px
-// 	min-width 195px
-// 	display none
-// 	.am-Filter
-// 		background white
-
-// .discover-content.menu_open
-// 	// background red
-// 	.left-menu
-// 		display block
-
+			.am-More-button
+				margin-left 20%
 
 
 /*------------------------------------*
@@ -1035,24 +1018,38 @@ white = #fff
 	.left-menu
 		max-width 240px
 		position: absolute;
-		left 0
 		z-index: 1;
 		width: 100%;
+		transition: transform linear .5s;
 		.am-Filter
 			background-color: white;
 			margin: 10px;
+	&[data-state="open"]
+		.left-menu
+			transform: translateX(0%);
+	&[data-state="closed"]
+		.left-menu
+			transform: translateX(-200%);
+
 
 .filter.right
 	position: relative;
 	.right-menu
 		max-width 240px
 		position: absolute;
-		right 0
 		z-index: 1;
 		width: 100%;
+		right 0
+		transition: transform linear .5s;
 		.am-Filter
 			background-color: white;
 			margin: 10px;
+	&[data-state="open"]
+		.right-menu
+			transform: translateX(0%);
+	&[data-state="closed"]
+		.right-menu
+			transform: translateX(200%);
 
 // .discover-content
 // 	position relative
