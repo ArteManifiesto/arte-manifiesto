@@ -8,9 +8,9 @@ exports.profile = function (req, res) {
     var collectionsQuery = {where: {meta: 'products'}};
     var promises = [
         req.profile.numOfWorks(), req.profile.numOfProducts(),
-        req.profile.numOfLikesToWorks(), req.profile.numOfLikesToProducts(),
-        req.profile.numOfCollections(collectionsQuery), req.profile.numOfFollowers(),
-        req.profile.numOfFollowings()
+        req.profile.numOfCollections(collectionsQuery),
+        req.profile.numOfFollowings(),
+        req.profile.numOfFollowers()
     ];
 
     global.db.sequelize.Promise.all(promises).then(function (data) {

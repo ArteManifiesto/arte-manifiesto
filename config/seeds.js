@@ -62,6 +62,7 @@ var seedUser = function (numOfUsers) {
             firstname: chance.name(),
             lastname: chance.last(),
             gender: chance.gender(),
+            cover: '/img/covers/cover' + _.random(1,4) + '.jpg',
             photo: '/img/artists/artist' + _.random(1, 4) + '.jpg',
             isArtist: true,
             city: chance.city(),

@@ -1,0 +1,58 @@
+{% extends '../partials/base.html' %}
+
+{% set path = 'market' %}
+
+{% block elements %}
+	<div class="am-Profile-banner" style="background-image: url('{{profile.cover}}')">
+		<div class="grid-container">
+			<div class="grid-100">
+				<div class="am-Profile-avatar">
+					<img src="{{profile.photo}}"></img>
+					<div>
+						<p class="name">{{profile.firstname}}</p>
+						<p class="city">{{profile.city}}, {{profile.country}}</p>
+						<button class="am-Follow-button">Seguir</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="am-Profile-menu-container">
+		<div class="grid-container">
+			<div class="grid-100">
+				<div class="am-Profile-menu">
+					<div class="am-Profile-menu-item">
+						<p>PORTAFOLIO</p>
+						<p>{{data[0]}}</p>
+					</div>
+					<div class="am-Profile-menu-item">
+						<p>TIENDA</p>
+						<p>{{data[1]}}</p>
+					</div>
+					<div class="am-Profile-menu-item">
+						<p>COLECCIONES</p>
+						<p>{{data[2]}}</p>
+					</div>
+					<div class="am-Profile-menu-item">
+						<p>FOLLOWING</p>
+						<p>{{data[3]}}</p>
+					</div>
+					<div class="am-Profile-menu-item selected">
+						<p>FOLLOWERS</p>
+						<p>{{data[4]}}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="discover-content grid-container u-padding-top-10 u-padding-bottom-70">
+		<div class="grid-100">
+      <div class="grid-followers work-layout-discover">
+      </div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+  
+{% endblock %}

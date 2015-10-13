@@ -67,27 +67,11 @@
 {% endblock %}
 
 {% block scripts %}
-
-<!-- ********************************************************************
-$ MASONRY
-********************************************************************* -->
-<script src="http://imagesloaded.desandro.com/imagesloaded.pkgd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js"></script>
 <script type="text/javascript">
-$(document).ready(onReady);
-function onReady() {
-	var data = {{ data|json|safe }};
-	console.log(data);
-	new APP.DiscoverScreen('work', APP.NavigationManager.NAVIGATION_INFINITE, data);
-
-	var $container = $('.grid');
-	$container.imagesLoaded(function(){
-		$container.masonry({
-			// columnWidth: 120,
-			itemSelector: '.grid-item'
-		});
+	$(document).ready(function() {
+		var data = {{data|json|safe}};
+		new APP.DiscoverScreen('work', $('.grid'), APP.NavigationManager.PAGINATION, data);
 	});
-}
 </script>
 
 {% endblock %}

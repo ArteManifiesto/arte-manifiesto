@@ -4,10 +4,15 @@
 */
 var APP = APP || {};
 
-APP.Viewer = function (id, navigation, data, container) {
+APP.Viewer = function (id,container, navigation, daTA) {
+  this.container = container;
+  this.setupMasonry();
+
   this.id = id;
   this.navigation = navigation;
   this.initialize = true;
+
+
   if(this.navigation) {
     this.navigationManager = new APP.NavigationManager(navigation);
     this.navigationManager.navigator.currentPage = data.pagination.page;
@@ -16,11 +21,21 @@ APP.Viewer = function (id, navigation, data, container) {
     this.listeners();
     this.addItems(data.items);
   }else {
-    this.addItems(data, container);
+    this.addItems(data);
   }
 };
 
 APP.Viewer.constructor = APP.Viewer;
+
+APP.Viewer.prototype.setupMasonry = function() {
+  var scope = this;
+  this.container.imagesLoaded(function(){
+		scope.container.masonry({
+			columnWidth: 120,
+			itemSelector: '.grid-item'
+		});
+	});
+};
 
 APP.Viewer.prototype.listeners = function() {
   Broadcaster.addEventListener('PAGE_LOAD_START', this.pageLoadStartHandler);
@@ -35,7 +50,7 @@ APP.Viewer.prototype.pageLoadEndHandler = function(event) {
   this.initialize = false;
   this.addItems(event.data.items);
 };
-APP.Viewer.prototype.addItems = function(items, container) {
+APP.Viewer.prototype.addItems = function(items) {
   if(this.navigation === APP.NavigationManager.NAVIGATION_PAGINATION && !this.initialize) {
       this.clean();
   }
@@ -44,13 +59,13 @@ APP.Viewer.prototype.addItems = function(items, container) {
     item = new APP[Utils.capitalize(this.id)](items[i]);
     if(this.navigation) {
       if(this.initialize) {
-        $('.grid').append(item.view);
+        this.container.append(item.view);
       }
       else {
-        $('.grid').append(item.view).masonry('appended', item.view);
+        this.container.append(item.view).masonry('appended', item.view);
       }
     }else {
-      container.append(item.view);
+      this.container.append(item.view);
     }
   }
 };
@@ -60,7 +75,6 @@ APP.Viewer.prototype.reset = function() {
   this.navigationManager.navigator.reset();
 };
 APP.Viewer.prototype.clean = function() {
-    var container = $('.grid');
-    container.masonry('remove', container.find('.grid-item')).masonry();
-    this.initialize = false;
+  this.container.masonry('remove', this.container.find('.grid-item')).masonry();
+  this.initialize = false;
 }

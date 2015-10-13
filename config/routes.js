@@ -20,5 +20,5 @@ exports.init = function (app) {
     app.use('/auth', authRouter);
     app.use('/admin', adminRouter);
     app.use('/checkout', global.md.isLogged, checkoutRouter);
-    app.use('/:username', userRouter);
+    app.use('/user/:username', userRouter);
 };
