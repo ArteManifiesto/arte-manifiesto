@@ -50,7 +50,7 @@ APP.Viewer.prototype.pageLoadEndHandler = function(event) {
   this.addItems(event.data.items);
 };
 APP.Viewer.prototype.addItems = function(items) {
-  if(this.navigation === APP.NavigationManager.NAVIGATION_PAGINATION && !this.initialize) {
+  if(this.navigation === APP.NavigationManager.PAGINATION && !this.initialize) {
       this.clean();
   }
   var i = 0, item;

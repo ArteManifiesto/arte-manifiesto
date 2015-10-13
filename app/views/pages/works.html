@@ -54,24 +54,21 @@
 	</div>
 </div>
 
-<!-- defoult state 	= menu closed -->
-<!-- new state 			= menu open -->
-<!-- <div class="discover-content grid-container u-padding-top-10 u-padding-bottom-40"> -->
 <div class="discover-content menu_open grid-container u-padding-top-10 u-padding-bottom-40">
 	<div class="grid-100 grid-parent">
 		<div class="grid work-layout-discover">
 		</div>
 	</div>
 </div>
-
 {% endblock %}
 
 {% block scripts %}
 <script type="text/javascript">
-	$(document).ready(function() {
+	$(document).ready(onReady);
+	function onReady() {
 		var data = {{data|json|safe}};
-		new APP.DiscoverScreen('work', $('.grid'), APP.NavigationManager.PAGINATION, data);
-	});
+		new APP.DiscoverScreen('work', $('.grid'), APP.NavigationManager.INFINITE, data);
+	}
 </script>
 
 {% endblock %}

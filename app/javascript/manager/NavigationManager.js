@@ -16,8 +16,8 @@ APP.NavigationManager = function (navigation) {
     break;
   }
 };
-APP.NavigationManager.NAVIGATION_INFINITE = 'infinite';
-APP.NavigationManager.NAVIGATION_PAGINATION = 'pagination';
+APP.NavigationManager.INFINITE = 'infinite';
+APP.NavigationManager.PAGINATION = 'pagination';
 
 APP.NavigationManager.prototype = Object.create(Object.prototype);
 
