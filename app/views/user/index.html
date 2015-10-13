@@ -21,7 +21,7 @@
 		<div class="grid-container">
 			<div class="grid-100">
 				<div class="am-Profile-menu">
-					<div class="am-Profile-menu-item">
+					<div class="am-Profile-menu-item selected">
 						<p>PORTAFOLIO</p>
 						<p>{{data[0]}}</p>
 					</div>
@@ -37,7 +37,7 @@
 						<p>FOLLOWING</p>
 						<p>{{data[3]}}</p>
 					</div>
-					<div class="am-Profile-menu-item selected">
+					<div class="am-Profile-menu-item">
 						<p>FOLLOWERS</p>
 						<p>{{data[4]}}</p>
 					</div>
@@ -47,7 +47,7 @@
 	</div>
 	<div class="discover-content grid-container u-padding-top-10 u-padding-bottom-70">
 		<div class="grid-100">
-      <div class="grid-followers work-layout-discover">
+      <div class="grid work-layout-discover">
       </div>
 		</div>
 	</div>
@@ -56,7 +56,7 @@
 {% block scripts %}
 	<script>
 		$(document).ready(function() {
-			new APP.Viewer('user', $('.grid'), 'infinite', null);
+			new APP.Viewer('work', $('.grid'), 'infinite', null);
 		});
 	</script>
 {% endblock %}

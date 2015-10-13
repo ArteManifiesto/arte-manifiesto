@@ -36,6 +36,31 @@ APP.Filters.prototype.listeners = function () {
 	$("[data-meta='category']").on('click', this.filterItemHandler.bind(this, 'category'));
 	$("[data-meta='order']").on('click', this.filterItemHandler.bind(this, 'order'));
 	$(".am-Switch-button").on('click', this.featuredHandler);
+	//
+	// var filterRight = $('.filter.right')
+	// var rightSelect = $('.filter.right .am-Select')
+	//
+	// $(rightSelect).click(function () {
+	// 	var state = filterRight.attr('data-state')
+	// 	if(state == 'closed') filterRight.attr('data-state', 'open')
+	// 	else filterRight.attr('data-state', 'closed')
+	// })
+	//
+	// var filterLeft = $('.filter.left')
+	// var leftSelect = $('.filter.left .am-Select')
+	// var discoverContent = $('.discover-content')
+	//
+	// $(leftSelect).click(function () {
+	// 	var state = filterLeft.attr('data-state')
+	// 	if(state == 'closed') {
+	// 		filterLeft.attr('data-state', 'open')
+	// 		discoverContent.attr('data-state', 'expand')
+	// 	}
+	// 	else{
+	// 		filterLeft.attr('data-state', 'closed')
+	// 		discoverContent.attr('data-state', 'reduce')
+	// 	}
+	// })
 };
 
 APP.Filters.prototype.featuredHandler = function() {
@@ -54,7 +79,7 @@ APP.Filters.prototype.filterItemHandler = function(meta, event) {
 	var currentFilter = 'current' + filterCapitalized;
 
 	this[currentFilter] = $(event.target).attr('data-value');
-	
+
 	DataApp.currentUrl = DataApp.currentUrl.replace(this[oldFilter], this[currentFilter]);
 	this[oldFilter] = this[currentFilter];
 
