@@ -4,14 +4,13 @@
 */
 var APP = APP || {};
 
-APP.Viewer = function (id,container, navigation, daTA) {
+APP.Viewer = function (id, container, navigation, data) {
   this.container = container;
   this.setupMasonry();
 
   this.id = id;
   this.navigation = navigation;
   this.initialize = true;
-
 
   if(this.navigation) {
     this.navigationManager = new APP.NavigationManager(navigation);
