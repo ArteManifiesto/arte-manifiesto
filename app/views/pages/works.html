@@ -65,7 +65,40 @@
 {% block scripts %}
 <script type="text/javascript">
 	$(document).ready(function() {
-		new APP.DiscoverScreen('work', $('.grid'), 'infinite', {{data|json|safe}});		
+		new APP.DiscoverScreen('work', $('.grid'), 'infinite', {{data|json|safe}});
+
+		var filterRight = $('.filter.right')
+		var rightSelect = $('.filter.right .am-Select')
+
+		$(rightSelect).click(function () {
+			var state = filterRight.attr('data-state')
+			if(state == 'closed') filterRight.attr('data-state', 'open')
+			else filterRight.attr('data-state', 'closed')
+		})
+
+		var filterLeft = $('.filter.left')
+		var leftSelect = $('.filter.left .am-Select')
+		var discoverContent = $('.discover-content')
+
+		$(leftSelect).click(function () {
+			var state = filterLeft.attr('data-state')
+			if(state == 'closed') {
+				filterLeft.attr('data-state', 'open')
+				discoverContent.attr('data-state', 'expand')
+			}
+			else{
+				filterLeft.attr('data-state', 'closed')
+				discoverContent.attr('data-state', 'reduce')
+			}
+		})
+
+		var switchButton = $('.am-Switch-button')
+		$(switchButton).click(function () {
+			var state = switchButton.attr('data-state')
+			console.log('state: ', state)
+			if(state == "active") switchButton.attr('data-state', 'inactive')
+			else switchButton.attr('data-state', 'active')
+		})
 	});
 </script>
 

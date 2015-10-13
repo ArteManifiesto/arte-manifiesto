@@ -283,6 +283,54 @@ body
 			i
 				font-size 1.25em
 
+.footer
+	padding 40px 0
+	&-logo
+		text-align center
+	&-logo
+	&-links
+	&-socials
+	&-suscribe
+		padding 20px 10px
+		box-sizing border-box
+
+@media (min-width: 500px)
+	.footer
+		display flex
+		flex-wrap wrap
+		max-width 560px
+		margin auto
+		&-logo
+			flex 1 100%
+		&-links
+			flex 1 70%
+		&-socials
+			flex 1 30%
+		&-suscribe
+			flex 1 100%
+
+// @media (min-width: 700px)
+// 	.footer
+// 		max-width 700px
+// 		&-logo
+// 			text-align left
+// 		&-logo
+// 		&-socials
+// 			flex 1 30%
+// 		&-links
+// 		&-suscribe
+// 			flex 1 70%
+
+@media (min-width: 1000px)
+	.footer
+		max-width initial
+		&-logo
+		&-socials
+			flex 1 20%
+		&-links
+		&-suscribe
+			flex 1 30%
+
 
 .am-Footer
 	background charcoal-grey
