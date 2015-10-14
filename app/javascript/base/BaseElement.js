@@ -23,7 +23,7 @@ APP.BaseElement.prototype.listeners = function () {
 };
 
 APP.BaseElement.prototype.gotoSingle = function () {
-    location.href = this.data.url;
+      location.href = this.data.url;
 };
 
 APP.BaseElement.prototype.callToApi = function (params) {

@@ -74,7 +74,7 @@
 								</div>
 							</div>
 							<div class="u-center">
-								<button class="am-View-button expand u-margin-top-20">COMPRAR</button>
+								<button class="am-View-button expand u-margin-top-20 buy">COMPRAR</button>
 							</div>
 						</div>
 					</div>
@@ -274,4 +274,24 @@
 		</div>
 	</div>
 
+{% endblock %}
+
+{% block scripts %}
+<script>
+var product = {{product|json|safe}};
+	$(document).ready(function(){
+		var options = {
+			url: DataApp.currentUser.url + '/cart/add',
+			data: {
+				idProduct: product.id,
+				option:2
+			}
+		};
+		$('.buy').click(function(){
+			Utils.getData(options).then(function(response){
+				console.log(response);
+			});;
+		});
+	});
+</script>
 {% endblock %}

@@ -4,21 +4,12 @@ exports.index = function (req, res) {
     var query = {
         include: [{
             model: global.db.Product,
-            include: [global.db.User]
+            include:[global.db.User]
         }]
     };
     req.user.getProductCarts(query).then(function (productCarts) {
-        var i, productCart, result = {};
-        for (i = 0; i < productCarts.length; i++) {
-            productCart = productCarts[i];
-            if (result[productCart.Product.User.username])
-                result[productCart.Product.User.username].push(productCart);
-            else
-                result[productCart.Product.User.username] = [productCart];
-        }
-
         return res.render(basePath + 'index', {
-            products: result
+            products: productCarts
         });
     });
 };

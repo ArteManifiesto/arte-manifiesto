@@ -1,0 +1,91 @@
+{% extends '../../partials/base.html' %}
+
+
+{% block elements %}
+
+	<div class="am-welcome am-checkout">
+		<div class="cover" style="background-image: url(/img/banners/welcome.png)"></div>
+		<div class="grid-container">
+			<div class="grid-100">
+				<div class="checkout-box">
+					<div class="checkout-menu">
+						<p class="tab selected">1. CONFIRMA CARRO DE COMPRAS</p>
+						<p class="tab">2. INGRESA DATOS DE ENVÍO</p>
+						<p class="tab">3. ELIGE TU MÉTODO DE PAGO</p>
+					</div>
+					<div class="checkout-content">
+						<div class="grid-container">
+							<div class="grid-70">
+								<p class="sub-title">TU CARRO DE COMPRAS</p>
+							</div>
+							<div class="grid-70">
+								<div class="checkout-info">
+									<div class="u-separator"></div>
+									<table class="cart-items u-margin-top-20">
+										<tr>
+											<td class="cart-label u-padding-bottom-10">item</td>
+											<td class="cart-label" style="padding-left: 10px;">cant</td>
+											<td class="cart-label">subtotal</td>
+										</tr>
+										{% for product in products %}
+											<tr>
+												<td>
+													<div class="cart-item-data">
+														<div class="cart-item-img"><img src="{{product.Product.photo}}"></div>
+														<div>
+															<p class="cart-text">{{product.Product.name}}</p>
+															<p class="cart-text">Premium Luster Canvas 44” x 42” / Con marco</p>
+															<p class="cart-title">{{product.Product.description.substring(0,50)}}...</p>
+															<p class="cart-artist">Por <span>{{product.Product.User.firstname}}</span></p>
+														</div>
+													</div>
+												</td>
+												<td>
+													<input class="cart-input" type="number" min="0" max="10" value="{{product.items}}">
+												</td>
+												<td class="cart-label">{{product.Product.price}}</td>
+												<td class="cart-delete"><i class="fa fa-times"></i></td>
+											</tr>
+										{% endfor %}
+									</table>
+								</div>
+							</div>
+							<div class="grid-30">
+								<div class="checkout-resume">
+									<div class="resume-box u-padding-bottom-10">
+										<header>RESUMEN DE LA ORDEN</header>
+										<section>
+											<table>
+												<tr>
+													<td><p class="label" style="font-size: 18px;">total</p></td>
+													<td><p class="price">S/. <span style="font-size: 18px;">1300.00</span></p></td>
+												</tr>
+											</table>
+											<button class="button u-margin-top-20" data-color="blue">SEGUIR CHECKOUT</button>
+										</section>
+									</div>
+									<div class="company">
+										<img src="/img/company-logo.jpg">
+									</div>
+								</div>
+							</div>
+							<div class="grid-100">
+								<div class="buttons-container">
+									<button class="button" data-color="gray">< SEGUIR COMPRANDO</button>
+									<button class="button" data-color="blue">SEGUIR CHECKOUT</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+console.log({{products|json|safe}});
+</script>
+{% endblock %}
