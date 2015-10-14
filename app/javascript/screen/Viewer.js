@@ -46,7 +46,7 @@ APP.Viewer.constructor = APP.Viewer;
 APP.Viewer.prototype.setupMasonry = function() {
   var scope = this;
   this.container.imagesLoaded(function(){
-		scope.container.masonry({
+	  scope.container.masonry({
       //columnWidth: 120,
 			itemSelector: '.grid-item'
 		});
