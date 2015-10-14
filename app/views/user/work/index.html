@@ -239,12 +239,7 @@
 
 	<div class="grid-container">
 		<div class="grid-100 grid-parent">
-			<div class="more-images">
-				<div class="am-MoreImages" style="background-image: url(/img/works/work11.jpg);"></div>
-				<div class="am-MoreImages" style="background-image: url(/img/works/work1.jpg);"></div>
-				<div class="am-MoreImages" style="background-image: url(/img/works/work13.jpg);"></div>
-				<div class="am-MoreImages" style="background-image: url(/img/works/work4.jpg);"></div>
-				<div class="am-MoreImages" style="background-image: url(/img/works/work14.jpg);"></div>
+			<div class="more-images products">
 			</div>
 		</div>
 	</div>
@@ -272,9 +267,7 @@
 		console.log('more');
 		console.log({{more|json|safe}});
 
-		new APP.Viewer('product', $('.products'), null, {{products|json|safe}});
-		new APP.Viewer('work', $('.more-works'), null, {{more|json|safe}});
-		new APP.Viewer('work', $('.similar-works'), null, {{similar|json|safe}});
+		new APP.Viewer('carrouselItem', $('.products'), null, {{more|json|safe}});
 	});
 	</script>
 {% endblock %}
