@@ -1320,6 +1320,10 @@ body
 .single-menu
 	.artist
 		margin 20px 0
+	.menu
+		.carousel
+			height: 105px;
+			overflow: hidden;
 
 @media (min-width: 768px)
 	.single-menu
@@ -1343,11 +1347,13 @@ body
 
 .single-tabs
 	display flex
+	overflow-x auto
 	.single-tab
 		flex 1
 		padding 28px 0
 		text-align center
 		cursor pointer
+		min-width 100px
 		&[selected="true"]
 			background white
 			border-top solid 1px #eeeeee
@@ -1402,16 +1408,24 @@ body
 			padding-top 10px
 
 
+.more-carousel
+	height: 240px;
+	overflow: hidden;
+
 .more-images
 	display flex
-	justify-content center
-	flex-wrap wrap
+	// justify-content center
+	// flex-wrap wrap
+	overflow-x auto
 	.am-MoreImages
+		min-width: 220px;
 		width 220px
 		height 220px
 		margin 10px
 		background-size cover
 		background-position center center
+		&:first-child
+			margin-left 0
 
 
 
