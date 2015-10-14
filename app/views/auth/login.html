@@ -10,18 +10,34 @@
 			<div class="separator">
 				<span class="line"></span><span class="text">FB SYNC</span><span class="line"></span>
 			</div>
-			<button class="button" data-color="blue"><i class="fa fa-facebook"></i>&nbsp;&nbsp; INGRESAR CON FACEBOOK</button>
+			<a class="button" data-color="blue" href='/auth/facebook'><i class="fa fa-facebook"></i>&nbsp;&nbsp; INGRESAR CON FACEBOOK</a>
 			<div class="separator">
 				<span class="line"></span><span class="text">CORREO</span><span class="line"></span>
 			</div>
-			<input class="input" type="text" placeholder="E-mail"></input>
-			<input class="input u-margin-top-10" type="password" placeholder="Password"></input>
-			<button class="button u-margin-top-10" data-color="green">INGRESAR A MI CUENTA</button>
+
+			<form class='login-form'>
+				<input name='email' class="input" type="email" placeholder="Correo" required></input>
+				<input name='password' class="input u-margin-top-10" type="password" placeholder="Contraseña" required></input>
+				<button class="button u-margin-top-10" data-color="green">INGRESAR A MI CUENTA</button>
+			</form>
+
 			<div class="options">
-				<p><input type="checkbox" id="remember"><label for="remember">Recordar mi cuenta</label></p>
 				<a href="#">Olvidé mi cuenta</a>
 			</div>
-			<p class="change">¿Aún no tienes una cuenta? <a href="#">Regístrate</a></p>
+			<p class="change">¿Aún no tienes una cuenta? <a href="/auth/signup">Regístrate</a></p>
 		</div>
 	</div>
+{% endblock %}
+
+{% block scripts %}
+	<script>
+		$(document).ready(function(){
+			$('.login-form').submit(function(event){
+				event.preventDefault();
+				$.post('/auth/login', $(this).serialize(), function (response) {
+					console.log('response: ', response);
+				});
+			});
+		})
+	</script>
 {% endblock %}

@@ -77,9 +77,7 @@
 	  		</div>
 	  		<div class="artist-card-works">
 					<% _.each(Works, function(work) { %>
-						<div class="artist-card-work">
-							<img src=<%=work.photo%>></img>
-						</div>
+						<div class="artist-card-work" style="background-image: url('<%=work.photo%>')"></div>
 					<% }); %>
 	  		</div>
 	  		<div class="artist-card-follow">
@@ -92,9 +90,7 @@
 	<script type="text/template" id="template-product">
 		<div class="grid-item">
 	  	<div class="product-card">
-	  		<div class="product-card-image">
-					<img src="<%= photo %>"/>
-				</div>
+				<div class="product-card-image" style="background-image: url('<%=photo%>')"></div>
 	  		<div class="product-card-data">
 	  			<p><%= name %></p>
 	  			<p><%= User.firstname %></p>

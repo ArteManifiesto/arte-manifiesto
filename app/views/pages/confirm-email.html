@@ -1,4 +1,4 @@
-{% extends './partials/base.html' %}
+{% extends '../partials/base.html' %}
 
 
 {% block elements %}
@@ -9,7 +9,7 @@
 			<img class="logo-text" src="img/logo-text.svg">
 			<p class="title">¡Felicitaciones!</p>
 			<p class="title">Bienvenido a la comunidad de Arte Manifiesto</p>
-			<p class="subtitle">Te hemos enviado un correo a <span>luis.augusto@artemanifiesto.com</span></p>
+			<p class="subtitle">Te hemos enviado un correo a <span>{{user.email}}</span></p>
 			<p class="msg">Por favor revisa tu correo para continuar.</p>
 		</div>
 		<div class="am-welcome-help">
@@ -22,4 +22,16 @@
 			<button class="button-resend">REENVIAR CORREO</button>
 		</div>
 	</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+	$('.button-resend').click(function(){
+		Utils.getData({
+			url:'/auth/resend'
+		}).then(function(response){
+			console.log(response);
+		});
+	});
+</script>
 {% endblock %}

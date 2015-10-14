@@ -219,7 +219,7 @@ exports.resend = function (req, res) {
         url: req.protocol + '://' + req.get('host') +
         '/auth/verify/' + req.user.tokenVerifyEmail
     };
-
+    console.log(params);
     global.emails.verify(params).then(function () {
         return res.ok(null, 'email sent');
     });
