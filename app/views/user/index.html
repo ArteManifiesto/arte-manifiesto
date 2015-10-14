@@ -21,26 +21,36 @@
 		<div class="grid-container">
 			<div class="grid-100">
 				<div class="am-Profile-menu">
-					<div class="am-Profile-menu-item selected">
-						<p>PORTAFOLIO</p>
-						<p>{{data[0]}}</p>
-					</div>
-					<div class="am-Profile-menu-item">
-						<p>TIENDA</p>
-						<p>{{data[1]}}</p>
-					</div>
-					<div class="am-Profile-menu-item">
-						<p>COLECCIONES</p>
-						<p>{{data[2]}}</p>
-					</div>
-					<div class="am-Profile-menu-item">
-						<p>FOLLOWING</p>
-						<p>{{data[3]}}</p>
-					</div>
-					<div class="am-Profile-menu-item">
-						<p>FOLLOWERS</p>
-						<p>{{data[4]}}</p>
-					</div>
+					<a href='{{profile.url}}'>
+						<div class="am-Profile-menu-item portfolio">
+							<p>PORTAFOLIO</p>
+							<p>{{data[0]}}</p>
+						</div>
+					</a>
+					<a href='{{profile.url}}store'>
+						<div class="am-Profile-menu-item store">
+							<p>TIENDA</p>
+							<p>{{data[1]}}</p>
+						</div>
+					</a>
+					<a href='{{profile.url}}collections'>
+						<div class="am-Profile-menu-item collections">
+							<p>COLECCIONES</p>
+							<p>{{data[2]}}</p>
+						</div>
+					</a>
+					<a href='{{profile.url}}followings'>
+						<div class="am-Profile-menu-item followings">
+							<p>SIGUIENDO</p>
+							<p>{{data[3]}}</p>
+						</div>
+					</a>
+					<a href='{{profile.url}}followers'>
+						<div class="am-Profile-menu-item followers">
+							<p>SEGUIDORES</p>
+							<p>{{data[4]}}</p>
+						</div>
+					</a>
 				</div>
 			</div>
 		</div>
@@ -48,6 +58,7 @@
 	<div class="discover-content grid-container u-padding-top-10 u-padding-bottom-70">
 		<div class="grid-100">
       <div class="grid work-layout-discover">
+
       </div>
 		</div>
 	</div>
@@ -56,7 +67,13 @@
 {% block scripts %}
 	<script>
 		$(document).ready(function() {
-			new APP.Viewer('work', $('.grid'), 'infinite', null);
+			var currentPath = {{currentPath|json|safe}}, template;
+			$('.' + currentPath).addClass('selected');
+			if(['followings', 'followers'].indexOf(currentPath) !== -1) template = 'user';
+			if('portfolio' === currentPath) template = 'work';
+			if('store' === currentPath) template = 'product';
+			if('collections' === currentPath) template = 'collection';
+			new APP.Viewer(template, $('.grid'), 'infinite', null);
 		});
 	</script>
 {% endblock %}

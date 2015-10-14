@@ -6,11 +6,14 @@ var APP = APP || {};
 
 APP.Viewer = function (id, container, navigation, data) {
   this.container = container;
-  this.setupMasonry();
+
+  if(id !== 'carrouselItem')
+    this.setupMasonry();
+
   this.id = id;
   this.navigation = navigation;
   this.initialize = true;
-
+  this.fromExternal = false;
   if(this.navigation) {
     this.navigationManager = new APP.NavigationManager(navigation);
     if(data) {
@@ -24,13 +27,17 @@ APP.Viewer = function (id, container, navigation, data) {
     this.listeners();
     if(data)
       this.addItems(data.items);
-    else
+    else{
+      this.fromExternal = true;
       this.navigationManager.navigator.gotoPage(1, true);
+    }
   } else {
     if(data)
       this.addItems(data);
-    else
+    else{
+      this.fromExternal = true;
       this.navigationManager.navigator.gotoPage(1, true);
+    }
   }
 };
 
@@ -56,7 +63,11 @@ APP.Viewer.prototype.pageLoadStartHandler = function() {
 };
 
 APP.Viewer.prototype.pageLoadEndHandler = function(event) {
-  this.initialize = false;
+  if(this.fromExternal) {
+    this.initialize = true;
+  }else {
+    this.initialize = false;
+  }
   this.addItems(event.data.items);
 };
 APP.Viewer.prototype.addItems = function(items) {
@@ -83,6 +94,7 @@ APP.Viewer.prototype.reset = function() {
   this.clean();
   this.navigationManager.navigator.reset();
 };
+
 APP.Viewer.prototype.clean = function() {
   this.container.masonry('remove', this.container.find('.grid-item')).masonry();
   this.initialize = false;

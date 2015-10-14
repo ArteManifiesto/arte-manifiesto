@@ -180,11 +180,12 @@ global.getPaginationEntity = function (options, query) {
     var promises = [];
     if (!options.association) {
         promises = [global.db[options.entity].findAll(query)]
-        query = _.omit(query, 'build', 'offset', 'limit');
+        query = _.omit(query, 'build', 'offset', 'limit', 'addUser');
         promises.push(global.db[options.entity].count(query));
     }
     else {
         promises = [options.entity[options.method](query)];
+        query = _.omit(query, 'build', 'addUser');
         query.attributes = [
             [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'total']
         ]

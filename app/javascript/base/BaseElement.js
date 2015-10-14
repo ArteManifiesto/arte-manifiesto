@@ -30,7 +30,8 @@ APP.BaseElement.prototype.callToApi = function (params) {
     return APP.RestClientManager.instance.execute(params);
 }
 
-APP.BaseElement.prototype.checkLogged = function () {
-    if (!user)
-        return location.href = DataApp.loginRedirect;
+APP.BaseElement.prototype.isLogged = function () {
+    if (!DataApp.currentUser)
+        location.href = DataApp.loginRedirect;
+    return DataApp.currentUser !== null;
 };

@@ -3,7 +3,7 @@ var _ = require('lodash');
 
 exports.profile = function (req, res) {
     var currentPath = req.path.replace('/', '');
-    if (currentPath.length === '') currentPath = 'portfolio';
+    if (currentPath === '') currentPath = 'portfolio';
 
     var collectionsQuery = {where: {meta: 'products'}};
     var promises = [
@@ -40,7 +40,7 @@ exports.portfolio = function (req, res) {
 };
 
 exports.store = function (req, res) {
-    return getData(req, res, {method: 'getProducts', name: 'products'});
+    return getData(req, res, {method: 'getProducts', name: 'products'}, {addUser: true});
 };
 
 exports.likesWorks = function (req, res) {

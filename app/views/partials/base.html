@@ -39,6 +39,7 @@
 	<script>
     $(document).ready(onReady);
 	 	function onReady() {
+			DataApp.currentUser = {{user|json|safe}} || null;
 			new APP.AM();
 		}
 	</script>
@@ -67,21 +68,27 @@
 	<script type="text/template" id="template-user">
 		<div class="grid-item">
 	  	<div class="artist-card">
-	  		<div class="artist-card-info">
-	  			<img src="<%=photo%>">
-	  			<div>
-	  				<p class="name uppercase"><%=firstname%></p>
-	  				<p class="city"><%=city%>, <%=country%></p>
-	  				<p class="stats"><i class="fa fa-diamond"></i><%=numOfFollowers%></p>
-	  			</div>
-	  		</div>
+				<a href="<%=url%>">
+		  		<div class="artist-card-info">
+		  			<img src="<%=photo%>">
+		  			<div>
+		  				<p class="name uppercase"><%=firstname%></p>
+		  				<p class="city"><%=city%>, <%=country%></p>
+		  				<p class="stats"><i class="fa fa-diamond"></i><%=numOfFollowers%></p>
+		  			</div>
+		  		</div>
+				</a>
 	  		<div class="artist-card-works">
 					<% _.each(Works, function(work) { %>
 						<div class="artist-card-work" style="background-image: url('<%=work.photo%>')"></div>
 					<% }); %>
 	  		</div>
 	  		<div class="artist-card-follow">
-					<button class="am-Follow-button">+ SEGUIR</button>
+					<% if(following) { %>
+						<button class="am-Follow-button">SIGUIENDO</button>
+					<% } else { %>
+						<button class="am-Follow-button">+ SEGUIR</button>
+					<% } %>
 	  		</div>
 	  	</div>
 	  </div>
@@ -103,6 +110,27 @@
 	  </div>
 	</script>
 
+	<script type="text/template" id="template-collection">
+		<div class="grid-item">
+			<div class="collection-card">
+				<div class="collection-card-stats">
+					<p><%=description%></p>
+				</div>
+				<div class="collection-card-images">
+					<div class="collection-card-image" style="background-image: url('/img/works/work10.jpg')"></div>
+					<div class="collection-card-image" style="background-image: url('/img/works/work1.jpg')"></div>
+					<div class="collection-card-image" style="background-image: url('/img/works/work9.jpg')"></div>
+				</div>
+				<div class="collection-card-artist">
+					<div>
+						<p>Curado Por:</p>
+						<p><%=User.firstname%></p>
+					</div>
+					<img src="<%=User.photo%>">
+				</div>
+			</div>
+		</div>
+	</script>
 	<script type="text/template" id="template-carrouselItem">
 		<div class="am-MoreImages" style="background-image: url(<%=photo%>);"></div>
 	</script>

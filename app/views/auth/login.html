@@ -41,7 +41,8 @@
 			$('.login-form').submit(function(event){
 				event.preventDefault();
 				$.post('/auth/login', $(this).serialize(), function (response) {
-					console.log('response: ', response);
+					if(response.status === 200)
+						location.href = response.data.returnTo
 				});
 			});
 		})

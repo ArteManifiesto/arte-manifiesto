@@ -13,5 +13,20 @@ APP.User.prototype = Object.create(APP.BaseElement.prototype);
 APP.User.constructor = APP.User;
 
 APP.User.prototype.listeners = function () {
-  this.view.click(this.gotoSingle.bind(this));
+  this.view.find('.am-Follow-button').click(this.followHandler.bind(this));
+};
+
+APP.User.prototype.followHandler = function() {
+  if(this.isLogged()) {
+    var action = this.data.following ? 'unfollow' : 'follow';
+    var options = {
+      url: DataApp.currentUser.url + action,
+      data: {idUser: this.data.id}
+    };
+    Utils.getData(options).then(this.followHandlerComplete);
+  }
+};
+
+APP.User.prototype.followHandlerComplete = function(response) {
+  console.log(response);
 };
