@@ -76,8 +76,15 @@ body
 				padding 10px 15px
 			.am-Signin-button
 				margin-left: 10px;
+		.upload
+		.cart
+			margin 0 10px
 		p
+		.upload
+		.cart
 			display none
+		.am-Avatar
+			margin-left 10px
 
 @media (min-width: 550px)
 	.am-Header
@@ -91,13 +98,17 @@ body
 @media (min-width: 650px)
 	.am-Header
 		&-menu
-			p
-				display block
-			i
-				display none
-			.am-Signin-button
+			.desktop
+				p
+					display block
 				i
-					display inline-block
+					display none
+
+@media (min-width: 700px)
+	.am-Header
+		&-menu
+			.upload
+				display block
 
 @media (min-width: 768px)
 	.am-Header
@@ -106,6 +117,22 @@ body
 				.am-Header-text
 				.am-Signin-button
 					margin-left 24px
+
+@media (min-width: 830px)
+	.am-Header
+		&-menu
+			.cart
+				display block
+
+@media (min-width: 900px)
+	.am-Header
+		&-menu
+			.upload
+			.cart
+				margin 0 15px
+			.am-Avatar
+				margin-left 15px
+
 
 
 .am-Avatar
