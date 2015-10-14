@@ -2,7 +2,7 @@ module.exports = {
     db: {
         name: "am",
         username: "root",
-        password: "123",
+        password:"",
         options: {
             dialect: "mysql",
             timezone: '-05:00'

@@ -20,7 +20,7 @@ APP.User.prototype.followHandler = function() {
   if(this.isLogged()) {
     var action = this.data.following ? 'unfollow' : 'follow';
     var options = {
-      url: DataApp.currentUser.url + action,
+      url: DataApp.currentUser.url + '/' + action,
       data: {idUser: this.data.id}
     };
     Utils.getData(options).then(this.followHandlerComplete);
