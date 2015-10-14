@@ -63,5 +63,5 @@ module.exports = function (app, passport) {
         next();
     });
 
-    app.use(global.md.check);
+    // app.use(global.md.check);
 };
