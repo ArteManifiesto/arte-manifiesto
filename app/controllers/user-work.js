@@ -31,7 +31,7 @@ exports.add = function (req, res) {
     global.db.Category.findAll().then(function (categories) {
         return res.render(basePath + 'add', {categories: categories,
         cloudinary: cloudinary});
-    })
+    });
 };
 
 /**
