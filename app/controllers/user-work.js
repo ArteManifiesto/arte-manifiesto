@@ -1,3 +1,7 @@
+var cloudinary = require('cloudinary').v2;
+process.env.CLOUDINARY_URL = 'cloudinary://337494525976864:RQ2MXJev18AjVuf-mSNzdmu2Jsc@hackdudes'
+cloudinary.config();
+
 var basePath = 'user/work/';
 
 exports.index = function (req, res) {
@@ -25,7 +29,8 @@ exports.index = function (req, res) {
 
 exports.add = function (req, res) {
     global.db.Category.findAll().then(function (categories) {
-        return res.render(basePath + 'add', {categories: categories});
+        return res.render(basePath + 'add', {categories: categories,
+        cloudinary: cloudinary});
     })
 };
 
