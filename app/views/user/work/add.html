@@ -2,9 +2,10 @@
 
 
 {% block elements %}
-	<div class="am-upload-work">
-		<div class="am-upload-work-box grid-container">
+<div class="am-upload-work">
+	<div class="am-upload-work-box grid-container">
 		<p class="main-title">SUBIR NUEVA OBRA A MI PORTAFOLIO</p>
+		<form class="add-work">
 			<div class="grid-100">
 				<div class="separator">
 					<span class="line"></span><span class="text">IMAGEN DE LA OBRA</span><span class="line"></span>
@@ -14,66 +15,57 @@
 					<span class="line"></span><span class="text">DATOS DE LA OBRA</span><span class="line"></span>
 				</div>
 				<p class="title">Título de la obra</p>
-				<input class="input" type="text" placeholder="Sin título"/>
+				<input name='title' class="input" type="text" placeholder="Los pajaritos cantan"/>
 			</div>
 
 			<div class="grid-100 mobile-grid-100">
 				<p class="title">Categoría de la obra</p>
-				<select class="input select">
-					<option disabled selected>Seleciona Categoría</option>
+				<select class="input select" name='categoryId'>
 					{% for category in categories %}
-						<option>{{category.name}}</option>
+					<option value="{{category.id}}">{{category.name}}</option>
 					{% endfor %}
 				</select>
 			</div>
 			<div class="grid-50 mobile-grid-50">
 				<p class="title">Ancho</p>
-				<input class="input" type="number" placeholder="30"/>
+				<input name='width' class="input" type="text" placeholder="30"/>
 			</div>
 
-      <div class="grid-50 mobile-grid-50">
+			<div class="grid-50 mobile-grid-50">
 				<p class="title">Alto</p>
-				<input class="input" type="number" placeholder="50"/>
+				<input name='height' class="input" type="text" placeholder="50"/>
 			</div>
 
 			<div class="grid-100 mobile-grid-100">
 				<p class="title">Tags de la obra</p>
-				<textarea class="input" placeholder="Escribe tags separados por comas ó enter. A más tags con más contexto, más fácil será encontrar tu trabajo."></textarea>
+					<input name='tags' class="input tags" type="text"/>
+				</p>
 				<div class="separator">
 					<span class="line"></span><span class="text">CARACTERÍSTICAS</span><span class="line"></span>
 				</div>
 				<div class="switch u-margin-top-10">
-					<p class="title">Visible para todo público</p>
+					<p class="title">Público</p>
 					<span class="value">On</span>
 					<div class="am-Switch-button">
 						<i class="fa fa-bars"></i>
 					</div>
 				</div>
 				<button class="button u-margin-top-30" data-color="blue">SUBIR OBRA</button>
-				<!-- <div class="separator">
-					<span class="line"></span><span class="text">VENDER ARTE ORIGINAL</span><span class="line"></span>
-				</div> -->
 			</div>
-
-			<!-- <div class="grid-50 mobile-grid-50">
-				<p class="title">Elige la moneda</p>
-				<select class="input select">
-					<option disabled selected>Nuevos Soles (PEN)</option>
-					<option>Arte urbano</option>
-					<option>Digital</option>
-					<option>Tecnica mixta</option>
-				</select>
-			</div>
-
-			<div class="grid-100 mobile-grid-100">
-				<button class="button u-margin-top-30" data-color="green">PONER EN VENTA</button>
-			</div> -->
-
-		</div>
+		</form>
 	</div>
+</div>
 {% endblock %}
 
 {% block scripts %}
 	<script>
+		$(function() {
+			$('.tags').tagsInput({width:'100%', defaultText:'Añadir Etiqueta'});
+		});
+
+		$('.add-work').submit(function(event) {
+			event.preventDefault();
+			console.log($(this).serializeArray());
+		})
 	</script>
 {% endblock %}

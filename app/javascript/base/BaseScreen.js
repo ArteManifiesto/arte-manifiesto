@@ -13,7 +13,7 @@ APP.BaseScreen.prototype = Object.create(Object.prototype);
 APP.BaseScreen.constructor = APP.BaseScreen;
 
 APP.BaseScreen.prototype.listeners = function () {
-
+  
 };
 
 APP.BaseScreen.prototype.beforeFind = function () {
