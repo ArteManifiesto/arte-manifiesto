@@ -4,10 +4,14 @@
 
 {% block elements %}
 	<div class="am-Profile-banner" style="background-image: url('{{profile.cover}}')">
+		<i class="fa fa-pencil-square-o"></i>
 		<div class="grid-container">
 			<div class="grid-100">
 				<div class="am-Profile-avatar">
-					<img src="{{profile.photo}}"></img>
+					<div class="img">
+						<img src="{{profile.photo}}">
+						<i class="fa fa-pencil-square-o"></i>
+					</div>
 					<div>
 						<p class="name">{{profile.firstname}}</p>
 						<p class="city">{{profile.city}}, {{profile.country}}</p>

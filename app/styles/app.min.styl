@@ -604,15 +604,40 @@ body
 	padding 40px 0
 	background-size cover
 	background-position center center
+	position relative
+	i
+		position absolute
+		bottom 20px
+		right 20px
+		color white
+		font-size 1.5rem
+		cursor pointer
+		display none
+	&:hover
+		i
+			display block
 
 .am-Profile-avatar
 	display flex
 	align-items center
+	.img
+		margin-right 20px
+		position relative
+		i
+			position absolute
+			bottom 0
+			right 0
+			color rgba(white, .75)
+			font-size 1.5rem
+			cursor pointer
+			display none
+		&:hover
+			i
+				display block
 	img
 		width 100px
 		height 100px
 		border-radius 50%
-		margin-right 20px
 	.name
 		font-family 'Montserrat', sans-serif
 		font-size 20px
@@ -885,6 +910,43 @@ body
 	background #eee
 	padding 12px 20px 100px 20px
 
+	.addresses
+		border solid 1px #bac5c7
+		border-radius 4px
+		.address
+			cursor pointer
+			padding 10px
+			display flex
+			align-items center
+			&:not(:first-child)
+				border-top solid 1px #bac5c7
+			.address-title
+				font-family 'Montserrat', sans-serif
+				font-size 16px
+				color charcoal-grey
+				padding-left 5px
+				line-height 1.5
+			.address-subtitle
+				font-family 'Montserrat', sans-serif
+				font-size 14px
+				color warm-grey
+				padding-left 5px
+				line-height 1.35
+			.address-label
+				font-family 'Montserrat', sans-serif
+				font-size 14px
+				color charcoal-grey
+				padding 10px 0
+			.address-input
+				border solid 1px #979797
+				border-radius 4px
+				width 100%
+				padding 13px 15px
+				box-sizing border-box
+				font-size 13.6px
+				font-family 'Montserrat', sans-serif
+				background white
+
 .am-profile-box
 	background white
 	border solid 1px #979797
@@ -976,6 +1038,8 @@ body
 @media (min-width: 630px)
 	.am-profile-box
 		padding 60px 60px !important
+
+
 
 
 
