@@ -45,7 +45,6 @@ module.exports = function (app, passport) {
             return Date.now()
         }
     }));
-
     /**
      * Passport initialize
      * ====================================================

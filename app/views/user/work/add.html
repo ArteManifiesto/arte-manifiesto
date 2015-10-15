@@ -17,33 +17,23 @@
 				<input class="input" type="text" placeholder="Sin título"/>
 			</div>
 
-			<div class="grid-50 mobile-grid-50">
+			<div class="grid-100 mobile-grid-100">
 				<p class="title">Categoría de la obra</p>
 				<select class="input select">
 					<option disabled selected>Seleciona Categoría</option>
-					<option>Arte urbano</option>
-					<option>Digital</option>
-					<option>Tecnica mixta</option>
+					{% for category in categories %}
+						<option>{{category.name}}</option>
+					{% endfor %}
 				</select>
 			</div>
-			<div class="grid-50 mobile-grid-50">
-				<p class="title">Medida</p>
-				<select class="input select">
-					<option disabled selected>Centímentros (cm)</option>
-					<option>Arte urbano</option>
-					<option>Digital</option>
-					<option>Tecnica mixta</option>
-				</select>
-			</div>
-
 			<div class="grid-50 mobile-grid-50">
 				<p class="title">Ancho</p>
-				<input class="input" type="text" placeholder="Sin título"/>
+				<input class="input" type="number" placeholder="30"/>
 			</div>
 
       <div class="grid-50 mobile-grid-50">
 				<p class="title">Alto</p>
-				<input class="input" type="text" placeholder="Sin título"/>
+				<input class="input" type="number" placeholder="50"/>
 			</div>
 
 			<div class="grid-100 mobile-grid-100">
@@ -53,15 +43,8 @@
 					<span class="line"></span><span class="text">CARACTERÍSTICAS</span><span class="line"></span>
 				</div>
 				<div class="switch u-margin-top-10">
-					<p class="title">Visible sólo por mí</p>
+					<p class="title">Visible para todo público</p>
 					<span class="value">On</span>
-					<div class="am-Switch-button">
-						<i class="fa fa-bars"></i>
-					</div>
-				</div>
-				<div class="switch">
-					<p class="title">Contenido +18 - NSFW</p>
-					<span class="value">Off</span>
 					<div class="am-Switch-button">
 						<i class="fa fa-bars"></i>
 					</div>
@@ -88,4 +71,9 @@
 
 		</div>
 	</div>
+{% endblock %}
+
+{% block scripts %}
+	<script>
+	</script>
 {% endblock %}
