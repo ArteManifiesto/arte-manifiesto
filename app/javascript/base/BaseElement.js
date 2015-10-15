@@ -5,8 +5,8 @@
 var APP = APP || {};
 
 APP.BaseElement = function (data, id) {
-      this.template = APP.TemplateManager.instance.getFromDoc(id);
-    this.data = data;
+    this.template = APP.TemplateManager.instance.getFromDoc(id);
+      this.data = data;
     console.log(this.data);
     this.view = $(this.template(this.data));
     this.rawView = this.view[0];
