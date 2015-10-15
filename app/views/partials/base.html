@@ -13,7 +13,22 @@
 	<link rel="stylesheet" type="text/css" href="/app.min.css">
 
 	{% block styles %} {% endblock %}
-
+	<style>
+	.cloudinary-fileupload
+{
+	border: none;
+	cursor: pointer;
+	filter: alpha(opacity=0);
+	height: 44px;
+	left: 110px;
+	margin: 0;
+	opacity: 0;
+	padding: 0;
+	position: absolute;
+	top: 0;
+	width: 220px;
+}
+	</style>
 </head>
 <body>
 
@@ -33,6 +48,7 @@
 	    ]
 	  };
 	</script>
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js" lang="text/javascript"></script>
 	<script src='/app.min.js'></script>
 	<script src="http://imagesloaded.desandro.com/imagesloaded.pkgd.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js"></script>

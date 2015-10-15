@@ -28,8 +28,11 @@ exports.index = function (req, res) {
 };
 
 exports.add = function (req, res) {
+  var cloudinary_cors = "http://" + req.headers.host + "/cloudinary_cors.html";
+
     global.db.Category.findAll().then(function (categories) {
         return res.render(basePath + 'add', {categories: categories,
+        cloudinary_cors: cloudinary_cors,
         cloudinary: cloudinary});
     });
 };
@@ -43,17 +46,16 @@ exports.add = function (req, res) {
  * @param work data
  */
 exports.create = function (req, res) {
+    var data = JSON.parse(req.body.data);
     var promises = [
-        global.db.Category.findAll({where: {id: {$in: req.body.categories}}}),
-        global.db.Tag.findAll({where: {id: {$in: req.body.tags}}}),
-        global.db.Work.create(req.body.work, {user: req.user})
+        global.db.Category.findAll({where: {id: {$in: data.categories}}}),
+        global.db.Work.create(data, {user: req.user})
     ];
     global.db.Sequelize.Promise.all(promises).then(function (data) {
-        var categories = data[0], tags = data[1], work = data[2];
+        var categories = data[0], work = data[1];
         var promises = [
             work.setUser(req.user),
-            work.setCategories(categories),
-            work.setTags(tags)
+            work.setCategories(categories)
         ];
         global.db.Sequelize.Promise.all(promises).then(function () {
             if (req.xhr)
