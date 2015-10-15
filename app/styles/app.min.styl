@@ -602,6 +602,8 @@ body
 *------------------------------------*/
 .am-Profile-banner
 	padding 40px 0
+	background-size cover
+	background-position center center
 
 .am-Profile-avatar
 	display flex
@@ -625,12 +627,17 @@ body
 .am-Profile-menu-container
 	background #eee
 
+.user-carousel
+	height: 93px;
+	overflow: hidden;
+
 .am-Profile-menu
 	display flex
-	justify-content: flex-end;
+	overflow-x auto
 	&-item
 		padding 25px 0
 		width 120px
+		min-width: 110px;
 		p
 			font-family 'Montserrat', sans-serif
 			font-size 10px
