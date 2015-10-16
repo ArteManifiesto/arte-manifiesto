@@ -957,6 +957,9 @@ body
 		font-size 14px
 		&[data-error="true"]
 			border solid 1px #d0021b
+		.error
+			border solid 1px #d0021b
+
 	.msg
 		font-family: 'PT Serif', serif;
 		font-size 12px
@@ -1582,12 +1585,6 @@ body
 			justify-content center
 			font-size 1.75em
 			border solid 1.5px #9b9b9b
-			// &.valuation
-			// 	color #333
-			// &.share
-			// 	border solid 1.5px #4000ff
-			// 	background #4000ff
-			// 	color white
 		p
 			font-family 'Montserrat', sans-serif
 			font-weight bold
@@ -1609,6 +1606,27 @@ body
 			p
 				color #4000ff
 
+.actions-box
+	border solid 1px #c2c2c2
+	padding 20px
+	border-radius 4px
+	button
+		display block
+		width 100%
+		background white
+		border solid 1px #ddd
+		font-family 'Montserrat', sans-serif
+		font-weight bold
+		font-size 10px
+		color #9b9b9b
+		letter-spacing 1.5px
+		padding 10px
+		&.color-blue
+			color #2e71f0
+		&.color-black
+			color #000
+		&.bg-gray
+			background #eee
 
 
 .more-carousel
