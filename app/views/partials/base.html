@@ -99,7 +99,6 @@
 	<script type="text/template" id="template-work">
 		<div class="grid-item">
 			<div class="work-card">
-	  		<div class="featured">AM</div>
 				<img src="<%= photo %>">
 			</div>
 		</div>
@@ -108,9 +107,7 @@
 	<script type="text/template" id="template-user">
 		<div class="grid-item">
 	  	<div class="artist-card">
-	  		<div class="featured disabled">AM</div>
 				<% if(featured) { %>
-					<div class="featured">AM</div>
 				<% } %>
 				<a href="<%=url%>">
 		  		<div class="artist-card-info">
@@ -141,7 +138,6 @@
 	<script type="text/template" id="template-product">
 		<div class="grid-item">
 	  	<div class="product-card">
-	  		<div class="featured">AM</div>
 				<div class="product-card-image" style="background-image: url('<%=photo%>')"></div>
 	  		<div class="product-card-data">
 	  			<p><%= name %></p>
@@ -183,3 +179,5 @@
 	{% block scripts %} {% endblock %}
 </body>
 </html>
+
+<!-- <div class="featured">AM</div> -->

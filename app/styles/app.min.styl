@@ -1620,7 +1620,7 @@ body
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		i
+		.icon
 			cursor pointer
 			border-radius 50%
 			width 60px
@@ -1630,7 +1630,7 @@ body
 			justify-content center
 			font-size 1.75em
 			border solid 1.5px #9b9b9b
-		p
+		.text
 			font-family 'Montserrat', sans-serif
 			font-weight bold
 			font-size 10px
@@ -1638,23 +1638,36 @@ body
 			letter-spacing 2px
 			padding-top 10px
 		&:hover
-			i
+			.icon
 				border solid 1.5px #4000ff
 				color #4000ff
-			p
+			.text
 				color #4000ff
 		&.active
-			i
+			.icon
 				border solid 1.5px #4000ff
 				background #4000ff
 				color white
-			p
+			.text
 				color #4000ff
+
+.action
+	position relative
+	.actions-box
+		display none
+	&:hover
+		.actions-box
+			display block
 
 .actions-box
 	border solid 1px #c2c2c2
 	padding 20px
 	border-radius 4px
+	position absolute
+	left 50%
+	transform translate(-50%, 0)
+	background white
+	min-width 250px
 	button
 		display block
 		width 100%
@@ -1671,6 +1684,12 @@ body
 		justify-content center
 		cursor pointer
 		border-radius 4px
+		&.following
+			background #eee
+			color #000
+			i
+				color #3bd64a
+				font-size 1.75em
 		&.border-black
 			border-color #000
 		&.color-white
