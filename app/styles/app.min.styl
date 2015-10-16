@@ -254,10 +254,18 @@ body
 
 
 /*------------------------------------*
+	$ WORK CARD
+*------------------------------------*/
+.work-card
+	position relative
+
+
+/*------------------------------------*
 	$ ARTIST CARD
 *------------------------------------*/
 .artist-card
 	border solid 1px #ddd
+	position relative
 	&-info
 		display flex
 		align-items center
@@ -295,6 +303,7 @@ body
 *------------------------------------*/
 .collection-card
 	border solid 1px #ddd
+	// position relative
 	&-stats
 		padding 12px
 		p
@@ -339,6 +348,7 @@ body
 *------------------------------------*/
 .product-card
 	border solid 1px #ddd
+	position relative
 	&-image
 		background-size cover
 		background-position center center
@@ -373,6 +383,20 @@ body
 			color #1e1f1e
 			i
 				font-size 1.25em
+
+
+.featured
+	position absolute
+	top -10px
+	left 5px
+	background #ed86ff
+	font-family 'Montserrat', sans-serif
+	font-weight bold
+	font-size 8px
+	color white
+	padding 4px 11px
+	border-radius 3px
+
 
 .footer
 	padding 40px 0
