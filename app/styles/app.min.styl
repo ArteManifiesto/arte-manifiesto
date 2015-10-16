@@ -1281,7 +1281,7 @@ body
 	padding 10px 0
 
 /*------------------------------------*
-	$ WORK LAYOUT DISCOVER
+	$ LAYOUT DISCOVER
 *------------------------------------*/
 .discover-content
 	min-height 750px
@@ -1290,37 +1290,78 @@ body
 	$ WORK LAYOUT DISCOVER
 *------------------------------------*/
 .work-layout-discover
+	.grid-sizer
 	.grid-item
 		width 100%
 
 @media (min-width: 300px)
 	.work-layout-discover
+		.grid-sizer
 		.grid-item
 			width 50%
 
 @media (min-width: 460px)
 	.work-layout-discover
+		.grid-sizer
 		.grid-item
 			width 33.333%
 
 @media (min-width: 768px)
 	.work-layout-discover
+		.grid-sizer
 		.grid-item
 			width 25%
 
 @media (min-width: 1000px)
 	.work-layout-discover
+		.grid-sizer
 		.grid-item
 			width 20%
 	.discover-content
 		&[data-state="expand"]
 			.work-layout-discover
 				margin-left 20%
+				.grid-sizer
 				.grid-item
 					width 25%
 
 			.am-More-button
 				margin-left 20%
+
+
+
+// .work-layout-discover
+// 	.grid-item
+// 		width 100%
+
+// @media (min-width: 300px)
+// 	.work-layout-discover
+// 		.grid-item
+// 			width 50%
+
+// @media (min-width: 460px)
+// 	.work-layout-discover
+// 		.grid-item
+// 			width 33.333%
+
+// @media (min-width: 768px)
+// 	.work-layout-discover
+// 		.grid-item
+// 			width 25%
+
+// @media (min-width: 1000px)
+// 	.work-layout-discover
+// 		.grid-item
+// 			width 20%
+// 	.discover-content
+// 		&[data-state="expand"]
+// 			.work-layout-discover
+// 				margin-left 20%
+// 				.grid-item
+// 					width 25%
+
+// 			.am-More-button
+// 				margin-left 20%
 
 
 /*------------------------------------*
