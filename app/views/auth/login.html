@@ -3,20 +3,6 @@
 
 {% block elements %}
 	<div class="am-register">
-		<!-- <div class="message succes">
-			<div class="grid-container">
-				<div class="grid-100">
-					<p>Te hemos enviado el nuevo password al emai</p>
-				</div>
-			</div>
-		</div> -->
-		<div class="message error">
-			<div class="grid-container">
-				<div class="grid-100">
-					<p>Tu correo o tu contraseña son incorrectas</p>
-				</div>
-			</div>
-		</div>
 		<div class="am-register-box">
 			<img class="logo-img" src="/img/logo-small.png" />
 			<img class="logo-text" src="/img/logo-text-black.svg" />
@@ -34,7 +20,7 @@
 			</div>
 
 			<form class='login-form'>
-				<input data-error='true' name='email' class="input" type="email" placeholder="Correo" required></input>
+				<input name='email' class="input" type="email" placeholder="Correo" required></input>
 				<input name='password' class="input u-margin-top-10" type="password" placeholder="Contraseña" required></input>
 				<button class="button u-margin-top-10" data-color="green">
 					<a>INGRESAR A MI CUENTA</a>
@@ -42,7 +28,7 @@
 			</form>
 
 			<div class="options">
-				<a href="#">Olvidé mi cuenta</a>
+				<a href="/auth/forgot">Olvidé mi cuenta</a>
 			</div>
 			<p class="change">¿Aún no tienes una cuenta? <a href="/auth/signup">Regístrate</a></p>
 		</div>

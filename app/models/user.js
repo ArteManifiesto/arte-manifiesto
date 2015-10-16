@@ -206,6 +206,7 @@ module.exports = function (sequelize, DataTypes) {
                     user.hashedPassword = user.encryptPassword(options.password, user.salt);
                     user.tokenVerifyEmail = uuid.v4();
                     user.url = '/user/' + user.username;
+                    user.photo = 'http://walyou.com/wp-content/uploads//2010/12/facebook-profile-picture-no-pic-avatar.jpg';
                     user.fullname = user.firstname + ' ' + user.lastname;
 
                     var promises = [

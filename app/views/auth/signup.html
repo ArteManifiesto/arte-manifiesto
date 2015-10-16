@@ -3,20 +3,6 @@
 
 {% block elements %}
 	<div class="am-register">
-		<div class="message succes">
-			<div class="grid-container">
-				<div class="grid-100">
-					<p>Te hemos enviado el nuevo password al emai</p>
-				</div>
-			</div>
-		</div>
-		<!-- <div class="message error">
-			<div class="grid-container">
-				<div class="grid-100">
-					<p>Tu correo o tu contraseña son incorrectas</p>
-				</div>
-			</div>
-		</div> -->
 		<div class="am-register-box">
 			<img class="logo-img" src="/img/logo-small.png" />
 			<img class="logo-text" src="/img/logo-text-black.svg" />
@@ -37,13 +23,13 @@
 			<form class="signup-form">
 				<input name="email" class="input email" type="email" placeholder="Correo" value="{{profile.email}}" required/>
 				<input name="password" class="input password u-margin-top-10" type="password" placeholder="Contraseña" required/>
-				<div class="g-recaptcha u-margin-top-10" data-sitekey="6LdnUQoTAAAAALPzF3glOaqzGcbhBrmT1yQwVYls"></div>
-				<button class="button u-margin-top-10 recaptcha" data-color="green">
+				<div class="g-recaptcha u-margin-top-10 recaptcha" data-sitekey="6LdnUQoTAAAAALPzF3glOaqzGcbhBrmT1yQwVYls"></div>
+				<button class="button u-margin-top-10" data-color="green">
 					<a>REGISTRARME CON MI CORREO</a>
 				</button>
 			</form>
 			<p class="msg">Al registrarme estoy aceptando los términos y condiciones de la plataforma.</p>
-			<p class="change">¿Ya tienes una cuenta? <a href="#">Ingresa</a></p>
+			<p class="change">¿Ya tienes una cuenta? <a href="/auth/login">Ingresa</a></p>
 		</div>
 	</div>
 {% endblock %}
@@ -66,7 +52,7 @@
 							$('.errors').append($('<li>'+ value +'</li>'));
 						});
 					}
-					
+
 					if(response.status === 200) {
 						location.href = response.data.returnTo
 					}

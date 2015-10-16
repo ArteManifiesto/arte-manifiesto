@@ -34,6 +34,25 @@
 
 	{% include 'header.html' %}
 
+	{% if successMessage %}
+	<div class="message succes">
+		<div class="grid-container">
+			<div class="grid-100">
+				<p>{{successMessage}}</p>
+			</div>
+		</div>
+	</div>
+	{% endif %}
+
+	{% if errorMessage %}
+	<div class="message error">
+		<div class="grid-container">
+			<div class="grid-100">
+				<p>{{errorMessage}}</p>
+			</div>
+		</div>
+	</div>
+	{% endif %}
 	{% block elements %} {% endblock %}
 
 	{% include 'footer.html' %}
