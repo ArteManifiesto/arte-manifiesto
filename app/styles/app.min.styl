@@ -1124,6 +1124,8 @@ body
 		i
 			color: #aaa;
 			font-size: 1.25em;
+			animation 1.5s load infinite
+
 	.preview
 		text-align center
 		position relative
@@ -1781,3 +1783,12 @@ body
 		display flex
 		justify-content center
 		align-items center
+
+
+@keyframes load
+	0%
+		transform rotate(0)
+	50%
+		transform rotate(-180deg)
+	100%
+		transform rotate(-360deg)
