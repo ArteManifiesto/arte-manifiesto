@@ -15,6 +15,6 @@ router.post('/unlike', isLoggedAndOwner, controller.unLike);
 router.post('/featured', isLoggedAndOwner, controller.featured);
 router.post('/unfeatured', isLoggedAndOwner, controller.unFeatured);
 
-router.post('/addToCollection', isLoggedAndOwner, controller.addToCollection);
+router.post('/add_to_collection', controller.addToCollection);
 
 module.exports = router;

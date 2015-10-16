@@ -25,4 +25,6 @@ router.post('/unlike', isLoggedAndOwner, controller.unLike);
 router.post('/public', isLoggedAndOwner, controller.public);
 router.post('/private', isLoggedAndOwner, controller.private);
 
+router.post('/add_to_collection', controller.addToCollection);
+
 module.exports = router;

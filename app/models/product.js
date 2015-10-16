@@ -28,10 +28,6 @@ module.exports = function (sequelize, DataTypes) {
                     Product.belongsToMany(models.User, {as: 'ProductCollects', through: 'ProductCollects'});
                     Product.belongsToMany(models.User, {as: 'ProductBuyers', through: 'ProductBuyers'});
 
-                    Product.hasMany(models.ProductCart);
-
-                    Product.belongsToMany(models.Collection, {through: models.CollectionProduct});
-
                     Product.belongsTo(models.Work, {onDelete: 'cascade'});
                     Product.belongsTo(models.User);
                     Product.belongsTo(models.ProductType);
@@ -126,32 +122,6 @@ module.exports = function (sequelize, DataTypes) {
                     };
                     return this.getUser().then(function (user) {
                         return user.getProducts(query);
-                    });
-                },
-                addToCollection: function (options) {
-                    var scope = this,
-                        query = {where: {UserId: options.viewer}};
-                    return this.getCollections(query).then(function (collections) {
-                        var currentIds = _.pluck(collections, 'id');
-                        var newIds = options.collections;
-
-                        var oldCollectionsIds = _.difference(currentIds, newIds);
-                        var newCollectionsIds = _.difference(newIds, currentIds);
-
-                        var i, collection, promises = [];
-                        for (i = 0; i < oldCollectionsIds.length; i++) {
-                            collection = _.where(collections, {id: oldCollectionsIds[i]})[0];
-                            promises.push(collection.deleteProduct({idProduct: scope.id}));
-                        }
-                        return global.db.Sequelize.Promise.all(promises).then(function (result) {
-                            if (newCollectionsIds.length > 0) {
-                                var queryCollections = {
-                                    appendProduct: true, idProduct: scope.id,
-                                    where: {id: {$in: newCollectionsIds}}
-                                };
-                                return global.db.Collection.findAll(queryCollections);
-                            }
-                        });
                     });
                 }
             },

@@ -94,6 +94,18 @@ exports.update = function (req, res) {
     });
 };
 
+
+exports.addToCollection = function (req, res) {
+    var collections = req.body.collections;
+    var query = {
+      viewer: req.viewer,
+      collections: collections
+    };
+    req.work.addToCollection(query).then(function (data) {
+        return res.ok({collections: collections}, 'Work has been added to collections');
+    });
+}
+
 exports.delete = function (req, res) {
     req.work.destroy().then(function () {
         if (req.xhr)

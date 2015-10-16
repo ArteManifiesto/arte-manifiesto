@@ -30,6 +30,8 @@ module.exports = function (sequelize, DataTypes) {
 
                     Work.belongsTo(models.User, {onDelete: 'cascade'});
 
+                    Work.belongsToMany(models.Collection, {through: 'CollectionWork'});
+
                     Work.hasMany(models.Product);
                 }
             },
@@ -134,6 +136,41 @@ module.exports = function (sequelize, DataTypes) {
                     return this.getUser().then(function (user) {
                         return user.getWorks(query);
                     });
+                },
+                addToCollection: function (options) {
+                    var scope = this, promises = [];
+                    return this.removeLegacy(options).then(function(newCollectionsIds){
+                      if (newCollectionsIds.length < 1) return;
+
+                      var query = {where: {id: {$in: newCollectionsIds}}};
+                      return global.db.Collection.findAll(query).then(function(collections){
+                        for (i = 0; i < collections.length; i++) {
+                            collection = collections[i];
+                            promises.push(collection.addWork(scope));
+                        }
+                        return global.db.Sequelize.Promise.all(promises);
+                      });
+                    });
+                },
+                removeLegacy: function(options) {
+                  var scope = this, query = {where: {UserId: options.viewer}};
+
+                  return this.getCollections(query).then(function (collections) {
+                      var currentIds = _.pluck(collections, 'id');
+                      var newIds = options.collections;
+
+                      var oldCollectionsIds = _.difference(currentIds, newIds);
+                      var newCollectionsIds = _.difference(newIds, currentIds);
+
+                      var i, collection, promises = [];
+                      for (i = 0; i < oldCollectionsIds.length; i++) {
+                          collection = _.where(collections, {id: oldCollectionsIds[i]})[0];
+                          promises.push(collection.removeWork(scope));
+                      }
+                      return global.db.Sequelize.Promise.all(promises).then(function (result) {
+                          return newCollectionsIds;
+                      });
+                  });
                 }
             },
             hooks: {

@@ -59,15 +59,10 @@ module.exports = function (sequelize, DataTypes) {
                     User.belongsToMany(models.Product, {as: 'ProductLikes', through: 'ProductLikes'});
                     User.belongsToMany(models.Product, {as: 'ProductCollects', through: 'ProductCollects'});
                     User.belongsToMany(models.Product, {as: 'ProductBuyers', through: 'ProductBuyers'});
-
-                    User.hasMany(models.ProductCart);
-
+                    
                     User.hasMany(models.Collection);
                     User.hasMany(models.Work);
                     User.hasMany(models.Product);
-
-                    User.hasMany(models.Address);
-                    User.hasMany(models.Order);
                 }
             },
             instanceMethods: {
