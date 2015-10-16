@@ -1581,13 +1581,13 @@ body
 			align-items center
 			justify-content center
 			font-size 1.75em
-			&.valuation
-				border solid 1.5px #ddd
-				color #333
-			&.share
-				border solid 1.5px #4000ff
-				background #4000ff
-				color white
+			border solid 1.5px #9b9b9b
+			// &.valuation
+			// 	color #333
+			// &.share
+			// 	border solid 1.5px #4000ff
+			// 	background #4000ff
+			// 	color white
 		p
 			font-family 'Montserrat', sans-serif
 			font-weight bold
@@ -1595,6 +1595,20 @@ body
 			color #333
 			letter-spacing 2px
 			padding-top 10px
+		&:hover
+			i
+				border solid 1.5px #4000ff
+				color #4000ff
+			p
+				color #4000ff
+		&.active
+			i
+				border solid 1.5px #4000ff
+				background #4000ff
+				color white
+			p
+				color #4000ff
+
 
 
 .more-carousel
