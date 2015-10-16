@@ -89,7 +89,9 @@
 	<script type="text/template" id="template-user">
 		<div class="grid-item">
 	  	<div class="artist-card">
-	  		<div class="featured">AM</div>
+				<% if(featured) { %>
+					<div class="featured">AM</div>
+				<% } %>
 				<a href="<%=url%>">
 		  		<div class="artist-card-info">
 		  			<img src="<%=photo%>">
