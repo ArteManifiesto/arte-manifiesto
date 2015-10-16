@@ -45,13 +45,18 @@ APP.Viewer.constructor = APP.Viewer;
 
 APP.Viewer.prototype.setupMasonry = function() {
   var scope = this;
-  this.container.imagesLoaded(function(){
-	  scope.container.masonry({
-      columnWidth: '.grid-sizer',
-      itemSelector: '.grid-item',
-      percentPosition: true
-		});
-	});
+ //  this.container.imagesLoaded(function(){
+	//   scope.container.masonry({
+ //      columnWidth: 120,
+ //      itemSelector: '.grid-item'
+	// 	});
+	// });
+
+  scope.container.masonry({
+    itemSelector: '.grid-item',
+    columnWidth: '.grid-sizer',
+    percentPosition: true
+  });
 };
 
 APP.Viewer.prototype.listeners = function() {
@@ -78,16 +83,28 @@ APP.Viewer.prototype.addItems = function(items) {
   var i = 0, item;
   for(i; i< items.length; i++) {
     item = new APP[Utils.capitalize(this.id)](items[i]);
-    if(this.navigation) {
-      if(this.initialize) {
-        this.container.append(item.view);
-      }
-      else {
-        this.container.append(item.view).masonry('appended', item.view);
-      }
-    }else {
-      this.container.append(item.view);
-    }
+
+    // if(this.navigation) {
+    //   if(this.initialize) {
+    //     this.container.append(item.view);
+    //   }
+    //   else {
+    //     this.container.append(item.view).masonry('appended', item.view);
+    //   }
+    // }else {
+    //   this.container.append(item.view);
+    // }
+
+    var $items = item.view;
+    $items.hide();
+    this.container.append( $items );
+    var scope = this.container
+    $items.imagesLoaded().progress( function( imgLoad, image ) {
+      var $item = $( image.img ).parents('.grid-item');
+      $item.show();
+      scope.masonry( 'appended', $item );
+    });
+
   }
 };
 
