@@ -40,7 +40,7 @@ exports.signup = function (req, res) {
                 return res.conflict(errors);
 
             var options = {password: req.body.password};
-
+            req.body.photo = 'http://walyou.com/wp-content/uploads//2010/12/facebook-profile-picture-no-pic-avatar.jpg';
             global.db.User.create(req.body, options).then(function (user) {
                 var params = {
                     to: user.email, user: user.firstname,
