@@ -1281,7 +1281,7 @@ body
 	padding 10px 0
 
 /*------------------------------------*
-	$ WORK LAYOUT DISCOVER
+	$ LAYOUT DISCOVER
 *------------------------------------*/
 .discover-content
 	min-height 750px
@@ -1290,37 +1290,78 @@ body
 	$ WORK LAYOUT DISCOVER
 *------------------------------------*/
 .work-layout-discover
+	.grid-sizer
 	.grid-item
 		width 100%
 
 @media (min-width: 300px)
 	.work-layout-discover
+		.grid-sizer
 		.grid-item
 			width 50%
 
 @media (min-width: 460px)
 	.work-layout-discover
+		.grid-sizer
 		.grid-item
 			width 33.333%
 
 @media (min-width: 768px)
 	.work-layout-discover
+		.grid-sizer
 		.grid-item
 			width 25%
 
 @media (min-width: 1000px)
 	.work-layout-discover
+		.grid-sizer
 		.grid-item
 			width 20%
 	.discover-content
 		&[data-state="expand"]
 			.work-layout-discover
 				margin-left 20%
+				.grid-sizer
 				.grid-item
 					width 25%
 
 			.am-More-button
 				margin-left 20%
+
+
+
+// .work-layout-discover
+// 	.grid-item
+// 		width 100%
+
+// @media (min-width: 300px)
+// 	.work-layout-discover
+// 		.grid-item
+// 			width 50%
+
+// @media (min-width: 460px)
+// 	.work-layout-discover
+// 		.grid-item
+// 			width 33.333%
+
+// @media (min-width: 768px)
+// 	.work-layout-discover
+// 		.grid-item
+// 			width 25%
+
+// @media (min-width: 1000px)
+// 	.work-layout-discover
+// 		.grid-item
+// 			width 20%
+// 	.discover-content
+// 		&[data-state="expand"]
+// 			.work-layout-discover
+// 				margin-left 20%
+// 				.grid-item
+// 					width 25%
+
+// 			.am-More-button
+// 				margin-left 20%
 
 
 /*------------------------------------*
@@ -1620,14 +1661,86 @@ body
 		font-size 10px
 		color #9b9b9b
 		letter-spacing 1.5px
-		padding 10px
+		padding 10px 30px
+		display flex
+		align-items center
+		justify-content center
+		cursor pointer
+		border-radius 4px
+		&.border-black
+			border-color #000
+		&.color-white
+			color #fff
 		&.color-blue
 			color #2e71f0
 		&.color-black
 			color #000
+			i
+				color #3bd64a
+				font-size 1.75em
 		&.bg-gray
 			background #eee
+		&.bg-blue
+			background #0000ff
+		&.wd-auto
+			width initial
+	.title
+		font-family 'Montserrat', sans-serif
+		font-weight bold
+		font-size 16px
+		color charcoal-grey
+	input
+		width 100%
+		border solid 1px #979797
+		padding 10px 15px
+		box-sizing border-box
+		font-family 'Montserrat', sans-serif
+		font-size 12px
+		border-radius 4px
+	.collections
+		border-radius 4px
+		border solid 1px #ddd
+		.collection
+			font-family 'Montserrat', sans-serif
+			font-size 14px
+			color #4a4a4a
+			padding 10px 20px
+			display flex
+			cursor pointer
+			p
+				flex 1
+			i
+				color #2e71f0
+				display none
+			&.selected
+				i
+					display block
+			&:not(:first-child)
+				border-top solid 1px #ddd
 
+	.buttons
+		button
+			display inline
+			&:first-child
+				margin-right 20px
+	.share
+		font-family 'Montserrat', sans-serif
+		font-size 14px
+		color #4a4a4a
+		display flex
+		align-items center
+		margin-top 10px
+		cursor pointer
+		i
+			width 40px
+			height 40px
+			background black
+			color white
+			font-size 2em
+			display flex
+			align-items center
+			justify-content center
+			margin-right 15px
 
 .more-carousel
 	height: 240px;
