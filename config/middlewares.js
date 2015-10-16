@@ -16,7 +16,7 @@ exports.isOwner = function (req, res, next) {
         if (req.xhr)
             return res.badRequest('Necesitas ser el propietario');
 
-        return res.redirect('/' + req.params.username);
+        return res.redirect('/user/' + req.params.username);
     }
     next();
 };
@@ -79,7 +79,7 @@ var entityExists = function (entity, query, req, res, next) {
                 return res.badRequest(entity + ' not exists');
 
             req.flash('errorMessage', entity + ' not exists');
-            return res.redirect('/' + req.params.username);
+            return res.redirect('/user/' + req.params.username);
         }
         req[entity.toLowerCase()] = element;
         next();

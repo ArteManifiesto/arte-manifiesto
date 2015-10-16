@@ -42,14 +42,10 @@
 					{% endfor %}
 					<div class="info-box u-margin-top-25">
 						<div class="header">
-							<p class="selected">ORIGINAL</p>
-							<p>PRODUCTOS</p>
+							<p class="selected">COMPRAR</p>
 						</div>
 						<div class="body u-text-center">
-							<p class="title large">Precio Obra Original</p>
-							<p class="price u-padding-top-10">S/. <strong class="large">1500</strong></p>
-							<button class="am-View-button expand u-margin-top-20">COMPRAR</button>
-							<p class="msg u-padding-top-15 u-padding-bottom-4">7 días para devolver cualquier obra</p>
+							<p class="title large">Pronto en venta</p>
 						</div>
 					</div>
 					<p class="am-stats-text u-margin-top-40">ESTADÍSTICAS</p>
@@ -96,13 +92,9 @@
 					<div class="menu">
 						<div class="carousel">
 							<div class="single-tabs">
-								<div class="single-tab">
-									<p>MANIFIESTO</p>
-									<i class="fa fa-cube"></i>
-								</div>
 								<div class="single-tab" selected="true">
-									<p>PRODUCTOS</p>
-									<span>25</span>
+									<p>+ OBRAS</p>
+									<i class="fa fa-cube"></i>
 								</div>
 								<div class="single-tab">
 									<p>REVIEWS</p>
@@ -119,25 +111,6 @@
 			</div>
 		</div>
 	</div>
-
-	<div class="grid-container u-margin-top-20">
-		<div class="grid-100">
-			<p class="am-Products-title">Productos</p>
-			<div class="u-separator"></div>
-		</div>
-	</div>
-
-	<div class="grid-container u-margin-top-20">
-		<div class="grid-100">
-			<div class="more-carousel">
-				<div class="more-images products">
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-	<div class="u-separator u-margin-top-60"></div>
 	<div class="grid-container u-margin-top-60">
 		<div class="grid-100">
 			<p class="am-more-text u-text-center u-padding-bottom-10">Otras obras del artista</p>
@@ -178,7 +151,6 @@
 {% block scripts %}
 	<script>
 	$(document).ready(function() {
-		new APP.Viewer('carrouselItem', $('.products'), null, {{products|json|safe}});
 		new APP.Viewer('carrouselItem', $('.more'), null, {{more|json|safe}});
 		new APP.Viewer('carrouselItem', $('.similar'), null, {{similar|json|safe}});
 
