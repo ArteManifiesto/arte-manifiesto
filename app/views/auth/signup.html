@@ -32,12 +32,16 @@
 			<div class="separator">
 				<span class="line"></span><span class="text">CORREO</span><span class="line"></span>
 			</div>
-			<input class="input" type="text" placeholder="Correo" value="{{profile.email}}"></input>
-			<input class="input u-margin-top-10" type="password" placeholder="Contraseña"></input>
-			<div class="g-recaptcha" data-sitekey="6LdnUQoTAAAAALPzF3glOaqzGcbhBrmT1yQwVYls"></div>
-			<button class="button u-margin-top-10" data-color="green">
-				<a>REGISTRARME CON MI CORREO</a>
-			</button>
+			<ul class="error errors">
+			</ul>
+			<form class="signup-form">
+				<input name="email" class="input email" type="email" placeholder="Correo" value="{{profile.email}}" required/>
+				<input name="password" class="input password u-margin-top-10" type="password" placeholder="Contraseña" required/>
+				<div class="g-recaptcha u-margin-top-10" data-sitekey="6LdnUQoTAAAAALPzF3glOaqzGcbhBrmT1yQwVYls"></div>
+				<button class="button u-margin-top-10 recaptcha" data-color="green">
+					<a>REGISTRARME CON MI CORREO</a>
+				</button>
+			</form>
 			<p class="msg">Al registrarme estoy aceptando los términos y condiciones de la plataforma.</p>
 			<p class="change">¿Ya tienes una cuenta? <a href="#">Ingresa</a></p>
 		</div>
@@ -46,5 +50,28 @@
 
 {% block scripts %}
 	<script src='https://www.google.com/recaptcha/api.js'></script>
-
+	<script>
+		$(function(){
+			$('.signup-form').submit(function(event){
+				event.preventDefault();
+				$.post('/auth/signup', $(this).serialize(), function (response) {
+					if(response.status === 409){
+						grecaptcha.reset();
+						$('.errors').empty();
+						$.each(response.data, function( key, value ) {
+							$('.' + key).removeClass('error');
+						});
+						$.each(response.data, function( key, value ) {
+							$('.' + key).addClass('error');
+							$('.errors').append($('<li>'+ value +'</li>'));
+						});
+					}
+					
+					if(response.status === 200) {
+						location.href = response.data.returnTo
+					}
+				});
+			});
+		});
+	</script>
 {% endblock %}

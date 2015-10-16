@@ -25,18 +25,18 @@ exports.signupPage = function (req, res) {
 exports.signup = function (req, res) {
     console.log(req.body);
     check('email', req.body.email).then(function (emailAvailable) {
-        var errors = [];
+        var errors = {};
 
         if (!emailAvailable)
-            errors.push({email: 'Email no esta disponible'});
+            errors['email'] = 'Email no esta disponible';
 
         var ip = req.ip, response = req.body['g-recaptcha-response'];
 
         simple_recaptcha(config.recaptcha.privateKey, ip, response, function (error) {
             if (error)
-                errors.push({recaptch: 'Recaptcha invalido'});
+                errors['recaptcha'] = 'Recaptcha invalido';
 
-            if (errors.length > 0)
+            if (errors['email'] || errors['recaptcha'])
                 return res.conflict(errors);
 
             var options = {password: req.body.password};
