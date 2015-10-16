@@ -4,12 +4,7 @@ var _ = require('lodash');
 var request = require('request');
 
 exports.index = function (req, res) {
-    var query = {where: {featured: true}, limit: 10, build: true, viewer: req.viewer};
-    global.db.Product.findAll(query).then(function (products) {
-        return res.render(basePath + 'index', {
-            products: products
-        });
-    });
+  return res.redirect('/works/category/all/page-1/?order=popularity');
 };
 
 var searchHandler = function (entity, req, res) {
