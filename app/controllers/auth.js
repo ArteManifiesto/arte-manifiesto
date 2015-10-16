@@ -31,7 +31,7 @@ exports.signup = function (req, res) {
             errors.push({email: 'Email no esta disponible'});
 
         var ip = req.ip, response = req.body['g-recaptcha-response'];
-
+        
         simple_recaptcha(config.recaptcha.privateKey, ip, response, function (error) {
             if (error)
                 errors.push({recaptch: 'Recaptcha invalido'});

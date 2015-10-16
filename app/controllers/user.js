@@ -5,10 +5,9 @@ exports.profile = function (req, res) {
     var currentPath = req.path.replace('/', '');
     if (currentPath === '') currentPath = 'portfolio';
 
-    var collectionsQuery = {where: {meta: 'products'}};
     var promises = [
         req.profile.numOfWorks(), req.profile.numOfProducts(),
-        req.profile.numOfCollections(collectionsQuery),
+        req.profile.numOfCollections(),
         req.profile.numOfFollowings(),
         req.profile.numOfFollowers()
     ];

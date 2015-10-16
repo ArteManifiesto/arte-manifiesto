@@ -32,8 +32,9 @@
 			<div class="separator">
 				<span class="line"></span><span class="text">CORREO</span><span class="line"></span>
 			</div>
-			<input class="input" type="text" placeholder="E-mail" value="luis.augusto@artemanifiesto.com"></input>
-			<input class="input u-margin-top-10" type="password" placeholder="Password" value="123456"></input>
+			<input class="input" type="text" placeholder="Correo" value="{{profile.email}}"></input>
+			<input class="input u-margin-top-10" type="password" placeholder="Contraseña"></input>
+			<div class="g-recaptcha" data-sitekey="6LdnUQoTAAAAALPzF3glOaqzGcbhBrmT1yQwVYls"></div>
 			<button class="button u-margin-top-10" data-color="green">
 				<a>REGISTRARME CON MI CORREO</a>
 			</button>
@@ -41,4 +42,9 @@
 			<p class="change">¿Ya tienes una cuenta? <a href="#">Ingresa</a></p>
 		</div>
 	</div>
+{% endblock %}
+
+{% block scripts %}
+	<script src='https://www.google.com/recaptcha/api.js'></script>
+
 {% endblock %}
