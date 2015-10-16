@@ -2,7 +2,7 @@
  *Author : www.juliocanares.com/cv
  *Email : juliocanares@gmail.com
  */
-var APP = APP || {};
+ var APP = APP || {};
 
 APP.BaseElement = function (data, id) {
     this.template = APP.TemplateManager.instance.getFromDoc(id);

@@ -22,7 +22,7 @@
 					<span class="line"></span><span class="text">DATOS DE LA OBRA</span><span class="line"></span>
 				</div>
 				<p class="title">Título de la obra</p>
-				<input name='title' class="input" type="text" placeholder="Ingrese el titulo"/>
+				<input name='name' class="input" type="text" placeholder="Ingrese el titulo"/>
 			</div>
 
 			<div class="grid-100 mobile-grid-100">
@@ -77,7 +77,7 @@
 			event.preventDefault();
 			var formData = {
 					 photo              : imagelel,
-					 title             : $('input[name=title]').val(),
+					 name             : $('input[name=name]').val(),
 					 categories    : [parseInt($('select[name=categoryId]').val(),10)],
 					 tags             : $('input[name=tags]').val().split(','),
 					 public:1

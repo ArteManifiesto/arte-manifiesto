@@ -106,7 +106,7 @@ module.exports = function (sequelize, DataTypes) {
                 buildParts: function (options) {
                     var scope = this, worksQuery = {
                         attributes: ['id', 'name', 'photo', 'url'],
-                        limit: 6
+                        limit: 4
                     };
                     return global.db.Sequelize.Promise.all([
                         scope.numOfFollowers(),
