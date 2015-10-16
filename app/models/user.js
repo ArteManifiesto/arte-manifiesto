@@ -59,7 +59,7 @@ module.exports = function (sequelize, DataTypes) {
                     User.belongsToMany(models.Product, {as: 'ProductLikes', through: 'ProductLikes'});
                     User.belongsToMany(models.Product, {as: 'ProductCollects', through: 'ProductCollects'});
                     User.belongsToMany(models.Product, {as: 'ProductBuyers', through: 'ProductBuyers'});
-                    
+
                     User.hasMany(models.Collection);
                     User.hasMany(models.Work);
                     User.hasMany(models.Product);
@@ -115,13 +115,13 @@ module.exports = function (sequelize, DataTypes) {
                         scope.setDataValue('Works', result[3]);
                     });
                 },
-                numOfCollections: function (query) {
+                numOfCollections: function () {
                     var scope = this;
-                    query = _.assign(query, {
+                    var query = {
                         attributes: [
-                            [global.db.sequelize.fn('COUNT', global.db.sequelize.col('Collection.id')), 'numOfCollections']
+                            [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'numOfCollections']
                         ]
-                    });
+                    };
                     return this.getCollections(query).then(function (result) {
                         return result[0].getDataValue('numOfCollections');
                     });
@@ -211,20 +211,12 @@ module.exports = function (sequelize, DataTypes) {
                     var promises = [
                         user.save(),
                         global.db.Collection.create({
-                            name: 'Tienda',
-                            meta: 'store',
-                            needGenerate: false
-                        }, {user: user}),
-                        global.db.Collection.create({
                             name: 'Deseos',
-                            meta: 'products',
-                            description: 'Cosas que me encataria tener un dia.',
-                            needGenerate: false
+                            description: 'Cosas que me encataria tener un dia.'
                         }, {user: user}),
                         global.db.Collection.create({
-                            name: 'Regalos', meta: 'products',
-                            description: 'Buenas ideas para regalos.',
-                            needGenerate: false
+                            name: 'Regalos',
+                            description: 'Buenas ideas para regalos.'
                         }, {user: user})
                     ];
                     return global.db.Sequelize.Promise.all(promises).then(function (data) {

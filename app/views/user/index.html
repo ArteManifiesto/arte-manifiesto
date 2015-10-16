@@ -73,6 +73,7 @@
 {% block scripts %}
 	<script>
 		$(document).ready(function() {
+			console.log({{data|json|safe}});
 			var currentPath = {{currentPath|json|safe}}, template;
 			$('.' + currentPath).addClass('selected');
 			if(['followings', 'followers'].indexOf(currentPath) !== -1) template = 'user';

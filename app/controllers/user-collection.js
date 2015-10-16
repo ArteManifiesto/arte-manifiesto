@@ -2,10 +2,10 @@ var basePath = 'user/collection/';
 
 exports.index = function (req, res) {
     var query = {build: true, viewer: req.viewer};
-    req.collection.getProducts(query).then(function (products) {
+    req.collection.getWorks(query).then(function (works) {
         return res.render(basePath + 'index', {
             collection: req.collection,
-            products: products
+            works: works
         });
     });
 }

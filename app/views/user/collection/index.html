@@ -41,50 +41,24 @@
 	<div class="discover-content grid-container u-padding-top-10 u-padding-bottom-40">
 		<div class="grid-100 grid-parent">
 			<div class="grid work-layout-discover">
-			  <div class="grid-item">
-			  	<div class="work-collection-card">
-			  		<div class="work-collection-card-img">
-			  			<img src="/img/works/work10.jpg">
-			  		</div>
-			  		<div class="work-collection-card-data">
-				  		<p class="work-collection-card-title">OUR LEGACY SPLASH MID SLEEVE AND I WILL NOT SLEEP</p>
-				  		<p class="work-collection-card-artist">Sergio Gonzales Mucho</p>
-			  		</div>
-			  	</div>
-			  </div>
-			  <div class="grid-item">
-			  	<div class="work-collection-card">
-			  		<div class="work-collection-card-img">
-			  			<img src="/img/works/work9.jpg">
-			  		</div>
-			  		<div class="work-collection-card-data">
-				  		<p class="work-collection-card-title">OUR LEGACY SPLASH MID SLEEVE AND I WILL NOT SLEEP</p>
-				  		<p class="work-collection-card-artist">Sergio Gonzales Mucho</p>
-			  		</div>
-			  	</div>
-			  </div>
-			  <div class="grid-item">
-			  	<div class="work-collection-card">
-			  		<div class="work-collection-card-img">
-			  			<img src="/img/works/work8.jpg">
-			  		</div>
-			  		<div class="work-collection-card-data">
-				  		<p class="work-collection-card-title">OUR LEGACY SPLASH MID SLEEVE AND I WILL NOT SLEEP</p>
-				  		<p class="work-collection-card-artist">Sergio Gonzales Mucho</p>
-			  		</div>
-			  	</div>
-			  </div>
-			  <div class="grid-item">
-			  	<div class="work-collection-card">
-			  		<div class="work-collection-card-img">
-			  			<img src="/img/works/work7.jpg">
-			  		</div>
-			  		<div class="work-collection-card-data">
-				  		<p class="work-collection-card-title">OUR LEGACY SPLASH MID SLEEVE AND I WILL NOT SLEEP</p>
-				  		<p class="work-collection-card-artist">Sergio Gonzales Mucho</p>
-			  		</div>
-			  	</div>
-			  </div>
+
 			</div>
 		</div>
 	</div>
+
+	{% endblock %}
+
+	{% block scripts %}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var data= {
+				pagination: {
+					page:1,
+					pages:2
+				},
+				items: {{works|json|safe}}
+			}
+			new APP.Viewer('work', $('.grid'), 'infinite', data);
+		});
+	</script>
+	{% endblock %}
