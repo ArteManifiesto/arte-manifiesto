@@ -57,6 +57,11 @@ APP.Viewer.prototype.setupMasonry = function() {
     columnWidth: '.grid-sizer',
     percentPosition: true
   });
+
+  $('.discover-content').on('resetLayout', function () {
+    console.log('expand')
+    scope.container.masonry()
+  })
 };
 
 APP.Viewer.prototype.listeners = function() {
