@@ -45,18 +45,18 @@ APP.Viewer.constructor = APP.Viewer;
 
 APP.Viewer.prototype.setupMasonry = function() {
   var scope = this;
-  this.container.imagesLoaded(function(){
-	  scope.container.masonry({
-      columnWidth: 120,
-      itemSelector: '.grid-item'
-		});
-	});
+ //  this.container.imagesLoaded(function(){
+	//   scope.container.masonry({
+ //      columnWidth: 120,
+ //      itemSelector: '.grid-item'
+	// 	});
+	// });
 
-  // scope.container.masonry({
-  //   itemSelector: '.grid-item',
-  //   columnWidth: '.grid-sizer',
-  //   percentPosition: true
-  // });
+  scope.container.masonry({
+    itemSelector: '.grid-item',
+    columnWidth: '.grid-sizer',
+    percentPosition: true
+  });
 };
 
 APP.Viewer.prototype.listeners = function() {
@@ -76,6 +76,7 @@ APP.Viewer.prototype.pageLoadEndHandler = function(event) {
   }
   this.addItems(event.data.items);
 };
+
 APP.Viewer.prototype.addItems = function(items) {
   if(this.navigation === APP.NavigationManager.PAGINATION && !this.initialize) {
       this.clean();
@@ -84,26 +85,36 @@ APP.Viewer.prototype.addItems = function(items) {
   for(i; i< items.length; i++) {
     item = new APP[Utils.capitalize(this.id)](items[i]);
 
-    if(this.navigation) {
-      if(this.initialize) {
-        this.container.append(item.view);
-      }
-      else {
-        this.container.append(item.view).masonry('appended', item.view);
-      }
-    }else {
-        this.container.append(item.view);
+    // console.log('item.view.children().hasClass( "work-card" ): ', )
+
+    // if(this.navigation) {
+    //   if(this.initialize) {
+    //     this.container.append(item.view);
+    //   }
+    //   else {
+    //     this.container.append(item.view).masonry('appended', item.view);
+    //   }
+    // }else {
+    //     this.container.append(item.view);
+    // }
+
+    if(item.view.children().hasClass( "work-card" )) {
+      console.log('work-card')
+
+      var $items = item.view;
+      $items.hide();
+      this.container.append( $items );
+      var scope = this.container
+      $items.imagesLoaded().progress( function( imgLoad, image ) {
+        var $item = $( image.img ).parents('.grid-item');
+        $item.show();
+        scope.masonry( 'appended', $item );
+      });
+    }
+    else {
+      this.container.append(item.view).masonry('appended', item.view);
     }
 
-    // var $items = item.view;
-    // $items.hide();
-    // this.container.append( $items );
-    // var scope = this.container
-    // $items.imagesLoaded().progress( function( imgLoad, image ) {
-    //   var $item = $( image.img ).parents('.grid-item');
-    //   $item.show();
-    //   scope.masonry( 'appended', $item );
-    // });
   }
 };
 
