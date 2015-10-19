@@ -40,7 +40,7 @@ exports.signup = function (req, res) {
                 return res.conflict(errors);
 
             var options = {password: req.body.password};
-            req.body.photo = 'http://walyou.com/wp-content/uploads//2010/12/facebook-profile-picture-no-pic-avatar.jpg';
+            req.body.photo = 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_150,h_150,q_70/am_avatar.jpg'
             global.db.User.create(req.body, options).then(function (user) {
                 var params = {
                     to: user.email, user: user.firstname,

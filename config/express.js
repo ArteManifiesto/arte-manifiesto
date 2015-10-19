@@ -22,7 +22,9 @@ module.exports = function (app, passport) {
     app.set('view cache', false);
 
     swig.setDefaults({cache: false});
-
+    swig.setFilter('addFilter', function (url, filter) {
+        return url.replace('upload/', 'upload/' + filter +'/');
+    });
     /**
      * Setup express middlewares
      * ====================================================
@@ -61,6 +63,6 @@ module.exports = function (app, passport) {
         };
         next();
     });
-
-    //app.use(global.md.check);
+    
+    app.use(global.md.check);
 };

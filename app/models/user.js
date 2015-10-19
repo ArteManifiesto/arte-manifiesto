@@ -202,9 +202,9 @@ module.exports = function (sequelize, DataTypes) {
             hooks: {
                 afterCreate: function (user, options) {
                     options.password = options.password || '123';
-                    //user.salt = user.makeSalt();
-                    //user.hashedPassword = user.encryptPassword(options.password, user.salt);
-                    //user.tokenVerifyEmail = uuid.v4();
+                    user.salt = user.makeSalt();
+                    user.hashedPassword = user.encryptPassword(options.password, user.salt);
+                    user.tokenVerifyEmail = uuid.v4();
                     user.url = '/user/' + user.username;
                     user.fullname = user.firstname + ' ' + user.lastname;
 
