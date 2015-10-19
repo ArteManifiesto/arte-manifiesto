@@ -7,10 +7,15 @@
 APP.BaseElement = function (data, id) {
     this.template = APP.TemplateManager.instance.getFromDoc(id);
     this.data = data;
-    // console.log(this.data);
+    var viewHelpers = {
+      addFilter: function(url, filter) {
+        return url.replace('upload/', 'upload/' + filter +'/');
+      }
+    };
+    _.extend(this.data, viewHelpers);
+
     this.view = $(this.template(this.data));
     this.rawView = this.view[0];
-
     this.listeners();
 };
 

@@ -22,7 +22,7 @@ module.exports = function (sequelize, DataTypes) {
             biography: DataTypes.TEXT,
             birthday: DataTypes.DATE,
 
-            school: DataTypes.STRING,
+            school: DataTypes.TEXT,
 
             facebook: DataTypes.STRING,
             behance: DataTypes.STRING,
@@ -202,9 +202,9 @@ module.exports = function (sequelize, DataTypes) {
             hooks: {
                 afterCreate: function (user, options) {
                     options.password = options.password || '123';
-                    user.salt = user.makeSalt();
-                    user.hashedPassword = user.encryptPassword(options.password, user.salt);
-                    user.tokenVerifyEmail = uuid.v4();
+                    //user.salt = user.makeSalt();
+                    //user.hashedPassword = user.encryptPassword(options.password, user.salt);
+                    //user.tokenVerifyEmail = uuid.v4();
                     user.url = '/user/' + user.username;
                     user.fullname = user.firstname + ' ' + user.lastname;
 
@@ -220,69 +220,7 @@ module.exports = function (sequelize, DataTypes) {
                         }, {user: user})
                     ];
                     return global.db.Sequelize.Promise.all(promises).then(function (data) {
-                        var ids = [1, 2, 3, 4, 5, 7, 8, 9, 10];
-                        promises = [
-                            user.addCollections(data.slice(1, data.length)),
-                            global.db.Category.findAll({
-                                where: {id: {in: _.take(ids, _.random(1, 5))}}
-                            }),
-                            global.db.Tag.findAll({
-                                where: {id: {in: _.take(ids, _.random(1, 5))}}
-                            })
-                        ];
-                        var i;
-                        for (i = 0; i < 3; i++) {
-                            promises.push(global.db.Work.create({
-                                name: chance.name(),
-                                description: "We weren't quite sure what to expect, but you blew us away—with everything from direct, powerful descriptions of your work to rhymes and poems to even a Vine resume.",
-                                photo: '/img/works/work' + (_.random(1, 12).toString()) + '.jpg',
-                                public: true
-                            }, {user: user}));
-                        }
-
-                        return global.db.Sequelize.Promise.all(promises).then(function (data) {
-                            var categories = data[1], tags = data[2], works = data.slice(3, data.length);
-                            var work, promises = [];
-                            for (i = 0; i < works.length; i++) {
-                                work = works[i];
-                                promises.push(work.setUser(user));
-                                promises.push(work.setCategories(categories));
-                                promises.push(work.setTags(tags));
-                            }
-                            return global.db.Sequelize.Promise.all(promises).then(function () {
-                                promises = [
-                                    global.db.ProductType.findAll({
-                                        where: {id: _.random(1, 5)},
-                                        limit: 1
-                                    })
-                                ];
-                                var i;
-                                for (i = 0; i < 3; i++) {
-                                    promises.push(global.db.Product.create({
-                                        name: chance.name(),
-                                        price: _.random(100, 1000),
-                                        photo: '/img/products/product' + (_.random(1, 20).toString()) + '.jpg',
-                                        description: chance.paragraph(),
-                                        public: true,
-                                        WorkId: works[i].id,
-                                        featured: _.sample([true, false])
-                                    }, {user: user}));
-                                }
-                                return global.db.Sequelize.Promise.all(promises).then(function (data) {
-                                    var types = data[0][0], products = data.slice(1, data.length);
-                                    var product, promises = [];
-                                    for (i = 0; i < products.length; i++) {
-                                        product = products[i];
-                                        promises.push(product.setUser(user));
-                                        promises.push(product.setProductType(types));
-                                    }
-                                    return global.db.Sequelize.Promise.all(promises).then(function () {
-
-                                    });
-                                });
-                            });
-                        });
-
+                      return user.addCollections(data.slice(1, data.length));
                     });
                 },
                 afterFind: function (items, options, fn) {

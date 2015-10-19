@@ -32,15 +32,8 @@ require('./config/errors')(app);
 
 app.set('port', process.env.PORT || cf.port);
 
-// var dev = false;
-var dev = true;
-
-global.db.sequelize.sync({force: dev}).then(function () {
-    if (dev)
-        return seeds.start().then(function () {
-            global.lift(app);
-        });
-    global.lift(app);
+global.db.sequelize.sync({force: false}).then(function () {
+  global.lift(app);
 });
 
 exports = module.exports = app;

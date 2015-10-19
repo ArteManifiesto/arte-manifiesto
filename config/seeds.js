@@ -4,13 +4,9 @@ var _ = require('lodash');
 
 exports.start = function () {
     var seeds = [
-        seedCategory(),
-        seedTag(20),
-        seedProductType()
+        seedCategory()
     ];
-    return global.db.Sequelize.Promise.all(seeds).then(function () {
-        return seedUser(10);
-    });
+    return global.db.Sequelize.Promise.all(seeds);
 };
 
 var seedCategory = function () {
@@ -39,38 +35,14 @@ var seedProductType = function () {
 };
 
 var seedUser = function (numOfUsers) {
-    var i, username, email, promises = [];
-    for (i = 0; i < numOfUsers; i++) {
-        if (i == 0) {
-            username = 'juliocanares';
-            email = 'juliocanares@gmail.com';
-        } else if (i == 1) {
-            username = 'hanshavin';
-            email = 'hansevangelista@gmail.com';
-        } else if (i == 2) {
-            username = 'artjam';
-            email = 'artjam@gmail.com';
-        }
-        else {
-            username = chance.hashtag().replace('#', '');
-            email = chance.email();
-        }
+    var data = []
+    var i, promises = [];
+    for (i = 0; i < data.length; i++) {
+        if(_.isNumber(data[i].username)) data[i].username = ''
+        if(_.isNumber(data[i].firstname)) data[i].firstname = ''
+        if(_.isNumber(data[i].lastname)) data[i].lastname = ''
 
-        promises.push(global.db.User.create({
-            username: username,
-            email: email,
-            firstname: chance.name(),
-            lastname: chance.last(),
-            gender: chance.gender(),
-            cover: '/img/covers/cover' + _.random(1,4) + '.jpg',
-            photo: '/img/artists/artist' + _.random(1, 4) + '.jpg',
-            isArtist: true,
-            city: chance.city(),
-            country: chance.country(),
-            school: chance.name(),
-            bigraphy: chance.paragraph({sentences: 1}),
-            isAdmin: _.sample([true, false])
-        }));
+        promises.push(global.db.User.create(data[i]));
     }
 
     return global.db.Sequelize.Promise.all(promises);

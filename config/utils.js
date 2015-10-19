@@ -79,8 +79,8 @@ global.discoverGenerator = function (entity, req) {
     if (req.query.username)
         query.where.username = req.query.username;
 
-    //if(req.params.value !== 'all')
-      //query.include = [{model:global.db.Category, where:{nameSlugify: req.params.value}}];
+    if(req.params.value !== 'all')
+        query.include = [{model:global.db.Category, where:{nameSlugify: req.params.value}}];
 
     return {options: options, query: query};
 }

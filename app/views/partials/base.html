@@ -99,7 +99,7 @@
 	<script type="text/template" id="template-work">
 		<div class="grid-item">
 			<div class="work-card">
-				<img src="<%= photo %>">
+				<img src="<%= addFilter(photo, 'w_160,q_80') %>">
 			</div>
 		</div>
 	</script>
@@ -121,7 +121,7 @@
 				</a>
 	  		<div class="artist-card-works">
 					<% _.each(Works, function(work) { %>
-						<div class="artist-card-work" style="background-image: url('<%=work.photo%>')"></div>
+						<div class="artist-card-work" style="background-image: url('<%= addFilter(work.photo, 'w_120,h_120,c_fill,q_80') %>')"></div>
 					<% }); %>
 	  		</div>
 	  		<div class="artist-card-follow">

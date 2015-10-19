@@ -5,7 +5,7 @@ cloudinary.config();
 var basePath = 'user/work/';
 
 exports.index = function (req, res) {
-    req.work.views += 1;
+    //req.work.views += 1;
     var promises = [
         req.work.save(),
         req.work.userLikes(),

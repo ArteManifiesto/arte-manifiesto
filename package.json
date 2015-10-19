@@ -26,6 +26,7 @@
     "express": "^4.12.4",
     "express-session": "^1.10.3",
     "express-subdomain": "^1.0.3",
+    "forever": "^0.15.1",
     "gulp-nodemon": "^2.0.3",
     "json-response": "0.0.2",
     "lodash": "^3.3.1",

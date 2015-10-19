@@ -24,14 +24,10 @@ module.exports = function (sequelize, DataTypes) {
             classMethods: {
                 associate: function (models) {
                     Work.belongsToMany(models.User, {as: 'WorkLikes', through: 'WorkLikes'});
-
                     Work.belongsToMany(models.Category, {through: 'WorkCategories'});
                     Work.belongsToMany(models.Tag, {through: 'WorkTags'});
-
                     Work.belongsTo(models.User, {onDelete: 'cascade'});
-
                     Work.belongsToMany(models.Collection, {through: 'CollectionWork'});
-
                     Work.hasMany(models.Product);
                 }
             },
@@ -179,7 +175,7 @@ module.exports = function (sequelize, DataTypes) {
                     return work.save();
                 },
                 beforeFind: function (options, fn) {
-                    if (options.addUser){
+                    if (options.addUser){                        
                         options.include = options.include || [];
                         options.include.push({model: global.db.User});
                     }
