@@ -34,7 +34,7 @@ white = #fff
 /*------------------------------------*
 	$ BUTTONS
 *------------------------------------*/
-// @import 'buttons.styl'
+@import 'buttons.styl'
 
 /*------------------------------------*
 	$ INPUTS
@@ -874,6 +874,11 @@ body
 		font-size 14px
 		padding-top 17px
 		line-height 1.35
+		&.msg-succes
+			color #3bd64a
+		&.msg-error
+			color red
+
 	.button-resend
 		margin-top 18px
 		background white
@@ -888,6 +893,9 @@ body
 			padding 15px
 			color black
 			display block
+			i
+				font-size: 1.5em;
+				animation 1.5s load infinite
 
 
 
