@@ -914,22 +914,27 @@ body
 		display table
 		margin-left auto
 		margin-right auto
-	.message
-		position absolute
-		top 0
-		left 0
-		right 0
-		background rgba(white, .75)
+
+.message
+	position absolute
+	// top 0
+	left 0
+	right 0
+	z-index 1
+	background rgba(white, .75)
+	display none
+	&.visible
+		display block
+	p
 		padding 20px
-		p
-			font-family: 'Montserrat',sans-serif;
-			font-weight: bold;
-			font-size: 14px;
-			text-align: center;
-		&.succes
-			color: #3bd64a;
-		&.error
-			color: #d0021b;
+		font-family: 'Montserrat',sans-serif;
+		font-weight: bold;
+		font-size: 14px;
+		text-align: center;
+	&.succes
+		color: #3bd64a;
+	&.error
+		color: #d0021b;
 
 .am-register-box
 	background white
@@ -1129,6 +1134,9 @@ body
 		color white
 		padding 15px 20px
 		cursor pointer
+		i
+			font-size 1.25em
+			animation 1.5s load infinite
 		&[data-color="blue"]
 			background #225b99
 		&[data-color="green"]
