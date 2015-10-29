@@ -40,6 +40,7 @@ exports.signup = function (req, res) {
                 return res.conflict(errors);
 
             var options = {password: req.body.password};
+            req.body.username = uuid.v4();
             req.body.photo = 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_150,h_150,q_70/am_avatar.jpg'
             global.db.User.create(req.body, options).then(function (user) {
                 var params = {
