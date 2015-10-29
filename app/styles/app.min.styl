@@ -1173,18 +1173,34 @@ body
 		flex-wrap wrap
 		justify-content center
 		.interest
-			background #d8d8d8
+			// background #d8d8d8
+			background-size: cover;
+			background-position: center center;
 			height 125px
 			width 125px
 			margin 10px
-			display flex
-			p
-				margin auto
+			cursor pointer
+			&.selected
+				border solid 5px #3bd64a
+				box-sizing border-box
+			.cover
+				display flex
+				font-family 'Montserrat', sans-serif
 				text-align center
 				padding 10px
-				font-family 'Montserrat', sans-serif
 				font-size 14px
-				color charcoal-grey
+				// color charcoal-grey
+				color white
+				background rgba(black, .15)
+				height 100%
+				box-sizing border-box
+				transition background .15s
+				&:hover
+					background rgba(black, .5)
+			p
+				margin auto
+
+
 
 @media (min-width: 630px)
 	.am-profile-box
