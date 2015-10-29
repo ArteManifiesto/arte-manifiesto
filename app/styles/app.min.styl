@@ -904,6 +904,7 @@ body
 *------------------------------------*/
 .am-register
 	// background rgba(black, .59)
+	height 800px
 	padding 100px 20px
 	background-image: url('/img/background.jpg');
 	background-size: cover;
@@ -979,6 +980,9 @@ body
 			display block
 		i
 			font-size 1.15em
+			&.load
+				animation 1.25s load infinite
+
 		&[data-color="blue"]
 			background #225b99
 		&[data-color="green"]
