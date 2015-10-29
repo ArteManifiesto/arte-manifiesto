@@ -85,11 +85,11 @@
 			var state = filterLeft.attr('data-state')
 			if(state == 'closed') {
 				filterLeft.attr('data-state', 'open')
-				discoverContent.attr('data-state', 'expand')
+				discoverContent.attr('data-state', 'expand').trigger('resetLayout')
 			}
 			else{
 				filterLeft.attr('data-state', 'closed')
-				discoverContent.attr('data-state', 'reduce')
+				discoverContent.attr('data-state', 'reduce').trigger('resetLayout')
 			}
 		})
 
