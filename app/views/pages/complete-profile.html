@@ -35,7 +35,7 @@
 			</div>
 			<div class="grid-50 mobile-grid-100">
 				<p class="title">Fecha de nacimiento</p>
-				<input class="input" type="text" placeholder="dd/mm/yy"/ maxlength="8">
+				<input id="date" class="input" type="text" placeholder="dd/mm/yy"/ maxlength="8">
 			</div>
 
 			<div class="grid-50 mobile-grid-100">
@@ -119,4 +119,11 @@
 {% endblock %}
 
 {% block scripts %}
+	<script src="/jquery.maskedinput.js" lang="text/javascript"></script>
+
+	<script>
+		$(document).ready(function () {
+   		$("#date").mask("99/99/9999");
+		})
+	</script>
 {% endblock %}
