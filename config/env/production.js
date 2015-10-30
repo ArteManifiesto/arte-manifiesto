@@ -5,7 +5,6 @@ module.exports = {
         password: "520f5767",
         dialect: "mysql",
         protocol: "mysql",
-        port: "5432",
         host: "us-cdbr-iron-east-02.cleardb.net",
         logging: true
     },
