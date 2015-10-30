@@ -1137,7 +1137,7 @@ body
 			cursor pointer
 			color #979797
 			right 0
-			font-size 1.25em
+			font-size 1.15em
 		img
 			width 180px
 			height 180px
@@ -1199,6 +1199,14 @@ body
 		display flex
 		flex-wrap wrap
 		justify-content center
+
+		input[type="checkbox"]
+			display none
+
+		input[type="checkbox"]:checked+label .interest
+			border solid 5px #3bd64a
+			box-sizing border-box
+
 		.interest
 			// background #d8d8d8
 			background-size: cover;
@@ -1223,10 +1231,9 @@ body
 				box-sizing border-box
 				transition background .15s
 				&:hover
-					background rgba(black, .5)
+					background rgba(black, .35)
 			p
 				margin auto
-
 
 
 @media (min-width: 630px)

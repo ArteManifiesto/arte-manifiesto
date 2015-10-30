@@ -65,6 +65,10 @@
 
 {% block scripts %}
 <script>
+
+	 var users = {{ users|json|safe }}
+	 console.log('users: ', users)
+
 	$(document).ready(function() {
 		new APP.DiscoverScreen('user', $('.grid'), 'infinite', {{data|json|safe}});
 
