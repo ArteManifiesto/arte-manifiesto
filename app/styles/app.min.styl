@@ -1259,6 +1259,8 @@ body
 		color charcoal-grey
 		text-align center
 		padding-bottom 25px
+		i
+			font-size 2em
 
 	.title
 		font-family 'Montserrat', sans-serif
@@ -1266,6 +1268,14 @@ body
 		color charcoal-grey
 		padding-bottom 10px
 		padding-top 20px
+
+	.sub-title
+		font-family: 'PT Serif', serif;
+		font-size 14px
+		color charcoal-grey
+		line-height 1.15
+		letter-spacing .5px
+		padding-top 10px
 
 	.input
 		border solid 1px #979797
@@ -1289,7 +1299,7 @@ body
 		width 100%
 		max-width 220px
 		display: table;
-		margin: 20px auto;
+		margin: 20px auto 0px auto;
 		font-size 10px
 		color white
 		padding 15px 20px
@@ -1356,10 +1366,46 @@ body
 				width: 21px;
 				height: 20.8px
 
+	.operators
+		display flex
+		align-items center
+		.box
+			flex 1
+			p
+				font-family 'Montserrat', sans-serifl
+				font-size 14px
+				color warm-grey
+				text-align center
+				line-height 1.15
+			.input
+			textarea
+				text-align center
+				resize none
+			.input
+				height 100px
+				display flex
+				textarea
+					margin auto
+
+		.simbol
+			font-size 25px
+			color #979797
+			padding 10px
+
+	.operators-desc
+		display flex
+		p
+			font-family 'Montserrat', sans-serifl
+			font-weight bold
+			font-size 10px
+			color #3a3d3f
+			letter-spacing 1.5px
+			text-align center
+			line-height 1.5
 
 @media (min-width: 630px)
 	.am-upload-work-box
-		padding 60px 60px 40px 60px !important
+		padding 60px 60px 60px 60px !important
 
 
 
