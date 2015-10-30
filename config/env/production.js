@@ -3,10 +3,11 @@ module.exports = {
         name: "heroku_082ce63f99d3d82",
         username: "be72f71bb5432f",
         password: "520f5767",
-        dialect: "mysql",
-        protocol: "mysql",
-        host: "us-cdbr-iron-east-02.cleardb.net",
-        logging: true
+        host: "us-cdbr-iron-east-02.cleardb.net"
+        options: {
+          dialect: "mysql",
+          timezone: '-05:00'
+        }
     },
     app: {
         name: "Arte"
