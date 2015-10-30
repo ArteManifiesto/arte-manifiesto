@@ -3,9 +3,10 @@ module.exports = {
         name: "heroku_082ce63f99d3d82",
         username: "be72f71bb5432f",
         password: "520f5767",
-        host: "us-cdbr-iron-east-02.cleardb.net"
         options: {
+          host: "us-cdbr-iron-east-02.cleardb.net",
           dialect: "mysql",
+          port: 3306,
           timezone: '-05:00'
         }
     },
