@@ -1,325 +1,106 @@
 {% extends '../partials/base.html' %}
-	{% set path = 'users' %}
-	{% set title = 'Arte Manifiesto | Artistas' %}
-	{% set css = 'discover-artists' %}
 
-{% block content %}
+{% set path = 'discover-users' %}
 
-	{% include '../partials/category-menu.html' %}
-	
+{% block elements %}
 
-	<!-- ********************************************************************
-		$ SECTION TITLE
-	********************************************************************* -->
-	<section class="section-title">
-		<span class="section-title-text">Artístas</span>
-	</section>
-	
+{% set bannerTitle = 'Descubre nuevos artistas y creadores' %}
+{% set bannerImg = 'artists.jpg' %}
+{% include '../partials/banner.html' %}
 
-	<!-- ********************************************************************
-		$ NAVIGATION
-	********************************************************************* -->
-	<section class="navigation">
-		<span class="navigation-text">Username</span>&nbsp; <i class="fa fa-angle-right"></i>&nbsp; <span class="navigation-text"></span>
-	</section>
-
-
-	<!-- ********************************************************************
-		$ FILTERS MENU
-	********************************************************************* -->
-	<section class="filters-menu">
-		<div class="filters-menu__search">
-			<div class="search">
-				<input class="js-searcher" type="text" placeholder="Busca Artístas por Nombre o Username">
-				<i class="fa fa-search"></i>
-			</div>
-			<ul class="search-options js-search-options">
-				<li class="search-option" data-search='username'>Buscar Username: <span class="search-text"></span></li>
-				<!-- <li class="search-option" data-search='name'>Buscar Nombre: <span class="search-text"></span></li> -->
-			</ul>
-		</div>
-		<div class="filters-menu__category js-leftFiltersButton">
-			<button class="button-filter js-leftFiltersButton"><i class="fa fa-caret-left"></i> &nbsp Categorías</button>
-		</div>
-		<div class="filters-menu__order js-rightFiltersButton">
-			<button class="button-filter js-rightFiltersButton">Ordenar &nbsp <i class="fa fa-caret-right"></i></button>
-		</div>
-	</section>
-
-
-	<!-- ********************************************************************
-		$ WORKS CONTAINER
-	********************************************************************* -->
-	<div class="works-container">
-		<div class="works-container__filters left js-leftFilters">
-			<div class="filters">
-				<div class="filters__title">Featured</div>
-				<div class="filters__fueatured">
-					<input name="question" type="checkbox" id="question">
-					<label for="question" class="">Recomendados</label>
+<div class="grid-container u-padding-top-20">
+	<div class="grid-100 grid-parent">
+		<div class="discover-menu">
+			<div class="filter left" data-state="open">
+				<div class="am-Select">
+					CATEGORÍAS &nbsp;&nbsp;<i class="fa fa-caret-left"></i>
+				</div>
+				<div class="left-menu u-padding-top-10">
+					<div class="am-Filter filter-category">
+						<div class="am-Filter-item">
+							<header class="am-Filter-header">
+								<i class="fa fa-bars"></i><p>Ver sólo</p>
+							</header>
+						</div>
+						<div class="am-Filter-item">
+							<div class="am-Filter-switch">
+								<div class="am-Switch-button" data-state="active">
+									<i class="fa fa-bars"></i>
+								</div>
+								<span>Seleccionado AM</span>
+							</div>
+						</div>
+						<div class="am-Filter-item">
+							<header class="am-Filter-header">
+								<i class="fa fa-bars"></i><p>Categorías</p>
+							</header>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div class="filters">
-				<div class="filters__title">Categorías</div>
-				{% for category in categories %}
-					<div class="filter js-category" data-value="{{ category.nameSlugify }}">{{ category.name }}</div>
-				{% endfor %}
+			<div class="text">
+				<p class="am-navigation-text uppercase">{{data.filters.currentCategory}}</p>
 			</div>
-		</div>
-		<div class="works-container__filters right js-rightFilters">
-			<div class="filters">
-				<div class="filters__title">Orden</div>
-				<div class="filter js-order" data-value="popularity">Más popular</div>
-				<div class="filter js-order" data-value="views">Más visto</div>
-				<div class="filter js-order" data-value="newest">Más reciente</div>
-			</div>
-			<div class="filters">
-				<div class="filters__title">Tiempo</div>
-				<div class="filter js-time" data-value="day">Día</div>
-				<div class="filter js-time" data-value="week">Semana</div>
-				<div class="filter js-time" data-value="month">Mes</div>
-				<div class="filter js-time" data-value="year">Año</div>
-			</div>
-		</div>
-		<div class="works-container__works js-works">
-			<!-- ********************************************************************
-				$ ARTISTS
-			********************************************************************* -->
-			<!-- <section class="artists" data-columns> -->
-			<section class="artists">
-				{% for artist in users %}
-				<div class="artist-wrapper">				
-					<article class="artist">
-						<a class="artist-header" href="#"> 
-							<div class="avatar">
-								<img src="{{ artist.photo }}">
-							</div>
-							<div class="info">
-								<p class="high-text" data-size='small'>{{ artist.firstname }}</p>
-								<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
-							</div>
-						</a>
-						<div class="artist-works">
-						
-						<!-- {% for work in artist.Works %} -->
-						{% if artist.Works[0] %}
-							<div class="work" style="background-image: url('{{ artist.Works[0].photo }}');"></div>
-						{% else %}
-							<div class="work" style="background: #ccc; border: 1px solid white;"></div>
-						{% endif %}
-
-						{% if artist.Works[1] %}
-							<div class="work" style="background-image: url('{{ artist.Works[1].photo }}');"></div>
-						{% else %}
-							<div class="work" style="background: #ccc; border: 1px solid white;"></div>
-						{% endif %}
-
-						{% if artist.Works[2] %}
-							<div class="work" style="background-image: url('{{ artist.Works[2].photo }}');"></div>
-						{% else %}
-							<div class="work" style="background: #ccc; border: 1px solid white;"></div>
-						{% endif %}
-
-						{% if artist.Works[3] %}
-							<div class="work" style="background-image: url('{{ artist.Works[3].photo }}');"></div>
-						{% else %}
-							<div class="work" style="background: #ccc; border: 1px solid white;"></div>
-						{% endif %}
-
-						{% if artist.Works[4] %}
-							<div class="work" style="background-image: url('{{ artist.Works[4].photo }}');"></div>
-						{% else %}
-							<div class="work" style="background: #ccc; border: 1px solid white;"></div>
-						{% endif %}
-
-						{% if artist.Works[5] %}
-							<div class="work" style="background-image: url('{{ artist.Works[5].photo }}');"></div>
-						{% else %}
-							<div class="work" style="background: #ccc; border: 1px solid white;"></div>
-						{% endif %}
-						<!-- {% endfor %} -->
-
-						</div>
-						<div class="artist-follow">
-							{% if artist.following %}
-								<button class="button-liner disabled js-followButton" data-following="true" data-userId="{{ artist.id }}" data-size='small'>
-							{% else %}
-								<button class="button-liner js-followButton" data-following="false" data-userId="{{ artist.id }}" data-size='small'>
-							{% endif %}
-								<span class="button-liner__action folllow">Seguir</span>
-								<span class="button-liner__action following"><i class="fa fa-check"></i> Siguiendo</span>
-								<span class="button-liner__action cancel"><i class="fa fa-times-circle"></i> Cancelar</span>
-								<span class="button-liner__number">{{ artist.followers }}</span>
-							</button>
-						</div>
-
-					</article>
+			<div class="filter right" data-state="closed">
+				<div class="am-Select">
+					ORDENAR &nbsp;&nbsp;<i class="fa fa-caret-down"></i>
 				</div>
-				{% endfor %}
-			</section>
-
-	
-			<div class="loading"><i class="fa fa-spinner"></i></div>
-
-            {% if users.length > 0 %}
-                
-                <div class="more">
-                    <button class="button-solid js-moreButton" data-color='red'>Ver más</button>
-                </div>
-
-                <div class="empty-result" style="display:none;">
-                    <p class="high-text note">No se encontraron resultados,
-                        <button>
-                            <a href="/works/category/all/page-1/">
-                                <strong>Ver todos los artístas</strong>
-                            </a>
-                        </button>
-                    </p>
-                </div>
-
-            {% else %}
-                
-                <div class="more hide">
-                    <button class="button-solid js-moreButton" data-color='red'>Ver más</button>
-                </div>
-
-                <div class="empty-result">
-                    <p class="high-text note">No se encontraron resultados,
-                        <button>
-                            <a href="/works/category/all/page-1/">
-                                <strong>Ver todas las obras</strong>
-                            </a>
-                        </button>
-                    </p>
-                </div>
-
-            {% endif %}
-
+				<div class="right-menu u-padding-top-10">
+					<div class="am-Filter filter-order">
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
+</div>
 
-
-	<!-- ********************************************************************
-		$ SLOGAN
-	********************************************************************* -->
-	<!-- <section class="slogan">
-		<span class="slogan-text">Muestra tu talento artístico!</span>
-		<button class="button-solid js-signUpButton" data-size='large'>Sign Up</button>
-	</section> -->
-
-
-	{% include '../partials/footer.html' %}
-
-
-	<script type="text/template" id="artist-template">
-
-		<div class="artist-wrapper">
-			<article class="artist">
-				<a class="artist-header" href="#"> 
-					<div class="avatar">
-						<img src="<%= photo %>">
-					</div>
-					<div class="info">
-						<p class="high-text" data-size='small'><%= firstname %></p>
-						<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
-					</div>
-				</a>
-				<div class="artist-works">
-
-					<% _.each(Works, function(work) { %>
-						<div class="work work1"></div>
-					<% }); %>
-
-				</div>
-				<div class="artist-follow">
-					<% if (following) { %>
-						<button class="button-liner disabled js-followButton" data-following="true" data-userId="<%= id %>" data-size='small'>
-					<% } else { %>
-						<button class="button-liner js-followButton" data-following="false" data-userId="<%= id %>" data-size='small'>
-					<% } %>
-						<span class="button-liner__action folllow">Seguir</span>
-						<span class="button-liner__action following"><i class="fa fa-check"></i> Siguiendo</span>
-						<span class="button-liner__action cancel"><i class="fa fa-times-circle"></i> Cancelar</span>
-						<span class="button-liner__number">13,2k</span>
-					</button>
-				</div>
-			</article>
+<div class="discover-content grid-container u-padding-top-10 u-padding-bottom-40" data-state="expand">
+	<div class="grid-100 grid-parent">
+		<div class="grid work-layout-discover">
+			<div class="grid-sizer"></div>
 		</div>
+	</div>
+</div>
+{% endblock %}
 
-	</script>
+{% block scripts %}
+<script>
+	$(document).ready(function() {
+		new APP.DiscoverScreen('user', $('.grid'), 'infinite', {{data|json|safe}});
 
-	<script>
+		var filterRight = $('.filter.right')
+		var rightSelect = $('.filter.right .am-Select')
 
-		var artists = {{ users|json|safe }}
-		console.log('artists: ', artists)
+		$(rightSelect).click(function () {
+			var state = filterRight.attr('data-state')
+			if(state == 'closed') filterRight.attr('data-state', 'open')
+			else filterRight.attr('data-state', 'closed')
+		})
 
-		var pagination = {{ pagination|json|safe }};
-		console.log('pagination: ', pagination)
+		var filterLeft = $('.filter.left')
+		var leftSelect = $('.filter.left .am-Select')
+		var discoverContent = $('.discover-content')
 
-		var user = {{ user|json|safe }};
-		console.log('user: ', user)
+		$(leftSelect).click(function () {
+			var state = filterLeft.attr('data-state')
+			if(state == 'closed') {
+				filterLeft.attr('data-state', 'open')
+				discoverContent.attr('data-state', 'expand').trigger('resetLayout')
+			}
+			else{
+				filterLeft.attr('data-state', 'closed')
+				discoverContent.attr('data-state', 'reduce').trigger('resetLayout')
+			}
+		})
 
-		// var works = {{ works|json|safe }};
-		// console.log('works: ', works)
-
-		var categories = {{ categories|json|safe }};
-		console.log('categories: ', categories)
-
-		var url = {{ url|json|safe }};
-		console.log('url: ', url)
-
-	</script>
-
-	<script src="/js/vendor/jquery.min.js"></script>
-	<script src="/js/vendor/salvattore.js"></script>
-	<script src="/js/vendor/underscore-min.js"></script>
-
-	<script src="/js/lib/utils.js"></script>
-
-	<script src="/js/lib/login.js"></script>
-	<script src="/js/lib/filters.js"></script>
-	<script src="/js/lib/artist.js"></script>
-	<script src="/js/lib/artists.js"></script>
-	<script src="/js/lib/category-menu.js"></script>
-
-	<script src="/js/discover-artists.js"></script>
-
-	<script>
-		$(document).on("click", ".featured", function (event) {
-			var scope = $(this);
-			$.ajax({
-				type: "POST",
-				url: "/" + user.username + "/featured/",
-				data: {idUser: scope.attr('id')},
-				success: function (data) {
-					if (data.status == 200) {
-						// scope.html('<i class="fa fa-star"></i>&nbsp;Recomendado');
-						scope.removeClass('featured').addClass('unfeatured').removeClass('disabled');
-					}
-					console.log(data);
-				}
-			});
-			return false;
-		});
-		$(document).on("click", ".unfeatured", function (event) {
-			var scope = $(this);
-			$.ajax({
-				type: "POST",
-				url: "/" + user.username + "/unfeatured/",
-				data: {idUser: scope.attr('id')},
-				success: function (data) {
-					if (data.status == 200) {
-						// scope.parent().find('.featuredlogo').hide();
-						// scope.text('Featured');
-						// scope.removeClass('unfeatured').addClass('featured');
-						// scope.html('<i class="fa fa-star"></i>&nbsp;Recomendar');
-						scope.removeClass('unfeatured').addClass('featured').addClass('disabled');
-					}
-					console.log(data);
-				}
-			});
-			return false;
-		});
-	</script>
+		var switchButton = $('.am-Switch-button')
+		$(switchButton).click(function () {
+			var state = switchButton.attr('data-state')
+			console.log('state: ', state)
+			if(state == "active") switchButton.attr('data-state', 'inactive')
+			else switchButton.attr('data-state', 'active')
+		})
+	});
+</script>
 
 {% endblock %}

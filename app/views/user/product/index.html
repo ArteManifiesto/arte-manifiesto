@@ -1,98 +1,363 @@
 {% extends '../../partials/base.html' %}
-	{% set path = 'single-product' %}
-	{% set title = 'Arte Manifiesto | Product' %}
-	{% set css = 'single-product' %}
 
-{% block content %}
 
-	{% include '../../partials/category-menu.html' %}
+{% block elements %}
 
-	<div class="single-product">
-
-		<div class="single-product__header">
-			
-			<div class="single-product__title">
-				<p class="single-product-text">{{product.name}}</p>
-			</div>
-
-			<div class="single-product__artist">
-				from
-				<span class="avatar"><img src="{{product.User.photo}}"></span>
-
-				<span class="name">{{product.User.firstname}} {{product.User.lastname}}</span>
-			</div>
-
-		</div>
-
-		<div class="single-product__info">
-			
-			<figure class="single-product__info__image">
-				<img src="{{product.photo}}">
-			</figure>
-			
-			<div class="single-product__info__data">
-				
-				<div class="actions">
-					<div class="actions__social">
-
-						<span class="like">
-						{% if product.liked %}
-							<button class="button-liner disabled js-buttonLike">
-								<div class="button-liner__action">Likes</div>
-								<div class="button-liner__number">{{product.likes}}</div>
-							</button>
-						{% else %}
-							<button class="button-liner js-buttonLike">
-								<div class="button-liner__action">Likes</div>
-								<div class="button-liner__number">{{product.likes}}</div>
-							</button>
-						{% endif %}
-						</span>
-
-						<span class="price">S/. {{product.price}}</span>
-
+	<!-- ********************************************************************
+		$ SINGLE INFO
+	********************************************************************* -->
+	<div class="grid-container u-margin-top-30">
+		<div class="grid-100">
+			<div class="single-info">
+				<div class="single-image">
+					<div class="single-image-inner">
+						<img src="{{product.photo}}">
+						<div class="actions u-padding-top-20 u-padding-bottom-20">
+							<div class="action active">
+								<i class="icon fa fa-diamond valuation"></i>
+								<p class="text">VALORAR</p>
+								<div class="actions-box">
+									<button class="color-blue bg-gray">AÑADIR A LA COLECCIÓN</button>
+									<button class="u-margin-top-10">+ SEGUIR</button>
+									<button class="following u-margin-top-10">
+										<i class="fa fa-check-circle"></i>&nbsp;SIGUIENDO
+									</button>
+								</div>
+								<div class="actions-box">
+									<p class="title">Añadir a las colecciones</p>
+									<div class="u-separator u-margin-top-7"></div>
+									<input class="u-margin-top-10" type="text" placeholder="Crear una colección nueva">
+									<button class="u-margin-top-10 color-black bg-gray wd-auto">AÑADIR</button>
+									<ul class="collections u-margin-top-20">
+										<li class="collection selected">
+											<p>Amazonía Pura</p><i class="fa fa-check"></i>
+										</li>
+										<li class="collection">
+											<p>Mis obras favoritas</p><i class="fa fa-check"></i>
+										</li>
+										<li class="collection">
+											<p>Amazonía Pura</p><i class="fa fa-check"></i>
+										</li>
+										<li class="collection">
+											<p>Mis obras favoritas</p><i class="fa fa-check"></i>
+										</li>
+									</ul>
+									<div class="u-separator u-margin-top-20"></div>
+									<div class="buttons u-margin-top-20">
+										<button class="wd-auto bg-blue color-white">GUARDAR</button>
+										<button class="wd-auto color-black border-black">SALIR</button>
+									</div>
+								</div>
+							</div>
+							<div class="action">
+								<i class="icon fa fa-share-alt share"></i>
+								<p class="text">COMPARTIR</p>
+								<div class="actions-box">
+									<p class="title">Compartir obras</p>
+									<div class="u-separator u-margin-top-7"></div>
+									<div class="share">
+										<i class="fa fa-facebook"></i>Compartir en facebook
+									</div>
+									<div class="share">
+										<i class="fa fa-twitter"></i>Compartir en twitter
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="actions__buy">
-						<a href="/checkout/{{product.nameSlugify}}" class="button-solid" data-size='large' data-color='red' data-expand='true'>Comprar</a>
-					</div>
-
-					<div class="actions__people">
-
-						{% for userLike in product.userLikes %}
-							<div class="people-item"><img src="{{userLike.photo}}"></div>
-
-						{% endfor %}
- 							</div>
-
 				</div>
+				<div class="single-data u-padding-bottom-40">
+					<div class="FollowArtist u-padding-bottom-10">
+						<div>
+							<p class="u-padding-bottom-7 big"><strong>SEBASTIÁN SUAREZ</strong></p>
+							<button class="am-Follow-button">+ SEGUIR</button>
+						</div>
+					</div>
+					<div class="u-separator"></div>
+					<p class="am-Single-title-text u-margin-top-15">Los pajaritos ya no cantan como antes, cómo antes cantaban, 2014</p>
+					<p class="am-Single-text u-margin-top-10">Serie: <strong>Los noctámbulos y otros demonios.</strong></p>
+					<p class="am-Single-text u-margin-top-10">Estado: <strong>Disponible original y productos</strong></p>
+					<p class="am-Single-text u-margin-top-20">Categoría:</p>
+					<span class="am-Category-box u-margin-top-7">TÉCNICA MIXTA</span>
+					<p class="am-Single-text u-margin-top-10">Categoría producto:</p>
+					<span class="am-Category-box u-margin-top-7">ART PRINT</span>
+					<div class="info-box u-margin-top-25">
+						<div class="header">
+							<p>ORIGINAL</p>
+							<p class="selected">PRODUCTOS</p>
+						</div>
+						<div class="body">
+							<p class="text">Producto:</p>
+							<p class="title">Mate photo print</p>
+							<p class="text">180 gsm / Calidad archivo hecho en Lima / Elaborado por arte manifiesto lab.</p>
 
+							<p class="text u-margin-top-10">Tamaño:</p>
+							<select class="expand">
+								<option>Elige el tamaño</option>
+								<option>Holi</option>
+								<option>Boli</option>
+								<option>Crayoli</option>
+							</select>
+
+							<p class="text u-margin-top-10">Precio por unidad:</p>
+							<p class="price u-text-center">S/.<strong>42.99</strong> PEN</p>
+
+							<p class="text u-margin-top-10">Cantidad:</p>
+							<div class="u-center">
+								<div class="u-margin-top-7">
+									<span class="text">X</span>
+									<select>
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+										<option>4</option>
+									</select>
+									<span class="text">&nbsp;&nbsp;Unidades</span>
+								</div>
+							</div>
+							<div class="u-center">
+								<button class="am-View-button expand u-margin-top-20 buy">COMPRAR</button>
+							</div>
+						</div>
+					</div>
+					<p class="am-stats-text u-margin-top-40">ESTADÍSTICAS</p>
+					<div class="u-separator"></div>
+					<div class="u-center">
+						<table class="am-Single-stats u-margin-top-10">
+						  <tr>
+						    <td><i class="fa fa-eye"></i></td>
+						    <td><p>VISTAS</p></td>
+						    <td><span>2,342</span></td>
+						  </tr>
+						  <tr>
+						    <td><i class="fa fa-diamond"></i></td>
+						    <td><p>VALORACIONES</p></td>
+						    <td><span>252</span></td>
+						  </tr>
+						</table>
+					</div>
+				</div>
 			</div>
-
 		</div>
-		
 	</div>
 
-	{% include '../../partials/footer.html' %}
 
-   <script src="/js/vendor/jquery.min.js"></script>
+	<!-- ********************************************************************
+		$ SINGLE MENU
+	********************************************************************* -->
+	<div class="am-SingleMenu u-margin-top-20">
+		<div class="grid-container">
+			<div class="grid-100">
+				<div class="single-menu">
+					<div class="artist">
+						<div class="FollowArtist">
+							<img src="{{product.User.photo}}">
+							<div>
+								<p class="u-padding-bottom-4" style="font-weight: bold;">{{product.User.firstname}}</p>
+								<p class="u-padding-bottom-7"> <strong></strong> {{product.User.city}}, {{product.User.country}}</p>
+								<button class="am-Follow-button">+ SEGUIR</button>
+							</div>
+						</div>
+					</div>
+					<div class="menu">
+						<div class="carousel">
+							<div class="single-tabs">
+								<div class="single-tab" selected="true">
+									<p>MANIFIESTO</p>
+									<i class="fa fa-cube"></i>
+								</div>
+								<div class="single-tab">
+									<p>PRODUCTOS</p>
+									<span>25</span>
+								</div>
+								<div class="single-tab">
+									<p>REVIEWS</p>
+									<span>25</span>
+								</div>
+								<div class="single-tab" selected="true">
+									<p>TAGS</p>
+									<i class="fa fa-align-left"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-	<script src="/js/lib/product.js"></script>
 
-	<script type="text/javascript">
+	<!-- ********************************************************************
+		$ PRODUCTS
+	********************************************************************* -->
+	<div class="grid-container u-margin-top-20">
+		<div class="grid-100">
+			<p class="am-Products-title">Arte de pared</p>
+			<div class="u-separator"></div>
+		</div>
+	</div>
 
-		var product = {{ product|json|safe }}
-		console.log('product: ', product)
+	<div class="grid-container u-margin-top-20">
+		<div class="grid-100">
+			<div class="more-carousel">
+				<div class="more-images">
+					<div class="am-MoreImages" style="background-image: url(/img/products/product1.jpg);"></div>
+					<div class="am-MoreImages" style="background-image: url(/img/products/product1.jpg);"></div>
+					<div class="am-MoreImages" style="background-image: url(/img/products/product1.jpg);"></div>
+					<div class="am-MoreImages" style="background-image: url(/img/products/product1.jpg);"></div>
+					<div class="am-MoreImages" style="background-image: url(/img/products/product1.jpg);"></div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-		var user = {{ user|json|safe }}
-		console.log('user: ', user)
+	<div class="grid-container">
+		<div class="grid-100">
+			<p class="am-Products-title">Accesorios</p>
+			<div class="u-separator"></div>
+		</div>
+	</div>
 
-		new Product(document.querySelector('.single-product'), {
-			id: product.id,
-			likes: product.likes,
-			liked: product.liked,
-			buttonLikeClass: 'js-buttonLike'
-		})
+	<div class="grid-container u-margin-top-20">
+		<div class="grid-100">
+			<div class="more-carousel">
+				<div class="more-images">
+					<div class="am-MoreImages" style="background-image: url(/img/products/product1.jpg);"></div>
+					<div class="am-MoreImages" style="background-image: url(/img/products/product1.jpg);"></div>
+					<div class="am-MoreImages" style="background-image: url(/img/products/product1.jpg);"></div>
+					<div class="am-MoreImages" style="background-image: url(/img/products/product1.jpg);"></div>
+					<div class="am-MoreImages" style="background-image: url(/img/products/product1.jpg);"></div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-	</script>
+	<div class="grid-container">
+		<div class="grid-100">
+			<p class="am-Products-title">Ropa</p>
+			<div class="u-separator"></div>
+		</div>
+	</div>
 
+	<div class="grid-container u-margin-top-20">
+		<div class="grid-100">
+			<div class="more-carousel">
+				<div class="more-images">
+					<div class="am-MoreImages" style="background-image: url(/img/products/product1.jpg);"></div>
+					<div class="am-MoreImages" style="background-image: url(/img/products/product1.jpg);"></div>
+					<div class="am-MoreImages" style="background-image: url(/img/products/product1.jpg);"></div>
+					<div class="am-MoreImages" style="background-image: url(/img/products/product1.jpg);"></div>
+					<div class="am-MoreImages" style="background-image: url(/img/products/product1.jpg);"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- ********************************************************************
+		$ MORE
+	********************************************************************* -->
+	<div class="u-separator u-margin-top-60"></div>
+
+	<div class="grid-container u-margin-top-60">
+		<div class="grid-100">
+			<p class="am-more-text u-text-center u-padding-bottom-10">Otras obras del artista</p>
+			<div class="u-separator-center"></div>
+		</div>
+	</div>
+
+	<div class="grid-container">
+		<div class="grid-100">
+			<div class="more-carousel">
+				<div class="more-images">
+					<div class="am-MoreImages" style="background-image: url(/img/works/work11.jpg);"></div>
+					<div class="am-MoreImages" style="background-image: url(/img/works/work1.jpg);"></div>
+					<div class="am-MoreImages" style="background-image: url(/img/works/work13.jpg);"></div>
+					<div class="am-MoreImages" style="background-image: url(/img/works/work4.jpg);"></div>
+					<div class="am-MoreImages" style="background-image: url(/img/works/work14.jpg);"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="u-separator u-margin-top-60"></div>
+
+	<div class="grid-container u-margin-top-60">
+		<div class="grid-100">
+			<p class="am-more-text u-text-center u-padding-bottom-10">Obras relacionadas</p>
+			<div class="u-separator-center"></div>
+		</div>
+	</div>
+
+	<div class="grid-container">
+		<div class="grid-100">
+			<div class="more-carousel">
+				<div class="more-images">
+					<div class="am-MoreImages" style="background-image: url(/img/works/work11.jpg);"></div>
+					<div class="am-MoreImages" style="background-image: url(/img/works/work1.jpg);"></div>
+					<div class="am-MoreImages" style="background-image: url(/img/works/work13.jpg);"></div>
+					<div class="am-MoreImages" style="background-image: url(/img/works/work4.jpg);"></div>
+					<div class="am-MoreImages" style="background-image: url(/img/works/work14.jpg);"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- <div class="grid-container">
+		<div class="grid-100 grid-parent">
+			<div class="more-images">
+				<div class="am-MoreImages">
+          <img src='/img/works/work11.jpg'/>
+        </div>
+        <div class="am-MoreImages">
+          <img src='/img/works/work11.jpg'/>
+        </div>
+        <div class="am-MoreImages">
+          <img src='/img/works/work11.jpg'/>
+        </div>
+        <div class="am-MoreImages">
+          <img src='/img/works/work11.jpg'/>
+        </div>
+        <div class="am-MoreImages">
+          <img src='/img/works/work11.jpg'/>
+        </div>
+			</div>
+		</div>
+	</div> -->
+
+
+	<!-- ********************************************************************
+		$ RESPORT
+	********************************************************************* -->
+	<div class="am-Report u-padding-top-25 u-padding-bottom-25 u-margin-top-60">
+		<div class="grid-container">
+			<div class="grid-100">
+				<p class="am-report-text"> Reportar:&nbsp;
+					<a class="am-report-link" href="">Contenido inapropiado</a> &nbsp;ó&nbsp;
+					<a class="am-report-link blue" href="">Copyrights y derechos de autor</a>
+				</p>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+var product = {{product|json|safe}};
+	$(document).ready(function(){
+		var options = {
+			url: DataApp.currentUser.url + '/cart/add',
+			data: {
+				idProduct: product.id,
+				option:2
+			}
+		};
+		$('.buy').click(function(){
+			Utils.getData(options).then(function(response){
+				console.log(response);
+			});;
+		});
+	});
+</script>
 {% endblock %}

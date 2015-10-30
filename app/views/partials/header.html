@@ -2,36 +2,74 @@
 	<!-- ********************************************************************
 		$ HEADER
 	********************************************************************* -->
-	<header class="header">
-		<a class="logo" href="/">
-			<img class="logo__small" src="/img/logo-small.png">
-			<img class="logo__normal" src="/img/logo.png">
-		</a>
-		<nav class="skinny-menu" data-icon='true'>
-			<a class="skinny-menu__item {% if path == 'works' %} active {% endif %}" href="/works/category/all/page-1">
-				<i class="skinny-menu__item__icon fa fa-heart-o"></i>
-				<span class="skinny-menu__item__text">Obras</span>
-			</a>
-			<a class="skinny-menu__item {% if path == 'users' %} active {% endif %}" href="/users/specialty/all/page-1">
-				<i class="skinny-menu__item__icon fa fa-paint-brush"></i>
-				<span class="skinny-menu__item__text">Artístas</span>
-			</a>
-			<a class="skinny-menu__item {% if path == 'products' %} active {% endif %}" href="/products/type/all/page-1/">
-				<i class="skinny-menu__item__icon fa fa-diamond"></i>
-				<span class="skinny-menu__item__text">Market</span>
-			</a>
-			{% if user %}
-				<a class="skinny-menu__avatar" href="/{{ user.username }}">
-					<div class="button-avatar">
-						<img src="{{ user.photo }}">
-						<!-- jojo -->
-					</div>
-				</a>
-			{% else %}
-				<a class="skinny-menu__item" href="/login">
-					<i class="skinny-menu__item__icon fa fa-user"></i>
-					<span class="skinny-menu__item__text">Sign in</span>
-				</a>
-			{% endif %}
-		</nav>
-	</header>
+	<div class="grid-container u-padding-top-15 u-padding-bottom-15">
+		<div class="grid-100">
+			<header class="am-Header">
+				<figure class="am-Header-logo">
+					<a href="/">
+						<img class="large" src="/img/logo.png">
+						<img class="small" src="/img/logo-small.png">
+					</a>
+				</figure>
+				<ul class="am-Header-menu">
+					<li class="am-Header-menu-item">
+						<a class="am-Header-text desktop" href="/users/specialty/all/page-1?order=popularity">
+							<p>ARTISTAS</p><i class="fa fa-heart-o"></i>
+						</a>
+					</li>
+					<li class="am-Header-menu-item">
+						<a class="am-Header-text desktop" href="/works/category/all/page-1/?order=popularity">
+							<p>OBRAS</p><i class="fa fa-paint-brush"></i>
+						</a>
+					</li>
+					<li class="am-Header-menu-item">
+						<a class="am-Header-text desktop" href="/products/type/all/page-1?order=popularity">
+							<p>TIENDA</p><i class="fa fa-diamond"></i>
+						</a>
+					</li>
+					{% if user %}
+						<li class="am-Header-menu-item upload">
+							<a class="am-Upload-button" href="{{user.url}}/work/add"><i class="fa fa-cloud-upload"></i> SUBIR</a>
+						</li>
+						<!-- <li class="am-Header-menu-item" style="padding-left: 22px;">
+							<div class="am-Header-icon">
+								<i class="fa fa-bell-o"></i><span>29</span>
+							</div>
+						</li> -->
+						<!--<li class="am-Header-menu-item cart">
+							<div class="am-Header-icon">
+								<a href="{{user.url}}/cart"><i class="fa fa-shopping-cart"></i><span>10</span></a>
+							</div>
+						</li>-->
+						<li class="am-Header-menu-item">
+							<!-- <a href="{{user.url}}"> -->
+								<div class="am-Avatar">
+									<img src="{{user.photo}}">&nbsp;<i class="fa fa-caret-down"></i>
+									<div class="user-menu">
+										<a href="{{user.url}}" class="user-menu-item">MI PORTAFOLIO</a>
+										<div class="u-separator"></div>
+										<a href="{{user.url}}/account" class="user-menu-item">ADMINISTRAR CUENTA</a>
+										<div class="u-separator"></div>
+										<a href="/auth/logout" class="user-menu-item">SALIR</a>
+									</div>
+								</div>
+							<!-- </a> -->
+						</li>
+					{% else %}
+						<li class="am-Header-menu-item">
+							<a class="am-Signin-button" href="/auth/login">
+								<!-- <i class="fa fa-user"></i> INGRESAR -->
+								<i class="bi_user-single-a"></i> INGRESAR
+							</a>
+						</li>
+					{% endif %}
+				</ul>
+			</header>
+		</div>
+	</div>
+	<div class="u-separator"></div>
+<!-- <li class="am-Header-menu-item">
+						<a class="am-Header-text" href="#">
+							<p>HOME</p>
+						</a>
+					</li> -->

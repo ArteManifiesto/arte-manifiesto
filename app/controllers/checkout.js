@@ -1,28 +1,25 @@
-var basePath = 'user/';
-var redirectPath = '/' + basePath;
-var Chance = require('chance');
-var _ = require('lodash');
-var chance = new Chance();
+var basePath = 'user/checkout/';
 
-var async = require('async');
-var cloudinary = require('cloudinary').v2;
-var Promise = require('bluebird');
-
-
-exports.cart = function (req, res) {
-    var query = {nameSlugify: req.params.nameProduct};
-    global.db.Product.find(query).then(function (product) {
-        return res.render('checkout/index' , {product:product});
+exports.shipping = function (req, res) {
+    req.user.getAddresses().then(function (addresses) {
+        return res.render(basePath + 'shipping', {
+            addresses: addresses
+        });
     });
 };
 
-exports.buyer = function (req, res) {
-    global.db.Product.find(req.body.idProduct).then(function (product) {
-        global.db.Buyer.create(req.body).then(function (buyer) {
-            product.addBuyer(buyer).then(function () {
-                return res.ok({buyer: buyer}, 'New buyer');
-            })
-        });
-    });
+exports.payment = function (req, res) {
+    return res.render(basePath + 'payment');
+};
 
+exports.confirm = function (req, res) {
+    
+};
+
+exports.review = function (req, res) {
+    return res.render(basePath + 'review');
+};
+
+exports.complete = function (req, res) {
+    return res.render(basePath + 'complete');
 };

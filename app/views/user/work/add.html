@@ -1,0 +1,153 @@
+{% extends '../../partials/base.html' %}
+
+{% block elements %}
+<div class="am-upload-work">
+	<div class="am-upload-work-box grid-container">
+		<p class="main-title">SUBIR NUEVA OBRA A MI PORTAFOLIO</p>
+		<form class="add-work">
+			<div class="grid-100">
+				<div class="separator">
+					<span class="line"></span><span class="text">IMAGEN DE LA OBRA</span><span class="line"></span>
+				</div>
+				<div style="position:relative;">
+					<button class="button upload u-margin-top-30 upload_button">BUSCAR ARCHIVO</button>
+					{{cloudinary.uploader.image_upload_tag('photo', { callback: cloudinary_cors, return_delete_token: true })}}
+				</div>
+				<div class="preload"><i class="fa fa-spinner"></i></div>
+				<div class="form_line">
+	      	<div class="form_controls">
+	        	<div class="preview"></div>
+	      	</div>
+    		</div>
+				<div class="separator">
+					<span class="line"></span><span class="text">DATOS DE LA OBRA</span><span class="line"></span>
+				</div>
+				<p class="title">Título de la obra</p>
+				<input name='name' class="input" type="text" placeholder="Ingrese el nombre"/>
+			</div>
+
+			<div class="grid-100 mobile-grid-100">
+				<p class="title">Categoría de la obra</p>
+				<select class="input select" name='categoryId'>
+					{% for category in categories %}
+					<option value="{{category.id}}">{{category.name}}</option>
+					{% endfor %}
+				</select>
+			</div>
+
+			<div class="grid-100 mobile-grid-100">
+				<p class="title">Descripcion de la obra</p>
+				<textarea name='description' class='input' placeholder="Descripcion" maxlength='140'></textarea>
+			</div>
+
+			<div class="grid-100 mobile-grid-100">
+				<p class="title">Tags de la obra</p>
+					<input name='tags' class="input tags" type="text"/>
+				</p>
+				<div class="separator">
+					<span class="line"></span><span class="text">CARACTERÍSTICAS</span><span class="line"></span>
+				</div>
+				<div class="switch u-margin-top-10">
+					<p class="title">Público</p>
+					<span class="value">On</span>
+					<div class="am-Switch-button">
+						<i class="fa fa-bars"></i>
+					</div>
+				</div>
+				<button class="button u-margin-top-30" data-color="blue">SUBIR OBRA</button>
+			</div>
+		</form>
+	</div>
+</div>
+{% endblock %}
+
+{{ cloudinary.config() }}
+
+{% block scripts %}
+	<script src='/jquery.tagsinput.js' type='text/javascript'></script>
+	<script src='/jquery.ui.widget.js' type='text/javascript'></script>
+  <script src='/jquery.iframe-transport.js' type='text/javascript'></script>
+  <script src='/jquery.fileupload.js' type='text/javascript'></script>
+  <script src='/jquery.cloudinary.js' type='text/javascript'></script>
+	<script>
+
+	$(document).ready(function() {
+
+		var imagelel;
+		$('.tags').tagsInput({
+		   height:'50px',
+		   width:'100%',
+		   defaultText:'+ Etiqueta'
+		});
+		$('.add-work').submit(function(event){
+			event.preventDefault();
+			var formData = {
+					 photo              : imagelel,
+					 name             : $('input[name=name]').val(),
+					 categories    : [parseInt($('select[name=categoryId]').val(),10)],
+					 tags             : $('input[name=tags]').val().split(','),
+					 description             : $('textarea[name=description]').val(),
+					 public:1
+			 };
+
+			 Utils.getData({
+				 url:DataApp.currentUser.url + '/work/create',
+				 data: {data:JSON.stringify(formData)}
+			 }).then(function(response){
+				 if(response.status === 200) {
+					 location.href = DataApp.currentUser.url
+				 }
+			 });
+		});
+
+		$.cloudinary.config({"api_key":"337494525976864","cloud_name":"hackdudes","private_cdn":false});
+
+	$(".cloudinary-fileupload")
+	.fileupload({
+		dropZone: "#direct_upload",
+		start: function (e) {
+			$(".status").text("Starting upload...");
+		},
+		progress: function (e, data) {
+			$(".status").text("Uploading... " + Math.round((data.loaded * 100.0) / data.total) + "%");
+		},
+		fail: function (e, data) {
+			$(".status").text("Upload failed");
+		}
+	})
+	.off("cloudinarydone").on("cloudinarydone", function (e, data) {
+		console.log(data.result);
+		imagelel = data.result.secure_url;
+		$(".status").text("");
+		var preview = $(".preview").html('');
+		$.cloudinary.image(data.result.public_id, {
+			format: data.result.format, width: 500, height: 400, crop: "fit"
+		}).appendTo(preview);
+
+		$('.upload_button').hide();
+		$('.cloudinary-fileupload').hide();
+		$('<a>').
+			addClass('delete_by_token').
+			attr({href: '#'}).
+			data({delete_token: data.result.delete_token}).
+			html('&times;').
+			appendTo(preview).
+			click(function(e) {
+			e.preventDefault();
+			$.cloudinary.delete_by_token($(this).data('delete_token')).done(function(){
+				$('.preview').html('');
+				$('#info').html('');
+				$("#photo_bytes").val('');
+				$('input[name="photo[image]"]').remove();
+
+
+						$('.upload_button').show();
+						$('.cloudinary-fileupload').show();
+			}).fail(function() {
+				$('.status').text("Cannot delete image");
+			});
+		});
+	});
+});
+	</script>
+{% endblock %}

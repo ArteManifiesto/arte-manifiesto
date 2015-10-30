@@ -2,40 +2,28 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 
-var config = require('../../config/config');
+var controller = require(global.cf.controllers + "/auth");
 
-var controller = require(config.controllersDir + "/auth");
-
-var authenticateParams = {
-    successRedirect: '/dashboard',
-    failureRedirect: '/'
-};
-var fbPermissions = [
-    'email',
-    'user_about_me',
-    'user_birthday',
-    'user_friends',
-    'user_interests'
-];
+var fbOptions = {scope: global.fbPermissions};
 
 router.get('/login', controller.loginPage);
 router.get('/signup', controller.signupPage);
 router.get('/logout', controller.logout);
+router.get('/verify/:token', controller.verify);
+router.get('/reset/:token', controller.reset);
+
+router.get('/facebook', passport.authenticate('facebook', fbOptions));
+router.get('/facebook/callback', controller.facebookCallback);
 
 router.post('/login', controller.login);
 router.post('/signup', controller.signup);
+router.post('/check', controller.check);
 
-router.get('/verify/:token', controller.verify);
-router.get('/success', controller.verifySuccess);
-router.get('/failure', controller.verifyFailure);
+router.post('/resend', global.md.isLogged, controller.resend);
+router.post('/complete', global.md.isLogged, controller.complete);
 
-router.get('/forgot', controller.forgot);
 router.post('/forgot', controller.forgotCreate);
-
-router.get('/reset/:token', controller.reset);
 router.post('/reset/:token', controller.resetVerify);
 
-router.get('/facebook', passport.authenticate('facebook', {scope: fbPermissions}));
-router.get('/facebook/callback', passport.authenticate('facebook', authenticateParams));
 
 module.exports = router;

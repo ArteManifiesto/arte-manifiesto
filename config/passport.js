@@ -7,7 +7,6 @@ var FacebookStrategy = require('passport-facebook').Strategy;
  * Serialize Sessions
  */
 passport.serializeUser(function (user, done) {
-    console.log("serialized id : ", user.id);
     done(null, user.id);
 });
 
@@ -15,8 +14,7 @@ passport.serializeUser(function (user, done) {
  * Deserialize user data
  */
 passport.deserializeUser(function (id, done) {
-    var query = {attributes: ['id', 'photo', 'firstname']};
-    global.db.User.find(id).then(function (user) {
+    global.db.User.findById(id).then(function (user) {
         done(null, user);
     })
 });
@@ -25,15 +23,13 @@ passport.deserializeUser(function (id, done) {
  * Authentication by Local strategy
  */
 var localStrategyHandler = function (email, password, done) {
-    global.db.User.find({where: {email: email}}).success(function (user) {
+    global.db.User.find({where: {email: email}}).then(function (user) {
         if (!user)
             done(null, false, 'Unknown user');
         else if (!user.authenticate(password))
             done(null, false, 'Invalid password');
         else
             done(null, user);
-    }).error(function (err) {
-        done(err);
     });
 };
 
@@ -44,25 +40,11 @@ passport.use(new LocalStrategy(localStrategyData, localStrategyHandler));
  * Authentication by Facebook strategy
  */
 var fbStrategyHandler = function (accessToken, refreshToken, profile, done) {
-    global.db.User.find({where: {facebookUserId: profile.id}}).then(function (user) {
-        if (!user) {
-            var firstname = profile.name.givenName + " " + profile.name.middleName;
-            var userData = {
-                email: profile.emails[0].value,
-                firstname: firstname,
-                lastname: profile.name.familyName,
-                gender: profile.gender,
-                provider: 'facebook',
-                facebook: profile.profileUrl,
-                facebookUserId: profile.id,
-                photo: '//graph.facebook.com/' + profile.id + '/picture?type=large'
-            };
-            global.db.User.create(userData).then(function (user) {
-                done(null, user);
-            })
-        } else {
-            done(null, user);
-        }
+    global.db.User.find({where: {email:profile.emails[0].value}}).then(function (user) {
+        if (!user)
+            done(null, false, profile);
+        else
+            done(null, user, profile);
     })
 };
 

@@ -1,0 +1,66 @@
+{% extends '../../partials/base.html' %}
+
+
+{% block elements %}
+
+	<div class="grid-container u-padding-top-40 u-padding-bottom-20">
+		<div class="grid-20">
+			&nbsp;
+		</div>
+		<div class="grid-60">
+			<p class="am-navigation-text">{{collection.User.firstname}} > {{collection.name}}</p>
+		</div>
+		<div class="grid-20 filter right">
+			&nbsp;
+			<!-- <div class="am-Select">
+				ORDENAR &nbsp;&nbsp;<i class="fa fa-caret-down"></i>
+			</div>
+			<div class="right-menu u-padding-top-10">
+				<div class="am-Filter">
+					<div class="am-Filter-item">
+						<p class="am-Filter-option">MÁS NUEVO</p>
+					</div>
+					<div class="am-Filter-item">
+						<p class="am-Filter-option">MÁS VALORADO</p>
+					</div>
+					<div class="am-Filter-item">
+						<p class="am-Filter-option">MÁS POPULAR</p>
+					</div>
+				</div>
+			</div> -->
+		</div>
+	</div>
+
+	<div class="grid-container">
+		<gir class="grid-100">
+			<div class="u-separator" style="margin: 0 10px"></div>
+		</gir>
+	</div>
+
+
+	<div class="discover-content grid-container u-padding-top-10 u-padding-bottom-40">
+		<div class="grid-100 grid-parent">
+			<div class="grid work-layout-discover">
+
+			</div>
+		</div>
+	</div>
+
+	{% endblock %}
+
+	{% block scripts %}
+	<script type="text/javascript">
+
+	console.log({{collection|json|safe}});
+		$(document).ready(function() {
+			var data= {
+				pagination: {
+					page:1,
+					pages:2
+				},
+				items: {{works|json|safe}}
+			}
+			new APP.Viewer('work', $('.grid'), 'infinite', data);
+		});
+	</script>
+	{% endblock %}

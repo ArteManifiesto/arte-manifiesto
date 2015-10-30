@@ -2,10 +2,10 @@
  * Load dependencies
  * ====================================================
  */
+var Sequelize = require('sequelize');
+
 var fs = require('fs');
 var path = require('path');
-var Sequelize = require('sequelize');
-var config = require('./config');
 var _ = require('lodash');
 
 /**
@@ -14,18 +14,14 @@ var _ = require('lodash');
  */
 var sequelize;
 if (process.env.NODE_ENV == 'production') {
-    sequelize = new Sequelize('heroku_082ce63f99d3d82', 'be72f71bb5432f', '520f5767', {
-        dialect: 'mysql',
-        protocol: 'mysql',
-        port: '3306',
-        host: 'us-cdbr-iron-east-02.cleardb.net',
-        timezone: '-05:00'
-    });
+    //TODO setup database for production
 } else {
-    sequelize = new Sequelize(config.db.name, config.db.username, config.db.password, {
-        dialect: config.db.dialect,
-        timezone: '-05:00'
-    });
+    sequelize = new Sequelize(
+        global.cf.db.name,
+        global.cf.db.username,
+        global.cf.db.password,
+        global.cf.db.options
+    );
 }
 
 /**
@@ -33,12 +29,12 @@ if (process.env.NODE_ENV == 'production') {
  * ====================================================
  */
 var db = {};
-fs.readdirSync(config.modelsDir)
+fs.readdirSync(global.cf.models)
     .filter(function (file) {
         return (file.indexOf('.') !== 0) && (file !== 'index.js')
     })
     .forEach(function (file) {
-        var model = sequelize.import(path.join(config.modelsDir, file));
+        var model = sequelize.import(path.join(global.cf.models, file));
         db[model.name] = model;
     });
 

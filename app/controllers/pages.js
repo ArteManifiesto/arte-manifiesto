@@ -1,213 +1,89 @@
 var basePath = 'pages/';
-var redirectPath = '/';
-var email = require('./email');
 var Promise = require('bluebird');
 var _ = require('lodash');
-var moment = require('moment');
 var request = require('request');
-var cloudinary = require('cloudinary').v2;
 
 exports.index = function (req, res) {
-    var query = {where: {featured: true}, limit: 20};
-    global.db.Product.findAll(query).then(function (workFeatureds) {
-        return res.render('index', {
-            workFeatureds: workFeatureds
-        });
-    });
+  return res.render('pages/confirm-email');
+  return res.redirect('/works/category/all/page-1/?order=popularity');
 };
 
-exports.search = function (req, res) {
+var searchHandler = function (entity, req, res) {
     var config = global.config.search;
+    entity = global.getParameter(config.entities, entity);
 
-    req.params.entity = global.getParameter(config.entities, req.params.entity);
-
-    req.query.order = global.getParameter(config.orders[req.params.entity], req.query.order);
+    req.query.order = global.getParameter(config.orders[entity], req.query.order);
 
     if (req.query.time)
         req.query.time = global.getParameter(config.times, req.query.time);
 
-    var item, currentParams = config.params[req.params.entity];
+    var item, currentParams = config.params[entity];
 
     for (item in req.query)
         if (currentParams.indexOf(item) == -1)
             delete req.query[item];
 
-    var searchable = _.capitalize(req.params.entity);
-    global["search" + searchable](req).then(function (data) {
-        data.url = global.generateUrlWithParams(data.pagination, req);
+    var searchable = _.capitalize(entity);
+    return global["search" + searchable](req).then(function (data) {
+        var query = global.encodeToQuery(req.query);
+        data.url = req.protocol + '://' + req.get('host') + req.path + '?' + query;
+        data.filters = {
+          currentCategory : req.params.value,
+          currentOrder : req.query.order
+        }
         return res.json(data);
     });
 };
 
 var searchBridge = function (req) {
-    var idUser = req.user ? req.user.id : 0;
-    console.log(req.url);
-    var options = {
-        method: 'POST',
-        body: {idUser: idUser},
-        json: true,
-        url: req.protocol + '://' + req.get('host') + '/search' + req.url
-    };
+    var body = {viewer: req.viewer};
+    var url = req.protocol + '://' + req.get('host') + req.url;
+    var options = {method: 'POST', body: body, json: true, url: url};
 
     return new Promise(function (resolve, reject) {
-        request.post(options, function (error, response, body) {
-            resolve(body);
-        });
+      request.post(options, function (error, response, body) {
+          resolve(body);
+      });
     });
 };
 
-var discover = function (req) {
-    return searchBridge(req).then(function (data) {
-        var query = {attributes: ['name', 'nameSlugify']};
-
-        return global.db.Category.findAll(query).then(function (categories) {
-            data.categories = categories;
-            return data;
-        });
+var discover = function (req, entity) {
+    console.log(req.query);
+    var query = {attributes: ['id', 'name', 'nameSlugify']};
+    var promises = [
+      searchBridge(req),
+      global.db[entity === 'products' ? 'ProductType' : 'Category'].findAll(query)
+    ];
+    return global.db.Sequelize.Promise.all(promises).then(function (data) {
+      var order = global.config.search.orders[entity];
+      data[0].filters.categories = data[1];
+      data[0].filters.order = order;
+      return {data: data[0]};
     });
 };
 
 exports.works = function (req, res) {
-    discover(req).then(function (data) {
-        return res.render('pages/works', data);
+    discover(req, 'works').then(function (data) {
+        return res.render(basePath + 'works', data);
     });
 };
 
 exports.users = function (req, res) {
-    discover(req).then(function (data) {
-        return res.render('pages/users', data);
+    discover(req, 'users').then(function (data) {
+        return res.render(basePath + 'users', data);
     });
 };
 
 exports.products = function (req, res) {
-    searchBridge(req).then(function (data) {
-        var query = {attributes: ['id', 'name', 'nameSlugify']};
-        global.db.ProductType.findAll(query).then(function (productTypes) {
-            data.productTypes = productTypes;
-            return res.render('pages/products', data);
-        });
-    });
+  discover(req, 'products').then(function (data) {
+    return res.render(basePath + 'products', data);
+  });
 };
 
-exports.storeProduct = function (req, res) {
-    /*
-     var getProductQuery = {
-     where: {nameSlugify: req.params.nameProduct},
-     attributes:[],
-     include: [{
-     model: global.db.Work,
-     attributes: ['id'],
-     include: [{
-     model: global.db.User,
-     include: [{model: global.db.User, as: 'Followers', attributes: [], through: {attributes: []}}]
-     }]
-     }]
-     };
-     return global.db.Product.find(getProductQuery).then(function (product) {
-     return res.json(product);
-     */
-    /*
-     var query = {
-     where: {id: work.User.id},
-     attributes: [],
-     include: [
-     {
-     model: global.db.Work,
-     where: {id: {not: [work.id]}}
-     }
-     ]
-     };
-     global.db.User.find(query).then(function (otherWorks) {
-     if (req.user) {
-     req.user.getInterests().then(function (interests) {
-     var ids = [0].concat(_.pluck(interests, 'id'));
+exports.search = function (entity, req, res) {
+    if (!req.body.viewer)
+        return searchHandler(entity, req, res);
 
-     var que = {
-     where: {id: {in: ids}},
-     include: [global.db.Work]
-     };
-     global.db.Category.findAll(que).then(function (worksforme) {
-     return res.json(worksforme);
-     });
-     });
-     } else {
-     return res.json({
-     work: work,
-     otherWorks: otherWorks
-     });
-     }
-     });
-     */
-    /*
-     */
-    /*
-     return res.render('user/work', {
-     work: work
-     })
-     */
-    /*
-     });*/
-
-
-    var query = {where: {nameSlugify: req.params.nameProduct}};
-    global.db.Product.find(query).then(function (product) {
-        return res.render('store/product', {product: product});
-    });
-};
-
-exports.productPay = function (req, res) {
-    global.db.Product.find(req.params.idProduct).then(function (product) {
-        var username = 'luis.augusto-facilitator_api1.funka.pe';
-        var password = 'DA2FKBDA969MC9FG';
-        var signature = 'AFcWxV21C7fd0v3bYYYRCpSSRl31AVe8WaAZb1aHHZTwqH86Cv8a7XhB';
-        var returnUrl = 'http://localhost:3000';
-        var paypal = require('paypal-express-checkout').init(username, password, signature, returnUrl, returnUrl, true);
-        paypal.pay('20130001', product.price, product.name, 'USD', function (err, url) {
-            if (err) {
-                console.log(err);
-                return;
-            }
-            // redirect to paypal webpage
-            res.redirect(url);
-        });
-
-    });
-};
-
-exports.photos = function (req, res) {
-    return res.render('photo');
-};
-
-exports.photosCreate = function (req, res) {
-    var imageFile = req.files.file.path;
-
-    cloudinary.config({
-        cloud_name: 'hackdudes',
-        api_key: '337494525976864',
-        api_secret: 'RQ2MXJev18AjVuf-mSNzdmu2Jsc'
-    });
-
-    cloudinary.uploader.upload(imageFile)
-        .then(function (image) {
-            console.dir(image);
-            global.getPortfolioCollection(req.user).then(function (collection) {
-                global.db.Work.create({
-                    name: req.body.name,
-                    photo: image.url
-                }).then(function (work) {
-                    collection.addWork(work).then(function () {
-                        var promises = [
-                            collection.reorderAfterWorkAdded([work]),
-                            work.setUser(req.user)
-                        ];
-                        global.db.Sequelize.Promise.all(promises).then(function () {
-                            return res.redirect('back');
-                        })
-                    });
-                })
-            });
-        })
-        .then(function (photo) {
-            console.log('** photo saved')
-        });
+    req.viewer = req.body.viewer;
+    return searchHandler(entity, req, res);
 };

@@ -1,81 +1,55 @@
-var basePath = 'account/';
-var redirectPath = '/' + basePath;
+var basePath = 'user/product/';
 
-
-exports.add = function (req, res) {
-    return res.render(basePath + 'work-create');
-};
-
-exports.product = function (req, res) {
-    var options = {viewer: req.viewer, name: req.params.nameProduct};
-    var getProduct = global.getProduct(options);
-    global.db.sequelize.query(getProduct, {nest: true, raw: true}).then(function (data) {
-        var product = data[0];
-        var otherProducts = {
-            attributes: ['id', 'name', 'nameSlugify', 'photo'],
-            where: {UserId: req.profile.id, id: {not: [product.id]}},
-            limit: 6,
-            order: [global.db.sequelize.fn('RAND', '')]
-        };
-        global.db.Product.findAll(otherProducts).then(function (otherProducts) {
-            var product = data[0];
-            options = {product: product.id, limit: 50};
-            var getLikesProduct = global.getUserLikesProduct(options);
-            global.db.sequelize.query(getLikesProduct, {nest: true, raw: true}).then(function (data) {
-                product.userLikes = data;
-                product.otherProducts = otherProducts;
-                return res.render('user/product/index', {
-                    product: product
-                });
-            });
+exports.index = function (req, res) {
+    req.product.views += 1;
+    var promises = [
+        req.product.save(),
+        req.product.userLikes(),
+        req.product.more(),
+        req.product.similar(req.viewer)
+    ];
+    global.db.Sequelize.Promise.all(promises).then(function (result) {
+        return res.render(basePath + 'index', {
+            profile: req.profile,
+            product: req.product, userLikes: result[1],
+            more: result[2], similar: result[3]
         });
     });
 };
 
-exports.checkout = function (req, res) {
-
-}
-
-
-exports.create = function (req, res) {
-};
-
-exports.delete = function (req, res) {
-
-};
-
-exports.update = function (req, res) {
-
-};
-
 exports.featured = function (req, res) {
-    global.db.Product.find(req.body.idProduct).then(function (product) {
-        product.updateAttributes({featured: true}).then(function () {
-            return res.ok('Product featured');
-        });
+    req.product.updateAttributes({featured: true}).then(function () {
+        return res.ok({product: req.product}, 'Product featured');
     });
 };
 
 exports.unFeatured = function (req, res) {
-    global.db.Product.find(req.body.idProduct).then(function (product) {
-        product.updateAttributes({featured: false}).then(function () {
-            return res.ok('Product unFeatured');
-        });
+    req.product.updateAttributes({featured: false}).then(function () {
+        return res.ok({product: req.product}, 'Product unFeatured');
     });
 };
 
 exports.like = function (req, res) {
-    global.db.Product.find(req.body.idProduct).then(function (product) {
-        product.like(req.user).then(function (likes) {
-            return res.ok({product: product, likes: likes.likes}, 'Product liked');
-        });
-    })
+    req.product.like(req.user).then(function (likes) {
+        return res.ok({product: req.product, likes: likes}, 'Product liked');
+    });
 };
 
 exports.unLike = function (req, res) {
-    global.db.Product.find(req.body.idProduct).then(function (product) {
-        product.unLike(req.user).then(function (likes) {
-            return res.ok({product: product, likes: likes.likes}, 'Product unLiked');
-        });
+    req.product.unLike(req.user).then(function (likes) {
+        return res.ok({product: req.product, likes: likes}, 'Product unLiked');
     });
 };
+
+exports.addToCollection = function (req, res) {
+    var collections = req.body.collections;
+    var query = {viewer: req.viewer, collections: collections};
+    req.product.addToCollection(query).then(function (data) {
+        return res.ok({collection: collections}, 'Product added to collections , this is a magic mdf :]');
+    });
+}
+
+
+exports.removeFromCart = function (req, res) {
+
+}

@@ -1,29 +1,21 @@
 var express = require('express');
-var router = express.Router();
-router.mergeParams = true;
+var router = express.Router({mergeParams: true});
 
-var config = require('../../config/config');
-var controller = require(config.controllersDir + "/user-work");
+var controller = require(global.cf.controllers + "/user-collection");
 
-router.get('/add', controller.add);
-router.get('/:nameWork', controller.work);
+var isLoggedAndOwner = [global.md.isLogged, global.md.isOwner];
+var entity = 'Collection';
 
-router.post('/create', controller.create);
-router.post('/delete', controller.workDelete);
-router.post('/update', controller.workUpdate);
+router.use(global.md.entity(entity));
 
-//TODO add middleware for check if work exists
-router.post('/featured', controller.featured);
-router.post('/unfeatured', controller.unFeatured);
-router.post('/like', controller.like);
-router.post('/unlike', controller.unLike);
+router.get('/:nameSlugify', global.md.nameSlugify(entity), controller.index);
 
-router.post('/public' , controller.public);
-router.post('/private' , controller.private);
+router.post('/all', isLoggedAndOwner, controller.all);
+router.post('/create', isLoggedAndOwner, controller.create);
+router.post('/update', isLoggedAndOwner, controller.update);
+router.post('/delete', isLoggedAndOwner, controller.delete);
 
-/*
- router.post('/work/add/collection', controller.workAddCollection);
- router.post('/work/switch/collection', controller.workSwitchCollection);
- */
+router.post('/public', isLoggedAndOwner, controller.public);
+router.post('/private', isLoggedAndOwner, controller.private);
 
 module.exports = router;

@@ -1,29 +1,185 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-	<title>{{title}}</title>
-	
 	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 
-	<link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700|Roboto+Condensed:400,300,700|Raleway:400,100,200,300,500,700,600,800,900|Oswald:400,300,700|Hammersmith+One' rel='stylesheet' type='text/css'>
+	<title>Arte Manifiesto</title>
 
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link href='https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700,700italic|Montserrat:400,700' rel='stylesheet' type='text/css'>
 
-	{% if includeJqueryUiCss == true %}
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-	{% endif %}
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
-	<link rel="stylesheet" type="text/css" href="/css/{{css}}.css">
+	<link rel="stylesheet" href="/css/budicon.css">
+
+	<link rel="stylesheet" type="text/css" href="/app.min.css">
+
+	{% block styles %} {% endblock %}
+	<style>
+	.cloudinary-fileupload
+{
+	border: none;
+	cursor: pointer;
+	filter: alpha(opacity=0);
+	height: 44px;
+	left: 110px;
+	margin: 0;
+	opacity: 0;
+	padding: 0;
+	position: absolute;
+	top: 0;
+	width: 220px;
+}
+	</style>
 </head>
 <body>
 
-	
 	{% include 'header.html' %}
 
+	{% if successMessage %}
+	<div class="message succes">
+		<div class="grid-container">
+			<div class="grid-100">
+				<p>{{successMessage}}</p>
+			</div>
+		</div>
+	</div>
+	{% endif %}
 
-	{% block content %}{% endblock %}
+	{% if errorMessage %}
+	<div class="message error">
+		<div class="grid-container">
+			<div class="grid-100">
+				<p>{{errorMessage}}</p>
+			</div>
+		</div>
+	</div>
+	{% endif %}
+	{% block elements %} {% endblock %}
 
+	{% include 'footer.html' %}
+
+	<script>
+	  var ADAPT_CONFIG = {
+	    path: '/',
+	    dynamic: true,
+	    range: [
+	      '0 to 767px = unsemantic-grid-mobile.css',
+	      '767px = unsemantic-grid-desktop.css'
+	    ]
+	  };
+	</script>
+	<script src="/adapt.min.js"></script>
+
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js" lang="text/javascript"></script>
+	<script src='/app.min.js'></script>
+	<script src="http://imagesloaded.desandro.com/imagesloaded.pkgd.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js"></script>
+	<script>
+		DataApp.currentUser = {{user|json|safe}} || null;
+    $(document).ready(onReady);
+	 	function onReady() {
+			new APP.AM();
+		}
+	</script>
+
+	<script type="text/template" id="template-filter-item">
+		<div class="am-Filter-item">
+			<% if (meta === "category") { %>
+				<p class="am-Filter-option uppercase" data-meta=<%= meta %> data-value=<%= nameSlugify %> ><%= name %>
+					<i class="fa fa-chevron-right"></i>
+				</p>
+			<% } %>
+			<% if (meta === "order") { %>
+				<p class="am-Filter-option uppercase" data-meta=<%= meta %> data-value=<%= name %> ><%= name %>
+					<i class="fa fa-chevron-right"></i>
+				</p>
+			<% } %>
+		</div>
+	</script>
+
+	<script type="text/template" id="template-work">
+		<div class="grid-item">
+			<div class="work-card">
+				<img src="<%= addFilter(photo, 'w_160,q_80') %>">
+			</div>
+		</div>
+	</script>
+
+	<script type="text/template" id="template-user">
+		<div class="grid-item">
+	  	<div class="artist-card">
+				<% if(featured) { %>
+				<% } %>
+				<a href="<%=url%>">
+		  		<div class="artist-card-info">
+		  			<img src="<%=photo%>">
+		  			<div>
+		  				<p class="name uppercase"><%=firstname%></p>
+		  				<p class="city"><%=city%>, <%=country%></p>
+		  				<p class="stats"><i class="bi_ecommerce-diamon"></i> <%=numOfFollowers%></p>
+		  			</div>
+		  		</div>
+				</a>
+	  		<div class="artist-card-works">
+					<% _.each(Works, function(work) { %>
+						<div class="artist-card-work" style="background-image: url('<%= addFilter(work.photo, 'w_120,h_120,c_fill,q_80') %>')"></div>
+					<% }); %>
+	  		</div>
+	  		<div class="artist-card-follow">
+					<% if(following) { %>
+						<button class="am-Follow-button">SIGUIENDO</button>
+					<% } else { %>
+						<button class="am-Follow-button">+ SEGUIR</button>
+					<% } %>
+	  		</div>
+	  	</div>
+	  </div>
+	</script>
+
+	<script type="text/template" id="template-product">
+		<div class="grid-item">
+	  	<div class="product-card">
+				<div class="product-card-image" style="background-image: url('<%=photo%>')"></div>
+	  		<div class="product-card-data">
+	  			<p><%= name %></p>
+	  			<p><%= User.firstname %></p>
+	  		</div>
+	  		<div class="product-card-stats">
+	  			<p><%= price %></p>
+	  			<p><%= likes %> &nbsp;&nbsp;&nbsp;<i class="fa fa-diamond"></i></p>
+	  		</div>
+	  	</div>
+	  </div>
+	</script>
+
+	<script type="text/template" id="template-collection">
+		<div class="grid-item">
+			<div class="collection-card">
+				<div class="collection-card-stats">
+					<p><%=description%></p>
+				</div>
+				<div class="collection-card-images">
+					<% _.each(works, function(work) { %>
+						<div class="collection-card-image" style="background-image: url('<%=work.photo%>')"></div>
+					<% }); %>
+				</div>
+				<div class="collection-card-artist">
+					<div>
+						<p>Curado Por:</p>
+						<p><%=User.firstname%></p>
+					</div>
+					<img src="<%=User.photo%>">
+				</div>
+			</div>
+		</div>
+	</script>
+	<script type="text/template" id="template-carrouselItem">
+		<div class="am-MoreImages" style="background-image: url(<%=addFilter(photo, 'w_230,h_230,c_fill,q_80')%>);"></div>
+	</script>
+
+	{% block scripts %} {% endblock %}
 </body>
 </html>
+
+<!-- <div class="featured">AM</div> -->

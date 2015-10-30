@@ -1,250 +1,86 @@
 {% extends '../partials/base.html' %}
-	{% set path = 'profile' %}
-	{% set title = 'Arte Manifiesto | Profile' %}
-	{% set css = 'profile' %}
 
-{% block content %}
+{% set path = 'market' %}
 
-    {% include '../partials/category-menu.html' %}
-
-    <div class="profile-container">
-        <div class="profile">
-            <div class="profile__avatar">
-                <img src="{{ profile.photo }}">
-            </div>
-            <div class="profile__data">
-                <div class="profile__name">
-                    <p class="profile-text">{{ profile.firstname }} {{ profile.lastname }}</p>
-                </div>
-                <div class="profile__info">
-                    <div class="profile__city">
-                        <p class="skinny-text" data-color='light'><i class="fa fa-map-marker"></i> {{ profile.city }}
-                        </p>
-                    </div>
-                    <div class="profile__follow">
-
-                        {% if profile.following %}
-                        <button class="button-liner disabled js-followButton" data-size="small" data-following="true"
-                                data-userId="{{ profile.id }}">
-                            {% else %}
-                            <button class="button-liner js-followButton" data-size="small" data-following="false"
-                                    data-userId="{{ profile.id }}">
-                                {% endif %}
-                                <span class="button-liner__action folllow">Seguir</span>
-                                <span class="button-liner__action following"><i
-                                            class="fa fa-check"></i> Siguiendo</span>
-                                <span class="button-liner__action cancel"><i
-                                            class="fa fa-times-circle"></i> Cancelar</span>
-                                <span class="button-liner__number">{{ data[5].followers }}</span>
-                            </button>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="profile-menu">
-        <div class="carousel-square-menu">
-            <div class="square-menu">
-                <div class="square-menu__element">
-                    <div class="square-menu__item">Portafolio
-                        <!-- <span class="number">{{ data[0].portfolio }}</span> --></div>
-                </div>
-
-                {% if profile.username == "artjam" %}
-                    <div class="square-menu__element">
-                        <div class="square-menu__item">Tienda</div>
-                    </div>
-                {% else %}
-                    <div class="square-menu__element" style="display: none;">
-                        <div class="square-menu__item">Tienda</div>
-                    </div>
-                {% endif %}
-
-                <div class="square-menu__element">
-                    <div class="square-menu__item">Likes <span class="number"></span></div>
-                </div>
-                <div class="square-menu__element">
-                    <div class="square-menu__item">Seguidores <span class="number"></span></div>
-                </div>
-                <div class="square-menu__element">
-                    <div class="square-menu__item">Siguiendo <span class="number"></span></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="profile-content" style="min-height: 350px;">
-
-        <div class="page profile-content__works" style="display: block;">
-            <!-- ********************************************************************
-                $ WORKS
-            ********************************************************************* -->
-            <section class="works" data-columns></section>
-        </div>
-
-        <div class="page profile-content__store" style="display: block;">
-            <!-- ********************************************************************
-                $ PRODUCTS
-            ********************************************************************* -->
-            <section class="products" style="max-width: 1100px;margin: auto;"></section>
-        </div>
-
-        <div class="page profile-content__likes" style="display: block;">
-            <!-- ********************************************************************
-                $ WORKS
-            ********************************************************************* -->
-            <section class="works" data-columns></section>
-
-            <div class="page profile-content__followers" style="display: block;">
-                <!-- ********************************************************************
-                    $ ARTISTS
-                ********************************************************************* -->
-                <section class="artists" style="max-width: 1100px;margin: auto;"></section>
-            </div>
-
-            <div class="page profile-content__following" style="display: block;">
-                <!-- ********************************************************************
-                    $ ARTISTS
-                ********************************************************************* -->
-                <section class="artists" style="max-width: 1100px;margin: auto;"></section>
-            </div>
-
-        </div>
-    </div>
-    {% include '../partials/footer.html' %}
-
-    <script type="text/template" id="work-template">
-        <article class="work">
-            <img src="<%= photo %>">
-        </article>
-    </script>
-
-    <script type="text/template" id="artist-template">
-        <div class="artist-wrapper">
-            <article class="artist">
-                <a class="artist-header" href="#">
-                    <div class="avatar">
-                        <img src="<%= photo %>">
-                    </div>
-                    <div class="info">
-                        <p class="high-text" data-size='small'><%= firstname %></p>
-
-                        <p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i>
-                            Lima, Peru</p>
-                    </div>
-                </a>
-
-                <div class="artist-works">
-
-                    <% _.each(Works, function(work) { %>
-                    <div class="work work1"></div>
-                    <% }); %>
-
-                </div>
-                <div class="artist-follow">
-                    <% if (following) { %>
-                    <button class="button-liner disabled js-followButton" data-following="true" data-userId="<%= id %>"
-                            data-size='small'>
-                        <% } else { %>
-                        <button class="button-liner js-followButton" data-following="false" data-userId="<%= id %>"
-                                data-size='small'>
-                            <% } %>
-                            <span class="button-liner__action folllow">Seguir</span>
-                            <span class="button-liner__action following"><i class="fa fa-check"></i> Siguiendo</span>
-                            <span class="button-liner__action cancel"><i class="fa fa-times-circle"></i> Cancelar</span>
-                            <span class="button-liner__number">13,2k</span>
-                        </button>
-                    </button>
-                </div>
-            </article>
-        </div>
-
-    </script>
-
-    <script type="text/template" id="product-template">
-        <div class="product-wrapper">
-            <article class="product">
-                <a href="" class="product-image">
-                    <img src="<%= photo %>">
-                </a>
-
-                <div class="product-info">
-                    <div class="title"><%= name %></div>
-                </div>
-                <div class="product-social">
-                    <div class="price">$<%= price %></div>
-                    <div class="like">
-
-                        <% if (liked) { %>
-                        <span class="button-like active"> <i class="fa fa-heart-o"></i> <i
-                                    class="fa fa-heart"></i> <span>{{ product.likes }}</span> </span>
-                        <% } else { %>
-                        <span class="button-like"> <i class="fa fa-heart-o"></i> <i
-                                    class="fa fa-heart"></i> <span>{{ product.likes }}</span> </span>
-                        <% } %>
-
-                    </div>
-                </div>
-
-            </article>
-        </div>
-    </script>
-
-    <script>
-
-        var data = {{ data|json|safe }};
-        console.log('data: ', data);
-
-        var currentPath = {{ currentPath|json|safe }};
-        console.log('path: ', currentPath);
-
-        var owner = {{ owner|json|safe }};
-        console.log('owner: ', owner);
-
-        var profile = {{ profile|json|safe }};
-        console.log('profile: ', profile);
-
-        var user = {{ user|json|safe }};
-        console.log('user: ', user);
-
-    </script>
-
-    <script src="/js/vendor/jquery.min.js"></script>
-    <script src="/js/vendor/salvattore.js"></script>
-    <script src="/js/vendor/underscore-min.js"></script>
-
-    <script src="js/lib/utils.js"></script>
-
-    <script src="js/profile.js"></script>
-
-
+{% block elements %}
+	<div class="am-Profile-banner" style="background-image: url('http://127.0.0.1:3000/img/banners/am_cover.jpg')">
+		<i class="fa fa-pencil-square-o"></i>
+		<div class="grid-container">
+			<div class="grid-100">
+				<div class="am-Profile-avatar">
+					<div class="img">
+						<img src="{{profile.photo}}">
+						<i class="fa fa-pencil-square-o"></i>
+					</div>
+					<div>
+						<p class="name">{{profile.firstname}}</p>
+						<p class="city">{{profile.city}}, {{profile.country}}</p>
+						<button class="am-Follow-button">+ Seguir</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="am-Profile-menu-container">
+		<div class="grid-container">
+			<div class="grid-100">
+				<div class="user-carousel">
+					<div class="am-Profile-menu">
+						<div class="am-Profile-menu-item portfolio">
+							<a href='{{profile.url}}/'>
+								<p>PORTAFOLIO</p>
+								<p>{{data[0]}}</p>
+							</a>
+						</div>
+						<div class="am-Profile-menu-item store">
+							<a href='{{profile.url}}/store'>
+								<p>TIENDA</p>
+								<p>{{data[1]}}</p>
+							</a>
+						</div>
+						<div class="am-Profile-menu-item collections">
+							<a href='{{profile.url}}/collections'>
+								<p>COLECCIONES</p>
+								<p>{{data[2]}}</p>
+							</a>
+						</div>
+						<div class="am-Profile-menu-item followings">
+							<a href='{{profile.url}}/followings'>
+								<p>SIGUIENDO</p>
+								<p>{{data[3]}}</p>
+							</a>
+						</div>
+						<div class="am-Profile-menu-item followers">
+							<a href='{{profile.url}}/followers'>
+								<p>SEGUIDORES</p>
+								<p>{{data[4]}}</p>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="discover-content grid-container u-padding-top-10 u-padding-bottom-70">
+		<div class="grid-100 grid-parent">
+      <div class="grid work-layout-discover">
+				<div class="grid-sizer"></div>
+      </div>
+		</div>
+	</div>
 {% endblock %}
 
-<!--
-<div class="work__featured">
-
-                <% if (user) { %>
-
-                    <% if (featured) { %>
-                        <span id="<%= id %>" class="button-featured admin unfeatured" data-size='small'>
-                            <div class="button-featured__inner"><i class="fa fa-star"></i></div>
-                        </span>
-                    <% } else { %>
-                        <span id="<%= id %>" class="button-featured admin disabled featured" data-size='small'>
-                            <div class="button-featured__inner"><i class="fa fa-star"></i></div>
-                        </span>
-                    <% } %>
-
-                <% } else { %>
-
-                    <% if (featured) { %>
-                        <span id="<%= id %>" class="button-featured" data-size='small'>
-                            <div class="button-featured__inner"><i class="fa fa-star"></i></div>
-                        </span>
-                    <% } %>
-
-                <% } %>
-
-            </div>
- -->
+{% block scripts %}
+	<script>
+		$(document).ready(function() {
+			console.log({{data|json|safe}});
+			var currentPath = {{currentPath|json|safe}}, template;
+			$('.' + currentPath).addClass('selected');
+			if(['followings', 'followers'].indexOf(currentPath) !== -1) template = 'user';
+			if('portfolio' === currentPath) template = 'work';
+			if('store' === currentPath) template = 'product';
+			if('collections' === currentPath) template = 'collection';
+			new APP.Viewer(template, $('.grid'), 'infinite', null);
+		});
+	</script>
+{% endblock %}

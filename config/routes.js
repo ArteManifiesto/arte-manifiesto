@@ -1,19 +1,16 @@
-/**
- * Load general configuration
- * ====================================================
- */
-var config = require('./config');
+var express = require('express');
 
 /**
  * Load routers
  * ====================================================
  */
-var pagesRouter = require(config.routesDir + '/pages');
-var authRouter = require(config.routesDir + '/auth');
-var dashboardRouter = require(config.routesDir + '/dashboard');
-var userRouter = require(config.routesDir + '/user');
-var checkoutRouter = require(config.routesDir + '/checkout');
-var middlewares = require(config.middlewaresDir + '/app');
+
+var pagesRouter = require(global.cf.routes + '/pages');
+var authRouter = require(global.cf.routes + '/auth');
+var adminRouter = require(global.cf.routes + '/admin');
+var checkoutRouter = require(global.cf.routes + '/checkout');
+var userRouter = require(global.cf.routes + '/user');
+
 /**
  * Setup routers
  * ====================================================
@@ -21,7 +18,7 @@ var middlewares = require(config.middlewaresDir + '/app');
 exports.init = function (app) {
     app.use('/', pagesRouter);
     app.use('/auth', authRouter);
-    app.use('/dashboard', middlewares.shouldLogged, dashboardRouter);
-    app.use('/checkout',checkoutRouter);
-    app.use('/:username', userRouter);
+    app.use('/admin', adminRouter);
+    app.use('/checkout', global.md.isLogged, checkoutRouter);
+    app.use('/user/:username', userRouter);
 };

@@ -1,200 +1,153 @@
-var basePath = 'user/';
-var redirectPath = '/' + basePath;
-var Chance = require('chance');
-var _ = require('lodash');
-var chance = new Chance();
-
-var async = require('async');
 var cloudinary = require('cloudinary').v2;
-var Promise = require('bluebird');
+process.env.CLOUDINARY_URL = 'cloudinary://337494525976864:RQ2MXJev18AjVuf-mSNzdmu2Jsc@hackdudes'
+cloudinary.config();
 
+var basePath = 'user/work/';
 
-exports.work = function (req, res) {
-    return res.json({lel: 10});
+exports.index = function (req, res) {
+    //req.work.views += 1;
+    var promises = [
+        req.work.save(),
+        req.work.userLikes(),
+        req.work.more(),
+        req.work.similar(req.viewer),
+        req.work.getProducts({build: true, viewer: req.viewer, addUser:true})
+    ];
+    global.db.Sequelize.Promise.all(promises).then(function (result) {
+        var query = { where:{id: req.work.id}, include:[global.db.Category],
+          viewer: req.viewer, build: true, addUser: true
+        }
+        global.db.Work.find(query).then(function(work) {
+          return res.render(basePath + 'index', {
+              work: work, userLikes: result[1],
+              more: result[2], similar: result[3],
+              products: result[4]
+          });
+        });
+    });
 };
 
 exports.add = function (req, res) {
-    return res.render(basePath + 'work-create');
+  var cloudinary_cors = "http://" + req.headers.host + "/cloudinary_cors.html";
+
+    global.db.Category.findAll().then(function (categories) {
+        return res.render(basePath + 'add', {categories: categories,
+        cloudinary_cors: cloudinary_cors,
+        cloudinary: cloudinary});
+    });
 };
 
 /**
  * Work Create
  * ====================================================================
- * When a work is created this is added to a portfolio collection
- * too the work is reordered automatically in the collection
- * finally the work is added to the current user and set
- * the categories and tags
+ * When a work is created this is added to the current user and set categories and tags
  * @param categories ids of the cotegories
  * @param tags ids of the tags
  * @param work data
  */
 exports.create = function (req, res) {
-    global.getPortfolioCollection(req.user).then(function (collection) {
+    var data = JSON.parse(req.body.data);
+    var promises = [
+        global.db.Category.findAll({where: {id: {$in: data.categories}}}),
+        global.db.Work.create(data, {user: req.user})
+    ];
+    global.db.Sequelize.Promise.all(promises).then(function (data) {
+        var categories = data[0], work = data[1];
         var promises = [
-            global.db.Category.findAll({where: {id: {in: req.body.categories}}, attributes: ['id']}),
-            global.db.Tag.findAll({where: {id: {in: req.body.tags}}, attributes: ['id']}),
-            global.db.Work.create(req.body.work)
+            work.setUser(req.user),
+            work.setCategories(categories)
         ];
+        global.db.Sequelize.Promise.all(promises).then(function () {
+            if (req.xhr)
+                return res.ok({work: work}, 'Obra creada');
 
-        global.db.Sequelize.Promise.all(promises).then(function (data) {
-            var categories = data[0], tags = data[1], work = data[2];
-
-            collection.addWork(work).then(function () {
-                var promises = [
-                    collection.reorderAfterWorkAdded([work]),
-                    work.setUser(req.user),
-                    work.setCategories(categories),
-                    work.setTags(tags)
-                ];
-
-                global.db.Sequelize.Promise.all(promises).then(function () {
-                    return res.ok({work: work}, 'Work created');
-                })
-            })
+            req.flash('successMessage', 'Obra creada');
+            return res.redirect('back');
         });
     });
 };
 
-exports.workDelete = function (req, res) {
-    var getWorkQuery = {
-        where: {id: req.body.idWork},
-        attributes: ['id', 'name'],
-        include: [{
-            model: global.db.Collection,
-            attributes: ['id', 'name'],
-            through: {attributes: ['order']}
-        }]
-    };
-
-    var reorderCollection = function (work, collection) {
-        collection.reorderAfterWorkRemoved().then(function () {
-            return res.json(responses.workDeleted(work, collection));
-        });
-    };
-
-    if (!req.body.idCollection) {
-        global.getPortfolioCollection(req.user).then(function (collection) {
-            getWorkQuery.include[0].where = {id: collection.id, meta: collection.meta};
-            global.db.Work.find(getWorkQuery).then(function (work) {
-                if (!work)
-                    return res.json(responses.workDontExists(req.body.idWork));
-
-                collection = work.Collections[0];
-                work.destroy().then(function () {
-                    reorderCollection(work, collection);
-                });
-            });
-        });
-    } else {
-        getWorkQuery.include[0].where = {id: req.body.idCollection, meta: 'work'};
-        global.db.Work.find(getWorkQuery).then(function (work) {
-            if (!work)
-                return res.json(responses.workDontExists(req.body.idWork));
-
-            var collection = work.Collections[0];
-            collection.removeWork(work).then(function () {
-                reorderCollection(work, collection);
-            });
-        });
-    }
+exports.edit = function (req, res) {
+    return res.render(basePath + 'edit');
 };
 
-exports.workUpdate = function (req, res) {
-    global.db.Work.find(req.body.idWork).then(function (work) {
-        if (work) {
-            var promises = [global.db.Category.findAll()];
-            if (req.body.idCollection)
-                promises.push(global.db.Collection.find(req.body.idCollection));
-            else
-                promises.push(global.db.Collection.find(1));
-            promises.push(global.db.Tag.findAll());
+exports.update = function (req, res) {
+    var promises = [
+        global.db.Category.findAll({where: {id: {$in: req.body.categories}}}),
+        global.db.Tag.findAll({where: {id: {$in: req.body.tags}}})
+    ];
 
-            global.db.Sequelize.Promise.all(promises).then(function (data) {
-                work.updateAttributes(req.body);
-                var categories = _.sample(_.shuffle(data[0]), _.random(1, 3));
-                var collection = data[1];
-                var tags = _.sample(_.shuffle(data[2]), _.random(1, 3));
+    global.db.Sequelize.Promise.all(promises).then(function (data) {
+        var categories = data[0], tags = data[1],
+            promises = [
+                req.work.updateAttributes(req.body),
+                req.work.setCategories(categories),
+                req.work.setTags(tags)
+            ];
+        global.db.Sequelize.Promise.all(promises).then(function () {
+            if (req.xhr)
+                return res.ok({work: req.work}, 'Obra actualizada');
 
-                if (collection) {
-                    promises = [
-                        work.save(),
-                        work.setCollection(collection),
-                        work.setCategories(categories),
-                        work.setTags(tags)
-                    ];
-
-                    global.db.Sequelize.Promise.all(promises).then(function () {
-                        return res.json({
-                            code: 202,
-                            message: 'Work updated ' + work.name,
-                            work: work
-                        })
-                    });
-                } else {
-                    return res.json({
-                        code: 203,
-                        message: "Collection don't exits"
-                    })
-                }
-            });
-        } else {
-            return res.json({
-                code: 203,
-                message: "Work don't exits"
-            })
-        }
+            req.flash('successMessage', 'Obra actualizada');
+            return res.redirect('back');
+        });
     });
-    var workPayload = {
-        name: chance.name(),
-        photo: 'http://i.imgur.com/QPACTzF.png',
-        private: _.sample([0, 1])
+};
+
+
+exports.addToCollection = function (req, res) {
+    var collections = req.body.collections;
+    var query = {
+      viewer: req.viewer,
+      collections: collections
     };
+    req.work.addToCollection(query).then(function (data) {
+        return res.ok({collections: collections}, 'Work has been added to collections');
+    });
+}
+
+exports.delete = function (req, res) {
+    req.work.destroy().then(function () {
+        if (req.xhr)
+            return res.ok({work: req.work}, 'Obra eliminada');
+
+        req.flash('successMessage', 'Obra eliminada');
+        return res.redirect('back');
+    });
 };
 
 exports.like = function (req, res) {
-    global.db.Work.find(req.body.idWork).then(function (work) {
-        work.like(req.user).then(function (likes) {
-            return res.ok({work: work, likes: likes.likes}, 'User liked');
-        });
-    })
+    req.work.like(req.user).then(function (likes) {
+        return res.ok({work: req.work, likes: likes}, 'Work liked');
+    });
 };
 
 exports.unLike = function (req, res) {
-    global.db.Work.find(req.body.idWork).then(function (work) {
-        work.unLike(req.user).then(function (likes) {
-            return res.ok({work: work, likes: likes.likes}, 'User unLiked');
-        });
+    req.work.unLike(req.user).then(function (likes) {
+        return res.ok({work: req.work, likes: likes}, 'Work unLiked');
     });
 };
 
 exports.featured = function (req, res) {
-    global.db.Work.find(req.body.idWork).then(function (work) {
-        work.updateAttributes({featured: true}).then(function () {
-            return res.ok({work: work}, 'Work featured');
-        });
+    req.work.updateAttributes({featured: true}).then(function () {
+        return res.ok({work: req.work}, 'Work featured');
     });
 };
 
 exports.unFeatured = function (req, res) {
-    global.db.Work.find(req.body.idWork).then(function (work) {
-        work.updateAttributes({featured: false}).then(function () {
-            return res.ok({work: work}, 'Work unFeatured');
-        });
+    req.work.updateAttributes({featured: false}).then(function () {
+        return res.ok({work: req.work}, 'Work unFeatured');
     });
 };
 
 exports.public = function (req, res) {
-    global.db.Work.find(req.body.idWork).then(function (work) {
-        work.updateAttributes({public: true}).then(function () {
-            return res.ok({work: work}, 'Work published');
-        });
+    req.work.updateAttributes({public: true}).then(function () {
+        return res.ok({work: req.work}, 'Work published');
     });
 };
 
 exports.private = function (req, res) {
-    global.db.Work.find(req.body.idWork).then(function (work) {
-        work.updateAttributes({public: false}).then(function () {
-            return res.ok({work: work}, 'Work unPublished');
-        });
+    req.work.updateAttributes({public: false}).then(function () {
+        return res.ok({work: req.work}, 'Work unPublished');
     });
 };

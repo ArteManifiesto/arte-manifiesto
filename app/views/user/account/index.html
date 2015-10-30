@@ -1,83 +1,187 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
+{% extends '../../partials/base.html' %}
 
-<body>
-{{ successMessage }}
-{{ errorMessage }}
 
-<form action="/user/update">
-    <div>
-        <label>username</label>
-        <input type="text" name="username" value="{{ user.username }}"/>
-    </div>
-    {#TODO allow upload photo#}
-    <div>
-        <label>city</label>
-        <input type="text" name="city" value="{{ user.city }}"/>
-    </div>
-    <div>
-        <label>country</label>
-        <input type="text" name="country" value="{{ user.country }}"/>
-    </div>
-    <div>
-        <label>bigraphy</label>
-        <input type="text" name="biography" value="{{ user.biography }}"/>
-    </div>
-    <div>
-        <label>date of birthday</label>
-        <input type="date" name="birthday" value="{{ user.birthday }}"/>
-    </div>
-    {% if user.isArtist %}
-        <div>
-            <label>specialties</label>
-            <select name="specialties" id="specialties">
-                {% for category in categories %}
-                    <option value="{{ category.id }}">{{ category.name }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div>
-            <label>school</label>
-            <input type="text" name="school" value="{{ user.school }}"/>
-        </div>
-        <div>
-            <label>facebook</label>
-            <input type="text" name="facebook" value="{{ user.facebook }}"/>
-        </div>
-        <div>
-            <label>twitter</label>
-            <input type="text" name="twitter" value="{{ user.twitter }}"/>
-        </div>
-        <div>
-            <label>instagram</label>
-            <input type="text" name="instagram" value="{{ user.instagram }}"/>
-        </div>
-        <div>
-            <label>tumblr</label>
-            <input type="text" name="tumblr" value="{{ user.tumblr }}"/>
-        </div>
-        <div>
-            <label>behance</label>
-            <input type="text" name="behance" value="{{ user.behance }}"/>
-        </div>
-        <div>
-            <label>web</label>
-            <input type="text" name="web" value="{{ user.web }}"/>
-        </div>
-    {% endif %}
-    <div>
-        <label>interests</label>
-        <select name="interests" id="interests">
-            {% for category in categories %}
-                <option value="{{ category.id }}">{{ category.name }}</option>
-            {% endfor %}
-        </select>
-    </div>
-</form>
+{% block elements %}
+	<div class="am-profile">
+		<div class="am-profile-box grid-container">
 
-</body>
-</html>
+			<div class="grid-100">
+				<p class="title">Edita tu foto de perfil:</p>
+				<button class="button upload u-margin-top-30">BUSCAR ARCHIVO</button>
+				<p class="title">Nombre como artista</p>
+				<input class="input" type="text" placeholder="Ingresa tu nombre de artista, pseudónimo o alter ego"/>
+				<p class="title">Nombre</p>
+				<input class="input" type="text" placeholder="Ingresa tus nombres"/>
+				<p class="title">Apellido</p>
+				<input class="input" type="text" placeholder="Ingresa tus apellidos"/>
+				<p class="title">Usuario en la plataforma</p>
+			</div>
+
+			<div class="grid-50 mobile-grid-100">
+				<p class="link" style="line-height: 46px;">http://artemanifiesto.com/user/</p>
+			</div>
+			<div class="grid-50 mobile-grid-100">
+				<input class="input" type="text" placeholder="Ingresa tu usuario"/>
+			</div>
+
+			<div class="grid-50 mobile-grid-100">
+				<p class="title">Genero</p>
+				<select class="input select">
+					<option disabled selected>Genero</option>
+					<option>Masculino</option>
+					<option>Femenino</option>
+					<option>Julio</option>
+				</select>
+			</div>
+			<div class="grid-50 mobile-grid-100">
+				<p class="title">Fecha de nacimiento</p>
+				<input class="input" type="text" placeholder="dd/mm/yy"/>
+			</div>
+
+			<div class="grid-50 mobile-grid-100">
+				<p class="title">País</p>
+				<select class="input select">
+					<option disabled selected>Elige tu pais</option>
+					<option>Peru</option>
+					<option>Argentina</option>
+					<option>Chile</option>
+					<option>Bolivia</option>
+				</select>
+			</div>
+			<div class="grid-50 mobile-grid-100">
+				<p class="title">Ciudad</p>
+				<input class="input" type="text" placeholder="Ingresa tu ciudad de residencia actual"/>
+			</div>
+
+			<div class="grid-100 mobile-grid-100">
+				<p class="title">Redes Sociales</p>
+				<div class="socials">
+					<div class="social">
+						<i class="fa fa-facebook"></i>
+						<input class="input" type="text" placeholder="Ingresa tu link de tu página en facebook"/>
+					</div>
+					<div class="social">
+						<i class="fa fa-twitter"></i>
+						<input class="input" type="text" placeholder="Ingresa tu link del perfil en twitter"/>
+					</div>
+					<div class="social">
+						<i class="fa fa-instagram"></i>
+						<input class="input" type="text" placeholder="Ingresa tu link del perfil en instagram"/>
+					</div>
+					<div class="social">
+						<i class="fa fa-behance"></i>
+						<input class="input" type="text" placeholder="Ingresa tu link del perfil en behance"/>
+					</div>
+					<div class="social">
+						<i class="fa fa-tumblr"></i>
+						<input class="input" type="text" placeholder="Ingresa tu link del perfil en tumblr"/>
+					</div>
+					<div class="social">
+						<i class="fa fa-wordpress"></i>
+						<input class="input" type="text" placeholder="Ingresa tu link de tu blog"/>
+					</div>
+					<div class="social">
+						<i class="fa fa-vimeo"></i>
+						<input class="input" type="text" placeholder="Ingresa tu link del perfil en vimeo"/>
+					</div>
+					<div class="social">
+						<i class="fa fa-dribbble"></i>
+						<input class="input" type="text" placeholder="Ingresa tu link del perfil en dribble"/>
+					</div>
+				</div>
+				<p class="title">Mi Manifiesto</p>
+				<textarea rows="7" class="input" placeholder="Cuentanos sobre tí, lo que te define lo que hace que te levantes cada día."></textarea>
+				<p class="title">Elige tus intereses</p>
+			</div>
+
+			<div class="interests">
+				<div class="interest"><p>Pintura y Técnica mixta</p></div>
+				<div class="interest"><p>Diseño e Ilustración</p></div>
+				<div class="interest"><p>Collage</p></div>
+				<div class="interest"><p>Fotografía</p></div>
+				<div class="interest"><p>Street Art</p></div>
+				<div class="interest"><p>Arte Digital</p></div>
+				<div class="interest"><p>Dibujo</p></div>
+				<div class="interest"><p>Esculturas</p></div>
+				<div class="interest"><p>Grabados</p></div>
+			</div>
+
+
+			<div class="grid-100 mobile-grid-100">
+				<p class="title">Correo electronico</p>
+				<input class="input" type="email" placeholder="edita tu correo"/>
+				<p class="title">Password</p>
+				<input class="input" type="email" placeholder="ingresa nuevo password"/>
+				<input class="input u-margin-top-20" type="email" placeholder="repetir nuevo password"/>
+				<!-- <p class="title">Direcciones de envios</p> -->
+
+				<!-- <div class="addresses">
+					<div class="address">
+						<div>
+							<p class="address-title">Luis Eduardo Augusto</p>
+							<p class="address-subtitle">460 Lizardo Montero - apt 304</p>
+							<p class="address-subtitle">Lima, Lima 018</p>
+							<p class="address-subtitle">Perú</p>
+							<p class="address-subtitle">Tel:+51944426766</p>
+						</div>
+					</div>
+					<div class="address">
+						<p class="address-title">Agregar nueva dirección de envío</p>
+					</div>
+					<div class="address" style="padding-bottom: 20px;">
+						<div class="grid-container grid-parent" style="width: 100%;">
+							<div class="grid-50">
+								<p class="address-label">Nombres</p>
+								<input class="address-input" placeholder="Ingresa tu Nombre">
+							</div>
+							<div class="grid-50">
+								<p class="address-label">Apellidos</p>
+								<input class="address-input" placeholder="Tus apellidos">
+							</div>
+							<div class="grid-66">
+								<p class="address-label">Dirección de Envío</p>
+								<input class="address-input" placeholder="Dirección Línea 1">
+							</div>
+							<div class="grid-33">
+								<p class="address-label">Int/Apartamento</p>
+								<input class="address-input" placeholder="Nro">
+							</div>
+							<div class="grid-33">
+								<p class="address-label">Ciudad</p>
+								<input class="address-input" placeholder="Ingresa tu ciudad">
+							</div>
+							<div class="grid-33">
+								<p class="address-label">Estado/Provincia</p>
+								<input class="address-input" placeholder="Estado o provincia">
+							</div>
+							<div class="grid-33">
+								<p class="address-label">Código Postal</p>
+								<input class="address-input" placeholder="Nro">
+							</div>
+							<div class="grid-33 suffix-66">
+								<p class="address-label">País</p>
+								<select class="address-input">
+									<option>Seleccionar País</option>
+								</select>
+							</div>
+							<div class="grid-33">
+								<p class="address-label">Teléfono móvil</p>
+								<input class="address-input" placeholder="Ingresa tu número">
+							</div>
+							<div class="grid-66">
+								<p class="address-label">Correo electrónico</p>
+								<input class="address-input" placeholder="Ingresa tu e-mail">
+							</div>
+						</div>
+					</div>
+				</div> -->
+
+			</div>
+
+			<div class="grid-100 mobile-grid-100">
+				<button class="button u-margin-top-30" data-color="green">GUARDAR CAMBIOS</button>
+			</div>
+
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,2054 @@
+/*------------------------------------*
+	$ NIB
+*------------------------------------*/
+@import 'nib'
+
+/*------------------------------------*
+	$ RESET
+*------------------------------------*/
+@import 'reset.styl'
+
+/*------------------------------------*
+	$ GRID
+*------------------------------------*/
+@import 'unsemantic-grid-base.styl'
+
+/*------------------------------------*
+	$ VARIABLES
+*------------------------------------*/
+dark-seafoam-green = #3ca773
+charcoal-grey = #3c3d41
+warm-grey = #888888
+white = #fff
+
+/*------------------------------------*
+	$ UTILITIES
+*------------------------------------*/
+@import 'utilities.styl'
+
+/*------------------------------------*
+	$ TEXTS
+*------------------------------------*/
+@import 'texts.styl'
+
+/*------------------------------------*
+	$ BUTTONS
+*------------------------------------*/
+@import 'buttons.styl'
+
+/*------------------------------------*
+	$ INPUTS
+*------------------------------------*/
+@import 'inputs.styl'
+
+/*------------------------------------*
+	$ FILTERS
+*------------------------------------*/
+@import 'filters.styl'
+
+
+body
+	overflow-x hidden
+
+
+/*------------------------------------*
+	$ HEADER
+*------------------------------------*/
+.am-Header
+	display flex
+	justify-content space-between
+	align-items center
+	&-logo
+		// max-width 200px
+		max-width 30px
+		.large
+			display none
+		img
+			width 100%
+	&-menu
+		display flex
+		align-items center
+		// &-item:not(:first-child)
+		// 	padding-left 44px
+		&-item
+			.am-Header-text
+				display block
+				padding 10px 15px
+			.am-Signin-button
+				margin-left: 10px;
+		.upload
+		.cart
+			margin 0 10px
+		p
+		.upload
+		.cart
+			display none
+		.am-Avatar
+			margin-left 10px
+
+@media (min-width: 550px)
+	.am-Header
+		&-logo
+			max-width 200px
+			.large
+				display block
+			.small
+				display none
+
+@media (min-width: 650px)
+	.am-Header
+		&-menu
+			.desktop
+				p
+					display block
+				i
+					display none
+
+@media (min-width: 700px)
+	.am-Header
+		&-menu
+			.upload
+				display block
+
+@media (min-width: 768px)
+	.am-Header
+		&-menu
+			&-item
+				.am-Header-text
+				.am-Signin-button
+					margin-left 24px
+
+@media (min-width: 830px)
+	.am-Header
+		&-menu
+			.cart
+				display block
+
+@media (min-width: 900px)
+	.am-Header
+		&-menu
+			.upload
+			.cart
+				margin 0 15px
+			.am-Avatar
+				margin-left 15px
+
+
+
+.am-Avatar
+	display flex
+	align-items center
+	cursor pointer
+	position relative
+	&:hover
+		.user-menu
+			display block
+	img
+		width 50px
+		height 50px
+		border-radius 50%
+	i
+		font-size: 12px;
+	.user-menu
+		position absolute
+		right 0
+		transform translate(0, 50px)
+		background white
+		z-index: 1;
+		width 218px
+		display none
+		border: solid 1px #ddd;
+		border-radius: 4px;
+		&-item
+			font-family: 'Montserrat',sans-serif;
+			letter-spacing: 2px;
+			font-weight: bold;
+			// text-transform: uppercase;
+			font-size: 10.5px;
+			// cursor: pointer;
+			color: #3b3d40;
+			display: block;
+			padding: 20px;
+
+
+.am-Header-icon
+	cursor pointer
+	i
+		color: #333333;
+	span
+		margin-left 5px
+		background #277cea
+		border-radius 2px
+		color white
+		font-family 'Montserrat', sans-serif
+		font-size 10px
+		padding 0px 5px
+
+// .am-Menu
+// 	border-radius 4px
+// 	border solid 1px #b8b8b8
+// 	box-shadow 0 1px 2px rgba(black, .5)
+// 	font-family 'Montserrat', sans-serif
+// 	font-size 12px
+// 	&-item
+// 		color charcoal-grey
+// 		// color #3c3d41
+// 		display block
+// 		padding 12.5px 25px
+// 		letter-spacing 1px
+// 	.separator
+// 		height 1px
+// 		background #9b9b9b
+// 		width 100%
+
+
+/*------------------------------------*
+	$ NAVIGATION MENU
+*------------------------------------*/
+.am-NavigationMenu
+	background charcoal-grey
+
+.am-NavigationMenu-section
+	padding-top 4px
+	padding-bottom 4px
+	display flex
+	align-items center
+	margin-top 30px
+
+@media (min-width: 768px)
+	.am-NavigationMenu-section:not(:first-child)
+		border-left solid 1px rgba(warm-grey, .3)
+
+.am-NavigationMenu-section-image
+	height 140px
+	background-size cover
+	border-radius 4px
+
+.am-NavigationMenu-section-list
+	display: table-cell
+	&:not(:first-child)
+		padding-left 20px
+	a
+		margin-top 10px
+		display block
+
+
+/*------------------------------------*
+	$ BANNER
+*------------------------------------*/
+.am-Banner
+	padding-top 43px
+	padding-bottom 67px
+	background-size cover
+	background-position center center
+	&-inner
+		margin auto
+		max-width 580px
+
+
+
+.grid-item
+	box-sizing: border-box;
+	padding: 10px;
+	img
+		width 100%
+
+
+/*------------------------------------*
+	$ WORK CARD
+*------------------------------------*/
+.work-card
+	position relative
+
+/*------------------------------------*
+	$ WORK COLLECTION CARD
+*------------------------------------*/
+.work-collection-card
+	border solid 1px #ddd
+	position relative
+	.work-collection-card-img
+		height 275
+	.work-collection-card-data
+		padding 10px
+	.work-collection-card-title
+		font-family 'Montserrat', sans-serif
+		font-weight bold
+		font-size 11px
+		color #393d3f
+		margin-bottom 5px
+	.work-collection-card-artist
+		font-family: 'PT Serif', serif;
+		font-size 12px
+		color #838c8c
+		font-style italic
+
+
+/*------------------------------------*
+	$ ARTIST CARD
+*------------------------------------*/
+.artist-card
+	border solid 1px #ddd
+	position relative
+	&-info
+		display flex
+		align-items center
+		padding 10px
+		img
+			height 50px
+			width 50px
+			border-radius 50%
+			margin-right 10px
+		p
+			font-family 'Montserrat', sans-serif
+			font-size 10px
+			color #666
+			&:not(:last-child)
+				padding-bottom 5px
+			i
+				font-size 1.1em
+		.name
+			font-weight bold
+	&-works
+		display flex
+		flex-wrap wrap
+	&-work
+		width 50%
+		height 110px
+		background-size cover
+		background-position center center
+	&-follow
+		padding 12px
+		button
+			display table
+			margin auto
+
+
+/*------------------------------------*
+	$ COLLECTION CARD
+*------------------------------------*/
+.collection-card
+	border solid 1px #ddd
+	// position relative
+	&-stats
+		padding 12px
+		p
+			font-family 'Montserrat', sans-serif
+			font-size 10px
+			color #666
+			&:first-child
+				font-weight bold
+				padding-bottom 5px
+	&-images
+		display flex
+		flex-wrap wrap
+	&-image
+		background-size cover
+		background-position center center
+		height 110px
+		&:not(:first-child)
+			width 50%
+		&:first-child
+			width 100%
+	&-artist
+		padding 12px
+		display flex
+		align-items center
+		> div
+			flex 1
+		img
+			height 30px
+			width 30px
+			border-radius 50%
+		p
+			font-family 'Montserrat', sans-serif
+			font-size 10px
+			color #666
+			&:last-child
+				font-weight bold
+				padding-top 5px
+
+
+/*------------------------------------*
+	$ PRODUCT CARD
+*------------------------------------*/
+.product-card
+	border solid 1px #ddd
+	position relative
+	&-image
+		background-size cover
+		background-position center center
+		height 200px
+	&-data
+		padding 8px 12px
+		border-top solid 1px #ddd
+		p:first-child
+			font-family 'Montserrat', sans-serif
+			font-weight bold
+			font-size 11px
+			color #393d3f
+			margin-bottom 5px
+		p:last-child
+			font-family: 'PT Serif', serif;
+			font-size 12px
+			color #838c8c
+			font-style italic
+	&-stats
+		padding 12px
+		border-top solid 1px #ddd
+		display flex
+		justify-content space-between
+		align-items center
+		p:first-child
+			font-family 'Montserrat', sans-serif
+			font-size 14px
+			color #1e1f1e
+		p:last-child
+			font-family 'Montserrat', sans-serif
+			font-size 11px
+			color #1e1f1e
+			i
+				font-size 1.25em
+
+
+.featured
+	position absolute
+	top -10px
+	left 5px
+	background #ed86ff
+	font-family 'Montserrat', sans-serif
+	font-weight bold
+	font-size 8px
+	color white
+	padding 4px 11px
+	border-radius 3px
+	&.disabled
+		background #aaa
+
+
+
+.footer
+	padding 40px 0
+	&-logo
+		text-align center
+	&-logo
+	&-links
+	&-socials
+	&-suscribe
+		padding 20px 10px
+		box-sizing border-box
+
+@media (min-width: 500px)
+	.footer
+		display flex
+		flex-wrap wrap
+		max-width 560px
+		margin auto
+		&-logo
+			flex 1 100%
+		&-links
+			flex 1 70%
+		&-socials
+			flex 1 30%
+		&-suscribe
+			flex 1 100%
+
+// @media (min-width: 700px)
+// 	.footer
+// 		max-width 700px
+// 		&-logo
+// 			text-align left
+// 		&-logo
+// 		&-socials
+// 			flex 1 30%
+// 		&-links
+// 		&-suscribe
+// 			flex 1 70%
+
+@media (min-width: 1000px)
+	.footer
+		max-width initial
+		&-logo
+		&-socials
+			flex 1 20%
+		&-links
+		&-suscribe
+			flex 1 30%
+
+
+.am-Footer
+	background charcoal-grey
+
+.am-Footer-section
+	// display table
+	// margin auto
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-top 4px
+	padding-bottom 4px
+	&:not(:first-child)
+		border-left solid 1px rgba(white, .1)
+
+
+.am-Footer-list
+	td
+		padding-bottom 15px
+		&:first-child
+			padding-right 30px
+	.social
+		font-size 1em
+		padding-right 10px !important
+
+.am-Copy-text
+	color rgba(white, .42)
+	font-size 11px
+	font-family 'PT Serif', serif
+	line-height 1.25
+
+
+
+.FollowArtist
+	display flex
+	align-items center
+	img
+		width 70px
+		height 70px
+		border-radius 50%
+		margin-right 20px
+	p
+		font-family 'Montserrat', sans-serif
+		font-size 12px
+		color #666666
+		letter-spacing .5px
+		&.big
+			font-size 15px
+			font-weight bold
+			letter-spacing 2px
+
+
+.am-Single-text
+	font-family 'PT Serif', serif
+	font-size 14px
+	color #838c8e;
+	strong
+		font-weight bold
+
+.am-Single-title-text
+	font-family 'Montserrat', sans-serifl
+	font-size 14px
+	color #666666
+	line-height 1.5
+
+.am-stats-text
+	font-family 'Montserrat', sans-serifl
+	font-weight bold
+	font-size 12px
+	color #666
+	text-align center
+	padding 10px
+
+.am-Single-stats
+	font-family 'Montserrat', sans-serifl
+	font-size 12px
+	td
+		padding 5px 10px
+	p
+		color #666
+		font-weight bold
+	i
+	span
+		color #333
+	i
+		font-size 1.15em
+
+.am-SingleImage
+	img
+		max-height 580px
+		// max-width 100%
+		// max-height 100%
+
+
+.am-Category-box
+	border-radius 3px
+	background #9b9b9b
+	padding 5px 7px 3px 7px
+	font-family 'Montserrat', sans-serif
+	font-weight bold
+	color white
+	font-size 10px
+	letter-spacing 1.25px
+	display table
+
+.am-Tag-box
+	border-radius 3px
+	background #ddd
+	font-family 'Montserrat', sans-serif
+	font-size 10px
+	color #333
+	padding 5px 7px 3px 7px
+	letter-spacing 1px
+	display inline-block
+
+
+.am-SingleMenu
+	background #eee
+
+// .am-SingleTabs
+// 	display flex
+
+// .am-SingleTab
+// 	flex 1
+// 	text-align center
+// 	padding 28px 0
+// 	cursor pointer
+// 	&[selected="true"]
+// 		background white
+// 		border-top solid 1px #eeeeee
+// 		border-left solid 1px #b8b8b8
+// 		border-right solid 1px #b8b8b8
+// 		border-bottom solid 2px #277cea
+// 	p
+// 		font-family 'Montserrat', sans-serif
+// 		font-size 10px
+// 		color #333
+// 		letter-spacing 2px
+// 		padding-bottom 15px
+// 	span
+// 		font-family 'Montserrat', sans-serif
+// 		font-size 19px
+// 		color #333
+// 	i
+// 		font-size 1.25em
+
+
+.am-Report
+	background #eee
+
+.tags-container
+	max-width 780px
+	margin auto
+	.title
+		text-align center
+		font-family 'Montserrat', sans-serif
+		font-weight bold
+		font-size 22px
+		color #3a3d3f
+		padding 30px 0
+		span
+			background #1f79ed
+			border-radius 17px
+			padding 3px 10px
+			font-size 10px
+			color white
+	.tags
+		max-width 680px
+		margin 30px auto
+		.tag
+			border-radius 3.6px
+			background #ddd
+			font-family 'Montserrat', sans-serif
+			font-size 12px
+			color #333
+			display inline-block
+			padding 6px
+			margin 5px
+			letter-spacing 1.5px
+
+
+.am-Manifest
+	background rgba(51, 51, 51, 0.95);
+	margin-bottom 2px
+
+.am-Manifest-inner
+	background white
+	margin 60px auto
+	max-width 620px
+	border-radius 3px
+
+.am-Manifest-title
+	font-family 'Montserrat', sans-serif
+	font-weight bold
+	font-size 18px
+	color #666
+	padding 20px 20px 0 20px
+	line-height 1.3
+
+.am-Manifest-date
+	font-family: 'PT Serif', serif;
+	font-size 12px
+	color #3f3b3b
+	font-style italic
+	padding 8px 20px 11px 20px
+
+.am-Manifest-text
+	font-family: 'PT Serif', serif;
+	font-size 16px
+	color #838c8e
+	padding 10px 20px
+	line-height 1.5
+
+.am-Manifest-img
+	padding 10px 40px
+	img
+		margin auto
+		display block
+
+.am-Products-title
+	font-family 'Montserrat', sans-serif
+	font-weight bold
+	font-size 21px
+	color #333
+	padding-bottom 10px
+	margin-top 30px
+
+
+
+/*------------------------------------*
+	$ ARTIST-BANNER
+*------------------------------------*/
+.am-Profile-banner
+	padding 40px 0
+	background-size cover
+	background-position center center
+	position relative
+	i
+		position absolute
+		bottom 20px
+		right 20px
+		color white
+		font-size 1.5rem
+		cursor pointer
+		display none
+	&:hover
+		i
+			display block
+
+.am-Profile-avatar
+	display flex
+	align-items center
+	.img
+		margin-right 20px
+		position relative
+		i
+			position absolute
+			bottom 0
+			right 0
+			color white
+			font-size 1.5rem
+			cursor pointer
+			display none
+		&:hover
+			i
+				display block
+	img
+		width 100px
+		height 100px
+		border-radius 50%
+	.name
+		font-family 'Montserrat', sans-serif
+		font-size 20px
+		font-weight bold
+		color white
+		text-transform: uppercase;
+	.city
+		font-family 'Montserrat', sans-serif
+		font-size 18px
+		margin: 10px 0 12px 0;
+		color white
+
+.am-Profile-menu-container
+	background #eee
+
+.user-carousel
+	height: 93px;
+	overflow: hidden;
+
+.am-Profile-menu
+	display flex
+	overflow-x auto
+	&-item
+		padding 25px 0
+		width 120px
+		min-width: 110px;
+		p
+			font-family 'Montserrat', sans-serif
+			font-size 10px
+			letter-spacing 1.5px
+			color #333
+			text-align center
+			&:last-child
+				font-size 19px
+				padding-top 10px
+		&.selected
+			background white
+			border-bottom solid 2px #4000ff
+			border-left solid 1px #b8b8b8
+			border-right solid 1px #b8b8b8
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*------------------------------------*
+	$ WELCOME
+*------------------------------------*/
+.am-welcome
+	background rgba(#000, .6)
+	padding 70px 20px 100px 20px
+	position relative
+	.cover
+		z-index -1
+		position absolute
+		top 0
+		bottom 0
+		left 0
+		right 0
+		max-width 1100px
+		margin 25px auto
+		background-size cover
+		background-position center center
+
+.am-welcome-box
+	padding 35px 20px 45px 20px
+	text-align center
+	background #fff
+	border-radius 4px
+	max-width 600px
+	margin auto
+	img
+		display block
+		margin auto
+	.logo-img
+		width 100px
+	.logo-text
+		width 125px
+	.title
+		font-family 'Montserrat', sans-serif
+		font-weight bold
+		font-size 20px
+		color #0c0c0c
+		padding-top 15px
+	.subtitle
+		font-family 'Montserrat', sans-serif
+		font-size 14px
+		padding-top 30px
+		span
+			color #4000FF
+	.msg
+		font-family 'Montserrat', sans-serif
+		font-size 20px
+		padding-top 5px
+
+.am-welcome-help
+	max-width 335px
+	margin auto
+	text-align center
+	padding-top 60px
+	.title
+		color #fff
+		font-family 'Montserrat', sans-serif
+		font-weight bold
+		font-size 11px
+		letter-spacing 2px
+		display flex
+		align-items center
+		.line
+			flex 1
+			background #ddd
+			height 1px
+		.text
+			padding 0 20px
+
+	.subtitle
+		color #fff
+		font-family 'Montserrat', sans-serif
+		font-size 14px
+		padding-top 17px
+		line-height 1.35
+		&.msg-succes
+			color #3bd64a
+		&.msg-error
+			color red
+
+	.button-resend
+		margin-top 18px
+		background white
+		font-family 'Montserrat', sans-serif
+		font-weight bold
+		font-size 10px
+		width 100%
+		letter-spacing 2px
+		border-radius 4px
+		cursor pointer
+		a
+			padding 15px
+			color black
+			display block
+			i
+				font-size: 1.5em;
+				animation 1.5s load infinite
+
+
+
+/*------------------------------------*
+	$ REGISTER
+*------------------------------------*/
+.am-register
+	// background rgba(black, .59)
+	height 800px
+	padding 100px 20px
+	background-image: url('/img/background.jpg');
+	background-size: cover;
+	background-position: center center;
+	position relative
+	.g-recaptcha
+		display table
+		margin-left auto
+		margin-right auto
+
+.message
+	position absolute
+	// top 0
+	left 0
+	right 0
+	z-index 1
+	background rgba(white, .75)
+	display none
+	&.visible
+		display block
+	p
+		padding 20px
+		font-family: 'Montserrat',sans-serif;
+		font-weight: bold;
+		font-size: 14px;
+		text-align: center;
+	&.succes
+		color: #3bd64a;
+	&.error
+		color: #d0021b;
+
+.am-register-box
+	background white
+	border-radius 4px
+	max-width 320px
+	margin auto
+	padding 30px 20px
+	img
+		display block
+		margin auto
+	.logo-img
+		width 80px
+	.logo-text
+		width 130px
+	.title
+		font-family 'Montserrat', sans-serif
+		font-weight bold
+		font-size 14px
+		text-align center
+		padding 10px 0
+		line-height 1.35
+	.separator
+		font-family 'Montserrat', sans-serif
+		font-weight bold
+		font-size 11px
+		letter-spacing 2px
+		color charcoal-grey
+		display flex
+		align-items center
+		padding 20px 0
+		.line
+			background #ddd
+			height 1px
+			flex 1
+		.text
+			padding 0 20px
+	.button
+		border-radius 4px
+		font-weight bold
+		letter-spacing 2px
+		width 100%
+		font-size 10px
+		cursor pointer
+		font-family 'Arial'
+		a
+			padding 15px 20px
+			color white
+			display block
+		i
+			font-size 1.15em
+			&.load
+				animation 1.25s load infinite
+
+		&[data-color="blue"]
+			background #225b99
+		&[data-color="green"]
+			background #3bd64a
+	.error
+		color #d0021b
+		font-family: 'PT Serif', serif;
+		font-size 14px
+		padding-bottom 6px
+	.input
+		border solid 1px #979797
+		width 100%
+		border-radius 4px
+		font-family 'Montserrat', sans-serif
+		padding 13px 15px
+		box-sizing border-box
+		color warm-grey
+		font-size 14px
+		&[data-error="true"]
+			border solid 1px #d0021b
+		&.error
+			border solid 1px #d0021b
+
+	.msg
+		font-family: 'PT Serif', serif;
+		font-size 12px
+		color charcoal-grey
+		padding-top 20px
+		line-height 1.3
+	.change
+		font-family 'Montserrat', sans-serif
+		font-weight bold
+		font-size 14px
+		color charcoal-grey
+		padding-top 30px
+		text-align center
+		a
+			text-decoration underline
+			color charcoal-grey
+	.options
+		display flex
+		justify-content space-between
+		align-items center
+		padding-top 20px
+		padding-bottom 10px
+		p
+		a
+			font-family: 'PT Serif', serif;
+			font-size 12px
+			color charcoal-grey
+		p
+			display flex
+			align-items center
+		a
+			text-decoration underline
+
+
+@media (min-width: 550px)
+	.am-register-box
+		padding 30px 80px 40px 80px
+
+
+
+/*------------------------------------*
+	$ PROFILE
+*------------------------------------*/
+.am-profile
+	background #eee
+	padding 12px 20px 100px 20px
+
+	.addresses
+		border solid 1px #bac5c7
+		border-radius 4px
+		.address
+			cursor pointer
+			padding 10px
+			display flex
+			align-items center
+			&:not(:first-child)
+				border-top solid 1px #bac5c7
+			.address-title
+				font-family 'Montserrat', sans-serif
+				font-size 16px
+				color charcoal-grey
+				padding-left 5px
+				line-height 1.5
+			.address-subtitle
+				font-family 'Montserrat', sans-serif
+				font-size 14px
+				color warm-grey
+				padding-left 5px
+				line-height 1.35
+			.address-label
+				font-family 'Montserrat', sans-serif
+				font-size 14px
+				color charcoal-grey
+				padding 10px 0
+			.address-input
+				border solid 1px #979797
+				border-radius 4px
+				width 100%
+				padding 13px 15px
+				box-sizing border-box
+				font-size 13.6px
+				font-family 'Montserrat', sans-serif
+				background white
+
+.am-profile-box
+	background white
+	border solid 1px #979797
+	max-width 580px !important
+	margin auto
+	box-sizing border-box
+	padding-top 30px
+	padding-bottom 30px
+	.title
+		font-family 'Montserrat', sans-serif
+		font-size 14px
+		color charcoal-grey
+		padding-bottom 10px
+		padding-top 20px
+
+	.input
+		border solid 1px #979797
+		border-radius 4px
+		width 100%
+		font-family 'Montserrat', sans-serif
+		padding 13px 15px
+		box-sizing border-box
+		// color warm-grey
+		color #333
+		font-size 14px
+		background white
+
+	.select
+		padding 12px 15px
+
+	.button
+		border-radius 4px
+		font-weight bold
+		letter-spacing 2px
+		width 100%
+		font-size 10px
+		color white
+		padding 15px 20px
+		cursor pointer
+		i
+			font-size 1.25em
+			animation 1.5s load infinite
+		&[data-color="blue"]
+			background #225b99
+		&[data-color="green"]
+			background #3bd64a
+		&.upload
+			color #3a3d3f
+			background white
+			border solid 1px black
+			box-shadow 1px 2px 1px 0px rgba(black, 0.5)
+			display table
+			margin 20px auto
+			max-width: 220px
+
+	.link
+		font-family 'Montserrat', sans-serif
+		font-size 15px
+		color warm-grey
+
+	.socials
+		.social
+			display flex
+			i
+				background black
+				color white
+				width 45px
+				text-align center
+				line-height 40px
+				margin-right 20px
+			&:not(:first-child)
+				padding-top 10px
+
+	.interests
+		display flex
+		flex-wrap wrap
+		justify-content center
+		.interest
+			// background #d8d8d8
+			background-size: cover;
+			background-position: center center;
+			height 125px
+			width 125px
+			margin 10px
+			cursor pointer
+			&.selected
+				border solid 5px #3bd64a
+				box-sizing border-box
+			.cover
+				display flex
+				font-family 'Montserrat', sans-serif
+				text-align center
+				padding 10px
+				font-size 14px
+				// color charcoal-grey
+				color white
+				background rgba(black, .15)
+				height 100%
+				box-sizing border-box
+				transition background .15s
+				&:hover
+					background rgba(black, .5)
+			p
+				margin auto
+
+
+
+@media (min-width: 630px)
+	.am-profile-box
+		padding 60px 60px !important
+
+
+
+/*------------------------------------*
+	$ UPLOAD WORK
+*------------------------------------*/
+.am-upload-work
+	background rgba(black, .6)
+	padding 100px 20px
+	.preload
+		text-align center
+		margin-top 20px
+		i
+			color: #aaa;
+			font-size: 1.25em;
+			animation 1.5s load infinite
+
+	.preview
+		text-align center
+		position relative
+		img
+			margin 30px 0
+		a
+			position absolute
+			top 0
+			right 0
+			color #333
+			font-weight: bold;
+			font-size: 1.5em;
+
+	.tagsinput
+		border solid 1px #979797
+		border-radius 4px
+
+.am-upload-work-box
+	background white
+	max-width 580px !important
+	margin autlo
+	box-sizing border-box
+	border-radius 4px
+	padding-top 40px
+	padding-bottom 20px
+
+	.main-title
+		font-family 'Montserrat', sans-serif
+		font-weight bold
+		font-size 15px
+		letter-spacing 3px
+		color charcoal-grey
+		text-align center
+		padding-bottom 25px
+
+	.title
+		font-family 'Montserrat', sans-serif
+		font-size 14px
+		color charcoal-grey
+		padding-bottom 10px
+		padding-top 20px
+
+	.input
+		border solid 1px #979797
+		border-radius 4px
+		width 100%
+		font-family 'Montserrat', sans-serif
+		padding 13px 15px
+		box-sizing border-box
+		// color warm-grey
+		color #555
+		font-size 14px
+		background white
+
+	.select
+		padding 12px 15px
+
+	.button
+		border-radius 4px
+		font-weight bold
+		letter-spacing 2px
+		width 100%
+		max-width 220px
+		display: table;
+		margin: 20px auto;
+		font-size 10px
+		color white
+		padding 15px 20px
+		&[data-color="blue"]
+			background #277cea
+		&[data-color="green"]
+			background #3bd64a
+		&.upload
+			color #3a3d3f
+			background white
+			border solid 1px black
+			box-shadow 1px 2px 1px 0px rgba(black, 0.5)
+			margin 20px auto
+
+	.separator
+		font-family 'Montserrat', sans-serif
+		font-weight bold
+		font-size 11px
+		letter-spacing 2px
+		color charcoal-grey
+		display flex
+		align-items center
+		padding-top 20px
+		.line
+			background #ddd
+			height 1px
+			flex 1
+		.text
+			padding 0 20px
+
+	.switch
+		display flex
+		align-items center
+		.title
+			padding-top 10px
+			flex 1
+		.value
+			font-family: 'PT Serif', serif;
+			font-size 13px
+			color #777
+			padding 15px
+		.am-Switch-button
+			width: 45px;
+			height: 25px;
+			i
+				width: 21px;
+				height: 20.8px
+
+
+@media (min-width: 630px)
+	.am-upload-work-box
+		padding 60px 60px 40px 60px !important
+
+
+
+/*------------------------------------*
+	$ PROFILE COLLECTIONS
+*------------------------------------*/
+.am-profile-collections
+	max-width 1200px
+	margin auto
+	padding 10px 0
+
+/*------------------------------------*
+	$ LAYOUT DISCOVER
+*------------------------------------*/
+.discover-content
+	min-height 750px
+
+/*------------------------------------*
+	$ WORK LAYOUT DISCOVER
+*------------------------------------*/
+.work-layout-discover
+	.grid-sizer
+	.grid-item
+		width 100%
+
+@media (min-width: 300px)
+	.work-layout-discover
+		.grid-sizer
+		.grid-item
+			width 50%
+
+@media (min-width: 460px)
+	.work-layout-discover
+		.grid-sizer
+		.grid-item
+			width 33.333%
+
+@media (min-width: 768px)
+	.work-layout-discover
+		.grid-sizer
+		.grid-item
+			width 25%
+
+@media (min-width: 1000px)
+	.work-layout-discover
+		.grid-sizer
+		.grid-item
+			width 20%
+	.discover-content
+		&[data-state="expand"]
+			.work-layout-discover
+				margin-left 20%
+				.grid-sizer
+				.grid-item
+					width 25%
+
+			.am-More-button
+				margin-left 20%
+
+
+
+// .work-layout-discover
+// 	.grid-item
+// 		width 100%
+
+// @media (min-width: 300px)
+// 	.work-layout-discover
+// 		.grid-item
+// 			width 50%
+
+// @media (min-width: 460px)
+// 	.work-layout-discover
+// 		.grid-item
+// 			width 33.333%
+
+// @media (min-width: 768px)
+// 	.work-layout-discover
+// 		.grid-item
+// 			width 25%
+
+// @media (min-width: 1000px)
+// 	.work-layout-discover
+// 		.grid-item
+// 			width 20%
+// 	.discover-content
+// 		&[data-state="expand"]
+// 			.work-layout-discover
+// 				margin-left 20%
+// 				.grid-item
+// 					width 25%
+
+// 			.am-More-button
+// 				margin-left 20%
+
+
+/*------------------------------------*
+	$ DISCOVER RIGHT MENU
+*------------------------------------*/
+.filter.left
+	position relative
+	.left-menu
+		max-width 240px
+		position: absolute;
+		z-index: 1;
+		width: 100%;
+		transition: transform linear .5s;
+		.am-Filter
+			background-color: white;
+			margin: 10px;
+	&[data-state="open"]
+		.left-menu
+			transform: translateX(0%);
+	&[data-state="closed"]
+		.left-menu
+			transform: translateX(-200%);
+
+
+.filter.right
+	position: relative;
+	.right-menu
+		max-width 240px
+		position: absolute;
+		z-index: 1;
+		width: 100%;
+		right 0
+		transition: transform linear .5s;
+		.am-Filter
+			background-color: white;
+			margin: 10px;
+	&[data-state="open"]
+		.right-menu
+			transform: translateX(0%);
+	&[data-state="closed"]
+		.right-menu
+			transform: translateX(200%);
+
+// .discover-content
+// 	position relative
+
+// .right-menu
+// 	position: absolute;
+// 	z-index: 1;
+// 	right: 0;
+// 	// width: 20%;
+// 		background white
+// 		margin: 0 20px;
+
+
+
+/*------------------------------------*
+	$ DISCOVER MENU
+*------------------------------------*/
+.discover-menu
+	display flex
+	flex-wrap: wrap;
+	.text
+		order 1
+		flex 1 100%
+	.filter.left
+		order 2
+	.filter.right
+		order 3
+	.filter
+		flex 1 50%
+		.am-Select
+			margin 10px
+
+@media (min-width: 768px)
+	.discover-menu
+		align-items center
+		.filter.left
+			order 1
+			flex 1
+		.text
+			flex 2
+		.filter.right
+			flex 1
+
+@media (min-width: 1000px)
+	.discover-menu
+		.text
+			flex 3
+
+
+/*------------------------------------*
+	$ SINGLE INFO
+*------------------------------------*/
+.single-image-inner
+	display flex
+	flex-direction column
+	align-items center
+
+@media (min-width: 768px)
+	.single-info
+		display flex
+		.single-image
+			flex 2
+			margin-right 10px
+		.single-data
+			flex 1
+			margin-left 10px
+
+@media (min-width: 1000px)
+	.single-info
+		.single-image
+			flex 3
+		.single-data
+			flex 1
+	.single-image
+		display: flex;
+		justify-content: flex-end;
+		&-inner
+			width 580px
+
+
+.info-box
+	border-radius 4px
+	border solid 1px #bac5c7
+	.header
+		border-bottom solid 1px #bac5c7
+		display flex
+		justify-content center
+		padding 15px 0
+		p
+			padding 8px 15px
+			font-family 'Montserrat', sans-serifl
+			font-weight bold
+			// font-size 10px
+			font-size 9.5px
+			letter-spacing 2px
+			color #9f9f9f
+			cursor pointer
+			&.selected
+				background #4a4a4a
+				border-radius 40px
+				color white
+	.body
+		padding 20px
+		.text
+			font-family 'Montserrat', sans-serifl
+			font-size 12px
+			color #9b9b9b
+			line-height 1.25
+		.title
+			line-height 1.5
+			font-family 'Montserrat', sans-serifl
+			font-size 14px
+			color #4a4a4a
+			font-weight bold
+			&.large
+				font-size 18px
+		select
+			background #eee
+			padding 8px 15px
+			border-radius 4px
+			box-shadow 0 1px 0 0 rgba(black, .1)
+			font-family 'Montserrat', sans-serif
+			font-size 12px
+			color warm-grey
+			&.expand
+				width 100%
+		.price
+			font-family 'Montserrat', sans-serif
+			font-size 13px
+			color #4a4a4a
+			line-height: 1.5;
+			strong
+				font-weight bold
+				font-size 18px
+				&.large
+					font-size 22px
+					font-weight: 500;
+		.msg
+			font-family: 'PT Serif', serif;
+			font-size 12px
+			color #838c8e
+
+
+/*------------------------------------*
+	$ SINGLE MENU
+*------------------------------------*/
+.single-menu
+	.artist
+		margin 20px 0
+	.menu
+		.carousel
+			height: 105px;
+			overflow: hidden;
+
+@media (min-width: 768px)
+	.single-menu
+		.artist
+			margin 0
+
+@media (min-width: 768px)
+	.single-menu
+		display flex
+		align-items center
+		.artist
+			flex 2
+			margin-right: 10px;
+		.menu
+			flex 3
+			margin-left: 10px;
+
+@media (min-width: 1000px)
+	.single-tabs
+		max-width 500px
+
+.single-tabs
+	display flex
+	overflow-x auto
+	.single-tab
+		flex 1
+		padding 28px 0
+		text-align center
+		cursor pointer
+		min-width 100px
+		&[selected="true"]
+			background white
+			border-top solid 1px #eeeeee
+			border-left solid 1px #b8b8b8
+			border-right solid 1px #b8b8b8
+			border-bottom solid 2px #277cea
+		p
+			font-family 'Montserrat', sans-serif
+			font-size 10px
+			color #333
+			letter-spacing 2px
+			padding-bottom 15px
+		span
+			font-family 'Montserrat', sans-serif
+			font-size 19px
+			color #333
+		i
+			font-size 1.25em
+
+
+
+.actions
+	display flex
+	justify-content center
+	.action
+		padding 15px
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		.icon
+			cursor pointer
+			border-radius 50%
+			width 60px
+			height 60px
+			display flex
+			align-items center
+			justify-content center
+			font-size 1.75em
+			border solid 1.5px #9b9b9b
+		.text
+			font-family 'Montserrat', sans-serif
+			font-weight bold
+			font-size 10px
+			color #333
+			letter-spacing 2px
+			padding-top 10px
+		&:hover
+			.icon
+				border solid 1.5px #4000ff
+				color #4000ff
+			.text
+				color #4000ff
+		&.active
+			.icon
+				border solid 1.5px #4000ff
+				background #4000ff
+				color white
+			.text
+				color #4000ff
+
+.action
+	position relative
+	.actions-box
+		display none
+	&:hover
+		.actions-box
+			display block
+
+.actions-box
+	border solid 1px #c2c2c2
+	padding 20px
+	border-radius 4px
+	position absolute
+	left 50%
+	transform translate(-50%, 0)
+	background white
+	min-width 250px
+	button
+		display block
+		width 100%
+		background white
+		border solid 1px #ddd
+		font-family 'Montserrat', sans-serif
+		font-weight bold
+		font-size 10px
+		color #9b9b9b
+		letter-spacing 1.5px
+		padding 10px 30px
+		display flex
+		align-items center
+		justify-content center
+		cursor pointer
+		border-radius 4px
+		&.following
+			background #eee
+			color #000
+			i
+				color #3bd64a
+				font-size 1.75em
+		&.border-black
+			border-color #000
+		&.color-white
+			color #fff
+		&.color-blue
+			color #2e71f0
+		&.color-black
+			color #000
+			i
+				color #3bd64a
+				font-size 1.75em
+		&.bg-gray
+			background #eee
+		&.bg-blue
+			background #0000ff
+		&.wd-auto
+			width initial
+	.title
+		font-family 'Montserrat', sans-serif
+		font-weight bold
+		font-size 16px
+		color charcoal-grey
+	input
+		width 100%
+		border solid 1px #979797
+		padding 10px 15px
+		box-sizing border-box
+		font-family 'Montserrat', sans-serif
+		font-size 12px
+		border-radius 4px
+	.collections
+		border-radius 4px
+		border solid 1px #ddd
+		.collection
+			font-family 'Montserrat', sans-serif
+			font-size 14px
+			color #4a4a4a
+			padding 10px 20px
+			display flex
+			cursor pointer
+			p
+				flex 1
+			i
+				color #2e71f0
+				display none
+			&.selected
+				i
+					display block
+			&:not(:first-child)
+				border-top solid 1px #ddd
+
+	.buttons
+		button
+			display inline
+			&:first-child
+				margin-right 20px
+	.share
+		font-family 'Montserrat', sans-serif
+		font-size 14px
+		color #4a4a4a
+		display flex
+		align-items center
+		margin-top 10px
+		cursor pointer
+		i
+			width 40px
+			height 40px
+			background black
+			color white
+			font-size 2em
+			display flex
+			align-items center
+			justify-content center
+			margin-right 15px
+
+.more-carousel
+	height: 240px;
+	overflow: hidden;
+
+.more-images
+	display flex
+	// justify-content center
+	// flex-wrap wrap
+	overflow-x auto
+	.am-MoreImages
+		min-width: 220px;
+		width 220px
+		height 220px
+		margin 10px
+		background-size cover
+		background-position center center
+		&:first-child
+			margin-left 0
+
+
+
+.am-checkout
+	padding 40px 0
+
+.checkout-box
+	background white
+	border-radius 4px
+	overflow hidden
+	.checkout-menu
+		background #eee
+		border-bottom solid 1px #bac5c7
+		overflow hidden
+		padding 10px 5px
+		.tab
+			font-family 'Montserrat', sans-serif
+			font-size 10px
+			color #9f9f9f
+			letter-spacing 2px
+			// margin 20px
+			margin 10px
+			cursor pointer
+			border-radius 40px
+			padding 5px 10px
+			&.selected
+				background #4a4a4a
+				color white
+	.checkout-content
+		max-width 1050px
+		margin auto
+		.title
+			font-family 'Montserrat', sans-serif
+			font-weight bold
+			font-size 24px
+			text-align center
+			padding-top 20px
+			color charcoal-grey
+		.sub-title
+			font-family 'Montserrat', sans-serif
+			font-size 18px
+			color charcoal-grey
+			padding-top 20px
+		.checkout-info
+			padding-top 20px
+			.addresses
+				border solid 1px #bac5c7
+				border-radius 4px
+				.address
+					cursor pointer
+					padding 10px
+					display flex
+					align-items center
+					&:not(:first-child)
+						border-top solid 1px #bac5c7
+					.address-title
+						font-family 'Montserrat', sans-serif
+						font-size 16px
+						color charcoal-grey
+						padding-left 5px
+						line-height 1.5
+					.address-subtitle
+						font-family 'Montserrat', sans-serif
+						font-size 14px
+						color warm-grey
+						padding-left 5px
+						line-height 1.35
+					.address-label
+						font-family 'Montserrat', sans-serif
+						font-size 14px
+						color charcoal-grey
+						padding 10px 0
+					.address-input
+						border solid 1px #979797
+						border-radius 4px
+						width 100%
+						padding 13px 15px
+						box-sizing border-box
+						font-size 13.6px
+						font-family 'Montserrat', sans-serif
+						background white
+
+			.cart-items
+				width: 100%;
+				.cart-label
+					font-family 'Montserrat', sans-serif
+					font-size 14px
+					color charcoal-grey
+					// padding 10'px 0
+				// .cart-item-data
+					// display flex
+				.cart-item-img
+					width 100px
+					height 100px
+					margin-right 10px
+				.cart-title
+				.cart-text
+					font-family 'Montserrat', sans-serif
+					font-size 13px
+					color charcoal-grey
+					line-height 1.25
+				.cart-title
+					font-weight bold
+					padding-top 8px
+				.cart-artist
+					padding-top 7px
+					font-family: 'PT Serif', serif;
+					font-size 12px
+					color warm-grey
+					span
+						font-weight bold
+				.cart-input
+					background #eee
+					max-width: 40px;
+					padding 5px 10px
+					margin 0 10px
+				.cart-delete
+					color #ff6666
+					cursor pointer
+
+		.checkout-resume
+			padding-top 20px
+			.company
+				max-width 310px
+				margin 20px auto 10px auto
+				display block
+			.resume-box
+				border solid 1px #bac5c7
+				border-radius 4px
+				max-width 310px
+				margin auto
+				header
+					font-family 'Montserrat', sans-serif
+					font-weight bold
+					font-size 10px
+					letter-spacing 2px
+					border-bottom solid 1px #bac5c7
+					padding 20px 10px
+					text-align center
+				section
+					padding 10px 20px
+					table
+						width 100%
+						max-width 200px
+						margin auto
+				.price
+				.label
+					font-family 'Montserrat', sans-serif
+					font-size 14px
+					color #4a4a4a
+					padding-top 10px
+				.label
+					font-weight bold
+				.price
+					text-align right
+
+		.buttons-container
+			display flex
+			max-width 500px
+			margin 40px auto 50px auto
+			.button
+				margin 10px
+		.button
+			font-family 'Montserrat', sans-serif
+			font-weight bold
+			border-radius 4px
+			letter-spacing 2px
+			font-size 10px
+			padding 10px 30px
+			cursor pointer
+			box-shadow 1px 2px 1px 0 rgba(black, .5)
+			width 100%
+			&[data-color="blue"]
+				border solid 1px #333
+				background #277cea
+				color white
+			&[data-color="gray"]
+				border solid 1px #000
+				background white
+				color #3a3d3f
+
+
+@media (min-width: 650px)
+	.cart-item-data
+		display flex
+
+@media (min-width: 810px)
+	.checkout-menu
+		display flex
+		justify-content center
+		align-items center
+
+
+@keyframes load
+	0%
+		transform rotate(0)
+	50%
+		transform rotate(-180deg)
+	100%
+		transform rotate(-360deg)

@@ -1,665 +1,543 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-	<title>Arte Manifiesto | Style Guide</title>
-	
 	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 
-	<link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700|Roboto+Condensed:400,300,700|Raleway:400,100,200,300,500,700,600,800,900|Oswald:400,300,700|Hammersmith+One' rel='stylesheet' type='text/css'>
+	<title>Arte Manifiesto | Descubre</title>
 
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link href='https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700,700italic|Montserrat:400,700' rel='stylesheet' type='text/css'>
 
-	<link rel="stylesheet" type="text/css" href="css/style-guide.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+
+	<style>
+		.grid-item { width: 25%; }
+	</style>
 
 </head>
 <body>
 
-<section class="style-guide-wrapper">
-
-
-	<!-- *************************************
-		$ LOGOS
-	***************************************-->
-	<article class="style-guide-element">
-		<a class="logo" href="#">
-			<img class="logo__small" src="img/logo-small.png">
-			<img class="logo__normal" src="img/logo.png">
-		</a>
-	</article>
-	<p class="style-guide-title">logo</p>
-
-
-	<!-- *************************************
-		$ MENUS
-	***************************************-->
-	<article class="style-guide-element">
-		<div class="skinny-menu">
-			<a href="#" class="skinny-menu__item">
-				Descubre
-			</a>
-			<a href="#" class="skinny-menu__item">
-				Market
-			</a>
-			<a href="#" class="skinny-menu__item">
-				Sign In
-			</a>
-			<a href="#" class="skinny-menu__item">
-				Sign Up
-			</a>
-			<a href="#" class="skinny-menu__item active">
-				Upload
-			</a>
-			<a href="#" class="skinny-menu__item">
-				Perfil
-			</a>
+	<!-- ********************************************************************
+		$ HEADER
+	********************************************************************* -->
+	<div class="grid-container u-padding-top-15 u-padding-bottom-15">
+		<div class="grid-100">
+			<header class="am-Header">
+				<figure class="am-Header-logo">
+					<img src="img/logo.png">
+				</figure>
+				<ul class="am-Header-menu">
+					<li class="am-Header-menu-item">
+						<a class="am-Header-text" href="#">HOME</a>
+					</li>
+					<li class="am-Header-menu-item">
+						<a class="am-Header-text" href="#">DESCUBRE <i class="fa fa-caret-down"></i></a>
+					</li>
+					<li class="am-Header-menu-item">
+						<a class="am-Header-text" href="#">TIENDA <i class="fa fa-caret-down"></i></a>
+					</li>
+					<li class="am-Header-menu-item">
+						<a class="am-Header-text" href="#">RETOS</a>
+					</li>
+					<li class="am-Header-menu-item">
+						<a class="am-Upload-button" href="#"><i class="fa fa-cloud-upload"></i> SUBIR</a>
+					</li>
+					<li class="am-Header-menu-item" style="padding-left: 22px;">
+						<div class="am-Header-icon">
+							<i class="fa fa-bell-o"></i><span>29</span>
+						</div>
+					</li>
+					<li class="am-Header-menu-item" style="padding-left: 22px;">
+						<div class="am-Header-icon">
+							<i class="fa fa-shopping-cart"></i><span>10</span>
+						</div>
+					</li>
+					<li class="am-Header-menu-item">
+						<div class="am-Avatar">
+							<img src="img/avatar.jpg">&nbsp;<i class="fa fa-caret-down"></i>
+						</div>
+					</li>
+				</ul>
+			</header>
 		</div>
-	</article>
-	<p class="style-guide-title">skinny-menu</p>
+	</div>
 
-	<article class="style-guide-element">
-		<nav class="skinny-menu" data-icon='true'>
-			<a href="#" class="skinny-menu__item">
-				<i class="skinny-menu__item__icon fa fa-search"></i>
-				<span class="skinny-menu__item__text">Descubre</span>
-			</a>
-			<a href="#" class="skinny-menu__item active">
-				<i class="skinny-menu__item__icon fa fa-diamond"></i>
-				<span class="skinny-menu__item__text">Market</span>
-			</a>
-			<a href="#" class="skinny-menu__item">
-				<i class="skinny-menu__item__icon fa fa-user"></i>
-				<span class="skinny-menu__item__text">Sign in</span>
-			</a>
-		</nav>
-	</article>
-	<p class="style-guide-title">skinny-menu[data-icon='true']</p>
-
-	<article class="style-guide-element">
-		<div class="thick-menu">
-			<a href="#" class="thick-menu__item">Womens</a>
-			<a href="#" class="thick-menu__item">Mens</a>
-			<a href="#" class="thick-menu__item">Art</a>
-			<a href="#" class="thick-menu__item">Home</a>
-			<a href="#" class="thick-menu__item">Kids</a>
-			<a href="#" class="thick-menu__item">Music</a>
+	<div class="grid-container">
+		<div class="grid-20 prefix-80">
+			<div class="am-Menu">
+				<a class="am-Menu-item" href="#">MI PORTAFOLIO</a>
+				<div class="separator"></div>
+				<a class="am-Menu-item" href="#">SUBIR MANIFIESTO</a>
+				<a class="am-Menu-item" href="#">VENDER EN AM</a>
+				<div class="separator"></div>
+				<a class="am-Menu-item" href="#">CARRITO DE COMPRAS</a>
+				<a class="am-Menu-item" href="#">MIS COMPRAS</a>
+				<a class="am-Menu-item" href="#">MIS VENTAS</a>
+				<div class="separator"></div>
+				<a class="am-Menu-item" href="#">ADMINISTRAR CUENTA</a>
+				<div class="separator"></div>
+				<a class="am-Menu-item" href="#">SALIR</a>
+			</div>
 		</div>
-	</article>
-	<p class="style-guide-title">thick-menu</p>
+	</div>
 
-
-	<!-- *************************************
-		$ TEXTS
-	***************************************-->
-	<article class="style-guide-element">
-		<p class="high-text" data-size='small'>Hans Evangelista</p>
-	</article>
-	<p class="style-guide-title">high-text[data-size='small']</p>
-
-	<article class="style-guide-element">
-		<p class="high-text">Hans Evangelista</p>
-	</article>
-	<p class="style-guide-title">high-text</p>
-
-	<article class="style-guide-element">
-		<p class="skinny-text" data-size='small'><i class="fa fa-map-marker"></i> Lima, Perú</p>
-	</article>
-	<p class="style-guide-title">skinny-text[data-size='small']</p>
-
-	<article class="style-guide-element">
-		<p class="skinny-text"><i class="fa fa-map-marker"></i> Lima, Perú</p>
-	</article>
-	<p class="style-guide-title">skinny-text</p>
-
-	<article class="style-guide-element">
-		<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
-	</article>
-	<p class="style-guide-title">skinny-text[data-size='small'][data-color='light']</p>
-
-	<article class="style-guide-element">
-		<p class="skinny-text" data-color='light'><i class="fa fa-map-marker"></i> Lima, Perú</p>
-	</article>
-	<p class="style-guide-title">skinny-text[data-color='light']</p>
-
-	<article class="style-guide-element">
-		<p class="slogan-text">Descubre Geniales Diseños en Increibles Productos</p>
-	</article>
-	<p class="style-guide-title">slogan-text</p>
-
-	<article class="style-guide-element">
-		<p class="medium-text">Obras recomendadas</p>
-	</article>
-	<p class="style-guide-title">medium-text</p>
-
-	<article class="style-guide-element">
-		<div class="separator-text">
-			<span class="line"></span>
-			<span class="text">Con email</span>
-			<span class="line"></span>
+	<div class="grid-container u-padding-top-15 u-padding-bottom-15">
+		<div class="grid-100">
+			<header class="am-Header">
+				<figure class="am-Header-logo">
+					<img src="img/logo.png">
+				</figure>
+				<ul class="am-Header-menu">
+					<li class="am-Header-menu-item">
+						<a class="am-Header-text" href="#">HOME</a>
+					</li>
+					<li class="am-Header-menu-item">
+						<a class="am-Header-text" href="#">DESCUBRE <i class="fa fa-caret-down"></i></a>
+					</li>
+					<li class="am-Header-menu-item">
+						<a class="am-Header-text" href="#">TIENDA <i class="fa fa-caret-down"></i></a>
+					</li>
+					<li class="am-Header-menu-item">
+						<a class="am-Header-text" href="#">RETOS</a>
+					</li>
+					<li class="am-Header-menu-item">
+						<a class="am-Signin-button" href="#"><i class="fa fa-user"></i> INGRESAR</a>
+					</li>
+				</ul>
+			</header>
 		</div>
-	</article>
-	<p class="style-guide-title">separator-text</p>
-
-	<!-- *************************************
-		$ BUTTON SOLID
-	***************************************-->
-	<article class="style-guide-element">
-		<a class="button-link" href="#">ver todas <i class="fa fa-angle-right"></i></a>
-	</article>
-	<p class="style-guide-title">button-link</p>
-
-	<article class="style-guide-element">
-		<button class="button-solid" data-size='small'>Sign Up</button>
-	</article>
-	<p class="style-guide-title">button-solid[data-size='small']</p>
-
-	<article class="style-guide-element">
-		<a class="button-solid" href="#">Sign Up</a>
-	</article>
-	<p class="style-guide-title">button-solid</p>
-
-	<article class="style-guide-element">
-		<div class="button-solid" data-size='large'>Sign Up</div>
-	</article>
-	<p class="style-guide-title">button-solid[data-size='large']</p>
-
-	<article class="style-guide-element">
-		<button class="button-solid" href="#" data-size='large' data-expand='true'>Sign Up</button>
-	</article>
-	<p class="style-guide-title">button-solid[data-size='large'][data-expand='true']</p>
-
-	<article class="style-guide-element">
-		<button class="button-solid" data-size='small' data-color='red'>Sign Up</button>
-	</article>
-	<p class="style-guide-title">button-solid[data-size='small'][data-color='red']</p>
-
-	<article class="style-guide-element">
-		<a class="button-solid" href="#" data-color='red'>Sign Up</a>
-	</article>
-	<p class="style-guide-title">button-solid[data-color='red']</p>
-
-	<article class="style-guide-element">
-		<div class="button-solid" data-size='large' data-color='red'>Sign Up</div>
-	</article>
-	<p class="style-guide-title">button-solid[data-size='large'][data-color='red']</p>
-
-	<article class="style-guide-element">
-		<input class="button-solid" data-size='large' data-color='red' data-expand='true' value="Sign Up" type="submit">
-	</article>
-	<p class="style-guide-title">button-solid[data-size='large'][data-color='red'][data-expand='true']</p>
+	</div>
 
 
-	<!-- *************************************
-		$ BUTTON LINER
-	***************************************-->
-	<article class="style-guide-element">
-		<button class="button-liner" data-size='small'>
-			<div class="button-liner__action">Seguir</div>
-			<div class="button-liner__number">13,2k</div>
-		</button>
-	</article>
-	<p class="style-guide-title">button-liner[data-size='small']</p>
-
-	<article class="style-guide-element">
-		<a class="button-liner" href="#">
-			<span class="button-liner__action">Seguir</span>
-			<span class="button-liner__number">13,2k</span>
-		</a>
-	</article>
-	<p class="style-guide-title">button-liner</p>
-
-	<article class="style-guide-element">
-		<div class="button-liner" data-size='large'>
-			<span class="button-liner__action">Seguir</span>
-			<span class="button-liner__number">13,2k</span>
+	<!-- ********************************************************************
+		$ NAVIGATION-MENU
+	********************************************************************* -->
+	<div class="am-NavigationMenu u-padding-bottom-30">
+		<div class="grid-container">
+			<div class="grid-33 grid-parent am-NavigationMenu-section">
+				<div class="grid-50 mobile-grid-50">
+					<figure class="am-NavigationMenu-section-image" style="background-image: url('img/sub menu artwork 2.jpg'); background-position: 50% 30%;"></figure>
+				</div>
+				<div class="grid-50 mobile-grid-50">
+					<p class="am-NavigationMenu-title-text u-padding-bottom-15">Obras y Creaciones</p>
+					<p class="am-NavigationMenu-description-text">Conoce los productos que debes tener para este verano 2015</p>
+				</div>
+			</div>
+			<div class="grid-33 grid-parent am-NavigationMenu-section">
+				<div class="grid-50 mobile-grid-50">
+					<figure class="am-NavigationMenu-section-image" style="background-image: url('img/sub menu artist 2.jpg'); background-position: 50% 75%;"></figure>
+				</div>
+				<div class="grid-50 mobile-grid-50">
+					<p class="am-NavigationMenu-title-text u-padding-bottom-15">Artistas Creadores</p>
+					<p class="am-NavigationMenu-description-text">Conoce los productos que debes tener para este verano 2015</p>
+				</div>
+			</div>
+			<div class="grid-33 grid-parent am-NavigationMenu-section">
+				<div class="grid-50 mobile-grid-50">
+					<figure class="am-NavigationMenu-section-image" style="background-image: url('img/sub menu collection 2.png'); background-position: 50% 35%;"></figure>
+				</div>
+				<div class="grid-50 mobile-grid-50">
+					<p class="am-NavigationMenu-title-text u-padding-bottom-15">Colecciones</p>
+					<p class="am-NavigationMenu-description-text">Conoce los productos que debes tener para este verano 2015</p>
+				</div>
+			</div>
 		</div>
-	</article>
-	<p class="style-guide-title">button-liner[data-size='large']</p>
+	</div>
 
-	<article class="style-guide-element">
-		<button class="button-liner disabled" data-size='small'>
-			<div class="button-liner__action">Seguir</div>
-			<div class="button-liner__number">13,2k</div>
-		</button>
-	</article>
-	<p class="style-guide-title">button-liner.disabled[data-size='small']</p>
-
-	<article class="style-guide-element">
-		<a class="button-liner disabled" href="#">
-			<span class="button-liner__action"><i class="fa fa-check"></i> Siguiendo</span>
-			<span class="button-liner__number">13,2k</span>
-		</a>
-	</article>
-	<p class="style-guide-title">button-liner.disabled</p>
-
-	<article class="style-guide-element">
-		<div class="button-liner disabled" data-size='large'>
-			<span class="button-liner__action"><i class="fa fa-times-circle"></i> Cancelar</span>
-			<span class="button-liner__number">13,2k</span>
+	<div class="am-NavigationMenu u-padding-bottom-30">
+		<div class="grid-container">
+			<div class="grid-33 grid-parent am-NavigationMenu-section">
+				<div class="grid-50 mobile-grid-50">
+					<figure class="am-NavigationMenu-section-image" style="background-image: url('img/sub menu artwork 1.jpg'); background-position: 50% 50%;"></figure>
+				</div>
+				<div class="grid-50 mobile-grid-50">
+					<p class="am-NavigationMenu-title-text u-padding-bottom-15" data-size="large">Libretas</p>
+					<p class="am-NavigationMenu-description-text">Conoce los productos que debes tener para este verano 2015</p>
+				</div>
+			</div>
+			<div class="grid-40 grid-parent am-NavigationMenu-section">
+				<div class="grid-100">
+					<p class="am-NavigationMenu-subTitle-text u-padding-bottom-10">CATEGORÍAS</p>
+					<div>
+						<ul class="am-NavigationMenu-section-list">
+							<a href="#" class="am-NavigationMenu-item-text">Home Tienda</a>
+							<a href="#" class="am-NavigationMenu-item-text">Obras Originales</a>
+							<a href="#" class="am-NavigationMenu-item-text">Art Prints</a>
+							<a href="#" class="am-NavigationMenu-item-text">Tazas</a>
+							<a href="#" class="am-NavigationMenu-item-text">Iphone Case</a>
+						</ul>
+						<ul class="am-NavigationMenu-section-list">
+							<a href="#" class="am-NavigationMenu-item-text">Polos Hombre</a>
+							<a href="#" class="am-NavigationMenu-item-text">Polos Mujer</a>
+							<a href="#" class="am-NavigationMenu-item-text">Hoodies</a>
+							<a href="#" class="am-NavigationMenu-item-text">Leggins</a>
+							<a href="#" class="am-NavigationMenu-item-text">Trousers</a>
+						</ul>
+						<ul class="am-NavigationMenu-section-list">
+							<a href="#" class="am-NavigationMenu-item-text">Tazas</a>
+							<a href="#" class="am-NavigationMenu-item-text">Bolsos</a>
+							<a href="#" class="am-NavigationMenu-item-text">Iphone 4/5/6 Case</a>
+							<a href="#" class="am-NavigationMenu-item-text">Samsung Galaxy 3/4 Case</a>
+							<a href="#" class="am-NavigationMenu-item-text">Libretas</a>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="grid-25 grid-parent am-NavigationMenu-section">
+				<div class="grid-100">
+					<p class="am-NavigationMenu-subTitle-text u-padding-bottom-10">TIENDAS DESTACADAS</p>
+					<div>
+						<ul class="am-NavigationMenu-section-list">
+							<a href="#" class="am-NavigationMenu-item-text">FIASCO Industries</a>
+							<a href="#" class="am-NavigationMenu-item-text">Carga Máxima</a>
+							<a href="#" class="am-NavigationMenu-item-text">Lanvin</a>
+							<a href="#" class="am-NavigationMenu-item-text">Stine Goya</a>
+							<a href="#" class="am-NavigationMenu-item-text">Carven</a>
+						</ul>
+					</div>
+				</div>
+			</div>
 		</div>
-	</article>
-	<p class="style-guide-title">button-liner.disabled[data-size='large']</p>
+	</div>
 
 
-	<!-- *************************************
-		$ BUTTON FACEBOOK
-	***************************************-->
-	<article class="style-guide-element">
-		<a href="#" class="facebook-button">
-			<i class="fa fa-facebook-official"></i>&nbsp; Registrarme con Facebook
-		</a>
-	</article>
-	<p class="style-guide-title">facebook-button</p>
-
-	<article class="style-guide-element">
-		<a href="#" class="facebook-button" data-expand='true'>
-			<i class="fa fa-facebook-official"></i>&nbsp; Registrarme con Facebook
-		</a>
-	</article>
-	<p class="style-guide-title">facebook-button[data-expand='true']</p>
-
-
-	<!-- *************************************
-		$ INPUTS
-	***************************************-->
-	<article class="style-guide-element">
-		<div class="search">
-			<input type="text" placeholder="Busca Obras, Artistas y Productos">
-			<i class="fa fa-search"></i>
+	<!-- ********************************************************************
+		$ DISCOVER-BANNER
+	********************************************************************* -->
+	<div class="u-padding-top-40 u-padding-bottom-70" style="background-image: url('img/art/illustration icecream.jpg')">
+		<div class="grid-container">
+			<div class="grid-50 prefix-25">
+				<p class="am-DiscoverTitle-text u-padding-bottom-15 u-text-center">Descubre obras y creaciones</p>
+				<div class="am-Search-input">
+					<input type="text"/>
+					<i class="fa fa-search"></i>
+				</div>
+			</div>
 		</div>
-	</article>
-	<p class="style-guide-title">search</p>
-
-	<article class="style-guide-element">
-		<input class="input" name="username" placeholder="Username" type="text" autofocus>
-	</article>
-	<article class="style-guide-element">
-		<input class="input" name="email" placeholder="Email" type="email">
-	</article>
-	<article class="style-guide-element">
-		<input class="input" name="password" placeholder="Password" type="password">
-	</article>
-	<p class="style-guide-title">input</p>
-
-	<article class="style-guide-element">
-		<input class="input" data-size='large' name="username" placeholder="Username" type="text" autofocus>
-	</article>
-	<article class="style-guide-element">
-		<input class="input" data-size='large' name="email" placeholder="Email" type="email">
-	</article>
-	<article class="style-guide-element">
-		<input class="input" data-size='large' name="password" placeholder="Password" type="password">
-	</article>
-	<p class="style-guide-title">input[data-size='large']</p>
+	</div>
 
 
-	<!-- *************************************
-		$ WORKS
-	***************************************-->
-	<article class="style-guide-element">
-		<section class="works" data-columns>
-			<a href="#" class="work">
-				<img src="img/works/obra1.jpg">
-			</a>
-			<a href="#" class="work">
-				<img src="img/works/obra2.jpg">
-			</a>
-			<a href="#" class="work">
-				<img src="img/works/obra3.jpg">
-			</a>
-			<a href="#" class="work">
-				<img src="img/works/obra4.jpg">
-			</a>
-			<a href="#" class="work">
-				<img src="img/works/obra5.jpg">
-			</a>
-			<a href="#" class="work">
-				<img src="img/works/obra6.jpg">
-			</a>
-			<a href="#" class="work">
-				<img src="img/works/obra7.jpg">
-			</a>
-			<a href="#" class="work">
-				<img src="img/works/obra8.jpg">
-			</a>
-			<a href="#" class="work">
-				<img src="img/works/obra9.jpg">
-			</a>
-			<a href="#" class="work">
-				<img src="img/works/obra10.jpg">
-			</a>
-			<a href="#" class="work">
-				<img src="img/works/obra11.jpg">
-			</a>
-			<a href="#" class="work">
-				<img src="img/works/obra12.jpg">
-			</a>
-		</section>
-	</article>
-	<p class="style-guide-title">works</p>
+	<!-- ********************************************************************
+		$ DISCOVER-MENU
+	********************************************************************* -->
+	<div class="grid-container u-padding-top-20">
+		<div class="grid-20">
+			<div class="am-Select">
+				CATEGORÍAS &nbsp;&nbsp;<i class="fa fa-caret-left"></i>
+			</div>
+		</div>
+		<div class="grid-60">
+			<p class="am-navigation-text">Fotografía > Blanco y negro (234)</p>
+		</div>
+		<div class="grid-20">
+			<div class="am-Select">
+				ORDENAR &nbsp;&nbsp;<i class="fa fa-caret-down"></i>
+			</div>
+		</div>
+	</div>
 
 
-	<!-- *************************************
-		$ ARTISTS
-	***************************************-->
-	<article class="style-guide-element">
-		<section class="artists" data-columns>
-			<article class="artist">
-				<a class="artist-header" href="#">
-					<div class="avatar">
-						<img src="img/artists/artist1.jpg">
-					</div>
-					<div class="info">
-						<p class="high-text" data-size='small'>keri Russell</p>
-						<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
-					</div>
-				</a>
-				<div class="artist-works">
-						<div class="work work1"></div>
-						<div class="work work2"></div>
-						<div class="work work3"></div>
-						<div class="work work4"></div>
-						<div class="work work5"></div>
-						<div class="work work6"></div>					
+	<!-- ********************************************************************
+		$ DISCOVER-FILTER
+	********************************************************************* -->
+	<div class="grid-container u-padding-top-20">
+		<div class="grid-20 prefix-80">
+			<div class="am-Filter">
+				<div class="am-Filter-item">
+					<p class="am-Filter-option">MÁS NUEVO</p>
 				</div>
-				<div class="artist-follow">
-					<button class="button-liner" data-size='small'>
-						<span class="button-liner__action">Seguir</span>
-						<span class="button-liner__number">13,2k</span>
-					</button>
+				<div class="am-Filter-item">
+					<p class="am-Filter-option">MÁS VALORADO</p>
 				</div>
-			</article>
-			<article class="artist">
-				<a class="artist-header" href="#">
-					<div class="avatar">
-						<img src="img/artists/artist2.jpg">
-					</div>
-					<div class="info">
-						<p class="high-text" data-size='small'>keri Russell</p>
-						<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
-					</div>
-				</a>
-				<div class="artist-works">
-						<div class="work work7"></div>
-						<div class="work work8"></div>
-						<div class="work work9"></div>
-						<div class="work work10"></div>
-						<div class="work work11"></div>
-						<div class="work work12"></div>					
+				<div class="am-Filter-item">
+					<p class="am-Filter-option">MÁS POPULAR</p>
 				</div>
-				<div class="artist-follow">
-					<a class="button-liner disabled" data-size='small' href="#">
-						<span class="button-liner__action"><i class="fa fa-check"></i> Siguiendo</span>
-						<span class="button-liner__number">13,2k</span>
-					</a>
-				</div>
-			</article>
-			<article class="artist">
-				<a class="artist-header" href="#">
-					<div class="avatar">
-						<img src="img/artists/artist3.jpg">
-					</div>
-					<div class="info">
-						<p class="high-text" data-size='small'>keri Russell</p>
-						<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
-					</div>
-				</a>
-				<div class="artist-works">
-						<div class="work work1"></div>
-						<div class="work work2"></div>
-						<div class="work work3"></div>
-						<div class="work work4"></div>
-						<div class="work work5"></div>
-						<div class="work work6"></div>					
-				</div>
-				<div class="artist-follow">
-					<div class="button-liner disabled" data-size='small'>
-						<span class="button-liner__action"><i class="fa fa-times-circle"></i> Cancelar</span>
-						<span class="button-liner__number">13,2k</span>
-					</div>
-				</div>
-			</article>
-			<article class="artist">
-				<a class="artist-header" href="#">
-					<div class="avatar">
-						<img src="img/artists/artist4.jpg">
-					</div>
-					<div class="info">
-						<p class="high-text" data-size='small'>keri Russell</p>
-						<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
-					</div>
-				</a>
-				<div class="artist-works">
-						<div class="work work7"></div>
-						<div class="work work8"></div>
-						<div class="work work9"></div>
-						<div class="work work10"></div>
-						<div class="work work11"></div>
-						<div class="work work12"></div>					
-				</div>
-				<div class="artist-follow">
-					<button class="button-liner" data-size='small'>
-						<span class="button-liner__action">Seguir</span>
-						<span class="button-liner__number">13,2k</span>
-					</button>
-				</div>
-			</article>
-			<article class="artist">
-				<a class="artist-header" href="#">
-					<div class="avatar">
-						<img src="img/artists/artist1.jpg">
-					</div>
-					<div class="info">
-						<p class="high-text" data-size='small'>keri Russell</p>
-						<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
-					</div>
-				</a>
-				<div class="artist-works">
-						<div class="work work1"></div>
-						<div class="work work2"></div>
-						<div class="work work3"></div>
-						<div class="work work4"></div>
-						<div class="work work5"></div>
-						<div class="work work6"></div>					
-				</div>
-				<div class="artist-follow">
-					<button class="button-liner" data-size='small'>
-						<span class="button-liner__action">Seguir</span>
-						<span class="button-liner__number">13,2k</span>
-					</button>
-				</div>
-			</article>
-			<article class="artist">
-				<a class="artist-header" href="#">
-					<div class="avatar">
-						<img src="img/artists/artist2.jpg">
-					</div>
-					<div class="info">
-						<p class="high-text" data-size='small'>keri Russell</p>
-						<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
-					</div>
-				</a>
-				<div class="artist-works">
-						<div class="work work7"></div>
-						<div class="work work8"></div>
-						<div class="work work9"></div>
-						<div class="work work10"></div>
-						<div class="work work11"></div>
-						<div class="work work12"></div>					
-				</div>
-				<div class="artist-follow">
-					<a class="button-liner disabled" data-size='small' href="#">
-						<span class="button-liner__action"><i class="fa fa-check"></i> Siguiendo</span>
-						<span class="button-liner__number">13,2k</span>
-					</a>
-				</div>
-			</article>
-			<article class="artist">
-				<a class="artist-header" href="#">
-					<div class="avatar">
-						<img src="img/artists/artist3.jpg">
-					</div>
-					<div class="info">
-						<p class="high-text" data-size='small'>keri Russell</p>
-						<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
-					</div>
-				</a>
-				<div class="artist-works">
-						<div class="work work1"></div>
-						<div class="work work2"></div>
-						<div class="work work3"></div>
-						<div class="work work4"></div>
-						<div class="work work5"></div>
-						<div class="work work6"></div>					
-				</div>
-				<div class="artist-follow">
-					<div class="button-liner disabled" data-size='small'>
-						<span class="button-liner__action"><i class="fa fa-times-circle"></i> Cancelar</span>
-						<span class="button-liner__number">13,2k</span>
-					</div>
-				</div>
-			</article>
-			<article class="artist">
-				<a class="artist-header" href="#">
-					<div class="avatar">
-						<img src="img/artists/artist4.jpg">
-					</div>
-					<div class="info">
-						<p class="high-text" data-size='small'>keri Russell</p>
-						<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
-					</div>
-				</a>
-				<div class="artist-works">
-						<div class="work work7"></div>
-						<div class="work work8"></div>
-						<div class="work work9"></div>
-						<div class="work work10"></div>
-						<div class="work work11"></div>
-						<div class="work work12"></div>					
-				</div>
-				<div class="artist-follow">
-					<button class="button-liner" data-size='small'>
-						<span class="button-liner__action">Seguir</span>
-						<span class="button-liner__number">13,2k</span>
-					</button>
-				</div>
-			</article>
-			<article class="artist">
-				<a class="artist-header" href="#">
-					<div class="avatar">
-						<img src="img/artists/artist1.jpg">
-					</div>
-					<div class="info">
-						<p class="high-text" data-size='small'>keri Russell</p>
-						<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
-					</div>
-				</a>
-				<div class="artist-works">
-						<div class="work work1"></div>
-						<div class="work work2"></div>
-						<div class="work work3"></div>
-						<div class="work work4"></div>
-						<div class="work work5"></div>
-						<div class="work work6"></div>					
-				</div>
-				<div class="artist-follow">
-					<button class="button-liner" data-size='small'>
-						<span class="button-liner__action">Seguir</span>
-						<span class="button-liner__number">13,2k</span>
-					</button>
-				</div>
-			</article>
-			<article class="artist">
-				<a class="artist-header" href="#">
-					<div class="avatar">
-						<img src="img/artists/artist2.jpg">
-					</div>
-					<div class="info">
-						<p class="high-text" data-size='small'>keri Russell</p>
-						<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
-					</div>
-				</a>
-				<div class="artist-works">
-						<div class="work work7"></div>
-						<div class="work work8"></div>
-						<div class="work work9"></div>
-						<div class="work work10"></div>
-						<div class="work work11"></div>
-						<div class="work work12"></div>					
-				</div>
-				<div class="artist-follow">
-					<a class="button-liner disabled" data-size='small' href="#">
-						<span class="button-liner__action"><i class="fa fa-check"></i> Siguiendo</span>
-						<span class="button-liner__number">13,2k</span>
-					</a>
-				</div>
-			</article>
-			<article class="artist">
-				<a class="artist-header" href="#">
-					<div class="avatar">
-						<img src="img/artists/artist3.jpg">
-					</div>
-					<div class="info">
-						<p class="high-text" data-size='small'>keri Russell</p>
-						<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
-					</div>
-				</a>
-				<div class="artist-works">
-						<div class="work work1"></div>
-						<div class="work work2"></div>
-						<div class="work work3"></div>
-						<div class="work work4"></div>
-						<div class="work work5"></div>
-						<div class="work work6"></div>					
-				</div>
-				<div class="artist-follow">
-					<div class="button-liner disabled" data-size='small'>
-						<span class="button-liner__action"><i class="fa fa-times-circle"></i> Cancelar</span>
-						<span class="button-liner__number">13,2k</span>
-					</div>
-				</div>
-			</article>
-			<article class="artist">
-				<a class="artist-header" href="#">
-					<div class="avatar">
-						<img src="img/artists/artist4.jpg">
-					</div>
-					<div class="info">
-						<p class="high-text" data-size='small'>keri Russell</p>
-						<p class="skinny-text" data-color='light' data-size='small'><i class="fa fa-map-marker"></i> Lima, Peru</p>
-					</div>
-				</a>
-				<div class="artist-works">
-						<div class="work work7"></div>
-						<div class="work work8"></div>
-						<div class="work work9"></div>
-						<div class="work work10"></div>
-						<div class="work work11"></div>
-						<div class="work work12"></div>					
-				</div>
-				<div class="artist-follow">
-					<button class="button-liner" data-size='small'>
-						<span class="button-liner__action">Seguir</span>
-						<span class="button-liner__number">13,2k</span>
-					</button>
-				</div>
-			</article>
-		</section>
-	</article>
-	<p class="style-guide-title">artists</p>
+			</div>
+		</div>
+	</div>
 
 
-	<article class="style-guide-element">
-	</article>
+	<!-- ********************************************************************
+		$ DISCOVER-CONTENT
+	********************************************************************* -->
+	<div class="grid-container u-padding-top-10">
+		<div class="grid-20 u-padding-top-10">
+			<div class="am-Filter">
+				<div class="am-Filter-item">
+					<header class="am-Filter-header">
+						<i class="fa fa-bars"></i><p>Ver sólo</p>
+					</header>
+				</div>
+				<div class="am-Filter-item">
+					<div class="am-Filter-switch">
+						<div class="am-Switch-button">
+							<i class="fa fa-bars"></i>
+						</div>
+						<span>Seleccionado AM</span>
+					</div>
+				</div>
+				<div class="am-Filter-item">
+					<header class="am-Filter-header">
+						<i class="fa fa-bars"></i><p>Categorías</p>
+					</header>
+				</div>
+				<div class="am-Filter-item">
+					<p class="am-Filter-option"><span>PINTURA</span><i class="fa fa-chevron-right"></i></p>
+				</div>
+				<div class="am-Filter-item">
+					<p class="am-Filter-option"><span>ILUSTRACIÓN</span><i class="fa fa-chevron-right"></i></p>
+				</div>
+				<div class="am-Filter-item">
+					<p class="am-Filter-option" data-open='true'><span>FOTOGRAFÍA</span><i class="fa fa-chevron-down"></i></p>
+				</div>
+				<div class="am-Filter-item">
+					<ul class="am-Filter-subOptions">
+						<li>Blanco y negro</li>
+						<li>Retratos</li>
+						<li>Paisajes</li>
+						<li>Claroscuro</li>
+						<li>Ver Todos</li>
+					</ul>
+				</div>
+				<div class="am-Filter-item">
+					<p class="am-Filter-option"><span>STREET ART</span><i class="fa fa-chevron-right"></i></p>
+				</div>
+				<div class="am-Filter-item">
+					<p class="am-Filter-option"><span>TÉCNICA MIXTA</span><i class="fa fa-chevron-right"></i></p>
+				</div>
+			</div>
+		</div>
+		<div class="grid-80 grid-parent">
+			<div class="grid">
+			  <div class="grid-item">
+			  	<img src="img/art/Digital illustration birds.jpg">
+			  </div>
+			  <div class="grid-item">
+			  	<img src="img/art/squared.jpg">
+			  </div>
+			  <div class="grid-item">
+			  	<img src="img/art/dylan.jpg">
+			  </div>
+			  <div class="grid-item">
+			  	<img src="img/art/owl and pussycat.jpg">
+			  </div>
+			  <div class="grid-item">
+			  	<img src="img/art/girls.jpg">
+			  </div>
+			  <div class="grid-item">
+			  	<img src="img/art/girl.jpg">
+			  </div>
+			  <div class="grid-item">
+			  	<img src="img/art/pintura.jpg">
+			  </div>
+			  <div class="grid-item">
+			  	<img src="img/art/skull.jpg">
+			  </div>
+			  <div class="grid-item">
+			  	<img src="img/art/squared.jpg">
+			  </div>
+			  <div class="grid-item">
+			  	<img src="img/art/owl and pussycat.jpg">
+			  </div>
+			  <div class="grid-item">
+			  	<img src="img/art/Digital illustration birds.jpg">
+			  </div>
+			  <div class="grid-item">
+			  	<img src="img/art/girls.jpg">
+			  </div>
+			</div>
+		</div>
+		<div class="grid-80 prefix-20 u-margin-top-10">
+			<a class="am-More-button">I need more</a>
+		</div>
+	</div>
 
-	<article class="style-guide-element">
-	</article>
 
-</section>
+	<!-- ********************************************************************
+		$ SINGLE INFO
+	********************************************************************* -->
+	<div class="grid-container">
+		<div class="grid-50 prefix-25">
+			<img src="img/work.jpg">
+		</div>
+		<div class="grid-25">
+
+			<div class="FollowArtist">
+				<img src="img/avatar.jpg">
+				<div>
+					<p class="u-padding-bottom-7">SEBASTIÁN SUAREZ</p>
+					<button class="am-Follow-button">+ SEGUIR</button>
+				</div>
+			</div>
+
+			<p class="am-Single-title-text u-margin-top-10">El guardián en el centeno, 2014</p>
+			<p class="am-Single-text u-margin-top-10">Obra en exposición en la muestra itinerante en barranco…</p>
+			<p class="am-Single-text u-margin-top-10">42 cm x 42 cm</p>
+			<p class="am-Single-text u-margin-top-10">Serie: Los noctámbulos y otros demonios.</p>
+			<p class="am-Single-text u-margin-top-10">Disponible</p>
 
 
-	<script type="text/javascript" src="js/vendor/salvattore.js"></script>
+			<button class="am-View-button u-margin-top-10"><i class="fa fa-cube"></i> VER MANIFIESTO</button>
+
+			<div>
+				<p class="am-Single-text u-margin-top-20">Categoría:</p>
+				<span class="am-Category-box u-margin-top-7">TÉCNICA MIXTA</span>
+				<p class="am-Single-text u-margin-top-20">Tags:</p>
+				<span class="am-Tag-box u-margin-top-7">BIRDS</span>&nbsp;
+				<span class="am-Tag-box u-margin-top-7">NATURALEZA</span>&nbsp;
+				<span class="am-Tag-box u-margin-top-7">OIL ON CANVAS</span>&nbsp;
+				<span class="am-Tag-box u-margin-top-7">TAPPERWARE</span>&nbsp;
+				<span class="am-Tag-box u-margin-top-7">ANGRY BIRD</span>&nbsp;
+				<span class="am-Tag-box u-margin-top-7">YELLOW</span>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- ********************************************************************
+		$ SINGLE MENU
+	********************************************************************* -->
+
+	<div class="am-SingleMenu u-margin-top-20">
+		<div class="grid-container">
+			<div class="grid-33">
+				<div class="FollowArtist u-padding-top-20 u-padding-bottom-20">
+					<img src="img/avatar.jpg">
+					<div>
+						<p class="u-padding-bottom-7">SEBASTIÁN SUAREZ</p>
+						<button class="am-Follow-button">+ SEGUIR</button>
+					</div>
+				</div>
+			</div>
+			<div class="grid-33 grid-parent">
+				<div class="am-SingleTabs">
+					<div class="am-SingleTab">
+						<p>MANIFIESTO</p>
+						<i class="fa fa-cube"></i>
+					</div>
+					<div class="am-SingleTab" selected="true">
+						<p>PRODUCTOS</p>
+						<span>25</span>
+					</div>
+					<div class="am-SingleTab">
+						<p>REVIEWS</p>
+						<span>25</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- ********************************************************************
+		$ FOOTER
+	********************************************************************* -->
+	<footer class="am-Footer u-padding-top-40 u-padding-bottom-40 u-margin-top-40">
+		<div class="grid-container">
+			<div class="grid-20 mobile-grid-40 am-Footer-section">
+				<div>
+					<img src="img/logo-small-white.png">
+					<p class="am-Copy-text u-padding-top-30">
+						© 2015 Arte Manifiesto <br>
+						Todos los derechos reservados
+					</p>
+				</div>
+			</div>
+			<div class="grid-30 mobile-grid-60 am-Footer-section">
+				<table class="am-Footer-list">
+				  <tr>
+				    <td class="am-Footer-title-text">HOME</td>
+				    <td class="am-Footer-item-text">Sobre AM</td>
+				  </tr>
+				  <tr>
+				    <td class="am-Footer-title-text">DESCUBRE</td>
+				    <td class="am-Footer-item-text">Contacto</td>
+				  </tr>
+				  <tr>
+				    <td class="am-Footer-title-text">MARKET</td>
+				    <td class="am-Footer-item-text">Términos de servicio</td>
+				  </tr>
+				  <tr>
+				    <td class="am-Footer-title-text">ARTISTAS</td>
+				    <td class="am-Footer-item-text">Políticas de privacidad</td>
+				  </tr>
+				  <tr>
+				    <td class="am-Footer-title-text">COLECCIÓN</td>
+				    <td class="am-Footer-item-text">Cómo comprar</td>
+				  </tr>
+				  <tr>
+				    <td class="am-Footer-title-text">AYUDA</td>
+				    <td class="am-Footer-item-text">Cómo vender</td>
+				  </tr>
+				</table>
+			</div>
+			<div class="grid-20 mobile-grid-40 am-Footer-section">
+				<div>
+					<p class="am-Footer-subtitle-text u-padding-bottom-20">SÍGUENOS</p>
+					<table class="am-Footer-list">
+					  <tr>
+					    <td class="am-Footer-item-text social"><i class="fa fa-facebook"></i></td>
+					    <td class="am-Footer-item-text">Facebook</td>
+					  </tr>
+					  <tr>
+					    <td class="am-Footer-item-text social"><i class="fa fa-twitter"></i></td>
+					    <td class="am-Footer-item-text">Twitter</td>
+					  </tr>
+					  <tr>
+					    <td class="am-Footer-item-text social"><i class="fa fa-instagram"></i></td>
+					    <td class="am-Footer-item-text">Instagram</td>
+					  </tr>
+					  <tr>
+					    <td class="am-Footer-item-text social"><i class="fa fa-rss"></i></td>
+					    <td class="am-Footer-item-text">RSS</td>
+					  </tr>
+					</table>
+				</div>
+			</div>
+			<div class="grid-30 mobile-grid-60 am-Footer-section">
+				<div>
+					<p class="am-Footer-subtitle-text u-padding-bottom-15">SUBSCRÍBETE AL BOLETÍN</p>
+					<p class="am-Footer-text u-padding-bottom-20">Lo más nuevo, fresco y valioso de la <br> comunidad de creadores visuales</p>
+					<div class="am-Email-input">
+						<input type="text" placeholder="E-mail"/>
+						<i class="fa fa-envelope-o"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+
+	<!-- ********************************************************************
+		$ GRID
+	********************************************************************* -->
+	<script>
+	  var ADAPT_CONFIG = {
+	    path: './css/',
+	    dynamic: true,
+	    range: [
+	      '0 to 767px = unsemantic-grid-mobile.css',
+	      '767px = unsemantic-grid-desktop.css'
+	    ]
+	  };
+	</script>
+	<script src="./js/adapt.min.js"></script>
+
+
+	<!-- ********************************************************************
+		$ MASONRY
+	********************************************************************* -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js"></script>
+
+	<script type="text/javascript">
+		setTimeout(function () {
+			new Masonry( document.querySelector('.grid'), {
+				itemSelector: '.grid-item',
+			})
+		}, 1000)
+	</script>
 
 </body>
 </html>

@@ -1,318 +1,111 @@
 {% extends '../partials/base.html' %}
-	{% set path = 'products' %}
-	{% set title = 'Arte Manifiesto | Market' %}
-	{% set css = 'market' %}
-	{% set includeJqueryUiCss = true %}
 
-{% block content %}
+{% set path = 'discover-products' %}
 
-	{% include '../partials/category-menu.html' %}
+{% block elements %}
 
+{% set bannerTitle = 'La tienda de los creativos' %}
+{% set bannerImg = 'works.jpg' %}
+{% include '../partials/banner.html' %}
 
-	<!-- ********************************************************************
-		$ SECTION TITLE
-	********************************************************************* -->
-	<section class="section-title">
-		<span class="section-title-text">Productos</span>
-	</section>
-	
-
-	<!-- ********************************************************************
-		$ NAVIGATION
-	********************************************************************* -->
-	<section class="navigation">
-		<span class="navigation-text">Username</span>&nbsp; <i class="fa fa-angle-right"></i>&nbsp; <span class="navigation-text"></span>
-	</section>
-
-
-	<!-- ********************************************************************
-		$ NAVIGATION
-	********************************************************************* -->
-	<section class="navigation">
-		<span class="navigation-text">Productos</span>
-	</section>
-
-
-	<!-- ********************************************************************
-		$ FILTERS MENU
-	********************************************************************* -->
-	<section class="filters-menu">
-		<div class="filters-menu__search">
-			<div class="search">
-				<i class="fa fa-search"></i>
-				<input class="js-searcher" type="text" placeholder="Busca Productos por Nombre">
-			</div>
-			<ul class="search-options js-search-options">
-				<li class="search-option" data-search='title'>Buscar Nombre: <span class="search-text"></span></li>
-				<!-- <li class="search-option" data-search='tag'>Buscar Tag: <span class="search-text"></span></li> -->
-			</ul>
-		</div>
-		<div class="filters-menu__category js-leftFiltersButton">
-			<button class="button-filter js-leftFiltersButton"><i class="fa fa-caret-left"></i> &nbsp; Categorías</button>
-		</div>
-		<div class="filters-menu__order js-rightFiltersButton">
-			<button class="button-filter js-rightFiltersButton">Ordenar &nbsp; <i class="fa fa-caret-right"></i></button>
-		</div>
-	</section>
-
-
-	<!-- ********************************************************************
-		$ WORKS CONTAINER
-	********************************************************************* -->
-	<div class="works-container">
-		<div class="works-container__filters left js-leftFilters">
-			<div class="filters">
-				<div class="filters__title">Featured</div>
-				<div class="filters__fueatured">
-					<input name="question" type="checkbox" id="question">
-					<label for="question" class="">Recomendados</label>
+<div class="grid-container u-padding-top-20">
+	<div class="grid-100 grid-parent">
+		<div class="discover-menu">
+			<div class="filter left" data-state="open">
+				<div class="am-Select">
+					CATEGORÍAS &nbsp;&nbsp;<i class="fa fa-caret-left"></i>
 				</div>
-			</div>
-			<div class="filters">
-				<div class="filters__title">Categorías</div>
-				{% for category in productTypes %}
-					<div class="filter js-category" data-value="{{ category.nameSlugify }}">{{ category.name }}</div>
-				{% endfor %}
-			</div>
-			<div class="filters">
-				<div class="filters__title">Precio</div>
-
-				<div class="filters__price">
-					<div class="double-range js-price">
-						<div class="double-range__values">
-							<span class="double-range__value js-minPrice">0</span>
-							<span class="double-range__value js-maxPrice">140</span>
+				<div class="left-menu u-padding-top-10">
+					<div class="am-Filter filter-category">
+						<div class="am-Filter-item">
+							<header class="am-Filter-header">
+								<i class="fa fa-bars"></i><p>Ver sólo</p>
+							</header>
 						</div>
-						<div class="double-range__slider">
-							<div id="slider-range"></div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="works-container__filters right js-rightFilters">
-			<div class="filters">
-				<div class="filters__title">Orden</div>
-				<div class="filter js-order" data-value="popularity">Más popular</div>
-				<div class="filter js-order" data-value="views">Más visto</div>
-				<div class="filter js-order" data-value="newest">Más reciente</div>
-				<div class="filter js-order" data-value="price_asc">Menor precio</div>
-				<div class="filter js-order" data-value="price_desc">Mayor precio</div>
-			</div>
-			<div class="filters">
-				<div class="filters__title">Tiempo</div>
-				<div class="filter js-time" data-value="day">Día</div>
-				<div class="filter js-time" data-value="week">Semana</div>
-				<div class="filter js-time" data-value="month">Mes</div>
-				<div class="filter js-time" data-value="year">Año</div>
-			</div>
-		</div>
-		<div class="works-container__works js-works">
-			<!-- ********************************************************************
-				$ PRODUCTS
-			********************************************************************* -->
-			<section class="products">
-				{% for product in products %}
-				<div class="product-wrapper">					
-					<article class="product">
-						<a href="/{{ product.User.username}}/product/{{product.nameSlugify}}" class="product-image">
-							<img src="{{ product.photo }}">
-						</a>
-						<div class="product-info">
-							<div class="title">{{product.name}}</div>
-							<!-- <div class="price">${{product.price}}</div> -->
-						</div>
-						<div class="product-social">
-							<div class="price">S/. {{product.price}}</div>
-							<div class="like">
-								{% if product.liked %}
-									<span class="button-like active"> <i class="fa fa-heart-o"></i> <i class="fa fa-heart"></i> <span>{{product.likes}}</span> </span>
-								{% else %}
-									<span class="button-like"> <i class="fa fa-heart-o"></i> <i class="fa fa-heart"></i> <span>{{product.likes}}</span> </span>
-								{% endif %}
+						<div class="am-Filter-item">
+							<div class="am-Filter-switch">
+								<div class="am-Switch-button" data-state="active">
+									<i class="fa fa-bars"></i>
+								</div>
+								<span>Seleccionado AM</span>
 							</div>
 						</div>
-					</article>
-				</div>
-				{% endfor %}
-			</section>
-
-
-			<div class="loading"><i class="fa fa-spinner"></i></div>
-
-			{% if products.length > 0 %}
-
-				<div class="more">
-					<button class="button-solid js-moreButton" data-color='red'>Ver más</button>
-				</div>
-
-				<div class="empty-result" style="display:none;">
-					<p class="high-text note">No se encontraron resultados,
-						<button>
-							<a href="/products/type/all/page-1/">
-								<strong>Ver todos los productos</strong>
-							</a>
-						</button>
-					</p>
-				</div>
-
-			{% else %}
-
-				<div class="more hide">
-					<button class="button-solid js-moreButton" data-color='red'>Ver más</button>
-				</div>
-
-				<div class="empty-result">
-					<p class="high-text note">No se encontraron resultados,
-						<button>
-							<a href="/products/type/all/page-1/">
-								<strong>Ver todas las obras</strong>
-							</a>
-						</button>
-					</p>
-				</div>
-
-			{% endif %}
-
-		</div>
-	</div>
-
-
-	{% include '../partials/footer.html' %}
-
-
-	<script type="text/template" id="product-template">
-
-		<div class="product-wrapper">					
-			<article class="product">
-				<a href="/<%= User.username %>/product/<%= nameSlugify %>" class="product-image">
-					<img src="<%= photo %>">
-				</a>
-				<div class="product-info">
-					<div class="title"><%= name %></div>
-				</div>
-				<div class="product-social">
-					<div class="price">S/. <%= price %></div>
-					<div class="like">
-
-						<% if (liked) { %>
-							<span class="button-like active"> <i class="fa fa-heart-o"></i> <i class="fa fa-heart"></i> <span><%= likes %></span> </span>
-						<% } else { %>
-							<span class="button-like"> <i class="fa fa-heart-o"></i> <i class="fa fa-heart"></i> <span><%= likes %></span> </span>
-						<% } %>
-
+						<div class="am-Filter-item">
+							<header class="am-Filter-header">
+								<i class="fa fa-bars"></i><p>Categorías</p>
+							</header>
+						</div>
 					</div>
 				</div>
-
-			</article>
+			</div>
+			<div class="text">
+				<p class="am-navigation-text uppercase">{{data.filters.currentCategory}}</p>
+			</div>
+			<div class="filter right" data-state="closed">
+				<div class="am-Select">
+					ORDENAR &nbsp;&nbsp;<i class="fa fa-caret-down"></i>
+				</div>
+				<div class="right-menu u-padding-top-10">
+					<div class="am-Filter filter-order">
+					</div>
+				</div>
+			</div>
 		</div>
-	</script>
+	</div>
+</div>
 
-	<script>
-
-		var pagination = {{ pagination|json|safe }};
-		console.log('pagination: ', pagination)
-
-		var user = {{ user|json|safe }};
-		console.log('user: ', user)
-
-		var products = {{ products|json|safe }};
-		console.log('products: ', products)
-
-		var productTypes = {{ productTypes|json|safe }};
-		console.log('productTypes: ', productTypes)
-
-		var url = {{ url|json|safe }};
-		console.log('url: ', url)
-
-	</script>
-
-	<script src="/js/vendor/jquery.min.js"></script>
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-	<script src="/js/vendor/jquery.ui.touch-punch.min.js"></script>
-
-	<script src="/js/vendor/salvattore.js"></script>
-	<script src="/js/vendor/underscore-min.js"></script>
-
-	<script src="/js/lib/login.js"></script>
-	<script src="/js/lib/filters.js"></script>
-
-	<script src="/js/lib/product.js"></script>
-	<script src="/js/lib/products.js"></script>
-	<script src="/js/lib/category-menu.js"></script>
-
-	<script src="/js/market.js"></script>
-
-	<script>
-        // $(document).on("click", ".featured", function (event) {
-        //     var scope = $(this);
-        //     $.ajax({
-        //         type: "POST",
-        //         url: "/user/work/featured/",
-        //         data: {idWork: scope.attr('id')},
-        //         success: function (data) {
-        //             if (data.code == 202) {
-								// 				// scope.html('<i class="fa fa-star"></i>&nbsp;Recomendado');
-								// 				scope.removeClass('featured').addClass('unfeatured').removeClass('disabled');
-        //             }
-        //             console.log(data);
-        //         }
-        //     });
-        //     return false;
-        // });
-        // $(document).on("click", ".unfeatured", function (event) {
-        //     var scope = $(this);
-        //     $.ajax({
-        //         type: "POST",
-        //         url: "/user/work/unfeatured/",
-        //         data: {idWork: scope.attr('id')},
-        //         success: function (data) {
-        //             if (data.code == 202) {
-								// 				// scope.html('<i class="fa fa-star"></i>&nbsp;Recomendar');
-								// 				scope.removeClass('unfeatured').addClass('featured').addClass('disabled');
-        //             }
-        //             console.log(data);
-        //         }
-        //     });
-        //     return false;
-        // });
-	</script>
+<div class="discover-content grid-container u-padding-top-10 u-padding-bottom-40" data-state="expand">
+	<div class="grid-100 grid-parent">
+		<div class="grid work-layout-discover">
+			<div class="grid-sizer"></div>
+		</div>
+	</div>
+	<div class="grid-100 u-margin-top-10">
+		<!-- <ul class="am-Pagination" style="text-align:right;">
+		</ul> -->
+	</div>
+</div>
 
 {% endblock %}
 
-<!-- 	// localhost:3000/username(del dueno de la obra)/product/nameSlugify(de la obra)
-	
-	//	localhost:3000/username(logeado)/product/like
-	//	localhost:3000/username(logeado)/product/unlike
+{% block scripts %}
+<script>
+	$(document).ready(function() {
+		new APP.DiscoverScreen('product', $('.grid'), 'pagination', {{data|json|safe}});
 
-	//	localhost:3000/username(logeado)/product/featured
-	//	localhost:3000/username(logeado)/product/unfeatured -->
+		var filterRight = $('.filter.right')
+		var rightSelect = $('.filter.right .am-Select')
 
-							<!-- <div class="wish-list">
-								<span class="button-wish-list"> <i class="fa fa-square-o"></i> 500 </span>
-							</div> -->
+		$(rightSelect).click(function () {
+			var state = filterRight.attr('data-state')
+			if(state == 'closed') filterRight.attr('data-state', 'open')
+			else filterRight.attr('data-state', 'closed')
+		})
 
-													<!-- <div class="product__featured">
-							{% if user %}
-								
-								{% if product.featured %}
-									<span id="{{ product.id }}" class="button-featured admin unfeatured" data-size='small'>
-										<div class="button-featured__inner"><i class="fa fa-star"></i></div>
-									</span>
-								{% else %}
-									<span id="{{ product.id }}" class="button-featured admin disabled featured" data-size='small'>
-										<div class="button-featured__inner"><i class="fa fa-star"></i></div>
-									</span>
-								{% endif %}
+		var filterLeft = $('.filter.left')
+		var leftSelect = $('.filter.left .am-Select')
+		var discoverContent = $('.discover-content')
 
+		$(leftSelect).click(function () {
+			var state = filterLeft.attr('data-state')
+			if(state == 'closed') {
+				filterLeft.attr('data-state', 'open')
+				discoverContent.attr('data-state', 'expand')
+			}
+			else{
+				filterLeft.attr('data-state', 'closed')
+				discoverContent.attr('data-state', 'reduce')
+			}
+		})
 
-							{% else %}
+		var switchButton = $('.am-Switch-button')
+		$(switchButton).click(function () {
+			var state = switchButton.attr('data-state')
+			console.log('state: ', state)
+			if(state == "active") switchButton.attr('data-state', 'inactive')
+			else switchButton.attr('data-state', 'active')
+		})
+	});
+</script>
 
-								{% if product.featured %}
-									<span id="{{ product.id }}" class="button-featured" data-size='small'>
-										<div class="button-featured__inner"><i class="fa fa-star"></i></div>
-									</span>
-								{% endif %}
-
-							{% endif %}
-						</div> -->
+{% endblock %}
