@@ -10,7 +10,7 @@ var nib = require('nib');
 var nodemon = require('gulp-nodemon');
 
 var paths = {
-    jsDir: './app/javascript/**/*.js',
+    jsDir: './app/scripts/**/*.js',
     stylesDir: './app/styles/**/*.styl',
     publicDir: './public/'
 };
@@ -20,11 +20,11 @@ gulp.task('development', ['watch'], function(){
 });
 
 gulp.task('watch', function () {
-    gulp.watch(paths.jsDir, ['javascript']);
+    gulp.watch(paths.jsDir, ['scripts']);
     gulp.watch(paths.stylesDir, ['styles']);
 });
 
-gulp.task('javascript', function () {
+gulp.task('scripts', function () {
     return gulp.src(paths.jsDir)
         //.pipe(uglify({compress: true}))
         .pipe(concat('app.min.js'))
