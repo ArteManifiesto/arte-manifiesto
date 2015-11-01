@@ -1,6 +1,10 @@
 var isProduction = process.env.NODE_ENV == 'production';
+var cloudinary = require('cloudinary').v2;
+process.env.CLOUDINARY_URL = 'cloudinary://337494525976864:RQ2MXJev18AjVuf-mSNzdmu2Jsc@hackdudes'
+cloudinary.config();
 
 exports.isLogged = function (req, res, next) {
+  console.log('isAuthenticated : ' , req.isAuthenticated());
     if (!req.isAuthenticated()) {
         if (req.xhr)
             return res.badRequest('Necesitas iniciar sesión antes de continuar');
@@ -12,6 +16,7 @@ exports.isLogged = function (req, res, next) {
 };
 
 exports.isOwner = function (req, res, next) {
+  console.log('owner : ' , req.owner);
     if (!req.owner) {
         if (req.xhr)
             return res.badRequest('Necesitas ser el propietario');
@@ -149,10 +154,13 @@ exports.check = function (req, res, next) {
     if (!req.user.verified)
         return res.render('pages/confirm-email');
 
-    if (!req.user.filled) {
+    if (!req.user.filled && req.method === 'GET') {
         return global.db.Category.findAll().then(function (categories) {
+            var cloudinary_cors = "http://" + req.headers.host + "/cloudinary_cors.html";
             return res.render('pages/complete-profile', {
-                categories: categories
+                categories: categories,
+                cloudinary_cors: cloudinary_cors,
+                cloudinary: cloudinary
             });
         });
     }

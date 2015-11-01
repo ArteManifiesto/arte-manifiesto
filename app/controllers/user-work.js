@@ -4,8 +4,7 @@ cloudinary.config();
 
 var basePath = 'user/work/';
 
-exports.index = function (req, res) {
-    //req.work.views += 1;
+exports.index = function (currentPath, req, res) {
     var promises = [
         req.work.save(),
         req.work.userLikes(),
@@ -19,6 +18,7 @@ exports.index = function (req, res) {
         }
         global.db.Work.find(query).then(function(work) {
           return res.render(basePath + 'index', {
+              currentPath: currentPath,
               work: work, userLikes: result[1],
               more: result[2], similar: result[3],
               products: result[4]

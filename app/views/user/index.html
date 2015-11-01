@@ -4,18 +4,21 @@
 
 {% block elements %}
 	<div class="am-Profile-banner" style="background-image: url('http://127.0.0.1:3000/img/banners/am_cover.jpg')">
-		<i class="fa fa-pencil-square-o"></i>
+		{% if owner %}
+			<i class="fa fa-pencil-square-o"></i>
+		{% endif %}
 		<div class="grid-container">
 			<div class="grid-100">
 				<div class="am-Profile-avatar">
 					<div class="img">
 						<img src="{{profile.photo}}">
-						<i class="fa fa-pencil-square-o"></i>
 					</div>
 					<div>
 						<p class="name">{{profile.firstname}}</p>
 						<p class="city">{{profile.city}}, {{profile.country}}</p>
+						{% if !owner %}
 						<button class="am-Follow-button">+ Seguir</button>
+						{% endif %}
 					</div>
 				</div>
 			</div>
@@ -27,31 +30,31 @@
 				<div class="user-carousel">
 					<div class="am-Profile-menu">
 						<div class="am-Profile-menu-item portfolio">
-							<a href='{{profile.url}}/'>
+							<a href='/user/{{profile.username}}'>
 								<p>PORTAFOLIO</p>
 								<p>{{data[0]}}</p>
 							</a>
 						</div>
 						<div class="am-Profile-menu-item store">
-							<a href='{{profile.url}}/store'>
+							<a href='/user/{{profile.username}}/store'>
 								<p>TIENDA</p>
 								<p>{{data[1]}}</p>
 							</a>
 						</div>
 						<div class="am-Profile-menu-item collections">
-							<a href='{{profile.url}}/collections'>
+							<a href='/user/{{profile.username}}/collections'>
 								<p>COLECCIONES</p>
 								<p>{{data[2]}}</p>
 							</a>
 						</div>
 						<div class="am-Profile-menu-item followings">
-							<a href='{{profile.url}}/followings'>
+							<a href='/user/{{profile.username}}/followings'>
 								<p>SIGUIENDO</p>
 								<p>{{data[3]}}</p>
 							</a>
 						</div>
 						<div class="am-Profile-menu-item followers">
-							<a href='{{profile.url}}/followers'>
+							<a href='/user/{{profile.username}}/followers'>
 								<p>SEGUIDORES</p>
 								<p>{{data[4]}}</p>
 							</a>

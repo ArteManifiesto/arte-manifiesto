@@ -9,16 +9,9 @@
 				<div class="separator">
 					<span class="line"></span><span class="text">IMAGEN DE LA OBRA</span><span class="line"></span>
 				</div>
-				<div style="position:relative;">
-					<button class="button upload u-margin-top-30 upload_button">BUSCAR ARCHIVO</button>
-					{{cloudinary.uploader.image_upload_tag('photo', { callback: cloudinary_cors, return_delete_token: true })}}
+				<div class="image-uploader" style="position:relative;">
+					{{cloudinary.uploader.image_upload_tag('photo', { callback: cloudinary_cors, return_delete_token: true})}}
 				</div>
-				<div class="preload"><i class="fa fa-spinner"></i></div>
-				<div class="form_line">
-	      	<div class="form_controls">
-	        	<div class="preview"></div>
-	      	</div>
-    		</div>
 				<div class="separator">
 					<span class="line"></span><span class="text">DATOS DE LA OBRA</span><span class="line"></span>
 				</div>
@@ -42,239 +35,191 @@
 
 			<div class="grid-100 mobile-grid-100">
 				<p class="title">Tags de la obra</p>
-					<input name='tags' class="input tags" type="text"/>
-				</p>
-				<div class="separator">
-					<span class="line"></span><span class="text">CARACTERÍSTICAS</span><span class="line"></span>
-				</div>
-				<div class="switch u-margin-top-10">
-					<p class="title">Público</p>
-					<span class="value">On</span>
-					<div class="am-Switch-button">
-						<i class="fa fa-bars"></i>
-					</div>
-				</div>
-				<button class="button u-margin-top-30" data-color="blue">SUBIR OBRA</button>
-			</div>
-		</form>
-	</div>
-	<div class="am-upload-work-box grid-container u-margin-top-20">
-		<div class="grid-100">
-			<p class="main-title">TU OBRA SE HA PUBLICÓ CON ÉXITO</p>
-			<div class="u-separator"></div>
-			<div class="work-collection-card u-margin-top-40">
-				<div class="work-collection-card-img">
-					<img src="/img/works/work9.jpg">
-				</div>
-				<div class="work-collection-card-data">
-					<p class="work-collection-card-title">OUR LEGACY SPLASH MID SLEEVE AND I WILL NOT SLEEP</p>
-					<p class="work-collection-card-artist">Sergio Gonzales Mucho</p>
-				</div>
-			</div>
-			<div class="separator u-margin-top-20">
-				<span class="line"></span><span class="text">¿QUE QUIERES HACER AHORA?</span><span class="line"></span>
-			</div>
-		</div>
-			<div class="u-padding-top-20" style="oferoverflow: hidden;">
-				<div class="grid-50">
-					<button class="button inline upload u-margin-top-30 upload_button">
-						<i class="bi_interface-view"></i>&nbsp;&nbsp;&nbsp;VER OBRA
-					</button>
-				</div>
-				<div class="grid-50">
-					<button class="button inline upload u-margin-top-30 upload_button" data-color="green">
-						<i class="bi_ecommerce-market"></i>&nbsp;&nbsp;&nbsp;VENDER OBRA
-					</button>
-				</div>
-				<div class="grid-50 suffix-50">
-					<button class="button inline upload u-margin-top-30 upload_button">
-						<i class="bi_interface-cloud-upload"></i>&nbsp;&nbsp;&nbsp;SUBIR OTRA OBRA
-					</button>
-				</div>
-				<div class="grid-50">
-					<button class="button inline upload u-margin-top-30 upload_button">
-						<i class="bi_editorial-compose"></i>&nbsp;&nbsp;&nbsp;EDITAR OBRA
-					</button>
-				</div>
-				<div class="grid-50">
-					<button class="button inline upload u-margin-top-30 upload_button" data-color="red">
-						<i class="bi_editorial-trash-l"></i>&nbsp;&nbsp;&nbsp;ELIMINAR OBRA
-					</button>
-				</div>
-			</div>
-	</div>
-
-	<div class="am-upload-work-box grid-container u-margin-top-20">
-		<div class="grid-100">
-			<p class="main-title"><i class="bi_ecommerce-shop"></i>&nbsp;&nbsp;VENDE TU TRABAJO</p>
-			<div class="u-separator"></div>
-			<div class="work-collection-card u-margin-top-40">
-				<div class="work-collection-card-img">
-					<img src="/img/works/work9.jpg">
-				</div>
-				<div class="work-collection-card-data">
-					<p class="work-collection-card-title">OUR LEGACY SPLASH MID SLEEVE AND I WILL NOT SLEEP</p>
-					<p class="work-collection-card-artist">Sergio Gonzales Mucho</p>
-				</div>
-			</div>
-		</div>
-
-		<div class="grid-100">
-			<div class="separator u-margin-top-20">
-				<span class="line"></span><span class="text">VENDER ARTE ORIGINAL</span><span class="line"></span>
-			</div>
-		</div>
-
-		<div class="grid-50 sufix-50">
-			<p class="title">Elige la moneda</p>
-			<select class="input select" name='categoryId'>
-				<option value="">Nuevos Soles (PEN)</option>
-				<option value="">Nuevos Soles (PEN)</option>
-				<option value="">Nuevos Soles (PEN)</option>
-			</select>
-		</div>
-
-		<div class="grid-100">
-			<p class="title">Ingresa tu ganancia</p>
-			<div class="operators">
-				<div class="box">
-					<div class="input container">
-						<textarea rows="3" placeholder="cuanto deseas ganar"></textarea>
-					</div>
-				</div>
-				<div class="simbol">+</div>
-				<div class="box">
-					<p>Ganamos si tu ganas (30%)</p>
-				</div>
-				<div class="simbol">=</div>
-				<div class="box">
-					<input class="input" placeholder="Total">
-				</div>
-			</div>
-			<div class="operators-desc u-margin-top-10">
-				<p>GANANCIA DEL ARTISTA</p>
-				<p>COMISIÓN ARTE MANIFIESTO</p>
-				<p>PRECIO DE LISTA OBRA</p>
-			</div>
-		</div>
-
-		<div class="grid-100 u-margin-top-20">
+				<input name='tags' class="input tags" type="text"/>
+			</p>
 			<div class="separator">
-				<span class="line"></span><span class="text">DATOS DEL ENVÍO</span><span class="line"></span>
+				<span class="line"></span><span class="text">CARACTERÍSTICAS</span><span class="line"></span>
+			</div>
+			<div class="switch u-margin-top-10">
+				<p class="title">Público</p>
+				<span class="value">On</span>
+				<div class="am-Switch-button">
+					<i class="fa fa-bars"></i>
+				</div>
+			</div>
+			<button class="button u-margin-top-30" data-color="blue">SUBIR OBRA</button>
+		</div>
+	</form>
+</div>
+<div class="am-upload-work-box grid-container u-margin-top-20">
+	<div class="grid-100">
+		<p class="main-title">TU OBRA SE HA PUBLICÓ CON ÉXITO</p>
+		<div class="u-separator"></div>
+		<div class="work-collection-card u-margin-top-40">
+			<div class="work-collection-card-img">
+				<img src="/img/works/work9.jpg">
+			</div>
+			<div class="work-collection-card-data">
+				<p class="work-collection-card-title">OUR LEGACY SPLASH MID SLEEVE AND I WILL NOT SLEEP</p>
+				<p class="work-collection-card-artist">Sergio Gonzales Mucho</p>
 			</div>
 		</div>
-
-		<div class="grid-100">
-			<p class="sub-title">Ingresa datos exactos para hacer un mejor cálculo del envío y el manejo de la obra, incluyendo el peso del empaque</p>
-		</div>
-
-		<div class="grid-50 mobile-grid-100">
-			<p class="title">Ancho</p>
-			<input name='name' class="input" type="text" placeholder="Ingresa en cm"/>
-		</div>
-		<div class="grid-50 mobile-grid-100">
-			<p class="title">Largo</p>
-			<input name='name' class="input" type="text" placeholder="Ingresa en cm"/>
-		</div>
-		<div class="grid-50 mobile-grid-100">
-			<p class="title">Profundidad</p>
-			<input name='name' class="input" type="text" placeholder="Ingresa en cm"/>
-		</div>
-		<div class="grid-50 mobile-grid-100">
-			<p class="title">Peso</p>
-			<input name='name' class="input" type="text" placeholder="Cuantos kilos pesa"/>
+		<div class="separator u-margin-top-20">
+			<span class="line"></span><span class="text">¿QUE QUIERES HACER AHORA?</span><span class="line"></span>
 		</div>
 	</div>
+	<div class="u-padding-top-20" style="oferoverflow: hidden;">
+		<div class="grid-50">
+			<button class="button inline upload u-margin-top-30 upload_button">
+				<i class="bi_interface-view"></i>&nbsp;&nbsp;&nbsp;VER OBRA
+			</button>
+		</div>
+		<div class="grid-50">
+			<button class="button inline upload u-margin-top-30 upload_button" data-color="green">
+				<i class="bi_ecommerce-market"></i>&nbsp;&nbsp;&nbsp;VENDER OBRA
+			</button>
+		</div>
+		<div class="grid-50 suffix-50">
+			<button class="button inline upload u-margin-top-30 upload_button">
+				<i class="bi_interface-cloud-upload"></i>&nbsp;&nbsp;&nbsp;SUBIR OTRA OBRA
+			</button>
+		</div>
+		<div class="grid-50">
+			<button class="button inline upload u-margin-top-30 upload_button">
+				<i class="bi_editorial-compose"></i>&nbsp;&nbsp;&nbsp;EDITAR OBRA
+			</button>
+		</div>
+		<div class="grid-50">
+			<button class="button inline upload u-margin-top-30 upload_button" data-color="red">
+				<i class="bi_editorial-trash-l"></i>&nbsp;&nbsp;&nbsp;ELIMINAR OBRA
+			</button>
+		</div>
+	</div>
+</div>
+
+<div class="am-upload-work-box grid-container u-margin-top-20">
+	<div class="grid-100">
+		<p class="main-title"><i class="bi_ecommerce-shop"></i>&nbsp;&nbsp;VENDE TU TRABAJO</p>
+		<div class="u-separator"></div>
+		<div class="work-collection-card u-margin-top-40">
+			<div class="work-collection-card-img">
+				<img src="/img/works/work9.jpg">
+			</div>
+			<div class="work-collection-card-data">
+				<p class="work-collection-card-title">OUR LEGACY SPLASH MID SLEEVE AND I WILL NOT SLEEP</p>
+				<p class="work-collection-card-artist">Sergio Gonzales Mucho</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="grid-100">
+		<div class="separator u-margin-top-20">
+			<span class="line"></span><span class="text">VENDER ARTE ORIGINAL</span><span class="line"></span>
+		</div>
+	</div>
+
+	<div class="grid-50 sufix-50">
+		<p class="title">Elige la moneda</p>
+		<select class="input select" name='categoryId'>
+			<option value="">Nuevos Soles (PEN)</option>
+			<option value="">Nuevos Soles (PEN)</option>
+			<option value="">Nuevos Soles (PEN)</option>
+		</select>
+	</div>
+
+	<div class="grid-100">
+		<p class="title">Ingresa tu ganancia</p>
+		<div class="operators">
+			<div class="box">
+				<div class="input container">
+					<textarea rows="3" placeholder="cuanto deseas ganar"></textarea>
+				</div>
+			</div>
+			<div class="simbol">+</div>
+			<div class="box">
+				<p>Ganamos si tu ganas (30%)</p>
+			</div>
+			<div class="simbol">=</div>
+			<div class="box">
+				<input class="input" placeholder="Total">
+			</div>
+		</div>
+		<div class="operators-desc u-margin-top-10">
+			<p>GANANCIA DEL ARTISTA</p>
+			<p>COMISIÓN ARTE MANIFIESTO</p>
+			<p>PRECIO DE LISTA OBRA</p>
+		</div>
+	</div>
+
+	<div class="grid-100 u-margin-top-20">
+		<div class="separator">
+			<span class="line"></span><span class="text">DATOS DEL ENVÍO</span><span class="line"></span>
+		</div>
+	</div>
+
+	<div class="grid-100">
+		<p class="sub-title">Ingresa datos exactos para hacer un mejor cálculo del envío y el manejo de la obra, incluyendo el peso del empaque</p>
+	</div>
+
+	<div class="grid-50 mobile-grid-100">
+		<p class="title">Ancho</p>
+		<input name='name' class="input" type="text" placeholder="Ingresa en cm"/>
+	</div>
+	<div class="grid-50 mobile-grid-100">
+		<p class="title">Largo</p>
+		<input name='name' class="input" type="text" placeholder="Ingresa en cm"/>
+	</div>
+	<div class="grid-50 mobile-grid-100">
+		<p class="title">Profundidad</p>
+		<input name='name' class="input" type="text" placeholder="Ingresa en cm"/>
+	</div>
+	<div class="grid-50 mobile-grid-100">
+		<p class="title">Peso</p>
+		<input name='name' class="input" type="text" placeholder="Cuantos kilos pesa"/>
+	</div>
+</div>
 </div>
 {% endblock %}
 
 {{ cloudinary.config() }}
 
 {% block scripts %}
-	<script src='/jquery.tagsinput.js' type='text/javascript'></script>
-	<script src='/jquery.ui.widget.js' type='text/javascript'></script>
-  <script src='/jquery.iframe-transport.js' type='text/javascript'></script>
-  <script src='/jquery.fileupload.js' type='text/javascript'></script>
-  <script src='/jquery.cloudinary.js' type='text/javascript'></script>
-	<script>
+<script src='/jquery.tagsinput.js' type='text/javascript'></script>
+<script src='/jquery.ui.widget.js' type='text/javascript'></script>
+<script src='/jquery.iframe-transport.js' type='text/javascript'></script>
+<script src='/jquery.fileupload.js' type='text/javascript'></script>
+<script src='/jquery.cloudinary.js' type='text/javascript'></script>
+<script>
 
-	$(document).ready(function() {
+$(document).ready(function() {
+	var uploaderImage = new APP.UploaderImage({template:'avatarImage'});
+	$('.image-uploader').append(uploaderImage.view);
 
-		var imagelel;
-		$('.tags').tagsInput({
-		   height:'50px',
-		   width:'100%',
-		   defaultText:'+ Etiqueta'
-		});
-		$('.add-work').submit(function(event){
-			event.preventDefault();
-			var formData = {
-					 photo              : imagelel,
-					 name             : $('input[name=name]').val(),
-					 categories    : [parseInt($('select[name=categoryId]').val(),10)],
-					 tags             : $('input[name=tags]').val().split(','),
-					 description             : $('textarea[name=description]').val(),
-					 public:1
-			 };
-
-			 Utils.getData({
-				 url:DataApp.currentUser.url + '/work/create',
-				 data: {data:JSON.stringify(formData)}
-			 }).then(function(response){
-				 if(response.status === 200) {
-					 location.href = DataApp.currentUser.url
-				 }
-			 });
-		});
-
-		$.cloudinary.config({"api_key":"337494525976864","cloud_name":"hackdudes","private_cdn":false});
-
-	$(".cloudinary-fileupload")
-	.fileupload({
-		dropZone: "#direct_upload",
-		start: function (e) {
-			$(".status").text("Starting upload...");
-		},
-		progress: function (e, data) {
-			$(".status").text("Uploading... " + Math.round((data.loaded * 100.0) / data.total) + "%");
-		},
-		fail: function (e, data) {
-			$(".status").text("Upload failed");
-		}
-	})
-	.off("cloudinarydone").on("cloudinarydone", function (e, data) {
-		console.log(data.result);
-		imagelel = data.result.secure_url;
-		$(".status").text("");
-		var preview = $(".preview").html('');
-		$.cloudinary.image(data.result.public_id, {
-			format: data.result.format, width: 500, height: 400, crop: "fit"
-		}).appendTo(preview);
-
-		$('.upload_button').hide();
-		$('.cloudinary-fileupload').hide();
-		$('<a>').
-			addClass('delete_by_token').
-			attr({href: '#'}).
-			data({delete_token: data.result.delete_token}).
-			html('&times;').
-			appendTo(preview).
-			click(function(e) {
-			e.preventDefault();
-			$.cloudinary.delete_by_token($(this).data('delete_token')).done(function(){
-				$('.preview').html('');
-				$('#info').html('');
-				$("#photo_bytes").val('');
-				$('input[name="photo[image]"]').remove();
-
-
-						$('.upload_button').show();
-						$('.cloudinary-fileupload').show();
-			}).fail(function() {
-				$('.status').text("Cannot delete image");
-			});
+	$('.tags').tagsInput({
+		height:'50px',
+		width:'100%',
+		defaultText:'+ Etiqueta'
+	});
+	$('.add-work').submit(function(event){
+		event.preventDefault();
+		var formData = {
+			photo              : uploaderImage.photo,
+			name             : $('input[name=name]').val(),
+			categories    : [parseInt($('select[name=categoryId]').val(),10)],
+			tags             : $('input[name=tags]').val().split(','),
+			description             : $('textarea[name=description]').val(),
+			public: 1
+		};
+		$.ajax({
+			method: 'POST',
+			url: DataApp.currentUser.url + '/work/create',
+			data: {data: JSON.stringify(formData)}
+		}).then(function(response) {
+			if(response.status === 200) {
+				location.href = DataApp.currentUser.url
+			}
 		});
 	});
 });
-	</script>
+</script>
 {% endblock %}

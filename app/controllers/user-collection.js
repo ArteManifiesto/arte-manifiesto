@@ -1,7 +1,7 @@
 var basePath = 'user/collection/';
 
 exports.index = function (req, res) {
-    var query = {build: true, viewer: req.viewer};
+    var query = {build: true, viewer: req.viewer, addUser:true};
     req.collection.getWorks(query).then(function (works) {
         return res.render(basePath + 'index', {
             collection: req.collection,

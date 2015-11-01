@@ -118,7 +118,7 @@
 				<div class="single-menu">
 					<div class="artist">
 						<div class="FollowArtist">
-							<a href="{{work.User.url}}">
+							<a href="/user/{{work.User.username}}">
 								<img src="{{work.User.photo}}">
 							</a>
 							<div>
@@ -131,18 +131,24 @@
 					<div class="menu">
 						<div class="carousel">
 							<div class="single-tabs">
-								<div class="single-tab" selected="true">
-									<p>+ OBRAS</p>
-									<i class="fa fa-cube"></i>
-								</div>
-								<div class="single-tab">
-									<p>REVIEWS</p>
-									<span>25</span>
-								</div>
-								<div class="single-tab">
-									<p>TAGS</p>
-									<i class="fa fa-align-left"></i>
-								</div>
+								<a href="/user/{{work.User.username}}/work/{{work.nameSlugify}}">
+									<div class="single-tab index">
+										<p>+ OBRAS</p>
+										<i class="fa fa-cube"></i>
+									</div>
+								</a>
+								<a href="/user/{{work.User.username}}/work/{{work.nameSlugify}}/reviews">
+									<div class="single-tab reviews">
+										<p>REVIEWS</p>
+										<span>25</span>
+									</div>
+								</a>
+								<a href="/user/{{work.User.username}}/work/{{work.nameSlugify}}/tags">
+									<div class="single-tab tags">
+										<p>TAGS</p>
+										<i class="fa fa-align-left"></i>
+									</div>
+								</a>
 							</div>
 						</div>
 					</div>
@@ -155,6 +161,7 @@
 	<!-- ********************************************************************
 		$ TAGS
 	********************************************************************* -->
+	{% if currentPath == 'tags' %}
 	<div class="grid-container">
 		<div class="grid-100">
 			<div class="tags-container">
@@ -182,45 +189,43 @@
 			</div>
 		</div>
 	</div>
+	{% endif %}
 
-	<!-- ********************************************************************
-		$ MORE
-	********************************************************************* -->
-	<div class="u-separator"></div>
-
-	<div class="grid-container u-margin-top-60">
-		<div class="grid-100">
-			<p class="am-more-text u-text-center u-padding-bottom-10">Otras obras del artista</p>
-			<div class="u-separator-center"></div>
+	{% if currentPath == 'index' %}
+		<div class="grid-container u-margin-top-60">
+			<div class="grid-100">
+				<p class="am-more-text u-text-center u-padding-bottom-10">Otras obras del artista</p>
+				<div class="u-separator-center"></div>
+			</div>
 		</div>
-	</div>
 
-	<div class="grid-container">
-		<div class="grid-100">
-			<div class="more-carousel">
-				<div class="more-images more">
+		<div class="grid-container">
+			<div class="grid-100">
+				<div class="more-carousel">
+					<div class="more-images more">
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="u-separator u-margin-top-60"></div>
+		<div class="u-separator u-margin-top-60"></div>
 
-	<div class="grid-container u-margin-top-60">
-		<div class="grid-100">
-			<p class="am-more-text u-text-center u-padding-bottom-10">Obras relacionadas</p>
-			<div class="u-separator-center"></div>
+		<div class="grid-container u-margin-top-60">
+			<div class="grid-100">
+				<p class="am-more-text u-text-center u-padding-bottom-10">Obras relacionadas</p>
+				<div class="u-separator-center"></div>
+			</div>
 		</div>
-	</div>
 
-	<div class="grid-container">
-		<div class="grid-100">
-			<div class="more-carousel">
-				<div class="more-images similar">
+		<div class="grid-container">
+			<div class="grid-100">
+				<div class="more-carousel">
+					<div class="more-images similar">
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	{% endif %}
 
 {% include '../../partials/report.html' %}
 
@@ -238,51 +243,3 @@
 	});
 	</script>
 {% endblock %}
-
-
-						<!-- <div class="actions-box">
-							<button class="color-blue bg-gray">AÑADIR A LA COLECCIÓN</button>
-							<button class="u-margin-top-10">+ SEGUIR</button>
-							<button class="following u-margin-top-10">
-								<i class="fa fa-check-circle"></i>&nbsp;SIGUIENDO
-							</button>
-						</div> -->
-						<!-- <div class="actions-box u-margin-top-20">
-							<button class="color-blue bg-gray">AÑADIR A LA COLECCIÓN</button>
-							<button class="color-black bg-gray u-margin-top-10"><i class="fa fa-check-circle"></i>&nbsp;SIGUIENDO</button>
-						</div> -->
-						<!-- <div class="actions-box u-margin-top-20">
-							<p class="title">Añadir a las colecciones</p>
-							<div class="u-separator u-margin-top-7"></div>
-							<input class="u-margin-top-10" type="text" placeholder="Crear una colección nueva">
-							<button class="u-margin-top-10 color-black bg-gray wd-auto">AÑADIR</button>
-							<ul class="collections u-margin-top-20">
-								<li class="collection selected">
-									<p>Amazonía Pura</p><i class="fa fa-check"></i>
-								</li>
-								<li class="collection">
-									<p>Mis obras favoritas</p><i class="fa fa-check"></i>
-								</li>
-								<li class="collection">
-									<p>Amazonía Pura</p><i class="fa fa-check"></i>
-								</li>
-								<li class="collection">
-									<p>Mis obras favoritas</p><i class="fa fa-check"></i>
-								</li>
-							</ul>
-							<div class="u-separator u-margin-top-20"></div>
-							<div class="buttons u-margin-top-20">
-								<button class="wd-auto bg-blue color-white">GUARDAR</button>
-								<button class="wd-auto color-black border-black">SALIR</button>
-							</div>
-						</div> -->
-						<!-- <div class="actions-box u-margin-top-20">
-							<p class="title">Compartir obras</p>
-							<div class="u-separator u-margin-top-7"></div>
-							<div class="share">
-								<i class="fa fa-facebook"></i>Compartir en facebook
-							</div>
-							<div class="share">
-								<i class="fa fa-twitter"></i>Compartir en twitter
-							</div>
-						</div> -->

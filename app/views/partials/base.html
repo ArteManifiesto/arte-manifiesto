@@ -16,6 +16,11 @@
 
 	{% block styles %} {% endblock %}
 	<style>
+
+	.hide {
+		display: none;
+	}
+
 	.cloudinary-fileupload
 {
 	border: none;
@@ -23,7 +28,7 @@
 	filter: alpha(opacity=0);
 	height: 44px;
 	left: 110px;
-	margin: 0;
+	margin: 20px auto;
 	opacity: 0;
 	padding: 0;
 	position: absolute;
@@ -77,6 +82,9 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js"></script>
 	<script>
 		DataApp.currentUser = {{user|json|safe}} || null;
+		if(DataApp.currentUser !== null)
+			DataApp.currentUser.url = '/user/' + DataApp.currentUser.username;
+
     $(document).ready(onReady);
 	 	function onReady() {
 			new APP.AM();
@@ -101,7 +109,9 @@
 	<script type="text/template" id="template-work">
 		<div class="grid-item">
 			<div class="work-card">
-				<img src="<%= addFilter(photo, 'w_160,q_80') %>">
+				<a href="/user/<%=User.username%>/work/<%=nameSlugify%>">
+					<img src="<%= addFilter(photo, 'w_160,q_80') %>">
+				</a>
 			</div>
 		</div>
 	</script>
@@ -111,7 +121,7 @@
 	  	<div class="artist-card">
 				<% if(featured) { %>
 				<% } %>
-				<a href="<%=url%>">
+				<a href="/user/<%=username%>">
 		  		<div class="artist-card-info">
 		  			<img src="<%=photo%>">
 		  			<div>
@@ -155,27 +165,39 @@
 
 	<script type="text/template" id="template-collection">
 		<div class="grid-item">
-			<div class="collection-card">
-				<div class="collection-card-stats">
-					<p><%=description%></p>
-				</div>
-				<div class="collection-card-images">
-					<% _.each(works, function(work) { %>
-						<div class="collection-card-image" style="background-image: url('<%=work.photo%>')"></div>
-					<% }); %>
-				</div>
-				<div class="collection-card-artist">
-					<div>
-						<p>Curado Por:</p>
-						<p><%=User.firstname%></p>
+			<a href='/user/<%=User.username%>/collection/<%=nameSlugify%>'>
+				<div class="collection-card">
+					<div class="collection-card-stats">
+						<p><%=description%></p>
 					</div>
-					<img src="<%=User.photo%>">
+					<div class="collection-card-images">
+						<% _.each(works, function(work) { %>
+							<div class="collection-card-image" style="background-image: url('<%=work.photo%>')"></div>
+						<% }); %>
+					</div>
+					<div class="collection-card-artist">
+						<div>
+							<p>Curado Por:</p>
+							<p><%=User.firstname%></p>
+						</div>
+						<img src="<%=User.photo%>">
+					</div>
 				</div>
-			</div>
+			</a>
 		</div>
 	</script>
 	<script type="text/template" id="template-carrouselItem">
-		<div class="am-MoreImages" style="background-image: url(<%=addFilter(photo, 'w_230,h_230,c_fill,q_80')%>);"></div>
+		<a href='/user/<%=User.username%>/work/<%=nameSlugify%>'>
+			<div class="am-MoreImages" style="background-image: url(<%=addFilter(photo, 'w_230,h_230,c_fill,q_80')%>);"></div>
+		</a>
+	</script>
+
+	<script type="text/template" id="template-avatarImage">
+		<div class="profile-imgage">
+			<div class="preview"></div>
+		</div>
+		<button class="button upload u-margin-top-30">BUSCAR ARCHIVO</button>
+		<div class="preload hide"><i class="fa fa-spinner"></i></div>
 	</script>
 
 	{% block scripts %} {% endblock %}

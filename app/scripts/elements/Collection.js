@@ -13,5 +13,5 @@ APP.Collection.prototype = Object.create(APP.BaseElement.prototype);
 APP.Collection.constructor = APP.Collection;
 
 APP.Collection.prototype.listeners = function () {
-  this.view.click(this.gotoSingle.bind(this));
+  //this.view.click(this.gotoSingle.bind(this));
 };

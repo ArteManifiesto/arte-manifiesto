@@ -35,7 +35,7 @@ var getData = function (req, res, options, query) {
 }
 
 exports.portfolio = function (req, res) {
-    return getData(req, res, {method: 'getWorks', name: 'works'});
+    return getData(req, res, {method: 'getWorks', name: 'works'}, {addUser: true});
 };
 
 exports.store = function (req, res) {
@@ -43,16 +43,16 @@ exports.store = function (req, res) {
 };
 
 exports.likesWorks = function (req, res) {
-    return getData(req, res, {method: 'getWorkLikes', name: 'works'});
+    return getData(req, res, {method: 'getWorkLikes', name: 'works'}, {addUser: true});
 };
 
 exports.likesProducts = function (req, res) {
-    return getData(req, res, {method: 'getProductLikes', name: 'products'});
+    return getData(req, res, {method: 'getProductLikes', name: 'products'}, {addUser: true});
 };
 
 exports.collections = function (req, res) {
     //var query = {where: {meta: 'products'}};
-    return getData(req, res, {method: 'getCollections', name: 'collections'});
+    return getData(req, res, {method: 'getCollections', name: 'collections'}, {addUser: true});
 };
 
 exports.followers = function (req, res) {

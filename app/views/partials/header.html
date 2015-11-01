@@ -29,7 +29,7 @@
 					</li>
 					{% if user %}
 						<li class="am-Header-menu-item upload">
-							<a class="am-Upload-button" href="{{user.url}}/work/add"><i class="fa fa-cloud-upload"></i> SUBIR</a>
+							<a class="am-Upload-button" href="/user/{{user.username}}/work/add"><i class="fa fa-cloud-upload"></i> SUBIR</a>
 						</li>
 						<!-- <li class="am-Header-menu-item" style="padding-left: 22px;">
 							<div class="am-Header-icon">
@@ -46,9 +46,9 @@
 								<div class="am-Avatar">
 									<img src="{{user.photo}}">&nbsp;<i class="fa fa-caret-down"></i>
 									<div class="user-menu">
-										<a href="{{user.url}}" class="user-menu-item">MI PORTAFOLIO</a>
+										<a href="/user/{{user.username}}" class="user-menu-item">MI PORTAFOLIO</a>
 										<div class="u-separator"></div>
-										<a href="{{user.url}}/account" class="user-menu-item">ADMINISTRAR CUENTA</a>
+										<a href="/user/{{user.username}}/account" class="user-menu-item">ADMINISTRAR CUENTA</a>
 										<div class="u-separator"></div>
 										<a href="/auth/logout" class="user-menu-item">SALIR</a>
 									</div>

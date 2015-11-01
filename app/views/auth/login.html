@@ -10,12 +10,12 @@
 			<div class="separator">
 				<span class="line"></span><span class="text">FB SYNC</span><span class="line"></span>
 			</div>
-			<button class="button" data-color="blue">
+			<button class="button fb" data-color="blue">
 				<a href="/auth/facebook">
 					<i class="fa fa-facebook"></i>&nbsp;&nbsp; INGRESAR CON FACEBOOK
 				</a>
 			</button>
-			<button class="button u-margin-top-10" data-color="blue">
+			<button class="button fb-loading u-margin-top-10 hide" data-color="blue">
 				<a href="/auth/facebook"><i class="load fa fa-spinner"></i></a>
 			</button>
 			<div class="separator">
@@ -25,10 +25,10 @@
 			<form class='login-form'>
 				<input name='email' class="input" type="email" placeholder="Correo" required></input>
 				<input name='password' class="input u-margin-top-10" type="password" placeholder="Contraseña" required></input>
-				<button class="button u-margin-top-10" data-color="green">
+				<button class="button submit u-margin-top-10" data-color="green">
 					<a>INGRESAR A MI CUENTA</a>
 				</button>
-				<button class="button u-margin-top-10" data-color="green">
+				<button class="button submit-loading u-margin-top-10 hide" data-color="green">
 					<a><i class="load fa fa-spinner"></i></a>
 				</button>
 			</form>
@@ -43,12 +43,20 @@
 
 {% block scripts %}
 	<script>
-		$(document).ready(function(){
+		$(document).ready(function() {
+			$('.fb').click(function() {
+				$('.fb').hide();
+				$('.fb-loading').show();
+			});
 			$('.login-form').submit(function(event){
 				event.preventDefault();
+				$('.submit').hide();
+				$('.submit-loading').show();
 				$.post('/auth/login', $(this).serialize(), function (response) {
 					if(response.status === 200)
-						location.href = response.data.returnTo
+						return location.href = response.data.returnTo
+						$('.submit').show();
+						$('.submit-loading').hide();
 				});
 			});
 		})

@@ -1,4 +1,5 @@
 var basePath = 'user/account/';
+var moment = require('moment');
 
 exports.index = function (req, res) {
     var promises = [
@@ -17,20 +18,22 @@ exports.index = function (req, res) {
 
 exports.update = function (req, res) {
     console.log(req.body);
-    
-    var specialtiesData = req.body.specialties;
+    req.body.birthday = moment(req.body.birthday, 'DDMMYY');
+    req.body.filled = true;
+    //var specialtiesData = req.body.specialties;
     var interestsData = req.body.interests;
-    
+
     var promises = [
-        global.db.Category.findAll({where: {id: {in: specialtiesData}}}),
+        //global.db.Category.findAll({where: {id: {in: specialtiesData}}}),
         global.db.Category.findAll({where: {id: {in: interestsData}}})
     ];
 
     global.db.Sequelize.Promise.all(promises).then(function (result) {
-        var specialties = result[0], interests = result[1];
+        //var specialties = result[0];
+        var interests = result[0];
         promises = [
             req.user.updateAttributes(req.body),
-            req.user.setSpecialties(specialties),
+            //req.user.setSpecialties(specialties),
             req.user.setInterests(interests)
         ];
 

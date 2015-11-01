@@ -88,6 +88,7 @@ global.discoverGenerator = function (entity, req) {
 global.searchWorks = function (req) {
     var discover = discoverGenerator('Work', req);
     discover.query.where.public = true;
+    discover.query.addUser = true;
     discover.query.order.push([global.db.sequelize.col('id')]);
     return global.getPaginationEntity(discover.options, discover.query);
 };

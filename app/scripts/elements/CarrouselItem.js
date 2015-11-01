@@ -13,5 +13,5 @@ APP.CarrouselItem.prototype = Object.create(APP.BaseElement.prototype);
 APP.CarrouselItem.constructor = APP.CarrouselItem;
 
 APP.CarrouselItem.prototype.listeners = function () {
-  this.view.click(this.gotoSingle.bind(this));
+  //this.view.click(this.gotoSingle.bind(this));
 };

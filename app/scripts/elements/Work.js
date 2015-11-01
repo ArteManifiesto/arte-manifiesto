@@ -11,7 +11,3 @@ APP.Work = function (data) {
 APP.Work.prototype = Object.create(APP.BaseElement.prototype);
 
 APP.Work.constructor = APP.Work;
-
-APP.Work.prototype.listeners = function () {
-  this.view.click(this.gotoSingle.bind(this));
-};
