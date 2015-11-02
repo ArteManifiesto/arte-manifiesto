@@ -1,0 +1,103 @@
+{% extends '../../partials/base.html' %}
+
+{% block elements %}
+<div class="am-upload-work">
+  <div class="am-upload-work-box grid-container u-margin-top-20">
+	<div class="grid-100">
+		<p class="main-title"><i class="bi_ecommerce-shop"></i>&nbsp;&nbsp;VENDE TU TRABAJO</p>
+		<div class="u-separator"></div>
+    <div class="work-collection-card u-margin-top-40">
+      <div class="work-collection-card-img">
+        <img src="{{work.photo|addFilter('w_300,h_350,q_80,c_limit')}}">
+      </div>
+      <div class="work-collection-card-data">
+        <p class="work-collection-card-title">{{work.name}}</p>
+        <p class="work-collection-card-artist">{{work.User.firstname}}</p>
+      </div>
+    </div>
+	</div>
+
+	<div class="grid-100">
+		<div class="separator u-margin-top-20">
+			<span class="line"></span><span class="text">VENDER ARTE ORIGINAL</span><span class="line"></span>
+		</div>
+	</div>
+
+	<div class="grid-50 sufix-50">
+		<p class="title">Elige la moneda</p>
+		<select class="input select" name='currency'>
+			<option value="soles">Nuevos Soles (PEN)</option>
+		</select>
+	</div>
+
+	<div class="grid-100">
+		<p class="title">Ingresa tu ganancia</p>
+		<div class="operators">
+			<div class="box">
+				<div class="input container">
+          <input type='number' name='price' placeholder="cuanto deseas ganar"></input>
+				</div>
+			</div>
+			<div class="simbol">+</div>
+			<div class="box">
+				<p>Ganamos si tu ganas (30%)</p>
+			</div>
+			<div class="simbol">=</div>
+			<div class="box">
+				<input class="input" name='finalPrice' disabled placeholder="Total">
+			</div>
+		</div>
+		<div class="operators-desc u-margin-top-10">
+			<p>GANANCIA DEL ARTISTA</p>
+			<p>COMISIÓN ARTE MANIFIESTO</p>
+			<p>PRECIO DE LISTA OBRA</p>
+		</div>
+	</div>
+
+	<div class="grid-100 u-margin-top-20">
+		<div class="separator">
+			<span class="line"></span><span class="text">DATOS DEL ENVÍO</span><span class="line"></span>
+		</div>
+	</div>
+
+	<div class="grid-100">
+		<p class="sub-title">Ingresa datos exactos para hacer un mejor cálculo del envío y el manejo de la obra, incluyendo el peso del empaque</p>
+	</div>
+
+	<div class="grid-50 mobile-grid-100">
+		<p class="title">Ancho</p>
+		<input name='width' class="input" type="number" placeholder="Ingresa en cm"/>
+	</div>
+	<div class="grid-50 mobile-grid-100">
+		<p class="title">Largo</p>
+		<input name='length' class="input" type="number" placeholder="Ingresa en cm"/>
+	</div>
+	<div class="grid-50 mobile-grid-100">
+		<p class="title">Profundidad</p>
+		<input name='depth' class="input" type="number" placeholder="Ingresa en cm"/>
+	</div>
+	<div class="grid-50 mobile-grid-100">
+		<p class="title">Peso</p>
+		<input name='weight' class="input" type="number" placeholder="Cuantos kilos pesa"/>
+	</div>
+</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(function(){
+  var $price = $('input[name=price]');
+  var $final_price = $('input[name=finalPrice]');
+
+  $price.keyup(function(){
+    var price = parseInt($(this).val(), 10);
+    if(isNaN(price))
+      price = 0;
+
+    var final_price = price + Math.floor(price / 100 * 30);
+    $final_price.val(final_price);
+  });
+});
+</script>
+{% endblock %}

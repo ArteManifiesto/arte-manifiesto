@@ -71,6 +71,28 @@ exports.edit = function (req, res) {
     return res.render(basePath + 'edit');
 };
 
+
+exports.published = function (req, res) {
+    var query = {where:{id:req.work.id}, addUser:true};
+    global.db.Work.find(query).then(function(work) {
+      return res.render(basePath + 'published', {
+        work: work
+      });
+    });
+};
+
+
+exports.sell = function (req, res) {
+    var query = {where:{id:req.work.id}, addUser:true};
+    global.db.Work.find(query).then(function(work) {
+      return res.render(basePath + 'sell', {
+        work: work
+      });
+    });
+};
+
+
+
 exports.update = function (req, res) {
     var promises = [
         global.db.Category.findAll({where: {id: {$in: req.body.categories}}}),
