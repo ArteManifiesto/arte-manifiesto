@@ -17,6 +17,20 @@ exports.index = function (req, res) {
     });
 };
 
+
+exports.create = function (req, res) {
+  global.db.Product.create(req.body).then(function(product) {
+    product.setUser(req.user).then(function () {
+      if (req.xhr)
+          return res.ok({product: product}, 'Producto creada');
+
+      req.flash('successMessage', 'Producto Creado');
+      return res.redirect('back');
+    });
+  });
+};
+
+
 exports.featured = function (req, res) {
     req.product.updateAttributes({featured: true}).then(function () {
         return res.ok({product: req.product}, 'Product featured');

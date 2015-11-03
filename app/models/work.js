@@ -117,6 +117,7 @@ module.exports = function (sequelize, DataTypes) {
                                 model: global.db.Category,
                                 where: {name: {$in: names}}
                             }],
+                            addUser: true,
                             order: [global.db.sequelize.fn('RAND')],
                             limit: 10, build: true, viewer: viewer
                         };
@@ -127,7 +128,8 @@ module.exports = function (sequelize, DataTypes) {
                     var query = {
                         where: {id: {$not: [this.id]}},
                         order: [global.db.sequelize.fn('RAND')],
-                        limit: 6
+                        limit: 6,
+                        addUser: true
                     };
                     return this.getUser().then(function (user) {
                         return user.getWorks(query);
@@ -170,12 +172,8 @@ module.exports = function (sequelize, DataTypes) {
                 }
             },
             hooks: {
-                afterCreate: function (work, options) {
-                    work.url = options.user.url + '/work/' + work.nameSlugify;
-                    return work.save();
-                },
                 beforeFind: function (options, fn) {
-                    if (options.addUser){                        
+                    if (options.addUser){
                         options.include = options.include || [];
                         options.include.push({model: global.db.User});
                     }

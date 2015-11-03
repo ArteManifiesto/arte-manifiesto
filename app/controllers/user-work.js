@@ -49,7 +49,7 @@ exports.create = function (req, res) {
     var data = JSON.parse(req.body.data);
     var promises = [
         global.db.Category.findAll({where: {id: {$in: data.categories}}}),
-        global.db.Work.create(data, {user: req.user})
+        global.db.Work.create(data)
     ];
     global.db.Sequelize.Promise.all(promises).then(function (data) {
         var categories = data[0], work = data[1];

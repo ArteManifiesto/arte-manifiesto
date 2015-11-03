@@ -18,7 +18,6 @@ module.exports = function (sequelize, DataTypes) {
             description: DataTypes.TEXT,
             public: {type: DataTypes.BOOLEAN, defaultValue: true},
             featured: {type: DataTypes.BOOLEAN, defaultValue: false},
-            url: {type: DataTypes.STRING},
             views: {type: DataTypes.INTEGER, defaultValue: 0},
             popularity: {type: DataTypes.INTEGER, defaultValue: 0}
         }, {
@@ -126,10 +125,6 @@ module.exports = function (sequelize, DataTypes) {
                 }
             },
             hooks: {
-                afterCreate: function (product, options) {
-                    product.url = options.user.url + '/product/' + product.nameSlugify;
-                    return product.save();
-                },
                 beforeFind: function (options, fn) {
                     if (options.addUser) {
                         options.include = options.include || [];

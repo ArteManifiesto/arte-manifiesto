@@ -10,6 +10,10 @@ router.use(global.md.entity(entity));
 
 router.get('/:nameSlugify', global.md.nameSlugify(entity), controller.index);
 
+router.post('/create', isLoggedAndOwner, controller.create);
+// router.post('/delete', isLoggedAndOwner, controller.delete);
+// router.post('/update', isLoggedAndOwner, controller.update);
+
 router.post('/like', isLoggedAndOwner, controller.like);
 router.post('/unlike', isLoggedAndOwner, controller.unLike);
 router.post('/featured', isLoggedAndOwner, controller.featured);

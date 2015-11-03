@@ -6,6 +6,7 @@ var APP = APP || {};
 APP.BaseElement = function (data, id) {
     this.template = APP.TemplateManager.instance.getFromDoc(id);
     this.data = data;
+    console.log(data);
     var viewHelpers = {
       addFilter: function(url, filter) {
         return url.replace('upload/', 'upload/' + filter +'/');
