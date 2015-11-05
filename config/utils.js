@@ -26,8 +26,8 @@ global.config = {
         },
         times: ['day', 'week', 'month', 'year'],
         params: {
-            works: ['order', 'time', 'featured', 'name', 'tag'],
-            users: ['order', 'time', 'featured', 'username'],
+            works: ['order', 'time', 'featured', 'term'],
+            users: ['order', 'time', 'featured', 'term'],
             products: ['order', 'time', 'name', 'featured', 'lo_p', 'hi_p']
         }
     }
@@ -57,6 +57,7 @@ global.discoverGenerator = function (entity, req) {
     options.limit = 15;
 
     var query = {where: {}, build: true};
+
     query.viewer = req.viewer;
     query.order = [global.getOrder(req.query.order)]
 
@@ -73,16 +74,44 @@ global.discoverGenerator = function (entity, req) {
             $between: [req.query.lo_p || 0, req.query.hi_p || 3000]
         };
 
-    if (req.query.name)
-        query.where.name = req.query.name;
-
-    if (req.query.username)
-        query.where.username = req.query.username;
-
-    if(req.params.value !== 'all')
-        query.include = [{model:global.db.Category, where:{nameSlugify: req.params.value}}];
+    if (req.query.term) {
+        if(entity === 'Work'){
+          query.where.$and = global.db.sequelize.literal(
+            "MATCH(name, description) AGAINST('"+ req.query.term +"' IN BOOLEAN MODE)"
+          );
+        }
+        if(entity === 'User') {
+          query.where.$and = global.db.sequelize.literal(
+            "MATCH(firstname, lastname, username) AGAINST('"+ req.query.term +"' IN BOOLEAN MODE)"
+          );
+        }
+    }
 
     return {options: options, query: query};
+}
+
+var beforePagination = function(req, discover) {
+  if(req.params.value === 'all')
+    return global.getPaginationEntity(discover.options, discover.query);
+
+  var tempEntity = discover.options.entity;
+  var query = {where:{nameSlugify: req.params.value}};
+  var tempModel = tempEntity === 'Product' ? 'ProductType' : 'Category';
+  return global.db[tempModel].find(query).then(function(model) {
+    if(!model)
+      return global.getPaginationEntity(discover.options, discover.query, true)
+
+    var method;
+    switch(tempEntity) {
+      case 'Work':method = 'getWorks';break;
+      case 'User':method = 'getSpecialties';break;
+      case 'Product':method = 'getProducts';break;
+    }
+    discover.options.entity = model;
+    discover.options.method = method;
+    discover.options.association = true;
+    return global.getPaginationEntity(discover.options, discover.query);
+  });
 }
 
 global.searchWorks = function (req) {
@@ -90,13 +119,13 @@ global.searchWorks = function (req) {
     discover.query.where.public = true;
     discover.query.addUser = true;
     discover.query.order.push([global.db.sequelize.col('id')]);
-    return global.getPaginationEntity(discover.options, discover.query);
+    return beforePagination(req, discover);
 };
 
 global.searchUsers = function (req) {
     var discover = discoverGenerator('User', req);
     discover.query.order.push([global.db.sequelize.col('id')]);
-    return global.getPaginationEntity(discover.options, discover.query);
+    return beforePagination(req, discover);
 };
 
 global.searchProducts = function (req) {
@@ -104,7 +133,7 @@ global.searchProducts = function (req) {
     discover.query.where.public = true;
     discover.query.addUser = true;
     discover.query.order.push([global.db.sequelize.col('id')]);
-    return global.getPaginationEntity(discover.options, discover.query);
+    return beforePagination(req, discover);
 };
 
 global.getPagination = function (page, limit) {
@@ -174,9 +203,18 @@ global.emails = {
 };
 
 
-global.getPaginationEntity = function (options, query) {
+global.getPaginationEntity = function (options, query, empty) {
     var pages = global.getPagination(options.page, options.limit);
     query = _.assign(query, {offset: pages.offset, limit: pages.limit});
+
+    if(empty)
+      return {
+        items: [],
+        pagination: {
+          total: 0, page: pages.page, limit: pages.limit,
+          pages: Math.ceil(0 / pages.limit)
+        }
+      };
 
     var promises = [];
     if (!options.association) {
@@ -187,9 +225,9 @@ global.getPaginationEntity = function (options, query) {
     else {
         promises = [options.entity[options.method](query)];
         query = _.omit(query, 'build', 'addUser');
-        query.attributes = [
+        query.attributes = ['*',
             [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'total']
-        ]
+        ];
         query = _.omit(query, 'build', 'offset', 'limit');
         promises.push(options.entity[options.method](query));
     }
@@ -219,7 +257,6 @@ global.objectToParameters = function (element) {
 global.replaceAt = function (text, index, character) {
     return text.substr(0, index) + character + text.substr(index + character.length);
 };
-
 
 global.getOnly = function (entity, items) {
     return {};

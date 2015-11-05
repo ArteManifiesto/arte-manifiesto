@@ -11,6 +11,7 @@ APP.Filters = function (filters) {
 	this.oldOrder = this.filters.currentOrder;
 
 	this.isFeatured = Utils.getUrlParameter('featured');
+	this.term = Utils.getUrlParameter('term');
 	this.currentCategory = this.currentOrder = null;
 
 	this.buildFilters();
@@ -36,6 +37,29 @@ APP.Filters.prototype.listeners = function () {
 	$("[data-meta='category']").on('click', this.filterItemHandler.bind(this, 'category'));
 	$("[data-meta='order']").on('click', this.filterItemHandler.bind(this, 'order'));
 	$(".am-Switch-button").on('click', this.featuredHandler);
+
+	$(window).on("popstate", function(e) {
+			 if (e.originalEvent.state !== null) {
+			 location.reload()
+			 }
+	 });
+
+	var scope = this;
+	$('.am-Search-input input').val(this.term);
+	$('.am-Search-input input').keypress(function(e) {
+		if(e.which == 13) {
+			var value = $(this).val();
+			if(value.length >= 1) {
+				if(scope.term) {
+					DataApp.currentUrl = DataApp.currentUrl.replace('&term=' + scope.term, '&term=' + value);
+				}else {
+					DataApp.currentUrl = DataApp.currentUrl + '&term='+ value;
+				}
+				scope.term = value;
+				Broadcaster.dispatchEvent('FILTER_CHANGED');
+			}
+    }
+	});
 	//
 	// var filterRight = $('.filter.right')
 	// var rightSelect = $('.filter.right .am-Select')
