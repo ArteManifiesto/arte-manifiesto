@@ -51,10 +51,9 @@ APP.BaseNavigation.prototype.afterGetData = function (response) {
 };
 
 APP.BaseNavigation.prototype.newPageUrl = function (newPage) {
-  console.log('newPage',newPage);
-  if(DataApp.currentUrl.indexOf('/page-') === -1) {
+  DataApp.currentUrl = DataApp.currentUrl.replace(/\/$/g, '');
+  if(DataApp.currentUrl.indexOf('/page-') === -1)
     DataApp.currentUrl += '/page-'  + this.currentPage;
-  }
   DataApp.currentUrl = DataApp.currentUrl.replace('page-' + this.currentPage, 'page-' + newPage);
 };
 

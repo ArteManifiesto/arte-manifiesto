@@ -14,13 +14,11 @@ var isLoggedAndOwner = [global.md.isLogged, global.md.isOwner];
 
 router.use(global.md.user);
 
-router.get(['/', '/portfolio'], controller.profile);
-router.get('/likes/works', controller.profile);
-router.get('/likes/products', controller.profile);
-router.get('/store', controller.profile);
-router.get('/collections', controller.profile);
-router.get('/followers', controller.profile);
-router.get('/followings', controller.profile);
+router.get(['/', '/portfolio'], controller.profile.bind(this, 'portfolio'));
+router.get('/store', controller.profile.bind(this, 'store'));
+router.get('/collections', controller.profile.bind(this, 'collections'));
+router.get('/followers', controller.profile.bind(this, 'followers'));
+router.get('/followings', controller.profile.bind(this, 'followings'));
 
 router.use('/work', workRouter);
 router.use('/product', productRouter);

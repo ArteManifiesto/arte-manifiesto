@@ -17,7 +17,11 @@
 						<p class="name">{{profile.firstname}}</p>
 						<p class="city">{{profile.city}}, {{profile.country}}</p>
 						{% if !owner %}
-						<button class="am-Follow-button">+ Seguir</button>
+							{% if profile.following %}
+							<button class="am-Follow-button following">- Siguiendo</button>
+							{% else %}
+							<button class="am-Follow-button">+ Seguir</button>
+							{% endif %}
 						{% endif %}
 					</div>
 				</div>
@@ -77,6 +81,8 @@
 	<script>
 		$(document).ready(function() {
 			console.log({{data|json|safe}});
+			console.log({{profile|json|safe}});
+			console.log({{user|json|safe}});
 			var currentPath = {{currentPath|json|safe}}, template;
 			$('.' + currentPath).addClass('selected');
 			if(['followings', 'followers'].indexOf(currentPath) !== -1) template = 'user';

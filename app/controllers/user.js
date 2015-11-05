@@ -1,10 +1,7 @@
 var basePath = 'user/';
 var _ = require('lodash');
 
-exports.profile = function (req, res) {
-    var currentPath = req.path.replace('/', '');
-    if (currentPath === '') currentPath = 'portfolio';
-
+exports.profile = function (currentPath, req, res) {
     var promises = [
         req.profile.numOfWorks(), req.profile.numOfProducts(),
         req.profile.numOfCollections(),
