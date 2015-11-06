@@ -11,7 +11,8 @@ exports.index = function (currentPath, req, res) {
         req.work.more(),
         req.work.similar(req.viewer),
         req.work.getProducts({build: true, viewer: req.viewer, addUser:true}),
-        req.work.getTags()
+        req.work.getTags(),
+        req.work.getReviews({include:[global.db.User]})
     ];
     global.db.Sequelize.Promise.all(promises).then(function (result) {
         var query = { where:{id: req.work.id}, include:[global.db.Category],
@@ -23,7 +24,8 @@ exports.index = function (currentPath, req, res) {
               work: work, userLikes: result[1],
               more: result[2], similar: result[3],
               products: result[4],
-              tags: result[5]
+              tags: result[5],
+              reviews: result[6]
           });
         });
     });
@@ -89,6 +91,35 @@ exports.edit = function (req, res) {
     return res.render(basePath + 'edit');
 };
 
+
+
+exports.createReview = function (req, res) {
+  req.body.WorkId = parseInt(req.body.idWork,10);
+  req.body.UserId = parseInt(req.viewer,10);
+  global.db.Review.create(req.body).then(function(review) {
+    var query = {where:{id: review.id}, include:[global.db.User]};
+    global.db.Review.find(query).then(function(final){
+      return res.ok({review: final}, 'Review creado');
+    });
+  });
+};
+
+
+exports.deleteReview = function (req, res) {
+  global.db.Review.findById(req.body.idReview).then(function(review){
+    review.destroy().then(function(){
+      return res.ok({review: review}, 'Review eliminado');
+    });
+  });
+};
+
+exports.updateReview = function (req, res) {
+  global.db.Review.findById(req.body.idReview).then(function(review){
+    review.updateAttributes(req.body).then(function(){
+      return res.ok({review: review}, 'Review updated');
+    });
+  });
+};
 
 exports.published = function (req, res) {
     var query = {where:{id:req.work.id}, addUser:true};

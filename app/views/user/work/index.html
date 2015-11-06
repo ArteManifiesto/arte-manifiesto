@@ -161,58 +161,33 @@
 		</div>
 	</div>
 
-
+	{% if currentPath == 'reviews' %}
 	<!-- ********************************************************************
 		$ REVIEWS
 	********************************************************************* -->
 	<div class="grid-container">
 		<div class="grid-100">
 			<div class="reviews">
-				<p class="title">Reviews &nbsp;&nbsp;<span>25</span></p>
-				<div class="review">
-					<div class="avatar"><img src="/img/avatar.jpg"></div>
-					<div class="content">
-						<div class="info">
-							<p class="name">ANNA OSTYANKO</p>&nbsp;&nbsp;&nbsp;
-							<p class="date"><i class="bi_interface-clock"></i> &nbsp;June 11, 2014 9:26 pm</p>
-						</div>
-						<p class="text">Unlike pop-culture’s current obsession with bleak, heavy drama (<i>Game Of Thrones, Breaking Bad</i>, we’re talking to you)</p>
-						<p class="reply"><i class="bi_com-bubble-a"></i>&nbsp;REPLY</p>
-					</div>
-				</div>
-				<div class="review inner">
-					<div class="avatar"><img src="/img/avatar.jpg"></div>
-					<div class="content">
-						<div class="info">
-							<p class="name">ALEXEY RYBIN</p>&nbsp;&nbsp;&nbsp;
-							<p class="date"><i class="bi_interface-clock"></i> &nbsp;June 11, 2014 9:26 pm</p>
-						</div>
-						<p class="text">Unlike pop-culture’s current obsession with bleak, heavy drama (<i>Game Of Thrones, Breaking Bad</i>, we’re talking to you)</p>
-						<p class="reply"><i class="bi_com-bubble-a"></i>&nbsp;REPLY</p>
-					</div>
+				<p class="title">Reviews &nbsp;&nbsp;<span>{{reviews.length}}</span></p>
+				<div class='reviews-container'>
 				</div>
 				<div class="review">
-					<div class="avatar"><img src="/img/avatar.jpg"></div>
-					<div class="content">
-						<div class="info">
-							<p class="name">ANNA OSTYANKO</p>&nbsp;&nbsp;&nbsp;
-							<p class="date"><i class="bi_interface-clock"></i> &nbsp;June 11, 2014 9:26 pm</p>
-						</div>
-						<p class="text">Unlike pop-culture’s current obsession with bleak, heavy drama (<i>Game Of Thrones, Breaking Bad</i>, we’re talking to you)</p>
-						<p class="reply"><i class="bi_com-bubble-a"></i>&nbsp;REPLY</p>
-					</div>
-				</div>
-				<p class="subtitle">ADD COMMENT</p>
-				<div class="review">
-					<div class="avatar"><img src="/img/avatar.jpg"></div>
-					<div class="content">
-						<textarea></textarea>
-						<button>ADD COMMENT</button>
-					</div>
+					{% if user %}
+						<div class="avatar"><img src="{{user.photo}}"></div>
+						<form class="content review-form">
+							<input type="hidden" name='idWork' value="{{work.id}}"/>
+							<textarea name="value"></textarea>
+							<button>ADD COMMENT</button>
+						</form>
+					{% else %}
+						<a href="/auth/login">Logeate, para agregar review</a>
+					{% endif %}
 				</div>
 			</div>
 		</div>
 	</div>
+
+	{% endif %}
 
 	<!-- ********************************************************************
 		$ TAGS
@@ -228,23 +203,6 @@
 						{% set url = "#" + tag.name %}
 						<div class="tag uppercase"><a href='/works/category/all/page-1/?term={{url|url_encode}}'>{{tag.name}}</a></div>
 						{% endfor %}
-						<!-- <div class="tag">BIRDS</div>
-						<div class="tag">NATURALEZA</div>
-						<div class="tag">OIL ON CANVAS</div>
-						<div class="tag">ANGRY BIRD</div>
-						<div class="tag">TAPPERWARE</div>
-						<div class="tag">TAPPERWARE</div>
-						<div class="tag">ANGRY BIRD</div>
-						<div class="tag">YELLOW</div>
-						<div class="tag">OIL ON CANVAS</div>
-						<div class="tag">BIRDS</div>
-						<div class="tag">TAPPERWARE</div>
-						<div class="tag">BIRDS</div>
-						<div class="tag">OIL ON CANVAS</div>
-						<div class="tag">NATURALEZA</div>
-						<div class="tag">BIRDS</div>
-						<div class="tag">OIL ON CANVAS</div>
-						<div class="tag">BIRDS</div> -->
 					</div>
 				</div>
 			</div>
@@ -297,13 +255,35 @@
 
 {% block scripts %}
 	<script>
+
+	console.log({{reviews|json|safe}});
 	$(document).ready(function() {
+		var currentPath = {{currentPath|json|safe}};
+		if(currentPath === 'reviews') {
+			var reviews = {{reviews|json|safe}};
+
+			for(var i = 0; i <reviews.length; i++) {
+				$('.reviews-container').append(new APP.Review(reviews[i]).view);
+			}
+		}
+
 		new APP.Viewer('carrouselItem', $('.more'), null, {{more|json|safe}});
 		new APP.Viewer('carrouselItem', $('.similar'), null, {{similar|json|safe}});
 
 		$('.am-Follow-button').click(function(event){
 
 		});
+		$('.review-form').submit(function(event){
+			event.preventDefault();
+			var url = DataApp.currentUser.url + '/work/review/create';
+			$.post(url, $(this).serialize(), function (response) {
+				console.log(response);
+				if(response.status === 200) {
+					$('.reviews-container').append(new APP.Review(response.data.review).view);
+				}
+			});
+		});
+
 	});
 	</script>
 {% endblock %}

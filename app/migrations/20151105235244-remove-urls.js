@@ -8,5 +8,6 @@ module.exports = {
     queryInterface.removeColumn('Collections', 'url');
   },
   down: function (queryInterface, Sequelize) {
+
   }
 };

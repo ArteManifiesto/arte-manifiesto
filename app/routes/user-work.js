@@ -27,6 +27,10 @@ router.post('/unfeatured', isLoggedAndOwner, controller.unFeatured);
 router.post('/like', isLoggedAndOwner, controller.like);
 router.post('/unlike', isLoggedAndOwner, controller.unLike);
 
+router.post('/review/create', isLoggedAndOwner, controller.createReview);
+router.post('/review/delete', isLoggedAndOwner, controller.deleteReview);
+router.post('/review/update', isLoggedAndOwner, controller.updateReview);
+
 router.post('/public', isLoggedAndOwner, controller.public);
 router.post('/private', isLoggedAndOwner, controller.private);
 

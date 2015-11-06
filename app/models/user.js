@@ -62,6 +62,7 @@ module.exports = function (sequelize, DataTypes) {
                     User.hasMany(models.Collection);
                     User.hasMany(models.Work);
                     User.hasMany(models.Product);
+                    User.hasMany(models.Review);
                 }
             },
             instanceMethods: {

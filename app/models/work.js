@@ -28,6 +28,7 @@ module.exports = function (sequelize, DataTypes) {
                     Work.belongsTo(models.User, {onDelete: 'cascade'});
                     Work.belongsToMany(models.Collection, {through: 'CollectionWork'});
                     Work.hasMany(models.Product);
+                    Work.hasMany(models.Review);
                 }
             },
             instanceMethods: {

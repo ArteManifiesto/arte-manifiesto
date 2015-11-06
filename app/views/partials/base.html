@@ -77,6 +77,7 @@
 	<script src="/adapt.min.js"></script>
 
 	<script src="http://code.jquery.com/jquery-2.1.1.min.js" lang="text/javascript"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js" lang="text/javascript"></script>
 	<script src='/app.min.js'></script>
 	<script src="http://imagesloaded.desandro.com/imagesloaded.pkgd.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js"></script>
@@ -203,6 +204,18 @@
 		<div class="preload hide"><i class="fa fa-spinner"></i></div>
 	</script>
 
+	<script type="text/template" id="template-review">
+		<div class="review">
+			<div class="avatar"><img src="<%=User.photo%>"></div>
+			<div class="content">
+				<div class="info">
+					<p class="name"><%=User.firstname %></p>&nbsp;&nbsp;&nbsp;
+					<p class="date"><i class="bi_interface-clock"></i> <%=formatDate(createdAt)%></p>
+				</div>
+				<p class="text"><%=value%></p>
+			</div>
+		</div>
+	</script>
 	{% block scripts %} {% endblock %}
 </body>
 </html>

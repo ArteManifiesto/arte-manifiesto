@@ -9,6 +9,9 @@ APP.BaseElement = function (data, id) {
     var viewHelpers = {
       addFilter: function(url, filter) {
         return url.replace('upload/', 'upload/' + filter +'/');
+      },
+      formatDate: function(date){
+        return moment(date).fromNow();
       }
     };
     _.extend(this.data, viewHelpers);
