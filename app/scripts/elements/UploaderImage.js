@@ -32,6 +32,7 @@ APP.UploaderImage.prototype.listeners = function () {
     }
   })
   .off('cloudinarydone').on('cloudinarydone', function (e, data) {
+    console.log(data);
     $('.preload').hide();
       $('.preview').html('');
     scope.photo = data.result.url;

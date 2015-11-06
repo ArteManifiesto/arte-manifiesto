@@ -31,7 +31,6 @@ module.exports = function (sequelize, DataTypes) {
 
             featured: {type: DataTypes.BOOLEAN, defaultValue: false},
             views: {type: DataTypes.INTEGER, defaultValue: 0},
-            url: {type: DataTypes.STRING},
             popularity: {type: DataTypes.INTEGER, defaultValue: 0},
 
             hashedPassword: DataTypes.STRING,
@@ -100,7 +99,7 @@ module.exports = function (sequelize, DataTypes) {
                 },
                 buildParts: function (options) {
                     var scope = this, worksQuery = {
-                        attributes: ['id', 'name', 'photo', 'url'],
+                        attributes: ['id', 'name', 'photo'],
                         limit: 4
                     };
                     return global.db.Sequelize.Promise.all([
@@ -205,7 +204,6 @@ module.exports = function (sequelize, DataTypes) {
                     user.salt = user.makeSalt();
                     user.hashedPassword = user.encryptPassword(options.password, user.salt);
                     user.tokenVerifyEmail = uuid.v4();
-                    user.url = '/user/' + user.username;
                     user.fullname = user.firstname + ' ' + user.lastname;
 
                     var promises = [

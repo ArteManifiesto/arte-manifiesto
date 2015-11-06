@@ -81,7 +81,7 @@ module.exports = function (sequelize, DataTypes) {
                     if (viewer < 0)
                         return [];
                     var scope = this, queryLikes = {attributes: ['id']},
-                        queryFollowings = {attributes: ['id', 'username', 'photo', 'url']};
+                        queryFollowings = {attributes: ['id', 'username', 'photo']};
 
                     var promises = [
                         this.getProductLikes(queryLikes),
@@ -102,7 +102,7 @@ module.exports = function (sequelize, DataTypes) {
                     });
                 },
                 userLikes: function () {
-                    var query = {attributes: ['id', 'username', 'photo', 'url'], limit: 50};
+                    var query = {attributes: ['id', 'username', 'photo'], limit: 50};
                     return this.getProductLikes(query);
                 },
                 similar: function (viewer) {

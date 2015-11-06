@@ -103,6 +103,7 @@ var beforePagination = function(req, discover) {
   var isTag = false;
   console.log('term',req.query.term);
   var tempEntity = discover.options.entity;
+  discover.options.tempEntity = tempEntity;
   var query = {where:{nameSlugify: req.params.value}};
   var tempModel = tempEntity === 'Product' ? 'ProductType' : 'Category';
   console.log('NO TAG');
@@ -246,8 +247,9 @@ global.getPaginationEntity = function (options, query, empty) {
     else {
         promises = [options.entity[options.method](query)];
         query = _.omit(query, 'build', 'addUser');
+        var identifier = options.tempEntity ? options.tempEntity + '.id' : 'id';
         query.attributes = ['*',
-            [global.db.sequelize.fn('COUNT', global.db.sequelize.col('Work.id')), 'total']
+            [global.db.sequelize.fn('COUNT', global.db.sequelize.col(identifier)), 'total']
         ];
         query = _.omit(query, 'build', 'offset', 'limit');
         promises.push(options.entity[options.method](query));

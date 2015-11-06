@@ -11,7 +11,6 @@ module.exports = function (sequelize, DataTypes) {
             nameSlugify: DataTypes.STRING,
             description: DataTypes.TEXT,
             public: {type: DataTypes.BOOLEAN, defaultValue: true},
-            url: {type: DataTypes.STRING},
             featured: {type: DataTypes.BOOLEAN, defaultValue: false}
         }, {
             classMethods: {
@@ -63,10 +62,6 @@ module.exports = function (sequelize, DataTypes) {
                 }
             },
             hooks: {
-                afterCreate: function (collection, options) {
-                    collection.url = options.user.url + '/collection/' + collection.nameSlugify;
-                    return collection.save();
-                },
                 beforeDestroy: function (collection, options, fn) {
                     collection.setWorks(null).then(function () {
                         fn(null, collection);

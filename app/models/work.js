@@ -18,7 +18,6 @@ module.exports = function (sequelize, DataTypes) {
             public: {type: DataTypes.BOOLEAN, defaultValue: true},
             featured: {type: DataTypes.BOOLEAN, defaultValue: false},
             views: {type: DataTypes.INTEGER, defaultValue: 0},
-            url: {type: DataTypes.STRING},
             popularity: {type: DataTypes.INTEGER, defaultValue: 0}
         }, {
             classMethods: {
@@ -82,7 +81,7 @@ module.exports = function (sequelize, DataTypes) {
                         return [];
 
                     var scope = this, queryLikes = {attributes: ['id']},
-                        queryFollowings = {attributes: ['id', 'username', 'photo', 'url']};
+                        queryFollowings = {attributes: ['id', 'username', 'photo']};
 
                     var promises = [
                         this.getWorkLikes(queryLikes),
@@ -104,7 +103,7 @@ module.exports = function (sequelize, DataTypes) {
                     });
                 },
                 userLikes: function () {
-                    var query = {attributes: ['id', 'username', 'photo', 'url'], limit: 50};
+                    var query = {attributes: ['id', 'username', 'photo'], limit: 50};
                     return this.getWorkLikes(query);
                 },
                 similar: function (viewer) {
