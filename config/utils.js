@@ -75,10 +75,12 @@ global.discoverGenerator = function (entity, req) {
         };
 
     if (req.query.term) {
-        if(entity === 'Work'){
-          query.where.$and = global.db.sequelize.literal(
-            "MATCH(name, description) AGAINST('"+ req.query.term +"' IN BOOLEAN MODE)"
-          );
+        if(entity === 'Work') {
+          if(req.query.term.substring(0, 1) !== '#') {
+            query.where.$and = global.db.sequelize.literal(
+              "MATCH(name, description) AGAINST('"+ req.query.term +"' IN BOOLEAN MODE)"
+            );
+          }
         }
         if(entity === 'User') {
           query.where.$and = global.db.sequelize.literal(
@@ -91,12 +93,22 @@ global.discoverGenerator = function (entity, req) {
 }
 
 var beforePagination = function(req, discover) {
-  if(req.params.value === 'all')
-    return global.getPaginationEntity(discover.options, discover.query);
-
+  var isTag = false;
+  console.log('term',req.query.term);
   var tempEntity = discover.options.entity;
   var query = {where:{nameSlugify: req.params.value}};
   var tempModel = tempEntity === 'Product' ? 'ProductType' : 'Category';
+  console.log('NO TAG');
+  if(req.query.term && req.query.term.substring(0, 1) === '#') {
+    tempEntity = 'Work';
+    query = {where:{name:req.query.term.substring(1, req.query.term.length) }};
+    tempModel = 'Tag';
+  } else {
+    if(req.params.value === 'all'){
+      return global.getPaginationEntity(discover.options, discover.query);
+    }
+  }
+
   return global.db[tempModel].find(query).then(function(model) {
     if(!model)
       return global.getPaginationEntity(discover.options, discover.query, true)

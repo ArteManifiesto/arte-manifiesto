@@ -169,26 +169,13 @@
 	<div class="grid-container">
 		<div class="grid-100">
 			<div class="tags-container">
-				<p class="title">Tags&nbsp;&nbsp;<span>25</span></p>
+				<p class="title">Tags&nbsp;&nbsp;<span>{{tags.length}}</span></p>
 				<div class="u-separator"></div>
 				<div class="tags">
-					<div class="tag">BIRDS</div>
-					<div class="tag">NATURALEZA</div>
-					<div class="tag">OIL ON CANVAS</div>
-					<div class="tag">ANGRY BIRD</div>
-					<div class="tag">TAPPERWARE</div>
-					<div class="tag">TAPPERWARE</div>
-					<div class="tag">ANGRY BIRD</div>
-					<div class="tag">YELLOW</div>
-					<div class="tag">OIL ON CANVAS</div>
-					<div class="tag">BIRDS</div>
-					<div class="tag">TAPPERWARE</div>
-					<div class="tag">BIRDS</div>
-					<div class="tag">OIL ON CANVAS</div>
-					<div class="tag">NATURALEZA</div>
-					<div class="tag">BIRDS</div>
-					<div class="tag">OIL ON CANVAS</div>
-					<div class="tag">BIRDS</div>
+					{% for tag in tags %}
+					{% set url = "#" + tag.name %}
+					<div class="tag uppercase"><a href='/works/category/all/page-1/?term={{url|url_encode}}'>{{tag.name}}</a></div>
+					{% endfor %}
 				</div>
 			</div>
 		</div>

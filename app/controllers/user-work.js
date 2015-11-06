@@ -10,7 +10,8 @@ exports.index = function (currentPath, req, res) {
         req.work.userLikes(),
         req.work.more(),
         req.work.similar(req.viewer),
-        req.work.getProducts({build: true, viewer: req.viewer, addUser:true})
+        req.work.getProducts({build: true, viewer: req.viewer, addUser:true}),
+        req.work.getTags()
     ];
     global.db.Sequelize.Promise.all(promises).then(function (result) {
         var query = { where:{id: req.work.id}, include:[global.db.Category],
@@ -21,7 +22,8 @@ exports.index = function (currentPath, req, res) {
               currentPath: currentPath,
               work: work, userLikes: result[1],
               more: result[2], similar: result[3],
-              products: result[4]
+              products: result[4],
+              tags: result[5]
           });
         });
     });
@@ -47,24 +49,40 @@ exports.add = function (req, res) {
  */
 exports.create = function (req, res) {
     var data = JSON.parse(req.body.data);
-    var promises = [
-        global.db.Category.findAll({where: {id: {$in: data.categories}}}),
-        global.db.Work.create(data)
-    ];
-    global.db.Sequelize.Promise.all(promises).then(function (data) {
-        var categories = data[0], work = data[1];
-        var promises = [
-            work.setUser(req.user),
-            work.setCategories(categories)
-        ];
-        global.db.Sequelize.Promise.all(promises).then(function () {
-            if (req.xhr)
-                return res.ok({work: work}, 'Obra creada');
 
-            req.flash('successMessage', 'Obra creada');
-            return res.redirect('back');
-        });
+    var promises = [];
+    var tags = data.tags;
+
+
+    for(var i = 0; i < tags.length ; i++) {
+      promises.push(global.db.Tag.findOrCreate({where:{name: tags[i]}}));
+    }
+
+    global.db.Sequelize.Promise.all(promises).then(function (results) {
+      var tagsResult = [];
+      for(var i = 0; i < results.length ; i++)
+        tagsResult.push(results[i][0]);
+      promises = [
+          global.db.Category.findAll({where: {id: {$in: data.categories}}}),
+          global.db.Work.create(data),
+      ];
+      global.db.Sequelize.Promise.all(promises).then(function (data) {
+          var categories = data[0], work = data[1];
+          var promises = [
+              work.setUser(req.user),
+              work.setTags(tagsResult),
+              work.setCategories(categories)
+          ];
+          global.db.Sequelize.Promise.all(promises).then(function () {
+              if (req.xhr)
+                  return res.ok({work: work}, 'Obra creada');
+
+              req.flash('successMessage', 'Obra creada');
+              return res.redirect('back');
+          });
+      });
     });
+
 };
 
 exports.edit = function (req, res) {

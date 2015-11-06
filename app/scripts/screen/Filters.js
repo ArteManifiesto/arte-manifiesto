@@ -11,7 +11,7 @@ APP.Filters = function (filters) {
 	this.oldOrder = this.filters.currentOrder;
 
 	this.isFeatured = Utils.getUrlParameter('featured');
-	this.term = Utils.getUrlParameter('term');
+	this.term = decodeURIComponent(Utils.getUrlParameter('term'));
 	this.currentCategory = this.currentOrder = null;
 
 	this.buildFilters();
@@ -45,13 +45,14 @@ APP.Filters.prototype.listeners = function () {
 	 });
 
 	var scope = this;
+	this.term = this.term === 'undefined' ? '' : this.term;
 	$('.am-Search-input input').val(this.term);
 	$('.am-Search-input input').keypress(function(e) {
 		if(e.which == 13) {
 			var value = $(this).val();
 			if(value.length >= 1) {
 				if(scope.term) {
-					DataApp.currentUrl = DataApp.currentUrl.replace('&term=' + scope.term, '&term=' + value);
+					DataApp.currentUrl = DataApp.currentUrl.replace('&term=' + encodeURIComponent(scope.term), '&term=' + encodeURIComponent(value));
 				}else {
 					DataApp.currentUrl = DataApp.currentUrl + '&term='+ value;
 				}

@@ -70,6 +70,8 @@ $(document).ready(function() {
 	$('.tags').tagsInput({
 		height:'50px', width:'100%', defaultText:'+ Etiqueta'
 	});
+
+
 	$('.add-work').submit(function(event){
 		event.preventDefault();
 		var formData = {
@@ -80,6 +82,7 @@ $(document).ready(function() {
 			description             : $('textarea[name=description]').val(),
 			public: 1
 		};
+		
 		$.ajax({
 			method: 'POST',
 			url: DataApp.currentUser.url + '/work/create',
