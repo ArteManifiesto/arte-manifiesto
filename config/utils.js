@@ -75,12 +75,17 @@ global.discoverGenerator = function (entity, req) {
         };
 
     if (req.query.term) {
-        req.params.value = 'all';
         if(entity === 'Work') {
           if(req.query.term.substring(0, 1) !== '#') {
             query.where.$and = global.db.sequelize.literal(
               "MATCH(name, description) AGAINST('"+ req.query.term +"' IN BOOLEAN MODE)"
             );
+          }
+
+          if(req.query.term.substring(0, 1) === '#') {
+            if(req.params.value !== 'all') {
+              query.include = [{model: global.db.Category, where:{nameSlugify: req.params.value}}]
+            }
           }
         }
         if(entity === 'User') {
@@ -90,6 +95,7 @@ global.discoverGenerator = function (entity, req) {
         }
     }
 
+    console.log(query);
     return {options: options, query: query};
 }
 
@@ -241,7 +247,7 @@ global.getPaginationEntity = function (options, query, empty) {
         promises = [options.entity[options.method](query)];
         query = _.omit(query, 'build', 'addUser');
         query.attributes = ['*',
-            [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'total']
+            [global.db.sequelize.fn('COUNT', global.db.sequelize.col('Work.id')), 'total']
         ];
         query = _.omit(query, 'build', 'offset', 'limit');
         promises.push(options.entity[options.method](query));
