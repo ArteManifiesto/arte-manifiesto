@@ -66,6 +66,24 @@
 {% block scripts %}
 <script type="text/javascript">
 	$(document).ready(function() {
+
+
+			 var data = {{data|json|safe}};
+
+			 function ChangeUrl(page, url) {
+			        if (typeof (history.pushState) != "undefined") {
+			            var obj = {Page: page, Url: url};
+			            history.pushState(obj, obj.Page, obj.Url);
+			        } else {
+			            window.location.href = "homePage";
+			            // alert("Browser does not support HTML5.");
+			        }
+			    }
+					console.log(data);
+
+					DataApp.currentUrl = data.url;
+					ChangeUrl('lol', data.url);
+
 		new APP.DiscoverScreen('work', $('.grid'), 'infinite', {{data|json|safe}});
 		var filterRight = $('.filter.right')
 		var rightSelect = $('.filter.right .am-Select')

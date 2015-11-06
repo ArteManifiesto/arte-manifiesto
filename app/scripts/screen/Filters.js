@@ -11,7 +11,7 @@ APP.Filters = function (filters) {
 	this.oldOrder = this.filters.currentOrder;
 
 	this.isFeatured = Utils.getUrlParameter('featured');
-	this.term = decodeURIComponent(Utils.getUrlParameter('term'));
+	this.term = Utils.getUrlParameter('term');
 	this.currentCategory = this.currentOrder = null;
 
 	this.buildFilters();
@@ -45,55 +45,23 @@ APP.Filters.prototype.listeners = function () {
 	 });
 
 	var scope = this;
-	this.term = this.term === 'undefined' ? '' : this.term;
-	$('.am-Search-input input').val(this.term);
+	this.term = this.term === undefined ? '' : this.term;
+	$('.am-Search-input input').val(decodeURIComponent(this.term));
 	$('.am-Search-input input').keypress(function(e) {
 		if(e.which == 13) {
-			var value = $(this).val();
+			var value = encodeURIComponent($(this).val());
 			if(value.length >= 1) {
 				if(scope.term) {
-					DataApp.currentUrl = DataApp.currentUrl.replace('&term=' + encodeURIComponent(scope.term), '&term=' + encodeURIComponent(value));
+					DataApp.currentUrl = DataApp.currentUrl.replace('term=' + scope.term, 'term=' + value);
 				}else {
 					DataApp.currentUrl = DataApp.currentUrl + '&term='+ value;
 				}
 				scope.term = value;
+				console.log(scope.term);
 				Broadcaster.dispatchEvent('FILTER_CHANGED');
 			}
     }
 	});
-	//
-	// var filterRight = $('.filter.right')
-	// var rightSelect = $('.filter.right .am-Select')
-	//
-	// $(rightSelect).click(function () {
-	// 	var state = filterRight.attr('data-state')
-	// 	if(state == 'closed') filterRight.attr('data-state', 'open')
-	// 	else filterRight.attr('data-state', 'closed')
-	// })
-	//
-	// var filterLeft = $('.filter.left')
-	// var leftSelect = $('.filter.left .am-Select')
-	// var discoverContent = $('.discover-content')
-	//
-	// $(leftSelect).click(function () {
-	// 	var state = filterLeft.attr('data-state')
-	// 	if(state == 'closed') {
-	// 		filterLeft.attr('data-state', 'open')
-	// 		discoverContent.attr('data-state', 'expand')
-	// 	}
-	// 	else{
-	// 		filterLeft.attr('data-state', 'closed')
-	// 		discoverContent.attr('data-state', 'reduce')
-	// 	}
-	// })
-	//
-	// var switchButton = $('.am-Switch-button')
-	// $(switchButton).click(function () {
-	// 	var state = switchButton.attr('data-state')
-	// 	console.log('state: ', state)
-	// 	if(state == "active") switchButton.attr('data-state', 'inactive')
-	// 	else switchButton.attr('data-state', 'active')
-	// })
 };
 
 APP.Filters.prototype.featuredHandler = function() {

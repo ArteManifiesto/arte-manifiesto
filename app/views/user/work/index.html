@@ -74,7 +74,7 @@
 					<p class="am-Single-text u-margin-top-10">42 cm x 42 cm</p>
 					<p class="am-Single-text u-margin-top-20">Categoría:</p>
 					{% for category in work.Categories %}
-						<span class="am-Category-box u-margin-top-7">{{category.name}}</span>
+						<a href='/works/category/{{category.nameSlugify}}/page-1/?order=popularity'><span class="am-Category-box u-margin-top-7">{{category.name}}</span></a>
 					{% endfor %}
 					<div class="info-box u-margin-top-25">
 						<div class="header">

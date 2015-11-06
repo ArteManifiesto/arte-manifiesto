@@ -46,6 +46,7 @@ APP.BaseNavigation.prototype.afterGetData = function (response) {
 
   this.pagesCache[this.currentPage] = response;
   this.currentPageData = response;
+  ChangeUrl('lol', response.url);
 
   Broadcaster.dispatchEvent("PAGE_LOAD_END", {data: response});
 };

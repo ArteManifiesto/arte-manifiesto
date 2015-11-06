@@ -75,6 +75,7 @@ global.discoverGenerator = function (entity, req) {
         };
 
     if (req.query.term) {
+        req.params.value = 'all';
         if(entity === 'Work') {
           if(req.query.term.substring(0, 1) !== '#') {
             query.where.$and = global.db.sequelize.literal(
@@ -99,12 +100,14 @@ var beforePagination = function(req, discover) {
   var query = {where:{nameSlugify: req.params.value}};
   var tempModel = tempEntity === 'Product' ? 'ProductType' : 'Category';
   console.log('NO TAG');
+  console.log('PARAMMMMMS');
+  console.log(req.params.value);
   if(req.query.term && req.query.term.substring(0, 1) === '#') {
     tempEntity = 'Work';
     query = {where:{name:req.query.term.substring(1, req.query.term.length) }};
     tempModel = 'Tag';
   } else {
-    if(req.params.value === 'all'){
+    if(req.params.value === 'all') {
       return global.getPaginationEntity(discover.options, discover.query);
     }
   }

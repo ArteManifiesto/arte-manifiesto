@@ -68,6 +68,7 @@
 	 var users = {{ users|json|safe }}
 	 console.log('users: ', users)
 
+	   //ChangeUrl('lol', data.pagination.);
 	$(document).ready(function() {
 		new APP.DiscoverScreen('user', $('.grid'), 'infinite', {{data|json|safe}});
 

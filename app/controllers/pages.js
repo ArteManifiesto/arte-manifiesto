@@ -23,9 +23,11 @@ var searchHandler = function (entity, req, res) {
             delete req.query[item];
 
     var searchable = _.capitalize(entity);
+    var tempValue = req.params.value;
     return global["search" + searchable](req).then(function (data) {
         var query = global.encodeToQuery(req.query);
         data.url = req.protocol + '://' + req.get('host') + req.path + '?' + query;
+        data.url = data.url.replace(tempValue , req.params.value);
         data.filters = {
           currentCategory : req.params.value,
           currentOrder : req.query.order
