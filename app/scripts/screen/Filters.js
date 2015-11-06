@@ -57,9 +57,16 @@ APP.Filters.prototype.listeners = function () {
 					DataApp.currentUrl = DataApp.currentUrl + '&term='+ value;
 				}
 				scope.term = value;
-				console.log(scope.term);
-				Broadcaster.dispatchEvent('FILTER_CHANGED');
+			}else {
+				if(DataApp.currentUrl.indexOf('&term='+ scope.term) > -1){
+					DataApp.currentUrl = DataApp.currentUrl.replace('&term='+ scope.term, '');
+				}
+				if(DataApp.currentUrl.indexOf('term='+ scope.term) > -1){
+					DataApp.currentUrl = DataApp.currentUrl.replace('term='+ scope.term, '');
+				}
+				scope.term = undefined;
 			}
+			Broadcaster.dispatchEvent('FILTER_CHANGED');
     }
 	});
 };
