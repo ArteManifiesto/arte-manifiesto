@@ -19,6 +19,7 @@ exports.index = function (req, res) {
 
 
 exports.create = function (req, res) {
+  req.body.WorkId = parseInt(req.body.idWork, 10);
   global.db.Product.create(req.body).then(function(product) {
     product.setUser(req.user).then(function () {
       if (req.xhr)

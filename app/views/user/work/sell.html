@@ -35,7 +35,7 @@
   		<div class="operators">
   			<div class="box">
   				<div class="input container">
-            <input type='number' name='price' placeholder="cuanto deseas ganar"></input>
+            <input required type='number' name='price' placeholder="cuanto deseas ganar"></input>
   				</div>
   			</div>
   			<div class="simbol">+</div>
@@ -44,7 +44,7 @@
   			</div>
   			<div class="simbol">=</div>
   			<div class="box">
-  				<input class="input" name='finalPrice' disabled placeholder="Total">
+  				<input required class="input" name='finalPrice' disabled placeholder="Total">
   			</div>
   		</div>
   		<div class="operators-desc u-margin-top-10">
@@ -66,19 +66,19 @@
 
   	<div class="grid-50 mobile-grid-100">
   		<p class="title">Ancho</p>
-  		<input name='width' class="input" type="number" placeholder="Ingresa en cm"/>
+  		<input required name='width' class="input" type="number" placeholder="Ingresa en cm"/>
   	</div>
   	<div class="grid-50 mobile-grid-100">
   		<p class="title">Largo</p>
-  		<input name='length' class="input" type="number" placeholder="Ingresa en cm"/>
+  		<input required name='length' class="input" type="number" placeholder="Ingresa en cm"/>
   	</div>
   	<div class="grid-50 mobile-grid-100">
   		<p class="title">Profundidad</p>
-  		<input name='depth' class="input" type="number" placeholder="Ingresa en cm"/>
+  		<input required name='depth' class="input" type="number" placeholder="Ingresa en cm"/>
   	</div>
   	<div class="grid-50 mobile-grid-100">
   		<p class="title">Peso</p>
-  		<input name='weight' class="input" type="number" placeholder="Cuantos kilos pesa"/>
+  		<input required name='weight' class="input" type="number" placeholder="Cuantos kilos pesa"/>
     </div>
     <div class="grid-100">
       <button class="button" data-color="blue">VENDER</button>
@@ -115,7 +115,11 @@ $(function(){
 			description             : work.description,
       price: price,
       public: true,
-      WorkId: work.id
+      idWork: work.id,
+      width: $('input[name=width]').val(),
+      length: $('input[name=length]').val(),
+      depth: $('input[name=depth]').val(),
+      weight: $('input[name=weight]').val()
 		};
 
 		$.ajax({

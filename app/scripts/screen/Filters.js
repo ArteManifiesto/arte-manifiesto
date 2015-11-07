@@ -29,6 +29,7 @@ APP.Filters.prototype.buildFilters = function() {
 			$('.filter-' + meta).append(item(value));
 		});
 	};
+	this.filters.categories.unshift({name:'Todo', nameSlugify:'all'});
 	itemRenderer(this.filters.categories, 'category');
 	itemRenderer(this.filters.order, 'order');
 };
