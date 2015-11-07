@@ -26,6 +26,7 @@ router.use('/collection', collectionRouter);
 router.use('/account', isLoggedAndOwner, accountRouter);
 router.use('/cart', isLoggedAndOwner, cartRouter);
 
+router.post('/isFollowing', isLoggedAndOwner, global.md.userTo, controller.isFollowing);
 router.post('/follow', isLoggedAndOwner, global.md.userTo, controller.follow);
 router.post('/unfollow', isLoggedAndOwner, global.md.userTo, controller.unFollow);
 router.post('/featured', isLoggedAndOwner, global.md.userTo, controller.featured);

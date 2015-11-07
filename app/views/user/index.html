@@ -80,9 +80,29 @@
 {% block scripts %}
 	<script>
 		$(document).ready(function() {
-			console.log({{data|json|safe}});
-			console.log({{profile|json|safe}});
-			console.log({{user|json|safe}});
+			var profile = {{profile|json|safe}};
+			var following = profile.following;
+
+			$('.am-Follow-button').click(function(event){
+				if(following) {
+					var url = DataApp.currentUser.url + '/unfollow/';
+					$.post(url,{idUser:profile.id}, function (response) {
+						if(response.status === 200) {
+							following = false;
+							$('.am-Follow-button').removeClass('following').text('+Seguir');
+						}
+					});
+				}else {
+					var url = DataApp.currentUser.url + '/follow/';
+					$.post(url,{idUser:profile.id}, function (response) {
+						if(response.status === 200) {
+							following = true;
+							$('.am-Follow-button').addClass('following').text('-Siguiendo');
+						}
+					});
+				}
+			});
+
 			var currentPath = {{currentPath|json|safe}}, template;
 			$('.' + currentPath).addClass('selected');
 			if(['followings', 'followers'].indexOf(currentPath) !== -1) template = 'user';

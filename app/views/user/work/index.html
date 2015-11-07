@@ -1,5 +1,6 @@
 {% extends '../../partials/base.html' %}
 {% block elements %}
+{% set work = work.toJSON() %}
 	<div class="grid-container u-margin-top-30">
 		<div class="grid-100">
 			<div class="single-info">
@@ -7,54 +8,47 @@
 					<div class="single-image-inner">
 						<img src="{{work.photo|addFilter('w_500,h_800,q_80,c_limit')}}">
 						<div class="actions u-padding-top-20 u-padding-bottom-20">
-							<div class="action active">
-								<!-- <i class="icon fa fa-diamond valuation"></i> -->
-								<i class="icon bi_ecommerce-diamon valuation"></i>
-								<p class="text">VALORAR</p>
-								<div class="actions-box">
-									<button class="color-blue bg-gray">AÑADIR A LA COLECCIÓN</button>
-									<button class="u-margin-top-10">+ SEGUIR</button>
-									<button class="following u-margin-top-10">
-										<i class="fa fa-check-circle"></i>&nbsp;SIGUIENDO
-									</button>
+							<div class="action {% if work.liked %} active {% endif %}">
+								<div class="like-btn">
+									<i class="icon bi_ecommerce-diamon  valuation"></i>
+									<p class="text">VALORAR</p>
 								</div>
-								<div class="actions-box">
+							</div>
+
+							<div class="action">
+								<div class="collect-btn">
+									<i class="icon bi_interface-list-view valuation"></i>
+									<p class="text">COLECCIONAR</p>
+								</div>
+								<div class="actions-box add-collection hide">
 									<p class="title">Añadir a las colecciones</p>
 									<div class="u-separator u-margin-top-7"></div>
-									<input class="u-margin-top-10" type="text" placeholder="Crear una colección nueva">
-									<button class="u-margin-top-10 color-black bg-gray wd-auto">AÑADIR</button>
+
+									<form class="add-collection-form">
+										<input class="u-margin-top-10" type="text" name='name' required placeholder="Crear una colección nueva">
+										<button class="u-margin-top-10 color-black bg-gray wd-auto">AÑADIR</button>
+									</form>
 									<ul class="collections u-margin-top-20">
-										<li class="collection selected">
-											<p>Amazonía Pura</p><i class="fa fa-check"></i>
-										</li>
-										<li class="collection">
-											<p>Mis obras favoritas</p><i class="fa fa-check"></i>
-										</li>
-										<li class="collection">
-											<p>Amazonía Pura</p><i class="fa fa-check"></i>
-										</li>
-										<li class="collection">
-											<p>Mis obras favoritas</p><i class="fa fa-check"></i>
-										</li>
 									</ul>
 									<div class="u-separator u-margin-top-20"></div>
 									<div class="buttons u-margin-top-20">
-										<button class="wd-auto bg-blue color-white">GUARDAR</button>
-										<button class="wd-auto color-black border-black">SALIR</button>
+										<button class="wd-auto bg-blue color-white save-collections">GUARDAR</button>
 									</div>
 								</div>
 							</div>
 							<div class="action">
 								<!-- <i class="icon fa fa-share-alt share"></i> -->
-								<i class="icon bi_web-share share"></i>
-								<p class="text">COMPARTIR</p>
-								<div class="actions-box">
+								<div class="share-btn">
+									<i class="icon bi_web-share share"></i>
+									<p class="text">COMPARTIR</p>
+								</div>
+								<div class="actions-box social-share hide">
 									<p class="title">Compartir obras</p>
 									<div class="u-separator u-margin-top-7"></div>
-									<div class="share">
+									<div class="share share-fb">
 										<i class="fa fa-facebook"></i>Compartir en facebook
 									</div>
-									<div class="share">
+									<div class="share share-tw">
 										<i class="fa fa-twitter"></i>Compartir en twitter
 									</div>
 								</div>
@@ -101,7 +95,7 @@
 						    <!-- <td><i class="fa fa-diamond"></i></td> -->
 						    <td><i class="bi_ecommerce-diamon"></i></td>
 						    <td><p>VALORACIONES</p></td>
-						    <td><span>{{work.likes || 0}}</span></td>
+						    <td><span class="likes">{{work.likes || 0}}</span></td>
 						  </tr>
 						</table>
 					</div>
@@ -176,7 +170,7 @@
 						<div class="avatar"><img src="{{user.photo}}"></div>
 						<form class="content review-form">
 							<input type="hidden" name='idWork' value="{{work.id}}"/>
-							<textarea name="value"></textarea>
+							<textarea class='value-input' name="value"></textarea>
 							<button>ADD COMMENT</button>
 						</form>
 					{% else %}
@@ -255,9 +249,49 @@
 
 {% block scripts %}
 	<script>
-
-	console.log({{reviews|json|safe}});
+	var work = {{work|json|safe}};
 	$(document).ready(function() {
+		$('.share-btn').on('click',function(){
+			$('.add-collection').hide();
+			$('.social-share').toggle();
+		});
+
+		var following = false;
+		var url = DataApp.currentUser.url + '/isFollowing';
+		$.post(url, {idUser:work.User.id}, function (response) {
+			if(response.status === 200) {
+				following = response.data.following;
+				if(response.data.following)
+					$('.am-Follow-button').addClass('following').text('-Siguiendo');
+			}
+		});
+
+		var url = DataApp.currentUser.url + '/collection/all';
+		$.post(url, {}, function (response) {
+			if(response.status === 200) {
+				var collections = response.data.collections;
+				var item = '<li class="collection" data-id="<%=id%>"><p><%=name%></p><i class="fa fa-check"></i></li>'
+				for(var i= 0; i <collections.length; i++) {
+					$('.collections').append($(_.template(item)(collections[i])));
+				}
+
+				var url = DataApp.currentUser.url + '/work/inside_collection';
+				$.post(url, {idWork: work.id}, function (response) {
+					var collections = response.data.collections;
+					for(var i= 0; i <collections.length; i++) {
+						var id = collections[i].id;
+						$('.collection[data-id='+id+']').addClass('selected');
+						collectionsClicked.push(id);
+					}
+				});
+			}
+		});
+
+		$('.collect-btn').on('click',function() {
+			$('.add-collection').toggle();
+			$('.social-share').hide();
+		});
+
 		var currentPath = {{currentPath|json|safe}};
 		if(currentPath === 'reviews') {
 			var reviews = {{reviews|json|safe}};
@@ -271,19 +305,91 @@
 		new APP.Viewer('carrouselItem', $('.similar'), null, {{similar|json|safe}});
 
 		$('.am-Follow-button').click(function(event){
-
+			if(following) {
+				var url = DataApp.currentUser.url + '/unfollow/';
+				$.post(url,{idUser: work.User.id}, function (response) {
+					if(response.status === 200) {
+						following = false;
+						$('.am-Follow-button').removeClass('following').text('+Seguir');
+					}
+				});
+			}else {
+				var url = DataApp.currentUser.url + '/follow/';
+				$.post(url,{idUser: work.User.id}, function (response) {
+					if(response.status === 200) {
+						following = true;
+						$('.am-Follow-button').addClass('following').text('-Siguiendo');
+					}
+				});
+			}
 		});
+
+		$('.add-collection-form').submit(function(event){
+			event.preventDefault();
+			var url = DataApp.currentUser.url + '/collection/create';
+			$.post(url, $(this).serialize(), function (response) {
+				if(response.status === 200) {
+					var item = '<li class="collection selected" data-id="<%=id%>"><p><%=name%></p><i class="fa fa-check"></i></li>'
+					var collection = response.data.collection;
+					collectionsClicked.push(collection.id);
+					$('.collections').append($(_.template(item)(collection)));
+				}
+			});
+		});
+
+		$('.like-btn').click(function(){
+			if(!work.liked) {
+				var url = DataApp.currentUser.url + '/work/like';
+				$.post(url, {idWork:work.id}, function (response) {
+					if(response.status === 200) {
+						work.liked = true;
+						$('.likes').text(response.data.likes)
+						$('.like-btn').parent().addClass('active');
+					}
+				});
+			}else {
+				var url = DataApp.currentUser.url + '/work/unlike';
+				$.post(url, {idWork:work.id}, function (response) {
+					work.liked = false;
+					$('.likes').text(response.data.likes)
+					if(response.status === 200) {
+						$('.like-btn').parent().removeClass('active');
+					}
+				});
+			}
+		});
+
 		$('.review-form').submit(function(event){
 			event.preventDefault();
 			var url = DataApp.currentUser.url + '/work/review/create';
 			$.post(url, $(this).serialize(), function (response) {
 				console.log(response);
 				if(response.status === 200) {
+					$('.value-input').val('');
 					$('.reviews-container').append(new APP.Review(response.data.review).view);
 				}
 			});
 		});
 
+		var collectionsClicked = [];
+		$('.collections').on("click", ".collection", function() {
+			var id = parseInt($(this).data('id'),10);
+			var index = collectionsClicked.indexOf(id);
+			if(index === -1){
+					collectionsClicked.push(id);
+					$(this).addClass('selected');
+			}else {
+				collectionsClicked.splice(index, 1);
+				$(this).removeClass('selected');
+			}
+		});
+
+		$('.save-collections').click(function(){
+			var url = DataApp.currentUser.url + '/work/add_to_collection';
+			$.post(url, {idWork: work.id, collections: JSON.stringify(collectionsClicked)}, function (response) {
+				console.log(response);
+			});
+		});
 	});
 	</script>
 {% endblock %}

@@ -154,12 +154,14 @@ module.exports = function (sequelize, DataTypes) {
                   var scope = this, query = {where: {UserId: options.viewer}};
 
                   return this.getCollections(query).then(function (collections) {
-                      var currentIds = _.pluck(collections, 'id');
+                    console.log(options.collections);
+                      var currentIds = _.pluck(collections , 'id');
+                      currentIds = currentIds || [];
                       var newIds = options.collections;
-
+                      console.log(currentIds, newIds);
                       var oldCollectionsIds = _.difference(currentIds, newIds);
                       var newCollectionsIds = _.difference(newIds, currentIds);
-
+                      console.log(oldCollectionsIds, newCollectionsIds);
                       var i, collection, promises = [];
                       for (i = 0; i < oldCollectionsIds.length; i++) {
                           collection = _.where(collections, {id: oldCollectionsIds[i]})[0];

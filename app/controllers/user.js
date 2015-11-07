@@ -60,6 +60,12 @@ exports.followings = function (req, res) {
     return getData(req, res, {method: 'getFollowings', name: 'followings'});
 };
 
+exports.isFollowing = function (req, res) {
+  req.user.getFollowings({where:{id: req.userTo.id}}).then(function(result){
+    return res.ok({following: (result.length > 0) }, 'IsFollowing');
+  });
+};
+
 exports.follow = function (req, res) {
     req.user.follow(req.userTo).then(function (followers) {
         return res.ok({user: req.userTo, followers: followers}, 'Usuario seguido');

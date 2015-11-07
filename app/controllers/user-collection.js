@@ -25,12 +25,10 @@ exports.all = function (req, res) {
  * create a collection
  */
 exports.create = function (req, res) {
-    req.body.meta = 'products';
-    global.db.Collection.create(req.body, {user: req.user}).then(function (collection) {
-        req.user.addCollection(collection).then(function () {
-            if (req.xhr)
-                return res.ok({collection: collection}, 'Coleccion creada');
-        })
+  req.body.UserId = req.user.id;
+    global.db.Collection.create(req.body).then(function (collection) {
+      if (req.xhr)
+          return res.ok({collection: collection}, 'Coleccion creada');
     });
 };
 

@@ -165,9 +165,9 @@ exports.update = function (req, res) {
     });
 };
 
-
 exports.addToCollection = function (req, res) {
-    var collections = req.body.collections;
+    var collections = JSON.parse(req.body.collections);
+    console.log(collections);
     var query = {
       viewer: req.viewer,
       collections: collections
@@ -175,6 +175,12 @@ exports.addToCollection = function (req, res) {
     req.work.addToCollection(query).then(function (data) {
         return res.ok({collections: collections}, 'Work has been added to collections');
     });
+}
+
+exports.insideCollection = function (req, res) {
+  req.work.getCollections().then(function(collections) {
+    return res.ok({collections: collections}, 'Collections');
+  });
 }
 
 exports.delete = function (req, res) {
