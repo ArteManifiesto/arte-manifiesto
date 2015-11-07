@@ -167,7 +167,6 @@ exports.update = function (req, res) {
 
 exports.addToCollection = function (req, res) {
     var collections = JSON.parse(req.body.collections);
-    console.log(collections);
     var query = {
       viewer: req.viewer,
       collections: collections
@@ -178,7 +177,7 @@ exports.addToCollection = function (req, res) {
 }
 
 exports.insideCollection = function (req, res) {
-  req.work.getCollections().then(function(collections) {
+  req.work.getCollections({where:{UserId: req.user.id}}).then(function(collections) {
     return res.ok({collections: collections}, 'Collections');
   });
 }

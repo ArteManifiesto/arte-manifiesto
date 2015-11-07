@@ -152,7 +152,7 @@
 		<div class="grid-item">
 			<a href="/user/<%=User.username%>/product/<%=nameSlugify%>">
 		  	<div class="product-card">
-					<div class="product-card-image" style="background-image: url('<%=photo%>')"></div>
+					<div class="product-card-image" style="background-image: url('<%= addFilter(photo, 'w_200,h_200,c_fill') %>')"></div>
 		  		<div class="product-card-data">
 		  			<p><%= name %></p>
 		  			<p><%= User.firstname %></p>
@@ -175,7 +175,7 @@
 					</div>
 					<div class="collection-card-images">
 						<% _.each(works, function(work) { %>
-							<div class="collection-card-image" style="background-image: url('<%=work.photo%>')"></div>
+							<div class="collection-card-image" style="background-image: url('<%= addFilter(work.photo, 'w_200,h_200,c_fill') %>')"></div>
 						<% }); %>
 					</div>
 					<div class="collection-card-artist">

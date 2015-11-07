@@ -1,7 +1,7 @@
 {% extends '../partials/base.html' %}
 
 {% set path = 'market' %}
-
+{% set profile = profile.toJSON()%}
 {% block elements %}
 	<div class="am-Profile-banner" style="background-image: url('http://www.wallpapereast.com/static/images/Dragon-Backgrounds-Wallpaper-Hd-44.jpg')">
 		{% if owner %}
@@ -82,7 +82,6 @@
 		$(document).ready(function() {
 			var profile = {{profile|json|safe}};
 			var following = profile.following;
-
 			$('.am-Follow-button').click(function(event){
 				if(following) {
 					var url = DataApp.currentUser.url + '/unfollow/';
