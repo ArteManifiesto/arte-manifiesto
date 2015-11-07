@@ -126,26 +126,20 @@
 					<div class="menu">
 						<div class="carousel">
 							<div class="single-tabs">
-								<a href="/user/{{work.User.username}}/work/{{work.nameSlugify}}">
-									<div class="single-tab index">
-										<p>+ OBRAS</p>
-										<!-- <i class="fa fa-cube"></i> -->
-										<i class="bi_misc-cube"></i>
-									</div>
-								</a>
-								<a href="/user/{{work.User.username}}/work/{{work.nameSlugify}}/reviews">
-									<div class="single-tab reviews">
-										<p>REVIEWS</p>
-										<span>25</span>
-									</div>
-								</a>
-								<a href="/user/{{work.User.username}}/work/{{work.nameSlugify}}/tags">
-									<div class="single-tab tags">
-										<p>TAGS</p>
-										<!-- <i class="fa fa-align-left"></i> -->
-										<i class="bi_editorial-left-align"></i>
-									</div>
-								</a>
+								<div class="single-tab index">
+									<p>+ OBRAS</p>
+									<!-- <i class="fa fa-cube"></i> -->
+									<i class="bi_misc-cube"></i>
+								</div>
+								<div class="single-tab reviews">
+									<p>REVIEWS</p>
+									<span>{{reviews.length}}</span>
+								</div>
+								<div class="single-tab tags">
+									<p>TAGS</p>
+									<!-- <i class="fa fa-align-left"></i> -->
+									<i class="bi_editorial-left-align"></i>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -154,15 +148,11 @@
 		</div>
 	</div>
 
-	{% if currentPath == 'reviews' %}
-	<!-- ********************************************************************
-		$ REVIEWS
-	********************************************************************* -->
-	<div class="grid-container">
+	<div class="grid-container reviews-container {% if currentPath !== 'reviews' %} hide {% endif %}">
 		<div class="grid-100">
 			<div class="reviews">
 				<p class="title">Reviews &nbsp;&nbsp;<span>{{reviews.length}}</span></p>
-				<div class='reviews-container'>
+				<div class='reviews-items-container'>
 				</div>
 				<div class="review">
 					{% if user %}
@@ -179,17 +169,10 @@
 			</div>
 		</div>
 	</div>
-
-	{% endif %}
-
-	<!-- ********************************************************************
-		$ TAGS
-	********************************************************************* -->
-	{% if currentPath == 'tags' %}
-		<div class="grid-container">
+		<div class="grid-container tags-container {% if currentPath !== 'tags' %} hide {% endif %}">
 			<div class="grid-100">
 				<div class="tags-container">
-					<p class="title">Tags&nbsp;&nbsp;<span>25</span></p>
+					<p class="title">Tags&nbsp;&nbsp;<span>{{tags.length}}</span></p>
 					<div class="u-separator"></div>
 					<div class="tags">
 						{% for tag in tags %}
@@ -200,13 +183,9 @@
 				</div>
 			</div>
 		</div>
-	{% endif %}
 
 
-	<!-- ********************************************************************
-		$ MORE WORKS
-	********************************************************************* -->
-	{% if currentPath == 'index' %}
+	<div class="index-container {% if currentPath !== 'index' %} hide {% endif %}">
 		<div class="grid-container u-margin-top-60">
 			<div class="grid-100">
 				<p class="am-more-text u-text-center u-padding-bottom-10">Otras obras del artista</p>
@@ -240,8 +219,7 @@
 				</div>
 			</div>
 		</div>
-	{% endif %}
-
+	</div>
 {% include '../../partials/report.html' %}
 
 {% endblock %}
@@ -292,12 +270,10 @@
 		});
 
 		var currentPath = {{currentPath|json|safe}};
-		if(currentPath === 'reviews') {
-			var reviews = {{reviews|json|safe}};
+		var reviews = {{reviews|json|safe}};
 
-			for(var i = 0; i <reviews.length; i++) {
-				$('.reviews-container').append(new APP.Review(reviews[i]).view);
-			}
+		for (var i = 0; i <reviews.length; i++) {
+			$('.reviews-items-container').append(new APP.Review(reviews[i]).view);
 		}
 
 		new APP.Viewer('carrouselItem', $('.more'), null, {{more|json|safe}});
@@ -362,10 +338,9 @@
 			event.preventDefault();
 			var url = DataApp.currentUser.url + '/work/review/create';
 			$.post(url, $(this).serialize(), function (response) {
-				console.log(response);
 				if(response.status === 200) {
 					$('.value-input').val('');
-					$('.reviews-container').append(new APP.Review(response.data.review).view);
+					$('.reviews-items-container').append(new APP.Review(response.data.review).view);
 				}
 			});
 		});
@@ -381,6 +356,27 @@
 				collectionsClicked.splice(index, 1);
 				$(this).removeClass('selected');
 			}
+		});
+
+		$('.index').click(function() {
+			Utils.changeUrl('tags', '/user/' + work.User.username + '/work/' + work.nameSlugify);
+			$('.index-container').show();
+			$('.reviews-container').hide();
+			$('.tags-container').hide();
+		});
+
+		$('.reviews').click(function() {
+			Utils.changeUrl('tags', '/user/' + work.User.username + '/work/' + work.nameSlugify + '/reviews');
+			$('.index-container').hide();
+			$('.reviews-container').show();
+			$('.tags-container').hide();
+		});
+
+		$('.tags').click(function(){
+			Utils.changeUrl('tags', '/user/' + work.User.username + '/work/' + work.nameSlugify + '/tags');
+			$('.index-container').hide();
+			$('.reviews-container').hide();
+			$('.tags-container').show();
 		});
 
 		$('.save-collections').click(function(){

@@ -34,47 +34,75 @@
 				<div class="user-carousel">
 					<div class="am-Profile-menu">
 						<div class="am-Profile-menu-item portfolio">
-							<a href='/user/{{profile.username}}'>
-								<p>PORTAFOLIO</p>
-								<p>{{data[0]}}</p>
-							</a>
+							<p>PORTAFOLIO</p>
+							<p>{{data[0]}}</p>
 						</div>
 						<div class="am-Profile-menu-item store">
-							<a href='/user/{{profile.username}}/store'>
-								<p>TIENDA</p>
-								<p>{{data[1]}}</p>
-							</a>
+							<p>TIENDA</p>
+							<p>{{data[1]}}</p>
 						</div>
 						<div class="am-Profile-menu-item collections">
-							<a href='/user/{{profile.username}}/collections'>
-								<p>COLECCIONES</p>
-								<p>{{data[2]}}</p>
-							</a>
+							<p>COLECCIONES</p>
+							<p>{{data[2]}}</p>
 						</div>
 						<div class="am-Profile-menu-item followings">
-							<a href='/user/{{profile.username}}/followings'>
-								<p>SIGUIENDO</p>
-								<p>{{data[3]}}</p>
-							</a>
+							<p>SIGUIENDO</p>
+							<p>{{data[3]}}</p>
 						</div>
 						<div class="am-Profile-menu-item followers">
-							<a href='/user/{{profile.username}}/followers'>
-								<p>SEGUIDORES</p>
-								<p>{{data[4]}}</p>
-							</a>
+							<p>SEGUIDORES</p>
+							<p>{{data[4]}}</p>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="discover-content grid-container u-padding-top-10 u-padding-bottom-70">
+
+	<div class="discover-content portfolio-wrapper grid-container u-padding-top-10 u-padding-bottom-70
+		{% if currentPath !== 'portfolio' %} hide {% endif %}">
 		<div class="grid-100 grid-parent">
-      <div class="grid work-layout-discover">
+      <div class="grid portfolio-container work-layout-discover">
 				<div class="grid-sizer"></div>
       </div>
 		</div>
 	</div>
+
+	<div class="discover-content store-wrapper grid-container u-padding-top-10 u-padding-bottom-70
+		{% if currentPath !== 'store' %} hide {% endif %}">
+		<div class="grid-100 grid-parent">
+      <div class="grid store-container work-layout-discover">
+				<div class="grid-sizer"></div>
+      </div>
+		</div>
+	</div>
+
+	<div class="discover-content collections-wrapper grid-container u-padding-top-10 u-padding-bottom-70
+		{% if currentPath !== 'collections' %} hide {% endif %}">
+		<div class="grid-100 grid-parent">
+      <div class="grid collections-container work-layout-discover">
+				<div class="grid-sizer"></div>
+      </div>
+		</div>
+	</div>
+
+	<div class="discover-content followings-wrapper  grid-container u-padding-top-10 u-padding-bottom-70
+		{% if currentPath !== 'followings' %} hide {% endif %}">
+		<div class="grid-100 grid-parent">
+      <div class="grid followings-container work-layout-discover">
+				<div class="grid-sizer"></div>
+      </div>
+		</div>
+	</div>
+	<div class="discover-content followers-wrapper  grid-container u-padding-top-10 u-padding-bottom-70
+		{% if currentPath !== 'followers' %} hide {% endif %}">
+		<div class="grid-100 grid-parent">
+      <div class="grid followers-container work-layout-discover">
+				<div class="grid-sizer"></div>
+      </div>
+		</div>
+	</div>
+
 {% endblock %}
 
 {% block scripts %}
@@ -104,11 +132,54 @@
 
 			var currentPath = {{currentPath|json|safe}}, template;
 			$('.' + currentPath).addClass('selected');
-			if(['followings', 'followers'].indexOf(currentPath) !== -1) template = 'user';
-			if('portfolio' === currentPath) template = 'work';
-			if('store' === currentPath) template = 'product';
-			if('collections' === currentPath) template = 'collection';
-			new APP.Viewer(template, $('.grid'), 'infinite', null);
+
+			var lastPath = currentPath;
+
+			$('.store').click(function() {openSection('store');});
+			$('.portfolio').click(function() {openSection('portfolio');});
+			$('.collections').click(function() {openSection('collections');});
+			$('.followings').click(function() {openSection('followings');});
+			$('.followers').click(function() {openSection('followers');});
+
+			var paths = [currentPath];
+			var openSection = function(path) {
+				$('.' + lastPath).removeClass('selected');
+				$('.' + path).addClass('selected');
+
+				lastViewer.suspend();
+				var url = '/user/' + profile.username + '/' + (path === 'portfolio' ? '' : path)
+				Utils.changeUrl('tags', url);
+				DataApp.currentUrl = url;
+
+				$('.' + lastPath + '-wrapper').hide();
+				$('.' + path + '-wrapper').show();
+
+				lastPath = path;
+				if(paths.indexOf(path) === -1) {
+					template = getTemplate(path);
+					paths.push(path);
+					currentViewer = new APP.Viewer(template, $('.' + path +'-container'), 'infinite', null);
+					viewers.push(currentViewer);
+				}else {
+					currentViewer = viewers[paths.indexOf(path)]
+					currentViewer.restart();
+				}
+				lastViewer = currentViewer
+			}
+
+			var getTemplate = function(path) {
+				var temp = '';
+				if(['followings', 'followers'].indexOf(path) !== -1) temp = 'user';
+				if('portfolio' === path) temp = 'work';
+				if('store' === path) temp = 'product';
+				if('collections' === path) temp = 'collection';
+				return temp;
+			};
+
+			template = getTemplate(currentPath);
+			var currentViewer = new APP.Viewer(template, $('.'+currentPath +'-container'), 'infinite', null);
+			var lastViewer = currentViewer;
+			var viewers = [currentViewer];
 		});
 	</script>
 {% endblock %}

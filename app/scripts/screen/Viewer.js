@@ -7,8 +7,9 @@ var APP = APP || {};
 APP.Viewer = function (id, container, navigation, data) {
   this.container = container;
 
-  if(id !== 'carrouselItem')
+  if(id !== 'carrouselItem'){
     this.setupMasonry();
+  }
 
   this.id = id;
   this.navigation = navigation;
@@ -66,7 +67,8 @@ APP.Viewer.prototype.setupMasonry = function() {
 
 APP.Viewer.prototype.listeners = function() {
   Broadcaster.addEventListener('PAGE_LOAD_START', this.pageLoadStartHandler);
-  Broadcaster.addEventListener('PAGE_LOAD_END', this.pageLoadEndHandler.bind(this));
+  this.pageEnd = this.pageLoadEndHandler.bind(this);
+  Broadcaster.addEventListener('PAGE_LOAD_END', this.pageEnd);
 };
 
 APP.Viewer.prototype.pageLoadStartHandler = function() {
@@ -74,6 +76,7 @@ APP.Viewer.prototype.pageLoadStartHandler = function() {
 };
 
 APP.Viewer.prototype.pageLoadEndHandler = function(event) {
+  console.log('end');
   if(this.fromExternal) {
     this.initialize = true;
   }else {
@@ -131,4 +134,17 @@ APP.Viewer.prototype.reset = function() {
 APP.Viewer.prototype.clean = function() {
   this.container.masonry('remove', this.container.find('.grid-item')).masonry();
   this.initialize = false;
+}
+
+APP.Viewer.prototype.suspend = function() {
+  this.navigationManager.navigator.suspend();
+  Broadcaster.removeEventListener('PAGE_LOAD_START', this.pageLoadStartHandler);
+  Broadcaster.removeEventListener('PAGE_LOAD_END', this.pageEnd);
+}
+
+APP.Viewer.prototype.restart = function() {
+  this.navigationManager.navigator.restart();
+  Broadcaster.addEventListener('PAGE_LOAD_START', this.pageLoadStartHandler);
+  Broadcaster.addEventListener('PAGE_LOAD_END', this.pageEnd);
+  this.container.masonry();
 }

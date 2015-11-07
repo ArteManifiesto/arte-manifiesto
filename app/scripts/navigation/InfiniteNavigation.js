@@ -13,11 +13,20 @@ APP.InfiniteNavigation.prototype = Object.create(APP.BaseNavigation.prototype);
 APP.InfiniteNavigation.constructor = APP.InfiniteNavigation;
 
 APP.InfiniteNavigation.prototype.listeners = function() {
-  $(window).scroll(this.scrollHandler.bind(this));
+  this.scrollHandler = this.scrollHandler.bind(this);
+  $(window).scroll(this.scrollHandler);
 };
 
 APP.InfiniteNavigation.prototype.scrollHandler = function() {
   if($(window).scrollTop() == $(document).height() - $(window).height()){
     this.gotoPage(this.currentPage + 1);
   }
+}
+
+APP.InfiniteNavigation.prototype.suspend = function() {
+  $(window).off("scroll", this.scrollHandler);
+}
+
+APP.InfiniteNavigation.prototype.restart = function() {
+  $(window).on("scroll", this.scrollHandler);
 }

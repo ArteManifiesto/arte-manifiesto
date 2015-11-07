@@ -70,5 +70,13 @@ Utils = {
     },
     getData : function (params) {
         return APP.RestClientManager.instance.execute(params);
+    },
+    changeUrl: function(page, url) {
+       if (typeof (history.pushState) != 'undefined') {
+           var tempUrl = {page: page, url: url};
+           history.pushState(tempUrl, tempUrl.page, tempUrl.url);
+       } else {
+           window.location.href = "/";
+       }
     }
 };

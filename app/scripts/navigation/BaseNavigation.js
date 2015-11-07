@@ -6,7 +6,7 @@ var APP = APP || {};
 
 APP.BaseNavigation = function () {
   this.currentPage = 0;
-  this.totalPages = 0;
+  this.totalPages = null;
 
   this.pagesCache = {};
   this.currentPageData;
@@ -22,12 +22,23 @@ APP.BaseNavigation.prototype.listeners = function() {
 
 };
 
+APP.BaseNavigation.prototype.suspend = function() {
+};
+
+APP.BaseNavigation.prototype.restart = function() {
+};
+
 APP.BaseNavigation.prototype.gotoPage = function (next, force) {
   var nextPage = next || this.currentPage + 1;
   if(!force) {
     if (this.currentPage === nextPage)return;
     if (this.currentPage === 0)this.currentPage = 1;
   }
+
+  if(this.totalPages){
+    if (nextPage > this.totalPages) return;
+  }
+
 
   this.newPageUrl(nextPage);
 
@@ -41,7 +52,6 @@ APP.BaseNavigation.prototype.afterGetData = function (response) {
   console.log('response :', response);
   this.currentPage = response.pagination.page;
   this.totalPages = response.pagination.pages;
-
   if (this.currentPage > response.pagination.pages)return;
 
   this.pagesCache[this.currentPage] = response;
