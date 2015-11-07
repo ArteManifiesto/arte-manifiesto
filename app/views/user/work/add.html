@@ -16,12 +16,12 @@
 					<span class="line"></span><span class="text">DATOS DE LA OBRA</span><span class="line"></span>
 				</div>
 				<p class="title">Título de la obra</p>
-				<input name='name' class="input" type="text" placeholder="Ingrese el nombre"/>
+				<input name='name' class="input" type="text" required placeholder="Ingrese el nombre"/>
 			</div>
 
 			<div class="grid-100 mobile-grid-100">
 				<p class="title">Categoría de la obra</p>
-				<select class="input select" name='categoryId'>
+				<select class="input select" required name='categoryId'>
 					{% for category in categories %}
 					<option value="{{category.id}}">{{category.name}}</option>
 					{% endfor %}
@@ -30,12 +30,12 @@
 
 			<div class="grid-100 mobile-grid-100">
 				<p class="title">Descripcion de la obra</p>
-				<textarea name='description' class='input' placeholder="Descripcion" maxlength='140'></textarea>
+				<textarea name='description' required class='input' placeholder="Descripcion" maxlength='140'></textarea>
 			</div>
 
 			<div class="grid-100 mobile-grid-100">
 				<p class="title">Tags de la obra</p>
-				<input name='tags' class="input tags" type="text"/>
+				<input name='tags' class="input tags" required type="text"/>
 				<div class="separator">
 					<span class="line"></span><span class="text">CARACTERÍSTICAS</span><span class="line"></span>
 				</div>
@@ -82,7 +82,7 @@ $(document).ready(function() {
 			description             : $('textarea[name=description]').val(),
 			public: 1
 		};
-		
+
 		$.ajax({
 			method: 'POST',
 			url: DataApp.currentUser.url + '/work/create',
