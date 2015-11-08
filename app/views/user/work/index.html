@@ -227,6 +227,7 @@
 {% block scripts %}
 	<script>
 	var work = {{work|json|safe}};
+	console.log({{similares|json|safe}})
 	$(document).ready(function() {
 		$('.share-btn').on('click',function(){
 			$('.add-collection').hide();
@@ -234,6 +235,8 @@
 		});
 
 		var following = false;
+
+		if(DataApp.currentUser) {
 		var url = DataApp.currentUser.url + '/isFollowing';
 		$.post(url, {idUser:work.User.id}, function (response) {
 			if(response.status === 200) {
@@ -263,6 +266,7 @@
 				});
 			}
 		});
+	}
 
 		$('.collect-btn').on('click',function() {
 			$('.add-collection').toggle();

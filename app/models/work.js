@@ -110,18 +110,13 @@ module.exports = function (sequelize, DataTypes) {
                 similar: function (viewer) {
                     var scope = this;
                     return this.getCategories().then(function (categories) {
-                        var names = _.pluck(categories, 'name');
                         var query = {
                             where: {id: {$not: [scope.id]}},
-                            include: [{
-                                model: global.db.Category,
-                                where: {name: {$in: names}}
-                            }],
                             addUser: true,
                             order: [global.db.sequelize.fn('RAND')],
                             limit: 10, build: true, viewer: viewer
                         };
-                        return global.db.Work.findAll(query);
+                        return categories[0].getWorks(query);
                     });
                 },
                 more: function () {
