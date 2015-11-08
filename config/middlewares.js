@@ -110,43 +110,6 @@ exports.nameSlugify = function (entity) {
     }
 };
 
-//TODO refactor middleware checkFillData
-exports.checkFillData = function (req, res, next) {
-    if (!req.user)return next();
-    if (req.url === '/auth/logout' || req.url.indexOf('/account') > -1)return next();
-    var query = {
-        attributes: [
-            [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'total']
-        ]
-    };
-    return req.user.getInterests(query).then(function (interests) {
-        if (interests[0].getDataValue('total') < 1) {
-            if (req.url === '/interests')return next()
-            return res.redirect('/interests');
-        }
-
-        if (!req.user.isArtist) {
-            if (['/interests', '/specialties'].indexOf(req.url) > -1)
-                return res.redirect('/' + req.user.username + '/account');
-            return next();
-        }
-
-        return req.user.getSpecialties(query).then(function (specialties) {
-            console.log('especialtiess  :  ', specialties[0].getDataValue('total'));
-            if (specialties[0].getDataValue('total') < 1) {
-                if (req.url === '/specialties')return next()
-                return res.redirect('/specialties');
-            }
-            if (req.url === '/' + req.user.username + '/account')
-                return next();
-
-            if (['/interests', '/specialties'].indexOf(req.url) > -1)
-                return res.redirect('/' + req.user.username + '/account');
-            return next();
-        });
-    });
-};
-
 exports.check = function (req, res, next) {
     if (!req.user || req.url.indexOf('auth') > -1)
         return next();
@@ -155,14 +118,8 @@ exports.check = function (req, res, next) {
         return res.render('pages/confirm-email');
 
     if (!req.user.filled && req.method === 'GET') {
-        return global.db.Category.findAll().then(function (categories) {
-            var cloudinary_cors = "http://" + req.headers.host + "/cloudinary_cors.html";
-            return res.render('pages/complete-profile', {
-                categories: categories,
-                cloudinary_cors: cloudinary_cors,
-                cloudinary: cloudinary
-            });
-        });
+        if(req.url.indexOf('account') === -1 )
+          return res.redirect('/user/' + req.user.username + '/account');
     }
 
     return next();

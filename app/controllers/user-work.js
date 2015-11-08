@@ -4,6 +4,8 @@ cloudinary.config();
 
 var basePath = 'user/work/';
 
+var _ = require('lodash');
+
 exports.index = function (currentPath, req, res) {
     var promises = [
         req.work.save(),
@@ -33,13 +35,16 @@ exports.index = function (currentPath, req, res) {
 
 exports.add = function (req, res) {
   var cloudinary_cors = "http://" + req.headers.host + "/cloudinary_cors.html";
-
     global.db.Category.findAll().then(function (categories) {
-        return res.render(basePath + 'add', {categories: categories,
+        return res.render(basePath + 'add-edit', {
+          mode:'add',
+        categories: categories,
         cloudinary_cors: cloudinary_cors,
-        cloudinary: cloudinary});
+        cloudinary: cloudinary
+      });
     });
 };
+
 
 /**
  * Work Create
@@ -84,11 +89,26 @@ exports.create = function (req, res) {
           });
       });
     });
-
 };
 
 exports.edit = function (req, res) {
-    return res.render(basePath + 'edit');
+  var cloudinary_cors = "http://" + req.headers.host + "/cloudinary_cors.html";
+  var promises = [
+    global.db.Category.findAll(),
+    req.work.getCategories(),
+    req.work.getTags()
+  ];
+  global.db.Sequelize.Promise.all(promises).then(function (result) {
+      return res.render(basePath + 'add-edit', {
+        mode:'edit',
+        work:req.work,
+      categories: result[0],
+      workCategories: result[1],
+      tags: _.pluck(result[2], 'name'),
+      cloudinary_cors: cloudinary_cors,
+      cloudinary: cloudinary
+    });
+  });
 };
 
 
@@ -143,26 +163,37 @@ exports.sell = function (req, res) {
 
 
 exports.update = function (req, res) {
-    var promises = [
-        global.db.Category.findAll({where: {id: {$in: req.body.categories}}}),
-        global.db.Tag.findAll({where: {id: {$in: req.body.tags}}})
-    ];
+  var data = JSON.parse(req.body.data);
+  var promises = [];
+  var tags = data.tags;
+  for(var i = 0; i < tags.length ; i++) {
+    promises.push(global.db.Tag.findOrCreate({where:{name: tags[i]}}));
+  }
 
+  global.db.Sequelize.Promise.all(promises).then(function (results) {
+    var tagsResult = [];
+    for(var i = 0; i < results.length ; i++)
+      tagsResult.push(results[i][0]);
+    promises = [
+        global.db.Category.findAll({where: {id: {$in: data.categories}}}),
+        global.db.Work.findById(data.idWork)
+    ];
     global.db.Sequelize.Promise.all(promises).then(function (data) {
-        var categories = data[0], tags = data[1],
-            promises = [
-                req.work.updateAttributes(req.body),
-                req.work.setCategories(categories),
-                req.work.setTags(tags)
-            ];
+        var categories = data[0] , work = data[1];
+        var promises = [
+            work.updateAttributes(data),
+            work.setTags(tagsResult),
+            work.setCategories(categories)
+        ];
         global.db.Sequelize.Promise.all(promises).then(function () {
             if (req.xhr)
-                return res.ok({work: req.work}, 'Obra actualizada');
+                return res.ok({work: work}, 'Obra actualizada');
 
             req.flash('successMessage', 'Obra actualizada');
             return res.redirect('back');
         });
     });
+  });
 };
 
 exports.addToCollection = function (req, res) {

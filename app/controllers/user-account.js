@@ -1,28 +1,36 @@
 var basePath = 'user/account/';
 var moment = require('moment');
 
+var cloudinary = require('cloudinary').v2;
+process.env.CLOUDINARY_URL = 'cloudinary://337494525976864:RQ2MXJev18AjVuf-mSNzdmu2Jsc@hackdudes'
+cloudinary.config();
+
+
 exports.index = function (req, res) {
+    var cloudinary_cors = "http://" + req.headers.host + "/cloudinary_cors.html";
     var promises = [
-        global.db.Category.findAll(),
-        req.user.getSpecialties(),
-        req.user.getInterests()
+      global.db.Category.findAll({appendWork:true}),
+      req.user.getInterests()
     ];
-    global.db.Sequelize.Promise.all(promises).then(function (data) {
-        return res.render(basePath + 'index', {
-            categories: data[0],
-            specialties: data[1],
-            interests: data[2]
-        });
+    
+    global.db.Sequelize.Promise.all(promises).then(function (result) {
+      return res.render(basePath + 'index', {
+        categories: result[0],
+        interests: result[1],
+        cloudinary_cors: cloudinary_cors,
+        cloudinary: cloudinary
+      });
     });
 };
 
 exports.update = function (req, res) {
-    console.log(req.body);
     req.body.birthday = moment(req.body.birthday, 'DDMMYY');
     req.body.filled = true;
+    req.body.fullname = req.body.firstname + ' ' + req.body.lastname;
     //var specialtiesData = req.body.specialties;
-    var interestsData = req.body.interests;
+    var interestsData = req.body.interests || [];
 
+    console.log(interestsData);
     var promises = [
         //global.db.Category.findAll({where: {id: {in: specialtiesData}}}),
         global.db.Category.findAll({where: {id: {in: interestsData}}})

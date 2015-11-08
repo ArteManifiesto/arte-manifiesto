@@ -4,19 +4,11 @@
 */
 var APP = APP || {};
 
-APP.UploaderImage = function (data) {
-  var config = {
-    "api_key": "337494525976864",
-    "cloud_name": "hackdudes",
-    "private_cdn": false
-  };
-  $.cloudinary.config(config);
-
-  APP.BaseElement.call(this, data, data.template);
+APP.UploaderImage = function (view) {
+  this.$view = view;
   this.photo = '';
+  this.listeners();
 };
-
-APP.UploaderImage.prototype = Object.create(APP.BaseElement.prototype);
 
 APP.UploaderImage.constructor = APP.UploaderImage;
 
@@ -24,20 +16,17 @@ APP.UploaderImage.prototype.listeners = function () {
   var scope = this, $uploader = $('.cloudinary-fileupload');
   $uploader.fileupload({
     start: function (e) {
-      $('.preload').show();
-      $('.upload').hide();
+      scope.$view.find('.preload').show();
     },
     fail: function (e, data) {
-      $('.upload').show();
+      scope.$view.find('.preload').hide();
     }
   })
   .off('cloudinarydone').on('cloudinarydone', function (e, data) {
-    console.log(data);
-    $('.preload').hide();
-      $('.preview').html('');
+    scope.$view.find('.preload').hide();
+    scope.$view.find('.preview').html('');
     scope.photo = data.result.url;
-    var filters =  {format: data.result.format, width: 200,
-      height: 200, crop: "thumb"};
-    $.cloudinary.image(data.result.public_id, filters).appendTo($('.preview'));
+    var filters =  {format: data.result.format, width: 200, height: 200, crop: "thumb"};
+    $.cloudinary.image(data.result.public_id, filters).appendTo(scope.$view.find('.preview'));
   });
 };

@@ -18,7 +18,6 @@ module.exports = function (sequelize, DataTypes) {
 
                     Category.belongsToMany(models.Work, {through: 'WorkCategories'});
                 },
-                //TODO refactor intersections
                 isSelected: function (user) {
                     return global.db.Sequelize.Promise.all([
                         global.db.Category.findAll(),
@@ -38,29 +37,41 @@ module.exports = function (sequelize, DataTypes) {
                     })
                 }
             },
+            instanceMethods: {
+              appendWork: function(options) {
+                var query = {limit:1, order: [global.db.sequelize.fn('RAND')]}
+                console.log('addd work');
+                var scope = this;
+                console.log(this);
+                return this.getWorks(query).then(function(works){
+                  scope.setDataValue('work', works[0]);
+                });
+              }
+            },
             hooks: {
-                afterFind: function (items, options, fn) {
-                    if ((items === null) ||
-                        (_.isArray(items) && items.length < 1))
-                        return fn(null, options);
-                    if (options.isSelected) {
-                        var promises = [];
-                        var addPromise = function (item) {
-                            if (options.isSelected)
-                                promises.push(item.isSelected(options));
-                        };
+              afterFind: function (items, options, fn) {
+                  if ((items === null) ||
+                      (_.isArray(items) && items.length < 1))
+                      return fn(null, options);
 
-                        if (!_.isArray(items))
-                            addPromise(items);
+                  if (options.appendWork) {
+                      var promises = [];
+                      var addPromise = function (item) {
+                          if (options.appendWork)
+                              promises.push(item.appendWork(options));
+                      };
 
-                        for (var i = 0; i < items.length; i++)
-                            addPromise(items[i]);
+                      if (!_.isArray(items))
+                          addPromise(items);
 
-                        return global.db.Sequelize.Promise.all(promises).then(function () {
-                            return fn(null, options);
-                        });
-                    }
-                    return fn(null, options);
+                      for (var i = 0; i < items.length; i++)
+                          addPromise(items[i]);
+
+                      return global.db.Sequelize.Promise.all(promises).then(function () {
+                          return fn(null, options);
+                      });
+                  }
+                  return fn(null, options);
                 }
             }
         }

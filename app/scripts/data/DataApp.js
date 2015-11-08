@@ -15,3 +15,4 @@ DataApp.searchCollections = DataApp.baseUrl + 'artjam/collections/page-1';
 DataApp.loginRedirect = DataApp.loginUrl + '/?returnTo=' + location.href;
 
 DataApp.currentUrl = window.location.href.replace(/\/$/g, '');
+DataApp.currentUrl = DataApp.currentUrl.replace(/#_=_$/g, '');

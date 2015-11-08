@@ -20,7 +20,6 @@ router.post('/signup', controller.signup);
 router.post('/check', controller.check);
 
 router.post('/resend', global.md.isLogged, controller.resend);
-router.post('/complete', global.md.isLogged, controller.complete);
 
 router.post('/forgot', controller.forgotCreate);
 router.post('/reset/:token', controller.resetVerify);

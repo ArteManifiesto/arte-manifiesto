@@ -1,187 +1,178 @@
 {% extends '../../partials/base.html' %}
-
-
 {% block elements %}
 	<div class="am-profile">
 		<div class="am-profile-box grid-container">
+			<form class="complete-form">
+				<div class="grid-100">
+					<div class="uploader-profile">
+						<div class="profile-imgage">
+							<div class="preview">
+								<img src="{{user.photo}}"/>
+							</div>
+						</div>
+						<div class="preload hide"><i class="fa fa-spinner"></i></div>
+					</div>
 
-			<div class="grid-100">
-				<p class="title">Edita tu foto de perfil:</p>
-				<button class="button upload u-margin-top-30">BUSCAR ARCHIVO</button>
-				<p class="title">Nombre como artista</p>
-				<input class="input" type="text" placeholder="Ingresa tu nombre de artista, pseudónimo o alter ego"/>
-				<p class="title">Nombre</p>
-				<input class="input" type="text" placeholder="Ingresa tus nombres"/>
-				<p class="title">Apellido</p>
-				<input class="input" type="text" placeholder="Ingresa tus apellidos"/>
-				<p class="title">Usuario en la plataforma</p>
-			</div>
-
-			<div class="grid-50 mobile-grid-100">
-				<p class="link" style="line-height: 46px;">http://artemanifiesto.com/user/</p>
-			</div>
-			<div class="grid-50 mobile-grid-100">
-				<input class="input" type="text" placeholder="Ingresa tu usuario"/>
-			</div>
-
-			<div class="grid-50 mobile-grid-100">
-				<p class="title">Genero</p>
-				<select class="input select">
-					<option disabled selected>Genero</option>
-					<option>Masculino</option>
-					<option>Femenino</option>
-					<option>Julio</option>
-				</select>
-			</div>
-			<div class="grid-50 mobile-grid-100">
-				<p class="title">Fecha de nacimiento</p>
-				<input class="input" type="text" placeholder="dd/mm/yy"/>
-			</div>
-
-			<div class="grid-50 mobile-grid-100">
-				<p class="title">País</p>
-				<select class="input select">
-					<option disabled selected>Elige tu pais</option>
-					<option>Peru</option>
-					<option>Argentina</option>
-					<option>Chile</option>
-					<option>Bolivia</option>
-				</select>
-			</div>
-			<div class="grid-50 mobile-grid-100">
-				<p class="title">Ciudad</p>
-				<input class="input" type="text" placeholder="Ingresa tu ciudad de residencia actual"/>
-			</div>
-
-			<div class="grid-100 mobile-grid-100">
-				<p class="title">Redes Sociales</p>
-				<div class="socials">
-					<div class="social">
-						<i class="fa fa-facebook"></i>
-						<input class="input" type="text" placeholder="Ingresa tu link de tu página en facebook"/>
+					<div class="image-uploader" style="position:relative;">
+						{{cloudinary.uploader.image_upload_tag('photo', { callback: cloudinary_cors, return_delete_token: true})}}
 					</div>
-					<div class="social">
-						<i class="fa fa-twitter"></i>
-						<input class="input" type="text" placeholder="Ingresa tu link del perfil en twitter"/>
-					</div>
-					<div class="social">
-						<i class="fa fa-instagram"></i>
-						<input class="input" type="text" placeholder="Ingresa tu link del perfil en instagram"/>
-					</div>
-					<div class="social">
-						<i class="fa fa-behance"></i>
-						<input class="input" type="text" placeholder="Ingresa tu link del perfil en behance"/>
-					</div>
-					<div class="social">
-						<i class="fa fa-tumblr"></i>
-						<input class="input" type="text" placeholder="Ingresa tu link del perfil en tumblr"/>
-					</div>
-					<div class="social">
-						<i class="fa fa-wordpress"></i>
-						<input class="input" type="text" placeholder="Ingresa tu link de tu blog"/>
-					</div>
-					<div class="social">
-						<i class="fa fa-vimeo"></i>
-						<input class="input" type="text" placeholder="Ingresa tu link del perfil en vimeo"/>
-					</div>
-					<div class="social">
-						<i class="fa fa-dribbble"></i>
-						<input class="input" type="text" placeholder="Ingresa tu link del perfil en dribble"/>
-					</div>
+					<p class="title">Nombre</p>
+					<input class="input" type="text" value="{{user.firstname}}" name='firstname' required placeholder="Ingresa tus nombres"/>
+					<p class="title">Apellido</p>
+					<input class="input" type="text" value="{{user.lastname}}" name='lastname' required placeholder="Ingresa tus apellidos"/>
+					<p class="title">Usuario en la plataforma</p>
 				</div>
-				<p class="title">Mi Manifiesto</p>
-				<textarea rows="7" class="input" placeholder="Cuentanos sobre tí, lo que te define lo que hace que te levantes cada día."></textarea>
-				<p class="title">Elige tus intereses</p>
-			</div>
 
-			<div class="interests">
-				<div class="interest"><p>Pintura y Técnica mixta</p></div>
-				<div class="interest"><p>Diseño e Ilustración</p></div>
-				<div class="interest"><p>Collage</p></div>
-				<div class="interest"><p>Fotografía</p></div>
-				<div class="interest"><p>Street Art</p></div>
-				<div class="interest"><p>Arte Digital</p></div>
-				<div class="interest"><p>Dibujo</p></div>
-				<div class="interest"><p>Esculturas</p></div>
-				<div class="interest"><p>Grabados</p></div>
-			</div>
+				<div class="grid-50 mobile-grid-100">
+					<p class="link" style="line-height: 46px;">artemanifiesto.com/user/</p>
+				</div>
+				<div class="grid-50 mobile-grid-100">
+					<input class="input" type="text" name='username' value="{{user.username}}" required placeholder="Ingresa tu usuario"/>
+				</div>
 
+				<div class="grid-50 mobile-grid-100">
+					<p class="title">Genero</p>
+					<select class="input select" name='gender' required>
+						<option disabled checked>Genero</option>
+						<option>Masculino</option>
+						<option>Femenino</option>
+					</select>
+				</div>
+				<div class="grid-50 mobile-grid-100">
+					<p class="title">Fecha de nacimiento</p>
+					<input id="date" class="input" type="text" name='birthday' value="{{user.birthday|date('DDMMYY')}}" required placeholder="dd/mm/yy"/ maxlength="8">
+				</div>
 
-			<div class="grid-100 mobile-grid-100">
-				<p class="title">Correo electronico</p>
-				<input class="input" type="email" placeholder="edita tu correo"/>
-				<p class="title">Password</p>
-				<input class="input" type="email" placeholder="ingresa nuevo password"/>
-				<input class="input u-margin-top-20" type="email" placeholder="repetir nuevo password"/>
-				<!-- <p class="title">Direcciones de envios</p> -->
+				<div class="grid-50 mobile-grid-100">
+					<p class="title">País</p>
+					<select class="input select" name='country' required>
+						<option disabled selected>Elige tu pais</option>
+						<option>Peru</option>
+						<option>Argentina</option>
+						<option>Chile</option>
+						<option>Bolivia</option>
+					</select>
+				</div>
+				<div class="grid-50 mobile-grid-100">
+					<p class="title">Ciudad</p>
+					<input class="input" name='city' value="{{user.city}}" required type="text" placeholder="Ingresa tu ciudad de residencia actual"/>
+				</div>
 
-				<!-- <div class="addresses">
-					<div class="address">
+				<div class="grid-100 mobile-grid-100">
+					<p class="title">Redes Sociales</p>
+					<div class="socials">
+						<div class="social">
+							<i class="fa fa-facebook"></i>
+							<input class="input" name='facebook' value="{{user.facebook}}" type="text" placeholder="Ingresa tu link de tu página en facebook"/>
+						</div>
+						<div class="social">
+							<i class="fa fa-twitter"></i>
+							<input class="input" name='twitter' value="{{user.twitter}}" type="text" placeholder="Ingresa tu link del perfil en twitter"/>
+						</div>
+						<div class="social">
+							<i class="fa fa-instagram"></i>
+							<input class="input" name='instagram' value="{{user.instagram}}" type="text" placeholder="Ingresa tu link del perfil en instagram"/>
+						</div>
+						<div class="social">
+							<i class="fa fa-behance"></i>
+							<input class="input" name='behance' value="{{user.behance}}" type="text" placeholder="Ingresa tu link del perfil en behance"/>
+						</div>
+						<div class="social">
+							<i class="fa fa-tumblr"></i>
+							<input class="input" name='tumblr' value="{{user.tumblr}}" type="text" placeholder="Ingresa tu link del perfil en tumblr"/>
+						</div>
+						<div class="social">
+							<i class="fa fa-wordpress"></i>
+							<input class="input" name='blog' value="{{user.blog}}" type="text" placeholder="Ingresa tu link de tu blog"/>
+						</div>
+						<div class="social">
+							<i class="fa fa-vimeo"></i>
+							<input class="input" name='vimeo' value="{{user.vimeo}}" type="text" placeholder="Ingresa tu link del perfil en vimeo"/>
+						</div>
+						<div class="social">
+							<i class="fa fa-dribbble"></i>
+							<input class="input" name='dribble' value="{{user.dribble}}" type="text" placeholder="Ingresa tu link del perfil en dribble"/>
+						</div>
+					</div>
+					<p class="title">Mi Manifiesto</p>
+					<textarea name='biography' rows="7" required class="input" placeholder="Cuentanos sobre tí, lo que te define lo que hace que te levantes cada día.">{{user.biography}}</textarea>
+					<p class="title">Elige tus intereses</p>
+				</div>
+
+				<div class="interests">
+					{% for category in categories %}
+						{% set category = category.toJSON() %}
 						<div>
-							<p class="address-title">Luis Eduardo Augusto</p>
-							<p class="address-subtitle">460 Lizardo Montero - apt 304</p>
-							<p class="address-subtitle">Lima, Lima 018</p>
-							<p class="address-subtitle">Perú</p>
-							<p class="address-subtitle">Tel:+51944426766</p>
+							<input type="checkbox" value='{{category.id}}' name="interests" id="interest-{{category.id}}"/>
+							<label for="interest-{{category.id}}">
+								<div class="interest" style="background-image: url('{{category.work.photo|addFilter('w_120,h_120,c_fill')}}')">
+									<div class="cover"><p>{{category.name}}</p></div>
+								</div>
+							</label>
 						</div>
-					</div>
-					<div class="address">
-						<p class="address-title">Agregar nueva dirección de envío</p>
-					</div>
-					<div class="address" style="padding-bottom: 20px;">
-						<div class="grid-container grid-parent" style="width: 100%;">
-							<div class="grid-50">
-								<p class="address-label">Nombres</p>
-								<input class="address-input" placeholder="Ingresa tu Nombre">
-							</div>
-							<div class="grid-50">
-								<p class="address-label">Apellidos</p>
-								<input class="address-input" placeholder="Tus apellidos">
-							</div>
-							<div class="grid-66">
-								<p class="address-label">Dirección de Envío</p>
-								<input class="address-input" placeholder="Dirección Línea 1">
-							</div>
-							<div class="grid-33">
-								<p class="address-label">Int/Apartamento</p>
-								<input class="address-input" placeholder="Nro">
-							</div>
-							<div class="grid-33">
-								<p class="address-label">Ciudad</p>
-								<input class="address-input" placeholder="Ingresa tu ciudad">
-							</div>
-							<div class="grid-33">
-								<p class="address-label">Estado/Provincia</p>
-								<input class="address-input" placeholder="Estado o provincia">
-							</div>
-							<div class="grid-33">
-								<p class="address-label">Código Postal</p>
-								<input class="address-input" placeholder="Nro">
-							</div>
-							<div class="grid-33 suffix-66">
-								<p class="address-label">País</p>
-								<select class="address-input">
-									<option>Seleccionar País</option>
-								</select>
-							</div>
-							<div class="grid-33">
-								<p class="address-label">Teléfono móvil</p>
-								<input class="address-input" placeholder="Ingresa tu número">
-							</div>
-							<div class="grid-66">
-								<p class="address-label">Correo electrónico</p>
-								<input class="address-input" placeholder="Ingresa tu e-mail">
-							</div>
-						</div>
-					</div>
-				</div> -->
+					{% endfor %}
+				</div>
+				<div class="grid-100 mobile-grid-100">
+					<button class="button save u-margin-top-30" data-color="green">GUARDAR CAMBIOS</button>
+				</div>
 
-			</div>
-
-			<div class="grid-100 mobile-grid-100">
-				<button class="button u-margin-top-30" data-color="green">GUARDAR CAMBIOS</button>
-			</div>
-
+				<div class="grid-100 save-loading hide mobile-grid-100">
+					<button class="button u-margin-top-30" data-color="green"><i class="load fa fa-spinner"></i></button>
+				</div>
+			</form>
 		</div>
 	</div>
+{% endblock %}
+
+{% block scripts %}
+<script src='/jquery.tagsinput.js' type='text/javascript'></script>
+<script src='/jquery.ui.widget.js' type='text/javascript'></script>
+<script src='/jquery.iframe-transport.js' type='text/javascript'></script>
+<script src='/jquery.fileupload.js' type='text/javascript'></script>
+<script src='/jquery.cloudinary.js' type='text/javascript'></script>
+<script src="/jquery.maskedinput.js" lang="text/javascript"></script>
+	<script>
+		$(document).ready(function () {
+			var config = {
+		    "api_key": "337494525976864",
+		    "cloud_name": "hackdudes",
+		    "private_cdn": false
+		  };
+		  $.cloudinary.config(config);
+			var uploaderImage = new APP.UploaderImage($('.uploader-profile'));
+
+			var user= {{user|json|safe}};
+			$('select[name="gender"]').find('option:contains('+ user.gender +')').attr("selected",true);
+			$('select[name="country"]').find('option:contains('+ user.country +')').attr("selected",true);
+
+			var interests = {{interests|json|safe}};
+			for(var i = 0 ; i < interests.length ; i++) {
+				$('input[type=checkbox][value='+ interests[i].id +']').attr('checked', true);
+			}
+
+			$('.image-uploader').append(uploaderImage.view);
+			$('.complete-form').submit(function(e){
+				e.preventDefault();
+				$('.save').hide();
+				$('.save-loading').show();
+
+				var data = $(this).serializeArray();
+				$.each(data, function(index, value) {
+					if (value.name === 'photo')
+						value.value = uploaderImage.photo.replace('/upload', '/upload/w_150,h_150,c_thumb,q_70,d_am_avatar.jpg');
+				});
+
+				$.ajax({
+					method: 'POST',
+					url: '/user/' + DataApp.currentUser.username + '/account',
+					data: data
+				}).then(function(response) {
+					if(response.status === 200) {
+						window.location.href = DataApp.currentUrl;
+					}
+				});
+			});
+   		$("#date").mask("99/99/9999");
+		})
+	</script>
 {% endblock %}
