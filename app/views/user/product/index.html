@@ -1,14 +1,14 @@
 {% extends '../../partials/base.html' %}
 {% block elements %}
-{% set product = product.toJSON() %}
+{% set element = element.toJSON() %}
 	<div class="grid-container u-margin-top-30">
 		<div class="grid-100">
 			<div class="single-info">
 				<div class="single-image">
 					<div class="single-image-inner">
-						<img src="{{product.photo|addFilter('w_700,h_800,q_80,c_limit')}}">
+						<img src="{{element.photo|addFilter('w_700,h_800,q_80,c_limit')}}">
 						<div class="actions u-padding-top-20 u-padding-bottom-20">
-							<div class="action {% if product.liked %} active {% endif %}">
+							<div class="action {% if element.liked %} active {% endif %}">
 								<div class="like-btn">
 									<i class="icon bi_ecommerce-diamon  valuation"></i>
 									<p class="text">VALORAR</p>
@@ -59,50 +59,26 @@
 				<div class="single-data u-padding-bottom-40">
 					<div class="FollowArtist u-padding-bottom-10">
 						<div>
-							<p class="u-padding-bottom-7 big uppercase"><strong>{{product.User.firstname}}</strong></p>
+							<p class="u-padding-bottom-7 big uppercase"><strong>{{element.User.firstname}}</strong></p>
 							{% if !owner %}
 							<button class="am-Follow-button">+ SEGUIR</button>
 							{% endif %}
 						</div>
 					</div>
 					<div class="u-separator"></div>
-					<p class="am-Single-title-text u-margin-top-15">{{product.description}}</p>
-					<!-- <p class="am-Single-text u-margin-top-20">Categoría:</p>
-					{% for category in work.Categories %}
+					<p class="am-Single-title-text u-margin-top-15">{{element.description}}</p>
+					<p class="am-Single-text u-margin-top-20">Categoría:</p>
+					{% for category in element.Categories %}
 						<a href='/works/category/{{category.nameSlugify}}/page-1/?order=popularity'><span class="am-Category-box u-margin-top-7">{{category.name}}</span></a>
-					{% endfor %} -->
+					{% endfor %}
 					<div class="info-box u-margin-top-25">
 						<div class="header">
-							<p class="selected">PRODUCTOS</p>
+							<p class="selected">COMPRAR</p>
 						</div>
-						<div class="body">
-							<p class="text u-margin-top-10">Tamaño:</p>
-							<select class="expand">
-								<option>Elige el tamaño</option>
-								<option>Holi</option>
-								<option>Boli</option>
-								<option>Crayoli</option>
-							</select>
-
-							<p class="text u-margin-top-10">Precio por unidad:</p>
-							<p class="price u-text-center">S/.<strong>{{product.price}}</strong> PEN</p>
-
-							<p class="text u-margin-top-10">Cantidad:</p>
-							<div class="u-center">
-								<div class="u-margin-top-7">
-									<span class="text">X</span>
-									<select>
-										<option>1</option>
-										<option>2</option>
-										<option>3</option>
-										<option>4</option>
-									</select>
-									<span class="text">&nbsp;&nbsp;Unidades</span>
-								</div>
-							</div>
-							<div class="u-center">
-								<button class="am-View-button expand u-margin-top-20 buy">COMPRAR</button>
-							</div>
+						<div class="body u-text-center">
+							<p class="title large">Puedes preguntar al artista la disponibilidad</p>
+							<button class="am-View-button expand u-margin-top-20">PREGUNTAR PRECIO</button>
+							<p class="msg u-padding-top-15 u-padding-bottom-4">Muy pronto la tienda en línea</p>
 						</div>
 					</div>
 					<p class="am-stats-text u-margin-top-40">ESTADÍSTICAS</p>
@@ -110,14 +86,16 @@
 					<div class="u-center">
 						<table class="am-Single-stats u-margin-top-10">
 						  <tr>
+						    <!-- <td><i class="fa fa-eye"></i></td> -->
 						    <td><i class="bi_interface-view"></i></td>
 						    <td><p>VISTAS</p></td>
-						    <td><span>{{product.views}}</span></td>
+						    <td><span>{{element.views}}</span></td>
 						  </tr>
 						  <tr>
+						    <!-- <td><i class="fa fa-diamond"></i></td> -->
 						    <td><i class="bi_ecommerce-diamon"></i></td>
 						    <td><p>VALORACIONES</p></td>
-						    <td><span class="likes">{{product.likes || 0}}</span></td>
+						    <td><span class="likes">{{element.likes || 0}}</span></td>
 						  </tr>
 						</table>
 					</div>
@@ -129,4 +107,14 @@
 {% include '../../partials/report.html' %}
 {% endblock %}
 {% block scripts %}
+	<script>
+		var owner = {{owner|json|safe}};
+		var entity = 'work';
+		var element = {{element|json|safe}};
+		var currentPath = {{currentPath|json|safe}};
+		var reviews = {{reviews|json|safe}};
+		var more = {{more|json|safe}};
+		var similar = {{similar|json|safe}};
+	</script>
+	<script src='/work-product.js'></script>
 {% endblock %}

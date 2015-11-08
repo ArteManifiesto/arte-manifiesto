@@ -27,8 +27,9 @@ module.exports = function (sequelize, DataTypes) {
         }, {
             classMethods: {
                 associate: function (models) {
+                  Product.belongsToMany(models.Tag, {through: 'ProductTags'});
+
                     Product.belongsToMany(models.User, {as: 'ProductLikes', through: 'ProductLikes'});
-                    Product.belongsToMany(models.User, {as: 'ProductCollects', through: 'ProductCollects'});
                     Product.belongsToMany(models.User, {as: 'ProductBuyers', through: 'ProductBuyers'});
 
                     Product.hasMany(models.Review);
@@ -115,6 +116,7 @@ module.exports = function (sequelize, DataTypes) {
                     var query = {
                         where: {ProductTypeId: this.ProductTypeId, id: {$not: [this.id]}},
                         order: [global.db.sequelize.fn('RAND')],
+                        addUser: true,
                         limit: 10, build: true, viewer: viewer
                     };
                     return global.db.Product.findAll(query);
@@ -123,6 +125,7 @@ module.exports = function (sequelize, DataTypes) {
                     var query = {
                         where: {id: {$not: [this.id]}},
                         order: [global.db.sequelize.fn('RAND')],
+                        addUser: true,
                         limit: 6
                     };
                     return this.getUser().then(function (user) {

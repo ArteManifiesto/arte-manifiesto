@@ -22,9 +22,10 @@ exports.index = function (currentPath, req, res) {
         }
         global.db.Work.find(query).then(function(work) {
           return res.render(basePath + 'index', {
+              entity: 'work',
               owner : req.owner,
               currentPath: currentPath,
-              work: work, userLikes: result[1],
+              element: work, userLikes: result[1],
               more: result[2], similar: result[3],
               products: result[4],
               tags: result[5],

@@ -1,20 +1,30 @@
 var basePath = 'user/product/';
 
-exports.index = function (req, res) {
+exports.index = function (currentPath, req, res) {
     req.product.views += 1;
     var promises = [
-        req.product.save(),
-        req.product.userLikes(),
-        req.product.more(),
-        req.product.similar(req.viewer)
+      req.product.save(),
+      req.product.userLikes(),
+      req.product.more(),
+      req.product.similar(req.viewer),
+      req.product.getTags(),
+      req.product.getReviews({include:[global.db.User]})
     ];
     global.db.Sequelize.Promise.all(promises).then(function (result) {
-        return res.render(basePath + 'index', {
-            owner:req.owner,
-            profile: req.profile,
-            product: req.product, userLikes: result[1],
-            more: result[2], similar: result[3]
+      var query = { where:{id: req.product.id}, include:[global.db.ProductType],
+        viewer: req.viewer, build: true, addUser: true
+      }
+      global.db.Product.find(query).then(function(product) {
+        return res.render('user/work/' + 'index', {
+            entity: 'product',
+            owner : req.owner,
+            currentPath: currentPath,
+            element: product, userLikes: result[1],
+            more: result[2], similar: result[3],
+            tags: result[4],
+            reviews: result[5]
         });
+      });
     });
 };
 
@@ -42,6 +52,34 @@ exports.create = function (req, res) {
   });
 };
 
+
+exports.createReview = function (req, res) {
+  req.body.ProductId = parseInt(req.body.idProduct, 10);
+  req.body.UserId = parseInt(req.viewer, 10);
+  global.db.Review.create(req.body).then(function(review) {
+    var query = {where:{id: review.id}, include:[global.db.User]};
+    global.db.Review.find(query).then(function(final){
+      return res.ok({review: final}, 'Review creado');
+    });
+  });
+};
+
+
+exports.deleteReview = function (req, res) {
+  global.db.Review.findById(req.body.idReview).then(function(review){
+    review.destroy().then(function(){
+      return res.ok({review: review}, 'Review eliminado');
+    });
+  });
+};
+
+exports.updateReview = function (req, res) {
+  global.db.Review.findById(req.body.idReview).then(function(review){
+    review.updateAttributes(req.body).then(function(){
+      return res.ok({review: review}, 'Review updated');
+    });
+  });
+};
 
 exports.featured = function (req, res) {
     req.product.updateAttributes({featured: true}).then(function () {

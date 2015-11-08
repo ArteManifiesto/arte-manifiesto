@@ -7,7 +7,7 @@ $(document).ready(function() {
 
   if(DataApp.currentUser && !owner) {
   var url = DataApp.currentUser.url + '/isFollowing';
-  $.post(url, {idUser:work.User.id}, function (response) {
+  $.post(url, {idUser:element.User.id}, function (response) {
     if(response.status === 200) {
       following = response.data.following;
       if(response.data.following)
@@ -24,8 +24,10 @@ $(document).ready(function() {
         $('.collections').append($(_.template(item)(collections[i])));
       }
 
-      var url = DataApp.currentUser.url + '/work/inside_collection';
-      $.post(url, {idWork: work.id}, function (response) {
+      var url = DataApp.currentUser.url + '/'+entity+'/inside_collection';
+      var payload = {};
+      payload['id' + Utils.capitalize(entity)] = element.id;
+      $.post(url,payload, function (response) {
         var collections = response.data.collections;
         for(var i= 0; i <collections.length; i++) {
           var id = collections[i].id;
@@ -47,13 +49,21 @@ $(document).ready(function() {
     $('.reviews-items-container').append(new APP.Review(reviews[i]).view);
   }
 
+  for (var i = 0; i <more.length; i++) {
+    more[i].entity = entity;
+  }
+
+  for (var i = 0; i <similar.length; i++) {
+    similar[i].entity = entity;
+  }
+
   new APP.Viewer('carrouselItem', $('.more'), null, more);
   new APP.Viewer('carrouselItem', $('.similar'), null, similar);
 
   $('.am-Follow-button').click(function(event){
     if(following) {
       var url = DataApp.currentUser.url + '/unfollow/';
-      $.post(url,{idUser: work.User.id}, function (response) {
+      $.post(url,{idUser: element.User.id}, function (response) {
         if(response.status === 200) {
           following = false;
           $('.am-Follow-button').removeClass('following').text('+Seguir');
@@ -61,7 +71,7 @@ $(document).ready(function() {
       });
     }else {
       var url = DataApp.currentUser.url + '/follow/';
-      $.post(url,{idUser: work.User.id}, function (response) {
+      $.post(url,{idUser: element.User.id}, function (response) {
         if(response.status === 200) {
           following = true;
           $('.am-Follow-button').addClass('following').text('-Siguiendo');
@@ -84,19 +94,21 @@ $(document).ready(function() {
   });
 
   $('.like-btn').click(function(){
-    if(!work.liked) {
-      var url = DataApp.currentUser.url + '/work/like';
-      $.post(url, {idWork:work.id}, function (response) {
+    var payload = {};
+    payload['id' + Utils.capitalize(entity)] = element.id;
+    if(!element.liked) {
+      var url = DataApp.currentUser.url + '/'+entity+'/like';
+      $.post(url, payload, function (response) {
         if(response.status === 200) {
-          work.liked = true;
+          element.liked = true;
           $('.likes').text(response.data.likes)
           $('.like-btn').parent().addClass('active');
         }
       });
     }else {
-      var url = DataApp.currentUser.url + '/work/unlike';
-      $.post(url, {idWork:work.id}, function (response) {
-        work.liked = false;
+      var url = DataApp.currentUser.url + '/'+entity+'/unlike';
+      $.post(url, payload, function (response) {
+        element.liked = false;
         $('.likes').text(response.data.likes)
         if(response.status === 200) {
           $('.like-btn').parent().removeClass('active');
@@ -107,7 +119,7 @@ $(document).ready(function() {
 
   $('.review-form').submit(function(event){
     event.preventDefault();
-    var url = DataApp.currentUser.url + '/work/review/create';
+    var url = DataApp.currentUser.url + '/'+entity+'/review/create';
     $.post(url, $(this).serialize(), function (response) {
       if(response.status === 200) {
         $('.value-input').val('');
@@ -130,29 +142,31 @@ $(document).ready(function() {
   });
 
   $('.index').click(function() {
-    Utils.changeUrl('tags', '/user/' + work.User.username + '/work/' + work.nameSlugify);
+    Utils.changeUrl('tags', '/user/' + element.User.username + '/'+entity+'/' + element.nameSlugify);
     $('.index-container').show();
     $('.reviews-container').hide();
     $('.tags-container').hide();
   });
 
   $('.reviews').click(function() {
-    Utils.changeUrl('tags', '/user/' + work.User.username + '/work/' + work.nameSlugify + '/reviews');
+    Utils.changeUrl('tags', '/user/' + element.User.username + '/'+entity+'/' + element.nameSlugify + '/reviews');
     $('.index-container').hide();
     $('.reviews-container').show();
     $('.tags-container').hide();
   });
 
   $('.tags').click(function(){
-    Utils.changeUrl('tags', '/user/' + work.User.username + '/work/' + work.nameSlugify + '/tags');
+    Utils.changeUrl('tags', '/user/' + element.User.username + '/'+entity+'/' + element.nameSlugify + '/tags');
     $('.index-container').hide();
     $('.reviews-container').hide();
     $('.tags-container').show();
   });
 
   $('.save-collections').click(function() {
-    var url = DataApp.currentUser.url + '/work/add_to_collection';
-    $.post(url, {idWork: work.id, collections: JSON.stringify(collectionsClicked)}, function (response) {
+    var url = DataApp.currentUser.url + '/'+entity+'/add_to_collection';
+    var payload = {collections: JSON.stringify(collectionsClicked)};
+    payload['id' + Utils.capitalize(entity)] = element.id;
+    $.post(url, payload, function (response) {
       console.log(response);
     });
   });

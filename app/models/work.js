@@ -25,7 +25,9 @@ module.exports = function (sequelize, DataTypes) {
                 associate: function (models) {
                     Work.belongsToMany(models.User, {as: 'WorkLikes', through: 'WorkLikes'});
                     Work.belongsToMany(models.Category, {through: 'WorkCategories'});
+
                     Work.belongsToMany(models.Tag, {through: 'WorkTags'});
+
                     Work.belongsTo(models.User, {onDelete: 'cascade'});
                     Work.belongsToMany(models.Collection, {through: 'CollectionWork'});
                     Work.hasMany(models.Product);
@@ -151,14 +153,11 @@ module.exports = function (sequelize, DataTypes) {
                   var scope = this, query = {where: {UserId: options.viewer}};
 
                   return this.getCollections(query).then(function (collections) {
-                    console.log(options.collections);
                       var currentIds = _.pluck(collections , 'id');
                       currentIds = currentIds || [];
                       var newIds = options.collections;
-                      console.log(currentIds, newIds);
                       var oldCollectionsIds = _.difference(currentIds, newIds);
                       var newCollectionsIds = _.difference(newIds, currentIds);
-                      console.log(oldCollectionsIds, newCollectionsIds);
                       var i, collection, promises = [];
                       for (i = 0; i < oldCollectionsIds.length; i++) {
                           collection = _.where(collections, {id: oldCollectionsIds[i]})[0];

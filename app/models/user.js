@@ -56,7 +56,6 @@ module.exports = function (sequelize, DataTypes) {
                     User.belongsToMany(models.Work, {as: 'WorkLikes', through: 'WorkLikes'});
 
                     User.belongsToMany(models.Product, {as: 'ProductLikes', through: 'ProductLikes'});
-                    User.belongsToMany(models.Product, {as: 'ProductCollects', through: 'ProductCollects'});
                     User.belongsToMany(models.Product, {as: 'ProductBuyers', through: 'ProductBuyers'});
 
                     User.hasMany(models.Collection);
