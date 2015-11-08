@@ -19,9 +19,19 @@ exports.index = function (req, res) {
 
 
 exports.create = function (req, res) {
-  req.body.WorkId = parseInt(req.body.idWork, 10);
-  global.db.Product.create(req.body).then(function(product) {
-    product.setUser(req.user).then(function () {
+  var idWork = parseInt(req.body.idWork, 10)
+  var promises = [
+    global.db.Work.findById(idWork),
+    global.db.Product.create(req.body)
+  ];
+  global.db.Sequelize.Promise.all(promises).then(function (result) {
+    var work = result[0], product = result[1];
+    promises = [
+      work.updateAttributes({onSale:true}),
+      product.setWork(work),
+      product.setUser(req.user)
+    ]
+    global.db.Sequelize.Promise.all(promises).then(function (result) {
       if (req.xhr)
           return res.ok({product: product}, 'Producto creada');
 

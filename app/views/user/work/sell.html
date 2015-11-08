@@ -4,7 +4,11 @@
 <div class="am-upload-work">
   <div class="am-upload-work-box grid-container u-margin-top-20">
 	<div class="grid-100">
+    {% if !work.onSale %}
 		<p class="main-title"><i class="bi_ecommerce-shop"></i>&nbsp;&nbsp;VENDE TU TRABAJO</p>
+    {% else %}
+    <p class="main-title"><i class="bi_ecommerce-shop"></i>&nbsp;&nbsp;ESTA OBRA YA ESTA EN VENTA</p>
+    {% endif %}
 		<div class="u-separator"></div>
     <div class="work-collection-card u-margin-top-40">
       <div class="work-collection-card-img">
@@ -16,20 +20,13 @@
       </div>
     </div>
 	</div>
-
+  {% if !work.onSale %}
 	<div class="grid-100">
 		<div class="separator u-margin-top-20">
 			<span class="line"></span><span class="text">VENDER ARTE ORIGINAL</span><span class="line"></span>
 		</div>
 	</div>
   <form class="sell-form">
-  	<div class="grid-50 sufix-50">
-  		<p class="title">Elige la moneda</p>
-  		<select class="input select" name='currency'>
-  			<option value="soles">Nuevos Soles (PEN)</option>
-  		</select>
-  	</div>
-
   	<div class="grid-100">
   		<p class="title">Ingresa tu ganancia</p>
   		<div class="operators">
@@ -83,8 +80,11 @@
     <div class="grid-100">
       <button class="button" data-color="blue">VENDER</button>
     </div>
-
   </form>
+  {% else %}
+    <a class="button" href='/user/{{work.User.username}}/product/{{work.nameSlugify}}' data-color="blue">VER PRODUCTO</a>
+  </div>
+  {% endif %}
 </div>
 </div>
 {% endblock %}

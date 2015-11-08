@@ -178,8 +178,8 @@ exports.update = function (req, res) {
         global.db.Category.findAll({where: {id: {$in: data.categories}}}),
         global.db.Work.findById(data.idWork)
     ];
-    global.db.Sequelize.Promise.all(promises).then(function (data) {
-        var categories = data[0] , work = data[1];
+    global.db.Sequelize.Promise.all(promises).then(function (resultPromise) {
+        var categories = resultPromise[0] , work = resultPromise[1];
         var promises = [
             work.updateAttributes(data),
             work.setTags(tagsResult),

@@ -227,7 +227,6 @@
 {% block scripts %}
 	<script>
 	var work = {{work|json|safe}};
-	console.log({{similares|json|safe}})
 	$(document).ready(function() {
 		$('.share-btn').on('click',function(){
 			$('.add-collection').hide();
@@ -275,6 +274,7 @@
 
 		var currentPath = {{currentPath|json|safe}};
 		var reviews = {{reviews|json|safe}};
+		console.log(reviews);
 
 		for (var i = 0; i <reviews.length; i++) {
 			$('.reviews-items-container').append(new APP.Review(reviews[i]).view);

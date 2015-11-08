@@ -17,8 +17,9 @@ module.exports = function (sequelize, DataTypes) {
             description: DataTypes.TEXT,
             public: {type: DataTypes.BOOLEAN, defaultValue: true},
             featured: {type: DataTypes.BOOLEAN, defaultValue: false},
+            onSale: {type: DataTypes.BOOLEAN, defaultValue: false},
             views: {type: DataTypes.INTEGER, defaultValue: 0},
-            popularity: {type: DataTypes.INTEGER, defaultValue: 0}
+            popularity: {type: DataTypes.INTEGER, defaultValue: 0},
         }, {
             classMethods: {
                 associate: function (models) {
