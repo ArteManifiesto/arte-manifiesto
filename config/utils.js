@@ -18,16 +18,18 @@ global.lift = function (app) {
 
 global.config = {
     search: {
-        entities: ['works', 'users', 'products'],
+        entities: ['works', 'users', 'products', 'collections'],
         orders: {
             works: ['popularity', 'views', 'newest'],
             users: ['popularity', 'views', 'newest'],
+            collections: ['popularity', 'views', 'newest'],
             products: ['popularity', 'views', 'newest', 'price_asc', 'price_desc']
         },
         times: ['day', 'week', 'month', 'year'],
         params: {
             works: ['order', 'time', 'featured', 'term'],
             users: ['order', 'time', 'featured', 'term'],
+            collections: ['order', 'time', 'featured', 'term'],
             products: ['order', 'time', 'name', 'featured', 'lo_p', 'hi_p']
         }
     }
@@ -93,9 +95,12 @@ global.discoverGenerator = function (entity, req) {
             "MATCH(firstname, lastname, username) AGAINST('"+ req.query.term +"' IN BOOLEAN MODE)"
           );
         }
+        if(entity === 'Collection') {
+          query.where.$and = global.db.sequelize.literal(
+            "MATCH(name, description) AGAINST('"+ req.query.term +"' IN BOOLEAN MODE)"
+          );
+        }
     }
-
-    console.log(query);
     return {options: options, query: query};
 }
 
@@ -146,6 +151,14 @@ global.searchWorks = function (req) {
 
 global.searchUsers = function (req) {
     var discover = discoverGenerator('User', req);
+    discover.query.order.push([global.db.sequelize.col('id')]);
+    return beforePagination(req, discover);
+};
+
+global.searchCollections = function (req) {
+    var discover = discoverGenerator('Collection', req);
+    discover.query.where.public = true;
+    discover.query.addUser = true;
     discover.query.order.push([global.db.sequelize.col('id')]);
     return beforePagination(req, discover);
 };

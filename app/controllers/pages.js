@@ -49,15 +49,24 @@ var searchBridge = function (req) {
 };
 
 var discover = function (req, entity) {
-    console.log(req.query);
     var query = {attributes: ['id', 'name', 'nameSlugify']};
     var promises = [
-      searchBridge(req),
-      global.db[entity === 'products' ? 'ProductType' : 'Category'].findAll(query)
+      searchBridge(req)
     ];
+
+    if(entity !=='collections') {
+      promises.push(
+        global.db[entity === 'products' ? 'ProductType' : 'Category'].findAll(query)
+      );
+    }
     return global.db.Sequelize.Promise.all(promises).then(function (data) {
+      console.log(data);
       var order = global.config.search.orders[entity];
-      data[0].filters.categories = data[1];
+      if(entity !== 'collections') {
+        data[0].filters.categories = data[1];
+      }else {
+        data[0].filters.categories = [];
+      }
       data[0].filters.order = order;
       return {data: data[0]};
     });
@@ -72,6 +81,12 @@ exports.works = function (req, res) {
 exports.users = function (req, res) {
     discover(req, 'users').then(function (data) {
         return res.render(basePath + 'users', data);
+    });
+};
+
+exports.collections = function (req, res) {
+    discover(req, 'collections').then(function (data) {
+        return res.render(basePath + 'collections', data);
     });
 };
 
