@@ -30,7 +30,7 @@ global.config = {
             works: ['order', 'time', 'featured', 'term'],
             users: ['order', 'time', 'featured', 'term'],
             collections: ['order', 'time', 'featured', 'term'],
-            products: ['order', 'time', 'name', 'featured', 'lo_p', 'hi_p']
+            products: ['order', 'time', 'name', 'featured', 'lo_p', 'hi_p', 'term']
         }
     }
 };
@@ -77,7 +77,7 @@ global.discoverGenerator = function (entity, req) {
         };
 
     if (req.query.term) {
-        if(entity === 'Work') {
+        if(entity === 'Work' || entity === 'Product') {
           if(req.query.term.substring(0, 1) !== '#') {
             query.where.$and = global.db.sequelize.literal(
               "MATCH(name, description) AGAINST('"+ req.query.term +"' IN BOOLEAN MODE)"
@@ -86,7 +86,7 @@ global.discoverGenerator = function (entity, req) {
 
           if(req.query.term.substring(0, 1) === '#') {
             if(req.params.value !== 'all') {
-              query.include = [{model: global.db.Category, where:{nameSlugify: req.params.value}}]
+                query.include = [{model: global.db.Category, where:{nameSlugify: req.params.value}}]
             }
           }
         }

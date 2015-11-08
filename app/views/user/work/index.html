@@ -207,7 +207,11 @@
 	        <div class="tags">
 	          {% for tag in tags %}
 	          {% set url = "#" + tag.name %}
-	          <div class="tag uppercase"><a href='/works/category/all/page-1/?term={{url|url_encode}}'>{{tag.name}}</a></div>
+						{% if entity =='work'%}
+						<div class="tag uppercase"><a href='/works/category/all/page-1/?term={{url|url_encode}}'>{{tag.name}}</a></div>
+						{% else %}
+						<div class="tag uppercase"><a href='/products/type/all/page-1/?term={{url|url_encode}}'>{{tag.name}}</a></div>
+						{% endif %}
 	          {% endfor %}
 	        </div>
 	      </div>

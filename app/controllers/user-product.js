@@ -30,24 +30,38 @@ exports.index = function (currentPath, req, res) {
 
 
 exports.create = function (req, res) {
-  var idWork = parseInt(req.body.idWork, 10)
-  var promises = [
-    global.db.Work.findById(idWork),
-    global.db.Product.create(req.body)
-  ];
-  global.db.Sequelize.Promise.all(promises).then(function (result) {
-    var work = result[0], product = result[1];
-    promises = [
-      work.updateAttributes({onSale:true}),
-      product.setWork(work),
-      product.setUser(req.user)
-    ]
-    global.db.Sequelize.Promise.all(promises).then(function (result) {
-      if (req.xhr)
-          return res.ok({product: product}, 'Producto creada');
+  var data = JSON.parse(req.body.data);
+  var idWork = parseInt(data.idWork, 10)
+  data.ProductTypeId = data.category;
 
-      req.flash('successMessage', 'Producto Creado');
-      return res.redirect('back');
+  var promises = [];
+  var tags = data.tags;
+  for(var i = 0; i < tags.length ; i++) {
+    promises.push(global.db.Tag.findOrCreate({where:{name: tags[i]}}));
+  }
+  global.db.Sequelize.Promise.all(promises).then(function (results) {
+    var tagsResult = [];
+    for(var i = 0; i < results.length ; i++)
+      tagsResult.push(results[i][0]);
+
+    promises = [
+      global.db.Work.findById(idWork),
+      global.db.Product.create(data)
+    ];
+    global.db.Sequelize.Promise.all(promises).then(function (result) {
+      var work = result[0], product = result[1];
+      promises = [
+        product.setWork(work),
+        product.setUser(req.user),
+        product.setTags(tagsResult)
+      ]
+      global.db.Sequelize.Promise.all(promises).then(function (result) {
+        if (req.xhr)
+            return res.ok({product: product}, 'Producto creada');
+
+        req.flash('successMessage', 'Producto Creado');
+        return res.redirect('back');
+      });
     });
   });
 };

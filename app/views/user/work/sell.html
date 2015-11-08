@@ -21,36 +21,59 @@
     </div>
 	</div>
   {% if !work.onSale %}
-	<div class="grid-100">
-		<div class="separator u-margin-top-20">
-			<span class="line"></span><span class="text">VENDER ARTE ORIGINAL</span><span class="line"></span>
-		</div>
-	</div>
-  <form class="sell-form">
-  	<div class="grid-100">
-  		<p class="title">Ingresa tu ganancia</p>
-  		<div class="operators">
-  			<div class="box">
-  				<div class="input container">
-            <input required type='number' name='price' placeholder="cuanto deseas ganar"></input>
-  				</div>
-  			</div>
-  			<div class="simbol">+</div>
-  			<div class="box">
-  				<p>Ganamos si tu ganas (30%)</p>
-  			</div>
-  			<div class="simbol">=</div>
-  			<div class="box">
-  				<input required class="input" name='finalPrice' disabled placeholder="Total">
-  			</div>
-  		</div>
-  		<div class="operators-desc u-margin-top-10">
-  			<p>GANANCIA DEL ARTISTA</p>
-  			<p>COMISIÓN ARTE MANIFIESTO</p>
-  			<p>PRECIO DE LISTA OBRA</p>
+    <div class="grid-100 u-margin-top-20">
+  		<div class="separator">
+  			<span class="line"></span><span class="text">DATOS DEL PRODUCTO</span><span class="line"></span>
   		</div>
   	</div>
 
+    <div class="grid-100 mobile-grid-100">
+      <p class="title">Descripcion del producto</p>
+      <textarea name='description' required class='input'placeholder="Descripcion" maxlength='140'>{{work.description}}</textarea>
+    </div>
+
+    <div class="grid-100 mobile-grid-100">
+      <p class="title">Categoría del producto</p>
+      <select class="input select-type" required name='categories'>
+        {% for category in categories %}
+        <option data-profit={{category.profit}} value="{{category.id}}">{{category.name}}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+		<div class="grid-100 mobile-grid-100">
+			<p class="title">Tags del producto</p>
+			<input name='tags' class="input tags"  value="{{tags}}" required type="text"/>
+    </div>
+    <div class="grid-100">
+  		<div class="separator u-margin-top-20">
+  			<span class="line"></span><span class="text">CALCULAR PRECIO DEL PRODUCTO</span><span class="line"></span>
+  		</div>
+  	</div>
+    <form class="sell-form">
+    	<div class="grid-100">
+    		<p class="title"></p>
+    		<div class="operators">
+    			<div class="box">
+    				<div class="input container">
+              <input required type='number' name='price' placeholder="cuanto deseas ganar"></input>
+    				</div>
+    			</div>
+    			<div class="simbol">+</div>
+    			<div class="box">
+    				<p>Ganamos si tu ganas (<span class="price_label">30</span>%)</p>
+    			</div>
+    			<div class="simbol">=</div>
+    			<div class="box">
+    				<input required class="input" name='finalPrice' disabled placeholder="Total">
+    			</div>
+    		</div>
+    		<div class="operators-desc u-margin-top-10">
+    			<p>GANANCIA DEL ARTISTA</p>
+    			<p>COMISIÓN ARTE MANIFIESTO</p>
+    			<p>PRECIO DE LISTA OBRA</p>
+    		</div>
+    	</div>
   	<div class="grid-100 u-margin-top-20">
   		<div class="separator">
   			<span class="line"></span><span class="text">DATOS DEL ENVÍO</span><span class="line"></span>
@@ -90,8 +113,13 @@
 {% endblock %}
 
 {% block scripts %}
+<script src='/jquery.tagsinput.js' type='text/javascript'></script>
 <script>
 $(function(){
+  $('.tags').tagsInput({
+		height:'50px', width:'100%', defaultText:'+ Etiqueta'
+	});
+
   var $price = $('input[name=price]');
   var $final_price = $('input[name=finalPrice]');
 
@@ -102,7 +130,7 @@ $(function(){
     if(isNaN(price))
       price = 0;
 
-    final_price = price + Math.floor(price / 100 * 30);
+    final_price = price + Math.floor(price / 100 * profit);
     $final_price.val(final_price);
   });
   var work = {{work|json|safe}};
@@ -112,10 +140,12 @@ $(function(){
 		var formData = {
 			photo              : work.photo,
 			name             : work.name,
-			description             : work.description,
-      price: price,
+			description             : $('textarea[name=description]').val(),
+      price: final_price,
       public: true,
       idWork: work.id,
+      category: parseInt($('select[name=categories]').val(),10),
+      tags : $('input[name=tags]').val().split(','),
       width: $('input[name=width]').val(),
       length: $('input[name=length]').val(),
       depth: $('input[name=depth]').val(),
@@ -125,14 +155,20 @@ $(function(){
 		$.ajax({
 			method: 'POST',
 			url: DataApp.currentUser.url + '/product/create',
-			data: formData
+			data: {data: JSON.stringify(formData)}
 		}).then(function(response) {
       if(response.status === 200) {
 				location.href = DataApp.currentUser.url + '/store';
 			}
-      console.log(response);
 		});
 	});
+  var profit;
+  $('.select-type').change(function(){
+    profit = parseInt($( ".select-type option:selected").data('profit'), 10);
+    $('.price_label').text(profit);
+    $price.keyup();
+  });
+  $('.select-type').change();
 });
 </script>
 {% endblock %}

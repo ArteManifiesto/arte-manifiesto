@@ -57,12 +57,10 @@ exports.add = function (req, res) {
  * @param work data
  */
 exports.create = function (req, res) {
-    var data = JSON.parse(req.body.data);
+  var data = JSON.parse(req.body.data);
 
     var promises = [];
     var tags = data.tags;
-
-
     for(var i = 0; i < tags.length ; i++) {
       promises.push(global.db.Tag.findOrCreate({where:{name: tags[i]}}));
     }
@@ -154,10 +152,14 @@ exports.published = function (req, res) {
 
 
 exports.sell = function (req, res) {
-    var query = {where:{id:req.work.id}, addUser:true};
-    global.db.Work.find(query).then(function(work) {
-      return res.render(basePath + 'sell', {
-        work: work
+    var query = {where:{id:req.work.id}, addUser:true, include:[global.db.Tag]};
+    global.db.ProductType.findAll().then(function(categories){
+      global.db.Work.find(query).then(function(work) {
+        return res.render(basePath + 'sell', {
+          work: work,
+          categories:categories,
+          tags: _.pluck(work.Tags, 'name'),
+        });
       });
     });
 };
