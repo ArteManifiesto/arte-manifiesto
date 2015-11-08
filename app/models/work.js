@@ -110,6 +110,7 @@ module.exports = function (sequelize, DataTypes) {
                 similar: function (viewer) {
                     var scope = this;
                     return this.getCategories().then(function (categories) {
+                        if(categories.length < 1) return;
                         var query = {
                             where: {id: {$not: [scope.id]}},
                             addUser: true,
