@@ -14,6 +14,7 @@ module.exports = function (sequelize, DataTypes) {
             },
             nameSlugify: DataTypes.STRING,
             price: DataTypes.INTEGER,
+            finalPrice: DataTypes.INTEGER,
             photo: DataTypes.STRING,
             description: DataTypes.TEXT,
             width: DataTypes.INTEGER,

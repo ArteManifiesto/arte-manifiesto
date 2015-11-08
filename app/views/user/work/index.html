@@ -14,28 +14,29 @@
 									<p class="text">VALORAR</p>
 								</div>
 							</div>
+							{% if entity === 'work' %}
+								<div class="action">
+									<div class="collect-btn">
+										<i class="icon bi_interface-list-view valuation"></i>
+										<p class="text">COLECCIONAR</p>
+									</div>
+									<div class="actions-box add-collection hide">
+										<p class="title">Añadir a las colecciones</p>
+										<div class="u-separator u-margin-top-7"></div>
 
-							<div class="action">
-								<div class="collect-btn">
-									<i class="icon bi_interface-list-view valuation"></i>
-									<p class="text">COLECCIONAR</p>
-								</div>
-								<div class="actions-box add-collection hide">
-									<p class="title">Añadir a las colecciones</p>
-									<div class="u-separator u-margin-top-7"></div>
-
-									<form class="add-collection-form">
-										<input class="u-margin-top-10" type="text" name='name' required placeholder="Crear una colección nueva">
-										<button class="u-margin-top-10 color-black bg-gray wd-auto">AÑADIR</button>
-									</form>
-									<ul class="collections u-margin-top-20">
-									</ul>
-									<div class="u-separator u-margin-top-20"></div>
-									<div class="buttons u-margin-top-20">
-										<button class="wd-auto bg-blue color-white save-collections">GUARDAR</button>
+										<form class="add-collection-form">
+											<input class="u-margin-top-10" type="text" name='name' required placeholder="Crear una colección nueva">
+											<button class="u-margin-top-10 color-black bg-gray wd-auto">AÑADIR</button>
+										</form>
+										<ul class="collections u-margin-top-20">
+										</ul>
+										<div class="u-separator u-margin-top-20"></div>
+										<div class="buttons u-margin-top-20">
+											<button class="wd-auto bg-blue color-white save-collections">GUARDAR</button>
+										</div>
 									</div>
 								</div>
-							</div>
+							{% endif %}
 							<div class="action">
 								<!-- <i class="icon fa fa-share-alt share"></i> -->
 								<div class="share-btn">
@@ -67,8 +68,11 @@
 					</div>
 					<div class="u-separator"></div>
 					<p class="am-Single-title-text u-margin-top-15">{{element.description}}</p>
+					<p class="am-Single-text u-margin-top-10">ancho : {{element.width}} cm</p>
+					<p class="am-Single-text u-margin-top-10">largo : {{element.length}} cm</p>
+					<p class="am-Single-text u-margin-top-10">profundidad : {{element.depth}} cm</p>
+					<p class="am-Single-text u-margin-top-10">peso : {{element.weight}} kg</p>
 					<p class="am-Single-text u-margin-top-20">Categoría:</p>
-
 					{% if entity === 'work' %}
 					{% for category in element.Categories %}
 						<a href='/works/category/{{category.nameSlugify}}/page-1/?order=popularity'><span class="am-Category-box u-margin-top-7">{{category.name}}</span></a>
@@ -91,7 +95,7 @@
 						</div>
 						<div class="body">
 							<p class="text u-margin-top-10">Precio por unidad:</p>
-							<p class="price u-text-center">S/.<strong>{{element.price}}</strong> PEN</p>
+							<p class="price u-text-center">S/.<strong>{{element.finalPrice}}</strong> PEN</p>
 
 							<p class="text u-margin-top-10">Cantidad:</p>
 							<div class="u-center">
@@ -222,7 +226,11 @@
 	<div class="index-container {% if currentPath !== 'index' %} hide {% endif %}">
 	  <div class="grid-container u-margin-top-60">
 	    <div class="grid-100">
-	      <p class="am-more-text u-text-center u-padding-bottom-10">Otras obras del artista</p>
+				{% if entity === 'work'%}
+				<p class="am-more-text u-text-center u-padding-bottom-10">Otras obras del artista</p>
+				{% else %}
+				<p class="am-more-text u-text-center u-padding-bottom-10">Otros productos del artista</p>
+				{% endif %}
 	      <div class="u-separator-center"></div>
 	    </div>
 	  </div>
@@ -236,11 +244,15 @@
 	    </div>
 	  </div>
 
-	  <div class="u-separator u-margin-top-60"></div>
+		<div class="u-separator u-margin-top-60"></div>
 
 	  <div class="grid-container u-margin-top-60">
 	    <div class="grid-100">
-	      <p class="am-more-text u-text-center u-padding-bottom-10">Obras relacionadas</p>
+				{% if entity === 'work'%}
+				<p class="am-more-text u-text-center u-padding-bottom-10">Obras relacionadas</p>
+				{% else %}
+				<p class="am-more-text u-text-center u-padding-bottom-10">Productos relacionados</p>
+				{% endif %}
 	      <div class="u-separator-center"></div>
 	    </div>
 	  </div>
@@ -265,8 +277,6 @@
 		var reviews = {{reviews|json|safe}};
 		var more = {{more|json|safe}};
 		var similar = {{similar|json|safe}};
-		console.log(more);
-		console.log(similar);
 	</script>
 	<script src='/work-product.js'></script>
 {% endblock %}

@@ -1,4 +1,5 @@
 var basePath = 'user/product/';
+var _ = require('lodash');
 
 exports.index = function (currentPath, req, res) {
     req.product.views += 1;
@@ -51,6 +52,7 @@ exports.create = function (req, res) {
     global.db.Sequelize.Promise.all(promises).then(function (result) {
       var work = result[0], product = result[1];
       promises = [
+        work.updateAttributes({onSale: true}),
         product.setWork(work),
         product.setUser(req.user),
         product.setTags(tagsResult)
@@ -66,6 +68,22 @@ exports.create = function (req, res) {
   });
 };
 
+exports.edit = function (req, res) {
+  var promises = [
+    global.db.ProductType.findAll(),
+    req.product.getProductType(),
+    req.product.getTags()
+  ];
+  global.db.Sequelize.Promise.all(promises).then(function (result) {
+      return res.render('user/work/sell', {
+      mode:'edit',
+      product:req.product,
+      categories: result[0],
+      productType: result[1],
+      tags: _.pluck(result[2], 'name')
+    });
+  });
+};
 
 exports.createReview = function (req, res) {
   req.body.ProductId = parseInt(req.body.idProduct, 10);

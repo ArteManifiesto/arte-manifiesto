@@ -17,7 +17,7 @@ module.exports = {
         referenceKey: "id",
         onUpdate: "CASCADE",
         onDelete: "CASCADE"
-      }
+      },
       createdAt: {
         type: Sequelize.DATE
       },
@@ -30,7 +30,6 @@ module.exports = {
       charset: 'utf8'
     });
   },
-
   down: function (queryInterface, Sequelize) {
     queryInterface.dropTable('ProductTags')
   }
