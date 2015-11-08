@@ -383,7 +383,7 @@
 			$('.tags-container').show();
 		});
 
-		$('.save-collections').click(function(){
+		$('.save-collections').click(function() {
 			var url = DataApp.currentUser.url + '/work/add_to_collection';
 			$.post(url, {idWork: work.id, collections: JSON.stringify(collectionsClicked)}, function (response) {
 				console.log(response);

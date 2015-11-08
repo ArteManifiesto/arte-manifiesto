@@ -76,19 +76,25 @@ exports.userTo = function (req, res, next) {
     });
 }
 
+var entityExists = function (entity, query, req, res, next, method) {
+  var temp;
+  if(method) {
+    temp = req.profile['get' + entity + 's'](query);
+  }else {
+    temp = global.db[entity].find(query);
+  }
+  temp.then(function(elements) {
+    var element = method ? elements[0] : elements;
+    if (!element) {
+        if (req.xhr)
+            return res.badRequest(entity + ' not exists');
 
-var entityExists = function (entity, query, req, res, next) {
-    global.db[entity].find(query).then(function (element) {
-        if (!element) {
-            if (req.xhr)
-                return res.badRequest(entity + ' not exists');
-
-            req.flash('errorMessage', entity + ' not exists');
-            return res.redirect('/user/' + req.params.username);
-        }
-        req[entity.toLowerCase()] = element;
-        next();
-    });
+        req.flash('errorMessage', entity + ' not exists');
+        return res.redirect('/user/' + req.params.username);
+    }
+    req[entity.toLowerCase()] = element;
+    next();
+  });
 };
 
 exports.entity = function (entity) {
@@ -96,7 +102,7 @@ exports.entity = function (entity) {
         if (!req.body['id' + entity])
             return next();
         var query = {where: {id: req.body['id' + entity]}};
-        entityExists(entity, query, req, res, next);
+        entityExists(entity, query, req, res, next, false);
     }
 };
 
@@ -106,7 +112,7 @@ exports.nameSlugify = function (entity) {
             where: {nameSlugify: req.params.nameSlugify},
             viewer: req.viewer, build: true, addUser: true
         };
-        entityExists(entity, query, req, res, next);
+        entityExists(entity, query, req, res, next , true);
     }
 };
 

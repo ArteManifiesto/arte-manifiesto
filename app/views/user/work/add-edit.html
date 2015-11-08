@@ -128,10 +128,11 @@ $(document).ready(function() {
 			url: url,
 			data: {data: JSON.stringify(formData)}
 		}).then(function(response) {
-			console.log(response);
 			if(response.status === 200) {
-				//var work = response.data.work;
-				//location.href = DataApp.currentUser.url + '/work/' + work.nameSlugify + '/published';
+				if(mode === 'add') {
+					var work = response.data.work;
+					location.href = DataApp.currentUser.url + '/work/' + work.nameSlugify + '/published';
+				}
 			}
 		});
 	});
