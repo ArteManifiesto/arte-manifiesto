@@ -3,15 +3,13 @@
 {% set path = 'market' %}
 {% set profile = profile.toJSON()%}
 {% block elements %}
-	<!-- <div class="am-Profile-banner" style="background-image: url('http://www.wallpapereast.com/static/images/Dragon-Backgrounds-Wallpaper-Hd-44.jpg')"> -->
 	<div class="am-Profile-banner">
-		<img class="am-Profile-banner-img" src="http://www.wallpapereast.com/static/images/Dragon-Backgrounds-Wallpaper-Hd-44.jpg">
 		{% if owner %}
 			<div class="uploader-cover">
 				<i class="fa fa-pencil-square-o"></i>
 				<div class="profile-imgage">
 					<div class="preview">
-						<img src="http://www.wallpapereast.com/static/images/Dragon-Backgrounds-Wallpaper-Hd-44.jpg"/>
+						<img class="am-Profile-banner-img" src="{{profile.cover}}">
 					</div>
 				</div>
 				<div class="preload hide"><i class="fa fa-spinner"></i></div>
@@ -134,7 +132,12 @@
 					"private_cdn": false
 				};
 				$.cloudinary.config(config);
-				var uploaderImage = new APP.UploaderImage($('.uploader-cover'));
+				var uploaderImage = new APP.UploaderImage($('.uploader-cover'), function(){
+			      var filters =  {width: 1200, crop: "limit"};
+			      $.cloudinary.image(this.photo, filters)
+						.addClass('am-Profile-banner-img')
+						.appendTo(this.$view.find('.preview'));
+				});
 			}
 			var profile = {{profile|json|safe}};
 			var following = profile.following;

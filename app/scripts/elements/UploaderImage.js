@@ -4,10 +4,11 @@
 */
 var APP = APP || {};
 
-APP.UploaderImage = function (view) {
+APP.UploaderImage = function (view, onComplete) {
   this.$view = view;
   this.photo = '';
   this.listeners();
+  this.onComplete = onComplete;
 };
 
 APP.UploaderImage.constructor = APP.UploaderImage;
@@ -26,7 +27,11 @@ APP.UploaderImage.prototype.listeners = function () {
     scope.$view.find('.preload').hide();
     scope.$view.find('.preview').html('');
     scope.photo = data.result.url;
-    var filters =  {format: data.result.format, width: 200, height: 200, crop: "thumb"};
-    $.cloudinary.image(data.result.public_id, filters).appendTo(scope.$view.find('.preview'));
+    if(!scope.onComplete) {
+      var filters =  {format: data.result.format, width: 200, height: 200, crop: "thumb"};
+      $.cloudinary.image(data.result.public_id, filters).appendTo(scope.$view.find('.preview'));
+    }else {
+      scope.onComplete();
+    }
   });
 };
