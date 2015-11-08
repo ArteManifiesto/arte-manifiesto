@@ -60,7 +60,9 @@
 					<div class="FollowArtist u-padding-bottom-10">
 						<div>
 							<p class="u-padding-bottom-7 big uppercase"><strong>{{work.User.firstname}}</strong></p>
+							{% if !owner %}
 							<button class="am-Follow-button">+ SEGUIR</button>
+							{% endif %}
 						</div>
 					</div>
 					<div class="u-separator"></div>
@@ -119,7 +121,9 @@
 							<div>
 								<p class="u-padding-bottom-4 uppercase" style="font-weight: bold;">{{work.User.firstname}}</p>
 								<p class="u-padding-bottom-7"> <strong></strong> {{work.User.city}}, {{work.User.country}}</p>
+								{% if !owner %}
 								<button class="am-Follow-button">+ SEGUIR</button>
+								{% endif %}
 							</div>
 						</div>
 					</div>
@@ -226,7 +230,9 @@
 
 {% block scripts %}
 	<script>
+	var owner = {{owner|json|safe}};
 	var work = {{work|json|safe}};
+
 	$(document).ready(function() {
 		$('.share-btn').on('click',function(){
 			$('.add-collection').hide();
@@ -235,7 +241,7 @@
 
 		var following = false;
 
-		if(DataApp.currentUser) {
+		if(DataApp.currentUser && !owner) {
 		var url = DataApp.currentUser.url + '/isFollowing';
 		$.post(url, {idUser:work.User.id}, function (response) {
 			if(response.status === 200) {

@@ -1,5 +1,8 @@
 var basePath = 'user/';
 var _ = require('lodash');
+var cloudinary = require('cloudinary').v2;
+process.env.CLOUDINARY_URL = 'cloudinary://337494525976864:RQ2MXJev18AjVuf-mSNzdmu2Jsc@hackdudes'
+cloudinary.config();
 
 exports.profile = function (currentPath, req, res) {
     var promises = [
@@ -8,13 +11,15 @@ exports.profile = function (currentPath, req, res) {
         req.profile.numOfFollowings(),
         req.profile.numOfFollowers()
     ];
-
+    var cloudinary_cors = "http://" + req.headers.host + "/cloudinary_cors.html";
     global.db.sequelize.Promise.all(promises).then(function (data) {
         return res.render(basePath + 'index', {
             currentPath: currentPath,
             profile: req.profile,
             owner: req.owner,
-            data: data
+            data: data,
+            cloudinary_cors: cloudinary_cors,
+            cloudinary: cloudinary
         });
     });
 };

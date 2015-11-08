@@ -22,6 +22,7 @@ exports.index = function (currentPath, req, res) {
         }
         global.db.Work.find(query).then(function(work) {
           return res.render(basePath + 'index', {
+              owner : req.owner,
               currentPath: currentPath,
               work: work, userLikes: result[1],
               more: result[2], similar: result[3],
@@ -37,7 +38,7 @@ exports.add = function (req, res) {
   var cloudinary_cors = "http://" + req.headers.host + "/cloudinary_cors.html";
     global.db.Category.findAll().then(function (categories) {
         return res.render(basePath + 'add-edit', {
-          mode:'add',
+        mode:'add',
         categories: categories,
         cloudinary_cors: cloudinary_cors,
         cloudinary: cloudinary
