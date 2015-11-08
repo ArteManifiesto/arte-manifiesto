@@ -15,8 +15,8 @@ router.get('/:nameSlugify/reviews', global.md.nameSlugify(entity), controller.in
 router.get('/:nameSlugify/tags', global.md.nameSlugify(entity), controller.index.bind(this, 'tags'));
 
 router.get('/:nameSlugify/edit', isLoggedAndOwner, global.md.nameSlugify(entity), controller.edit);
-router.get('/:nameSlugify/published', global.md.nameSlugify(entity), controller.published);
-router.get('/:nameSlugify/sell', global.md.nameSlugify(entity), controller.sell);
+router.get('/:nameSlugify/published', isLoggedAndOwner, global.md.nameSlugify(entity), controller.published);
+router.get('/:nameSlugify/sell', isLoggedAndOwner, global.md.nameSlugify(entity), controller.sell);
 
 router.post('/create', isLoggedAndOwner, controller.create);
 router.post('/delete', isLoggedAndOwner, controller.delete);
