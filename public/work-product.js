@@ -3,15 +3,6 @@ $(document).ready(function() {
     $('.add-collection').hide();
     $('.social-share').toggle();
   });
-
-
-  var owner  = window.owner;
-  var work  = window.work;
-  var currentPath  = window.currentPath;
-  var reviews  = window.reviews;
-  var more  = window.more;
-  var similar  = window.similar;
-
   var following = false;
 
   if(DataApp.currentUser && !owner) {

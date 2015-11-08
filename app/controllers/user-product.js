@@ -10,6 +10,7 @@ exports.index = function (req, res) {
     ];
     global.db.Sequelize.Promise.all(promises).then(function (result) {
         return res.render(basePath + 'index', {
+            owner:req.owner,
             profile: req.profile,
             product: req.product, userLikes: result[1],
             more: result[2], similar: result[3]

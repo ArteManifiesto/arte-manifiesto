@@ -103,18 +103,17 @@
 			</div>
 		</div>
 	</div>
-
 {% include '../../partials/single-work-product.html' %}
 {% include '../../partials/report.html' %}
 {% endblock %}
 {% block scripts %}
 	<script>
-		window.owner = {{owner|json|safe}};
-		window.work = {{work|json|safe}};
-		window.currentPath = {{currentPath|json|safe}};
-		window.reviews = {{reviews|json|safe}};
-		window.more = {{more|json|safe}};
-		window.similar = {{similar|json|safe}};
+		var owner = {{owner|json|safe}};
+		var work = {{work|json|safe}};
+		var currentPath = {{currentPath|json|safe}};
+		var reviews = {{reviews|json|safe}};
+		var more = {{more|json|safe}};
+		var similar = {{similar|json|safe}};
 	</script>
-	<script href='/work-product.js'></script>
+	<script src='/work-product.js'></script>
 {% endblock %}
