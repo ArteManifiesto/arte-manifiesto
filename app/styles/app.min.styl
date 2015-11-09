@@ -345,10 +345,24 @@ body
 		background-size cover
 		background-position center center
 		height 110px
+		background #ddd
 		&:not(:first-child)
 			width 50%
+			&.empty
+				box-sizing border-box
+				background: #ddd;
+				border-top: solid 1px white;
+				box-sizing: border-box;
 		&:first-child
 			width 100%
+			&.empty
+				border-bottom solid 1px white
+				box-sizing border-box
+		&:last-child
+			border-left: solid 1px white;
+		&:nth-child(2)
+			border-right: solid 1px white;
+
 	&-artist
 		padding 12px
 		display flex
