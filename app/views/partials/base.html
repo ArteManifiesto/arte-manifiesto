@@ -178,11 +178,12 @@
 						<p><%=name%></p>
 					</div>
 					<div class="collection-card-images">
-						<div class="collection-card-image empty"></div>
-						<div class="collection-card-image empty"></div>
-						<div class="collection-card-image empty"></div>
-						<% _.each(works, function(work) { %>
-							<div class="collection-card-image" style="background-image: url('<%= addFilter(work.photo, 'w_300,h_300,c_fill') %>')"></div>
+						<% _.each([0,1,2], function(i) { %>
+				  		<% if(works[i] && works[i].photo) { %>
+								<div class="collection-card-image" style="background-image: url('<%= addFilter(works[i].photo, 'w_300,h_300,c_fill') %>')"></div>
+				  		<% } else { %>
+								<div class="collection-card-image empty"></div>
+				  		<% } %>
 						<% }); %>
 					</div>
 					<div class="collection-card-artist">
