@@ -12,7 +12,7 @@ $(document).ready(function() {
         if(response.status === 200) {
           following = response.data.following;
           if(response.data.following)
-            $('.am-Follow-button').addClass('following').text('-Siguiendo');
+          $('.am-Follow-button').addClass('following').text('-Siguiendo');
         }
       });
     }

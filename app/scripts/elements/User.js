@@ -23,10 +23,17 @@ APP.User.prototype.followHandler = function() {
       url: DataApp.currentUser.url + '/' + action,
       data: {idUser: this.data.id}
     };
-    Utils.getData(options).then(this.followHandlerComplete);
+    Utils.getData(options).then(this.followHandlerComplete.bind(this));
   }
 };
 
 APP.User.prototype.followHandlerComplete = function(response) {
-  console.log(response);
+  if(response.status === 200) {
+    if(this.data.following){
+      this.view.find('.am-Follow-button').removeClass('following').text('+Seguir');
+    }else {
+      this.view.find('.am-Follow-button').addClass('following').text('-Siguiendo');
+    }
+    this.data.following = !this.data.following;
+  }
 };
