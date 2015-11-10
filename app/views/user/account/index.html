@@ -138,8 +138,12 @@
 		    "cloud_name": "hackdudes",
 		    "private_cdn": false
 		  };
+			
 		  $.cloudinary.config(config);
-			var uploaderImage = new APP.UploaderImage($('.uploader-profile'));
+			var uploaderImage = new APP.UploaderImage($('.uploader-profile'), function(idImage){
+				var filters =  {width: 150, height: 150, crop: 'thumb', gravity: 'face'};
+				$.cloudinary.image(idImage, filters).appendTo(this.$view.find('.preview'));
+			});
 
 			var user= {{user|json|safe}};
 			$('select[name="gender"]').find('option:contains('+ user.gender +')').attr("selected",true);
@@ -159,7 +163,7 @@
 				var data = $(this).serializeArray();
 				$.each(data, function(index, value) {
 					if (value.name === 'photo')
-						value.value = uploaderImage.photo.replace('/upload', '/upload/w_150,h_150,c_thumb,q_70,d_am_avatar.jpg');
+						value.value = uploaderImage.photo.replace('/upload', '/upload/w_150,h_150,c_thumb,g_face,d_am_avatar.jpg');
 				});
 
 				$.ajax({

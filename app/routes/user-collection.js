@@ -9,6 +9,7 @@ var entity = 'Collection';
 router.use(global.md.entity(entity));
 
 router.get('/:nameSlugify', global.md.nameSlugify(entity), controller.index);
+//router.get('/:nameSlugify/edit', isLoggedAndOwner, global.md.nameSlugify(entity), controller.edit);
 
 router.post('/all', isLoggedAndOwner, controller.all);
 router.post('/create', isLoggedAndOwner, controller.create);

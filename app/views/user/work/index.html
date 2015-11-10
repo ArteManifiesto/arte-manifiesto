@@ -68,10 +68,12 @@
 					</div>
 					<div class="u-separator"></div>
 					<p class="am-Single-title-text u-margin-top-15">{{element.description}}</p>
+					{% if entity === 'product' %}
 					<p class="am-Single-text u-margin-top-10">ancho : {{element.width}} cm</p>
 					<p class="am-Single-text u-margin-top-10">largo : {{element.length}} cm</p>
 					<p class="am-Single-text u-margin-top-10">profundidad : {{element.depth}} cm</p>
 					<p class="am-Single-text u-margin-top-10">peso : {{element.weight}} kg</p>
+					{% endif %}
 					<p class="am-Single-text u-margin-top-20">Categoría:</p>
 					{% if entity === 'work' %}
 					{% for category in element.Categories %}
@@ -161,10 +163,21 @@
 	          <div class="carousel">
 	            <div class="single-tabs">
 	              <div class="single-tab index">
-	                <p>+ OBRAS</p>
+									{% if entity === 'work' %}
+									<p>+ OBRAS</p>
+									{% else %}
+									<p>+ PRODUCTOS</p>
+									{% endif %}
 	                <!-- <i class="fa fa-cube"></i> -->
 	                <i class="bi_misc-cube"></i>
 	              </div>
+								{% if (entity === 'work' && element.onSale) %}
+								<div class="single-tab products">
+	                <p>PRODUCTOS</p>
+	                <!-- <i class="fa fa-cube"></i> -->
+	                <i class="bi_doc-book"></i>
+	              </div>
+								{% endif %}
 	              <div class="single-tab reviews">
 	                <p>REVIEWS</p>
 	                <span>{{reviews.length}}</span>
@@ -222,6 +235,23 @@
 	    </div>
 	  </div>
 
+	<div class="products-container {% if currentPath !== 'products' %} hide {% endif %}">
+		<div class="grid-container u-margin-top-60">
+	    <div class="grid-100">
+				<p class="am-more-text u-text-center u-padding-bottom-10">Productos</p>
+	      <div class="u-separator-center"></div>
+	    </div>
+	  </div>
+
+	  <div class="grid-container">
+	    <div class="grid-100">
+	      <div class="more-carousel">
+					<div class="more-images work-products">
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
 	<div class="index-container {% if currentPath !== 'index' %} hide {% endif %}">
 	  <div class="grid-container u-margin-top-60">
@@ -271,6 +301,7 @@
 {% block scripts %}
 	<script>
 		var owner = {{owner|json|safe}};
+		var products = {{products|json|safe}};
 		var entity = {{entity|json|safe}};
 		var element = {{element|json|safe}};
 		var currentPath = {{currentPath|json|safe}};

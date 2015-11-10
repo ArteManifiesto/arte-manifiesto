@@ -31,7 +31,7 @@ APP.UploaderImage.prototype.listeners = function () {
       var filters =  {format: data.result.format, width: 200, height: 200, crop: "thumb"};
       $.cloudinary.image(data.result.public_id, filters).appendTo(scope.$view.find('.preview'));
     }else {
-      scope.onComplete();
+      scope.onComplete(data.result.public_id);
     }
   });
 };

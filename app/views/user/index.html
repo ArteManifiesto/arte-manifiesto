@@ -132,9 +132,9 @@
 					"private_cdn": false
 				};
 				$.cloudinary.config(config);
-				var uploaderImage = new APP.UploaderImage($('.uploader-cover'), function(){
+				var uploaderImage = new APP.UploaderImage($('.uploader-cover'), function(idImage){
 			      var filters =  {width: 1200, crop: "limit"};
-			      $.cloudinary.image(this.photo, filters)
+			      $.cloudinary.image(idImage, filters)
 						.addClass('am-Profile-banner-img')
 						.appendTo(this.$view.find('.preview'));
 				});

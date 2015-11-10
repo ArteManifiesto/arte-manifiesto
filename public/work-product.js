@@ -5,18 +5,21 @@ $(document).ready(function() {
   });
   var following = false;
 
-  if(DataApp.currentUser && !owner) {
-  var url = DataApp.currentUser.url + '/isFollowing';
-  $.post(url, {idUser:element.User.id}, function (response) {
-    if(response.status === 200) {
-      following = response.data.following;
-      if(response.data.following)
-        $('.am-Follow-button').addClass('following').text('-Siguiendo');
+  if(DataApp.currentUser) {
+    if(!owner) {
+      var url = DataApp.currentUser.url + '/isFollowing';
+      $.post(url, {idUser:element.User.id}, function (response) {
+        if(response.status === 200) {
+          following = response.data.following;
+          if(response.data.following)
+            $('.am-Follow-button').addClass('following').text('-Siguiendo');
+        }
+      });
     }
-  });
 
   var url = DataApp.currentUser.url + '/collection/all';
   $.post(url, {}, function (response) {
+    console.log(response);
     if(response.status === 200) {
       var collections = response.data.collections;
       var item = '<li class="collection" data-id="<%=id%>"><p><%=name%></p><i class="fa fa-check"></i></li>'
@@ -57,8 +60,15 @@ $(document).ready(function() {
     similar[i].entity = entity;
   }
 
+
   new APP.Viewer('carrouselItem', $('.more'), null, more);
   new APP.Viewer('carrouselItem', $('.similar'), null, similar);
+
+  if(entity === 'work') {
+    for (var i = 0; i <products.length; i++)
+      products[i].entity = 'product';
+    new APP.Viewer('carrouselItem', $('.work-products'), null, products);
+  }
 
   $('.am-Follow-button').click(function(event){
     if(following) {
@@ -146,6 +156,7 @@ $(document).ready(function() {
     $('.index-container').show();
     $('.reviews-container').hide();
     $('.tags-container').hide();
+    $('.products-container').hide();
   });
 
   $('.reviews').click(function() {
@@ -153,6 +164,15 @@ $(document).ready(function() {
     $('.index-container').hide();
     $('.reviews-container').show();
     $('.tags-container').hide();
+    $('.products-container').hide();
+  });
+
+  $('.products').click(function() {
+    Utils.changeUrl('tags', '/user/' + element.User.username + '/'+entity+'/' + element.nameSlugify + '/products');
+    $('.index-container').hide();
+    $('.reviews-container').hide();
+    $('.tags-container').hide();
+    $('.products-container').show();
   });
 
   $('.tags').click(function(){
@@ -160,6 +180,7 @@ $(document).ready(function() {
     $('.index-container').hide();
     $('.reviews-container').hide();
     $('.tags-container').show();
+    $('.products-container').hide();
   });
 
   $('.save-collections').click(function() {

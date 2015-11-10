@@ -94,7 +94,10 @@ $(document).ready(function() {
 		"private_cdn": false
 	};
 	$.cloudinary.config(config);
-	var uploaderImage = new APP.UploaderImage($('.uploader-work'));
+	var uploaderImage = new APP.UploaderImage($('.uploader-work'), function(idImage){
+			var filters =  {width: 300};
+			$.cloudinary.image(idImage, filters).appendTo(this.$view.find('.preview'));
+	});
 
 	$('.tags').tagsInput({
 		height:'50px', width:'100%', defaultText:'+ Etiqueta'
