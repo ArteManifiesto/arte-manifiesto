@@ -10,6 +10,7 @@
 					<div class="image-uploader" style="position:relative;">
 						{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:50px;height:55px;top:-18px;" } })}}
 					</div>
+					<i class="prelaod fa fa-spinner"></i>
 					<i class="bi_tool-camera-b edit-icon"></i>
 					<i class="bi_interface-box-tick hide save-icon"></i>
 					<i class="bi_interface-box-cross hide cancel-icon"></i>
