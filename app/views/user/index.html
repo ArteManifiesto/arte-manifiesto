@@ -4,30 +4,24 @@
 {% set profile = profile.toJSON()%}
 {% block elements %}
 	<div class="am-Profile-banner">
-		{% if owner %}
 			<div class="uploader-cover">
-
-				<div class="edit">
-					<i class="bi_tool-camera-b"></i>
-				</div>
-
+				{% if owner %}
 				<div class="edit-options">
-					<i class="bi_interface-box-tick"></i>
-					<i class="bi_interface-box-cross"></i>
+					<div class="image-uploader" style="position:relative;">
+						{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:50px;height:55px;top:-18px;" } })}}
+					</div>
+					<i class="bi_tool-camera-b edit-icon"></i>
+					<i class="bi_interface-box-tick hide save-icon"></i>
+					<i class="bi_interface-box-cross hide cancel-icon"></i>
 				</div>
+				{% endif %}
 
 				<div class="profile-imgage">
 					<div class="preview">
-						<!-- <img class="am-Profile-banner-img" src="{{profile.cover}}"> -->
-						<img class="am-Profile-banner-img" src="http://www.wallpapereast.com/static/images/Dragon-Backgrounds-Wallpaper-Hd-44.jpg">
+						<img class="am-Profile-banner-img" src="{{profile.cover}}">
 					</div>
 				</div>
-				<div class="preload hide"><i class="fa fa-spinner"></i></div>
 			</div>
-			<div class="image-uploader" style="position:relative;">
-				{{cloudinary.uploader.image_upload_tag('photo', { callback: cloudinary_cors, return_delete_token: true})}}
-			</div>
-		{% endif %}
 		<div class="grid-container">
 			<div class="grid-100">
 				<div class="am-Profile-avatar">
@@ -135,6 +129,7 @@
 	<script>
 		$(document).ready(function() {
 			var owner = {{owner|json|safe}};
+			var user = {{user|json|safe}};
 
 			if(owner) {
 				var config = {
@@ -144,12 +139,30 @@
 				};
 				$.cloudinary.config(config);
 				var uploaderImage = new APP.UploaderImage($('.uploader-cover'), function(idImage){
-			      var filters =  {width: 1200, crop: "limit"};
-			      $.cloudinary.image(idImage, filters)
-						.addClass('am-Profile-banner-img')
-						.appendTo(this.$view.find('.preview'));
+			      var filters =  {format:'jpg', width: 1600, crop: "limit", quality: 80};
+						var img = $.cloudinary.image(idImage, filters);
+						img.addClass('am-Profile-banner-img').appendTo(this.$view.find('.preview'));
+						uploaderImage.photo = img.attr('src');
+						$('.save-icon , .cancel-icon').show();
 				});
 			}
+
+			$('.save-icon').click(function(){
+				$.ajax({
+					method: 'POST',
+					url: DataApp.currentUser.url +'/account/'+ 'update_cover',
+					data: {cover: uploaderImage.photo}
+				}).then(function(response) {
+						user = response.data.user;
+						$('.save-icon , .cancel-icon').hide();
+				});
+			});
+
+			$('.cancel-icon').click(function(){
+				$('.preview > img').attr('src', user.cover);
+				$('.save-icon , .cancel-icon').hide();
+			});
+
 			var profile = {{profile|json|safe}};
 			var following = profile.following;
 			$('.am-Follow-button').click(function(event){

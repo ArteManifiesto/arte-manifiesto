@@ -14,5 +14,6 @@ router.post('/photo', controller.photoUpdate);
 router.post('/address/add', controller.addressAdd);
 router.post('/address/update', controller.addressUpdate);
 router.post('/password', controller.passwordUpdate);
+router.post('/update_cover', controller.updateCover);
 
 module.exports = router;

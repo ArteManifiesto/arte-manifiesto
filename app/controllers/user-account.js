@@ -12,7 +12,7 @@ exports.index = function (req, res) {
       global.db.Category.findAll({appendWork:true}),
       req.user.getInterests()
     ];
-    
+
     global.db.Sequelize.Promise.all(promises).then(function (result) {
       return res.render(basePath + 'index', {
         categories: result[0],
@@ -110,4 +110,12 @@ exports.passwordUpdate = function (req, res) {
         req.flash('successMessage', 'Contraseña cambiada');
         return res.redirect('back');
     });
+};
+
+
+exports.updateCover = function(req,res) {
+  req.user.updateAttributes(req.body).then(function(){
+    if (req.xhr)
+        return res.ok({user: req.user}, 'Cover actualizado');
+  });
 };
