@@ -133,8 +133,12 @@
 		  		</div>
 				</a>
 	  		<div class="artist-card-works">
-					<% _.each(Works, function(work) { %>
-						<div class="artist-card-work" style="background-image: url('<%= addFilter(work.photo, 'w_120,h_120,c_fill') %>')"></div>
+					<% _.each([0,1,2,3], function(i) { %>
+			  		<% if(Works[i] && Works[i].photo) { %>
+							<div class="artist-card-work" style="background-image: url('<%= addFilter(Works[i].photo, 'w_120,h_120,c_fill') %>')"></div>
+			  		<% } else { %>
+		  				<div class="artist-card-work"></div>
+			  		<% } %>
 					<% }); %>
 	  		</div>
 	  		<div class="artist-card-follow">
@@ -174,8 +178,12 @@
 						<p><%=name%></p>
 					</div>
 					<div class="collection-card-images">
-						<% _.each(works, function(work) { %>
-							<div class="collection-card-image" style="background-image: url('<%= addFilter(work.photo, 'w_300,h_300,c_fill') %>')"></div>
+						<% _.each([0,1,2], function(i) { %>
+				  		<% if(works[i] && works[i].photo) { %>
+								<div class="collection-card-image" style="background-image: url('<%= addFilter(works[i].photo, 'w_300,h_300,c_fill') %>')"></div>
+				  		<% } else { %>
+								<div class="collection-card-image empty"></div>
+				  		<% } %>
 						<% }); %>
 					</div>
 					<div class="collection-card-artist">

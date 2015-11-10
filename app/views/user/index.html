@@ -6,10 +6,20 @@
 	<div class="am-Profile-banner">
 		{% if owner %}
 			<div class="uploader-cover">
-				<i class="fa fa-pencil-square-o"></i>
+
+				<div class="edit">
+					<i class="bi_tool-camera-b"></i>
+				</div>
+
+				<div class="edit-options">
+					<i class="bi_interface-box-tick"></i>
+					<i class="bi_interface-box-cross"></i>
+				</div>
+
 				<div class="profile-imgage">
 					<div class="preview">
-						<img class="am-Profile-banner-img" src="{{profile.cover}}">
+						<!-- <img class="am-Profile-banner-img" src="{{profile.cover}}"> -->
+						<img class="am-Profile-banner-img" src="http://www.wallpapereast.com/static/images/Dragon-Backgrounds-Wallpaper-Hd-44.jpg">
 					</div>
 				</div>
 				<div class="preload hide"><i class="fa fa-spinner"></i></div>
@@ -39,6 +49,7 @@
 			</div>
 		</div>
 	</div>
+
 	<div class="am-Profile-menu-container">
 		<div class="grid-container">
 			<div class="grid-100">
