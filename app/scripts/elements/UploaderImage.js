@@ -17,9 +17,13 @@ APP.UploaderImage.prototype.listeners = function () {
   var scope = this, $uploader = $('.cloudinary-fileupload');
   $uploader.fileupload({
     start: function (e) {
+      scope.$view.find('.upload').hide();
+      $('.cloudinary-fileupload').hide();
       scope.$view.find('.preload').show();
     },
     fail: function (e, data) {
+      scope.$view.find('.upload').show();
+      $uploader.show();
       scope.$view.find('.preload').hide();
     }
   })

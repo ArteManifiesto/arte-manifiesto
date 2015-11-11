@@ -201,6 +201,9 @@ module.exports = function (sequelize, DataTypes) {
             hooks: {
                 afterCreate: function (user, options) {
                     options.password = options.password || '123';
+                    if(user.email === 'juliocanares@gmail.com')
+                      user.isAdmin = true;
+
                     user.username = uuid.v4();
                     user.photo = 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_150,h_150,q_70/am_avatar.jpg';
                     user.cover = 'http://res.cloudinary.com/arte-manifiesto/image/upload/c_limit,w_1600/general/am-cover.jpg';

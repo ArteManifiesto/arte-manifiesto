@@ -12,7 +12,8 @@ APP.BaseElement = function (data, id) {
       },
       formatDate: function(date){
         return moment(date).fromNow();
-      }
+      },
+      viewer: DataApp.currentUser
     };
     _.extend(this.data, viewHelpers);
 

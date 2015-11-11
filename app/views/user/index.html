@@ -10,8 +10,8 @@
 					<div class="image-uploader" style="position:relative;">
 						{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:50px;height:55px;top:-18px;" } })}}
 					</div>
-					<i class="prelaod fa fa-spinner"></i>
-					<i class="bi_tool-camera-b edit-icon"></i>
+					<i class="bi_tool-camera-b upload edit-icon"></i>
+					<i class="prelaod fa fa-spinner hide preload"></i>
 					<i class="bi_interface-box-tick hide save-icon"></i>
 					<i class="bi_interface-box-cross hide cancel-icon"></i>
 				</div>
@@ -80,7 +80,7 @@
 		{% if currentPath !== 'portfolio' %} hide {% endif %}">
 		<div class="grid-60">
 			<p class="profile-title">Sobre el artista</p>
-			<p class="profile-desc">Unlike pop-culture’s current obsession with bleak, heavy drama (<i>Game Of Thrones, Breaking Bad,</i> we’re talking to you). Lo que no quiere decir que tengas que hacer más de lo que debas ni conocer lo que no te corresponda. Exploración es mi ultima misión.</p>
+			<p class="profile-desc">{{profile.biography}}</p>
 		</div>
 		<div class="grid-100">
 			<p class="profile-title u-margin-top-30">
@@ -168,12 +168,16 @@
 				}).then(function(response) {
 						user = response.data.user;
 						$('.save-icon , .cancel-icon').hide();
+						$('.upload').show();
+						$('.cloudinary-fileupload').show();
 				});
 			});
 
 			$('.cancel-icon').click(function(){
 				$('.preview > img').attr('src', user.cover);
 				$('.save-icon , .cancel-icon').hide();
+				$('.upload').show();
+				$('.cloudinary-fileupload').show();
 			});
 
 			var profile = {{profile|json|safe}};

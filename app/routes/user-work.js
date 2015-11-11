@@ -20,11 +20,11 @@ router.get('/:nameSlugify/published', isLoggedAndOwner, global.md.nameSlugify(en
 router.get('/:nameSlugify/sell', isLoggedAndOwner, global.md.nameSlugify(entity), controller.sell);
 
 router.post('/create', isLoggedAndOwner, controller.create);
-router.post('/delete', isLoggedAndOwner, controller.delete);
+router.post('/delete', global.md.isAdminOrOwner, controller.delete);
 router.post('/update', isLoggedAndOwner, controller.update);
 
-router.post('/featured', isLoggedAndOwner, controller.featured);
-router.post('/unfeatured', isLoggedAndOwner, controller.unFeatured);
+router.post('/featured', global.md.isAdmin, controller.featured);
+router.post('/unfeatured', global.md.isAdmin, controller.unFeatured);
 router.post('/like', isLoggedAndOwner, controller.like);
 router.post('/unlike', isLoggedAndOwner, controller.unLike);
 

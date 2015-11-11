@@ -16,7 +16,6 @@ exports.isLogged = function (req, res, next) {
 };
 
 exports.isOwner = function (req, res, next) {
-  console.log('owner : ' , req.owner);
     if (!req.owner) {
         if (req.xhr)
             return res.badRequest('Necesitas ser el propietario');
@@ -26,14 +25,19 @@ exports.isOwner = function (req, res, next) {
     next();
 };
 
-exports.shouldAdmin = function (req, res, next) {
+exports.isAdmin = function (req, res, next) {
     if (!req.isAuthenticated() || !req.user.isAdmin)
-        return res.redirect('/');
+      return res.redirect('/');
     next();
 };
 
-exports.user = function (req, res, next) {
+exports.isAdminOrOwner = function(req,res, next) {
+  if (req.owner || req.user.isAdmin)
+    return next();
+  res.redirect('/');
+}
 
+exports.user = function (req, res, next) {
     var excepts = ['css', 'img', 'favicon.ico'];
     console.log('paramsss ; ', req.params, req.url);
 

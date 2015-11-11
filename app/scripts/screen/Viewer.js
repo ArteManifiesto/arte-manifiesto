@@ -46,13 +46,6 @@ APP.Viewer.constructor = APP.Viewer;
 
 APP.Viewer.prototype.setupMasonry = function() {
   var scope = this;
- //  this.container.imagesLoaded(function(){
-	//   scope.container.masonry({
- //      columnWidth: 120,
- //      itemSelector: '.grid-item'
-	// 	});
-	// });
-
   scope.container.masonry({
     itemSelector: '.grid-item',
     columnWidth: '.grid-sizer',
