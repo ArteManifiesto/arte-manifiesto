@@ -17,7 +17,7 @@
 					<div class="profile-imgage">
 						<div class="preview">
 							{% if work %}
-							<img src="{{work.photo|addFilter('w_200,h_200,c_thumb')}}"/>
+							<img src="{{work.photo|addFilter('w_300,c_limit')}}"/>
 							{% else %}
 								<img src="https://cdn1.iconfinder.com/data/icons/hawcons/32/699085-icon-93-inbox-upload-128.png"/>
 							{% endif %}
@@ -95,7 +95,7 @@ $(document).ready(function() {
 	};
 	$.cloudinary.config(config);
 	var uploaderImage = new APP.UploaderImage($('.uploader-work'), function(idImage){
-			var filters =  {width: 300};
+			var filters =  {width: 300, crop:'limit'};
 			$.cloudinary.image(idImage, filters).appendTo(this.$view.find('.preview'));
 	});
 
