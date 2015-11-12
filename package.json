@@ -56,6 +56,7 @@
     "swig": "^1.4.2"
   },
   "devDependencies": {
+    "flightplan": "^0.6.6",
     "gulp": "*",
     "gulp-concat": "*",
     "gulp-strip-debug": "^1.0.2",
