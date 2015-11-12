@@ -126,6 +126,7 @@
 	<script type="text/template" id="template-user">
 		<div class="grid-item">
 	  	<div class="artist-card">
+				<div class="featured <% if (!featured) { %>disabled<% } %>">AM</div>
 				<% if(featured) { %>
 				<% } %>
 				<a href="/user/<%=username%>">
@@ -162,6 +163,7 @@
 		<div class="grid-item">
 			<a href="/user/<%=User.username%>/product/<%=nameSlugify%>">
 		  	<div class="product-card">
+					<div class="featured <% if (!featured) { %>disabled<% } %>">AM</div>
 					<div class="product-card-image" style="background-image: url('<%= addFilter(photo, 'w_300,h_300,c_fill') %>')"></div>
 		  		<div class="product-card-data">
 		  			<p><%= name %></p>
@@ -180,6 +182,7 @@
 		<div class="grid-item">
 			<a href='/user/<%=User.username%>/collection/<%=nameSlugify%>'>
 				<div class="collection-card">
+					<div class="featured <% if (!featured) { %>disabled<% } %>">AM</div>
 					<div class="collection-card-stats">
 						<p><%=name%></p>
 					</div>
