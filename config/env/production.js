@@ -1,10 +1,10 @@
 module.exports = {
     db: {
-        name: "heroku_082ce63f99d3d82",
-        username: "be72f71bb5432f",
-        password: "520f5767",
+        name: process.env.DB_NAME,
+        username: process.env.DB_USERNAME,
+        password: process.env.DB_PASSWORD,
         options: {
-          host: "us-cdbr-iron-east-02.cleardb.net",
+          host: process.env.DB_HOST,
           dialect: "mysql",
           port: 3306,
           timezone: '-05:00'
