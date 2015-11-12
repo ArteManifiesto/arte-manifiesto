@@ -320,6 +320,20 @@ body
 		background-size cover
 		background-position center center
 		background #ddd
+		box-sizing: border-box;
+		&.empty
+			&:nth-child(1)
+				border-right solid 1px white
+				border-bottom solid 1px white
+			&:nth-child(2)
+				border-left solid 1px white
+				border-bottom solid 1px white
+			&:nth-child(3)
+				border-right solid 1px white
+				border-top solid 1px white
+			&:nth-child(4)
+				border-left solid 1px white
+				border-top solid 1px white
 	&-follow
 		padding 12px
 		button
@@ -363,9 +377,11 @@ body
 				border-bottom solid 1px white
 				box-sizing border-box
 		&:last-child
-			border-left: solid 1px white;
+			&.empty
+				border-left: solid 1px white;
 		&:nth-child(2)
-			border-right: solid 1px white;
+			&.empty
+				border-right: solid 1px white;
 
 	&-artist
 		padding 12px
@@ -1221,6 +1237,13 @@ body
 	font-weight bold
 	color #333
 	padding 20px 0 10px 0
+	display flex
+	span:first-child
+		flex 1
+	i
+		cursor pointer
+		margin-left 10px
+
 
 .profile-desc
 	font-family: 'PT Serif', serif;

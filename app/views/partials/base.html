@@ -140,7 +140,7 @@
 			  		<% if(Works[i] && Works[i].photo) { %>
 							<div class="artist-card-work" style="background-image: url('<%= addFilter(Works[i].photo, 'w_120,h_120,c_fill') %>')"></div>
 			  		<% } else { %>
-		  				<div class="artist-card-work"></div>
+		  				<div class="artist-card-work empty"></div>
 			  		<% } %>
 					<% }); %>
 	  		</div>
