@@ -102,6 +102,10 @@
     </div>
     <div class="grid-100">
       <button class="button" data-color="blue">VENDER</button>
+
+      <button class="button u-margin-top-30" data-color="blue">
+        <i class="load fa fa-spinner"></i>
+      </button>
     </div>
   </form>
   {% else %}
@@ -172,7 +176,7 @@ $(function(){
     $price.keyup();
   });
   $('.select-type').change();
-  
+
   $('.select-type').find('option[value='+ {{productType|json|safe}}.id+']').attr("selected",true);
 
 });
