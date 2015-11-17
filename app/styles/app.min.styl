@@ -1682,6 +1682,18 @@ body
 	i
 		animation 1.5s load infinite
 
+.am-search-result
+	font-family: 'Montserrat',sans-serif;
+	color: #9b9b9b;
+	font-size: 16px;
+	text-align center
+	.bold
+		color: #333;
+		font-weight: bold;
+	a
+		color: #4000ff;
+		// font-size: 14px;
+
 
 /*------------------------------------*
 	$ WORK LAYOUT DISCOVER
@@ -1726,6 +1738,9 @@ body
 				margin-left 20%
 
 			.am-More-preload
+				margin-left 20%
+
+			.am-search-result
 				margin-left 20%
 
 
@@ -2077,6 +2092,9 @@ body
 		justify-content center
 		cursor pointer
 		border-radius 4px
+		.load
+			animation 1.5s load infinite
+			font-weight bold
 		&.following
 			background #eee
 			color #000
