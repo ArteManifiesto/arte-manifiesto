@@ -164,7 +164,7 @@
 	  		<div class="artist-card-works">
 					<% _.each([0,1,2,3], function(i) { %>
 			  		<% if(Works[i] && Works[i].photo) { %>
-							<div class="artist-card-work" style="background-image: url('<%= addFilter(Works[i].photo, 'w_120,h_120,c_fill') %>')"></div>
+							<a href="#" class="artist-card-work" style="background-image: url('<%= addFilter(Works[i].photo, 'w_120,h_120,c_fill') %>')"></a>
 			  		<% } else { %>
 		  				<div class="artist-card-work empty"></div>
 			  		<% } %>
