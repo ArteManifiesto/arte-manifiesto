@@ -8,14 +8,14 @@
 					<div class="single-image-inner">
 						<img src="{{element.photo|addFilter('w_700,h_800,q_80,c_limit')}}">
 						<div class="actions u-padding-top-20 u-padding-bottom-20">
-							<div class="action {% if element.liked %} active {% endif %}">
-								<div class="like-btn">
+							<a class="action {% if element.liked %} active {% endif %}">
+								<!-- <div class="like-btn"> -->
 									<i class="icon bi_ecommerce-diamon  valuation"></i>
 									<p class="text">VALORAR</p>
-								</div>
-							</div>
+								<!-- </div> -->
+								</a>
 							{% if entity === 'work' %}
-								<div class="action">
+								<!-- <div class="action">
 									<div class="collect-btn">
 										<i class="icon bi_interface-list-view valuation"></i>
 										<p class="text">COLECCIONAR</p>
@@ -35,15 +35,15 @@
 											<button class="wd-auto bg-blue color-white save-collections">GUARDAR</button>
 										</div>
 									</div>
-								</div>
+								</div> -->
 							{% endif %}
-							<div class="action">
+							<a id="go-share-modal" href="#share-modal" class="action">
 								<!-- <i class="icon fa fa-share-alt share"></i> -->
-								<div class="share-btn">
+								<!-- <div class="share-btn"> -->
 									<i class="icon bi_web-share share"></i>
 									<p class="text">COMPARTIR</p>
-								</div>
-								<div class="actions-box social-share hide">
+								<!-- </div> -->
+								<!-- <div class="actions-box social-share hide">
 									<p class="title">Compartir obras</p>
 									<div class="u-separator u-margin-top-7"></div>
 									<div class="share share-fb">
@@ -52,8 +52,17 @@
 									<div class="share share-tw">
 										<i class="fa fa-twitter"></i>Compartir en twitter
 									</div>
-								</div>
-							</div>
+								</div> -->
+							</a>
+						</div>
+						<div class="actions-box u-margin-bottom-20">
+							<a id="go-collection-modal" href="#collection-modal" >
+								<button class="color-blue bg-gray">AÑADIR A LA COLECCIÓN</button>
+							</a>
+							<button class="u-margin-top-10">+ SEGUIR</button>
+							<button class="following u-margin-top-10">
+								<i class="fa fa-check-circle"></i>&nbsp;SIGUIENDO
+							</button>
 						</div>
 					</div>
 				</div>
@@ -297,7 +306,40 @@
 	  </div>
 	</div>
 {% include '../../partials/report.html' %}
+
+	<div id="collection-modal" style="display:none;">
+		<div class="actions-box add-collection">
+			<p class="title">Añadir a las colecciones</p>
+			<div class="u-separator u-margin-top-7"></div>
+
+			<form class="add-collection-form">
+				<input class="u-margin-top-10" type="text" name='name' required placeholder="Crear una colección nueva">
+				<button class="u-margin-top-10 color-black bg-gray wd-auto">AÑADIR</button>
+			</form>
+			<ul class="collections u-margin-top-20">
+			</ul>
+			<div class="u-separator u-margin-top-20"></div>
+			<div class="buttons u-margin-top-20">
+				<button class="wd-auto bg-blue color-white save-collections">GUARDAR</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="share-modal" style="display:none;">
+		<div class="actions-box social-share">
+			<p class="title">Compartir obras</p>
+			<div class="u-separator u-margin-top-7"></div>
+			<div class="share share-fb">
+				<i class="fa fa-facebook"></i>Compartir en facebook
+			</div>
+			<div class="share share-tw">
+				<i class="fa fa-twitter"></i>Compartir en twitter
+			</div>
+		</div>
+	</div>
+
 {% endblock %}
+
 {% block scripts %}
 	<script>
 		var owner = {{owner|json|safe}};
@@ -308,6 +350,10 @@
 		var reviews = {{reviews|json|safe}};
 		var more = {{more|json|safe}};
 		var similar = {{similar|json|safe}};
+
+		$("#go-collection-modal").leanModal();
+		$("#go-share-modal").leanModal();
+
 	</script>
 	<script src='/work-product.js'></script>
 {% endblock %}

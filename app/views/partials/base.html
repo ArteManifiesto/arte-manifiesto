@@ -59,7 +59,11 @@
 		</div>
 	</div>
 	{% endif %}
+
+
 	{% block elements %} {% endblock %}
+
+	<div id="lean_overlay"></div>
 
 	{% include 'footer.html' %}
 
@@ -80,6 +84,8 @@
 	<script src='/app.min.js'></script>
 	<script src="http://imagesloaded.desandro.com/imagesloaded.pkgd.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js"></script>
+	<script src="/jquery.leanModal.min.js"></script>
+
 	<script>
 		DataApp.currentUser = {{user|json|safe}} || null;
 		if(DataApp.currentUser !== null)
@@ -241,6 +247,8 @@
 			</div>
 		</div>
 	</script>
+
 	{% block scripts %} {% endblock %}
+
 </body>
 </html>

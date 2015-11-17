@@ -46,6 +46,20 @@ white = #fff
 *------------------------------------*/
 @import 'filters.styl'
 
+/*------------------------------------*
+	$ MODAL
+*------------------------------------*/
+#lean_overlay {
+	position: fixed;
+	z-index:100;
+	top: 0px;
+	left: 0px;
+	height:100%;
+	width:100%;
+	background: #000;
+	display: none;
+}
+
 
 body
 	overflow-x hidden
@@ -2013,6 +2027,7 @@ body
 			justify-content center
 			font-size 1.75em
 			border solid 1.5px #9b9b9b
+			color #000
 		.text
 			font-family 'Montserrat', sans-serif
 			font-weight bold
@@ -2034,23 +2049,18 @@ body
 			.text
 				color #4000ff
 
-// .action
-	// position relative
-	// .actions-box
-	// 	display none
-	// &:hover
-	// 	.actions-box
-	// 		display block
-
 .actions-box
 	border solid 1px #c2c2c2
 	padding 20px
 	border-radius 4px
 	// position absolute
-	left 50%
-	transform translate(-50%, 0)
+	// left 50%
+	// transform translate(-50%, 0)
 	background white
 	min-width 250px
+	.button
+		display inline-block
+	.button
 	button
 		display block
 		width 100%
