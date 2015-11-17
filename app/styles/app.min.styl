@@ -1624,6 +1624,14 @@ body
 			font-size 13px
 			color #777
 			padding 15px
+
+		input[type="checkbox"]
+			display none
+
+		input[type="checkbox"]:checked+label .am-Switch-button
+			justify-content: flex-end;
+			background: #88d68f;
+
 		.am-Switch-button
 			width: 45px;
 			height: 25px;
