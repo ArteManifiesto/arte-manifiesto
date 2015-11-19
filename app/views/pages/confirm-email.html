@@ -19,12 +19,11 @@
 				<span class="line"></span>
 			</div>
 			<p class="subtitle">Si no te llegó el correo, revisa en tu carpeta de SPAM ó pide que te reenviemos el correo.</p>
-			<p class="subtitle msg-succes">mensaje enviado</p>
-			<p class="subtitle msg-error">no se pudo enviar, intetelo nuevamente</p>
-			<button class="button-resend">
+			<p class="subtitle msg-succes hide">mensaje enviado</p>
+			<button class="button-resend resend-btn">
 				<a>REENVIAR CORREO</a>
 			</button>
-			<button class="button-resend">
+			<button class="button-resend resend-loading hide">
 				<a><i class="fa fa-spinner"></i></a>
 			</button>
 		</div>
@@ -33,11 +32,16 @@
 
 {% block scripts %}
 <script>
-	$('.button-resend').click(function(){
+	$('.resend-btn').click(function() {
+		$('.msg-succes, .resend-btn').hide();
+		$('.resend-loading').show();
 		Utils.getData({
 			url:'/auth/resend'
-		}).then(function(response){
-			console.log(response);
+		}).then(function(response) {
+			if (response.status === 200) {
+				$('.msg-succes, .resend-btn').show();
+				$('.resend-loading').hide();
+			}
 		});
 	});
 </script>
