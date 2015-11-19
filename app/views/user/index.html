@@ -28,9 +28,6 @@
 				<div class="am-Profile-avatar">
 					<div class="img">
 						<img src="{{profile.photo}}">
-						<div class="icon">
-							<i class="bi_tool-camera-b"></i>
-						</div>
 					</div>
 					<div>
 						<p class="name">{{profile.fullname}}</p>
@@ -126,6 +123,12 @@
 	<div class="discover-content collections-wrapper grid-container u-padding-top-10 u-padding-bottom-70
 		{% if currentPath !== 'collections' %} hide {% endif %}">
 		<div class="grid-100 grid-parent">
+			{% if owner %}
+			<p class="empty-profile-text  empty-message hide u-margin-top-30">Aún no tienes ningun colecccion <br><br>
+			</p>
+			{% else %}
+			<p class="empty-profile-text  empty-message hide u-margin-top-30">{{profile.fullname}} no tiene ninguna coleccion<br><br></p>
+			{% endif %}
       <div class="grid collections-container work-layout-discover">
 				<div class="grid-sizer"></div>
       </div>

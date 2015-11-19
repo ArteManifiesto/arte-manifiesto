@@ -59,16 +59,21 @@ APP.Viewer.prototype.setupMasonry = function() {
 };
 
 APP.Viewer.prototype.listeners = function() {
-  Broadcaster.addEventListener('PAGE_LOAD_START', this.pageLoadStartHandler);
+  this.pageStart = this.pageLoadStartHandler.bind(this);
+  Broadcaster.addEventListener('PAGE_LOAD_START', this.pageStart);
   this.pageEnd = this.pageLoadEndHandler.bind(this);
   Broadcaster.addEventListener('PAGE_LOAD_END', this.pageEnd);
 };
 
 APP.Viewer.prototype.pageLoadStartHandler = function() {
-
+  $('.loading').show();
+  this.container.parent().find('.empty-message').hide();
+  //$('.empty-message').hide();
+  $('.loading').hide();
 };
 
 APP.Viewer.prototype.pageLoadEndHandler = function(event) {
+  $('.loading').hide();
   if(this.fromExternal) {
     this.initialize = true;
   }else {
@@ -79,14 +84,15 @@ APP.Viewer.prototype.pageLoadEndHandler = function(event) {
 
 APP.Viewer.prototype.addItems = function(items) {
   if(this.navigation === APP.NavigationManager.PAGINATION && !this.initialize) {
-      this.clean();
+    this.clean();
   }
-
-  console.log('add items')
-  console.log(items.length , this.navigationManager.navigator.currentPage);
-  console.log(this.container);
-  if(items.length < 1 && this.navigationManager.navigator.currentPage === 1) {
-    this.container.parent().find('.empty-message').show();
+  //console.log(items.length , this.navigationManager.navigator.currentPage);
+  //console.log(this.container);
+  if (this.navigationManager) {
+    if(items.length < 1 && this.navigationManager.navigator.currentPage === 1) {
+      this.container.parent().find('.empty-message').show();
+      // $('.empty-message').show();
+    }
   }
 
   var i = 0, item;
@@ -138,13 +144,13 @@ APP.Viewer.prototype.clean = function() {
 
 APP.Viewer.prototype.suspend = function() {
   this.navigationManager.navigator.suspend();
-  Broadcaster.removeEventListener('PAGE_LOAD_START', this.pageLoadStartHandler);
+  Broadcaster.removeEventListener('PAGE_LOAD_START', this.pageStart);
   Broadcaster.removeEventListener('PAGE_LOAD_END', this.pageEnd);
 }
 
 APP.Viewer.prototype.restart = function() {
   this.navigationManager.navigator.restart();
-  Broadcaster.addEventListener('PAGE_LOAD_START', this.pageLoadStartHandler);
+  Broadcaster.addEventListener('PAGE_LOAD_START', this.pageStart);
   Broadcaster.addEventListener('PAGE_LOAD_END', this.pageEnd);
   this.container.masonry();
 }

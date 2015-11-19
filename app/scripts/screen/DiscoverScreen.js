@@ -27,6 +27,8 @@ function ChangeUrl(page, url) {
    }
 
 APP.DiscoverScreen.prototype.filterChangedHandler = function(event) {
+  $('.am-navigation-text').text(event.newValue);
+  $('.am-report-link').text(event.newValue);
   ChangeUrl('lol', DataApp.currentUrl);
   this.viewer.reset();
 };

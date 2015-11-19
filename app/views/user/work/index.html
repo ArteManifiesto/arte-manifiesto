@@ -9,11 +9,11 @@
 						<img src="{{element.photo|addFilter('w_700,h_800,q_80,c_limit')}}">
 						<div class="actions u-padding-top-20 u-padding-bottom-20">
 							<a class="action {% if element.liked %} active {% endif %}">
-								<!-- <div class="like-btn"> -->
+								<div class="like-btn">
 									<i class="icon bi_ecommerce-diamon  valuation"></i>
 									<p class="text">VALORAR</p>
-								<!-- </div> -->
-								</a>
+								</div>
+							</a>
 							{% if entity === 'work' %}
 								<!-- <div class="action">
 									<div class="collect-btn">
@@ -55,18 +55,23 @@
 								</div> -->
 							</a>
 						</div>
-						<div class="actions-box u-margin-bottom-20">
-							<a id="go-collection-modal" href="#collection-modal" >
-								<button class="color-blue bg-gray">AÑADIR A LA COLECCIÓN</button>
-							</a>
-							<button class="u-margin-top-10">+ SEGUIR</button>
-							<button class="u-margin-top-10">
-								<i class="load fa fa-spinner"></i>
-							</button>
-							<button class="following u-margin-top-10">
-								<i class="fa fa-check-circle"></i>&nbsp;SIGUIENDO
-							</button>
-						</div>
+
+							<div class="actions-box u-margin-bottom-20 after-like {% if !element.liked %} hide {% endif %}">
+								<a id="go-collection-modal" href="#collection-modal" >
+									<button class="color-blue bg-gray">AÑADIR A LA COLECCIÓN</button>
+								</a>
+								<button class="u-margin-top-10 am-Follow-button">+ SEGUIR</button>
+								<div class="hide">
+									<button class="u-margin-top-10 follow-loading">
+										<i class="load fa fa-spinner"></i>
+									</button>
+								</div>
+								<div class="hide">
+									<button class="following u-margin-top-10">
+										<i class="fa fa-check-circle"></i>&nbsp;SIGUIENDO
+									</button>
+								</div>
+							</div>
 					</div>
 				</div>
 				<div class="single-data u-padding-bottom-40">
@@ -324,9 +329,11 @@
 			<div class="u-separator u-margin-top-20"></div>
 			<div class="buttons u-margin-top-20">
 				<button class="wd-auto bg-blue color-white save-collections">GUARDAR</button>
-				<button class="wd-auto bg-blue color-white save-collections">
-					<i class="load fa fa-spinner"></i>
-				</button>
+				<div class="hide save-collections-loading">
+					<button class="wd-auto bg-blue color-white">
+						<i class="load fa fa-spinner"></i>
+					</button>
+				</div>
 			</div>
 		</div>
 	</div>

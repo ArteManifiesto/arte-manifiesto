@@ -114,13 +114,15 @@ module.exports = function (sequelize, DataTypes) {
                         scope.setDataValue('Works', result[3]);
                     });
                 },
-                numOfCollections: function () {
+                numOfCollections: function (tempQuery) {
+                    tempQuery  = tempQuery || {};
                     var scope = this;
                     var query = {
                         attributes: [
                             [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'numOfCollections']
                         ]
                     };
+                    query = _.assign(query, tempQuery);
                     return this.getCollections(query).then(function (result) {
                         return result[0].getDataValue('numOfCollections');
                     });
@@ -201,7 +203,7 @@ module.exports = function (sequelize, DataTypes) {
             hooks: {
                 afterCreate: function (user, options) {
                     options.password = options.password || '123';
-                    if(user.email === 'juliocanares@gmail.com') {
+                    if (user.email === 'juliocanares@gmail.com') {
                       user.isAdmin = true;
                       user.verified = true;
                     }

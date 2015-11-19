@@ -14,8 +14,9 @@
 					</div>
 
 					<div class="image-uploader" style="position:relative;">
-						{{cloudinary.uploader.image_upload_tag('photo', { callback: cloudinary_cors, return_delete_token: true})}}
+						{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:230px;height:55px;top:15px;left: 105px;" } })}}
 					</div>
+					<button class="button upload u-margin-top-30">BUSCAR ARCHIVO</button>
 					<p class="title">Nombre</p>
 					<input class="input" type="text" value="{{user.firstname}}" name='firstname' required placeholder="Ingresa tus nombres"/>
 					<p class="title">Apellido</p>
@@ -138,7 +139,7 @@
 		    "cloud_name": "hackdudes",
 		    "private_cdn": false
 		  };
-			
+
 		  $.cloudinary.config(config);
 			var uploaderImage = new APP.UploaderImage($('.uploader-profile'), function(idImage){
 				var filters =  {width: 150, height: 150, crop: 'thumb', gravity: 'face'};

@@ -39,6 +39,7 @@ APP.BaseNavigation.prototype.gotoPage = function (next, force) {
     if (nextPage > this.totalPages) return;
   }
 
+  Broadcaster.dispatchEvent("PAGE_LOAD_START");
 
   this.newPageUrl(nextPage);
 

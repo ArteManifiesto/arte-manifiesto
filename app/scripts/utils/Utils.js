@@ -76,7 +76,11 @@ Utils = {
            var tempUrl = {page: page, url: url};
            history.pushState(tempUrl, tempUrl.page, tempUrl.url);
        } else {
-           window.location.href = "/";
+         window.location.href = "/";
        }
+    },
+    checkAuthentication: function() {
+      if (!DataApp.currentUser) 
+        window.location.href = DataApp.loginUrl + '/?returnTo=' + window.location.href;
     }
 };

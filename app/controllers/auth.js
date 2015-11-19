@@ -85,6 +85,13 @@ exports.loginPage = function (req, res) {
 };
 
 /**
+ * Show the view page for login
+ */
+exports.forgotPage = function (req, res) {
+    return res.render('auth/forgot');
+};
+
+/**
  * User login
  */
 exports.login = function (req, res) {

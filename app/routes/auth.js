@@ -8,7 +8,9 @@ var fbOptions = {scope: global.fbPermissions};
 
 router.get('/login', controller.loginPage);
 router.get('/signup', controller.signupPage);
+router.get('/forgot', controller.forgotPage);
 router.get('/logout', controller.logout);
+
 router.get('/verify/:token', controller.verify);
 router.get('/reset/:token', controller.reset);
 

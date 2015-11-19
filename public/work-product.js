@@ -71,6 +71,8 @@ $(document).ready(function() {
   }
 
   $('.am-Follow-button').click(function(event){
+    Utils.checkAuthentication();
+
     if(following) {
       var url = DataApp.currentUser.url + '/unfollow/';
       $.post(url,{idUser: element.User.id}, function (response) {
@@ -104,6 +106,8 @@ $(document).ready(function() {
   });
 
   $('.like-btn').click(function(){
+    Utils.checkAuthentication();
+
     var payload = {};
     payload['id' + Utils.capitalize(entity)] = element.id;
     if(!element.liked) {
@@ -113,15 +117,7 @@ $(document).ready(function() {
           element.liked = true;
           $('.likes').text(response.data.likes)
           $('.like-btn').parent().addClass('active');
-        }
-      });
-    }else {
-      var url = DataApp.currentUser.url + '/'+entity+'/unlike';
-      $.post(url, payload, function (response) {
-        element.liked = false;
-        $('.likes').text(response.data.likes)
-        if(response.status === 200) {
-          $('.like-btn').parent().removeClass('active');
+          $('.after-like').show();
         }
       });
     }
@@ -184,11 +180,16 @@ $(document).ready(function() {
   });
 
   $('.save-collections').click(function() {
+    $(this).hide();
+    $('.save-collections-loading').show();
     var url = DataApp.currentUser.url + '/'+entity+'/add_to_collection';
     var payload = {collections: JSON.stringify(collectionsClicked)};
     payload['id' + Utils.capitalize(entity)] = element.id;
     $.post(url, payload, function (response) {
-      console.log(response);
+      if(response.status === 200) {
+        $('.save-collections-loading').hide();
+        $('.save-collections').show();
+      }
     });
   });
 });

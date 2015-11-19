@@ -56,7 +56,7 @@ global.discoverGenerator = function (entity, req) {
     options.entity = entity;
     options.name = 'items';
     options.page = req.params.page;
-    options.limit = 50;
+    options.limit = 5;
 
     var query = {where: {}, build: true};
 
