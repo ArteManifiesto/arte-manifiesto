@@ -94,9 +94,13 @@
 			<div class="u-separator"></div>
 		</div>
 		<div class="grid-100 grid-parent">
-			<p class="empty-profile-text u-margin-top-30">Un no tienes ninguna obra <br><br>
-				<a href="/users/specialty/all/page-1">Sube tu primera obra</a>
+			{% if owner %}
+			<p class="empty-profile-text  empty-message hide u-margin-top-30">Aún no tienes ninguna obra <br><br>
+				<a href="/user/{{user.username}}/work/upload">Sube tu primera obra</a>
 			</p>
+			{% else %}
+			<p class="empty-profile-text  empty-message hide u-margin-top-30">{{profile.fullname}} no ha subido ninguna obra aún<br><br></p>
+			{% endif %}
       <div class="grid portfolio-container work-layout-discover">
 				<div class="grid-sizer"></div>
       </div>
@@ -106,9 +110,13 @@
 	<div class="discover-content store-wrapper grid-container u-padding-top-10 u-padding-bottom-70
 		{% if currentPath !== 'store' %} hide {% endif %}">
 		<div class="grid-100 grid-parent">
-			<p class="empty-profile-text u-margin-top-30">Un no tienes nigun producto <br><br>
-				<a href="/users/specialty/all/page-1">Vende tu primer producto</a>
+			{% if owner %}
+			<p class="empty-profile-text  empty-message hide u-margin-top-30">Aún no tienes ningun producto <br><br>
+				<a href="/user/{{user.username}}/work/upload">Sube tu primera obra para ponerla en venta</a>
 			</p>
+			{% else %}
+			<p class="empty-profile-text  empty-message hide u-margin-top-30">{{profile.fullname}} no esta vendiendo ningun product aún<br><br></p>
+			{% endif %}
       <div class="grid store-container work-layout-discover">
 				<div class="grid-sizer"></div>
       </div>
@@ -127,9 +135,13 @@
 	<div class="discover-content followings-wrapper  grid-container u-padding-top-10 u-padding-bottom-70
 		{% if currentPath !== 'followings' %} hide {% endif %}">
 		<div class="grid-100 grid-parent">
-			<p class="empty-profile-text u-margin-top-30">Un no sigues a ningun artista <br><br>
-				<a href="/users/specialty/all/page-1">descubre y empieza a seguira tu primer artista</a>
+			{% if owner %}
+			<p class="empty-profile-text  empty-message hide u-margin-top-30">Aún no sigues a ningun artista <br><br>
+				<a href="/users/specialty/all/page-1?order=popularity">Descubre y empieza a seguir tu primer artista</a>
 			</p>
+			{% else %}
+			<p class="empty-profile-text  empty-message hide u-margin-top-30">{{profile.fullname}} no sigue a nadie<br><br></p>
+			{% endif %}
       <div class="grid followings-container work-layout-discover">
 				<div class="grid-sizer"></div>
       </div>
@@ -138,9 +150,13 @@
 	<div class="discover-content followers-wrapper  grid-container u-padding-top-10 u-padding-bottom-70
 		{% if currentPath !== 'followers' %} hide {% endif %}">
 		<div class="grid-100 grid-parent">
-			<p class="empty-profile-text u-margin-top-30">Un no te sigue ningun artista <br><br>
-				<a href="/users/specialty/all/page-1">descubre y empieza a seguira tu primer artista</a>
+			{% if owner %}
+			<p class="empty-profile-text  empty-message hide u-margin-top-30">Aún no te sigue ningun artista<br><br>
+				<a href="/users/specialty/all/page-1?order=popularity">Descubre y empieza a seguir tu primer artista</a>
 			</p>
+			{% else %}
+			<p class="empty-profile-text  empty-message hide u-margin-top-30">{{profile.fullname}} no sigue a nadie<br><br></p>
+			{% endif %}
       <div class="grid followers-container work-layout-discover">
 				<div class="grid-sizer"></div>
       </div>

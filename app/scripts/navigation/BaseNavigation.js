@@ -52,7 +52,7 @@ APP.BaseNavigation.prototype.afterGetData = function (response) {
   console.log('response :', response);
   this.currentPage = response.pagination.page;
   this.totalPages = response.pagination.pages;
-  if (this.currentPage > response.pagination.pages)return;
+  //if (this.currentPage > response.pagination.pages)return;
 
   this.pagesCache[this.currentPage] = response;
   this.currentPageData = response;

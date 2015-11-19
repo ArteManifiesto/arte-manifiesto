@@ -69,7 +69,6 @@ APP.Viewer.prototype.pageLoadStartHandler = function() {
 };
 
 APP.Viewer.prototype.pageLoadEndHandler = function(event) {
-  console.log('end');
   if(this.fromExternal) {
     this.initialize = true;
   }else {
@@ -82,6 +81,14 @@ APP.Viewer.prototype.addItems = function(items) {
   if(this.navigation === APP.NavigationManager.PAGINATION && !this.initialize) {
       this.clean();
   }
+
+  console.log('add items')
+  console.log(items.length , this.navigationManager.navigator.currentPage);
+  console.log(this.container);
+  if(items.length < 1 && this.navigationManager.navigator.currentPage === 1) {
+    this.container.parent().find('.empty-message').show();
+  }
+
   var i = 0, item;
   for(i; i< items.length; i++) {
     item = new APP[Utils.capitalize(this.id)](items[i]);
