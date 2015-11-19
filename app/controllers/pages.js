@@ -60,7 +60,6 @@ var discover = function (req, entity) {
       );
     }
     return global.db.Sequelize.Promise.all(promises).then(function (data) {
-      console.log(data);
       var order = global.config.search.orders[entity];
       if(entity !== 'collections') {
         data[0].filters.categories = data[1];

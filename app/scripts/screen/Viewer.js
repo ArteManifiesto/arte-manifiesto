@@ -53,7 +53,7 @@ APP.Viewer.prototype.setupMasonry = function() {
   });
 
   $('.discover-content').on('resetLayout', function () {
-    console.log('expand')
+    console.log('expand');
     scope.container.masonry()
   })
 };

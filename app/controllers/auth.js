@@ -36,9 +36,9 @@ exports.signup = function (req, res) {
                 errors['recaptcha'] = 'Recaptcha invalido';
 
             if (errors['email'] || errors['recaptcha'])
-                return res.conflict(errors);
+                return res.badRequest(errors);
 
-            var options = {password: req.body.password};            
+            var options = {password: req.body.password};
             global.db.User.create(req.body, options).then(function (user) {
                 var params = {
                     to: user.email, user: user.firstname,
@@ -88,12 +88,9 @@ exports.loginPage = function (req, res) {
  * User login
  */
 exports.login = function (req, res) {
-    passport.authenticate('local', function (err, user, message) {
-        if (err)
-            return res.internalServerError(err.message);
-
+    passport.authenticate('local', function (err, user, error) {
         if (!user)
-            return res.badRequest(message);
+            return res.badRequest(error);
 
         loginUser(req, res, user);
     })(req, res);

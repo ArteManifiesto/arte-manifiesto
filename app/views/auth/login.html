@@ -1,6 +1,5 @@
 {% extends '../partials/base.html' %}
 
-
 {% block elements %}
 	<div class="am-register">
 		<div class="am-register-box">
@@ -21,10 +20,11 @@
 			<div class="separator">
 				<span class="line"></span><span class="text">CORREO</span><span class="line"></span>
 			</div>
-
-			<form class='login-form'>
-				<input name='email' class="input" type="email" placeholder="Correo" required></input>
-				<input name='password' class="input u-margin-top-10" type="password" placeholder="Contraseña" required></input>
+			<ul class="error errors">
+			</ul>
+			<form class='auth-form'>
+				<input name='email' class="input email" type="email" placeholder="Correo" required></input>
+				<input name='password' class="input password u-margin-top-10" type="password" placeholder="Contraseña" required></input>
 				<button class="button submit u-margin-top-10" data-color="green">
 					<a>INGRESAR A MI CUENTA</a>
 				</button>
@@ -43,22 +43,8 @@
 
 {% block scripts %}
 	<script>
-		$(document).ready(function() {
-			$('.fb').click(function() {
-				$('.fb').hide();
-				$('.fb-loading').show();
-			});
-			$('.login-form').submit(function(event){
-				event.preventDefault();
-				$('.submit').hide();
-				$('.submit-loading').show();
-				$.post('/auth/login', $(this).serialize(), function (response) {
-					if(response.status === 200)
-						return location.href = response.data.returnTo
-						$('.submit').show();
-						$('.submit-loading').hide();
-				});
-			});
-		})
+		$(function(){
+			new APP.AuthScreen('login');
+		});
 	</script>
 {% endblock %}

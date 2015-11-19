@@ -10,12 +10,12 @@
 			<div class="separator">
 				<span class="line"></span><span class="text">FB SYNC</span><span class="line"></span>
 			</div>
-			<button class="button" data-color="blue">
+			<button class="button fb" data-color="blue">
 				<a href="/auth/facebook">
 					<i class="fa fa-facebook"></i>&nbsp;&nbsp; REGISTRARME CON FACEBOOK
 				</a>
 			</button>
-			<button class="button u-margin-top-10" data-color="blue">
+			<button class="button fb-loading u-margin-top-10 hide" data-color="blue">
 				<a href="/auth/facebook"><i class="load fa fa-spinner"></i></a>
 			</button>
 			<div class="separator">
@@ -23,14 +23,14 @@
 			</div>
 			<ul class="error errors">
 			</ul>
-			<form class="signup-form">
+			<form class="auth-form">
 				<input name="email" class="input email" type="email" placeholder="Correo" value="{{profile.email}}" required/>
 				<input name="password" class="input password u-margin-top-10" type="password" placeholder="Contraseña" required/>
 				<div class="g-recaptcha u-margin-top-10 recaptcha" data-sitekey="6LdnUQoTAAAAALPzF3glOaqzGcbhBrmT1yQwVYls"></div>
-				<button class="button u-margin-top-10" data-color="green">
+				<button class="button submit u-margin-top-10" data-color="green">
 					<a>REGISTRARME CON MI CORREO</a>
 				</button>
-				<button class="button u-margin-top-10" data-color="green">
+				<button class="button submit-loading u-margin-top-10 hide" data-color="green">
 					<a><i class="load fa fa-spinner"></i></a>
 				</button>
 			</form>
@@ -43,27 +43,8 @@
 {% block scripts %}
 	<script src='https://www.google.com/recaptcha/api.js'></script>
 	<script>
-		$(function(){
-			$('.signup-form').submit(function(event){
-				event.preventDefault();
-				$.post('/auth/signup', $(this).serialize(), function (response) {
-					if(response.status === 409){
-						grecaptcha.reset();
-						$('.errors').empty();
-						$.each(response.data, function( key, value ) {
-							$('.' + key).removeClass('error');
-						});
-						$.each(response.data, function( key, value ) {
-							$('.' + key).addClass('error');
-							$('.errors').append($('<li>'+ value +'</li>'));
-						});
-					}
-
-					if(response.status === 200) {
-						location.href = response.data.returnTo
-					}
-				});
-			});
+		$(function() {
+			new APP.AuthScreen('signup');
 		});
 	</script>
 {% endblock %}
