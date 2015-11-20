@@ -24,11 +24,11 @@
 						</div>
 					</div>
 					<div class="preload hide"><i class="fa fa-spinner"></i></div>
+					<button class="button upload u-margin-top-30">BUSCAR ARCHIVO</button>
 				</div>
 				<div class="image-uploader" style="position:relative;">
-					{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:230px;height:55px;top:15px;left: 105px;" } })}}
+					{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:230px;height:55px;top:-70px;left: 105px;" } })}}
 				</div>
-				<button class="button upload u-margin-top-30">BUSCAR ARCHIVO</button>
 				<div class="separator">
 					<span class="line"></span><span class="text">DATOS DE LA OBRA</span><span class="line"></span>
 				</div>
@@ -105,6 +105,8 @@ $(document).ready(function() {
 	};
 	$.cloudinary.config(config);
 	var uploaderImage = new APP.UploaderImage($('.uploader-work'), function(idImage){
+			this.$view.find('.upload').show();
+			$('.cloudinary-fileupload').show();
 			var filters =  {width: 300, crop:'limit'};
 			$.cloudinary.image(idImage, filters).appendTo(this.$view.find('.preview'));
 	});
@@ -137,7 +139,7 @@ $(document).ready(function() {
 		formData.categories = [parseInt($('select[name=categories]').val(),10)];
 		formData.tags = $('input[name=tags]').val().split(',');
 		formData.description = $('textarea[name=description]').val();
-		formData.public = 1;
+		formData.public = $( "input[name=public]:checked" ).val() !== undefined;
 		$.ajax({
 			method: 'POST',
 			url: url,

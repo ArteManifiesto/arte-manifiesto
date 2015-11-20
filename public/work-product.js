@@ -1,10 +1,13 @@
 $(document).ready(function() {
-  $('.share-btn').on('click',function(){
+  $('.share-btn').on('click',function() {
     $('.add-collection').hide();
     $('.social-share').toggle();
   });
   var following = false;
-
+  $('.login-first').click(function(event) {
+    event.preventDefault();
+    Utils.checkAuthentication();
+  });
   if(DataApp.currentUser) {
     if(!owner) {
       var url = DataApp.currentUser.url + '/isFollowing';

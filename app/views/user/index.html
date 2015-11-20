@@ -223,6 +223,7 @@
 			var profile = {{profile|json|safe}};
 			var following = profile.following;
 			$('.am-Follow-button').click(function(event){
+				Utils.checkAuthentication();
 				if(following) {
 					var url = DataApp.currentUser.url + '/unfollow/';
 					$.post(url,{idUser:profile.id}, function (response) {

@@ -11,12 +11,12 @@
 							</div>
 						</div>
 						<div class="preload hide"><i class="fa fa-spinner"></i></div>
+						<button class="button upload u-margin-top-30">BUSCAR ARCHIVO</button>
 					</div>
 
 					<div class="image-uploader" style="position:relative;">
-						{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:230px;height:55px;top:15px;left: 105px;" } })}}
+						{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:230px;height:55px;top:-70px;left: 105px;" } })}}
 					</div>
-					<button class="button upload u-margin-top-30">BUSCAR ARCHIVO</button>
 					<p class="title">Nombre</p>
 					<input class="input" type="text" value="{{user.firstname}}" name='firstname' required placeholder="Ingresa tus nombres"/>
 					<p class="title">Apellido</p>
@@ -142,6 +142,8 @@
 
 		  $.cloudinary.config(config);
 			var uploaderImage = new APP.UploaderImage($('.uploader-profile'), function(idImage){
+        this.$view.find('.upload').show();
+        $('.cloudinary-fileupload').show();
 				var filters =  {width: 150, height: 150, crop: 'thumb', gravity: 'face'};
 				$.cloudinary.image(idImage, filters).appendTo(this.$view.find('.preview'));
 			});
