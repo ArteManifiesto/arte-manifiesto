@@ -166,7 +166,7 @@
 				var data = $(this).serializeArray();
 				$.each(data, function(index, value) {
 					if (value.name === 'photo')
-						value.value = uploaderImage.photo.replace('/upload', '/upload/w_150,h_150,c_thumb,g_face,d_am_avatar.jpg');
+						value.value = uploaderImage.photo.replace('/upload', '/upload/w_150,h_150,c_thumb,d_am_avatar.jpg');
 				});
 
 				$.ajax({

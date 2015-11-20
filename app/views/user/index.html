@@ -4,7 +4,9 @@
 {% set profile = profile.toJSON()%}
 {% block elements %}
 	<div class="am-Profile-banner">
-			<i class="edit bi_editorial-compose"></i>
+			{% if owner %}
+			<a href='/user/{{profile.username}}/account'><i class="edit bi_editorial-compose"></i></a>
+			{% endif %}
 			<div class="uploader-cover">
 				{% if owner %}
 				<div class="edit-options">
@@ -34,9 +36,9 @@
 						<p class="name">{{profile.fullname}}</p>
 						<p class="city">{{profile.city}}, {{profile.country}}</p>
 						<div class="social-networks">
-							<a href=""><i class="bi_logo-facebook"></i></a>
-							<a href=""><i class="bi_logo-twitter"></i></a>
-							<a href=""><i class="bi_logo-instagram"></i></a>
+							<a href="{{profile.facebook}}"><i class="bi_logo-facebook"></i></a>
+							<a href="{{profile.twitter}}"><i class="bi_logo-twitter"></i></a>
+							<a href="{{profile.instagram}}"><i class="bi_logo-instagram"></i></a>
 						</div>
 						{% if !owner %}
 							{% if profile.following %}

@@ -96,66 +96,19 @@
 					{% for category in element.Categories %}
 						<a href='/works/category/{{category.nameSlugify}}/page-1/?order=popularity'><span class="am-Category-box u-margin-top-7">{{category.name}}</span></a>
 					{% endfor %}
+					{% if element.onSale %}
 					<div class="info-box u-margin-top-25">
 						<div class="header">
-							<p class="selected">COMPRAR</p>
+							<p class="original-item-menu selected">ORIGINAL</p>
+							<p class="products-item-menu">PRODUCTOS</p>
 						</div>
-						<div class="body u-text-center">
-							<p class="title large">Puedes preguntar al artista la disponibilidad</p>
-							<button class="am-View-button expand u-margin-top-20">PREGUNTAR PRECIO</button>
-							<p class="msg u-padding-top-15 u-padding-bottom-4">Muy pronto la tienda en línea</p>
-						</div>
-					</div>
-					{% else %}
-					<a href='/products/type/{{element.ProductType.nameSlugify}}/page-1/?order=popularity'><span class="am-Category-box u-margin-top-7">{{element.ProductType.name}}</span></a>
-					<div class="info-box u-margin-top-25">
-						<div class="header">
-							<p class="selected">PRODUCTOS</p>
-						</div>
-						<div class="body">
-							<p class="text u-margin-top-10">Precio por unidad:</p>
-							<p class="price u-text-center">S/.<strong>{{element.finalPrice}}</strong> PEN</p>
-
-							<p class="text u-margin-top-10">Cantidad:</p>
-							<div class="u-center">
-								<div class="u-margin-top-7">
-									<span class="text">X</span>
-									<select>
-										<option>1</option>
-										<option>2</option>
-										<option>3</option>
-										<option>4</option>
-									</select>
-									<span class="text">&nbsp;&nbsp;Unidades</span>
-								</div>
-							</div>
-							<div class="u-center">
-								<button class="am-View-button expand u-margin-top-20 buy">COMPRAR</button>
-							</div>
-						</div>
-					</div>
-					{% endif %}
-
-
-					<div class="info-box u-margin-top-25">
-						<div class="header">
-							<p class="selected">ORIGINAL</p>
-							<p>PRODUCTOS</p>
-						</div>
-						<div class="body u-text-center">
+						<div class="body u-text-center original-tab-menu">
 							<p class="title large">Precio Obra Original</p>
 							<p class="price u-padding-top-10">S/. <strong class="large">1500</strong></p>
 							<button class="am-View-button expand u-margin-top-20">COMPRAR</button>
 							<p class="msg u-padding-top-15 u-padding-bottom-4">7 días para devolver cualquier obra</p>
 						</div>
-					</div>
-
-					<div class="info-box u-margin-top-25">
-						<div class="header">
-							<p>ORIGINAL</p>
-							<p class="selected">PRODUCTOS</p>
-						</div>
-						<div class="body">
+						<div class="body products-tab-menu hide">
 							<p class="text">Producto:</p>
 							<p class="title">Mate photo print</p>
 							<p class="text">180 gsm / Calidad archivo hecho en Lima / Elaborado por arte manifiesto lab.</p>
@@ -189,6 +142,47 @@
 							</div>
 						</div>
 					</div>
+					{% else %}
+					<div class="info-box u-margin-top-25">
+						<div class="header">
+							<p class="selected">COMPRAR</p>
+						</div>
+						<div class="body u-text-center">
+							<p class="title large">Puedes preguntar al artista la disponibilidad</p>
+							<button class="am-View-button expand u-margin-top-20">PREGUNTAR DISPONIBILIDAD</button>
+							<p class="msg u-padding-top-15 u-padding-bottom-4">Muy pronto la tienda en línea</p>
+						</div>
+					</div>
+					{% endif %}
+					{% else %}
+					<a href='/products/type/{{element.ProductType.nameSlugify}}/page-1/?order=popularity'><span class="am-Category-box u-margin-top-7">{{element.ProductType.name}}</span></a>
+					<div class="info-box u-margin-top-25">
+						<div class="header">
+							<p class="selected">PRODUCTOS</p>
+						</div>
+						<div class="body">
+							<p class="text u-margin-top-10">Precio por unidad:</p>
+							<p class="price u-text-center">S/.<strong>{{element.finalPrice}}</strong> PEN</p>
+
+							<p class="text u-margin-top-10">Cantidad:</p>
+							<div class="u-center">
+								<div class="u-margin-top-7">
+									<span class="text">X</span>
+									<select>
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+										<option>4</option>
+									</select>
+									<span class="text">&nbsp;&nbsp;Unidades</span>
+								</div>
+							</div>
+							<div class="u-center">
+								<button class="am-View-button expand u-margin-top-20 buy">COMPRAR</button>
+							</div>
+						</div>
+					</div>
+					{% endif %}
 
 					<p class="am-stats-text u-margin-top-40">ESTADÍSTICAS</p>
 					<div class="u-separator"></div>

@@ -3,6 +3,30 @@ $(document).ready(function() {
     $('.add-collection').hide();
     $('.social-share').toggle();
   });
+
+  $('.products-item-menu').click(function() {
+    if(entity === 'work') {
+      $('html, body').animate({
+        scrollTop: $(".carousel").offset().top
+      }, 1000);
+      $('.products').click();
+    } else {
+      $('.original-item-menu').removeClass('selected');
+      $(this).addClass('selected');
+
+      $('.original-tab-menu').hide();
+      $('.products-tab-menu').show();
+    }
+  });
+
+  $('.original-item-menu').click(function() {
+      $('.products-item-menu').removeClass('selected');
+      $(this).addClass('selected');
+
+      $('.original-tab-menu').show();
+      $('.products-tab-menu').hide();
+  });
+
   var following = false;
   $('.login-first').click(function(event) {
     event.preventDefault();
