@@ -24,9 +24,16 @@
 						</div>
 						<div class="am-Filter-item">
 							<div class="am-Filter-switch">
-								<div class="am-Switch-button" data-state="active">
+
+								<input type="checkbox" name="AM" id="AM"/>
+								<label for="AM">
+								  <div class="am-Switch-button">
+								  	<i class="fa fa-bars"></i>
+								  </div>
+								</label>
+								<!-- <div class="am-Switch-button" data-state="active">
 									<i class="fa fa-bars"></i>
-								</div>
+								</div> -->
 								<span>Seleccionado AM</span>
 							</div>
 						</div>
@@ -111,13 +118,13 @@
 			}
 		})
 
-		var switchButton = $('.am-Switch-button')
-		$(switchButton).click(function () {
-			var state = switchButton.attr('data-state')
-			console.log('state: ', state)
-			if(state == "active") switchButton.attr('data-state', 'inactive')
-			else switchButton.attr('data-state', 'active')
-		})
+		// var switchButton = $('.am-Switch-button')
+		// $(switchButton).click(function () {
+		// 	var state = switchButton.attr('data-state')
+		// 	console.log('state: ', state)
+		// 	if(state == "active") switchButton.attr('data-state', 'inactive')
+		// 	else switchButton.attr('data-state', 'active')
+		// })
 	});
 </script>
 

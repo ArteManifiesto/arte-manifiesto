@@ -1822,6 +1822,14 @@ body
 		.am-Filter
 			background-color: white;
 			margin: 10px;
+
+			input[type="checkbox"]
+				display none
+
+		input[type="checkbox"]:checked+label .am-Switch-button
+			justify-content: flex-end;
+			background: #88d68f;
+
 	&[data-state="open"]
 		.left-menu
 			transform: translateX(0%);
