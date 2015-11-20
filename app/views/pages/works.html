@@ -125,6 +125,21 @@
 			}
 		})
 
+		var device = new Device({
+											toDesktop: function () {
+												console.log('toDesktop!')
+											},
+											toMobile: function () {
+												console.log('toMobile!')
+											}
+										})
+
+		if(device.getVal() == "mobile") {
+			console.log('isMobile')
+			$(leftSelect).trigger( "click" )
+			$('.filter.left .left-menu').css('display', 'block')
+		}
+
 		// var switchButton = $('.am-Switch-button')
 		// $(switchButton).click(function () {
 		// 	var state = switchButton.attr('data-state')
@@ -133,6 +148,32 @@
 		// 	else switchButton.attr('data-state', 'active')
 		// })
 	});
+
+
+	function Device (options) {
+
+		var val = window.innerWidth < 1000 ? 'mobile' : 'desktop',
+		    toDesktop = options.toDesktop,
+		    toMobile = options.toMobile;
+
+
+		window.addEventListener('resize', function(){
+
+			var temp = val;
+
+			val = window.innerWidth < 1000 ? 'mobile' : 'desktop';
+
+			if(temp == 'mobile' && val == 'desktop') toDesktop();
+			if(temp == 'desktop' && val == 'mobile') toMobile();
+		});
+
+		function getVal () { return val; }
+
+		return {
+		    getVal: getVal
+		};
+	}
+
 </script>
 
 {% endblock %}

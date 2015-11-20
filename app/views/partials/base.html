@@ -124,7 +124,7 @@
 					<% } %>
 				<% } %>
 
-				<% if (owner || (viewer && viewer.isAdmin)) { %>
+				<% if (viewer && viewer.isAdmin) { %>
 					<div class="delete"><i class="bi_editorial-trash-a-l"></i></div>
 				<% } %>
 
@@ -133,7 +133,7 @@
 				<% } %>
 
 				<a href="/user/<%=User.username%>/work/<%=nameSlugify%>">
-					<img src="<%= addFilter(photo, 'w_300') %>">
+					<img src="<%= addFilter(photo, 'w_300,d_am_avatar.jpg') %>">
 				</a>
 			</div>
 		</div>

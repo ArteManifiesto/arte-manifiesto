@@ -80,7 +80,7 @@ Utils = {
        }
     },
     checkAuthentication: function() {
-      if (!DataApp.currentUser) 
+      if (!DataApp.currentUser)
         window.location.href = DataApp.loginUrl + '/?returnTo=' + window.location.href;
     }
 };

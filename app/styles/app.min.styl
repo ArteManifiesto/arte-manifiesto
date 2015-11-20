@@ -1826,6 +1826,7 @@ body
 		z-index: 1;
 		width: 100%;
 		transition: transform ease .5s;
+		display none
 		.am-Filter
 			background-color: white;
 			margin: 10px;
@@ -1844,6 +1845,10 @@ body
 		.left-menu
 			transform: translateX(-200%);
 
+@media (min-width: 1000px)
+	.filter.left
+		.left-menu
+			display block
 
 .filter.right
 	position: relative;
