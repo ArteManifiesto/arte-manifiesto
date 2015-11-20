@@ -270,20 +270,33 @@
 	  <div class="grid-100">
 	    <div class="reviews">
 	      <p class="title">Reviews &nbsp;&nbsp;<span>{{reviews.length}}</span></p>
+
+	      <div class="u-separator"></div>
+
+
+      	<p class="empty-profile-text  empty-message hide u-margin-top-30" style="display: block;">Esta obra aun no tiene reviews
+      	</p>
+
 	      <div class='reviews-items-container'>
 	      </div>
-	      <div class="review">
-	        {% if user %}
+
+        {% if user %}
+	      	<div class="review">
 	          <div class="avatar"><img src="{{user.photo}}"></div>
 	          <form class="content review-form">
 	            <input type="hidden" name='id{{entity|capitalize}}' value="{{element.id}}"/>
 	            <textarea class='value-input' name="value"></textarea>
 	            <button>ADD COMMENT</button>
 	          </form>
-	        {% else %}
-	          <a class="login-first">Logeate, para agregar review</a>
-	        {% endif %}
-	      </div>
+
+	      	</div>
+        {% else %}
+
+        	<p class="empty-profile-text  empty-message hide u-margin-top-30" style="display: block;">
+        		<a href="/auth/login">Logeate, para agregar review</a>
+        	</p>
+        {% endif %}
+
 	    </div>
 	  </div>
 	</div>
@@ -302,6 +315,9 @@
 						{% endif %}
 	          {% endfor %}
 	        </div>
+      			<p class="empty-profile-text  empty-message hide u-margin-top-30" style="display: block;">Esta obra aun no tiene tags<br><br>
+      				<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
+      			</p>
 	      </div>
 	    </div>
 	  </div>
@@ -336,10 +352,13 @@
 	    </div>
 	  </div>
 
+		<p class="empty-profile-text  empty-message hide u-margin-top-30" style="display: block;">El artista no tiene mas obras<br><br>
+			<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
+		</p>
+
 	  <div class="grid-container">
 	    <div class="grid-100">
 	      <div class="more-carousel">
-	      	<p>Este artista no tiene mas obras</p>
 	        <div class="more-images more">
 	        </div>
 	      </div>
@@ -358,6 +377,10 @@
 	      <div class="u-separator-center"></div>
 	    </div>
 	  </div>
+
+		<p class="empty-profile-text  empty-message hide u-margin-top-30" style="display: block;">No existen obras relacionadas<br><br>
+			<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
+		</p>
 
 	  <div class="grid-container">
 	    <div class="grid-100">
