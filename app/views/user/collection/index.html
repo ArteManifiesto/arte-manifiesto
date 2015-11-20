@@ -4,9 +4,11 @@
 {% block elements %}
 
 	<div class="grid-container u-padding-top-40 u-padding-bottom-20" style="position: relative;">
+		{% if owner %}
 		<span class="edit-collection">
 			<a id="go-collection-modal" href="#edit-modal"><i class="bi_editorial-compose"></i></a>
 		</span>
+		{% endif %}
 
 		<!-- <div class="grid-20">
 			&nbsp;
@@ -82,7 +84,7 @@
 				<div class="u-padding-top-20">
 					<div class="grid-50">
 						<a href='#'>
-							<button class="button" style="margin-top: 5px;" data-color="blue">GUARDAR</button>
+							<button class="button save-collection" style="margin-top: 5px;" data-color="blue">GUARDAR</button>
 						</a>
 					</div>
 					<div class="grid-50">
@@ -138,7 +140,7 @@
 
 	{% block scripts %}
 	<script type="text/javascript">
-	console.log({{collection|json|safe}});
+	var collection = {{collection|safe|json}};
 		$(document).ready(function() {
 			var data= {
 				pagination: {
@@ -150,8 +152,26 @@
 			new APP.Viewer('work', $('.grid'), 'infinite', data);
 		});
 
-
 	$("#go-collection-modal").leanModal();
+
+	$('.collection-form').submit(function() {
+		event.preventDefault();
+	  $('.submit').hide();
+	  $('.submit-loading').show();
+	  //var url =  '/auth/' + this.meta;
+		var payload = {
+			name: $('input[name=name]').val(),
+			description: $('textarea[name=description]').val(),
+			public: $( "input[name=public]:checked" ).val() !== undefined,
+			idCollection: collection.id
+		}
+	  $.post(DataApp.currentUser.url + '/collection/update' , payload, function(response){
+			console.log(response);
+			// if (response.status === 200) {
+			// 	$('.am-navigation-text').text($('.'))
+			// }
+		});
+	});
 
 	</script>
 	{% endblock %}

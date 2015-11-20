@@ -36,9 +36,11 @@ APP.BaseNavigation.prototype.gotoPage = function (next, force) {
     if (this.currentPage === 0)this.currentPage = 1;
   }
 
-  if(this.totalPages){
+  if (this.totalPages) {
     if (nextPage > this.totalPages) return;
   }
+
+  // this.dispatchEvent({type: Events.LOAD_START, data: response});
 
   Broadcaster.dispatchEvent("PAGE_LOAD_START");
 
@@ -58,10 +60,10 @@ APP.BaseNavigation.prototype.afterGetData = function (response) {
 
   this.pagesCache[this.currentPage] = response;
   this.currentPageData = response;
-  // ChangeUrl('lol', response.url);
+  ChangeUrl('lol', response.url);
 
-  this.dispatchEvent({ type: Events.LOAD_ENDD, data: response });
-  
+  // this.dispatchEvent({type: Events.LOAD_END, data: response});
+
   Broadcaster.dispatchEvent("PAGE_LOAD_END", {data: response});
 };
 

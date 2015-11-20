@@ -5,7 +5,8 @@ exports.index = function (req, res) {
     req.collection.getWorks(query).then(function (works) {
         return res.render(basePath + 'index', {
             collection: req.collection,
-            works: works
+            works: works,
+            owner: req.owner
         });
     });
 }
