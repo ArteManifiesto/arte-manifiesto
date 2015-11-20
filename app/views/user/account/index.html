@@ -144,7 +144,7 @@
 			var uploaderImage = new APP.UploaderImage($('.uploader-profile'), function(idImage){
         this.$view.find('.upload').show();
         $('.cloudinary-fileupload').show();
-				var filters =  {width: 150, height: 150, crop: 'thumb', gravity: 'face'};
+				var filters =  {width: 150, height: 150, crop: 'thumb'};
 				$.cloudinary.image(idImage, filters).appendTo(this.$view.find('.preview'));
 			});
 
