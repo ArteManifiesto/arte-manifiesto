@@ -14,8 +14,17 @@
 			&nbsp;
 		</div> -->
 		<div class="grid-100">
-			<p class="am-navigation-text">{{collection.User.firstname}} {{collection.name}}</p>
+			<div class="single-collection-header">
+				<img src="http://res.cloudinary.com/hackdudes/image/upload/w_150,h_150,c_thumb,g_face,d_am_avatar.jpg/v1448006979/rziwwm6pgcorwmec0baf.jpg">
+				<div>
+					<p class="am-navigation-text">{{collection.User.firstname}}</p>
+					<p class="am-navigation-subtext">Coleccion > {{collection.name}}</p>
+				</div>
+			</div>
 		</div>
+		<!-- <div class="grid-100">
+			<p class="am-navigation-text">{{collection.User.firstname}} > Coleccion > {{collection.name}}</p>
+		</div> -->
 		<!-- <div class="grid-20 filter right">
 			&nbsp;
 			<div class="am-Select">
@@ -84,7 +93,10 @@
 				<div class="u-padding-top-20">
 					<div class="grid-50">
 						<a href='#'>
-							<button class="button save-collection" style="margin-top: 5px;" data-color="blue">GUARDAR</button>
+							<button class="button" style="margin-top: 5px;" data-color="blue">GUARDAR</button>
+							<button class="button" style="margin-top: 5px;" data-color="blue">
+								<i class="load fa fa-spinner"></i>
+							</button>
 						</a>
 					</div>
 					<div class="grid-50">
