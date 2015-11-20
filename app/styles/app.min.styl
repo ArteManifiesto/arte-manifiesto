@@ -79,6 +79,7 @@ body
 			display none
 		img
 			width 100%
+			min-width 30px
 	&-menu
 		display flex
 		align-items center
@@ -87,7 +88,8 @@ body
 		&-item
 			.am-Header-text
 				display block
-				padding 10px 15px
+				// padding 10px 15px
+				padding 10px 12.5px
 			.am-Signin-button
 				margin-left: 10px;
 		.upload
@@ -99,6 +101,14 @@ body
 			display none
 		.am-Avatar
 			margin-left 10px
+			width
+
+@media (min-width: 400px)
+	.am-Header
+		&-menu
+			&-item
+				.am-Header-text
+					padding 10px 15px
 
 @media (min-width: 550px)
 	.am-Header
@@ -109,7 +119,8 @@ body
 			.small
 				display none
 
-@media (min-width: 650px)
+// @media (min-width: 650px)
+@media (min-width: 700px)
 	.am-Header
 		&-menu
 			.desktop
@@ -118,7 +129,8 @@ body
 				i
 					display none
 
-@media (min-width: 700px)
+// @media (min-width: 700px)
+@media (min-width: 950px)
 	.am-Header
 		&-menu
 			.upload
@@ -138,7 +150,8 @@ body
 			.cart
 				display block
 
-@media (min-width: 900px)
+// @media (min-width: 900px)
+@media (min-width: 950px)
 	.am-Header
 		&-menu
 			.upload
@@ -160,6 +173,7 @@ body
 	img
 		width 50px
 		height 50px
+		min-width 50px
 		border-radius 50%
 	i
 		font-size: 12px;
