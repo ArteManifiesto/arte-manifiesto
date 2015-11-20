@@ -35,11 +35,6 @@
 					<div>
 						<p class="name">{{profile.fullname}}</p>
 						<p class="city">{{profile.city}}, {{profile.country}}</p>
-						<div class="social-networks">
-							<a href="{{profile.facebook}}"><i class="bi_logo-facebook"></i></a>
-							<a href="{{profile.twitter}}"><i class="bi_logo-twitter"></i></a>
-							<a href="{{profile.instagram}}"><i class="bi_logo-instagram"></i></a>
-						</div>
 						{% if !owner %}
 							{% if profile.following %}
 							<button class="am-Follow-button following">- Siguiendo</button>
@@ -89,6 +84,11 @@
 		<div class="grid-60">
 			<p class="profile-title">Sobre el artista</p>
 			<p class="profile-desc">{{profile.biography}}</p>
+			<div class="profile-desc u-margin-top-20">
+				<a href="{{profile.facebook}}"><i class="bi_logo-facebook"></i></a>
+				<a href="{{profile.twitter}}"><i class="bi_logo-twitter"></i></a>
+				<a href="{{profile.instagram}}"><i class="bi_logo-instagram"></i></a>
+			</div>
 		</div>
 		<div class="grid-100">
 			<p class="profile-title u-margin-top-30">
