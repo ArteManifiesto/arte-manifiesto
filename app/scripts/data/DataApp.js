@@ -5,7 +5,7 @@
 
 DataApp = {};
 DataApp.currentUser;
-DataApp.baseUrl = 'http://127.0.0.1:3000/';
+DataApp.baseUrl = window.location.origin + '/';
 DataApp.loginUrl = DataApp.baseUrl + 'auth/login';
 DataApp.discoverWorks = DataApp.baseUrl + '/works/category/all/page-1/';
 DataApp.discoverUsers = DataApp.baseUrl + '/users/specialties/all/page-1/';
@@ -15,3 +15,8 @@ DataApp.searchCollections = DataApp.baseUrl + 'artjam/collections/page-1';
 
 DataApp.currentUrl = window.location.href.replace(/\/$/g, '');
 DataApp.currentUrl = DataApp.currentUrl.replace(/#_=_$/g, '');
+
+Events = {
+  LOAD_START: 'loadStart',
+  LOAD_END: 'loadEnd'
+};

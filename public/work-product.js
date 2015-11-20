@@ -3,12 +3,12 @@ $(document).ready(function() {
     $('.add-collection').hide();
     $('.social-share').toggle();
   });
-
+  
   $('.products-item-menu').click(function() {
     if(entity === 'work') {
       $('html, body').animate({
         scrollTop: $(".carousel").offset().top
-      }, 1000);
+      }, 600);
       $('.products').click();
     } else {
       $('.original-item-menu').removeClass('selected');
@@ -174,36 +174,49 @@ $(document).ready(function() {
     }
   });
 
+  var lastMenuItem = $('.' + currentPath);
   $('.index').click(function() {
+    lastMenuItem.removeClass('selected');
+    $(this).addClass('selected');
     Utils.changeUrl('tags', '/user/' + element.User.username + '/'+entity+'/' + element.nameSlugify);
     $('.index-container').show();
     $('.reviews-container').hide();
     $('.tags-container').hide();
     $('.products-container').hide();
+    lastMenuItem = $(this);
   });
 
   $('.reviews').click(function() {
+    lastMenuItem.removeClass('selected');
+    $(this).addClass('selected');
     Utils.changeUrl('tags', '/user/' + element.User.username + '/'+entity+'/' + element.nameSlugify + '/reviews');
     $('.index-container').hide();
     $('.reviews-container').show();
     $('.tags-container').hide();
     $('.products-container').hide();
+    lastMenuItem = $(this);
   });
 
   $('.products').click(function() {
+    lastMenuItem.removeClass('selected');
+    $(this).addClass('selected');
     Utils.changeUrl('tags', '/user/' + element.User.username + '/'+entity+'/' + element.nameSlugify + '/products');
     $('.index-container').hide();
     $('.reviews-container').hide();
     $('.tags-container').hide();
     $('.products-container').show();
+    lastMenuItem = $(this);
   });
 
   $('.tags').click(function(){
+    lastMenuItem.removeClass('selected');
+    $(this).addClass('selected');
     Utils.changeUrl('tags', '/user/' + element.User.username + '/'+entity+'/' + element.nameSlugify + '/tags');
     $('.index-container').hide();
     $('.reviews-container').hide();
     $('.tags-container').show();
     $('.products-container').hide();
+    lastMenuItem = $(this);
   });
 
   $('.save-collections').click(function() {
@@ -219,4 +232,5 @@ $(document).ready(function() {
       }
     });
   });
+  $('.' + currentPath).click();
 });

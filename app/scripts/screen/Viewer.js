@@ -4,7 +4,7 @@
 */
 var APP = APP || {};
 
-APP.Viewer = function (id, container, navigation, data) {
+APP.Viewer = function (id, container, navigation, data , options) {
   this.container = container;
 
   if(id !== 'carrouselItem'){
@@ -60,9 +60,16 @@ APP.Viewer.prototype.setupMasonry = function() {
 
 APP.Viewer.prototype.listeners = function() {
   this.pageStart = this.pageLoadStartHandler.bind(this);
+  // function(event) {
+  //   console.log('load end');
+  //   console.log(event);
+  // }
   Broadcaster.addEventListener('PAGE_LOAD_START', this.pageStart);
+  // Broadcaster.addEventListener('PAGE_LOAD_END', this.pageEnd);
+  this.navigationManager.navigator.addEventListener(Events.LOAD_START, this.pageEnd);
+
   this.pageEnd = this.pageLoadEndHandler.bind(this);
-  Broadcaster.addEventListener('PAGE_LOAD_END', this.pageEnd);
+  this.navigationManager.navigator.addEventListener(Events.LOAD_END, this.pageEnd);
 };
 
 APP.Viewer.prototype.pageLoadStartHandler = function() {
@@ -90,6 +97,7 @@ APP.Viewer.prototype.addItems = function(items) {
   //console.log(this.container);
   if (this.navigationManager) {
     if(items.length < 1 && this.navigationManager.navigator.currentPage === 1) {
+      this.options.onEmpty();
       this.container.parent().find('.empty-message').show();
       // $('.empty-message').show();
     }

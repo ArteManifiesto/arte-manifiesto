@@ -14,6 +14,7 @@ APP.BaseNavigation = function () {
 };
 
 APP.BaseNavigation.constructor = APP.BaseNavigation;
+APP.BaseNavigation.prototype = Object.create(EventDispatcher.prototype);
 
 APP.BaseNavigation.prototype.start = function(){
 }
@@ -57,8 +58,10 @@ APP.BaseNavigation.prototype.afterGetData = function (response) {
 
   this.pagesCache[this.currentPage] = response;
   this.currentPageData = response;
-  ChangeUrl('lol', response.url);
+  // ChangeUrl('lol', response.url);
 
+  this.dispatchEvent({ type: Events.LOAD_ENDD, data: response });
+  
   Broadcaster.dispatchEvent("PAGE_LOAD_END", {data: response});
 };
 

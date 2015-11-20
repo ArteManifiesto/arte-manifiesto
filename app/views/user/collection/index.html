@@ -12,7 +12,7 @@
 			&nbsp;
 		</div> -->
 		<div class="grid-100">
-			<p class="am-navigation-text">{{collection.User.firstname}} > Coleccion > {{collection.name}}</p>
+			<p class="am-navigation-text">{{collection.User.firstname}} {{collection.name}}</p>
 		</div>
 		<!-- <div class="grid-20 filter right">
 			&nbsp;
@@ -53,18 +53,18 @@
 	<div id="edit-modal" style="display: none;">
 		<div class="am-upload-work-box grid-container">
 			<p class="main-title">EDITAR COLECCION</p>
-			<form class="add-work">
+			<form class="add-work collection-form">
 				<div class="grid-100">
 					<div class="separator">
 						<span class="line"></span><span class="line"></span>
 					</div>
-					<p class="title" style="min-width: 300px;">Nombre de la coleccion</p>
-					<input name='name' value="" class="input" type="text" required placeholder="Ingrese el nombre de la coleccion"/>
+					<p class="title" style="min-width: 300px;">Nombre</p>
+					<input name='name' value="{{collection.name}}" class="input" type="text" required placeholder="Ingrese el nombre de la coleccion"/>
 				</div>
 
 				<div class="grid-100 mobile-grid-100">
-					<p class="title">Descripcion de la coleccion</p>
-					<textarea name='description' required class='input'placeholder="Descripcion" maxlength='140'>{{work.description}}</textarea>
+					<p class="title">Descripcion</p>
+					<textarea name='description' class='input'placeholder="Descripcion" maxlength='140'>{{collection.description}}</textarea>
 				</div>
 
 				<div class="u-padding-top-20">
