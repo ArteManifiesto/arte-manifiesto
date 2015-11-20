@@ -9,10 +9,6 @@
 			<a id="go-collection-modal" href="#edit-modal"><i class="bi_editorial-compose"></i></a>
 		</span>
 		{% endif %}
-
-		<!-- <div class="grid-20">
-			&nbsp;
-		</div> -->
 		<div class="grid-100">
 			<div class="single-collection-header">
 				<a href="/user/{{collection.User.username}}">
@@ -26,9 +22,7 @@
 		</div>
 
 		<div class="grid-100 u-margin-top-30">
-			<p class="am-collection-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			<p class="am-collection-desc">{{collection.description}}
 			consequat.</p>
 		</div>
 		<!-- <div class="grid-100">
