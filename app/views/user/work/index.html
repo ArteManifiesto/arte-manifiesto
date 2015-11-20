@@ -77,16 +77,16 @@
 				<div class="single-data u-padding-bottom-40">
 					<div class="FollowArtist u-padding-bottom-10">
 						<div>
-							<p class="u-padding-bottom-7 big uppercase"><strong>{{element.User.firstname}}</strong></p>
+							<p class="u-padding-bottom-7 big uppercase"><strong>{{element.User.fullname}}</strong></p>
 							{% if !owner %}
 							<button class="am-Follow-button">+ SEGUIR</button>
 							{% endif %}
 						</div>
 					</div>
 					<div class="u-separator"></div>
-					<p class="am-Single-title-text u-margin-top-15">{{element.description}}</p>
+					<p class="am-Single-title-text u-margin-top-15">{{element.name}}</p>
 					<p class="am-collection-desc u-margin-top-10">
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+						{{element.description}}
 					</p>
 					{% if entity === 'product' %}
 					<p class="am-Single-text u-margin-top-10">ancho : {{element.width}} cm</p>
@@ -219,7 +219,7 @@
 	              <img src="{{element.User.photo}}">
 	            </a>
 	            <div>
-	              <p class="u-padding-bottom-4 uppercase" style="font-weight: bold;">{{element.User.firstname}}</p>
+	              <p class="u-padding-bottom-4 uppercase" style="font-weight: bold;">{{element.User.fullname}}</p>
 	              <p class="u-padding-bottom-7"> <strong></strong> {{element.User.city}}, {{element.User.country}}</p>
 	              {% if !owner %}
 	              <button class="am-Follow-button">+ SEGUIR</button>
