@@ -117,6 +117,8 @@
 		<div class="grid-item">
 			<div class="work-card">
 
+				<div class="lock"><i class="bi_user-lock"></i></div>
+
 				<% if (viewer && viewer.isAdmin) { %>
 					<div class="featured <% if (!featured) { %>disabled<% } %>">AM</div>
 				<% } else { %>
@@ -207,6 +209,9 @@
 		<div class="grid-item">
 			<a href='/user/<%=User.username%>/collection/<%=nameSlugify%>'>
 				<div class="collection-card">
+
+					<div class="lock"><i class="bi_user-lock"></i></div>
+
 					<div class="featured <% if (!featured) { %>disabled<% } %>">AM</div>
 					<div class="collection-card-stats">
 						<p><%=name%></p>
