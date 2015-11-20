@@ -3,16 +3,20 @@
 
 {% block elements %}
 
-	<div class="grid-container u-padding-top-40 u-padding-bottom-20">
-		<div class="grid-20">
+	<div class="grid-container u-padding-top-40 u-padding-bottom-20" style="position: relative;">
+		<span class="edit-collection">
+			<a id="go-collection-modal" href="#edit-modal"><i class="bi_editorial-compose"></i></a>
+		</span>
+
+		<!-- <div class="grid-20">
 			&nbsp;
+		</div> -->
+		<div class="grid-100">
+			<p class="am-navigation-text">{{collection.User.firstname}} > Coleccion > {{collection.name}}</p>
 		</div>
-		<div class="grid-60">
-			<p class="am-navigation-text">{{collection.User.firstname}} > Colecciones > {{collection.name}}</p>
-		</div>
-		<div class="grid-20 filter right">
+		<!-- <div class="grid-20 filter right">
 			&nbsp;
-			<!-- <div class="am-Select">
+			<div class="am-Select">
 				ORDENAR &nbsp;&nbsp;<i class="fa fa-caret-down"></i>
 			</div>
 			<div class="right-menu u-padding-top-10">
@@ -27,8 +31,8 @@
 						<p class="am-Filter-option">MÁS POPULAR</p>
 					</div>
 				</div>
-			</div> -->
-		</div>
+			</div>
+		</div> -->
 	</div>
 
 	<div class="grid-container">
@@ -46,6 +50,78 @@
 		</div>
 	</div>
 
+	<div id="edit-modal" style="display: none;">
+		<div class="am-upload-work-box grid-container">
+			<p class="main-title">EDITAR COLECCION</p>
+			<form class="add-work">
+				<div class="grid-100">
+					<div class="separator">
+						<span class="line"></span><span class="line"></span>
+					</div>
+					<p class="title" style="min-width: 300px;">Nombre de la coleccion</p>
+					<input name='name' value="" class="input" type="text" required placeholder="Ingrese el nombre de la coleccion"/>
+				</div>
+
+				<div class="grid-100 mobile-grid-100">
+					<p class="title">Descripcion de la coleccion</p>
+					<textarea name='description' required class='input'placeholder="Descripcion" maxlength='140'>{{work.description}}</textarea>
+				</div>
+
+				<div class="u-padding-top-20">
+					<div class="grid-50">
+						<a href='#'>
+							<button class="button" style="margin-top: 5px;" data-color="blue">GUARDAR</button>
+						</a>
+					</div>
+					<div class="grid-50">
+			      <a href='#'>
+			        <button class="button inline upload u-margin-top-30 upload_button" style="border: none; box-shadow: none;">
+			          <i class="bi_editorial-trash-l"></i>&nbsp;&nbsp;&nbsp;ELIMINAR
+			        </button>
+			      </a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- <div id="edit-modal" style="display: none;">
+		<div class="am-upload-work-box grid-container">
+			<p class="main-title">EDITAR COLECCION</p>
+			<form class="add-work">
+				<div class="grid-100">
+					<div class="separator">
+						<span class="line"></span><span class="line"></span>
+					</div>
+					<p class="title">Nombre de la coleccion</p>
+					<input name='name' value="" class="input" type="text" required placeholder="Ingrese el nombre de la coleccion"/>
+				</div>
+
+				<div class="grid-100 mobile-grid-100">
+					<p class="title">Descripcion de la coleccion</p>
+					<textarea name='description' required class='input'placeholder="Descripcion" maxlength='140'>{{work.description}}</textarea>
+				</div>
+
+				<div class="u-padding-top-20">
+					<div class="grid-50">
+						<a href='#'>
+							<button class="button" style="margin-top: 5px;" data-color="blue">GUARDAR</button>
+						</a>
+					</div>
+					<div class="grid-50">
+			      <a href='#'>
+			        <button class="button inline upload u-margin-top-30 upload_button" style="border: none; box-shadow: none;">
+			          <i class="bi_editorial-trash-l"></i>&nbsp;&nbsp;&nbsp;ELIMINAR
+			        </button>
+			      </a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div> -->
+
+
+
 	{% endblock %}
 
 	{% block scripts %}
@@ -62,5 +138,9 @@
 			}
 			new APP.Viewer('work', $('.grid'), 'infinite', data);
 		});
+
+
+	$("#go-collection-modal").leanModal();
+
 	</script>
 	{% endblock %}
