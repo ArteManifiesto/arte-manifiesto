@@ -4,6 +4,7 @@
 {% set profile = profile.toJSON()%}
 {% block elements %}
 	<div class="am-Profile-banner">
+			<i class="edit bi_editorial-compose"></i>
 			<div class="uploader-cover">
 				{% if owner %}
 				<div class="edit-options">
@@ -98,7 +99,7 @@
 		<div class="grid-100 grid-parent">
 			{% if owner %}
 			<p class="empty-profile-text  empty-message hide u-margin-top-30">Aún no tienes ninguna obra <br><br>
-				<a href="/user/{{user.username}}/work/upload">Sube tu primera obra</a>
+				<a href="/user/{{user.username}}/work/add">Sube tu primera obra</a>
 			</p>
 			{% else %}
 			<p class="empty-profile-text  empty-message hide u-margin-top-30">{{profile.fullname}} no ha subido ninguna obra aún<br><br></p>
@@ -114,7 +115,7 @@
 		<div class="grid-100 grid-parent">
 			{% if owner %}
 			<p class="empty-profile-text  empty-message hide u-margin-top-30">Aún no tienes ningun producto <br><br>
-				<a href="/user/{{user.username}}/work/upload">Sube tu primera obra para ponerla en venta</a>
+				<a href="/user/{{user.username}}/work/add">Sube tu primera obra para ponerla en venta</a>
 			</p>
 			{% else %}
 			<p class="empty-profile-text  empty-message hide u-margin-top-30">{{profile.fullname}} no esta vendiendo ningun product aún<br><br></p>
