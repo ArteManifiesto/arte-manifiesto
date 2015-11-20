@@ -15,12 +15,21 @@
 		</div> -->
 		<div class="grid-100">
 			<div class="single-collection-header">
-				<img src="{{collection.User.photo}}">
+				<a href="/user/{{collection.User.username}}">
+					<img src="{{collection.User.photo}}">
+				</a>
 				<div>
 					<p class="am-navigation-text">{{collection.User.fullname}}</p>
 					<p class="am-navigation-subtext">Coleccion > {{collection.name}}</p>
 				</div>
 			</div>
+		</div>
+
+		<div class="grid-100 u-margin-top-30">
+			<p class="am-collection-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat.</p>
 		</div>
 		<!-- <div class="grid-100">
 			<p class="am-navigation-text">{{collection.User.firstname}} > Coleccion > {{collection.name}}</p>
