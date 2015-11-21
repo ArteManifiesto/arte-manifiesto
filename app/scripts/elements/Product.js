@@ -11,7 +11,6 @@ APP.Product = function (data) {
 APP.Product.prototype = Object.create(APP.BaseElement.prototype);
 
 APP.Product.constructor = APP.Product;
-
-APP.Product.prototype.listeners = function () {
-  //this.view.click(this.gotoSingle.bind(this));
-};
+// 
+// APP.Product.prototype.listeners = function () {
+// };

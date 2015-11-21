@@ -23,7 +23,9 @@ module.exports = function (sequelize, DataTypes) {
         }, {
             classMethods: {
                 associate: function (models) {
-                    Work.belongsToMany(models.User, {as: 'WorkLikes', through: 'WorkLikes'});
+                  Work.belongsToMany(models.User, {as: 'WorkLikes', through: 'WorkLikes'});
+                  Work.belongsToMany(models.User, {as: 'WorkRequests', through: 'WorkRequests'});
+
                     Work.belongsToMany(models.Category, {through: 'WorkCategories'});
 
                     Work.belongsToMany(models.Tag, {through: 'WorkTags'});
@@ -56,12 +58,14 @@ module.exports = function (sequelize, DataTypes) {
                     return global.db.Sequelize.Promise.all([
                         scope.numOfLikes(),
                         scope.liked(options.viewer),
-                        scope.friends(options.viewer)
+                        scope.friends(options.viewer),
+                        scope.requested(options.viewer),
                     ]).then(function (result) {
                         scope.setDataValue('owner' , (scope.User.id === options.viewer));
                         scope.setDataValue('likes', result[0]);
                         scope.setDataValue('liked', result[1]);
                         scope.setDataValue('friends', result[2]);
+                        scope.setDataValue('requested', result[3]);
                     });
                 },
                 numOfLikes: function () {
@@ -73,6 +77,12 @@ module.exports = function (sequelize, DataTypes) {
                         };
                     return this.getWorkLikes(query).then(function (result) {
                         return result[0].getDataValue('total');
+                    });
+                },
+                requested: function (viewer) {
+                    var scope = this, query = {where: {id: viewer}};
+                    return this.getWorkRequests(query).then(function (requests) {
+                        return requests.length > 0;
                     });
                 },
                 liked: function (viewer) {

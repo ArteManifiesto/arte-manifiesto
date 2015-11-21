@@ -26,7 +26,7 @@ router.post('/update', isLoggedAndOwner, controller.update);
 router.post('/featured', global.md.isAdmin, controller.featured);
 router.post('/unfeatured', global.md.isAdmin, controller.unFeatured);
 router.post('/like', isLoggedAndOwner, controller.like);
-router.post('/unlike', isLoggedAndOwner, controller.unLike);
+router.post('/available', global.md.isLogged, controller.available);
 
 router.post('/review/create', isLoggedAndOwner, controller.createReview);
 router.post('/review/delete', isLoggedAndOwner, controller.deleteReview);

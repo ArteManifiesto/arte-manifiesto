@@ -55,6 +55,18 @@ exports.delete = function (req, res) {
     });
 };
 
+exports.featured = function (req, res) {
+    req.collection.updateAttributes({featured: true}).then(function () {
+        return res.ok({collection: req.collection}, 'Collection featured');
+    });
+};
+
+exports.unFeatured = function (req, res) {
+    req.collection.updateAttributes({featured: false}).then(function () {
+        return res.ok({collection: req.collection}, 'Collection unFeatured');
+    });
+};
+
 exports.public = function (req, res) {
     req.collection.updateAttributes({public: true}).then(function () {
         return res.ok({collection: req.collection}, 'Coleccion publica');

@@ -153,9 +153,15 @@
 							<p class="selected">COMPRAR</p>
 						</div>
 						<div class="body u-text-center">
-							<p class="title large">Puedes preguntar al artista la disponibilidad</p>
-							<button class="am-View-button expand u-margin-top-20">PREGUNTAR DISPONIBILIDAD</button>
-							<p class="msg u-padding-top-15 u-padding-bottom-4">Muy pronto la tienda en línea</p>
+							<div class="ask-requester {% if element.requested %} hide {% endif %}">
+								<p class="title large">Puedes preguntar al artista la disponibilidad</p>
+									<button class="am-View-button expand u-margin-top-20 ask-available">PREGUNTAR DISPONIBILIDAD</button>
+									<p class="msg u-padding-top-15 u-padding-bottom-4">Muy pronto la tienda en línea</p>
+							</div>
+							<div class="thanks-requester {% if !element.requested %} hide {% endif %}">
+								<p class="title large">Gracias por preguntar la disponibilidad</p>
+								<p class="msg u-padding-top-15 u-padding-bottom-4">te avisaremos cuando el artista ponga en venta esta obra</p>
+							</div>
 						</div>
 					</div>
 					{% endif %}

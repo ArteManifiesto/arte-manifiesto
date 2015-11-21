@@ -122,12 +122,13 @@ APP.Viewer.prototype.clean = function() {
 
 APP.Viewer.prototype.suspend = function() {
   this.navigationManager.navigator.suspend();
-  this.navigationManager.navigator.removeEventListener(Events.LOAD_START, this.pageEnd);
+  this.navigationManager.navigator.removeEventListener(Events.LOAD_START, this.pageStart);
   this.navigationManager.navigator.removeEventListener(Events.LOAD_END, this.pageEnd);
 }
 
 APP.Viewer.prototype.restart = function() {
-  this.navigationManager.navigator.removeEventListener(Events.LOAD_START, this.pageEnd);
-  this.navigationManager.navigator.removeEventListener(Events.LOAD_END, this.pageEnd);
+  this.navigationManager.navigator.addEventListener(Events.LOAD_START, this.pageStart);
+  this.navigationManager.navigator.addEventListener(Events.LOAD_END, this.pageEnd);
+  this.navigationManager.navigator.restart();
   this.container.masonry();
 }

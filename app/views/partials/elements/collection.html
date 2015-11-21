@@ -1,6 +1,5 @@
 <script type="text/template" id="template-collection">
   <div class="grid-item">
-    <a href='/user/<%=User.username%>/collection/<%=nameSlugify%>'>
       <div class="collection-card">
         <% if(!public) { %>
           <div class="lock"><i class="bi_user-lock"></i></div>
@@ -12,26 +11,27 @@
             <div class="featured">AM</div>
           <% } %>
         <% } %>
-        <div class="collection-card-stats">
-          <p><%=name%></p>
-        </div>
-        <div class="collection-card-images">
-          <% _.each([0,1,2], function(i) { %>
-            <% if(works[i] && works[i].photo) { %>
-              <div class="collection-card-image" style="background-image: url('<%= addFilter(works[i].photo, 'w_300,h_300,c_fill') %>')"></div>
-            <% } else { %>
-              <div class="collection-card-image empty"></div>
-            <% } %>
-          <% }); %>
-        </div>
-        <div class="collection-card-artist">
-          <div>
-            <p>Curado Por:</p>
-            <p><%=User.firstname%></p>
+        <a href='/user/<%=User.username%>/collection/<%=nameSlugify%>'>
+          <div class="collection-card-stats">
+            <p><%=name%></p>
           </div>
-          <img src="<%=User.photo%>">
-        </div>
+          <div class="collection-card-images">
+            <% _.each([0,1,2], function(i) { %>
+              <% if(works[i] && works[i].photo) { %>
+                <div class="collection-card-image" style="background-image: url('<%= addFilter(works[i].photo, 'w_300,h_300,c_fill') %>')"></div>
+              <% } else { %>
+                <div class="collection-card-image empty"></div>
+              <% } %>
+            <% }); %>
+          </div>
+          <div class="collection-card-artist">
+            <div>
+              <p>Curado Por:</p>
+              <p><%=User.firstname%></p>
+            </div>
+            <img src="<%=User.photo%>">
+          </div>
+        </a>
       </div>
-    </a>
   </div>
 </script>

@@ -261,3 +261,15 @@ exports.private = function (req, res) {
         return res.ok({work: req.work}, 'Work unPublished');
     });
 };
+
+exports.available = function (req, res) {
+  req.work.getWorkRequests({where:{id:req.user.id}}).then(function(users) {
+    if (users.length < 1) {
+      req.work.addWorkRequests(req.user).then(function() {
+        // TODO send email
+        return res.ok({user: users}, 'asked');
+      });
+    }
+    return res.ok({user: users}, 'Already asked');
+  });
+};

@@ -19,6 +19,18 @@ $(document).ready(function() {
     }
   });
 
+  $('.ask-available').click(function(event) {
+    event.preventDefault();
+    Utils.checkAuthentication();
+    var url = DataApp.currentUser.url + '/work/available';
+    $.post(url, {idWork: element.id}, function (response) {
+      if(response.status === 200) {
+        $('.ask-requester').hide();
+        $('.thanks-requester').show();
+      }
+    });
+  });
+
   $('.original-item-menu').click(function() {
       $('.products-item-menu').removeClass('selected');
       $(this).addClass('selected');

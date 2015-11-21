@@ -9,12 +9,14 @@ var entity = 'Collection';
 router.use(global.md.entity(entity));
 
 router.get('/:nameSlugify', global.md.nameSlugify(entity), controller.index);
-//router.get('/:nameSlugify/edit', isLoggedAndOwner, global.md.nameSlugify(entity), controller.edit);
 
 router.post('/all', isLoggedAndOwner, controller.all);
 router.post('/create', isLoggedAndOwner, controller.create);
 router.post('/update', isLoggedAndOwner, controller.update);
 router.post('/delete', isLoggedAndOwner, controller.delete);
+
+router.post('/featured', global.md.isAdmin, controller.featured);
+router.post('/unfeatured', global.md.isAdmin, controller.unFeatured);
 
 router.post('/public', isLoggedAndOwner, controller.public);
 router.post('/private', isLoggedAndOwner, controller.private);

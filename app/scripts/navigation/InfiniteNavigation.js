@@ -18,6 +18,7 @@ APP.InfiniteNavigation.prototype.listeners = function() {
 };
 
 APP.InfiniteNavigation.prototype.scrollHandler = function() {
+  console.log('lelelel');
   if($(window).scrollTop() == $(document).height() - $(window).height()){
     this.gotoPage(this.currentPage + 1);
   }

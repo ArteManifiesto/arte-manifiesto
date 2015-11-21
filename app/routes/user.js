@@ -29,8 +29,8 @@ router.use('/cart', isLoggedAndOwner, cartRouter);
 router.post('/isFollowing', isLoggedAndOwner, global.md.userTo, controller.isFollowing);
 router.post('/follow', isLoggedAndOwner, global.md.userTo, controller.follow);
 router.post('/unfollow', isLoggedAndOwner, global.md.userTo, controller.unFollow);
-router.post('/featured', isLoggedAndOwner, global.md.userTo, controller.featured);
-router.post('/unfeatured', isLoggedAndOwner, global.md.userTo, controller.unFeatured);
+router.post('/featured', global.md.isAdmin, global.md.userTo, controller.featured);
+router.post('/unfeatured', global.md.isAdmin, global.md.userTo, controller.unFeatured);
 
 router.post(['/:page', '/portfolio/:page'], controller.portfolio);
 router.post('/store/:page', controller.store);
