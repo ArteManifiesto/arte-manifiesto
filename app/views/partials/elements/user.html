@@ -1,0 +1,41 @@
+<script type="text/template" id="template-user">
+  <div class="grid-item">
+    <div class="artist-card">
+
+      <% if (viewer && viewer.isAdmin) { %>
+        <div class="featured <% if (!featured) { %>disabled<% } %>">AM</div>
+      <% } else { %>
+        <% if (featured) { %>
+          <div class="featured">AM</div>
+        <% } %>
+      <% } %>
+
+      <a href="/user/<%=username%>">
+        <div class="artist-card-info">
+          <img src="<%=photo%>">
+          <div>
+            <p class="name uppercase"><%=fullname %></p>
+            <p class="city"><%=city%>, <%=country%></p>
+            <p class="stats"><i class="bi_ecommerce-diamon"></i> <%=numOfFollowers%></p>
+          </div>
+        </div>
+      </a>
+      <div class="artist-card-works">
+        <% _.each([0,1,2,3], function(i) { %>
+          <% if(Works[i] && Works[i].photo) { %>
+            <a href="/user/<%=username%>/work/<%=Works[i].nameSlugify%>" class="artist-card-work" style="background-image: url('<%= addFilter(Works[i].photo, 'w_120,h_120,c_fill') %>')"></a>
+          <% } else { %>
+            <div class="artist-card-work empty"></div>
+          <% } %>
+        <% }); %>
+      </div>
+      <div class="artist-card-follow">
+        <% if(following) { %>
+          <button class="am-Follow-button following">SIGUIENDO</button>
+        <% } else { %>
+          <button class="am-Follow-button">+ SEGUIR</button>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</script>

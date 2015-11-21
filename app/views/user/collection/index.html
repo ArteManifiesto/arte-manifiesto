@@ -16,37 +16,14 @@
 				</a>
 				<div>
 					<p class="am-navigation-text">{{collection.User.fullname}}</p>
-					<p class="am-collection-text"><span>Coleccion ></span>&nbsp;&nbsp;<span>{{collection.name}}</span></p>
+					<p class="am-collection-text"><span>Coleccion ></span>&nbsp;&nbsp;<span class="collection-name">{{collection.name}}</span></p>
 				</div>
 			</div>
 		</div>
 
 		<div class="grid-100 u-margin-top-30">
-			<p class="am-collection-desc">{{collection.description}}
-			consequat.</p>
+			<p class="am-collection-desc collection-description">{{collection.description}}</p>
 		</div>
-		<!-- <div class="grid-100">
-			<p class="am-navigation-text">{{collection.User.firstname}} > Coleccion > {{collection.name}}</p>
-		</div> -->
-		<!-- <div class="grid-20 filter right">
-			&nbsp;
-			<div class="am-Select">
-				ORDENAR &nbsp;&nbsp;<i class="fa fa-caret-down"></i>
-			</div>
-			<div class="right-menu u-padding-top-10">
-				<div class="am-Filter">
-					<div class="am-Filter-item">
-						<p class="am-Filter-option">MÁS NUEVO</p>
-					</div>
-					<div class="am-Filter-item">
-						<p class="am-Filter-option">MÁS VALORADO</p>
-					</div>
-					<div class="am-Filter-item">
-						<p class="am-Filter-option">MÁS POPULAR</p>
-					</div>
-				</div>
-			</div>
-		</div> -->
 	</div>
 
 	<div class="grid-container">
@@ -84,7 +61,7 @@
 						<p class="title">Público</p>
 						<span class="value">On</span>
 
-						<input type="checkbox" name="public" id="public" checked/>
+						<input type="checkbox" name="public" id="public" {% if collection.public %} checked {%endif %}/>
 						<label for="public">
 						  <div class="am-Switch-button">
 						  	<i class="fa fa-bars"></i>
@@ -96,61 +73,23 @@
 				<div class="u-padding-top-20">
 					<div class="grid-50">
 						<a href='#'>
-							<button class="button" style="margin-top: 5px;" data-color="blue">GUARDAR</button>
-							<button class="button" style="margin-top: 5px;" data-color="blue">
-								<i class="load fa fa-spinner"></i>
-							</button>
+							<button class="button save" style="margin-top: 5px;" data-color="blue">GUARDAR</button>
+							<div class="hide save-loading">
+								<button class="button" style="margin-top: 5px;" data-color="blue">
+									<i class="load fa fa-spinner"></i>
+								</button>
+							</div>
 						</a>
 					</div>
 					<div class="grid-50">
-			      <a href='#'>
-			        <button class="button inline upload u-margin-top-30 upload_button" style="border: none; box-shadow: none;">
-			          <i class="bi_editorial-trash-l"></i>&nbsp;&nbsp;&nbsp;ELIMINAR
-			        </button>
-			      </a>
+		        <button class="button inline upload u-margin-top-30 upload_button delete-collection" style="border: none; box-shadow: none;">
+		          <i class="bi_editorial-trash-l"></i>&nbsp;&nbsp;&nbsp;ELIMINAR
+		        </button>
 					</div>
 				</div>
 			</form>
 		</div>
 	</div>
-
-	<!-- <div id="edit-modal" style="display: none;">
-		<div class="am-upload-work-box grid-container">
-			<p class="main-title">EDITAR COLECCION</p>
-			<form class="add-work">
-				<div class="grid-100">
-					<div class="separator">
-						<span class="line"></span><span class="line"></span>
-					</div>
-					<p class="title">Nombre de la coleccion</p>
-					<input name='name' value="" class="input" type="text" required placeholder="Ingrese el nombre de la coleccion"/>
-				</div>
-
-				<div class="grid-100 mobile-grid-100">
-					<p class="title">Descripcion de la coleccion</p>
-					<textarea name='description' required class='input'placeholder="Descripcion" maxlength='140'>{{work.description}}</textarea>
-				</div>
-
-				<div class="u-padding-top-20">
-					<div class="grid-50">
-						<a href='#'>
-							<button class="button" style="margin-top: 5px;" data-color="blue">GUARDAR</button>
-						</a>
-					</div>
-					<div class="grid-50">
-			      <a href='#'>
-			        <button class="button inline upload u-margin-top-30 upload_button" style="border: none; box-shadow: none;">
-			          <i class="bi_editorial-trash-l"></i>&nbsp;&nbsp;&nbsp;ELIMINAR
-			        </button>
-			      </a>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div> -->
-
-
-
 	{% endblock %}
 
 	{% block scripts %}
@@ -169,11 +108,19 @@
 
 	$("#go-collection-modal").leanModal();
 
+	$('.delete-collection').click(function() {
+		var payload = {idCollection: collection.id};
+	  $.post(DataApp.currentUser.url + '/collection/delete' , payload, function(response) {
+			if(response.status === 200) {
+				window.location.href = '/user/' + collection.User.username + '/collections';
+			}
+		});
+	});
+
 	$('.collection-form').submit(function() {
 		event.preventDefault();
-	  $('.submit').hide();
-	  $('.submit-loading').show();
-	  //var url =  '/auth/' + this.meta;
+	  $('.save').hide();
+	  $('.save-loading').show();
 		var payload = {
 			name: $('input[name=name]').val(),
 			description: $('textarea[name=description]').val(),
@@ -181,10 +128,15 @@
 			idCollection: collection.id
 		}
 	  $.post(DataApp.currentUser.url + '/collection/update' , payload, function(response){
-			console.log(response);
-			// if (response.status === 200) {
-			// 	$('.am-navigation-text').text($('.'))
-			// }
+			if(response.status === 200) {
+				$('.save').show();
+				$('.save-loading').hide();
+				var newCollection = response.data.collection;
+				var newUrl = '/user/' + collection.User.username + '/collection/' + newCollection.nameSlugify;
+				$('.collection-name').text(newCollection.name);
+				$('.collection-description').text(newCollection.description);
+				Utils.changeUrl('Collection', newUrl);
+			}
 		});
 	});
 

@@ -40,9 +40,7 @@ APP.BaseNavigation.prototype.gotoPage = function (next, force) {
     if (nextPage > this.totalPages) return;
   }
 
-  // this.dispatchEvent({type: Events.LOAD_START, data: response});
-
-  Broadcaster.dispatchEvent("PAGE_LOAD_START");
+  this.dispatchEvent({type: Events.LOAD_START});
 
   this.newPageUrl(nextPage);
 
@@ -56,15 +54,14 @@ APP.BaseNavigation.prototype.afterGetData = function (response) {
   console.log('response :', response);
   this.currentPage = response.pagination.page;
   this.totalPages = response.pagination.pages;
-  //if (this.currentPage > response.pagination.pages)return;
+
+  // if (this.currentPage > response.pagination.pages)return;
 
   this.pagesCache[this.currentPage] = response;
   this.currentPageData = response;
   ChangeUrl('lol', response.url);
 
-  // this.dispatchEvent({type: Events.LOAD_END, data: response});
-
-  Broadcaster.dispatchEvent("PAGE_LOAD_END", {data: response});
+  this.dispatchEvent({type: Events.LOAD_END, data: response});
 };
 
 APP.BaseNavigation.prototype.newPageUrl = function (newPage) {

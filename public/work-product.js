@@ -3,7 +3,7 @@ $(document).ready(function() {
     $('.add-collection').hide();
     $('.social-share').toggle();
   });
-  
+
   $('.products-item-menu').click(function() {
     if(entity === 'work') {
       $('html, body').animate({
@@ -124,10 +124,8 @@ $(document).ready(function() {
     var url = DataApp.currentUser.url + '/collection/create';
     $.post(url, $(this).serialize(), function (response) {
       if(response.status === 200) {
-        var item = '<li class="collection selected" data-id="<%=id%>"><p><%=name%></p><i class="fa fa-check"></i></li>'
-        var collection = response.data.collection;
-        collectionsClicked.push(collection.id);
-        $('.collections').append($(_.template(item)(collection)));
+        var item = '<li class="collection" data-id="<%=id%>"><p><%=name%></p><i class="fa fa-check"></i></li>'
+        $('.collections').append($(_.template(item)(response.data.collection)));
       }
     });
   });

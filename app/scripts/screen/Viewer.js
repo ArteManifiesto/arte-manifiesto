@@ -4,10 +4,10 @@
 */
 var APP = APP || {};
 
-APP.Viewer = function (id, container, navigation, data , options) {
+APP.Viewer = function (id, container, navigation, data , events) {
   this.container = container;
 
-  if(id !== 'carrouselItem'){
+  if (id !== 'carrouselItem') {
     this.setupMasonry();
   }
 
@@ -40,6 +40,7 @@ APP.Viewer = function (id, container, navigation, data , options) {
       this.navigationManager.navigator.gotoPage(1, true);
     }
   }
+  // this.events = events;
 };
 
 APP.Viewer.constructor = APP.Viewer;
@@ -60,23 +61,21 @@ APP.Viewer.prototype.setupMasonry = function() {
 
 APP.Viewer.prototype.listeners = function() {
   this.pageStart = this.pageLoadStartHandler.bind(this);
-  // this.navigationManager.navigator.addEventListener(Events.LOAD_START, this.pageEnd);
-  Broadcaster.addEventListener('PAGE_LOAD_START', this.pageStart);
+  this.navigationManager.navigator.addEventListener(Events.LOAD_START, this.pageStart);
 
   this.pageEnd = this.pageLoadEndHandler.bind(this);
-  // this.navigationManager.navigator.addEventListener(Events.LOAD_END, this.pageEnd);
-  Broadcaster.addEventListener('PAGE_LOAD_END', this.pageEnd);
+  this.navigationManager.navigator.addEventListener(Events.LOAD_END, this.pageEnd);
 };
 
 APP.Viewer.prototype.pageLoadStartHandler = function() {
-  $('.loading').show();
-  this.container.parent().find('.empty-message').hide();
-  //$('.empty-message').hide();
-  $('.loading').hide();
+  this.container.parent().find('.loading').show();
+  // this.events['loadStart'] && this.events['loadStart']();
 };
 
 APP.Viewer.prototype.pageLoadEndHandler = function(event) {
-  $('.loading').hide();
+  this.container.parent().find('.loading').hide();
+  // this.events['loadEnd'] && this.events['loadEnd']();
+
   if(this.fromExternal) {
     this.initialize = true;
   }else {
@@ -89,41 +88,29 @@ APP.Viewer.prototype.addItems = function(items) {
   if(this.navigation === APP.NavigationManager.PAGINATION && !this.initialize) {
     this.clean();
   }
-  //console.log(items.length , this.navigationManager.navigator.currentPage);
-  //console.log(this.container);
+    console.log(items);
   if (this.navigationManager) {
+    console.log('lel?');
     if(items.length < 1 && this.navigationManager.navigator.currentPage === 1) {
-      // this.options.onEmpty();
+      console.log('lel?2');
       this.container.parent().find('.empty-message').show();
-      // $('.empty-message').show();
+        // $('.empty-message').show();
     }
+  }else {
+      if(items.length < 1) {
+          this.container.parent().find('.empty-message').show();
+      }
   }
 
   var i = 0, item;
   for(i; i< items.length; i++) {
       item = new APP[Utils.capitalize(this.id)](items[i]);
-
-    // console.log('item.view.children().hasClass( "work-card" ): ', )
-
-    // if(this.navigation) {
-    //   if(this.initialize) {
-    //     this.container.append(item.view);
-    //   }
-    //   else {
-    //     this.container.append(item.view).masonry('appended', item.view);
-    //   }
-    // }else {
-    //     this.container.append(item.view);
-    // }
-
     if(item.view.children().hasClass( "work-card" )) {
-      console.log('work-card')
-
       var $items = item.view;
       $items.hide();
-      this.container.append( $items );
+      this.container.append($items);
       var scope = this.container
-      $items.imagesLoaded().progress( function( imgLoad, image ) {
+      $items.imagesLoaded().progress(function( imgLoad, image ) {
         var $item = $( image.img ).parents('.grid-item');
         $item.show();
         scope.masonry( 'appended', $item );
@@ -148,16 +135,12 @@ APP.Viewer.prototype.clean = function() {
 
 APP.Viewer.prototype.suspend = function() {
   this.navigationManager.navigator.suspend();
-  // this.navigationManager.navigator.removeEventListener(Events.LOAD_START, this.pageEnd);
-  // this.navigationManager.navigator.removeEventListener(Events.LOAD_END, this.pageEnd);
-  Broadcaster.removeEventListener('PAGE_LOAD_START', this.pageStart);
-  Broadcaster.removeEventListener('PAGE_LOAD_END', this.pageEnd);
+  this.navigationManager.navigator.removeEventListener(Events.LOAD_START, this.pageEnd);
+  this.navigationManager.navigator.removeEventListener(Events.LOAD_END, this.pageEnd);
 }
 
 APP.Viewer.prototype.restart = function() {
-  // this.navigationManager.navigator.removeEventListener(Events.LOAD_START, this.pageEnd);
-  // this.navigationManager.navigator.removeEventListener(Events.LOAD_END, this.pageEnd);
-  Broadcaster.addEventListener('PAGE_LOAD_START', this.pageStart);
-  Broadcaster.addEventListener('PAGE_LOAD_END', this.pageEnd);
+  this.navigationManager.navigator.removeEventListener(Events.LOAD_START, this.pageEnd);
+  this.navigationManager.navigator.removeEventListener(Events.LOAD_END, this.pageEnd);
   this.container.masonry();
 }

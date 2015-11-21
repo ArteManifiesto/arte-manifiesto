@@ -1,0 +1,12 @@
+<script type="text/template" id="template-review">
+  <div class="review">
+    <div class="avatar"><img src="<%=User.photo%>"></div>
+    <div class="content">
+      <div class="info">
+        <p class="name"><%=User.firstname %></p>&nbsp;&nbsp;&nbsp;
+        <p class="date"><i class="bi_interface-clock"></i> <%=formatDate(createdAt)%></p>
+      </div>
+      <p class="text"><%=value%></p>
+    </div>
+  </div>
+</script>

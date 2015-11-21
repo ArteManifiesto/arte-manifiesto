@@ -60,7 +60,9 @@
 								<a id="go-collection-modal" href="#collection-modal" >
 									<button class="color-blue bg-gray">AÑADIR A LA COLECCIÓN</button>
 								</a>
+								{% if !owner %}
 								<button class="u-margin-top-10 am-Follow-button">+ SEGUIR</button>
+								{% endif %}
 								<div class="hide">
 									<button class="u-margin-top-10 follow-loading">
 										<i class="load fa fa-spinner"></i>
@@ -79,7 +81,7 @@
 						<div>
 							<p class="u-padding-bottom-7 big uppercase"><strong>{{element.User.fullname}}</strong></p>
 							{% if !owner %}
-							<button class="am-Follow-button">+ SEGUIR</button>
+								<button class="am-Follow-button">+ SEGUIR</button>
 							{% endif %}
 						</div>
 					</div>
@@ -236,13 +238,11 @@
 									{% else %}
 									<p>+ PRODUCTOS</p>
 									{% endif %}
-	                <!-- <i class="fa fa-cube"></i> -->
 	                <i class="bi_misc-cube"></i>
 	              </div>
 								{% if (entity === 'work' && element.onSale) %}
 								<div class="single-tab products">
 	                <p>PRODUCTOS</p>
-	                <!-- <i class="fa fa-cube"></i> -->
 	                <i class="bi_doc-book"></i>
 	              </div>
 								{% endif %}
@@ -252,7 +252,6 @@
 	              </div>
 	              <div class="single-tab tags">
 	                <p>TAGS</p>
-	                <!-- <i class="fa fa-align-left"></i> -->
 	                <i class="bi_editorial-left-align"></i>
 	              </div>
 	            </div>
@@ -263,76 +262,7 @@
 	  </div>
 	</div>
 
-	<div class="grid-container reviews-container {% if currentPath !== 'reviews' %} hide {% endif %}">
-	  <div class="grid-100">
-	    <div class="reviews">
-	      <p class="title">Reviews &nbsp;&nbsp;<span>{{reviews.length}}</span></p>
-
-	      <div class="u-separator"></div>
-
-	      <div class='reviews-items-container'>
-	      </div>
-
-        {% if user %}
-	      	<div class="review">
-	          <div class="avatar"><img src="{{user.photo}}"></div>
-	          <form class="content review-form">
-	            <input type="hidden" name='id{{entity|capitalize}}' value="{{element.id}}"/>
-	            <textarea class='value-input' name="value"></textarea>
-	            <button>ADD COMMENT</button>
-	          </form>
-
-	      	</div>
-        {% else %}
-
-        	<p class="empty-profile-text  empty-message u-margin-top-30" style="display: block;">
-        		<a href="/auth/login">Logeate, para agregar review</a>
-        	</p>
-        {% endif %}
-
-	    </div>
-	  </div>
-	</div>
-	  <div class="grid-container tags-container {% if currentPath !== 'tags' %} hide {% endif %}">
-	    <div class="grid-100">
-	      <div class="tags-container">
-	        <p class="title">Tags&nbsp;&nbsp;<span>{{tags.length}}</span></p>
-	        <div class="u-separator"></div>
-	        <div class="tags">
-	          {% for tag in tags %}
-	          {% set url = "#" + tag.name %}
-						{% if entity =='work'%}
-						<div class="tag uppercase"><a href='/works/category/all/page-1/?term={{url|url_encode}}'>{{tag.name}}</a></div>
-						{% else %}
-						<div class="tag uppercase"><a href='/products/type/all/page-1/?term={{url|url_encode}}'>{{tag.name}}</a></div>
-						{% endif %}
-	          {% endfor %}
-	        </div>
-      			<p class="empty-profile-text  empty-message hide u-margin-top-30" style="display: block;">Esta obra aun no tiene tags<br><br>
-      				<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
-      			</p>
-	      </div>
-	    </div>
-	  </div>
-
-	<div class="products-container {% if currentPath !== 'products' %} hide {% endif %}">
-		<div class="grid-container u-margin-top-60">
-	    <div class="grid-100">
-				<p class="am-more-text u-text-center u-padding-bottom-10">Productos</p>
-	      <div class="u-separator-center"></div>
-	    </div>
-	  </div>
-
-	  <div class="grid-container">
-	    <div class="grid-100">
-	      <div class="more-carousel">
-					<div class="more-images work-products">
-	        </div>
-	      </div>
-	    </div>
-	  </div>
-	</div>
-
+	<!--=========================== WORKS-PRODUCTS'S RELATED AND SIMILAR ===========================-->
 	<div class="index-container {% if currentPath !== 'index' %} hide {% endif %}">
 	  <div class="grid-container u-margin-top-60">
 	    <div class="grid-100">
@@ -345,13 +275,18 @@
 	    </div>
 	  </div>
 
-		<p class="empty-profile-text hide empty-message hide u-margin-top-30">El artista no tiene mas obras<br><br>
-			<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
-		</p>
-
 	  <div class="grid-container">
 	    <div class="grid-100">
 	      <div class="more-carousel">
+					{% if entity === 'work'%}
+					<p class="empty-profile-text empty-message hide u-margin-top-30">El artista no tiene mas obras<br><br>
+						<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
+					</p>
+					{% else %}
+					<p class="empty-profile-text empty-message hide u-margin-top-30">El artista no tiene mas productos<br><br>
+						<a href="/products/type/all/page-1/">Descubre todas los productos de AM</a>
+					</p>
+					{% endif %}
 	        <div class="more-images more">
 	        </div>
 	      </div>
@@ -370,20 +305,115 @@
 	      <div class="u-separator-center"></div>
 	    </div>
 	  </div>
-
-		<p class="empty-profile-text empty-message hide u-margin-top-30">No existen obras relacionadas<br><br>
-			<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
-		</p>
-
 	  <div class="grid-container">
 	    <div class="grid-100">
 	      <div class="more-carousel">
+					{% if entity === 'work'%}
+					<p class="empty-profile-text empty-message hide u-margin-top-30">No existen obras relacionadas<br><br>
+						<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
+					</p>
+					{% else %}
+					<p class="empty-profile-text empty-message hide u-margin-top-30">No existen productos relacionadas<br><br>
+						<a href="/products/type/all/page-1/">Descubre todas los productos de AM</a>
+					</p>
+					{% endif %}
 	        <div class="more-images similar">
 	        </div>
 	      </div>
 	    </div>
 	  </div>
 	</div>
+	<!--=================================================================================
+			=================================================================================
+			=================================================================================-->
+
+	<!--=========================== WORK'S PRODUCTS ===========================-->
+	<div class="products-container {% if currentPath !== 'products' %} hide {% endif %}">
+		<div class="grid-container u-margin-top-60">
+	    <div class="grid-100">
+				<p class="am-more-text u-text-center u-padding-bottom-10">Productos</p>
+	      <div class="u-separator-center"></div>
+	    </div>
+	  </div>
+
+	  <div class="grid-container">
+	    <div class="grid-100">
+	      <div class="more-carousel">
+					<p class="empty-profile-text empty-message hide u-margin-top-30">La obra no tiene productos<br><br>
+						<a href="/products/type/all/page-1/">Descubre todas los productos de AM</a>
+					</p>
+					<div class="more-images work-products">
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!--=================================================================================
+			=================================================================================
+			=================================================================================-->
+
+	<!--=========================== WORK-PRODUCT'S REVIEWS  ===========================-->
+	<div class="grid-container reviews-container {% if currentPath !== 'reviews' %} hide {% endif %}">
+	  <div class="grid-100">
+	    <div class="reviews">
+	      <p class="title">Reviews &nbsp;&nbsp;<span>{{reviews.length}}</span></p>
+	      <div class="u-separator"></div>
+
+	      <div class='reviews-items-container'>
+	      </div>
+
+        {% if user %}
+	      	<div class="review">
+	          <div class="avatar"><img src="{{user.photo}}"></div>
+	          <form class="content review-form">
+	            <input type="hidden" name='id{{entity|capitalize}}' value="{{element.id}}"/>
+	            <textarea class='value-input' name="value"></textarea>
+	            <button>AGREGAR REVIEW</button>
+	          </form>
+
+	      	</div>
+        {% else %}
+
+        	<p class="empty-profile-text  empty-message u-margin-top-30" style="display: block;">
+        		<a href="/auth/login">Logeate, para agregar review</a>
+        	</p>
+        {% endif %}
+
+	    </div>
+	  </div>
+	</div>
+	<!--=================================================================================
+			=================================================================================
+			=================================================================================-->
+
+	<!--=========================== WORK-PRODUCT'S TAGS ===========================-->
+  <div class="grid-container tags-container {% if currentPath !== 'tags' %} hide {% endif %}">
+    <div class="grid-100">
+      <div class="tags-container">
+        <p class="title">Tags&nbsp;&nbsp;<span>{{tags.length}}</span></p>
+        <div class="u-separator"></div>
+				{% if tags.length > 1 %}
+					<div class="tags">
+	          {% for tag in tags %}
+	          {% set url = "#" + tag.name %}
+						{% if entity =='work'%}
+							<div class="tag uppercase"><a href='/works/category/all/page-1/?term={{url|url_encode}}'>{{tag.name}}</a></div>
+						{% else %}
+							<div class="tag uppercase"><a href='/products/type/all/page-1/?term={{url|url_encode}}'>{{tag.name}}</a></div>
+						{% endif %}
+	          {% endfor %}
+	        </div>
+				{% else %}
+					<p class="empty-profile-text  empty-message hide u-margin-top-30" style="display: block;">Esta obra aun no tiene tags<br><br>
+						<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
+					</p>
+				{% endif %}
+      </div>
+    </div>
+  </div>
+	<!--=================================================================================
+			=================================================================================
+			=================================================================================-->
 {% include '../../partials/report.html' %}
 
 	<div id="collection-modal" style="display:none;">

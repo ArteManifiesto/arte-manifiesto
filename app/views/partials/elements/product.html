@@ -1,0 +1,20 @@
+<script type="text/template" id="template-product">
+  <div class="grid-item">
+    <a href="/user/<%=User.username%>/product/<%=nameSlugify%>">
+      <div class="product-card">
+        <div class="edit"><i class="bi_editorial-compose"></i></div>
+
+        <div class="featured <% if (!featured) { %>disabled<% } %>">AM</div>
+        <div class="product-card-image" style="background-image: url('<%= addFilter(photo, 'w_300,h_300,c_fill') %>')"></div>
+        <div class="product-card-data">
+          <p><%= name %></p>
+          <p><%= User.firstname %></p>
+        </div>
+        <div class="product-card-stats">
+          <p><%= finalPrice %></p>
+          <p><%= likes %> &nbsp;&nbsp;&nbsp;<i class="bi_ecommerce-diamon"></i></p>
+        </div>
+      </div>
+  </a>
+  </div>
+</script>
