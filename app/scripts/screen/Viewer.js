@@ -87,7 +87,10 @@ APP.Viewer.prototype.addItems = function(items) {
     this.clean();
   }
   if(items.length < 1) {
+    this.container.parent().height('auto');
     this.container.parent().find('.empty-message').show();
+
+    // this.container.parent().height(this.container.parent().find('.empty-message').height());
   }
   var i = 0, item;
   for(i; i< items.length; i++) {
