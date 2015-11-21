@@ -11,8 +11,8 @@ router.use(global.md.entity(entity));
 router.get('/:nameSlugify', global.md.nameSlugify(entity), controller.index.bind(this, 'index'));
 router.get('/:nameSlugify/reviews', global.md.nameSlugify(entity), controller.index.bind(this, 'reviews'));
 router.get('/:nameSlugify/tags', global.md.nameSlugify(entity), controller.index.bind(this, 'tags'));
-
 router.get('/:nameSlugify/edit', isLoggedAndOwner, global.md.nameSlugify(entity), controller.edit);
+router.get('/:nameSlugify/buy', global.md.isLogged, global.md.nameSlugify(entity), controller.buy);
 
 router.post('/create', isLoggedAndOwner, controller.create);
 

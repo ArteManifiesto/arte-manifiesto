@@ -149,3 +149,16 @@ exports.addToCollection = function (req, res) {
 exports.removeFromCart = function (req, res) {
 
 }
+
+
+exports.buy = function(req, res) {
+  req.user.getAddresses().then(function(addresses){
+    req.product.getProductType().then(function (productType) {
+      return res.render('user/cart/buy', {
+        product:req.product,
+        productType: productType,
+        addresses: addresses
+      });
+    });
+  });
+}

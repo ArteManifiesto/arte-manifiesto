@@ -4,20 +4,35 @@
 <div class="am-upload-work">
   <div class="am-upload-work-box grid-container u-margin-top-20">
 	<div class="grid-100">
-    {% if !work.onSale %}
-		<p class="main-title"><i class="bi_ecommerce-shop"></i>&nbsp;&nbsp;VENDE TU TRABAJO</p>
+    {% if mode === 'edit' %}
+      <p class="main-title"><i class="bi_ecommerce-shop"></i>&nbsp;&nbsp;ACTUALIZA TU OBRA</p>
     {% else %}
-    <p class="main-title"><i class="bi_ecommerce-shop"></i>&nbsp;&nbsp;ESTA OBRA YA ESTA EN VENTA</p>
+      {% if !work.onSale %}
+      <p class="main-title"><i class="bi_ecommerce-shop"></i>&nbsp;&nbsp;VENDE TU TRABAJO</p>
+      {% else %}
+      <p class="main-title"><i class="bi_ecommerce-shop"></i>&nbsp;&nbsp;ESTA OBRA YA ESTA EN VENTA</p>
+      {% endif %}
     {% endif %}
+
 		<div class="u-separator"></div>
     <div class="work-collection-card u-margin-top-40">
-      <div class="work-collection-card-img">
-        <img src="{{work.photo|addFilter('w_300,q_80,c_limit')}}">
+      {% if mode === 'edit' %}
+      <div class="product-card">
+          <div class="product-card-image" style="background-image: url('{{product.photo|addFilter('w_300,h_300,c_fill')}}')"></div>
+          <div class="product-card-data">
+            <p>{{product.name}}</p>
+            <p>{{product.User.username}}</p>
+          </div>
       </div>
-      <div class="work-collection-card-data">
-        <p class="work-collection-card-title">{{work.name}}</p>
-        <p class="work-collection-card-artist">{{work.User.firstname}}</p>
-      </div>
+      {% else %}
+        <div class="work-collection-card-img">
+          <img src="{{work.photo|addFilter('w_300,q_80,c_limit')}}">
+        </div>
+        <div class="work-collection-card-data">
+          <p class="work-collection-card-title">{{work.name}}</p>
+          <p class="work-collection-card-artist">{{work.User.firstname}}</p>
+        </div>
+      {% endif %}
     </div>
 	</div>
   {% if !work.onSale %}
@@ -29,7 +44,9 @@
 
     <div class="grid-100 mobile-grid-100">
       <p class="title">Descripcion del producto</p>
-      <textarea name='description' required class='input'placeholder="Descripcion" maxlength='140'>{{work.description}}</textarea>
+      <textarea name='description' required class='input'placeholder="Descripcion" maxlength='140'>
+        {{work.description}}
+      </textarea>
     </div>
 
     <div class="grid-100 mobile-grid-100">
@@ -101,11 +118,14 @@
   		<input required name='weight' class="input" type="number" placeholder="Cuantos kilos pesa"/>
     </div>
     <div class="grid-100">
-      <button class="button" data-color="blue">VENDER</button>
-
-      <button class="button u-margin-top-30" data-color="blue">
-        <i class="load fa fa-spinner"></i>
+      <button class="button sell-btn" data-color="blue">
+        VENDER
       </button>
+      <div class="sell-loading hide">
+        <button class="button u-margin-top-30" data-color="blue">
+          <i class="load fa fa-spinner"></i>
+        </button>
+      </div>
     </div>
   </form>
   {% else %}
@@ -142,6 +162,8 @@ $(function(){
   var work = {{work|json|safe}};
 
   $('.sell-form').submit(function(event){
+    $('.sell-btn').hide();
+    $('.sell-loading').show();
 		event.preventDefault();
 		var formData = {
 			photo              : work.photo,
@@ -165,6 +187,8 @@ $(function(){
 			data: {data: JSON.stringify(formData)}
 		}).then(function(response) {
       if(response.status === 200) {
+        $('.sell-btn').show();
+        $('.sell-loading').hide();
 				location.href = DataApp.currentUser.url + '/store';
 			}
 		});
