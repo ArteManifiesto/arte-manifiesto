@@ -59,7 +59,7 @@ APP.BaseNavigation.prototype.afterGetData = function (response) {
 
   this.pagesCache[this.currentPage] = response;
   this.currentPageData = response;
-  ChangeUrl('lol', response.url);
+  Utils.changeUrl('lol', response.url);
 
   this.dispatchEvent({type: Events.LOAD_END, data: response});
 };

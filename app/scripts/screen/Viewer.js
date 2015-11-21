@@ -68,14 +68,12 @@ APP.Viewer.prototype.listeners = function() {
 };
 
 APP.Viewer.prototype.pageLoadStartHandler = function() {
+  this.container.parent().find('.empty-message').hide();
   this.container.parent().find('.loading').show();
-  // this.events['loadStart'] && this.events['loadStart']();
 };
 
 APP.Viewer.prototype.pageLoadEndHandler = function(event) {
   this.container.parent().find('.loading').hide();
-  // this.events['loadEnd'] && this.events['loadEnd']();
-
   if(this.fromExternal) {
     this.initialize = true;
   }else {
@@ -88,20 +86,9 @@ APP.Viewer.prototype.addItems = function(items) {
   if(this.navigation === APP.NavigationManager.PAGINATION && !this.initialize) {
     this.clean();
   }
-    console.log(items);
-  if (this.navigationManager) {
-    console.log('lel?');
-    if(items.length < 1 && this.navigationManager.navigator.currentPage === 1) {
-      console.log('lel?2');
-      this.container.parent().find('.empty-message').show();
-        // $('.empty-message').show();
-    }
-  }else {
-      if(items.length < 1) {
-          this.container.parent().find('.empty-message').show();
-      }
+  if(items.length < 1) {
+    this.container.parent().find('.empty-message').show();
   }
-
   var i = 0, item;
   for(i; i< items.length; i++) {
       item = new APP[Utils.capitalize(this.id)](items[i]);

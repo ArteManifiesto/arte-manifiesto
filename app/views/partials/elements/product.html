@@ -3,8 +3,13 @@
     <a href="/user/<%=User.username%>/product/<%=nameSlugify%>">
       <div class="product-card">
         <div class="edit"><i class="bi_editorial-compose"></i></div>
-
-        <div class="featured <% if (!featured) { %>disabled<% } %>">AM</div>
+        <% if (viewer && viewer.isAdmin) { %>
+          <div class="featured <% if (!featured) { %>disabled<% } %>">AM</div>
+        <% } else { %>
+          <% if (featured) { %>
+            <div class="featured">AM</div>
+          <% } %>
+        <% } %>
         <div class="product-card-image" style="background-image: url('<%= addFilter(photo, 'w_300,h_300,c_fill') %>')"></div>
         <div class="product-card-data">
           <p><%= name %></p>

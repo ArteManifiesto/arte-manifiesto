@@ -29,7 +29,7 @@ APP.Work.prototype.deleteHandler = function() {
 };
 
 APP.Work.prototype.editHandler = function() {
-  location.href = '/user/'+ this.data.User.username +'/work/'+ this.data.nameSlugify +'/edit';
+  location.href = '/user/'+ this.data.User.username +'/work/'+ this.data.nameSlugify +'/published';
 };
 
 APP.Work.prototype.featuredHandler = function() {

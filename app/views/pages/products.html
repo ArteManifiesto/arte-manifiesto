@@ -66,55 +66,21 @@
 		<div class="grid work-layout-discover">
 			<div class="grid-sizer"></div>
 		</div>
+		<div class="am-search-result empty-message hide">
+			No se encontraron resultados
+			<br><br>
+			<a href="/products/type/all/page-1" class="am-report-link blue" href="">Volver a todas los productos</a>
+		</div>
+		<div class="am-More-preload loading hide"><i class="fa fa-spinner"></i></div>
 	</div>
-	<div class="grid-100 u-margin-top-10">
-		<div class="am-More-preload"><i class="fa fa-spinner"></i></div>
-	</div>
-<!-- 	<div class="grid-100 u-margin-top-10">
-		<ul class="am-Pagination" style="text-align:right;">
-		</ul>
-	</div> -->
 </div>
-
 {% endblock %}
 
 {% block scripts %}
-<script>
-	$(document).ready(function() {
-		new APP.DiscoverScreen('product', $('.grid'), 'pagination', {{data|json|safe}});
-
-		var filterRight = $('.filter.right')
-		var rightSelect = $('.filter.right .am-Select')
-
-		$(rightSelect).click(function () {
-			var state = filterRight.attr('data-state')
-			if(state == 'closed') filterRight.attr('data-state', 'open')
-			else filterRight.attr('data-state', 'closed')
-		})
-
-		var filterLeft = $('.filter.left')
-		var leftSelect = $('.filter.left .am-Select')
-		var discoverContent = $('.discover-content')
-
-		$(leftSelect).click(function () {
-			var state = filterLeft.attr('data-state')
-			if(state == 'closed') {
-				filterLeft.attr('data-state', 'open')
-				discoverContent.attr('data-state', 'expand')
-			}
-			else{
-				filterLeft.attr('data-state', 'closed')
-				discoverContent.attr('data-state', 'reduce')
-			}
-		})
-
-		// var switchButton = $('.am-Switch-button')
-		// $(switchButton).click(function () {
-		// 	var state = switchButton.attr('data-state')
-		// 	console.log('state: ', state)
-		// 	if(state == "active") switchButton.attr('data-state', 'inactive')
-		// 	else switchButton.attr('data-state', 'active')
-		// })
+<script type="text/javascript">
+	var data = {{data|json|safe}};
+	$(function() {
+		new APP.DiscoverScreen('product', $('.grid'), 'pagination', data);
 	});
 </script>
 
