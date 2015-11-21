@@ -50,7 +50,6 @@ APP.BaseElement.prototype.featuredHandler = function() {
   var payload = {};
   payload['id' + Utils.capitalize(this.id)] = this.data.id;
   $.post(url,payload, function (response) {
-    console.log(response);
     if(response.status === 200) {
       if(response.data[scope.id].featured){
         scope.view.find('.featured').removeClass('disabled');

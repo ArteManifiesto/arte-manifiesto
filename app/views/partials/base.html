@@ -92,12 +92,15 @@
 		if(DataApp.currentUser !== null)
 			DataApp.currentUser.url = '/user/' + DataApp.currentUser.username;
 
-    $(document).ready(onReady);
-	 	function onReady() {
-			new APP.AM();
-		}
+		$(function(){
+				new APP.AM();
+				$('.am-Signin-button').click(function(event){
+					event.preventDefault();
+					Utils.checkAuthentication();
+				})
+		});
 	</script>
-	
+
 	{% include 'elements/work.html' %}
 	{% include 'elements/user.html' %}
 	{% include 'elements/product.html' %}

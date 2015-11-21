@@ -12,9 +12,10 @@ APP.User.prototype = Object.create(APP.BaseElement.prototype);
 
 APP.User.constructor = APP.User;
 
-// APP.User.prototype.listeners = function () {
-//   this.view.find('.am-Follow-button').click(this.followHandler.bind(this));
-// };
+APP.User.prototype.listeners = function () {
+  APP.BaseElement.prototype.listeners.call(this);
+  this.view.find('.am-Follow-button').click(this.followHandler.bind(this));
+};
 
 APP.User.prototype.followHandler = function() {
   if(this.isLogged()) {
