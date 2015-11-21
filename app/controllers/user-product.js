@@ -152,13 +152,13 @@ exports.removeFromCart = function (req, res) {
 
 
 exports.buy = function(req, res) {
-  req.user.getAddresses().then(function(addresses){
+  // req.user.getAddresses().then(function(addresses){
     req.product.getProductType().then(function (productType) {
       return res.render('user/cart/buy', {
         product:req.product,
-        productType: productType,
-        addresses: addresses
+        productType: productType
+        // addresses: addresses
       });
     });
-  });
+  // });
 }

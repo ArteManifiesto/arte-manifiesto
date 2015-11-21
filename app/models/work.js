@@ -2,13 +2,14 @@ var _ = require('lodash');
 
 var Chance = require('chance');
 var chance = new Chance();
+var moment =  require('moment');
 
 module.exports = function (sequelize, DataTypes) {
     var Work = sequelize.define('Work', {
             name: {
                 type: DataTypes.STRING,
                 set: function (value) {
-                    this.setDataValue('nameSlugify', global.slugify(value));
+                  this.setDataValue('nameSlugify', global.slugify(value + '-' + moment().format('DDMMYYhhmmss')));
                     this.setDataValue('name', value);
                 }
             },
@@ -181,13 +182,13 @@ module.exports = function (sequelize, DataTypes) {
                 }
             },
             hooks: {
-                beforeFind: function (options, fn) {
-                    if (options.addUser){
-                        options.include = options.include || [];
-                        options.include.push({model: global.db.User});
-                    }
-                    fn(null, options);
-                },
+              beforeFind: function (options, fn) {
+                  if (options.addUser){
+                      options.include = options.include || [];
+                      options.include.push({model: global.db.User});
+                  }
+                  fn(null, options);
+              },
                 afterFind: function (items, options, fn) {
                     if ((items === null) ||
                         (_.isArray(items) && items.length < 1))

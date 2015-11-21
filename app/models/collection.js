@@ -1,10 +1,12 @@
 var _ = require('lodash');
+var moment =  require('moment');
+
 module.exports = function (sequelize, DataTypes) {
     var Collection = sequelize.define('Collection', {
             name: {
                 type: DataTypes.STRING,
                 set: function (value) {
-                    this.setDataValue('nameSlugify', global.slugify(value));
+                  this.setDataValue('nameSlugify', global.slugify(value + '-' + moment().format('DDMMYYhhmmss')));
                     this.setDataValue('name', value);
                 }
             },

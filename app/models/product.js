@@ -2,13 +2,14 @@ var _ = require('lodash');
 
 var Chance = require('chance');
 var chance = new Chance();
+var moment =  require('moment');
 
 module.exports = function (sequelize, DataTypes) {
     var Product = sequelize.define('Product', {
             name: {
                 type: DataTypes.STRING,
                 set: function (value) {
-                    this.setDataValue('nameSlugify', global.slugify(value));
+                  this.setDataValue('nameSlugify', global.slugify(value + '-' + moment().format('DDMMYYhhmmss')));
                     this.setDataValue('name', value);
                 }
             },
