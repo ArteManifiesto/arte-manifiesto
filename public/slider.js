@@ -1,7 +1,4 @@
 
-/*------------------------------------------------------------------------------------------------------------*
-	$ DEPURADO---------------------------------------------------------------------------------------------------
-*------------------------------------------------------------------------------------------------------------*/
 function Slider (el, data) {
 
 	var slides = el.querySelectorAll('.' + data.slideClass)
@@ -10,10 +7,10 @@ function Slider (el, data) {
 	var pos = 0
 
 	var hammertime = new Hammer(el);
-	var interval = setInterval(next, 5000)
-	
+	var interval = setInterval(next, 10000)
+
 	function setup () {
-		
+
 		hammertime.on('swipeleft', function() {
 			clearInterval(interval)
 			interval = setInterval(next, 5000)
@@ -25,12 +22,12 @@ function Slider (el, data) {
 			interval = setInterval(next, 5000)
 			prev()
 		});
-		
+
 		for (var i = 0; i < sliderNavItems.length; i++)
 			sliderNavItems[i].setAttribute('index', i)
 
 		for (var i = 0; i < sliderNavItems.length; i++)
-			sliderNavItems[i].addEventListener('click', function () {			
+			sliderNavItems[i].addEventListener('click', function () {
 				clearInterval(interval)
 				interval = setInterval(next, 5000)
 				move(parseInt(this.getAttribute('index')))
@@ -65,7 +62,7 @@ function Slider (el, data) {
 	setup()
 }
 
-window.slider = new Slider(document.querySelector('.slider-small'), {
+window.slider = new Slider(document.querySelector('.slider'), {
 	slideClass: 'js-slide',
 	sliderNavItemClass: 'js-slideNavItem'
 })

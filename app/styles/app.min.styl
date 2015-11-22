@@ -61,16 +61,16 @@ white = #fff
 }
 
 /*------------------------------------*
-	$ SLIDER SMALL
+	$ SLIDER
 *------------------------------------*/
-.slider-small
+.slider
 	max-width 600px
 	margin auto
-	&__nav
+	&-nav
 		display flex
 		justify-content center
 		padding .5rem
-		&__item
+		&-item
 			font-size .6rem
 			color #ddd
 			margin .25rem
@@ -78,30 +78,35 @@ white = #fff
 			cursor pointer
 			&.active
 				color #bbb
-	&__items
+	&-items
 		white-space nowrap
 		font-size 0
 		overflow hidden
-	&__item
+	&-item
 		display inline-block
 		vertical-align top
 		width 100%
 		white-space normal
 		transition transform 700ms ease-out
+		.title
+			font-size 48px
+			font-family: 'Montserrat',sans-serif;
+			font-weight bold
+
 
 
 /*------------------------------------*
 	$ SLIDER LARGE
 *------------------------------------*/
-.slider-large
-	display none
-	max-width max-width
-	margin auto
-	&__items
-		padding .5rem
-		display flex
-	&__item
-		margin .5rem
+// .slider-large
+// 	display none
+// 	max-width max-width
+// 	margin auto
+// 	&__items
+// 		padding .5rem
+// 		display flex
+// 	&__item
+// 		margin .5rem
 
 
 @media (min-width: tablet-medium)
@@ -1424,7 +1429,7 @@ body
 		color #959ea0
 		padding-right: 5px;
 	i
-		font-style italic
+		margin-right 10px
 
 .empty-profile-text
 	color: #9b9b9b;
@@ -2255,6 +2260,8 @@ body
 			.text
 				color #4000ff
 		&.active
+			i
+				cursor auto
 			.icon
 				border solid 1.5px #4000ff
 				background #4000ff
