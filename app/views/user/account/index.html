@@ -4,10 +4,10 @@
 
 	  <div class="single-tabs" style="max-width: 580px; margin: auto;">
 	    <a href="http://localhost:3000/user/hanshavin/account" class="single-tab selected" style="padding: 10px;">
-	      <p style="padding: 5px;">Datos</p>
+	      <p style="padding: 5px;">DATOS</p>
 	    </a>
 	    <a href="http://localhost:3000/user/hanshavin/account/password" class="single-tab" style="padding: 10px;">
-	      <p style="padding: 5px;">Password</p>
+	      <p style="padding: 5px;">PASSWORD</p>
 	    </a>
 	  </div>
 
@@ -39,6 +39,11 @@
 				</div>
 				<div class="grid-50 mobile-grid-100">
 					<input class="input" type="text" name='username' value="{{user.username}}" required placeholder="Ingresa tu usuario"/>
+				</div>
+
+				<div class="grid-100">
+					<p class="title">Nombre a mostrar publicamente</p>
+					<input class="input" type="text" value="" name='lastname' required placeholder="Ingresa tu nombre como artista o pseudónimo"/>
 				</div>
 
 				<div class="grid-50 mobile-grid-100">
