@@ -104,7 +104,7 @@
 					<p class="am-Single-text u-margin-top-20">Categoría:</p>
 					{% if entity === 'work' %}
 					{% for category in element.Categories %}
-						<a href='/works/category/{{category.nameSlugify}}/page-1/?order=popularity'><span class="am-Category-box u-margin-top-7">{{category.name}}</span></a>
+						<a href='/works/category/{{category.nameSlugify}}/page-1/?order=popularity'><span class="am-Category-box u-margin-top-7 uppercase">{{category.name}}</span></a>
 					{% endfor %}
 					{% if element.onSale %}
 					<div class="info-box u-margin-top-25">
@@ -171,7 +171,7 @@
 					</div>
 					{% endif %}
 					{% else %}
-					<a href='/products/type/{{element.ProductType.nameSlugify}}/page-1/?order=popularity'><span class="am-Category-box u-margin-top-7">{{element.ProductType.name}}</span></a>
+					<a href='/products/type/{{element.ProductType.nameSlugify}}/page-1/?order=popularity'><span class="am-Category-box u-margin-top-7 uppercase">{{element.ProductType.name}}</span></a>
 					<div class="info-box u-margin-top-25">
 						<div class="header">
 							<p class="selected">COMPRAR</p>
@@ -470,7 +470,7 @@
 
 	<div id="edit-modal" style="display: none; max-height: 550px; overflow:auto;">
 		<!-- <div class="am-upload-work"> -->
-			<div class="am-upload-work-box grid-container">
+			<!-- <div class="am-upload-work-box grid-container">
 				{% if mode === 'add'%}
 					<p class="main-title">SUBIR NUEVA OBRA A MI PORTAFOLIO</p>
 				{% else %}
@@ -550,7 +550,7 @@
 						</div>
 					</div>
 				</form>
-			</div>
+			</div> -->
 		<!-- </div> -->
 	</div>
 
