@@ -35,6 +35,7 @@ router.post('/review/update', isLoggedAndOwner, controller.updateReview);
 router.post('/public', isLoggedAndOwner, controller.public);
 router.post('/private', isLoggedAndOwner, controller.private);
 
+router.post('/remove_from_collection', controller.removeFromCollection);
 router.post('/add_to_collection', controller.addToCollection);
 router.post('/inside_collection', controller.insideCollection);
 

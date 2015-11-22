@@ -210,6 +210,14 @@ exports.addToCollection = function (req, res) {
     });
 }
 
+exports.removeFromCollection = function (req, res) {
+  req.user.getCollections({where:{id: req.body.idCollection}}).then(function(collections){
+    collections[0].removeWork(req.work).then(function(){
+      return res.ok({work: req.work}, 'Work has been removed from collection');
+    });
+  });
+}
+
 exports.insideCollection = function (req, res) {
   req.work.getCollections({where:{UserId: req.user.id}}).then(function(collections) {
     return res.ok({collections: collections}, 'Collections');

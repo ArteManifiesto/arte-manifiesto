@@ -3,7 +3,8 @@
  *Email : juliocanares@gmail.com
  */
 var APP = APP || {};
-      APP.BaseElement = function (data, id) {
+    APP.BaseElement = function (data, id, options) {
+    this.options = options || {};
     this.template = APP.TemplateManager.instance.getFromDoc(id);
     this.data = data;
     this.id = id;
@@ -16,6 +17,7 @@ var APP = APP || {};
       },
       viewer: DataApp.currentUser
     };
+    _.extend(this.data, this.options);
     _.extend(this.data, viewHelpers);
 
     this.view = $(this.template(this.data));

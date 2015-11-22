@@ -103,7 +103,7 @@
 				},
 				items: {{works|json|safe}}
 			}
-			new APP.Viewer('work', $('.grid'), 'infinite', data);
+			new APP.Viewer('work', $('.grid'), 'infinite', data , {context: 'single-collection'});
 		});
 
 	$("#go-collection-modal").leanModal();

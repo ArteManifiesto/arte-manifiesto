@@ -4,8 +4,8 @@
  */
 var APP = APP || {};
 
-APP.Collection = function (data) {
-    APP.BaseElement.call(this, data, 'collection');
+APP.Collection = function (data, options) {
+    APP.BaseElement.call(this, data, 'collection', options);
 };
 
 APP.Collection.prototype = Object.create(APP.BaseElement.prototype);

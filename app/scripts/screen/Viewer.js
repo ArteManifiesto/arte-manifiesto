@@ -4,8 +4,9 @@
 */
 var APP = APP || {};
 
-APP.Viewer = function (id, container, navigation, data , events) {
+APP.Viewer = function (id, container, navigation, data , options) {
   this.container = container;
+  this.options = options || {};
 
   if (id !== 'carrouselItem') {
     this.setupMasonry();
@@ -40,7 +41,6 @@ APP.Viewer = function (id, container, navigation, data , events) {
       this.navigationManager.navigator.gotoPage(1, true);
     }
   }
-  // this.events = events;
 };
 
 APP.Viewer.constructor = APP.Viewer;
@@ -94,7 +94,7 @@ APP.Viewer.prototype.addItems = function(items) {
   var scopetemp = this;
   var i = 0, item , counter = 0, lel = [];
   for(i; i< items.length; i++) {
-      item = new APP[Utils.capitalize(this.id)](items[i]);
+      item = new APP[Utils.capitalize(this.id)](items[i], this.options);
     if(item.view.children().hasClass( "work-card" )) {
       var $items = item.view;
       $items.hide();

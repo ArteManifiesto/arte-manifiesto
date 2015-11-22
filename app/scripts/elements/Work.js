@@ -4,8 +4,9 @@
  */
 var APP = APP || {};
 
-APP.Work = function (data) {
-    APP.BaseElement.call(this, data, 'work');
+APP.Work = function (data, options) {
+    APP.BaseElement.call(this, data, 'work', options);
+    console.log(this.options.context);
 };
 
 APP.Work.prototype = Object.create(APP.BaseElement.prototype);
@@ -27,12 +28,21 @@ APP.Work.prototype.deleteHandler = function() {
 };
 
 APP.Work.prototype.deleteForceHandler = function() {
-  var url = '/user/'+ this.data.User.username +'/work/delete';
-  var scope = this;
-  $.post(url,{idWork: this.data.id}, function (response) {
-    if(response.status === 200)
-      $(scope.view.parent()).masonry('remove', scope.view).masonry();
-  });
+  if(this.options.context === 'single-collection') {
+    var url = '/user/'+ this.data.User.username +'/work/remove_from_collection';
+    var scope = this;
+    $.post(url,{idWork: this.data.id, idCollection: collection.id}, function (response) {
+      if(response.status === 200)
+        $(scope.view.parent()).masonry('remove', scope.view).masonry();
+    });
+  }else {
+    var url = '/user/'+ this.data.User.username +'/work/delete';
+    var scope = this;
+    $.post(url,{idWork: this.data.id}, function (response) {
+      if(response.status === 200)
+        $(scope.view.parent()).masonry('remove', scope.view).masonry();
+    });
+  }
 };
 
 APP.Work.prototype.cancelHandler = function() {

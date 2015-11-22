@@ -4,8 +4,8 @@
  */
 var APP = APP || {};
 
-APP.Product = function (data) {
-    APP.BaseElement.call(this, data, 'product');
+APP.Product = function (data, options) {
+    APP.BaseElement.call(this, data, 'product', options);
 };
 
 APP.Product.prototype = Object.create(APP.BaseElement.prototype);
