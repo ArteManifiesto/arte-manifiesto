@@ -4,7 +4,6 @@ process.env.CLOUDINARY_URL = 'cloudinary://337494525976864:RQ2MXJev18AjVuf-mSNzd
 cloudinary.config();
 
 exports.isLogged = function (req, res, next) {
-  console.log('isAuthenticated : ' , req.isAuthenticated());
     if (!req.isAuthenticated()) {
         if (req.xhr)
             return res.badRequest('Necesitas iniciar sesión antes de continuar');
