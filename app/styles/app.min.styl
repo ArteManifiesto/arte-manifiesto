@@ -360,10 +360,13 @@ body
 	&-work
 		width 50%
 		height 110px
-		background-size cover
-		background-position center center
 		background #ddd
 		box-sizing: border-box;
+		>div
+			background-size cover
+			background-position center center
+			height 100%
+			width 100%
 		&.empty
 			&:nth-child(1)
 				border-right solid 1px white
@@ -2573,6 +2576,7 @@ body
 .categories
 	display flex
 	flex-wrap: wrap;
+	justify-content center
 	.categorie-container
 		width 50%
 	.categorie
@@ -2584,12 +2588,27 @@ body
 		font-size 20px
 		color #fefefe
 		display flex
-		// cursor pointer
 		background-size: cover;
 		background-position: center center;
 		p
 			margin auto
 
+@media (min-width: 600px)
+	.categories
+		.categorie
+			height 100px
+
+@media (min-width: 750px)
+	.categories
+		.categorie-container
+			width 33.33%
+
+@media (min-width: 900px)
+	.categories
+		.categorie-container
+			width 25%
+		.categorie
+			height 120px
 
 @keyframes load
 	0%
