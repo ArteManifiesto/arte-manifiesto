@@ -87,6 +87,7 @@ APP.Viewer.prototype.addItems = function(items) {
   }
   if(items.length < 1) {
     this.container.parent().height('auto');
+    this.container.parent().find('.loading').hide();
     this.container.parent().find('.empty-message').show();
   }
   var scopetemp = this;
