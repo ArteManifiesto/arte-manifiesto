@@ -18,7 +18,8 @@ exports.index = function (req, res) {
         categories: result[0],
         interests: result[1],
         cloudinary_cors: cloudinary_cors,
-        cloudinary: cloudinary
+        cloudinary: cloudinary,
+        context: req.query.context
       });
     });
 };

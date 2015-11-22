@@ -2,6 +2,7 @@
 {% block elements %}
 	<div class="am-profile">
 
+		{% if !context %}
 	  <div class="single-tabs" style="max-width: 580px; margin: auto;">
 	    <a href="http://localhost:3000/user/hanshavin/account" class="single-tab selected" style="padding: 10px;">
 	      <p style="padding: 5px;">DATOS</p>
@@ -10,6 +11,7 @@
 	      <p style="padding: 5px;">PASSWORD</p>
 	    </a>
 	  </div>
+		{% endif %}
 
 		<div class="am-profile-box grid-container">
 			<form class="complete-form">

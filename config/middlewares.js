@@ -127,9 +127,8 @@ exports.check = function (req, res, next) {
         return res.render('pages/confirm-email');
 
     if (!req.user.filled && req.method === 'GET') {
-        if(req.url.indexOf('account') === -1 )
-          return res.redirect('/user/' + req.user.username + '/account');
+        if(req.url.indexOf('/account/?context=1') === -1)
+          return res.redirect('/user/' + req.user.username + '/account/?context=1');
     }
-
     return next();
 };
