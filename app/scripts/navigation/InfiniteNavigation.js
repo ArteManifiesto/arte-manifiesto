@@ -14,12 +14,12 @@ APP.InfiniteNavigation.constructor = APP.InfiniteNavigation;
 
 APP.InfiniteNavigation.prototype.listeners = function() {
   this.scrollHandler = this.scrollHandler.bind(this);
-  $(window).scroll(this.scrollHandler);
+  $(window).on("scroll", this.scrollHandler);
 };
 
 APP.InfiniteNavigation.prototype.scrollHandler = function() {
-  console.log('lelelel');
-  if($(window).scrollTop() == $(document).height() - $(window).height()){
+  if($(window).scrollTop() === $(document).height() - $(window).height()) {
+    this.suspend();
     this.gotoPage(this.currentPage + 1);
   }
 }

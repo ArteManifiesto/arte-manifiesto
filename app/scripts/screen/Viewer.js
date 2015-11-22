@@ -73,7 +73,6 @@ APP.Viewer.prototype.pageLoadStartHandler = function() {
 };
 
 APP.Viewer.prototype.pageLoadEndHandler = function(event) {
-  this.container.parent().find('.loading').hide();
   if(this.fromExternal) {
     this.initialize = true;
   }else {
@@ -89,10 +88,9 @@ APP.Viewer.prototype.addItems = function(items) {
   if(items.length < 1) {
     this.container.parent().height('auto');
     this.container.parent().find('.empty-message').show();
-
-    // this.container.parent().height(this.container.parent().find('.empty-message').height());
   }
-  var i = 0, item;
+  var scopetemp = this;
+  var i = 0, item , counter = 0, lel = [];
   for(i; i< items.length; i++) {
       item = new APP[Utils.capitalize(this.id)](items[i]);
     if(item.view.children().hasClass( "work-card" )) {
@@ -100,14 +98,30 @@ APP.Viewer.prototype.addItems = function(items) {
       $items.hide();
       this.container.append($items);
       var scope = this.container
-      $items.imagesLoaded().progress(function( imgLoad, image ) {
-        var $item = $( image.img ).parents('.grid-item');
-        $item.show();
-        scope.masonry( 'appended', $item );
+      $items.imagesLoaded().progress(function(imgLoad, image) {
+        ++counter;
+        var $item = $(image.img).parents('.grid-item');
+          lel.push($item);
+        if(counter === items.length) {
+          for(i = 0; i< lel.length; i++) {
+            lel[i].show();
+            scope.masonry('appended',lel[i]);
+            scopetemp.navigationManager.navigator.restart();
+            scope.parent().find('.loading').hide();
+          }
+        }
       });
     }
     else {
-      this.container.append(item.view).masonry('appended', item.view);
+      if(this.id !== 'carrouselItem') {
+        this.container.append(item.view).masonry('appended', item.view);
+      }else{
+        this.container.append(item.view)
+      }
+      if(scopetemp.navigationManager){
+        scopetemp.navigationManager.navigator.restart();
+      }
+      this.container.parent().find('.loading').hide();
     }
 
   }
