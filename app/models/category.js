@@ -15,8 +15,7 @@ module.exports = function (sequelize, DataTypes) {
                 associate: function (models) {
                     Category.belongsToMany(models.User, {as: 'Specialties', through: 'Specialties'});
                     Category.belongsToMany(models.User, {as: 'Interests', through: 'Interests'});
-
-                    Category.belongsToMany(models.Work, {through: 'WorkCategories'});
+                    Category.hasMany(models.Work);
                 },
                 isSelected: function (user) {
                     return global.db.Sequelize.Promise.all([

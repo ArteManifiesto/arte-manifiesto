@@ -27,14 +27,14 @@ module.exports = function (sequelize, DataTypes) {
                   Work.belongsToMany(models.User, {as: 'WorkLikes', through: 'WorkLikes'});
                   Work.belongsToMany(models.User, {as: 'WorkRequests', through: 'WorkRequests'});
 
-                    Work.belongsToMany(models.Category, {through: 'WorkCategories'});
+                  Work.belongsToMany(models.Tag, {through: 'WorkTags'});
 
-                    Work.belongsToMany(models.Tag, {through: 'WorkTags'});
-
-                    Work.belongsTo(models.User, {onDelete: 'cascade'});
-                    Work.belongsToMany(models.Collection, {through: 'CollectionWork'});
-                    Work.hasMany(models.Product);
-                    Work.hasMany(models.Review);
+                  Work.belongsTo(models.User, {onDelete: 'cascade'});
+                  Work.belongsToMany(models.Collection, {through: 'CollectionWork'});
+                  
+                  Work.belongsTo(models.Category);
+                  Work.hasMany(models.Product);
+                  Work.hasMany(models.Review);
                 }
             },
             instanceMethods: {
@@ -124,15 +124,14 @@ module.exports = function (sequelize, DataTypes) {
                 },
                 similar: function (viewer) {
                     var scope = this;
-                    return this.getCategories().then(function (categories) {
-                        if(categories.length < 1) return;
+                    return this.getCategory().then(function (category) {
                         var query = {
                             where: {id: {$not: [scope.id]}},
                             addUser: true,
                             order: [global.db.sequelize.fn('RAND')],
                             limit: 10, build: true, viewer: viewer
                         };
-                        return categories[0].getWorks(query);
+                        return category.getWorks(query);
                     });
                 },
                 more: function () {

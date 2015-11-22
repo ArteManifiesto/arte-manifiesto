@@ -6,7 +6,7 @@
 			<div class="single-info">
 				<div class="single-image">
 					<div class="single-image-inner">
-						<img src="{{element.photo|addFilter('w_700,h_800,q_80,c_limit')}}">
+						<img src="{{element.photo|addFilter('w_700,h_800,q_80,c_limit')}}" class="work-photo">
 						<div class="actions u-padding-top-20 u-padding-bottom-20">
 							<a class="action {% if element.liked %} active {% endif %}">
 								<div class="like-btn">
@@ -14,145 +14,58 @@
 									<p class="text">VALORAR</p>
 								</div>
 							</a>
-							{% if entity === 'work' %}
-								<!-- <div class="action">
-									<div class="collect-btn">
-										<i class="icon bi_interface-list-view valuation"></i>
-										<p class="text">COLECCIONAR</p>
-									</div>
-									<div class="actions-box add-collection hide">
-										<p class="title">Añadir a las colecciones</p>
-										<div class="u-separator u-margin-top-7"></div>
-
-										<form class="add-collection-form">
-											<input class="u-margin-top-10" type="text" name='name' required placeholder="Crear una colección nueva">
-											<button class="u-margin-top-10 color-black bg-gray wd-auto">AÑADIR</button>
-										</form>
-										<ul class="collections u-margin-top-20">
-										</ul>
-										<div class="u-separator u-margin-top-20"></div>
-										<div class="buttons u-margin-top-20">
-											<button class="wd-auto bg-blue color-white save-collections">GUARDAR</button>
-										</div>
-									</div>
-								</div> -->
-							{% endif %}
 							<a id="go-share-modal" href="#share-modal" class="action">
-								<!-- <i class="icon fa fa-share-alt share"></i> -->
-								<!-- <div class="share-btn"> -->
 									<i class="icon bi_web-share share"></i>
 									<p class="text">COMPARTIR</p>
-								<!-- </div> -->
-								<!-- <div class="actions-box social-share hide">
-									<p class="title">Compartir obras</p>
-									<div class="u-separator u-margin-top-7"></div>
-									<div class="share share-fb">
-										<i class="fa fa-facebook"></i>Compartir en facebook
-									</div>
-									<div class="share share-tw">
-										<i class="fa fa-twitter"></i>Compartir en twitter
-									</div>
-								</div> -->
 							</a>
 						</div>
-
-							<div class="actions-box u-margin-bottom-20 after-like {% if !element.liked %} hide {% endif %}">
-								<a id="go-collection-modal" href="#collection-modal" >
-									<button class="color-blue bg-gray">AÑADIR A LA COLECCIÓN</button>
-								</a>
-								{% if !owner %}
-								<button class="u-margin-top-10 am-Follow-button">+ SEGUIR</button>
-								{% endif %}
-								<div class="hide">
-									<button class="u-margin-top-10 follow-loading">
-										<i class="load fa fa-spinner"></i>
-									</button>
-								</div>
-								<div class="hide">
-									<button class="following u-margin-top-10">
-										<i class="fa fa-check-circle"></i>&nbsp;SIGUIENDO
-									</button>
-								</div>
+						<div class="actions-box u-margin-bottom-20 after-like {% if !element.liked %} hide {% endif %}">
+							<a id="go-collection-modal" href="#collection-modal" >
+								<button class="color-blue bg-gray">AÑADIR A LA COLECCIÓN</button>
+							</a>
+							{% if !owner %}
+							<button class="u-margin-top-10 am-Follow-button">+ SEGUIR</button>
+							{% endif %}
+							<div class="hide">
+								<button class="u-margin-top-10 follow-loading">
+									<i class="load fa fa-spinner"></i>
+								</button>
 							</div>
+							<div class="hide">
+								<button class="following u-margin-top-10">
+									<i class="fa fa-check-circle"></i>&nbsp;SIGUIENDO
+								</button>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="single-data u-padding-bottom-40">
 					<div class="FollowArtist u-padding-bottom-10">
 						<div style="width: 100%;">
-							<a href="#">
+							<a href="/user/{{element.User.username}}">
 								<p class="u-padding-bottom-7 big uppercase"><strong>{{element.User.fullname}}</strong></p>
 							</a>
 							<div class="button-container">
 								{% if !owner %}
 									<button class="am-Follow-button">+ SEGUIR</button>
 								{% endif %}
+								{% if owner %}
 									<a id="go-edit-modal" href="#edit-modal"><i class="bi_editorial-compose"></i></a>
+								{% endif %}
 							</div>
 						</div>
 					</div>
 					<div class="u-separator"></div>
-					<p class="am-Single-title-text u-margin-top-15" style="font-size: 15px;">{{element.name}}</p>
-					<p class="am-collection-desc u-margin-top-10">
+					<p class="am-Single-title-text u-margin-top-15 work-name" style="font-size: 15px;">{{element.name}}</p>
+					<p class="am-collection-desc u-margin-top-10 work-description">
 						{{element.description}}
 					</p>
-					{% if entity === 'product' %}
-					<p class="am-Single-text u-margin-top-10">ancho : {{element.width}} cm</p>
-					<p class="am-Single-text u-margin-top-10">largo : {{element.length}} cm</p>
-					<p class="am-Single-text u-margin-top-10">profundidad : {{element.depth}} cm</p>
-					<p class="am-Single-text u-margin-top-10">peso : {{element.weight}} kg</p>
-					{% endif %}
 					<p class="am-Single-text u-margin-top-20">Categoría:</p>
-					{% if entity === 'work' %}
-					{% for category in element.Categories %}
-						<a href='/works/category/{{category.nameSlugify}}/page-1/?order=popularity'><span class="am-Category-box u-margin-top-7">{{category.name}}</span></a>
-					{% endfor %}
-					{% if element.onSale %}
-					<div class="info-box u-margin-top-25">
-						<div class="header">
-							<p class="original-item-menu selected">ORIGINAL</p>
-							<p class="products-item-menu">PRODUCTOS</p>
-						</div>
-						<div class="body u-text-center original-tab-menu">
-							<p class="title large">Precio Obra Original</p>
-							<p class="price u-padding-top-10">S/. <strong class="large">1500</strong></p>
-							<button class="am-View-button expand u-margin-top-20">COMPRAR</button>
-							<p class="msg u-padding-top-15 u-padding-bottom-4">7 días para devolver cualquier obra</p>
-						</div>
-						<div class="body products-tab-menu hide">
-							<p class="text">Producto:</p>
-							<p class="title">Mate photo print</p>
-							<p class="text">180 gsm / Calidad archivo hecho en Lima / Elaborado por arte manifiesto lab.</p>
-
-							<p class="text u-margin-top-10">Tamaño:</p>
-							<select class="expand">
-								<option>Elige el tamaño</option>
-								<option>Holi</option>
-								<option>Boli</option>
-								<option>Crayoli</option>
-							</select>
-
-							<p class="text u-margin-top-10">Precio por unidad:</p>
-							<p class="price u-text-center">S/.<strong>42.99</strong> PEN</p>
-
-							<p class="text u-margin-top-10">Cantidad:</p>
-							<div class="u-center">
-								<div class="u-margin-top-7">
-									<span class="text">X</span>
-									<select>
-										<option>1</option>
-										<option>2</option>
-										<option>3</option>
-										<option>4</option>
-									</select>
-									<span class="text">&nbsp;&nbsp;Unidades</span>
-								</div>
-							</div>
-							<div class="u-center">
-								<button class="am-View-button expand u-margin-top-20 buy-btn">COMPRAR</button>
-							</div>
-						</div>
+					<div class='work-category'>
+						<a href='/works/category/{{element.Category.nameSlugify}}/page-1/'>
+							<span class="am-Category-box u-margin-top-7">{{element.Category.name}}</span>
+						</a>
 					</div>
-					{% else %}
 					<div class="info-box u-margin-top-25">
 						<div class="header">
 							<p class="selected">COMPRAR</p>
@@ -169,50 +82,16 @@
 							</div>
 						</div>
 					</div>
-					{% endif %}
-					{% else %}
-					<a href='/products/type/{{element.ProductType.nameSlugify}}/page-1/?order=popularity'><span class="am-Category-box u-margin-top-7">{{element.ProductType.name}}</span></a>
-					<div class="info-box u-margin-top-25">
-						<div class="header">
-							<p class="selected">COMPRAR</p>
-						</div>
-						<div class="body">
-							<p class="text u-margin-top-10">Precio por unidad:</p>
-							<p class="price u-text-center">S/.<strong>{{element.finalPrice}}</strong> PEN</p>
-
-							<p class="text u-margin-top-10">Cantidad:</p>
-							<div class="u-center">
-								<div class="u-margin-top-7">
-									<span class="text">X</span>
-									<select>
-										<option>1</option>
-										<option>2</option>
-										<option>3</option>
-										<option>4</option>
-									</select>
-									<span class="text">&nbsp;&nbsp;Unidades</span>
-								</div>
-							</div>
-							<div class="u-center">
-								<a href='/user/{{element.User.username}}/product/{{element.nameSlugify}}/buy' class="am-View-button expand u-margin-top-20 buy-btn">COMPRAR</a>
-								<!-- <button class="am-View-button expand u-margin-top-20 buy">COMPRAR</button> -->
-							</div>
-						</div>
-					</div>
-					{% endif %}
-
 					<p class="am-stats-text u-margin-top-40">ESTADÍSTICAS</p>
 					<div class="u-separator"></div>
 					<div class="u-center">
 						<table class="am-Single-stats u-margin-top-10">
 						  <tr>
-						    <!-- <td><i class="fa fa-eye"></i></td> -->
 						    <td><i class="bi_interface-view"></i></td>
 						    <td><p>VISTAS</p></td>
 						    <td><span>{{element.views}}</span></td>
 						  </tr>
 						  <tr>
-						    <!-- <td><i class="fa fa-diamond"></i></td> -->
 						    <td><i class="bi_ecommerce-diamon"></i></td>
 						    <td><p>VALORACIONES</p></td>
 						    <td><span class="likes">{{element.likes || 0}}</span></td>
@@ -239,7 +118,6 @@
 	            	</a>
 	              {% if !owner %}
 	              <button class="am-Follow-button">+ SEGUIR</button>
-	              <!-- <button class="am-Follow-button following">+ SEGUIR</button> -->
 	              {% endif %}
 	            </div>
 	          </div>
@@ -248,19 +126,9 @@
 	          <div class="carousel">
 	            <div class="single-tabs">
 	              <div class="single-tab index">
-									{% if entity === 'work' %}
 									<p>+ OBRAS</p>
-									{% else %}
-									<p>+ PRODUCTOS</p>
-									{% endif %}
 	                <i class="bi_misc-cube"></i>
 	              </div>
-								{% if (entity === 'work' && element.onSale) %}
-								<div class="single-tab products">
-	                <p>PRODUCTOS</p>
-	                <i class="bi_doc-book"></i>
-	              </div>
-								{% endif %}
 	              <div class="single-tab reviews">
 	                <p>REVIEWS</p>
 	                <span>{{reviews.length}}</span>
@@ -281,11 +149,7 @@
 	<div class="index-container {% if currentPath !== 'index' %} hide {% endif %}">
 	  <div class="grid-container u-margin-top-60">
 	    <div class="grid-100">
-				{% if entity === 'work'%}
 				<p class="am-more-text u-text-center u-padding-bottom-10">Otras obras del artista</p>
-				{% else %}
-				<p class="am-more-text u-text-center u-padding-bottom-10">Otros productos del artista</p>
-				{% endif %}
 	      <div class="u-separator-center"></div>
 	    </div>
 	  </div>
@@ -293,15 +157,9 @@
 	  <div class="grid-container">
 	    <div class="grid-100">
 	    	<div class="more-carousel">
-					{% if entity === 'work'%}
 					<p class="empty-profile-text empty-message hide u-margin-top-30">El artista no tiene mas obras<br><br>
 						<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
 					</p>
-					{% else %}
-					<p class="empty-profile-text empty-message hide u-margin-top-30">El artista no tiene mas productos<br><br>
-						<a href="/products/type/all/page-1/">Descubre todas los productos de AM</a>
-					</p>
-					{% endif %}
 	        <div class="more-images more">
 	        </div>
 	      </div>
@@ -312,26 +170,16 @@
 
 	  <div class="grid-container u-margin-top-60">
 	    <div class="grid-100">
-				{% if entity === 'work'%}
 				<p class="am-more-text u-text-center u-padding-bottom-10">Obras relacionadas</p>
-				{% else %}
-				<p class="am-more-text u-text-center u-padding-bottom-10">Productos relacionados</p>
-				{% endif %}
 	      <div class="u-separator-center"></div>
 	    </div>
 	  </div>
 	  <div class="grid-container">
 	    <div class="grid-100">
 	      <div class="more-carousel">
-					{% if entity === 'work'%}
 					<p class="empty-profile-text empty-message hide u-margin-top-30">No existen obras relacionadas<br><br>
 						<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
 					</p>
-					{% else %}
-					<p class="empty-profile-text empty-message hide u-margin-top-30">No existen productos relacionadas<br><br>
-						<a href="/products/type/all/page-1/">Descubre todas los productos de AM</a>
-					</p>
-					{% endif %}
 	        <div class="more-images similar">
 	        </div>
 	      </div>
@@ -342,38 +190,12 @@
 			=================================================================================
 			=================================================================================-->
 
-	<!--=========================== WORK'S PRODUCTS ===========================-->
-	<div class="products-container {% if currentPath !== 'products' %} hide {% endif %}">
-		<div class="grid-container u-margin-top-60">
-	    <div class="grid-100">
-				<p class="am-more-text u-text-center u-padding-bottom-10">Productos</p>
-	      <div class="u-separator-center"></div>
-	    </div>
-	  </div>
-
-	  <div class="grid-container">
-	    <div class="grid-100">
-	      <div class="more-carousel">
-					<p class="empty-profile-text empty-message hide u-margin-top-30">La obra no tiene productos<br><br>
-						<a href="/products/type/all/page-1/">Descubre todas los productos de AM</a>
-					</p>
-					<div class="more-images work-products">
-	        </div>
-	      </div>
-	    </div>
-	  </div>
-	</div>
-	<!--=================================================================================
-			=================================================================================
-			=================================================================================-->
-
-	<!--=========================== WORK-PRODUCT'S REVIEWS  ===========================-->
+	<!--=========================== WORK'S REVIEWS  ===========================-->
 	<div class="grid-container reviews-container {% if currentPath !== 'reviews' %} hide {% endif %}">
 	  <div class="grid-100">
 	    <div class="reviews">
 	      <p class="title">Reviews &nbsp;&nbsp;<span>{{reviews.length}}</span></p>
 	      <div class="u-separator"></div>
-
 	      <div class='reviews-items-container'>
 	      </div>
 
@@ -385,15 +207,12 @@
 	            <textarea class='value-input' name="value"></textarea>
 	            <button>AGREGAR REVIEW</button>
 	          </form>
-
 	      	</div>
         {% else %}
-
         	<p class="empty-profile-text  empty-message u-margin-top-30" style="display: block;">
         		<a href="/auth/login">Logeate, para agregar review</a>
         	</p>
         {% endif %}
-
 	    </div>
 	  </div>
 	</div>
@@ -405,17 +224,13 @@
   <div class="grid-container tags-container {% if currentPath !== 'tags' %} hide {% endif %}">
     <div class="grid-100">
       <div class="tags-container">
-        <p class="title">Tags&nbsp;&nbsp;<span>{{tags.length}}</span></p>
+        <p class="title">Tags&nbsp;&nbsp;<span class="tags-number">{{tags.length}}</span></p>
         <div class="u-separator"></div>
 				{% if tags.length > 1 %}
-					<div class="tags">
+					<div class="tags work-tags">
 	          {% for tag in tags %}
 	          {% set url = "#" + tag.name %}
-						{% if entity =='work'%}
 							<div class="tag uppercase"><a href='/works/category/all/page-1/?term={{url|url_encode}}'>{{tag.name}}</a></div>
-						{% else %}
-							<div class="tag uppercase"><a href='/products/type/all/page-1/?term={{url|url_encode}}'>{{tag.name}}</a></div>
-						{% endif %}
 	          {% endfor %}
 	        </div>
 				{% else %}
@@ -467,16 +282,10 @@
 		</div>
 	</div>
 
-
 	<div id="edit-modal" style="display: none; max-height: 550px; overflow:auto;">
-		<!-- <div class="am-upload-work"> -->
 			<div class="am-upload-work-box grid-container">
-				{% if mode === 'add'%}
-					<p class="main-title">SUBIR NUEVA OBRA A MI PORTAFOLIO</p>
-				{% else %}
-					<p class="main-title">EDITAR OBRA</p>
-				{% endif %}
-				<form class="add-work">
+				<p class="main-title">EDITAR OBRA</p>
+				<form class="edit-work-form">
 					<div class="grid-100">
 						<div class="separator">
 							<span class="line"></span><span class="text">IMAGEN DE LA OBRA</span><span class="line"></span>
@@ -484,11 +293,7 @@
 						<div class="uploader-work">
 							<div class="profile-imgage">
 								<div class="preview">
-									{% if work %}
-										<img src="{{work.photo|addFilter('w_300,c_limit')}}"/>
-									{% else %}
-										<img src="https://cdn1.iconfinder.com/data/icons/hawcons/32/699085-icon-93-inbox-upload-128.png"/>
-									{% endif %}
+										<img src="{{element.photo|addFilter('w_300,c_limit')}}"/>
 								</div>
 							</div>
 							<div class="preload hide"><i class="fa fa-spinner"></i></div>
@@ -501,48 +306,40 @@
 							<span class="line"></span><span class="text">DATOS DE LA OBRA</span><span class="line"></span>
 						</div>
 						<p class="title">Título de la obra</p>
-						<input name='name' value="{{work.name}}" class="input input-modal" type="text" required placeholder="Ingrese el nombre"/>
+						<input name='edit-work-name' value="{{element.name}}" class="input input-modal" type="text" required placeholder="Ingrese el nombre"/>
 					</div>
 
 					<div class="grid-100 mobile-grid-100">
 						<p class="title">Categoría de la obra</p>
-						<select class="input select" required name='categories'>
+						<select class="input select" required name='edit-work-category'>
 							{% for category in categories %}
-							<option value="{{category.id}}">{{category.name}}</option>
+								<option value="{{category.id}}">{{category.name}}</option>
 							{% endfor %}
 						</select>
 					</div>
 
 					<div class="grid-100 mobile-grid-100">
 						<p class="title">Descripcion de la obra</p>
-						<textarea name='description' required class='input'placeholder="Descripcion" maxlength='140'>{{work.description}}</textarea>
+						<textarea name='edit-work-description' required class='input'placeholder="Descripcion" maxlength='140'>{{element.description}}</textarea>
 					</div>
 
 					<div class="grid-100 mobile-grid-100">
 						<p class="title">Tags de la obra</p>
-						<input name='tags' class="input tags"  value="{{tagsFormat}}" required type="text"/>
+						<input name='edit-work-tags' class="input"  value="{{tagsFormat}}" required type="text"/>
 						<div class="separator">
 							<span class="line"></span><span class="text">CARACTERÍSTICAS</span><span class="line"></span>
 						</div>
 						<div class="switch u-margin-top-10">
 							<p class="title">Público</p>
 							<span class="value">On</span>
-
-							<input type="checkbox" name="public" id="public" checked/>
+							<input type="checkbox" name="edit-work-public" id="public" {% if element.public %} checked {%endif%}/>
 							<label for="public">
 							  <div class="am-Switch-button">
 							  	<i class="fa fa-bars"></i>
 							  </div>
 							</label>
 						</div>
-
-						<button class="button u-margin-top-30 save" data-color="blue">
-							{% if mode === 'add' %}
-							SUBIR OBRA
-							{% else %}
-							ACTUALIZAR OBRA
-							{% endif %}
-						</button>
+						<button class="button u-margin-top-30 save" data-color="blue">ACTUALIZAR OBRA</button>
 						<div class="hide save-loading">
 							<button class="button u-margin-top-30" data-color="blue">
 								<i class="load fa fa-spinner"></i>
@@ -551,13 +348,16 @@
 					</div>
 				</form>
 			</div>
-		<!-- </div> -->
 	</div>
 
 {% endblock %}
 
 {% block scripts %}
 	<script src='/jquery.tagsinput.js' type='text/javascript'></script>
+	<script src='/jquery.ui.widget.js' type='text/javascript'></script>
+	<script src='/jquery.iframe-transport.js' type='text/javascript'></script>
+	<script src='/jquery.fileupload.js' type='text/javascript'></script>
+	<script src='/jquery.cloudinary.js' type='text/javascript'></script>
 	<script>
 		var owner = {{owner|json|safe}};
 		var products = {{products|json|safe}};
@@ -568,9 +368,81 @@
 		var more = {{more|json|safe}};
 		var similar = {{similar|json|safe}};
 
+		$('select[name=edit-work-category]')
+		.find('option[value=' + element.Category.id + ']')
+		.attr('selected', true);
+
+		$('input[name=edit-work-tags]').tagsInput({
+			height:'50px', width:'100%', defaultText:'+ Etiqueta'
+		});
+
+		var config = {
+			"api_key": "337494525976864",
+			"cloud_name": "hackdudes",
+			"private_cdn": false
+		};
+		$.cloudinary.config(config);
+		var uploaderImage = new APP.UploaderImage($('.uploader-work'), function(idImage){
+				this.$view.find('.upload').show();
+				$('.cloudinary-fileupload').show();
+				var filters =  {width: 300, crop:'limit'};
+				$.cloudinary.image(idImage, filters).appendTo(this.$view.find('.preview'));
+		});
+
 		$("#go-collection-modal").leanModal();
 		$("#go-share-modal").leanModal();
 		$("#go-edit-modal").leanModal();
+
+		uploaderImage.photo = element.photo;
+		$('.edit-work-form').submit(function(event) {
+			event.preventDefault();
+			$('.save').hide();
+			$('.save-loading').show();
+			$.ajax({
+				method: 'POST',
+			 	url: DataApp.currentUser.url + '/work/update',
+				data: {
+					idWork: element.id,
+					photo: uploaderImage.photo,
+					name: $('input[name=edit-work-name]').val(),
+					idCategory: parseInt($('select[name=edit-work-category]').val(), 10),
+					tags: $('input[name=edit-work-tags]').val(),
+					description: $('textarea[name=edit-work-description]').val(),
+					public: $('input[name=edit-work-public]:checked').val() !== undefined
+				}
+		 	}).then(function(response) {
+				if (response.status === 200) {
+					var newWork = response.data.work;
+					var photo = $('<img>', {
+						class: 'work-photo',
+						src: Utils.addImageFilter(newWork.photo, 'w_700,h_800,q_80,c_limit')
+					});
+
+					$('.single-image-inner').find('.work-photo').remove()
+					$('.single-image-inner').prepend(photo);
+					$('.work-name').text(newWork.name);
+
+					var category = $('<a>', {href: '/works/category/' + newWork.Category.nameSlugify + '/page-1/'});
+					var categoryName = $('<span>',{class: 'am-Category-box u-margin-top-7'}).text(newWork.Category.name);
+					category.append(categoryName);
+
+					$('.work-tags').empty();
+					var i, tag, tagItem , urlTag;
+					for (i = 0; i < newWork.Tags.length; i++) {
+						tag = $('<div>', {class: 'tag uppercase'});
+						urlTag = '/works/category/all/page-1/?term=' + encodeURIComponent('#' + newWork.Tags[i].name);
+						tagItem = $('<a>', {href: urlTag}).text(newWork.Tags[i].name);
+						tag.append(tagItem);
+						$('.work-tags').append(tag);
+					}
+					$('.tags-number').text(newWork.Tags.length);
+					$('.work-description').text(newWork.description);
+					$('.work-category').empty().append(category);
+					var url = '/user/' + element.User.username + '/work/' + newWork.nameSlugify;
+					Utils.changeUrl(DataApp.baseTitle + newWork.name, url);
+				}
+			});
+		});
 	</script>
 	<script src='/work-product.js'></script>
 {% endblock %}

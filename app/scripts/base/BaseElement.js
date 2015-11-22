@@ -9,9 +9,7 @@ var APP = APP || {};
     this.data = data;
     this.id = id;
     var viewHelpers = {
-      addFilter: function(url, filter) {
-        return url.replace('upload/', 'upload/' + filter +'/');
-      },
+      addFilter: Utils.addImageFilter,
       formatDate: function(date){
         return moment(date).fromNow();
       },

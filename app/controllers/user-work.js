@@ -7,6 +7,7 @@ var basePath = 'user/work/';
 var _ = require('lodash');
 
 exports.index = function (currentPath, req, res) {
+    var cloudinary_cors = "http://" + req.headers.host + "/cloudinary_cors.html";
     var promises = [
         req.work.save(),
         req.work.userLikes(),
@@ -14,7 +15,8 @@ exports.index = function (currentPath, req, res) {
         req.work.similar(req.viewer),
         req.work.getProducts({build: true, viewer: req.viewer, addUser:true}),
         req.work.getTags(),
-        req.work.getReviews({include:[global.db.User]})
+        req.work.getReviews({include:[global.db.User]}),
+        global.db.Category.findAll()
     ];
     global.db.Sequelize.Promise.all(promises).then(function (result) {
         var query = { where:{id: req.work.id}, include:[global.db.Category],
@@ -30,7 +32,10 @@ exports.index = function (currentPath, req, res) {
               products: result[4],
               tags: result[5],
               tagsFormat: _.pluck(result[5], 'name'),
-              reviews: result[6]
+              reviews: result[6],
+              categories: result[7],
+              cloudinary_cors: cloudinary_cors,
+              cloudinary: cloudinary
           });
         });
     });
@@ -167,9 +172,8 @@ exports.sell = function (req, res) {
 
 
 exports.update = function (req, res) {
-  var data = JSON.parse(req.body.data);
   var promises = [];
-  var tags = data.tags;
+  var tags = req.body.tags.split(',');
   for(var i = 0; i < tags.length ; i++) {
     promises.push(global.db.Tag.findOrCreate({where:{name: tags[i]}}));
   }
@@ -178,24 +182,23 @@ exports.update = function (req, res) {
     var tagsResult = [];
     for(var i = 0; i < results.length ; i++)
       tagsResult.push(results[i][0]);
-    promises = [
-        global.db.Category.findAll({where: {id: {$in: data.categories}}}),
-        global.db.Work.findById(data.idWork)
-    ];
-    global.db.Sequelize.Promise.all(promises).then(function (resultPromise) {
-        var categories = resultPromise[0] , work = resultPromise[1];
-        var promises = [
-            work.updateAttributes(data),
-            work.setTags(tagsResult),
-            work.setCategories(categories)
-        ];
-        global.db.Sequelize.Promise.all(promises).then(function () {
+
+    global.db.Category.findById(req.body.idCategory).then(function(category) {
+      var promises = [
+          req.work.updateAttributes(req.body),
+          req.work.setTags(tagsResult),
+          req.work.setCategory(category)
+      ];
+      global.db.Sequelize.Promise.all(promises).then(function () {
+          var query = {where:{id: req.work.id}, include:[global.db.Category, global.db.Tag]};
+          global.db.Work.find(query).then(function(work){
             if (req.xhr)
                 return res.ok({work: work}, 'Obra actualizada');
 
             req.flash('successMessage', 'Obra actualizada');
             return res.redirect('back');
-        });
+          });
+      });
     });
   });
 };
