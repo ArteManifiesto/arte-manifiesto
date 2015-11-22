@@ -171,17 +171,6 @@
 		<div class="grid-100 grid-parent">
 			<div class="grid work-layout-discover">
 				<div class="grid-sizer"></div>
-
-					<div class="grid-item">
-				    <div class="artist-card">
-				    	<div class="invitation" style="background-image: url('/img/invitation.png');">
-				    		<div class="inner">
-				    			<p>Tú puedes ser el próximo</p>
-				    			<a href="#">UNETE</a>
-				    		</div>
-				    	</div>
-				    </div>
-				  </div>
 			</div>
 			<div class="am-search-result empty-message hide">
 				No se encontraron resultados
@@ -251,6 +240,17 @@
 		</div>
 	</div>
 
+	<div class="grid-item banner-user">
+		<div class="artist-card">
+			<div class="invitation" style="background-image: url('/img/invitation.png');">
+				<div class="inner">
+					<p>Tú puedes ser el próximo</p>
+					<a href="#">UNETE</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
 {% endblock %}
 
 
@@ -262,9 +262,11 @@
 	<script>
 		$(function(){
 			var users = {{users|json|safe}}
-	  	new APP.Viewer('user', $('.grid'), null, {{users|json|safe}});
 
-	  	// console.log('works: ', {{works|json|safe}})
+	  	var usersViewer = new APP.Viewer('user', $('.grid'), null, {{users|json|safe}});
+			var banner = $('.banner-user').detach();
+			usersViewer.container.append(banner).masonry('appended', banner);
+
 	  	new APP.Viewer('work', $('.grid-works'), null, {{works|json|safe}});
 
 		})
