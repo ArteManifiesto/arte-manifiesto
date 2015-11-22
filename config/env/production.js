@@ -5,21 +5,18 @@ module.exports = {
         password: process.env.DB_PASSWORD,
         options: {
           host: process.env.DB_HOST,
-          dialect: "mysql",
-          port: 3306,
-          timezone: '-05:00'
+          timezone: process.env.DB_TIMEZONE,
+          dialect: 'mysql',
+          port: process.env.DB_PORT
         }
     },
-    app: {
-        name: "Arte"
-    },
     facebook: {
-        clientID: "1473636902857068",
-        clientSecret: "defdc485a2b8b1ba309c735d8e975c21",
-        callbackURL: "http://artemanifiesto.com/auth/facebook/callback/"
+      clientID: process.env.FB_CLIENT_ID,
+      clientSecret: process.env.FB_CLIENT_SECRET,
+      callbackURL: process.env.FB_CALLBACK_URL
     },
     recaptcha: {
-        publicKey: '6LdnUQoTAAAAALPzF3glOaqzGcbhBrmT1yQwVYls',
-        privateKey: '6LdnUQoTAAAAACVrGpYvAvGv3ylnBsnkIHXdPLX9'
+      publicKey: process.env.RECAPTCHA_PUBLIC_KEY,
+      privateKey: process.env.RECAPTCHA_PRIVATE_KEY
     }
 };
