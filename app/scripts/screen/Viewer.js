@@ -107,7 +107,8 @@ APP.Viewer.prototype.addItems = function(items) {
           for(i = 0; i< lel.length; i++) {
             lel[i].show();
             scope.masonry('appended',lel[i]);
-            scopetemp.navigationManager.navigator.restart();
+            if(scopetemp.navigationManager)
+              scopetemp.navigationManager.navigator.restart();
             scope.parent().find('.loading').hide();
           }
         }
