@@ -82,6 +82,7 @@ APP.Viewer.prototype.pageLoadEndHandler = function(event) {
 };
 
 APP.Viewer.prototype.addItems = function(items) {
+  this.container.parent().find('.loading').show();
   if(this.navigation === APP.NavigationManager.PAGINATION && !this.initialize) {
     this.clean();
   }
