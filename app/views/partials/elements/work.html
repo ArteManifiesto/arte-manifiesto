@@ -13,7 +13,12 @@
       <% } %>
 
       <% if (viewer && viewer.isAdmin) { %>
-        <div class="delete"><i class="bi_editorial-trash-a-l"></i></div>
+        {# <div class="delete"><i class="bi_editorial-trash-a-l"></i></div> #}
+        <div class="confirm">
+          <span>borrar?</span>
+          <i class="bi_interface-box-tick" style="display: inline;"></i>
+          <i class="bi_interface-box-cross" style="display: inline;"></i>
+        </div>
       <% } %>
 
       <% if (owner) { %>
