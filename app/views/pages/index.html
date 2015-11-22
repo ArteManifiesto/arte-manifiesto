@@ -7,7 +7,6 @@
 
 
 	<!-- CATEGORIAS -->
-
 	<div class="grid-container">
 		<div class="grid-100">
 			<p class="home-title">DESCUBRE POR CATEGORÍAS</p>
@@ -62,9 +61,7 @@
 	</div>
 
 
-
 	<!-- ARTISTAS -->
-
 	<div class="grid-container">
 		<div class="grid-100">
 			<p class="home-title">ARTISTAS DESTACADOS</p>
@@ -85,8 +82,8 @@
 		</div>
 	</div>
 
-	<!-- OBRAS -->
 
+	<!-- OBRAS -->
 	<div class="grid-container">
 		<div class="grid-100">
 			<p class="home-title">OBRAS DESTACADAS DE LA SEMANA</p>
@@ -94,7 +91,25 @@
 	</div>
 
 
+	<div class="grid-container u-padding-top-10 u-padding-bottom-40" data-state="expand">
+		<div class="grid-100 grid-parent">
+			<div class="grid-works work-layout-discover">
+				<div class="grid-sizer"></div>
+			</div>
+			<div class="am-search-result empty-message hide">
+				No se encontraron resultados
+				<br><br>
+				<a href="/works/category/all/page-1" class="am-report-link blue" href="">Volver a todas las obras</a>
+			</div>
+			<div class="am-More-preload loading hide"><i class="fa fa-spinner"></i></div>
+		</div>
+	</div>
 
+	<div class="grid-container">
+		<div class="grid-100">
+			<a class="am-More-button">I need more</a>
+		</div>
+	</div>
 
 
 {% endblock %}
@@ -106,6 +121,10 @@
 		$(function(){
 			var users = {{users|json|safe}}
 	  	new APP.Viewer('user', $('.grid'), null, {{users|json|safe}});
+
+	  	// console.log('works: ', {{works|json|safe}})
+	  	new APP.Viewer('work', $('.grid-works'), null, {{works|json|safe}});
+
 		})
 	</script>
 
