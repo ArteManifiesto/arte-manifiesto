@@ -29,6 +29,7 @@ exports.index = function (currentPath, req, res) {
               more: result[2], similar: result[3],
               products: result[4],
               tags: result[5],
+              tagsFormat: _.pluck(result[5], 'name'),
               reviews: result[6]
           });
         });
