@@ -4,7 +4,7 @@ var _ = require('lodash');
 var request = require('request');
 
 exports.index = function (req, res) {
-  var query = {where:{featured:true}, limit:5, build:true , addUser:true, viewer:req.viewer};
+  var query = {where:{featured:true}, limit:4, build:true , addUser:true, viewer:req.viewer};
   var queryWork = {where:{featured:true}, limit:15, build:true , addUser:true, viewer:req.viewer};
 
   global.db.User.findAll(query).then(function(users) {
