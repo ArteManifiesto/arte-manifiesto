@@ -715,6 +715,12 @@ body
 .FollowArtist
 	display flex
 	align-items center
+	.button-container
+		display flex
+		justify-content space-between
+		align-items center
+		i
+			color #999
 	img
 		width 70px
 		height 70px
@@ -1674,6 +1680,11 @@ body
 	padding-top 40px
 	padding-bottom 20px
 
+	.preview
+		img
+			margin: auto;
+			display: block;
+
 	.main-title
 		font-family 'Montserrat', sans-serif
 		font-weight bold
@@ -1711,6 +1722,9 @@ body
 		color #555
 		font-size 14px
 		background white
+
+	.input-modal
+		min-width 250px
 
 	.select
 		padding 12px 15px
@@ -1843,6 +1857,16 @@ body
 			letter-spacing 1.5px
 			text-align center
 			line-height 1.5
+
+@media (min-width: 400px)
+	.am-upload-work-box
+		.input-modal
+			min-width 350px
+
+@media (min-width: 600px)
+	.am-upload-work-box
+		.input-modal
+			min-width 400px
 
 @media (min-width: 630px)
 	.am-upload-work-box

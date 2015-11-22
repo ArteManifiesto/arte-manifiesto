@@ -78,13 +78,16 @@
 				</div>
 				<div class="single-data u-padding-bottom-40">
 					<div class="FollowArtist u-padding-bottom-10">
-						<div>
+						<div style="width: 100%;">
 							<a href="#">
 								<p class="u-padding-bottom-7 big uppercase"><strong>{{element.User.fullname}}</strong></p>
 							</a>
-							{% if !owner %}
-								<button class="am-Follow-button">+ SEGUIR</button>
-							{% endif %}
+							<div class="button-container">
+								{% if !owner %}
+									<button class="am-Follow-button">+ SEGUIR</button>
+								{% endif %}
+									<a id="go-edit-modal" href="#edit-modal"><i class="bi_editorial-compose"></i></a>
+							</div>
 						</div>
 					</div>
 					<div class="u-separator"></div>
@@ -464,6 +467,93 @@
 		</div>
 	</div>
 
+
+	<div id="edit-modal" style="display: none; max-height: 550px; overflow:auto;">
+		<!-- <div class="am-upload-work"> -->
+			<div class="am-upload-work-box grid-container">
+				{% if mode === 'add'%}
+					<p class="main-title">SUBIR NUEVA OBRA A MI PORTAFOLIO</p>
+				{% else %}
+					<p class="main-title">EDITAR OBRA</p>
+				{% endif %}
+				<form class="add-work">
+					<div class="grid-100">
+						<div class="separator">
+							<span class="line"></span><span class="text">IMAGEN DE LA OBRA</span><span class="line"></span>
+						</div>
+						<div class="uploader-work">
+							<div class="profile-imgage">
+								<div class="preview">
+									{% if work %}
+										<img src="{{work.photo|addFilter('w_300,c_limit')}}"/>
+									{% else %}
+										<img src="https://cdn1.iconfinder.com/data/icons/hawcons/32/699085-icon-93-inbox-upload-128.png"/>
+									{% endif %}
+								</div>
+							</div>
+							<div class="preload hide"><i class="fa fa-spinner"></i></div>
+							<button class="button upload u-margin-top-30">BUSCAR ARCHIVO</button>
+						</div>
+						<div class="image-uploader" style="position:relative;">
+							{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:230px;height:55px;top:-70px;left: 105px;" } })}}
+						</div>
+						<div class="separator">
+							<span class="line"></span><span class="text">DATOS DE LA OBRA</span><span class="line"></span>
+						</div>
+						<p class="title">Título de la obra</p>
+						<input name='name' value="{{work.name}}" class="input input-modal" type="text" required placeholder="Ingrese el nombre"/>
+					</div>
+
+					<div class="grid-100 mobile-grid-100">
+						<p class="title">Categoría de la obra</p>
+						<select class="input select" required name='categories'>
+							{% for category in categories %}
+							<option value="{{category.id}}">{{category.name}}</option>
+							{% endfor %}
+						</select>
+					</div>
+
+					<div class="grid-100 mobile-grid-100">
+						<p class="title">Descripcion de la obra</p>
+						<textarea name='description' required class='input'placeholder="Descripcion" maxlength='140'>{{work.description}}</textarea>
+					</div>
+
+					<div class="grid-100 mobile-grid-100">
+						<p class="title">Tags de la obra</p>
+						<input name='tags' class="input tags"  value="{{tags}}" required type="text"/>
+						<div class="separator">
+							<span class="line"></span><span class="text">CARACTERÍSTICAS</span><span class="line"></span>
+						</div>
+						<div class="switch u-margin-top-10">
+							<p class="title">Público</p>
+							<span class="value">On</span>
+
+							<input type="checkbox" name="public" id="public" checked/>
+							<label for="public">
+							  <div class="am-Switch-button">
+							  	<i class="fa fa-bars"></i>
+							  </div>
+							</label>
+						</div>
+
+						<button class="button u-margin-top-30 save" data-color="blue">
+							{% if mode === 'add' %}
+							SUBIR OBRA
+							{% else %}
+							ACTUALIZAR OBRA
+							{% endif %}
+						</button>
+						<div class="hide save-loading">
+							<button class="button u-margin-top-30" data-color="blue">
+								<i class="load fa fa-spinner"></i>
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		<!-- </div> -->
+	</div>
+
 {% endblock %}
 
 {% block scripts %}
@@ -479,6 +569,7 @@
 
 		$("#go-collection-modal").leanModal();
 		$("#go-share-modal").leanModal();
+		$("#go-edit-modal").leanModal();
 	</script>
 	<script src='/work-product.js'></script>
 {% endblock %}
