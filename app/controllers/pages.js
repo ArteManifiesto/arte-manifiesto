@@ -1,11 +1,11 @@
-\var basePath = 'pages/';
+var basePath = 'pages/';
 var Promise = require('bluebird');
 var _ = require('lodash');
 var request = require('request');
 
 exports.index = function (req, res) {
-  global.User.findAll({where:{featured:true}, limit:6}).then(function(users){
-    global.Work.findAll({where:{featured:true}, limit:6}).then(function(works){
+  global.db.User.findAll({where:{featured:true}, limit:6}).then(function(users){
+    global.db.Work.findAll({where:{featured:true}, limit:6}).then(function(works){
       return res.render('pages/index',{
         users: users,
         works: works
