@@ -4,8 +4,8 @@ var _ = require('lodash');
 var request = require('request');
 
 exports.index = function (req, res) {
-  global.db.User.findAll({where:{featured:true}, limit:6}).then(function(users){
-    global.db.Work.findAll({where:{featured:true}, limit:6}).then(function(works){
+  global.db.User.findAll({where:{featured:true}, limit:6, build:true , addUser:true, viewer:req.viewer}).then(function(users){
+    global.db.Work.findAll({where:{featured:true}, limit:6 , build:true, addUser:true , viewer:req.viewer}).then(function(works){
       return res.render('pages/index',{
         users: users,
         works: works

@@ -3,7 +3,7 @@
  *Email : juliocanares@gmail.com
  */
 var APP = APP || {};
-APP.BaseElement = function (data, id) {
+      APP.BaseElement = function (data, id) {
     this.template = APP.TemplateManager.instance.getFromDoc(id);
     this.data = data;
     this.id = id;
