@@ -51,7 +51,7 @@ $(document).ready(function() {
         if(response.status === 200) {
           following = response.data.following;
           if(response.data.following)
-          $('.am-Follow-button').addClass('following').text('-Siguiendo');
+          $('.am-Follow-button').addClass('following').text('Siguiendo');
         }
       });
     }
@@ -125,7 +125,7 @@ $(document).ready(function() {
       $.post(url,{idUser: element.User.id}, function (response) {
         if(response.status === 200) {
           following = true;
-          $('.am-Follow-button').addClass('following').text('-Siguiendo');
+          $('.am-Follow-button').addClass('following').text('Siguiendo');
         }
       });
     }

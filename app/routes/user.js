@@ -21,7 +21,7 @@ router.get('/followers', controller.profile.bind(this, 'followers'));
 router.get('/followings', controller.profile.bind(this, 'followings'));
 
 router.use('/work', workRouter);
-router.use('/product', productRouter);
+// router.use('/product', productRouter);
 router.use('/collection', collectionRouter);
 router.use('/account', isLoggedAndOwner, accountRouter);
 router.use('/cart', isLoggedAndOwner, cartRouter);

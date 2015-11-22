@@ -13,11 +13,11 @@ router.get('/add', isLoggedAndOwner, controller.add);
 router.get('/:nameSlugify', global.md.nameSlugify(entity), controller.index.bind(this, 'index'));
 router.get('/:nameSlugify/reviews', global.md.nameSlugify(entity), controller.index.bind(this, 'reviews'));
 router.get('/:nameSlugify/tags', global.md.nameSlugify(entity), controller.index.bind(this, 'tags'));
-router.get('/:nameSlugify/products', global.md.nameSlugify(entity), controller.index.bind(this, 'products'));
+// router.get('/:nameSlugify/products', global.md.nameSlugify(entity), controller.index.bind(this, 'products'));
 
 router.get('/:nameSlugify/edit', isLoggedAndOwner, global.md.nameSlugify(entity), controller.edit);
 router.get('/:nameSlugify/published', isLoggedAndOwner, global.md.nameSlugify(entity), controller.published);
-router.get('/:nameSlugify/sell', isLoggedAndOwner, global.md.nameSlugify(entity), controller.sell);
+// router.get('/:nameSlugify/sell', isLoggedAndOwner, global.md.nameSlugify(entity), controller.sell);
 
 router.post('/create', isLoggedAndOwner, controller.create);
 router.post('/delete', global.md.isAdminOrOwner, controller.delete);

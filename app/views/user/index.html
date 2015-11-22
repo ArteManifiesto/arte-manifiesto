@@ -37,7 +37,7 @@
 						<p class="city">{{profile.city}}, {{profile.country}}</p>
 						{% if !owner %}
 							{% if profile.following %}
-							<button class="am-Follow-button following">- Siguiendo</button>
+							<button class="am-Follow-button following">Siguiendo</button>
 							{% else %}
 							<button class="am-Follow-button">+ Seguir</button>
 							{% endif %}
@@ -57,10 +57,10 @@
 							<p>PORTAFOLIO</p>
 							<p>{{data[0]}}</p>
 						</div>
-						<div class="am-Profile-menu-item store">
+						<!-- <div class="am-Profile-menu-item store">
 							<p>TIENDA</p>
 							<p>{{data[1]}}</p>
-						</div>
+						</div> -->
 						<div class="am-Profile-menu-item collections">
 							<p>COLECCIONES</p>
 							<p>{{data[2]}}</p>
@@ -244,7 +244,7 @@
 					$.post(url,{idUser:profile.id}, function (response) {
 						if(response.status === 200) {
 							following = true;
-							$('.am-Follow-button').addClass('following').text('-Siguiendo');
+							$('.am-Follow-button').addClass('following').text('Siguiendo');
 						}
 					});
 				}
