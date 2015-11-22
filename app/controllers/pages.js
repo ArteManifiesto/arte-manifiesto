@@ -1,11 +1,17 @@
-var basePath = 'pages/';
+\var basePath = 'pages/';
 var Promise = require('bluebird');
 var _ = require('lodash');
 var request = require('request');
 
 exports.index = function (req, res) {
-  // return res.redirect('/works/category/all/page-1/?order=popularity');
-  return res.render('pages/index')
+  global.User.findAll({where:{featured:true}, limit:6}).then(function(users){
+    global.Work.findAll({where:{featured:true}, limit:6}).then(function(works){
+      return res.render('pages/index',{
+        users: users,
+        works: works
+      })
+    });
+  });
 };
 
 var searchHandler = function (entity, req, res) {
