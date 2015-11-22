@@ -4,8 +4,10 @@ var _ = require('lodash');
 var request = require('request');
 
 exports.index = function (req, res) {
-  global.db.User.findAll({where:{featured:true}, limit:6, build:true , addUser:true, viewer:req.viewer}).then(function(users){
-    global.db.Work.findAll({where:{featured:true}, limit:6 , build:true, addUser:true , viewer:req.viewer}).then(function(works){
+  var query = {where:{featured:true}, limit:5, build:true , addUser:true, viewer:req.viewer};
+  var queryWork = {where:{featured:true}, limit:15, build:true , addUser:true, viewer:req.viewer};
+  global.db.User.findAll(query).then(function(users) {
+    global.db.Work.findAll(queryWork).then(function(works) {
       return res.render('pages/index',{
         users: users,
         works: works
