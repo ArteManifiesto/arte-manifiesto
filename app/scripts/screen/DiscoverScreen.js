@@ -84,7 +84,25 @@ APP.DiscoverScreen.prototype.listeners = function() {
 };
 
 APP.DiscoverScreen.prototype.filterChangedHandler = function(event) {
-  $('.am-navigation-text').text(event.newValue);
+	if(event.meta)
+		$('.' + event.meta + '-text').text(event.newValue);
+
+	if(this.filters.term && this.filters.term.length > 0) {
+		$('.search-text').show();
+		$('.search-text').text(this.filters.term);
+	}else {
+		$('.search-text').hide();
+		$('.search-text').text('');
+	}
+
+	if(this.filters.isFeatured) {
+		$('.featured-text').show();
+		$('.featured-text').text('AM');
+	}else {
+		$('.featured-text').hide();
+		$('.featured-text').text('');
+	}
+
   Utils.changeUrl(this.id, DataApp.currentUrl);
   this.viewer.reset();
 };

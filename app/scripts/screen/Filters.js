@@ -10,9 +10,23 @@ APP.Filters = function (filters) {
 	this.oldCategory = this.filters.currentCategory;
 	this.oldOrder = this.filters.currentOrder;
 
-	this.isFeatured = Utils.getUrlParameter('featured');
+	this.isFeatured = Utils.getUrlParameter('featured') !== undefined;
 	this.term = Utils.getUrlParameter('term');
 	this.currentCategory = this.currentOrder = null;
+
+	$('.category-text').text(this.oldCategory);
+	$('.order-text').text(this.oldOrder);
+
+	if(this.term !== undefined) {
+		$('.search-text').show();
+		$('.search-text').text(this.term);
+	}
+
+	if(this.isFeatured) {
+		$('input[type=checkbox]').prop('checked', true);
+		$('.featured-text').show();
+		$('.featured-text').text('AM');
+	}
 
 	this.buildFilters();
 	this.listeners();
@@ -37,7 +51,7 @@ APP.Filters.prototype.buildFilters = function() {
 APP.Filters.prototype.listeners = function () {
 	$("[data-meta='category']").on('click', this.filterItemHandler.bind(this, 'category'));
 	$("[data-meta='order']").on('click', this.filterItemHandler.bind(this, 'order'));
-	$(".am-Switch-button").on('click', this.featuredHandler);
+	$(".am-Switch-button").on('click', this.featuredHandler.bind(this));
 
 	$(window).on("popstate", function(e) {
 			 if (e.originalEvent.state !== null) {
@@ -48,10 +62,14 @@ APP.Filters.prototype.listeners = function () {
 	var scope = this;
 	this.term = this.term === undefined ? '' : this.term;
 	$('.am-Search-input input').val(decodeURIComponent(this.term));
+	$('.search-btn').click(function(event){
+		event.preventDefault();
+		$('.am-Search-input input').trigger({type: 'keypress', which: 13, keyCode: 13});
+	});
 	$('.am-Search-input input').keypress(function(e) {
 		if(e.which == 13) {
 			var value = encodeURIComponent($(this).val());
-			if(value.length >= 1) {
+			if(value.length > 0) {
 				if(scope.term) {
 					DataApp.currentUrl = DataApp.currentUrl.replace('term=' + scope.term, 'term=' + value);
 				}else {
@@ -79,6 +97,7 @@ APP.Filters.prototype.featuredHandler = function() {
 		DataApp.currentUrl = DataApp.currentUrl + '&featured=1';
 	}
 	this.isFeatured = !this.isFeatured;
+	console.log(this.isFeatured);
 	Broadcaster.dispatchEvent('FILTER_CHANGED');
 };
 
