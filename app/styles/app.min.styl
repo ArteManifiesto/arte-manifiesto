@@ -64,8 +64,8 @@ white = #fff
 	$ SLIDER
 *------------------------------------*/
 .slider
-	max-width 600px
-	margin auto
+	// max-width 600px
+	// margin auto
 	&-nav
 		display flex
 		justify-content center
@@ -114,6 +114,44 @@ white = #fff
 		display none
 	.slider-large
 		display block
+
+
+
+/*------------------------------------*
+	$ HOME GRID
+*------------------------------------*/
+
+.home-grid
+	display flex
+	justify-content center
+	&-element
+		margin 20px 10px
+		display block
+		position relative
+		.cover
+			position absolute
+			height 100%
+			width 100%
+			&:hover
+				background rgba(black, .15)
+				transition background .35s
+	&-column
+		&.tablet
+			display none
+		&.desktop
+			display none
+
+@media (min-width: 600px)
+	.home-grid
+		&-column
+			&.tablet
+				display block
+
+@media (min-width: 1000px)
+	.home-grid
+		&-column
+			&.desktop
+				display block
 
 body
 	overflow-x hidden
@@ -439,6 +477,34 @@ body
 		button
 			display table
 			margin auto
+	.invitation
+		height 348px
+		box-sizing: border-box;
+		display flex
+		background-size cover
+		background-position center center
+		padding 10px
+		.inner
+			margin auto
+			text-align center
+			p
+				color white
+				font-size 20px
+				font-family 'Montserrat', sans-serif
+				font-weight bold
+				line-height 1.25
+				text-shadow 0px 2px 4px rgba(black, .5)
+			a
+				letter-spacing 2px
+				background #277cea
+				color white
+				font-size 10px
+				font-family 'Montserrat', sans-serif
+				font-weight bold
+				padding 8px 40px
+				margin-top 20px
+				display inline-block
+				border-radius 100px
 
 
 /*------------------------------------*
@@ -2729,6 +2795,14 @@ body
 		display flex
 		background-size: cover;
 		background-position: center center;
+		position relative
+		.cover
+			position absolute
+			height 100%
+			width 100%
+			&:hover
+				background rgba(black, .15)
+				transition background .35s
 		p
 			margin auto
 
