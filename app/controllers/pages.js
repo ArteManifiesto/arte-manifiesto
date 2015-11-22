@@ -4,7 +4,8 @@ var _ = require('lodash');
 var request = require('request');
 
 exports.index = function (req, res) {
-  return res.redirect('/works/category/all/page-1/?order=popularity');
+  // return res.redirect('/works/category/all/page-1/?order=popularity');
+  return res.render('pages/index')
 };
 
 var searchHandler = function (entity, req, res) {
