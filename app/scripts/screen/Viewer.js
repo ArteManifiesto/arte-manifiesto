@@ -86,9 +86,13 @@ APP.Viewer.prototype.addItems = function(items) {
     this.clean();
   }
   if(items.length < 1) {
+    if(this.container.parent().find('.bare-message').hasClass('hide')) {
+      this.container.parent().find('.bare-message').removeClass('hide');
+    }
+    var display = this.container.parent().find('.bare-message').show().css('display');
+    this.container.parent().find('.bare-message').show().css('display', display);
     this.container.parent().height('auto');
     this.container.parent().find('.loading').hide();
-    this.container.parent().find('.bare-message').show();
   }
   var scopetemp = this;
   var i = 0, item , counter = 0, lel = [];
