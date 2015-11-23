@@ -136,14 +136,14 @@ $(document).ready(function() {
 		event.preventDefault();
 		formData.photo = uploaderImage.photo;
 		formData.name = $('input[name=name]').val();
-		formData.categories = [parseInt($('select[name=categories]').val(),10)];
-		formData.tags = $('input[name=tags]').val().split(',');
+		formData.idCategory = parseInt($('select[name=categories]').val(),10);
+		formData.tags = $('input[name=tags]').val();
 		formData.description = $('textarea[name=description]').val();
 		formData.public = $( "input[name=public]:checked" ).val() !== undefined;
 		$.ajax({
 			method: 'POST',
 			url: url,
-			data: {data: JSON.stringify(formData)}
+			data: formData
 		}).then(function(response) {
 			if(response.status === 200) {
 				if(mode === 'add') {

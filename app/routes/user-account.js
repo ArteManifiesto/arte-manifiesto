@@ -9,7 +9,7 @@ router.get('/photo', controller.photo);
 router.get('/addresses', controller.addresses);
 router.get('/password', controller.password);
 
-router.post('/', controller.update);
+router.post('/update', controller.update);
 router.post('/photo', controller.photoUpdate);
 router.post('/address/add', controller.addressAdd);
 router.post('/address/update', controller.addressUpdate);

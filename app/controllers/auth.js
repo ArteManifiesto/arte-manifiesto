@@ -154,13 +154,22 @@ exports.verify = function (req, res) {
             req.flash('errorMessage', 'Token invalido');
             return res.redirect('back');
         }
+
         if (user.verified) {
-            req.flash('successMessage', 'Email ya ah sido confirmado');
-            return res.redirect('back');
+          req.flash('successMessage', 'Email ya ah sido confirmado');
+          if(user.filled) {
+            return res.redirect('/user/' + user.username);
+          } else {
+            if(req.user) {
+              return res.redirect('/user/' + user.username + '/account/?context=1');
+            } else {
+              return res.redirect('/');
+            }
+          }
         }
         user.updateAttributes({verified: true}).then(function () {
             req.flash('successMessage', 'Email confirmado');
-            return res.redirect('back');
+            return res.redirect('/user/' + user.username + '/account/?context=1');
         });
     })
 };

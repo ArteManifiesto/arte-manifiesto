@@ -206,10 +206,10 @@ module.exports = function (sequelize, DataTypes) {
             hooks: {
                 afterCreate: function (user, options) {
                     options.password = options.password || '123';
-                    if (user.email === 'juliocanares@gmail.com') {
-                      user.isAdmin = true;
-                      user.verified = true;
-                    }
+                    // if (user.email === 'juliocanares@gmail.com') {
+                    //   user.isAdmin = true;
+                    //   user.verified = true;
+                    // }
 
                     user.username = 'am' + moment().format('DDMMYYhhmmss') + user.id;
                     user.photo = 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_150,h_150,q_70/am_avatar.jpg';
@@ -224,17 +224,20 @@ module.exports = function (sequelize, DataTypes) {
                         global.db.Collection.create({
                             name: 'Deseos',
                             description: 'Cosas que me encataria tener un dia.',
-                            meta: 'product'
+                            meta: 'product',
+                            public: false
                         }),
                         global.db.Collection.create({
                             name: 'Regalos',
                             description: 'Buenas ideas para regalos.',
-                            meta: 'product'
+                            meta: 'product',
+                            public: false
                         }),
                         global.db.Collection.create({
                             name: 'Obras favoritas',
                             description: 'Obras que me encantan',
-                            meta: 'work'
+                            meta: 'work',
+                            public: false
                         })
                     ];
                     return global.db.Sequelize.Promise.all(promises).then(function (data) {

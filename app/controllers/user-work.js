@@ -62,38 +62,36 @@ exports.add = function (req, res) {
  * @param work data
  */
 exports.create = function (req, res) {
-  var data = JSON.parse(req.body.data);
+  var promises = [];
+  var tags = req.body.tags.split(',');
+  for(var i = 0; i < tags.length ; i++) {
+    promises.push(global.db.Tag.findOrCreate({where:{name: tags[i]}}));
+  }
 
-    var promises = [];
-    var tags = data.tags;
-    for(var i = 0; i < tags.length ; i++) {
-      promises.push(global.db.Tag.findOrCreate({where:{name: tags[i]}}));
-    }
+  global.db.Sequelize.Promise.all(promises).then(function (results) {
+    var tagsResult = [];
+    for(var i = 0; i < results.length ; i++)
+      tagsResult.push(results[i][0]);
+    promises = [
+        global.db.Category.findById(req.body.idCategory),
+        global.db.Work.create(req.body),
+    ];
+    global.db.Sequelize.Promise.all(promises).then(function (data) {
+        var category = data[0], work = data[1];
+        var promises = [
+            work.setUser(req.user),
+            work.setTags(tagsResult),
+            work.setCategory(category)
+        ];
+        global.db.Sequelize.Promise.all(promises).then(function () {
+            if (req.xhr)
+                return res.ok({work: work}, 'Obra creada');
 
-    global.db.Sequelize.Promise.all(promises).then(function (results) {
-      var tagsResult = [];
-      for(var i = 0; i < results.length ; i++)
-        tagsResult.push(results[i][0]);
-      promises = [
-          global.db.Category.findAll({where: {id: {$in: data.categories}}}),
-          global.db.Work.create(data),
-      ];
-      global.db.Sequelize.Promise.all(promises).then(function (data) {
-          var categories = data[0], work = data[1];
-          var promises = [
-              work.setUser(req.user),
-              work.setTags(tagsResult),
-              work.setCategories(categories)
-          ];
-          global.db.Sequelize.Promise.all(promises).then(function () {
-              if (req.xhr)
-                  return res.ok({work: work}, 'Obra creada');
-
-              req.flash('successMessage', 'Obra creada');
-              return res.redirect('back');
-          });
-      });
+            req.flash('successMessage', 'Obra creada');
+            return res.redirect('back');
+        });
     });
+  });
 };
 
 exports.edit = function (req, res) {

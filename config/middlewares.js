@@ -1,15 +1,11 @@
-var isProduction = process.env.NODE_ENV == 'production';
-var cloudinary = require('cloudinary').v2;
-process.env.CLOUDINARY_URL = 'cloudinary://337494525976864:RQ2MXJev18AjVuf-mSNzdmu2Jsc@hackdudes'
-cloudinary.config();
-
 exports.isLogged = function (req, res, next) {
     if (!req.isAuthenticated()) {
         if (req.xhr)
-            return res.badRequest('Necesitas iniciar sesión antes de continuar');
+            return res.badRequest(global.lg.isNotLogged);
 
-        req.flash('errorMessage', 'Necesitas iniciar sesión antes de continuar');
-        return res.redirect('/auth/login/?returnTo=' + req.protocol + '://' + req.get('host') + req.originalUrl);
+        req.flash('errorMessage', global.lg.isNotLogged);
+        var url = '/auth/login/?returnTo=' + req.protocol + '://' + req.get('host') + req.originalUrl;
+        return res.redirect(url);
     }
     next();
 };
@@ -25,27 +21,25 @@ exports.isOwner = function (req, res, next) {
 };
 
 exports.isAdmin = function (req, res, next) {
-    if (!req.isAuthenticated() || !req.user.isAdmin)
+    if (!req.isAuthenticated() || !req.user.isAdmin) {
+      if (req.xhr)
+          return res.badRequest('Necesitas ser admin');
       return res.redirect('/');
+    }
     next();
 };
 
 exports.isAdminOrOwner = function(req,res, next) {
   if (req.owner || req.user.isAdmin)
     return next();
-  res.redirect('/');
+
+  if (req.xhr)
+      return res.badRequest('Necesitas ser admin or owner');
+  return res.redirect('/');
 }
 
 exports.user = function (req, res, next) {
-    var excepts = ['css', 'img', 'favicon.ico'];
-    console.log('paramsss ; ', req.params, req.url);
-
-    if (req.params.username === 'img') {
-        return next('route');
-    }
-
     var query = {where: {}, build: true, viewer: req.viewer};
-
     if (req.user && req.user.username === req.params.username) {
         req.owner = true;
         query.where.id = req.user.id;
@@ -53,26 +47,25 @@ exports.user = function (req, res, next) {
         req.owner = false;
         query.where.username = req.params.username;
     }
-
     global.db.User.find(query).then(function (user) {
         if (!user) {
             if (req.xhr)
                 return res.noContent('Usuario desconocido');
+
             req.flash('errorMessage', 'Usuario desconocido');
             return res.redirect('/');
         }
+        res.locals.owner = req.owner;
         req.profile = user;
         return next();
     });
 };
 
 exports.userTo = function (req, res, next) {
-    global.db.User.find({where: {id: req.body.idUser}}).then(function (user) {
+  var query = {where: {id: req.body.idUser}};
+    global.db.User.find(query).then(function (user) {
         if (!user) {
-            if (req.xhr)
-                return res.noContent('Usuario desconocido');
-            req.flash('errorMessage', 'Usuario desconocido');
-            return res.redirect('/');
+          return res.noContent('Usuario desconocido');
         }
         req.userTo = user;
         next();
@@ -95,6 +88,12 @@ var entityExists = function (entity, query, req, res, next, method) {
         req.flash('errorMessage', entity + ' not exists');
         return res.redirect('/user/' + req.params.username);
     }
+
+    if(!req.owner && !element.public) {
+      res.status(401);
+      return res.render('errors/401', {url: req.url});
+    }
+    
     req[entity.toLowerCase()] = element;
     next();
   });
@@ -120,15 +119,18 @@ exports.nameSlugify = function (entity) {
 };
 
 exports.check = function (req, res, next) {
-    if (!req.user || req.url.indexOf('auth') > -1)
-        return next();
+    if (!req.user || req.url.indexOf('auth') > -1) {
+      return next();
+    }
 
-    if (!req.user.verified)
-        return res.render('pages/confirm-email');
+    if (!req.user.verified) {
+      return res.render('pages/confirm-email');
+    }
 
     if (!req.user.filled && req.method === 'GET') {
-        if(req.url.indexOf('/account/?context=1') === -1)
+        if(req.url.indexOf('/account/?context=1') === -1) {
           return res.redirect('/user/' + req.user.username + '/account/?context=1');
+        }
     }
     return next();
 };

@@ -37,28 +37,26 @@
 	</style>
 </head>
 <body>
-
-	{% include 'header.html' %}
-
-	{% if successMessage %}
-	<div class="message succes">
-		<div class="grid-container">
-			<div class="grid-100">
-				<p>{{successMessage}}</p>
-			</div>
+{% include 'header.html' %}
+{% if successMessage.length > 1 %}
+<div class="message succes visible">
+	<div class="grid-container">
+		<div class="grid-100">
+			<p>{{successMessage}}</p>
 		</div>
 	</div>
-	{% endif %}
+</div>
+{% endif %}
 
-	{% if errorMessage %}
-	<div class="message error">
-		<div class="grid-container">
-			<div class="grid-100">
-				<p>{{errorMessage}}</p>
-			</div>
+{% if errorMessage.length > 1 %}
+<div class="message error visible">
+	<div class="grid-container">
+		<div class="grid-100">
+			<p>{{errorMessage}}</p>
 		</div>
 	</div>
-	{% endif %}
+</div>
+{% endif %}
 
 
 	{% block elements %} {% endblock %}
@@ -92,12 +90,12 @@
 		if(DataApp.currentUser !== null)
 			DataApp.currentUser.url = '/user/' + DataApp.currentUser.username;
 
-		$(function(){
+		$(function() {
 				new APP.AM();
 				$('.am-Signin-button').click(function(event) {
 					event.preventDefault();
 					Utils.checkAuthentication();
-				})
+				});
 		});
 	</script>
 

@@ -188,7 +188,7 @@ $(document).ready(function() {
   $('.index').click(function() {
     lastMenuItem.removeClass('selected');
     $(this).addClass('selected');
-    Utils.changeUrl('tags', '/user/' + element.User.username + '/'+entity+'/' + element.nameSlugify);
+    Utils.changeUrl(DataApp.baseTitle + element.name, '/user/' + element.User.username + '/'+entity+'/' + element.nameSlugify);
     $('.index-container').show();
     $('.reviews-container').hide();
     $('.tags-container').hide();
@@ -199,7 +199,7 @@ $(document).ready(function() {
   $('.reviews').click(function() {
     lastMenuItem.removeClass('selected');
     $(this).addClass('selected');
-    Utils.changeUrl('tags', '/user/' + element.User.username + '/'+entity+'/' + element.nameSlugify + '/reviews');
+    Utils.changeUrl(DataApp.baseTitle + 'Reviews' + element.name, '/user/' + element.User.username + '/'+entity+'/' + element.nameSlugify + '/reviews');
     $('.index-container').hide();
     $('.reviews-container').show();
     $('.tags-container').hide();
@@ -210,7 +210,7 @@ $(document).ready(function() {
   $('.products').click(function() {
     lastMenuItem.removeClass('selected');
     $(this).addClass('selected');
-    Utils.changeUrl('tags', '/user/' + element.User.username + '/'+entity+'/' + element.nameSlugify + '/products');
+    Utils.changeUrl(DataApp.baseTitle + 'Productos' + element.name, '/user/' + element.User.username + '/'+entity+'/' + element.nameSlugify + '/products');
     $('.index-container').hide();
     $('.reviews-container').hide();
     $('.tags-container').hide();
@@ -221,7 +221,7 @@ $(document).ready(function() {
   $('.tags').click(function(){
     lastMenuItem.removeClass('selected');
     $(this).addClass('selected');
-    Utils.changeUrl('tags', '/user/' + element.User.username + '/'+entity+'/' + element.nameSlugify + '/tags');
+    Utils.changeUrl(DataApp.baseTitle + 'Tags' + element.name, '/user/' + element.User.username + '/'+entity+'/' + element.nameSlugify + '/tags');
     $('.index-container').hide();
     $('.reviews-container').hide();
     $('.tags-container').show();

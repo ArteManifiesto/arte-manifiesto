@@ -3,14 +3,14 @@
 	<div class="am-profile">
 
 		{% if !context %}
-	  <div class="single-tabs" style="max-width: 580px; margin: auto;">
-	    <a href="http://localhost:3000/user/hanshavin/account" class="single-tab selected" style="padding: 10px;">
-	      <p style="padding: 5px;">DATOS</p>
-	    </a>
-	    <a href="http://localhost:3000/user/hanshavin/account/password" class="single-tab" style="padding: 10px;">
-	      <p style="padding: 5px;">PASSWORD</p>
-	    </a>
-	  </div>
+		<div class="single-tabs" style="max-width: 580px; margin: auto;">
+		  <a href="/user/{{user.username}}/account/" class="single-tab selected" style="padding: 10px;">
+		    <p style="padding: 5px;">DATOS</p>
+		  </a>
+		  <a href="/user/{{user.username}}/account/password" style="padding: 10px;">
+		    <p style="padding: 5px;">PASSWORD</p>
+		  </a>
+		</div>
 		{% endif %}
 
 		<div class="am-profile-box grid-container">
@@ -157,6 +157,8 @@
 		    "private_cdn": false
 		  };
 
+			var context = {{context|json|safe}};
+
 		  $.cloudinary.config(config);
 			var uploaderImage = new APP.UploaderImage($('.uploader-profile'), function(idImage){
         this.$view.find('.upload').show();
@@ -188,11 +190,16 @@
 
 				$.ajax({
 					method: 'POST',
-					url: '/user/' + DataApp.currentUser.username + '/account',
+					url: '/user/' + DataApp.currentUser.username + '/account/update',
 					data: data
 				}).then(function(response) {
-					if(response.status === 200) {
-						window.location.href = DataApp.currentUrl;
+					if (response.status === 200) {
+						var user = response.data.user;
+						if(context) {
+							window.location.href = '/user/' + user.username;
+						}else {
+							//TODO show flash changed :D;
+						}
 					}
 				});
 			});

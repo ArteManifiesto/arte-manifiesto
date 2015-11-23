@@ -47,14 +47,6 @@ exports.store = function (req, res) {
   return getData(req, res, {method: 'getProducts', name: 'products'}, query);
 };
 
-exports.likesWorks = function (req, res) {
-    return getData(req, res, {method: 'getWorkLikes', name: 'works'}, {addUser: true});
-};
-
-exports.likesProducts = function (req, res) {
-    return getData(req, res, {method: 'getProductLikes', name: 'products'}, {addUser: true});
-};
-
 exports.collections = function (req, res) {
   var query = req.owner ? {addUser: true} : {addUser: true, where:{public:true}};
   return getData(req, res, {method: 'getCollections', name: 'collections'}, query);

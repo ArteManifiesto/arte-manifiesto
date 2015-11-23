@@ -9,6 +9,7 @@ var express = require('express');
  * ====================================================
  */
 global.cf = require('./config/config');
+global.lg = require('./config/languages/es');
 global.md = require('./config/middlewares');
 global.db = require('./config/sequelize');
 global.utils = require('./config/utils');
