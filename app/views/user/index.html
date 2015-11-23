@@ -220,29 +220,10 @@
 	<div class="discover-content followings-wrapper  grid-container u-padding-top-10 u-padding-bottom-70
 		{% if currentPath !== 'followings' %} hide {% endif %}">
 		<div class="grid-100 grid-parent">
-
-
-
-			<div class="empty-box" style="max-width: 500px;">
-				<div class="empty-box-column right">
-
-					<i class="bi_interface-minimize"></i>
-
-					<p class="title u-margin-top-20">Algunos somos lobos esteparios</p>
-					<p class="subtitle u-margin-top-20">No tiene nada de malo, <br> pero es más divertido seguir a us artistas favoritos.</p>
-
-					<a href="#" class="subtitle u-margin-top-20">¿Porqúe seguir a más artistas?</a>
-
-					<!-- <a href="#" class="u-margin-top-20"><i class="bi_media-image-d"></i>&nbsp;&nbsp;BUSCAR ARCHIVO</a> -->
-					<a href="#" class="u-margin-top-30 button"><i class="bi_web-share-b"></i>&nbsp;&nbsp;DESCUBRIR ARTISTAS</a>
-				</div>
-			</div>
-
 			{% if owner %}
 				<!-- <p class="empty-profile-text bare-message empty-message hide u-margin-top-30">Aún no sigues a ningun artista <br><br>
 					<a href="/users/specialty/all/page-1?order=popularity">Descubre y empieza a seguir tu primer artista</a>
 				</p> -->
-
 				<div class="empty-box bare-message hide">
 					<div class="empty-box-column left">
 						<div class="plus-container">
@@ -258,7 +239,16 @@
 					</div>
 				</div>
 			{% else %}
-			<p class="empty-profile-text bare-message empty-message hide u-margin-top-30">{{profile.fullname}} no sigue a nadie<br><br></p>
+				<!-- <p class="empty-profile-text bare-message empty-message hide u-margin-top-30">{{profile.fullname}} no sigue a nadie<br><br></p> -->
+				<div class="empty-box bare-message hide" style="max-width: 500px;">
+					<div class="empty-box-column right">
+						<i class="bi_interface-minimize"></i>
+						<p class="title u-margin-top-20">Algunos somos lobos esteparios</p>
+						<p class="subtitle u-margin-top-20">No tiene nada de malo, <br> pero es más divertido seguir a us artistas favoritos.</p>
+						<a href="#" class="subtitle u-margin-top-20">¿Porqúe seguir a más artistas?</a>
+						<a href="#" class="u-margin-top-30 button"><i class="bi_web-share-b"></i>&nbsp;&nbsp;DESCUBRIR ARTISTAS</a>
+					</div>
+				</div>
 			{% endif %}
       <div class="grid followings-container work-layout-discover">
 				<div class="grid-sizer"></div>
@@ -271,52 +261,35 @@
 		{% if currentPath !== 'followers' %} hide {% endif %}">
 		<div class="grid-100 grid-parent">
 
-			<div class="empty-box">
-				<div class="empty-box-column left">
-					<div class="plus-container">
-						<i class="bi_interface-minimize"></i>
-					</div>
-				</div>
-				<div class="empty-box-column right">
-
-					<i class="bi_interface-minimize"></i>
-
-					<p class="title u-margin-top-20">Compartir es amar</p>
-					<p class="subtitle u-margin-top-20">Comparte tu portafolio para <br> dar a conocer tu talento al mundo</p>
-
-					<a href="#" class="subtitle u-margin-top-20">Saber más sobre cómo difundir tu portafolio</a>
-
-					<!-- <a href="#" class="u-margin-top-20"><i class="bi_media-image-d"></i>&nbsp;&nbsp;BUSCAR ARCHIVO</a> -->
-					<a href="#" class="u-margin-top-30 button"><i class="bi_web-share-b"></i>&nbsp;&nbsp;COMPARTIR PERFIL</a>
-				</div>
-			</div>
-
-			<div class="empty-box" style="max-width: 500px;">
-				<!-- <div class="empty-box-column left">
-					<div class="plus-container">
-						<i class="bi_interface-minimize"></i>
-					</div>
-				</div> -->
-				<div class="empty-box-column right">
-
-					<i class="bi_interface-minimize"></i>
-
-					<p class="title u-margin-top-20">Este usuario aún no tiene seguidores</p>
-					<p class="subtitle u-margin-top-20">Pero tu puedes ser el primero en seguirlo. <br> Quien sabe quizas es el comienzo de algo grande.</p>
-
-					<a href="#" class="subtitle u-margin-top-20">Saber más sobre cómo difundir tu portafolio</a>
-
-					<!-- <a href="#" class="u-margin-top-20"><i class="bi_media-image-d"></i>&nbsp;&nbsp;BUSCAR ARCHIVO</a> -->
-					<a href="#" class="u-margin-top-30 button"><i class="bi_web-share-b"></i>&nbsp;&nbsp;COMPARTIR PERFIL</a>
-				</div>
-			</div>
-
 			{% if owner %}
-			<p class="empty-profile-text bare-message empty-message hide u-margin-top-30">Este usuario aún no tiene seguidores<br><br>
-				<a href="/users/specialty/all/page-1?order=popularity">Descubre y empieza a seguir tu primer artista</a>
-			</p>
+				<!-- <p class="empty-profile-text bare-message empty-message hide u-margin-top-30">Este usuario aún no tiene seguidores<br><br>
+					<a href="/users/specialty/all/page-1?order=popularity">Descubre y empieza a seguir tu primer artista</a>
+				</p> -->
+				<div class="empty-box bare-message hide">
+					<div class="empty-box-column left">
+						<div class="plus-container">
+							<i class="bi_interface-minimize"></i>
+						</div>
+					</div>
+					<div class="empty-box-column right">
+						<i class="bi_interface-minimize"></i>
+						<p class="title u-margin-top-20">Compartir es amar</p>
+						<p class="subtitle u-margin-top-20">Comparte tu portafolio para <br> dar a conocer tu talento al mundo</p>
+						<a href="#" class="subtitle u-margin-top-20">Saber más sobre cómo difundir tu portafolio</a>
+						<a href="#" class="u-margin-top-30 button"><i class="bi_web-share-b"></i>&nbsp;&nbsp;COMPARTIR PERFIL</a>
+					</div>
+				</div>
 			{% else %}
-			<p class="empty-profile-text bare-message empty-message hide u-margin-top-30">{{profile.fullname}} no sigue a nadie<br><br></p>
+				<!-- <p class="empty-profile-text bare-message empty-message hide u-margin-top-30">{{profile.fullname}} no sigue a nadie<br><br></p> -->
+				<div class="empty-box bare-message hide" style="max-width: 500px;">
+					<div class="empty-box-column right">
+						<i class="bi_interface-minimize"></i>
+						<p class="title u-margin-top-20">Este usuario aún no tiene seguidores</p>
+						<p class="subtitle u-margin-top-20">Pero tu puedes ser el primero en seguirlo. <br> Quien sabe quizas es el comienzo de algo grande.</p>
+						<a href="#" class="subtitle u-margin-top-20">Saber más sobre cómo difundir tu portafolio</a>
+						<a href="#" class="u-margin-top-30 button"><i class="bi_web-share-b"></i>&nbsp;&nbsp;COMPARTIR PERFIL</a>
+					</div>
+				</div>
 			{% endif %}
       <div class="grid followers-container work-layout-discover">
 				<div class="grid-sizer"></div>

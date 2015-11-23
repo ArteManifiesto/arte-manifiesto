@@ -2,7 +2,8 @@
   <div class="grid-item">
     <div class="work-card">
       <% if(!public) { %>
-        <div class="lock"><i class="bi_user-lock"></i></div>
+        {# <div class="lock"><i class="bi_user-lock"></i></div> #}
+        <div class="private">PRIVADO</div>
       <% } %>
       <% if (viewer && viewer.isAdmin) { %>
         <div class="featured <% if (!featured) { %>disabled<% } %>">AM</div>
@@ -11,7 +12,6 @@
           <div class="featured">AM</div>
         <% } %>
       <% } %>
-
 
       <% if (viewer && viewer.isAdmin) { %>
         {# <div class="delete"><i class="bi_editorial-trash-a-l"></i></div> #}
@@ -62,8 +62,6 @@
         </div>
 
       <% } %>
-
-      <div class="private">PRIVADO</div>
 
       <a href="/user/<%=User.username%>/work/<%=nameSlugify%>">
         <img src="<%= addFilter(photo, 'w_300,d_am_avatar.jpg') %>">
