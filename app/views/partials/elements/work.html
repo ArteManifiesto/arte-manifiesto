@@ -15,7 +15,11 @@
       <% if (viewer && viewer.isAdmin) { %>
         <div class="delete"><i class="bi_editorial-trash-a-l"></i></div>
         <div class="confirm delete-confirm hide">
-          <span>borrar?</span>
+          <% if (context && context === 'single-collection') { %>
+            <span>borrar de coleccion?</span>
+          <% } else { %>
+            <span>borrar?</span>
+          <% } %>
           <i class="bi_interface-box-tick delete-force" style="display: inline;"></i>
           <i class="bi_interface-box-cross cancel" style="display: inline;"></i>
         </div>

@@ -44,8 +44,7 @@ exports.index = function (currentPath, req, res) {
 exports.add = function (req, res) {
   var cloudinary_cors = "http://" + req.headers.host + "/cloudinary_cors.html";
     global.db.Category.findAll().then(function (categories) {
-        return res.render(basePath + 'add-edit', {
-        mode:'add',
+        return res.render(basePath + 'add', {
         categories: categories,
         cloudinary_cors: cloudinary_cors,
         cloudinary: cloudinary
@@ -98,18 +97,17 @@ exports.edit = function (req, res) {
   var cloudinary_cors = "http://" + req.headers.host + "/cloudinary_cors.html";
   var promises = [
     global.db.Category.findAll(),
-    req.work.getCategories(),
+    req.work.getCategory(),
     req.work.getTags()
   ];
   global.db.Sequelize.Promise.all(promises).then(function (result) {
-      return res.render(basePath + 'add-edit', {
-        mode:'edit',
+      return res.render(basePath + 'edit', {
         work:req.work,
-      categories: result[0],
-      workCategories: result[1],
-      tags: _.pluck(result[2], 'name'),
-      cloudinary_cors: cloudinary_cors,
-      cloudinary: cloudinary
+        categories: result[0],
+        category: result[1],
+        tags: _.pluck(result[2], 'name'),
+        cloudinary_cors: cloudinary_cors,
+        cloudinary: cloudinary
     });
   });
 };

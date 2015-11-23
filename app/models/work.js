@@ -9,8 +9,20 @@ module.exports = function (sequelize, DataTypes) {
             name: {
                 type: DataTypes.STRING,
                 set: function (value) {
-                  this.setDataValue('nameSlugify', global.slugify(value + '-' + moment().format('DDMMYYhhmmss')));
-                    this.setDataValue('name', value);
+                  var time = moment().format('DDMMYYhhmmss');
+                  var nSlugifyTemp = this.getDataValue('nameSlugify');
+                  if (nSlugifyTemp) {
+                    var nSlugify = nSlugifyTemp.split('-');
+                    var nSlugifyTime = parseInt(nSlugify[nSlugify.length - 1], 10);
+                    if(_.isNumber(nSlugifyTime)) {
+                      this.setDataValue('nameSlugify', global.slugify(value + '-' + nSlugifyTime));
+                    } else {
+                      this.setDataValue('nameSlugify', global.slugify(value + '-' + time));
+                    }
+                  } else {
+                    this.setDataValue('nameSlugify', global.slugify(value + '-' + time));
+                  }
+                  this.setDataValue('name', value);
                 }
             },
             nameSlugify: DataTypes.STRING,

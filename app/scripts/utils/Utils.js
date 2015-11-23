@@ -72,7 +72,6 @@ Utils = {
         return APP.RestClientManager.instance.execute(params);
     },
     changeUrl: function(page, url) {
-        document.title = page;
        if (typeof (history.pushState) != 'undefined') {
            var tempUrl = {page: page, url: url};
            history.pushState(tempUrl, tempUrl.page, tempUrl.url);

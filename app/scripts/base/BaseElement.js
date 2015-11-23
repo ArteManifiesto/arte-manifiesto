@@ -4,7 +4,8 @@
  */
 var APP = APP || {};
     APP.BaseElement = function (data, id, options) {
-    this.options = options || {};
+    console.log(options);
+    this.options = options || {context: 'normal'};
     this.template = APP.TemplateManager.instance.getFromDoc(id);
     this.data = data;
     this.id = id;
@@ -17,7 +18,7 @@ var APP = APP || {};
     };
     _.extend(this.data, this.options);
     _.extend(this.data, viewHelpers);
-
+    console.log(this.data);
     this.view = $(this.template(this.data));
     this.rawView = this.view[0];
     this.listeners();

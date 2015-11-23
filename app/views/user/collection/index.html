@@ -127,7 +127,7 @@
 			public: $( "input[name=public]:checked" ).val() !== undefined,
 			idCollection: collection.id
 		}
-	  $.post(DataApp.currentUser.url + '/collection/update' , payload, function(response){
+	  $.post(DataApp.currentUser.url + '/collection/update' , payload, function(response) {
 			if(response.status === 200) {
 				$('.save').show();
 				$('.save-loading').hide();
@@ -135,7 +135,8 @@
 				var newUrl = '/user/' + collection.User.username + '/collection/' + newCollection.nameSlugify;
 				$('.collection-name').text(newCollection.name);
 				$('.collection-description').text(newCollection.description);
-				Utils.changeUrl('Collection', newUrl);
+				$('#lean_overlay').trigger( "click" );
+				Utils.changeUrl(collection.name, newUrl);
 			}
 		});
 	});

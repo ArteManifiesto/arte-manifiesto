@@ -103,6 +103,7 @@ module.exports = function (sequelize, DataTypes) {
                 buildParts: function (options) {
                     var scope = this, worksQuery = {
                         attributes: ['id', 'name', 'nameSlugify', 'photo'],
+                        where:{public: true},
                         limit: 4
                     };
                     return global.db.Sequelize.Promise.all([
@@ -152,13 +153,15 @@ module.exports = function (sequelize, DataTypes) {
                         return result[0].getDataValue('numOfFollowings');
                     });
                 },
-                numOfWorks: function () {
+                numOfWorks: function (tempQuery) {
+                  tempQuery = tempQuery || {};
                     var scope = this,
                         query = {
                             attributes: [
                                 [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'numOfWorks']
                             ]
                         };
+                    query = _.assign(query, tempQuery);
                     return this.getWorks(query).then(function (result) {
                         return result[0].getDataValue('numOfWorks');
                     });

@@ -6,8 +6,7 @@ var APP = APP || {};
 
 APP.Viewer = function (id, container, navigation, data , options) {
   this.container = container;
-  this.options = options || {};
-
+  this.options = options;
   if (id !== 'carrouselItem') {
     this.setupMasonry();
   }

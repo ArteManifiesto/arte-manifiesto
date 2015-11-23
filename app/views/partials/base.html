@@ -84,21 +84,22 @@
 	<script src="http://imagesloaded.desandro.com/imagesloaded.pkgd.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js"></script>
 	<script src="/jquery.leanModal.min.js"></script>
-
+	<script src='/jquery.tagsinput.js' type='text/javascript'></script>
+	<script src='/jquery.ui.widget.js' type='text/javascript'></script>
+	<script src='/jquery.iframe-transport.js' type='text/javascript'></script>
+	<script src='/jquery.fileupload.js' type='text/javascript'></script>
+	<script src='/jquery.cloudinary.js' type='text/javascript'></script>
 	<script>
 		DataApp.currentUser = {{user|json|safe}} || null;
 		if(DataApp.currentUser !== null)
 			DataApp.currentUser.url = '/user/' + DataApp.currentUser.username;
 
 		$(function() {
-			$.fn.scrollBottom = function() {
-			  return $(document).height() - this.scrollTop() - this.height();
-			};
-				new APP.AM();
-				$('.am-Signin-button').click(function(event) {
-					event.preventDefault();
-					Utils.checkAuthentication();
-				});
+			new APP.AM();
+			$('.am-Signin-button').click(function(event) {
+				event.preventDefault();
+				Utils.checkAuthentication();
+			});
 		});
 	</script>
 

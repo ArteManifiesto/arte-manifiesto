@@ -7,7 +7,7 @@ cloudinary.config();
 exports.profile = function (currentPath, req, res) {
   var publicQuery = req.owner ? {} : {where:{public:true}};
   var promises = [
-      req.profile.numOfWorks(), req.profile.numOfProducts(),
+      req.profile.numOfWorks(publicQuery), req.profile.numOfProducts(),
       req.profile.numOfCollections(publicQuery),
       req.profile.numOfFollowings(),
       req.profile.numOfFollowers()

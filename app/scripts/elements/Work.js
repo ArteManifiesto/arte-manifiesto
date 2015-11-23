@@ -52,5 +52,5 @@ APP.Work.prototype.cancelHandler = function() {
 
 
 APP.Work.prototype.editHandler = function() {
-  location.href = '/user/'+ this.data.User.username +'/work/'+ this.data.nameSlugify +'/published';
+  location.href = '/user/'+ this.data.User.username +'/work/'+ this.data.nameSlugify + '/edit';
 };
