@@ -46,6 +46,9 @@ APP.Filters.prototype.buildFilters = function() {
 	this.filters.categories.unshift({name:'Todo', nameSlugify:'all'});
 	itemRenderer(this.filters.categories, 'category');
 	itemRenderer(this.filters.order, 'order');
+
+	$('.am-Filter-option[data-value='+ this.oldCategory +']').parent().addClass('selected');
+	$('.am-Filter-option[data-value='+ this.oldOrder +']').parent().addClass('selected');
 };
 
 APP.Filters.prototype.listeners = function () {
@@ -107,6 +110,9 @@ APP.Filters.prototype.filterItemHandler = function(meta, event) {
 	var currentFilter = 'current' + filterCapitalized;
 
 	this[currentFilter] = $(event.target).attr('data-value');
+
+	$('.am-Filter-option[data-value='+ this[oldFilter] +']').parent().removeClass('selected');
+	$('.am-Filter-option[data-value='+ this[currentFilter] +']').parent().addClass('selected');
 
 	DataApp.currentUrl = DataApp.currentUrl.replace(this[oldFilter], this[currentFilter]);
 	this[oldFilter] = this[currentFilter];

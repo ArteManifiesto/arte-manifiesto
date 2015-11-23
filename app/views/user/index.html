@@ -104,9 +104,7 @@
 		</div>
 		<div class="grid-100 grid-parent u-margin-top-60">
 			{% if owner %}
-
-			<div class="empty-box">
-
+			<div class="empty-box bare-message">
 				<div class="empty-box-column left">
 					<div class="plus-container">
 						<i class="bi_interface-circle-plus"></i>
@@ -120,18 +118,11 @@
 					<p class="subtitle u-margin-top-20">Pero anímate cualquiera puede crear! <br> Sube un dibujo o una fotografía <br> y comienza tu aventura <br> como artista!</p>
 
 					<a href="#" class="u-margin-top-20"><i class="bi_media-image-d"></i>&nbsp;&nbsp;BUSCAR ARCHIVO</a>
-
 				</div>
-
-
 			</div>
 
-			<p class="empty-profile-text  empty-message hide u-margin-top-30">Aún no tienes ninguna obra <br><br>
-				<a href="/user/{{user.username}}/work/add">Sube tu primera obra</a>
-			</p>
-
 			{% else %}
-			<p class="empty-profile-text  empty-message hide u-margin-top-30">{{profile.fullname}} no ha subido ninguna obra aún<br><br></p>
+			<p class="empty-profile-text bare-message empty-message hide u-margin-top-30">{{profile.fullname}} no ha subido ninguna obra aún<br><br></p>
 			{% endif %}
       <div class="grid portfolio-container work-layout-discover">
 				<div class="grid-sizer"></div>
@@ -144,11 +135,11 @@
 		{% if currentPath !== 'store' %} hide {% endif %}">
 		<div class="grid-100 grid-parent">
 			{% if owner %}
-			<p class="empty-profile-text  empty-message hide u-margin-top-30">Aún no tienes ningun producto <br><br>
+			<p class="empty-profile-text bare-message empty-message hide u-margin-top-30">Aún no tienes ningun producto <br><br>
 				<a href="/user/{{user.username}}/work/add">Sube tu primera obra para ponerla en venta</a>
 			</p>
 			{% else %}
-			<p class="empty-profile-text  empty-message hide u-margin-top-30">{{profile.fullname}} no esta vendiendo ningun product aún<br><br></p>
+			<p class="empty-profile-text bare-message empty-message hide u-margin-top-30">{{profile.fullname}} no esta vendiendo ningun product aún<br><br></p>
 			{% endif %}
       <div class="grid store-container work-layout-discover">
 				<div class="grid-sizer"></div>
@@ -161,10 +152,10 @@
 		{% if currentPath !== 'collections' %} hide {% endif %}">
 		<div class="grid-100 grid-parent">
 			{% if owner %}
-			<p class="empty-profile-text  empty-message hide u-margin-top-30">Aún no tienes ningun colecccion <br><br>
+			<p class="empty-profile-text bare-message empty-message hide u-margin-top-30">Aún no tienes ningun colecccion <br><br>
 			</p>
 			{% else %}
-			<p class="empty-profile-text  empty-message hide u-margin-top-30">{{profile.fullname}} no tiene ninguna coleccion<br><br></p>
+			<p class="empty-profile-text bare-message empty-message hide u-margin-top-30">{{profile.fullname}} no tiene ninguna coleccion<br><br></p>
 			{% endif %}
       <div class="grid collections-container work-layout-discover">
 				<div class="grid-sizer"></div>
@@ -177,11 +168,11 @@
 		{% if currentPath !== 'followings' %} hide {% endif %}">
 		<div class="grid-100 grid-parent">
 			{% if owner %}
-			<p class="empty-profile-text  empty-message hide u-margin-top-30">Aún no sigues a ningun artista <br><br>
+			<p class="empty-profile-text bare-message empty-message hide u-margin-top-30">Aún no sigues a ningun artista <br><br>
 				<a href="/users/specialty/all/page-1?order=popularity">Descubre y empieza a seguir tu primer artista</a>
 			</p>
 			{% else %}
-			<p class="empty-profile-text  empty-message hide u-margin-top-30">{{profile.fullname}} no sigue a nadie<br><br></p>
+			<p class="empty-profile-text bare-message empty-message hide u-margin-top-30">{{profile.fullname}} no sigue a nadie<br><br></p>
 			{% endif %}
       <div class="grid followings-container work-layout-discover">
 				<div class="grid-sizer"></div>
@@ -193,11 +184,11 @@
 		{% if currentPath !== 'followers' %} hide {% endif %}">
 		<div class="grid-100 grid-parent">
 			{% if owner %}
-			<p class="empty-profile-text  empty-message hide u-margin-top-30">Aún no te sigue ningun artista<br><br>
+			<p class="empty-profile-text bare-message empty-message hide u-margin-top-30">Aún no te sigue ningun artista<br><br>
 				<a href="/users/specialty/all/page-1?order=popularity">Descubre y empieza a seguir tu primer artista</a>
 			</p>
 			{% else %}
-			<p class="empty-profile-text  empty-message hide u-margin-top-30">{{profile.fullname}} no sigue a nadie<br><br></p>
+			<p class="empty-profile-text bare-message empty-message hide u-margin-top-30">{{profile.fullname}} no sigue a nadie<br><br></p>
 			{% endif %}
       <div class="grid followers-container work-layout-discover">
 				<div class="grid-sizer"></div>
@@ -306,6 +297,7 @@
 					template = getTemplate(path);
 					paths.push(path);
 					currentViewer = new APP.Viewer(template, $('.' + path +'-container'), 'infinite', null);
+					currentViewer.navigationManager.navigator.needChangeUrl = true;
 					viewers.push(currentViewer);
 				}else {
 					currentViewer = viewers[paths.indexOf(path)]

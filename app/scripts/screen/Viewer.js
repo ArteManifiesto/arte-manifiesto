@@ -68,7 +68,7 @@ APP.Viewer.prototype.listeners = function() {
 };
 
 APP.Viewer.prototype.pageLoadStartHandler = function() {
-  this.container.parent().find('.empty-message').hide();
+  this.container.parent().find('.bare-message').hide();
   this.container.parent().find('.loading').show();
 };
 
@@ -89,7 +89,7 @@ APP.Viewer.prototype.addItems = function(items) {
   if(items.length < 1) {
     this.container.parent().height('auto');
     this.container.parent().find('.loading').hide();
-    this.container.parent().find('.empty-message').show();
+    this.container.parent().find('.bare-message').show();
   }
   var scopetemp = this;
   var i = 0, item , counter = 0, lel = [];

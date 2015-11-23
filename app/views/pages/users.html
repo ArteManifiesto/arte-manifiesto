@@ -45,11 +45,15 @@
 					</div>
 				</div>
 			</div>
-			<div class="text">
-				<p class="am-navigation-text category-text">{{data.filters.currentCategory}}</p>
-				<p class="am-navigation-text order-text">{{data.filters.currentOrder}}</p>
-				<p class="am-navigation-text search-text hide">incas</p>
-				<p class="am-navigation-text featured-text hide">AM</p>
+			<div class="text" style="text-align: center;">
+				<!-- <p class="am-navigation-text category-text">{{data.filters.currentCategory}}</p> -->
+				<span class="am-navigation-text category-text">{{data.filters.currentCategory}}</span>
+				<!-- <span class="am-navigation-text"> > </span> -->
+				<span class="am-navigation-text order-text">{{data.filters.currentOrder}}</span>
+				<!-- <p class="am-navigation-text search-text hide">incas</p> -->
+				<span class="am-navigation-text search-text hide"></span>
+				<!-- <p class="am-navigation-text featured-text hide">AM</p> -->
+				<span class="am-navigation-text featured-text hide"></span>
 			</div>
 			<div class="filter right" data-state="closed">
 				<div class="am-Select">
@@ -68,7 +72,7 @@
 		<div class="grid work-layout-discover">
 			<div class="grid-sizer"></div>
 		</div>
-		<div class="am-search-result empty-message hide">
+		<div class="am-search-result bare-message hide">
 			No se encontraron resultados
 			<br><br>
 			<a href="/users/specialty/all/page-1" class="am-report-link blue" href="">Volver a todas los artistas</a>

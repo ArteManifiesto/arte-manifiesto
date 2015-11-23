@@ -9,7 +9,7 @@ cloudinary.config();
 exports.index = function (req, res) {
     var cloudinary_cors = "http://" + req.headers.host + "/cloudinary_cors.html";
     var promises = [
-      global.db.Category.findAll({appendWork:true}),
+      global.db.Category.findAll(),
       req.user.getInterests()
     ];
 

@@ -49,6 +49,7 @@ var searchHandler = function (entity, req, res) {
 var searchBridge = function (req) {
     var body = {viewer: req.viewer};
     var url = req.protocol + '://' + req.get('host') + req.url;
+    url = url.replace(req.params.page, 'page-1');
     var options = {method: 'POST', body: body, json: true, url: url};
 
     return new Promise(function (resolve, reject) {

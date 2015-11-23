@@ -239,6 +239,7 @@ $(document).ready(function() {
       if(response.status === 200) {
         $('.save-collections-loading').hide();
         $('.save-collections').show();
+        $('#lean_overlay').trigger( "click" );
       }
     });
   });

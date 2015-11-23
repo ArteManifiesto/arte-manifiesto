@@ -28,7 +28,7 @@ exports.profile = function (currentPath, req, res) {
 var getData = function (req, res, options, query) {
     options = _.assign(options, {
         entity: req.profile, association: true,
-        page: req.params.page, limit: 30
+        page: req.params.page, limit: 10
     });
     query = query || {}
     query = _.assign(query, {build: true, viewer: req.viewer});

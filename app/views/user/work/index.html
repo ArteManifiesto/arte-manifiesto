@@ -440,6 +440,10 @@
 					$('.work-category').empty().append(category);
 					var url = '/user/' + element.User.username + '/work/' + newWork.nameSlugify;
 					Utils.changeUrl(DataApp.baseTitle + newWork.name, url);
+
+					$('.save').show();
+					$('.save-loading').hide();
+					$('#lean_overlay').trigger( "click" );
 				}
 			});
 		});

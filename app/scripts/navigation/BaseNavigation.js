@@ -11,6 +11,8 @@ APP.BaseNavigation = function () {
   this.pagesCache = {};
   this.currentPageData;
   this.listeners();
+
+  this.needChangeUrl = false;
 };
 
 APP.BaseNavigation.constructor = APP.BaseNavigation;
@@ -51,7 +53,6 @@ APP.BaseNavigation.prototype.gotoPage = function (next, force) {
 };
 
 APP.BaseNavigation.prototype.afterGetData = function (response) {
-  console.log('response :', response);
   this.currentPage = response.pagination.page;
   this.totalPages = response.pagination.pages;
 
@@ -59,8 +60,9 @@ APP.BaseNavigation.prototype.afterGetData = function (response) {
 
   this.pagesCache[this.currentPage] = response;
   this.currentPageData = response;
-  Utils.changeUrl('lol', response.url);
-
+  if(this.needChangeUrl) {
+    Utils.changeUrl(DataApp.baseTitle, response.url);
+  }
   this.dispatchEvent({type: Events.LOAD_END, data: response});
 };
 

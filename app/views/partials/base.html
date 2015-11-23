@@ -91,6 +91,9 @@
 			DataApp.currentUser.url = '/user/' + DataApp.currentUser.username;
 
 		$(function() {
+			$.fn.scrollBottom = function() {
+			  return $(document).height() - this.scrollTop() - this.height();
+			};
 				new APP.AM();
 				$('.am-Signin-button').click(function(event) {
 					event.preventDefault();

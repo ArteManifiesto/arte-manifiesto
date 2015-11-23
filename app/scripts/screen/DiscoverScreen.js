@@ -84,8 +84,9 @@ APP.DiscoverScreen.prototype.listeners = function() {
 };
 
 APP.DiscoverScreen.prototype.filterChangedHandler = function(event) {
-	if(event.meta)
+	if(event.meta) {		
 		$('.' + event.meta + '-text').text(event.newValue);
+	}
 
 	if(this.filters.term && this.filters.term.length > 0) {
 		$('.search-text').show();
