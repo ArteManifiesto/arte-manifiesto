@@ -653,6 +653,7 @@ body
 
 
 .featured
+	z-index: 1;
 	position absolute
 	top -10px
 	left 5px
@@ -713,6 +714,7 @@ body
 	cursor pointer
 
 .private
+	z-index: 1;
 	background-color #ff6666
 	border-radius 3px
 	font-family 'Montserrat', sans-serif
@@ -725,6 +727,53 @@ body
 	bottom -5px
 	right 5px
 	cursor pointer
+
+.cover-work
+	position absolute
+	top 0
+	bottom 0
+	left 0
+	right 0
+	background rgba(black, .5)
+	display flex
+	.inner
+		margin auto
+		.title
+			font-family 'Montserrat', sans-serif
+			font-weight bold
+			font-size 11px
+			color #ddd
+			letter-spacing 2px
+			text-align center
+			line-height 1.15
+		.options
+			display flex
+			justify-content center
+		.option
+			margin 10px
+			cursor pointer
+			i
+				font-size 1.5em
+				color white
+				border-radius 50%
+				border solid 1px white
+				height 60px
+				width 60px
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				&.color
+					background #ff6666
+					border-color #ff6666
+			p
+				padding-top 10px
+				text-align center
+				font-family 'Montserrat', sans-serif
+				font-weight bold
+				font-size 10px
+				color #eee
+				letter-spacing 1.5px
+
 
 .edit-collection
 	font-size 1.15em

@@ -31,6 +31,23 @@
 
       <div class="private">PRIVADO</div>
 
+      <div class="cover-work">
+        <div class="inner">
+          <p class="title">¿ELIMINAR ESTA OBRA?</p>
+          <div class="options">
+            <div class="option">
+              <i class="color bi_editorial-trash-l"></i>
+              <p>ELIMINAR</p>
+            </div>
+            <div class="option">
+              <i class="bi_interface-forward"></i>
+              <p>VOLVER</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
       <a href="/user/<%=User.username%>/work/<%=nameSlugify%>">
         <img src="<%= addFilter(photo, 'w_300,d_am_avatar.jpg') %>">
       </a>
