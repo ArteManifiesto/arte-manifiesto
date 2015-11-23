@@ -31,12 +31,12 @@ var getData = function (req, res, options, query) {
 }
 
 exports.portfolio = function (req, res) {
-  var query = req.owner ? {addUser: true, all: true} : {addUser: true};
+  var query = req.owner ? {addUser: true} : {addUser: true, where:{public: true}};
   return getData(req, res, {method: 'getWorks', name: 'works'}, query);
 };
 
 exports.collections = function (req, res) {
-  var query = req.owner ? {addUser: true, all: true} : {addUser: true};
+  var query = req.owner ? {addUser: true} : {addUser: true, where:{public: true}};
   return getData(req, res, {method: 'getCollections', name: 'collections'}, query);
 };
 

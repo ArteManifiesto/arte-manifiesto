@@ -321,10 +321,6 @@ global.beforeFind = function (options, fn) {
         options.include = options.include || [];
         options.include.push({model: global.db.User});
     }
-    options.where = options.where || {};
-    if (!options.all) {
-      options.where.public = true;
-    }
     fn(null, options);
 };
 

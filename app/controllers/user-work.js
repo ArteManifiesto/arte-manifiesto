@@ -12,7 +12,7 @@ exports.index = function (currentPath, req, res) {
     ];
     global.db.Sequelize.Promise.all(promises).then(function (result) {
         var query = { where:{id: req.work.id}, include:[global.db.Category],
-          viewer: req.viewer, build: true, addUser: true , all:true
+          viewer: req.viewer, build: true, addUser: true
         }
         global.db.Work.find(query).then(function(work) {
           return res.render(basePath + 'index', {

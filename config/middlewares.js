@@ -74,7 +74,6 @@ exports.userTo = function (req, res, next) {
 
 var entityExists = function (entity, query, req, res, next, method) {
   var temp;
-  query.all = true;
   if(method) {
     temp = req.profile['get' + entity + 's'](query);
   }else {
