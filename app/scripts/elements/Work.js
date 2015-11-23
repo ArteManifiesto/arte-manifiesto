@@ -23,7 +23,7 @@ APP.Work.prototype.listeners = function () {
 };
 
 APP.Work.prototype.deleteHandler = function() {
-  this.view.find('.delete').hide();
+  this.view.find('.delete').parent().hide();
   this.view.find('.delete-confirm').show();
 };
 
@@ -46,7 +46,7 @@ APP.Work.prototype.deleteForceHandler = function() {
 };
 
 APP.Work.prototype.cancelHandler = function() {
-  this.view.find('.delete').show();
+  this.view.find('.delete').parent().show();
   this.view.find('.delete-confirm').hide();
 };
 
