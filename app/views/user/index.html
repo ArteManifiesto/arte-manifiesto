@@ -53,19 +53,19 @@
 			<div class="grid-100">
 				<div class="user-carousel">
 					<div class="am-Profile-menu">
-						<div class="am-Profile-menu-item portfolio">
+						<div class="am-Profile-menu-item portfolio" data-name='portfolio'>
 							<p>PORTAFOLIO</p>
 							<p>{{numbers[0]}}</p>
 						</div>
-						<div class="am-Profile-menu-item collections">
+						<div class="am-Profile-menu-item collections" data-name='collections'>
 							<p>COLECCIONES</p>
 							<p>{{numbers[1]}}</p>
 						</div>
-						<div class="am-Profile-menu-item followings">
+						<div class="am-Profile-menu-item followings" data-name='followings'>
 							<p>SIGUIENDO</p>
 							<p>{{numbers[2]}}</p>
 						</div>
-						<div class="am-Profile-menu-item followers">
+						<div class="am-Profile-menu-item followers" data-name='followers'>
 							<p>SEGUIDORES</p>
 							<p>{{numbers[3]}}</p>
 						</div>
@@ -302,102 +302,105 @@
 
 {% block scripts %}
 	<script>
-		$(document).ready(function() {
-			var owner = {{owner|json|safe}};
-			var user = {{user|json|safe}};
-			if(owner) {
-				$.cloudinary.config({{cloudinary.config()|json|safe}});
-				var uploaderImage = new APP.UploaderImage($('.uploader-cover'), function(idImage){
-			      var filters =  {format:'jpg', width: 1600, crop: "limit", quality: 80};
-						var img = $.cloudinary.image(idImage, filters);
-						img.addClass('am-Profile-banner-img').appendTo(this.$view.find('.preview'));
-						uploaderImage.photo = img.attr('src');
-						$('.save-icon , .cancel-icon').show();
-				});
-			}
-			$('.save-icon').click(function(){
-				$.ajax({
-					method: 'POST',
-					url: DataApp.currentUser.url +'/account/'+ 'update_cover',
-					data: {cover: uploaderImage.photo}
-				}).then(function(response) {
-						user = response.data.user;
-						$('.save-icon , .cancel-icon').hide();
-						$('.upload').show();
-						$('.cloudinary-fileupload').show();
-				});
-			});
-			$('.cancel-icon').click(function(){
-				$('.preview > img').attr('src', user.cover);
-				$('.save-icon , .cancel-icon').hide();
-				$('.upload').show();
-				$('.cloudinary-fileupload').show();
-			});
-			var profile = {{profile|json|safe}};
-			var following = profile.following;
-			$('.am-Follow-button').click(function(event){
-				Utils.checkAuthentication();
-				if(following) {
-					var url = DataApp.currentUser.url + '/unfollow/';
-					$.post(url,{idUser:profile.id}, function (response) {
-						if(response.status === 200) {
-							following = false;
-							$('.am-Follow-button').removeClass('following').text('+Seguir');
-						}
-					});
-				}else {
-					var url = DataApp.currentUser.url + '/follow/';
-					$.post(url,{idUser:profile.id}, function (response) {
-						if(response.status === 200) {
-							following = true;
-							$('.am-Follow-button').addClass('following').text('Siguiendo');
-						}
-					});
-				}
-			});
-			var currentPath = {{currentPath|json|safe}}, template;
-			$('.' + currentPath).addClass('selected');
-			var lastPath = currentPath;
-			$('.store').click(function() {openSection('store');});
-			$('.portfolio').click(function() {openSection('portfolio');});
-			$('.collections').click(function() {openSection('collections');});
-			$('.followings').click(function() {openSection('followings');});
-			$('.followers').click(function() {openSection('followers');});
-			var paths = [currentPath];
-			var openSection = function(path) {
-				$('.' + lastPath).removeClass('selected');
-				$('.' + path).addClass('selected');
-				lastViewer.suspend();
-				var url = '/user/' + profile.username + '/' + (path === 'portfolio' ? '' : path)
-				Utils.changeUrl('tags', url);
-				DataApp.currentUrl = url;
-				$('.' + lastPath + '-wrapper').hide();
-				$('.' + path + '-wrapper').show();
-				lastPath = path;
-				if(paths.indexOf(path) === -1) {
-					template = getTemplate(path);
-					paths.push(path);
-					currentViewer = new APP.Viewer(template, $('.' + path +'-container'), 'infinite', null);
-					currentViewer.navigationManager.navigator.needChangeUrl = true;
-					viewers.push(currentViewer);
-				}else {
-					currentViewer = viewers[paths.indexOf(path)]
-					currentViewer.restart();
-				}
-				lastViewer = currentViewer
-			}
-			var getTemplate = function(path) {
-				var temp = '';
-				if(['followings', 'followers'].indexOf(path) !== -1) temp = 'user';
-				if('portfolio' === path) temp = 'work';
-				if('store' === path) temp = 'product';
-				if('collections' === path) temp = 'collection';
-				return temp;
-			};
-			template = getTemplate(currentPath);
-			var currentViewer = new APP.Viewer(template, $('.'+currentPath +'-container'), 'infinite', null);
-			var lastViewer = currentViewer;
-			var viewers = [currentViewer];
-		});
+		$.cloudinary.config({{cloudinary.config()|json|safe}});
+		var currentPath = {{currentPath|json|safe}};
+		var profile = {{profile|json|safe}};
+		// $(document).ready(function() {
+		// 	if(owner) {
+		// 		var uploaderImage = new APP.UploaderImage($('.uploader-cover'), function(idImage){
+		// 	      var filters =  {format:'jpg', width: 1600, crop: "limit", quality: 80};
+		// 				var img = $.cloudinary.image(idImage, filters);
+		// 				img.addClass('am-Profile-banner-img').appendTo(this.$view.find('.preview'));
+		// 				uploaderImage.photo = img.attr('src');
+		// 				$('.save-icon , .cancel-icon').show();
+		// 		});
+		// 	}
+		// 	$('.save-icon').click(function(){
+		// 		$.ajax({
+		// 			method: 'POST',
+		// 			url: DataApp.currentUser.url +'/account/'+ 'update_cover',
+		// 			data: {cover: uploaderImage.photo}
+		// 		}).then(function(response) {
+		// 				user = response.data.user;
+		// 				$('.save-icon , .cancel-icon').hide();
+		// 				$('.upload').show();
+		// 				$('.cloudinary-fileupload').show();
+		// 		});
+		// 	});
+		// 	$('.cancel-icon').click(function(){
+		// 		$('.preview > img').attr('src', user.cover);
+		// 		$('.save-icon , .cancel-icon').hide();
+		// 		$('.upload').show();
+		// 		$('.cloudinary-fileupload').show();
+		// 	});
+		// 	var profile = {{profile|json|safe}};
+		// 	var following = profile.following;
+		// 	$('.am-Follow-button').click(function(event){
+		// 		Utils.checkAuthentication();
+		// 		if(following) {
+		// 			var url = DataApp.currentUser.url + '/unfollow/';
+		// 			$.post(url,{idUser:profile.id}, function (response) {
+		// 				if(response.status === 200) {
+		// 					following = false;
+		// 					$('.am-Follow-button').removeClass('following').text('+Seguir');
+		// 				}
+		// 			});
+		// 		}else {
+		// 			var url = DataApp.currentUser.url + '/follow/';
+		// 			$.post(url,{idUser:profile.id}, function (response) {
+		// 				if(response.status === 200) {
+		// 					following = true;
+		// 					$('.am-Follow-button').addClass('following').text('Siguiendo');
+		// 				}
+		// 			});
+		// 		}
+		// 	});
+		// 	var currentPath = {{currentPath|json|safe}}, template;
+		// 	$('.' + currentPath).addClass('selected');
+		// 	var lastPath = currentPath;
+		// 	$('.store').click(function() {openSection('store');});
+		// 	$('.portfolio').click(function() {openSection('portfolio');});
+		// 	$('.collections').click(function() {openSection('collections');});
+		// 	$('.followings').click(function() {openSection('followings');});
+		// 	$('.followers').click(function() {openSection('followers');});
+		// 	var paths = [currentPath];
+		// 	var openSection = function(path) {
+		// 		$('.' + lastPath).removeClass('selected');
+		// 		$('.' + path).addClass('selected');
+		// 		lastViewer.suspend();
+		// 		var url = '/user/' + profile.username + '/' + (path === 'portfolio' ? '' : path)
+		// 		Utils.changeUrl('tags', url);
+		// 		DataApp.currentUrl = url;
+		// 		$('.' + lastPath + '-wrapper').hide();
+		// 		$('.' + path + '-wrapper').show();
+		// 		lastPath = path;
+		// 		if(paths.indexOf(path) === -1) {
+		// 			template = getTemplate(path);
+		// 			paths.push(path);
+		// 			currentViewer = new APP.Viewer(template, $('.' + path +'-container'), 'infinite', null);
+		// 			currentViewer.navigationManager.navigator.needChangeUrl = true;
+		// 			viewers.push(currentViewer);
+		// 		}else {
+		// 			currentViewer = viewers[paths.indexOf(path)]
+		// 			currentViewer.restart();
+		// 		}
+		// 		lastViewer = currentViewer
+		// 	}
+		// 	var getTemplate = function(path) {
+		// 		var temp = '';
+		// 		if(['followings', 'followers'].indexOf(path) !== -1) temp = 'user';
+		// 		if('portfolio' === path) temp = 'work';
+		// 		if('store' === path) temp = 'product';
+		// 		if('collections' === path) temp = 'collection';
+		// 		return temp;
+		// 	};
+		// 	template = getTemplate(currentPath);
+		// 	var currentViewer = new APP.Viewer(template, $('.'+currentPath +'-container'), 'infinite', null);
+		// 	var lastViewer = currentViewer;
+		// 	var viewers = [currentViewer];
+		// });
+		$(function(){
+			new APP.ProfileScreen();
+		})
 	</script>
 {% endblock %}

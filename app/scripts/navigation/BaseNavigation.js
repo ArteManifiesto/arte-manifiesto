@@ -60,13 +60,14 @@ APP.BaseNavigation.prototype.afterGetData = function (response) {
 
   this.pagesCache[this.currentPage] = response;
   this.currentPageData = response;
-  if(this.needChangeUrl) {
-    Utils.changeUrl(DataApp.baseTitle, response.url);
-  }
+  // if(this.needChangeUrl) {
+  //   Utils.changeUrl(DataApp.baseTitle, response.url);
+  // }
   this.dispatchEvent({type: Events.LOAD_END, data: response});
 };
 
 APP.BaseNavigation.prototype.newPageUrl = function (newPage) {
+  console.log(DataApp.currentUrl);
   DataApp.currentUrl = DataApp.currentUrl.replace(/\/$/g, '');
   if(DataApp.currentUrl.indexOf('/page-') === -1)
     DataApp.currentUrl += '/page-'  + this.currentPage;

