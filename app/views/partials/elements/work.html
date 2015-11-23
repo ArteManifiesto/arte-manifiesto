@@ -2,7 +2,7 @@
   <div class="grid-item">
     <div class="work-card">
       <% if(!public) { %>
-        <div class="lock"><i class="bi_user-lock"></i></div>
+        <div class="private">PRIVADO</div>
       <% } %>
       <% if (viewer && viewer.isAdmin) { %>
         <div class="featured <% if (!featured) { %>disabled<% } %>">AM</div>
@@ -29,9 +29,8 @@
         <div class="edit"><i class="bi_editorial-compose"></i></div>
       <% } %>
 
-      <div class="private">PRIVADO</div>
 
-      <div class="cover-work">
+      <!-- <div class="cover-work">
         <div class="inner">
           <p class="title">¿ELIMINAR ESTA OBRA?</p>
           <div class="options">
@@ -45,7 +44,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
 
       <a href="/user/<%=User.username%>/work/<%=nameSlugify%>">

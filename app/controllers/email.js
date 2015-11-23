@@ -5,9 +5,8 @@ var emailTemplates = require('email-templates');
 var mg = require('nodemailer-mailgun-transport');
 var Promise = require('bluebird');
 
-// This is your API key that you retrieve from www.mailgun.com/cp (free up to 10K monthly emails)
-
-exports.send = function (locals, view) {
+exports.send = function (req, locals, view) {
+  locals.baseUrl = req.protocol + '://' + req.get('host');
     return new Promise(function (resolve, reject) {
         emailTemplates(templatesDir, function (err, template) {
             if (err) {
@@ -25,8 +24,8 @@ exports.send = function (locals, view) {
                         reject(err);
                     } else {
                         transport.sendMail({
-                            from: locals.from,
-                            to: locals.to,
+                            from: 'Arte Manifiesto <contacto@artemanifiesto.com>',
+                            to: locals.to.email,
                             subject: locals.subject,
                             html: html
                         }, function (err, responseStatus) {

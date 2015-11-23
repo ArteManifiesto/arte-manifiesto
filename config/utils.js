@@ -43,21 +43,21 @@ global.getStoreCollection = function (user) {
     });
 };
 
-global.nameSlugify = function(scope, value) {
-  var time = moment().format('DDMMYYhhmmss');
-  var nSlugifyTemp = scope.getDataValue('nameSlugify');
-  if (nSlugifyTemp) {
-    var nSlugify = nSlugifyTemp.split('-');
-    var nSlugifyTime = parseInt(nSlugify[nSlugify.length - 1], 10);
-    if(_.isNumber(nSlugifyTime)) {
-      scope.setDataValue('nameSlugify', global.slugify(value + '-' + nSlugifyTime));
+global.nameSlugify = function (scope, value) {
+    var time = moment().format('DDMMYYhhmmss');
+    var nSlugifyTemp = scope.getDataValue('nameSlugify');
+    if (nSlugifyTemp) {
+        var nSlugify = nSlugifyTemp.split('-');
+        var nSlugifyTime = parseInt(nSlugify[nSlugify.length - 1], 10);
+        if (_.isNumber(nSlugifyTime)) {
+            scope.setDataValue('nameSlugify', global.slugify(value + '-' + nSlugifyTime));
+        } else {
+            scope.setDataValue('nameSlugify', global.slugify(value + '-' + time));
+        }
     } else {
-      scope.setDataValue('nameSlugify', global.slugify(value + '-' + time));
+        scope.setDataValue('nameSlugify', global.slugify(value + '-' + time));
     }
-  } else {
-    scope.setDataValue('nameSlugify', global.slugify(value + '-' + time));
-  }
-  scope.setDataValue('name', value);
+    scope.setDataValue('name', value);
 }
 global.slugify = function (text) {
     return text.toString().toLowerCase()
@@ -94,68 +94,74 @@ global.discoverGenerator = function (entity, req) {
         };
 
     if (req.query.term) {
-        if(entity === 'Work' || entity === 'Product') {
-          if(req.query.term.substring(0, 1) !== '#') {
-            query.where.$and = global.db.sequelize.literal(
-              "MATCH(name, description) AGAINST('"+ req.query.term +"' IN BOOLEAN MODE)"
-            );
-          }
-
-          if(req.query.term.substring(0, 1) === '#') {
-            if(req.params.value !== 'all') {
-                query.include = [{model: global.db.Category, where:{nameSlugify: req.params.value}}]
+        if (entity === 'Work' || entity === 'Product') {
+            if (req.query.term.substring(0, 1) !== '#') {
+                query.where.$and = global.db.sequelize.literal(
+                    "MATCH(name, description) AGAINST('" + req.query.term + "' IN BOOLEAN MODE)"
+                );
             }
-          }
+
+            if (req.query.term.substring(0, 1) === '#') {
+                if (req.params.value !== 'all') {
+                    query.include = [{model: global.db.Category, where: {nameSlugify: req.params.value}}]
+                }
+            }
         }
-        if(entity === 'User') {
-          query.where.$and = global.db.sequelize.literal(
-            "MATCH(firstname, lastname, username) AGAINST('"+ req.query.term +"' IN BOOLEAN MODE)"
-          );
+        if (entity === 'User') {
+            query.where.$and = global.db.sequelize.literal(
+                "MATCH(firstname, lastname, username) AGAINST('" + req.query.term + "' IN BOOLEAN MODE)"
+            );
         }
-        if(entity === 'Collection') {
-          query.where.$and = global.db.sequelize.literal(
-            "MATCH(name, description) AGAINST('"+ req.query.term +"' IN BOOLEAN MODE)"
-          );
+        if (entity === 'Collection') {
+            query.where.$and = global.db.sequelize.literal(
+                "MATCH(name, description) AGAINST('" + req.query.term + "' IN BOOLEAN MODE)"
+            );
         }
     }
     return {options: options, query: query};
 }
 
-var beforePagination = function(req, discover) {
-  var isTag = false;
-  console.log('term',req.query.term);
-  var tempEntity = discover.options.entity;
-  discover.options.tempEntity = tempEntity;
-  var query = {where:{nameSlugify: req.params.value}};
-  var tempModel = tempEntity === 'Product' ? 'ProductType' : 'Category';
-  console.log('NO TAG');
-  console.log('PARAMMMMMS');
-  console.log(req.params.value);
-  if(req.query.term && req.query.term.substring(0, 1) === '#') {
-    tempEntity = 'Work';
-    query = {where:{name:req.query.term.substring(1, req.query.term.length) }};
-    tempModel = 'Tag';
-  } else {
-    if(req.params.value === 'all') {
-      return global.getPaginationEntity(discover.options, discover.query);
+var beforePagination = function (req, discover) {
+    var isTag = false;
+    console.log('term', req.query.term);
+    var tempEntity = discover.options.entity;
+    discover.options.tempEntity = tempEntity;
+    var query = {where: {nameSlugify: req.params.value}};
+    var tempModel = tempEntity === 'Product' ? 'ProductType' : 'Category';
+    console.log('NO TAG');
+    console.log('PARAMMMMMS');
+    console.log(req.params.value);
+    if (req.query.term && req.query.term.substring(0, 1) === '#') {
+        tempEntity = 'Work';
+        query = {where: {name: req.query.term.substring(1, req.query.term.length)}};
+        tempModel = 'Tag';
+    } else {
+        if (req.params.value === 'all') {
+            return global.getPaginationEntity(discover.options, discover.query);
+        }
     }
-  }
 
-  return global.db[tempModel].find(query).then(function(model) {
-    if(!model)
-      return global.getPaginationEntity(discover.options, discover.query, true)
+    return global.db[tempModel].find(query).then(function (model) {
+        if (!model)
+            return global.getPaginationEntity(discover.options, discover.query, true)
 
-    var method;
-    switch(tempEntity) {
-      case 'Work':method = 'getWorks';break;
-      case 'User':method = 'getSpecialties';break;
-      case 'Product':method = 'getProducts';break;
-    }
-    discover.options.entity = model;
-    discover.options.method = method;
-    discover.options.association = true;
-    return global.getPaginationEntity(discover.options, discover.query);
-  });
+        var method;
+        switch (tempEntity) {
+            case 'Work':
+                method = 'getWorks';
+                break;
+            case 'User':
+                method = 'getSpecialties';
+                break;
+            case 'Product':
+                method = 'getProducts';
+                break;
+        }
+        discover.options.entity = model;
+        discover.options.method = method;
+        discover.options.association = true;
+        return global.getPaginationEntity(discover.options, discover.query);
+    });
 }
 
 global.searchWorks = function (req) {
@@ -168,6 +174,7 @@ global.searchWorks = function (req) {
 
 global.searchUsers = function (req) {
     var discover = discoverGenerator('User', req);
+    // discover.query.where.public = true;
     discover.query.order.push([global.db.sequelize.col('id')]);
     return beforePagination(req, discover);
 };
@@ -232,25 +239,17 @@ global.getOrder = function (order) {
 };
 
 global.emails = {
-    verify: function (options) {
-        var params = {
-            from: 'Arte Manifiesto <contacto@artemanifiesto.com>',
-            to: options.to,
-            user: options.user,
-            url: options.url,
-            subject: 'Arte Manifiesto - Confirmación de email'
-        };
-        return email.send(params, 'verify').then();
+    verify: function (req, options) {
+        options.subject = 'Arte Manifiesto - Confirmación de email'
+        return email.send(req, options, 'verify').then();
     },
-    forgot: function (options) {
-        var params = {
-            from: 'Arte Manifiesto <contacto@artemanifiesto.com>',
-            to: options.to,
-            user: options.user,
-            url: options.url,
-            subject: 'Arte Manifiesto - Cambio de contraseña'
-        };
-        return email.send(params, 'forgot').then();
+    forgot: function (req, options) {
+        options.subject = 'Arte Manifiesto - Cambio de contraseña'
+        return email.send(req, options, 'forgot').then();
+    },
+    availability: function (req, options) {
+        options.subject = 'Arte Manifiesto - Disponibilidad de Obra'
+        return email.send(req, options, 'availability').then();
     }
 };
 
@@ -259,14 +258,14 @@ global.getPaginationEntity = function (options, query, empty) {
     var pages = global.getPagination(options.page, options.limit);
     query = _.assign(query, {offset: pages.offset, limit: pages.limit});
 
-    if(empty)
-      return {
-        items: [],
-        pagination: {
-          total: 0, page: pages.page, limit: pages.limit,
-          pages: Math.ceil(0 / pages.limit)
-        }
-      };
+    if (empty)
+        return {
+            items: [],
+            pagination: {
+                total: 0, page: pages.page, limit: pages.limit,
+                pages: Math.ceil(0 / pages.limit)
+            }
+        };
 
     var promises = [];
     if (!options.association) {
@@ -324,7 +323,7 @@ global.beforeFind = function (options, fn) {
     fn(null, options);
 };
 
-global.afterFind = function(items, options, fn) {
+global.afterFind = function (items, options, fn) {
     if ((items === null) ||
         (_.isArray(items) && items.length < 1))
         return fn(null, options);

@@ -23,25 +23,23 @@
                             <table width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td class="content-block">
-                                        Hola <strong>{{ to.email }}</strong>.
+                                        Hola <strong>{{ to.fullname }}</strong>.
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="content-block">
-                                        Por favor confirma tu correo haciendo click en link de abajo.
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="content-block">
-                                        Nosotros enviamos informacion acerca de nuestro servicios y es importante un
-                                        correo exacto.
+                                        el usuario
+                                        <a href="{{baseUrl}}/user/{{requester.username}}">{{requester.fullname}}</a>
+                                        a preguntando por la disponibilidad de tu obra
+                                        <a href="{{baseUrl}}/user/{{to.username}}/work/{{work.nameSlugify}}">
+                                          <img src="{{work.photo|addFilter('w_300,q_80,c_limit')}}">
+                                        </a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="content-block" itemprop="handler" itemscope
                                         itemtype="http://schema.org/HttpActionHandler">
-                                        <a href="{{baseUrl}}/auth/verify/{{to.tokenVerifyEmail}}" class="btn-primary" itemprop="url">Confirmar
-                                            correo</a>
+                                        <a href="{{baseUrl}}/user/{{to.username}}" class="btn-primary" itemprop="url">Ver personas que han preguntando por la disponibilidad</a>
                                     </td>
                                 </tr>
                                 <tr>

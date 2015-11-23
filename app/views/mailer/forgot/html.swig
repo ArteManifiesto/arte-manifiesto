@@ -23,7 +23,7 @@
                             <table width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td class="content-block">
-                                        Hola <strong>{{ user }}</strong>.
+                                        Hola <strong>{{ to.email }}</strong>.
                                     </td>
                                 </tr>
                                 <tr>
@@ -39,7 +39,7 @@
                                 <tr>
                                     <td class="content-block" itemprop="handler" itemscope
                                         itemtype="http://schema.org/HttpActionHandler">
-                                        <a href="{{ url }}" class="btn-primary" itemprop="url">Confirmar
+                                        <a href="{{baseUrl}}/auth/reset/{{to.tokenResetPassword}}" class="btn-primary" itemprop="url">Confirmar
                                             contraseña</a>
                                     </td>
                                 </tr>

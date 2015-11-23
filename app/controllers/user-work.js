@@ -256,14 +256,19 @@ exports.private = function (req, res) {
     });
 };
 
-exports.available = function (req, res) {
+exports.availability = function (req, res) {
   req.work.getWorkRequests({where:{id:req.user.id}}).then(function(users) {
-    if (users.length < 1) {
+    req.work.getUser().then(function(user){
       req.work.addWorkRequests(req.user).then(function() {
-        // TODO send email
-        return res.ok({user: users}, 'asked');
+        var params = {
+            to: user,
+            requester: req.user,
+            work: req.work
+        };
+        global.emails.availability(req, params).then(function () {
+          return res.ok({user: users[0]}, 'asked');
+        });
       });
-    }
-    return res.ok({user: users}, 'Already asked');
+    });
   });
 };

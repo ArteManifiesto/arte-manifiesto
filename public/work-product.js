@@ -19,10 +19,10 @@ $(document).ready(function() {
     }
   });
 
-  $('.ask-available').click(function(event) {
+  $('.ask-availability').click(function(event) {
     event.preventDefault();
     Utils.checkAuthentication();
-    var url = DataApp.currentUser.url + '/work/available';
+    var url = DataApp.currentUser.url + '/work/availability';
     $.post(url, {idWork: element.id}, function (response) {
       if(response.status === 200) {
         $('.ask-requester').hide();
@@ -102,7 +102,7 @@ $(document).ready(function() {
 
   new APP.Viewer('carrouselItem', $('.more'), null, more);
   new APP.Viewer('carrouselItem', $('.similar'), null, similar);
-  
+
   $('.am-Follow-button').click(function(event){
     Utils.checkAuthentication();
 

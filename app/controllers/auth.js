@@ -40,13 +40,7 @@ exports.signup = function (req, res) {
 
             var options = {password: req.body.password};
             global.db.User.create(req.body, options).then(function (user) {
-                var params = {
-                    to: user.email, user: user.firstname,
-                    url: req.protocol + '://' + req.get('host') +
-                    '/auth/verify/' + user.tokenVerifyEmail
-                };
-
-                global.emails.verify(params).then(function () {
+                global.emails.verify(req, {to: user}).then(function () {
                     loginUser(req, res, user);
                 });
             });
@@ -182,14 +176,8 @@ exports.forgotCreate = function (req, res) {
     global.db.User.find(query).then(function (user) {
         if (!user)
             return res.badRequest('No existe una cuenta para ' + req.body.email);
-
         user.makeTokenResetPassword().then(function () {
-            var params = {
-                to: user.email,
-                user: user.firstname,
-                url: req.protocol + '://' + req.get('host') + '/auth/reset/' + user.tokenResetPassword
-            };
-            global.emails.forgot(params).then(function () {
+            global.emails.forgot(req, {to: user}).then(function () {
                 return res.ok('Email enviado a ' + user.email);
             });
         });
@@ -226,13 +214,7 @@ exports.resetVerify = function (req, res) {
 };
 
 exports.resend = function (req, res) {
-    var params = {
-        to: req.user.email, user: req.user.firstname,
-        url: req.protocol + '://' + req.get('host') +
-        '/auth/verify/' + req.user.tokenVerifyEmail
-    };
-    console.log(params);
-    global.emails.verify(params).then(function () {
-        return res.ok(null, 'email sent');
-    });
+  global.emails.verify(req, {to: req.user}).then(function () {
+    return res.ok(null, 'email sent');
+  });
 };

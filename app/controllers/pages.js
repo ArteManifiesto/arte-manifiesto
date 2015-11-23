@@ -1,20 +1,21 @@
 var basePath = 'pages/';
 var Promise = require('bluebird');
-var _ = require('lodash');
 var request = require('request');
 
 exports.index = function (req, res) {
-  var query = {where:{featured:true}, limit:4, build:true , addUser:true, viewer:req.viewer};
-  var queryWork = {where:{featured:true}, limit:15, build:true , addUser:true, viewer:req.viewer};
+    var queryUsers = {where: {featured: true}, limit: 4, build: true, addUser: true, viewer: req.viewer};
+    var queryWorks = {where: {featured: true}, limit: 15, build: true, addUser: true, viewer: req.viewer};
+    var promises = [
+        global.db.User.findAll(queryUsers),
+        global.db.Work.findAll(queryWorks)
+    ];
 
-  global.db.User.findAll(query).then(function(users) {
-    global.db.Work.findAll(queryWork).then(function(works) {
-      return res.render('pages/index',{
-        users: users,
-        works: works
-      })
+    return global.db.Sequelize.Promise.all(promises).then(function (result) {
+        return res.render('pages/index', {
+            users: result[0],
+            works: result[1]
+        })
     });
-  });
 };
 
 var searchHandler = function (entity, req, res) {
@@ -32,53 +33,42 @@ var searchHandler = function (entity, req, res) {
         if (currentParams.indexOf(item) == -1)
             delete req.query[item];
 
-    var searchable = _.capitalize(entity);
+    var searchable = global._.capitalize(entity);
     var tempValue = req.params.value;
-    return global["search" + searchable](req).then(function (data) {
+    return global['search' + searchable](req).then(function (data) {
         var query = global.encodeToQuery(req.query);
         data.url = req.protocol + '://' + req.get('host') + req.path + '?' + query;
-        data.url = data.url.replace(tempValue , req.params.value);
+        data.url = data.url.replace(tempValue, req.params.value);
         data.filters = {
-          currentCategory : req.params.value,
-          currentOrder : req.query.order
+            currentCategory: req.params.value,
+            currentOrder: req.query.order
         }
         return res.json(data);
     });
 };
 
 var searchBridge = function (req) {
-    var body = {viewer: req.viewer};
     var url = req.protocol + '://' + req.get('host') + req.url;
     url = url.replace(req.params.page, 'page-1');
-    var options = {method: 'POST', body: body, json: true, url: url};
+
+    var payload = {method: 'POST', url: url, body: {viewer: req.viewer}, json: true};
 
     return new Promise(function (resolve, reject) {
-      request.post(options, function (error, response, body) {
-          resolve(body);
-      });
+        request.post(payload, function (error, response, body) {
+            resolve(body);
+        });
     });
 };
 
 var discover = function (req, entity) {
-    var query = {attributes: ['id', 'name', 'nameSlugify']};
-    var promises = [
-      searchBridge(req)
-    ];
+    var promises = [searchBridge(req)];
+    entity !== 'collections' && promises.push(global.db.Category.findAll());
 
-    if(entity !=='collections') {
-      promises.push(
-        global.db[entity === 'products' ? 'ProductType' : 'Category'].findAll(query)
-      );
-    }
     return global.db.Sequelize.Promise.all(promises).then(function (data) {
-      var order = global.config.search.orders[entity];
-      if(entity !== 'collections') {
-        data[0].filters.categories = data[1];
-      }else {
-        data[0].filters.categories = [];
-      }
-      data[0].filters.order = order;
-      return {data: data[0]};
+        var order = global.config.search.orders[entity];
+        data[0].filters.categories = entity !== 'collections' ? data[1] : [];
+        data[0].filters.order = order;
+        return {data: data[0]};
     });
 };
 
@@ -98,12 +88,6 @@ exports.collections = function (req, res) {
     discover(req, 'collections').then(function (data) {
         return res.render(basePath + 'collections', data);
     });
-};
-
-exports.products = function (req, res) {
-  discover(req, 'products').then(function (data) {
-    return res.render(basePath + 'products', data);
-  });
 };
 
 exports.search = function (entity, req, res) {
