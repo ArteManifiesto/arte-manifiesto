@@ -7,7 +7,7 @@
 				<div class="single-image">
 					<div class="single-image-inner">
 						<img src="{{element.photo|addFilter('w_700,h_800,q_80,c_limit')}}" class="work-photo">
-						<div class="actions u-padding-top-20 u-padding-bottom-20">
+						<div class="actions u-padding-top-20 u-padding-bottom-0">
 							<a class="action {% if element.liked %} active {% endif %}">
 								<div class="like-btn">
 									<i class="icon bi_ecommerce-diamon  valuation"></i>
@@ -15,11 +15,20 @@
 								</div>
 							</a>
 							<a id="go-share-modal" href="#share-modal" class="action">
-									<i class="icon bi_web-share share"></i>
-									<p class="text">COMPARTIR</p>
+								<i class="icon bi_web-share share"></i>
+								<p class="text">COMPARTIR</p>
 							</a>
+							{% if owner %}
+								<a id="go-share-modal" href="#" class="action">
+									<i class="icon bi_editorial-compose"></i>
+									<p class="text">EDITAR</p>
+								</a>
+							{% endif %}
 						</div>
 						<div class="actions-box u-margin-bottom-20 after-like {% if !element.liked %} hide {% endif %}">
+
+							<i class="bi_interface-top arrow"></i>
+
 							<a id="go-collection-modal" href="#collection-modal" >
 								<button class="color-blue bg-gray">AÑADIR A LA COLECCIÓN</button>
 							</a>
@@ -63,7 +72,7 @@
 					<p class="am-Single-text u-margin-top-20">Categoría:</p>
 					<div class='work-category'>
 						<a href='/works/category/{{element.Category.nameSlugify}}/page-1/'>
-							<span class="am-Category-box u-margin-top-7">{{element.Category.name}}</span>
+							<span class="am-Category-box u-margin-top-7 uppercase">{{element.Category.name}}</span>
 						</a>
 					</div>
 					<div class="info-box u-margin-top-25">
@@ -73,7 +82,7 @@
 						<div class="body u-text-center">
 							<div class="ask-requester {% if element.requested %} hide {% endif %}">
 								<p class="title large">Puedes preguntar al artista la disponibilidad</p>
-									<button class="am-View-button expand u-margin-top-20 ask-availability">PREGUNTAR DISPONIBILIDAD</button>
+									<button class="am-View-button expand u-margin-top-20 ask-availability">PREGUNTAR</button>
 									<p class="msg u-padding-top-15 u-padding-bottom-4">Muy pronto la tienda en línea</p>
 							</div>
 							<div class="thanks-requester {% if !element.requested %} hide {% endif %}">
