@@ -102,11 +102,34 @@
 			</p>
 			<div class="u-separator"></div>
 		</div>
-		<div class="grid-100 grid-parent u-margin-top-10">
+		<div class="grid-100 grid-parent u-margin-top-60">
 			{% if owner %}
+
+			<div class="empty-box">
+
+				<div class="empty-box-column left">
+					<div class="plus-container">
+						<i class="bi_interface-circle-plus"></i>
+					</div>
+				</div>
+				<div class="empty-box-column right">
+
+					<i class="bi_interface-circle-plus"></i>
+
+					<p class="title u-margin-top-20">No tienes ninguna obra o creación <br> subida todavía :(</p>
+					<p class="subtitle u-margin-top-20">Pero anímate cualquiera puede crear! <br> Sube un dibujo o una fotografía <br> y comienza tu aventura <br> como artista!</p>
+
+					<a href="#" class="u-margin-top-20"><i class="bi_media-image-d"></i>&nbsp;&nbsp;BUSCAR ARCHIVO</a>
+
+				</div>
+
+
+			</div>
+
 			<p class="empty-profile-text  empty-message hide u-margin-top-30">Aún no tienes ninguna obra <br><br>
 				<a href="/user/{{user.username}}/work/add">Sube tu primera obra</a>
 			</p>
+
 			{% else %}
 			<p class="empty-profile-text  empty-message hide u-margin-top-30">{{profile.fullname}} no ha subido ninguna obra aún<br><br></p>
 			{% endif %}
