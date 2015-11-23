@@ -685,33 +685,33 @@ body
 	// border-radius 3px
 	// cursor pointer
 
-.delete
-	position absolute
-	bottom 10px
-	right 5px
-	color white
-	// background rgba(black, .5)
-	cursor pointer
+// .delete
+// 	position absolute
+// 	bottom 10px
+// 	right 5px
+// 	color white
+// 	// background rgba(black, .5)
+// 	cursor pointer
 
-.confirm
-	position absolute
-	bottom 5px
-	right 5px
-	color white
-	background rgba(black, .5)
-	border-radius 4px
-	padding 5px
-	font-family 'Montserrat', sans-serif
-	span
-		font-size 11px
+// .confirm
+// 	position absolute
+// 	bottom 5px
+// 	right 5px
+// 	color white
+// 	background rgba(black, .5)
+// 	border-radius 4px
+// 	padding 5px
+// 	font-family 'Montserrat', sans-serif
+// 	span
+// 		font-size 11px
 
-.edit
-	font-size 1.15em
-	position absolute
-	top 10px
-	right 5px
-	color white
-	cursor pointer
+// .edit
+// 	font-size 1.15em
+// 	position absolute
+// 	top 10px
+// 	right 5px
+// 	color white
+// 	cursor pointer
 
 .private
 	z-index: 1;
@@ -728,6 +728,7 @@ body
 	right 5px
 	// cursor pointer
 
+
 .cover-work
 	position absolute
 	top 0
@@ -735,7 +736,7 @@ body
 	left 0
 	right 0
 	background rgba(black, .5)
-	display flex
+	display none
 	.inner
 		margin auto
 		.title
@@ -774,6 +775,11 @@ body
 				font-size 10px
 				color #eee
 				letter-spacing 1.5px
+
+
+.work-card:hover
+	.work-options
+		display flex
 
 
 .edit-collection
@@ -3036,3 +3042,11 @@ body
 			font-size 2.5em
 			// color #000
 			color white
+
+
+.private-view
+	background #ddd
+	padding 80px 20px
+	.empty-box
+		background white
+		border none
