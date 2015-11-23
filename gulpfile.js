@@ -7,7 +7,6 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var stylus = require('gulp-stylus');
 var nib = require('nib');
-var nodemon = require('gulp-nodemon');
 
 var paths = {
     jsDir: './app/scripts/**/*.js',

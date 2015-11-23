@@ -16,6 +16,7 @@ global.lift = function (app) {
     });
 };
 
+
 global.config = {
     search: {
         entities: ['works', 'users', 'products', 'collections'],
@@ -42,6 +43,22 @@ global.getStoreCollection = function (user) {
     });
 };
 
+global.nameSlugify = function(scope, value) {
+  var time = moment().format('DDMMYYhhmmss');
+  var nSlugifyTemp = scope.getDataValue('nameSlugify');
+  if (nSlugifyTemp) {
+    var nSlugify = nSlugifyTemp.split('-');
+    var nSlugifyTime = parseInt(nSlugify[nSlugify.length - 1], 10);
+    if(_.isNumber(nSlugifyTime)) {
+      scope.setDataValue('nameSlugify', global.slugify(value + '-' + nSlugifyTime));
+    } else {
+      scope.setDataValue('nameSlugify', global.slugify(value + '-' + time));
+    }
+  } else {
+    scope.setDataValue('nameSlugify', global.slugify(value + '-' + time));
+  }
+  scope.setDataValue('name', value);
+}
 global.slugify = function (text) {
     return text.toString().toLowerCase()
         .replace(/\s+/g, '-')           // Replace spaces with -
@@ -297,3 +314,41 @@ global.replaceAt = function (text, index, character) {
 global.getOnly = function (entity, items) {
     return {};
 };
+
+
+global.beforeFind = function (options, fn) {
+    if (options.addUser) {
+        options.include = options.include || [];
+        options.include.push({model: global.db.User});
+    }
+    options.where = options.where || {};
+    if (!options.all) {
+      options.where.public = true;
+    }
+    fn(null, options);
+};
+
+global.afterFind = function(items, options, fn) {
+    if ((items === null) ||
+        (_.isArray(items) && items.length < 1))
+        return fn(null, options);
+
+    if (options.build) {
+        var promises = [];
+        var addPromise = function (item) {
+            if (options.build)
+                promises.push(item.buildParts(options));
+        };
+
+        if (!_.isArray(items))
+            addPromise(items);
+
+        for (var i = 0; i < items.length; i++)
+            addPromise(items[i]);
+
+        return global.db.Sequelize.Promise.all(promises).then(function () {
+            return fn(null, options);
+        });
+    }
+    return fn(null, options);
+}

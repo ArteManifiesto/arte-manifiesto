@@ -1,28 +1,9 @@
-var _ = require('lodash');
-
-var Chance = require('chance');
-var chance = new Chance();
-var moment =  require('moment');
-
 module.exports = function (sequelize, DataTypes) {
     var Work = sequelize.define('Work', {
             name: {
                 type: DataTypes.STRING,
-                set: function (value) {
-                  var time = moment().format('DDMMYYhhmmss');
-                  var nSlugifyTemp = this.getDataValue('nameSlugify');
-                  if (nSlugifyTemp) {
-                    var nSlugify = nSlugifyTemp.split('-');
-                    var nSlugifyTime = parseInt(nSlugify[nSlugify.length - 1], 10);
-                    if(_.isNumber(nSlugifyTime)) {
-                      this.setDataValue('nameSlugify', global.slugify(value + '-' + nSlugifyTime));
-                    } else {
-                      this.setDataValue('nameSlugify', global.slugify(value + '-' + time));
-                    }
-                  } else {
-                    this.setDataValue('nameSlugify', global.slugify(value + '-' + time));
-                  }
-                  this.setDataValue('name', value);
+                set: function(value) {
+                  global.nameSlugify(this, value);
                 }
             },
             nameSlugify: DataTypes.STRING,
@@ -45,7 +26,6 @@ module.exports = function (sequelize, DataTypes) {
                   Work.belongsToMany(models.Collection, {through: 'CollectionWork'});
 
                   Work.belongsTo(models.Category);
-                  Work.hasMany(models.Product);
                   Work.hasMany(models.Review);
                 }
             },
@@ -120,12 +100,12 @@ module.exports = function (sequelize, DataTypes) {
                     return global.db.Sequelize.Promise.all(promises).then(function (result) {
                         var likes = result[0], followings = result[1];
 
-                        var likesId = _.pluck(likes, 'id');
-                        var followingsId = _.pluck(followings, 'id');
-                        var intersection = _.intersection(likesId, followingsId);
+                        var likesId = global._.pluck(likes, 'id');
+                        var followingsId = global._.pluck(followings, 'id');
+                        var intersection = global._.intersection(likesId, followingsId);
                         var i, friends = [];
                         for (i = 0; i < intersection.length; i++)
-                            friends.push(_.where(followings, {id: intersection[i]})[0]);
+                            friends.push(global._.where(followings, {id: intersection[i]})[0]);
 
                         return friends;
                     });
@@ -176,14 +156,14 @@ module.exports = function (sequelize, DataTypes) {
                   var scope = this, query = {where: {UserId: options.viewer}};
 
                   return this.getCollections(query).then(function (collections) {
-                      var currentIds = _.pluck(collections , 'id');
+                      var currentIds = global._.pluck(collections , 'id');
                       currentIds = currentIds || [];
                       var newIds = options.collections;
-                      var oldCollectionsIds = _.difference(currentIds, newIds);
-                      var newCollectionsIds = _.difference(newIds, currentIds);
+                      var oldCollectionsIds = global._.difference(currentIds, newIds);
+                      var newCollectionsIds = global._.difference(newIds, currentIds);
                       var i, collection, promises = [];
                       for (i = 0; i < oldCollectionsIds.length; i++) {
-                          collection = _.where(collections, {id: oldCollectionsIds[i]})[0];
+                          collection = global._.where(collections, {id: oldCollectionsIds[i]})[0];
                           promises.push(collection.removeWork(scope));
                       }
                       return global.db.Sequelize.Promise.all(promises).then(function (result) {
@@ -193,37 +173,8 @@ module.exports = function (sequelize, DataTypes) {
                 }
             },
             hooks: {
-              beforeFind: function (options, fn) {
-                  if (options.addUser){
-                      options.include = options.include || [];
-                      options.include.push({model: global.db.User});
-                  }
-                  fn(null, options);
-              },
-                afterFind: function (items, options, fn) {
-                    if ((items === null) ||
-                        (_.isArray(items) && items.length < 1))
-                        return fn(null, options);
-
-                    if (options.build) {
-                        var promises = [];
-                        var addPromise = function (item) {
-                            if (options.build)
-                                promises.push(item.buildParts(options));
-                        };
-
-                        if (!_.isArray(items))
-                            addPromise(items);
-
-                        for (var i = 0; i < items.length; i++)
-                            addPromise(items[i]);
-
-                        return global.db.Sequelize.Promise.all(promises).then(function () {
-                            return fn(null, options);
-                        });
-                    }
-                    return fn(null, options);
-                }
+              beforeFind: global.beforeFind,
+              afterFind: global.afterFind
             }
         }
     );

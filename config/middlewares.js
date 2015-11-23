@@ -74,6 +74,7 @@ exports.userTo = function (req, res, next) {
 
 var entityExists = function (entity, query, req, res, next, method) {
   var temp;
+  query.all = true;
   if(method) {
     temp = req.profile['get' + entity + 's'](query);
   }else {
@@ -93,7 +94,7 @@ var entityExists = function (entity, query, req, res, next, method) {
       res.status(401);
       return res.render('errors/401', {url: req.url});
     }
-    
+
     req[entity.toLowerCase()] = element;
     next();
   });

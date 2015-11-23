@@ -281,81 +281,11 @@
 			</div>
 		</div>
 	</div>
-
-	<div id="edit-modal" style="display: none; max-height: 550px; overflow:auto;">
-			<div class="am-upload-work-box grid-container">
-				<p class="main-title">EDITAR OBRA</p>
-				<form class="edit-work-form">
-					<div class="grid-100">
-						<div class="separator">
-							<span class="line"></span><span class="text">IMAGEN DE LA OBRA</span><span class="line"></span>
-						</div>
-						<div class="uploader-work">
-							<div class="profile-imgage">
-								<div class="preview">
-										<img src="{{element.photo|addFilter('w_300,c_limit')}}"/>
-								</div>
-							</div>
-							<div class="preload hide"><i class="fa fa-spinner"></i></div>
-							<button class="button upload u-margin-top-30">BUSCAR ARCHIVO</button>
-						</div>
-						<div class="image-uploader" style="position:relative;">
-							{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:230px;height:55px;top:-70px;left: 105px;" } })}}
-						</div>
-						<div class="separator">
-							<span class="line"></span><span class="text">DATOS DE LA OBRA</span><span class="line"></span>
-						</div>
-						<p class="title">Título de la obra</p>
-						<input name='edit-work-name' value="{{element.name}}" class="input input-modal" type="text" required placeholder="Ingrese el nombre"/>
-					</div>
-
-					<div class="grid-100 mobile-grid-100">
-						<p class="title">Categoría de la obra</p>
-						<select class="input select" required name='edit-work-category'>
-							{% for category in categories %}
-								<option value="{{category.id}}">{{category.name}}</option>
-							{% endfor %}
-						</select>
-					</div>
-
-					<div class="grid-100 mobile-grid-100">
-						<p class="title">Descripcion de la obra</p>
-						<textarea name='edit-work-description' required class='input'placeholder="Descripcion" maxlength='140'>{{element.description}}</textarea>
-					</div>
-
-					<div class="grid-100 mobile-grid-100">
-						<p class="title">Tags de la obra</p>
-						<input name='edit-work-tags' class="input"  value="{{tagsFormat}}" required type="text"/>
-						<div class="separator">
-							<span class="line"></span><span class="text">CARACTERÍSTICAS</span><span class="line"></span>
-						</div>
-						<div class="switch u-margin-top-10">
-							<p class="title">Público</p>
-							<span class="value">On</span>
-							<input type="checkbox" name="edit-work-public" id="public" {% if element.public %} checked {%endif%}/>
-							<label for="public">
-							  <div class="am-Switch-button">
-							  	<i class="fa fa-bars"></i>
-							  </div>
-							</label>
-						</div>
-						<button class="button u-margin-top-30 save" data-color="blue">ACTUALIZAR OBRA</button>
-						<div class="hide save-loading">
-							<button class="button u-margin-top-30" data-color="blue">
-								<i class="load fa fa-spinner"></i>
-							</button>
-						</div>
-					</div>
-				</form>
-			</div>
-	</div>
-
 {% endblock %}
 
 {% block scripts %}
 	<script>
 		var owner = {{owner|json|safe}};
-		var products = {{products|json|safe}};
 		var entity = {{entity|json|safe}};
 		var element = {{element|json|safe}};
 		var currentPath = {{currentPath|json|safe}};

@@ -1,54 +1,42 @@
 var basePath = 'user/';
-var _ = require('lodash');
-var cloudinary = require('cloudinary').v2;
-process.env.CLOUDINARY_URL = 'cloudinary://337494525976864:RQ2MXJev18AjVuf-mSNzdmu2Jsc@hackdudes'
-cloudinary.config();
-
 exports.profile = function (currentPath, req, res) {
-  var publicQuery = req.owner ? {} : {where:{public:true}};
+  var query = req.owner ? {all: true} : {where:{public:true}};
   var promises = [
-      req.profile.numOfWorks(publicQuery), req.profile.numOfProducts(),
-      req.profile.numOfCollections(publicQuery),
+      req.profile.numOfWorks(query),
+      req.profile.numOfCollections(query),
       req.profile.numOfFollowings(),
       req.profile.numOfFollowers()
   ];
-  var cloudinary_cors = "http://" + req.headers.host + "/cloudinary_cors.html";
-  global.db.sequelize.Promise.all(promises).then(function (data) {
+  global.db.sequelize.Promise.all(promises).then(function (numbers) {
       return res.render(basePath + 'index', {
           currentPath: currentPath,
           profile: req.profile,
-          owner: req.owner,
-          data: data,
-          cloudinary_cors: cloudinary_cors,
-          cloudinary: cloudinary
+          numbers: numbers,
+          cloudinary: global.cl,
+          cloudinayCors: global.cl_cors,
       });
   });
 };
 
 var getData = function (req, res, options, query) {
-    options = _.assign(options, {
+    options = global._.assign(options, {
         entity: req.profile, association: true,
         page: req.params.page, limit: 10
     });
     query = query || {}
-    query = _.assign(query, {build: true, viewer: req.viewer});
+    query = global._.assign(query, {build: true, viewer: req.viewer});
     return global.getPaginationEntity(options, query).then(function (result) {
         return res.json(result);
     });
 }
 
 exports.portfolio = function (req, res) {
-  var query = req.owner ? {addUser: true} : {addUser: true, where:{public:true}};
+  var query = req.owner ? {addUser: true, all: true} : {addUser: true};
   return getData(req, res, {method: 'getWorks', name: 'works'}, query);
 };
 
-exports.store = function (req, res) {
-  var query = req.owner ? {addUser: true} : {addUser: true, where:{public:true}};
-  return getData(req, res, {method: 'getProducts', name: 'products'}, query);
-};
-
 exports.collections = function (req, res) {
-  var query = req.owner ? {addUser: true} : {addUser: true, where:{public:true}};
+  var query = req.owner ? {addUser: true, all: true} : {addUser: true};
   return getData(req, res, {method: 'getCollections', name: 'collections'}, query);
 };
 

@@ -8,7 +8,6 @@ var isLoggedAndOwner = [global.md.isLogged, global.md.isOwner];
 router.use(global.md.user);
 
 router.get(['/', '/portfolio'], controller.profile.bind(this, 'portfolio'));
-router.get('/store', controller.profile.bind(this, 'store'));
 router.get('/collections', controller.profile.bind(this, 'collections'));
 router.get('/followers', controller.profile.bind(this, 'followers'));
 router.get('/followings', controller.profile.bind(this, 'followings'));
@@ -24,7 +23,6 @@ router.post('/featured', global.md.isAdmin, global.md.userTo, controller.feature
 router.post('/unfeatured', global.md.isAdmin, global.md.userTo, controller.unFeatured);
 
 router.post(['/:page', '/portfolio/:page'], controller.portfolio);
-router.post('/store/:page', controller.store);
 router.post('/collections/:page', controller.collections);
 router.post('/followers/:page', controller.followers);
 router.post('/followings/:page', controller.followings);

@@ -102,13 +102,7 @@ $(document).ready(function() {
 
   new APP.Viewer('carrouselItem', $('.more'), null, more);
   new APP.Viewer('carrouselItem', $('.similar'), null, similar);
-
-  if(entity === 'work') {
-    for (var i = 0; i <products.length; i++)
-      products[i].entity = 'product';
-    new APP.Viewer('carrouselItem', $('.work-products'), null, products);
-  }
-
+  
   $('.am-Follow-button').click(function(event){
     Utils.checkAuthentication();
 

@@ -16,24 +16,6 @@ module.exports = function (sequelize, DataTypes) {
                     Category.belongsToMany(models.User, {as: 'Specialties', through: 'Specialties'});
                     Category.belongsToMany(models.User, {as: 'Interests', through: 'Interests'});
                     Category.hasMany(models.Work);
-                },
-                isSelected: function (user) {
-                    return global.db.Sequelize.Promise.all([
-                        global.db.Category.findAll(),
-                        user.getSpecialties({attributes: ['id']})
-                    ]).then(function (result) {
-                        var categories = result[0], specialties = result[1];
-                        var categoriesIds = _.pluck(categories, 'id');
-                        var specialtiesIds = _.pluck(specialties, 'id');
-                        var intersection = _.intersection(categoriesIds, specialtiesIds);
-
-                        var i, item;
-                        for (i = 0; i < intersection.length; i++) {
-                            item = _.where(categories, {id: intersection[i]})[0];
-                            item.setDataValue('selected', true);
-                        }
-                        return categories;
-                    })
                 }
             },
             instanceMethods: {

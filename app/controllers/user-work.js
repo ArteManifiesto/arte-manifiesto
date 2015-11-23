@@ -1,26 +1,18 @@
-var cloudinary = require('cloudinary').v2;
-process.env.CLOUDINARY_URL = 'cloudinary://337494525976864:RQ2MXJev18AjVuf-mSNzdmu2Jsc@hackdudes'
-cloudinary.config();
-
 var basePath = 'user/work/';
 
-var _ = require('lodash');
-
 exports.index = function (currentPath, req, res) {
-    var cloudinary_cors = "http://" + req.headers.host + "/cloudinary_cors.html";
     var promises = [
         req.work.save(),
         req.work.userLikes(),
         req.work.more(),
         req.work.similar(req.viewer),
-        req.work.getProducts({build: true, viewer: req.viewer, addUser:true}),
         req.work.getTags(),
         req.work.getReviews({include:[global.db.User]}),
         global.db.Category.findAll()
     ];
     global.db.Sequelize.Promise.all(promises).then(function (result) {
         var query = { where:{id: req.work.id}, include:[global.db.Category],
-          viewer: req.viewer, build: true, addUser: true
+          viewer: req.viewer, build: true, addUser: true , all:true
         }
         global.db.Work.find(query).then(function(work) {
           return res.render(basePath + 'index', {
@@ -29,25 +21,20 @@ exports.index = function (currentPath, req, res) {
               currentPath: currentPath,
               element: work, userLikes: result[1],
               more: result[2], similar: result[3],
-              products: result[4],
-              tags: result[5],
-              tagsFormat: _.pluck(result[5], 'name'),
-              reviews: result[6],
-              categories: result[7],
-              cloudinary_cors: cloudinary_cors,
-              cloudinary: cloudinary
+              tags: result[4],
+              reviews: result[5],
+              categories: result[6]
           });
         });
     });
 };
 
 exports.add = function (req, res) {
-  var cloudinary_cors = "http://" + req.headers.host + "/cloudinary_cors.html";
     global.db.Category.findAll().then(function (categories) {
         return res.render(basePath + 'add', {
         categories: categories,
-        cloudinary_cors: cloudinary_cors,
-        cloudinary: cloudinary
+        cloudinary: global.cl,
+        cloudinayCors: global.cl_cors,
       });
     });
 };
@@ -94,7 +81,6 @@ exports.create = function (req, res) {
 };
 
 exports.edit = function (req, res) {
-  var cloudinary_cors = "http://" + req.headers.host + "/cloudinary_cors.html";
   var promises = [
     global.db.Category.findAll(),
     req.work.getCategory(),
@@ -105,9 +91,9 @@ exports.edit = function (req, res) {
         work:req.work,
         categories: result[0],
         category: result[1],
-        tags: _.pluck(result[2], 'name'),
-        cloudinary_cors: cloudinary_cors,
-        cloudinary: cloudinary
+        tags: global._.pluck(result[2], 'name'),
+        cloudinary: global.cl,
+        cloudinayCors: global.cl_cors,
     });
   });
 };
@@ -159,7 +145,7 @@ exports.sell = function (req, res) {
         return res.render(basePath + 'sell', {
           work: work,
           categories:categories,
-          tags: _.pluck(work.Tags, 'name'),
+          tags: global._.pluck(work.Tags, 'name'),
         });
       });
     });

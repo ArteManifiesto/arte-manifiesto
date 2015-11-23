@@ -11,7 +11,7 @@
 				{% if owner %}
 				<div class="edit-options">
 					<div class="image-uploader" style="position:relative;">
-						{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:50px;height:55px;top:-18px;" } })}}
+						{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinayCors, return_delete_token: true, html: { style: "width:50px;height:55px;top:-18px;" } })}}
 					</div>
 					<i class="bi_tool-camera-b upload edit-icon"></i>
 					<i class="prelaod fa fa-spinner hide preload"></i>
@@ -55,23 +55,19 @@
 					<div class="am-Profile-menu">
 						<div class="am-Profile-menu-item portfolio">
 							<p>PORTAFOLIO</p>
-							<p>{{data[0]}}</p>
+							<p>{{numbers[0]}}</p>
 						</div>
-						<!-- <div class="am-Profile-menu-item store">
-							<p>TIENDA</p>
-							<p>{{data[1]}}</p>
-						</div> -->
 						<div class="am-Profile-menu-item collections">
 							<p>COLECCIONES</p>
-							<p>{{data[2]}}</p>
+							<p>{{numbers[1]}}</p>
 						</div>
 						<div class="am-Profile-menu-item followings">
 							<p>SIGUIENDO</p>
-							<p>{{data[3]}}</p>
+							<p>{{numbers[2]}}</p>
 						</div>
 						<div class="am-Profile-menu-item followers">
 							<p>SEGUIDORES</p>
-							<p>{{data[4]}}</p>
+							<p>{{numbers[3]}}</p>
 						</div>
 					</div>
 				</div>
@@ -200,22 +196,13 @@
 {% endblock %}
 
 {% block scripts %}
-<script src='/jquery.ui.widget.js' type='text/javascript'></script>
-<script src='/jquery.iframe-transport.js' type='text/javascript'></script>
-<script src='/jquery.fileupload.js' type='text/javascript'></script>
-<script src='/jquery.cloudinary.js' type='text/javascript'></script>
 	<script>
 		$(document).ready(function() {
 			var owner = {{owner|json|safe}};
 			var user = {{user|json|safe}};
 
 			if(owner) {
-				var config = {
-					"api_key": "337494525976864",
-					"cloud_name": "hackdudes",
-					"private_cdn": false
-				};
-				$.cloudinary.config(config);
+				$.cloudinary.config({{cloudinary.config()|json|safe}});
 				var uploaderImage = new APP.UploaderImage($('.uploader-cover'), function(idImage){
 			      var filters =  {format:'jpg', width: 1600, crop: "limit", quality: 80};
 						var img = $.cloudinary.image(idImage, filters);
@@ -314,7 +301,6 @@
 				if('collections' === path) temp = 'collection';
 				return temp;
 			};
-
 			template = getTemplate(currentPath);
 			var currentViewer = new APP.Viewer(template, $('.'+currentPath +'-container'), 'infinite', null);
 			var lastViewer = currentViewer;
