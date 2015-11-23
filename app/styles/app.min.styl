@@ -1033,7 +1033,8 @@ body
 		justify-content center
 		padding 30px 0
 		span
-			padding 2px 7px
+			// padding 2px 7px
+			padding 4px 10px
 			background #1f79ed
 			border-radius 17px
 			font-size 10px
@@ -1126,10 +1127,14 @@ body
 		font-size 22px
 		color #3a3d3f
 		padding 30px 0
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		span
 			background #1f79ed
 			border-radius 17px
-			padding 3px 10px
+			// padding 3px 10px
+			padding 4px 10px
 			font-size 10px
 			color white
 	.tags
@@ -3005,6 +3010,12 @@ body
 		flex 2
 		padding 30px 30px
 
+	&-column.padlock
+		flex 2
+		background-size: cover;
+		background-position: center center;
+		display none
+
 	.title
 		font-family: 'Montserrat',sans-serif;
 		font-weight bold
@@ -3049,10 +3060,15 @@ body
 			// color #000
 			color white
 
+@media (min-width: 800px)
+	.empty-box
+		&-column.padlock
+			display block
+
 
 .private-view
 	background #ddd
-	padding 80px 20px
+	padding 80px 20px 200px 20px
 	.empty-box
 		background white
 		border none
