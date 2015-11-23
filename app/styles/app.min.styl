@@ -66,18 +66,25 @@ white = #fff
 .slider
 	// max-width 600px
 	// margin auto
+	position relative
 	&-nav
 		display flex
 		justify-content center
 		padding .5rem
+		position absolute
+		bottom 0
+		left 50%
+		transform translateX(-50%)
 		&-item
 			font-size .6rem
 			color #ddd
+			// color white
 			margin .25rem
 			padding .25rem
 			cursor pointer
 			&.active
 				color #bbb
+				color white
 	&-items
 		white-space nowrap
 		font-size 0
@@ -88,11 +95,39 @@ white = #fff
 		width 100%
 		white-space normal
 		transition transform 700ms ease-out
+
+		// min-height 400px
+		min-height 300px
+		display flex
+		&-inner
+			margin auto
+			padding 20px
 		.title
-			font-size 48px
+			text-align center
+			// font-size 48px
+			font-size 30px
 			font-family: 'Montserrat',sans-serif;
 			font-weight bold
+			color white
+			max-width 650px
+		.subtitle
+			max-width 550px
+			margin auto
+			text-align center
+			// font-size 24px
+			font-size 18px
+			font-family: 'PT Serif', serif;
+			color #cddfe0
+			line-height 1.25
 
+@media (min-width: 900px)
+	.slider
+		&-item
+			min-height 400px
+			.title
+				font-size 48px
+			.subtitle
+				font-size 24px
 
 
 /*------------------------------------*
