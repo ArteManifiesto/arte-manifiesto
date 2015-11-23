@@ -24,7 +24,7 @@ APP.Work.prototype.listeners = function () {
 
 APP.Work.prototype.deleteHandler = function() {
   this.view.find('.delete').parent().hide();
-  this.view.find('.delete-confirm').show();
+  this.view.find('.delete-confirm').show().css('display', 'flex');
 };
 
 APP.Work.prototype.deleteForceHandler = function() {
