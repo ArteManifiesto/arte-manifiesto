@@ -10,7 +10,7 @@ APP.WorkScreen = function () {
 };
 
 APP.WorkScreen.constructor = APP.WorkScreen;
-APP.WorkScreen.prototype = Object.create(APP.BaseScreen.prototype);
+  APP.WorkScreen.prototype = Object.create(APP.BaseScreen.prototype);
 //
 // APP.WorkScreen.prototype.listeners = function () {
 //   APP.BaseScreen.prototype.listeners.call(this);
