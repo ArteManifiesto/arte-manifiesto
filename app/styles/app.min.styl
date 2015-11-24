@@ -1300,6 +1300,8 @@ body
 .am-Profile-menu
 	display flex
 	overflow-x auto
+	&::-webkit-scrollbar
+		display none
 	&-item
 		padding 25px 0
 		width 120px
@@ -2604,14 +2606,18 @@ body
 		bottom 0
 		// transform translateY(-50%)
 		margin 10px 0
-		background rgba(black, .15)
+		// background rgba(black, .15)
+		background linear-gradient(left, rgba(black, 0), rgba(black, .25))
 		color rgba(white, .75)
 		font-size 1.5em
 		cursor pointer
+		padding 0
 	.prevButton
+		padding 0
 		cursor pointer
 		margin 10px 0
-		background rgba(black, .15)
+		// background rgba(black, .15)
+		background linear-gradient(right, rgba(black, 0), rgba(black, .25))
 		color rgba(white, .75)
 		font-size 1.5em
 		position absolute
@@ -2630,12 +2636,14 @@ body
 		min-width: 220px;
 		width 220px
 		height 220px
-		margin 10px
+		margin 10px 5px
 		background-size cover
 		background-position center center
+		// display block
+		> div
+			height 100%
 		&:first-child
 			margin-left 0
-
 
 
 .am-checkout
