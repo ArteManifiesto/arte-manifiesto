@@ -170,17 +170,17 @@
 
 	  <div class="grid-container">
 	    <div class="grid-100">
-	    	<!-- <div class="more-carousel"> -->
+	    	<div class="more-carousel js-more-carousel">
 					<p class="empty-profile-text empty-message bare-message hide u-margin-top-30">El artista no tiene mas obras<br><br>
 						<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
 					</p>
 
-					<!-- <button class="next">next</button>
-					<button class="prev">prev</button> -->
+					<button class="nextButton"><i class="bi_interface-right"></i></button>
+					<button class="prevButton"><i class="bi_interface-left"></i></button>
 
 	        <div class="more-images more">
 	        </div>
-	      <!-- </div> -->
+	      </div>
 	    </div>
 	  </div>
 
@@ -194,19 +194,17 @@
 	  </div>
 	  <div class="grid-container">
 	    <div class="grid-100">
-	      <!-- <div class="more-carousel"> -->
+	      <div class="more-carousel js-similar-carousel">
 					<p class="empty-profile-text empty-message bare-message hide u-margin-top-30">No existen obras relacionadas<br><br>
 						<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
 					</p>
 
+					<button class="nextButton"><i class="bi_interface-right"></i></button>
+					<button class="prevButton"><i class="bi_interface-left"></i></button>
 
-	        <div class="more-images similar">
+	        <div class="more-images similar"></div>
 
-						<button class="nextButton">next</button>
-						<button class="prevButton">prev</button>
-
-	        </div>
-	      <!-- </div> -->
+	      </div>
 	    </div>
 	  </div>
 	</div>
@@ -372,29 +370,49 @@
 			// 	clearInterval(interval)
 			// })
 
-			function Carousel (el) {
-				var nextButton = el.querySelector('.nextButton'),
-						prevButton = el.querySelector('.prevButton'),
-						interval;
+		});
 
-				function setup () {
-					$(nextButton).mousedown(function () {
-						interval = setInterval( function () {
-							el.scrollLeft = el.scrollLeft + 20
-						}, 100)
+
+		function Carousel (el) {
+			var nextButton = el.querySelector('.nextButton'),
+					prevButton = el.querySelector('.prevButton'),
+					carousel = el.querySelector('.more-images'),
+					interval;
+
+			function setup () {
+				$(nextButton).click(function () {
+					// console.log('mousedown!')
+					// $(carousel).animate({
+					// 	scrollLeft: 1000
+					// })
+					// interval = setInterval( function () {
+						// carousel.scrollLeft = carousel.scrollLeft + 20
+						// console.log('animate')
+						$(carousel).animate({
+							scrollLeft: (carousel.scrollLeft + 230)
+						})
+					// }, 100)
+				})
+				$(prevButton).click(function () {
+					// interval = setInterval( function () {
+					// 	carousel.scrollLeft = carousel.scrollLeft - 20
+					// }, 100)
+					$(carousel).animate({
+						scrollLeft: (carousel.scrollLeft - 230)
 					})
+				})
 
-					$(document).mouseup (function () {
-						clearInterval(interval)
-					})
-				}
-
-				setup()
+				// $(document).mouseup (function () {
+				// 	clearInterval(interval)
+				// })
 			}
 
-			var carousel = new Carousel (document.querySelector('.similar'))
+			setup()
+		}
 
-		});
+		var carousel = new Carousel (document.querySelector('.js-more-carousel'))
+		var carousel = new Carousel (document.querySelector('.js-similar-carousel'))
+
 	</script>
 	<script src='/work-product.js'></script>
 {% endblock %}

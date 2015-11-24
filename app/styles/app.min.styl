@@ -2595,12 +2595,37 @@ body
 .more-carousel
 	height: 240px;
 	overflow: hidden;
+	position relative
+	.nextButton
+		position absolute
+		right 0
+		// top 50%
+		top 0
+		bottom 0
+		// transform translateY(-50%)
+		margin 10px 0
+		background rgba(black, .15)
+		color rgba(white, .75)
+		font-size 1.5em
+		cursor pointer
+	.prevButton
+		cursor pointer
+		margin 10px 0
+		background rgba(black, .15)
+		color rgba(white, .75)
+		font-size 1.5em
+		position absolute
+		left 0
+		top 0
+		bottom 0
 
 .more-images
 	display flex
 	// justify-content center
 	// flex-wrap wrap
 	overflow-x auto
+	&::-webkit-scrollbar
+		display none
 	.am-MoreImages
 		min-width: 220px;
 		width 220px
