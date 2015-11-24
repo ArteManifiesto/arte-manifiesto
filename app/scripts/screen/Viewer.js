@@ -108,13 +108,13 @@ APP.Viewer.prototype.addItems = function(items) {
         var $item = $(image.img).parents('.grid-item');
           lel.push($item);
         if(counter === items.length) {
-          scopetemp.container.children().each(function () {
-            $(this).show();
-            scope.masonry('appended', $(this));
+          for(i = 0; i< lel.length; i++) {
+            lel[i].show();
+            scope.masonry('appended',lel[i]);
             if(scopetemp.navigationManager)
               scopetemp.navigationManager.navigator.restart();
             scope.parent().find('.loading').hide();
-          });
+          }
         }
       });
     }
@@ -129,7 +129,6 @@ APP.Viewer.prototype.addItems = function(items) {
       }
       this.container.parent().find('.loading').hide();
     }
-
   }
 };
 

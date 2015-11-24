@@ -15,6 +15,7 @@ $(document).ready(function() {
       $('#lean_overlay').trigger( "click" );
     });
   });
+
   $('.products-item-menu').click(function() {
     if(entity === 'work') {
       $('html, body').animate({
