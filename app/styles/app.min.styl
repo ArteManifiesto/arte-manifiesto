@@ -196,6 +196,52 @@ white = #fff
 body
 	overflow-x hidden
 
+.flash-message
+	position absolute
+	// bottom 0
+	width 250px
+	margin 50px 20px
+	border solid 1px #999
+	border-radius 4px
+	overflow hidden
+	z-index 1
+	background white
+	&.error
+		.top-bar
+			background linear-gradient(left, #9f041b, #f5515f)
+	&.succes
+		.top-bar
+			background linear-gradient(left, #3023ae, #c86dd7)
+	.top-bar
+		height 8px
+	.content
+		padding 20px 10px 10px 10px
+		overflow hidden
+		position relative
+		.closed
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			font-family: 'Montserrat',sans-serif;
+			color #9b9b9b
+			cursor pointer
+		p
+			font-family: 'Montserrat',sans-serif;
+			font-size 12px
+			color charcoal-grey
+			line-height 1.5
+		button
+			font-family: 'Montserrat',sans-serif;
+			font-size 9px
+			color charcoal-grey
+			letter-spacing 1.5px
+			background white
+			padding 6px 7px
+			border solid 1px #c2c2c2
+			float right
+			margin-top 10px
+			cursor pointer
+
 
 /*------------------------------------*
 	$ HEADER
