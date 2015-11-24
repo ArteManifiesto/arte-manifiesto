@@ -4,6 +4,17 @@ $(document).ready(function() {
     $('.social-share').toggle();
   });
 
+  $('.share-fb').click(function(){
+    Utils.share.facebook({
+      link: 'http://google.com',
+      picture: Utils.addImageFilter(element.photo, 'w_1200,h_630,q_60,c_crop'),
+      name: element.name,
+      caption: 'Arte Manifiesto',
+      description: element.description
+    }, function() {
+      $('#lean_overlay').trigger( "click" );
+    });
+  });
   $('.products-item-menu').click(function() {
     if(entity === 'work') {
       $('html, body').animate({
@@ -222,7 +233,6 @@ $(document).ready(function() {
     $('.products-container').hide();
     lastMenuItem = $(this);
   });
-
   $('.save-collections').click(function() {
     $(this).hide();
     $('.save-collections-loading').show();

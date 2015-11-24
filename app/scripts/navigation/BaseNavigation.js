@@ -54,8 +54,11 @@ APP.BaseNavigation.prototype.gotoPage = function (next, force) {
 
 APP.BaseNavigation.prototype.afterGetData = function (response) {
   this.currentPage = response.pagination.page;
-  this.totalPages = response.pagination.pages;
-
+  this.totalPages = response.pagination.pages;    
+  // }, APP.Share.postToTwitter = function (a) {
+  //   var b = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(a.text);
+  //   a.link && (b += "&url=" + encodeURIComponent(a.link)), window.open(b, "_blank", "height=300,width=550,resizable=1")
+  // }
   // if (this.currentPage > response.pagination.pages)return;
 
   this.pagesCache[this.currentPage] = response;
