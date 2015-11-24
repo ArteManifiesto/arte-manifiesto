@@ -1,4 +1,9 @@
 {% extends '../../partials/base.html' %}
+
+{% block styles %}
+	<link rel="stylesheet" type="text/css" href="/css/slick.css"/>
+{% endblock %}
+
 {% block elements %}
 {% set element = element.toJSON() %}
 	<div class="grid-container u-margin-top-30">
@@ -59,7 +64,7 @@
 									<button class="am-Follow-button">+ SEGUIR</button>
 								{% endif %}
 								{% if owner %}
-									<a id="go-edit-modal" href="#edit-modal"><i class="bi_editorial-compose"></i></a>
+									<!-- <a id="go-edit-modal" href="#edit-modal"><i class="bi_editorial-compose"></i></a> -->
 								{% endif %}
 							</div>
 						</div>
@@ -165,13 +170,17 @@
 
 	  <div class="grid-container">
 	    <div class="grid-100">
-	    	<div class="more-carousel">
+	    	<!-- <div class="more-carousel"> -->
 					<p class="empty-profile-text empty-message bare-message hide u-margin-top-30">El artista no tiene mas obras<br><br>
 						<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
 					</p>
+
+					<!-- <button class="next">next</button>
+					<button class="prev">prev</button> -->
+
 	        <div class="more-images more">
 	        </div>
-	      </div>
+	      <!-- </div> -->
 	    </div>
 	  </div>
 
@@ -185,13 +194,19 @@
 	  </div>
 	  <div class="grid-container">
 	    <div class="grid-100">
-	      <div class="more-carousel">
+	      <!-- <div class="more-carousel"> -->
 					<p class="empty-profile-text empty-message bare-message hide u-margin-top-30">No existen obras relacionadas<br><br>
 						<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
 					</p>
+
+
 	        <div class="more-images similar">
+
+						<button class="nextButton">next</button>
+						<button class="prevButton">prev</button>
+
 	        </div>
-	      </div>
+	      <!-- </div> -->
 	    </div>
 	  </div>
 	</div>
@@ -294,18 +309,20 @@
 {% endblock %}
 
 {% block scripts %}
+
+	<script type="text/javascript" src="/slick.js"></script>
+
 	<script>
-	(function (d, s, id) {
-	    var js;
-	    var fjs = d.getElementsByTagName(s)[0];
-	    if (d.getElementById(id)) return;
-	    js = d.createElement(s);
-	    js.id = id;
-	    js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=1473636902857068";
-	    fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));
-	</script>
-	<script>
+		(function (d, s, id) {
+			var js;
+			var fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=1473636902857068";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+
 		var owner = {{owner|json|safe}};
 		var entity = {{entity|json|safe}};
 		var element = {{element|json|safe}};
@@ -313,9 +330,70 @@
 		var reviews = {{reviews|json|safe}};
 		var more = {{more|json|safe}};
 		var similar = {{similar|json|safe}};
+
 		$(function() {
 			$("#go-collection-modal").leanModal();
 			$("#go-share-modal").leanModal();
+
+			// setTimeout(function () {
+			// 	$('.your-class').slick({
+			// 		// dots: true,
+			// 		infinite: true,
+			// 		// speed: 300,
+			// 		// slidesToShow: 1,
+			// 		// centerMode: true,
+			// 		variableWidth: true
+			// 		// slidesToShow: 2,
+			// 		// slidesToScroll: 1
+			// 	});
+			// }, 1000)
+
+			// var similar = document.querySelector('.similar')
+			// var next = document.querySelector('.next')
+			// var prev = document.querySelector('.prev')
+
+			// var interval
+
+			// $('.next').mousedown( function () {
+			// 	interval = setInterval( function () {
+			// 		similar.scrollLeft = similar.scrollLeft + 20
+			// 	}, 100)
+			// })
+
+			// $('.prev').mousedown( function () {
+			// 	interval = setInterval( function () {
+			// 		similar.scrollLeft = similar.scrollLeft - 20
+			// 	}, 100)
+
+			// })
+
+			// $(document).mouseup (function () {
+			// 	console.log('mouseup')
+			// 	clearInterval(interval)
+			// })
+
+			function Carousel (el) {
+				var nextButton = el.querySelector('.nextButton'),
+						prevButton = el.querySelector('.prevButton'),
+						interval;
+
+				function setup () {
+					$(nextButton).mousedown(function () {
+						interval = setInterval( function () {
+							el.scrollLeft = el.scrollLeft + 20
+						}, 100)
+					})
+
+					$(document).mouseup (function () {
+						clearInterval(interval)
+					})
+				}
+
+				setup()
+			}
+
+			var carousel = new Carousel (document.querySelector('.similar'))
+
 		});
 	</script>
 	<script src='/work-product.js'></script>

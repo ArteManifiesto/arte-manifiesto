@@ -1,4 +1,4 @@
-/**
+ /**
  *Author : www.juliocanares.com/cv
  *Email : juliocanares@gmail.com
  */
@@ -6,6 +6,7 @@ var APP = APP || {};
       APP.BaseElement = function (data, id, options) {
     console.log(options);
     this.options = options || {context: 'normal'};
+
     this.template = APP.TemplateManager.instance.getFromDoc(id);
     this.data = data;
     this.id = id;

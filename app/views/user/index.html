@@ -119,52 +119,27 @@
 		</div>
 		<div class="grid-100 grid-parent u-margin-top-10">
 
-			<!-- <div class="empty-box" style="max-width: 500px;">
-				<div class="empty-box-column right">
-					<i class="bi_interface-circle-plus"></i>
-					<p class="title u-margin-top-20">No se han subido obras todavía</p>
-					<p class="subtitle u-margin-top-20">Pero el proceso creativo puede suceder <br> en cualquier momento y en cualquier lugar <br><br> Esperemos que pronto</p>
-					<a href="#" class="subtitle u-margin-top-20">Saber mas sobre subir obras</a>
-				</div>
-			</div> -->
-
 			{% if owner %}
-			<!-- <div class="empty-box bare-message hide">
-				<div class="empty-box-column left">
-					<div class="plus-container">
-						<i class="bi_interface-circle-plus"></i>
-					</div>
-				</div>
-				<div class="empty-box-column right">
-
-					<i class="bi_interface-circle-plus"></i>
-
-					<p class="title u-margin-top-20">No tienes ninguna obra o creación <br> subida todavía :(</p>
-					<p class="subtitle u-margin-top-20">Pero anímate cualquiera puede crear! <br> Sube un dibujo o una fotografía <br> y comienza tu aventura <br> como artista!</p>
-
-					<a href="#" class="u-margin-top-20"><i class="bi_media-image-d"></i>&nbsp;&nbsp;BUSCAR ARCHIVO</a>
-				</div>
-			</div> -->
 			<div class="empty-box bare-message hide">
-				<div class="empty-box-column left">
+				<!-- <div class="empty-box-column left">
 					<div class="plus-container">
-						<i class="bi_interface-circle-plus"></i>
+						<i class="bi_interface-plus"></i>
 					</div>
-				</div>
+				</div> -->
 				<div class="empty-box-column right">
-					<i class="bi_interface-circle-plus"></i>
+					<i class="bi_interface-plus"></i>
 					<p class="title u-margin-top-20">No tienes ninguna obra o creación <br> subida todavía :(</p>
 					<p class="subtitle u-margin-top-20">Pero anímate cualquiera puede crear! <br> Sube un dibujo o una foto y comienza tu aventura!</p>
 					<a href="#" class="subtitle u-margin-top-20">Saber mas sobre subir obras</a>
-					<a href="#" class="u-margin-top-30 button"><i class="bi_interface-circle-plus"></i>&nbsp;&nbsp;SUBIR PRIMERA OBRA</a>
+					<a href="#" class="u-margin-top-30 button"><i class="bi_interface-plus"></i>&nbsp;&nbsp;SUBIR PRIMERA OBRA</a>
 				</div>
 			</div>
 
 			{% else %}
 				<!-- <p class="empty-profile-text bare-message empty-message hide u-margin-top-30">{{profile.fullname}} no ha subido ninguna obra aún<br><br></p> -->
-				<div class="empty-box bare-message hide" style="max-width: 500px;">
+				<div class="empty-box bare-message hide">
 					<div class="empty-box-column right">
-						<i class="bi_interface-circle-plus"></i>
+						<i class="bi_interface-plus"></i>
 						<p class="title u-margin-top-20">No se han subido obras todavía</p>
 						<p class="subtitle u-margin-top-20">Pero el proceso creativo puede suceder <br> en cualquier momento y en cualquier lugar <br><br> Esperemos que pronto</p>
 						<a href="#" class="subtitle u-margin-top-20">Saber mas sobre subir obras</a>
@@ -204,11 +179,11 @@
 			{% if owner %}
 				<!-- <p class="empty-profile-text bare-message empty-message hide u-margin-top-30">Aún no tienes ningun colecccion <br><br> -->
 				<div class="empty-box bare-message hide">
-					<div class="empty-box-column left">
+					<!-- <div class="empty-box-column left">
 						<div class="plus-container">
 							<i class=" bi_doc-documents"></i>
 						</div>
-					</div>
+					</div> -->
 					<div class="empty-box-column right">
 						<i class=" bi_doc-documents"></i>
 						<p class="title u-margin-top-20">Crea tu primera colección de arte</p>
@@ -220,7 +195,7 @@
 			</p>
 			{% else %}
 				<!-- <p class="empty-profile-text bare-message empty-message hide u-margin-top-30">{{profile.fullname}} no tiene ninguna coleccion<br><br></p> -->
-				<div class="empty-box bare-message hide" style="max-width: 500px;">
+				<div class="empty-box bare-message hide">
 					<div class="empty-box-column right">
 						<i class=" bi_doc-documents"></i>
 						<p class="title u-margin-top-20">No existen colecciones aquí (todavía)</p>
@@ -246,11 +221,11 @@
 					<a href="/users/specialty/all/page-1?order=popularity">Descubre y empieza a seguir tu primer artista</a>
 				</p> -->
 				<div class="empty-box bare-message hide">
-					<div class="empty-box-column left">
+					<!-- <div class="empty-box-column left">
 						<div class="plus-container">
 							<i class="bi_interface-minimize"></i>
 						</div>
-					</div>
+					</div> -->
 					<div class="empty-box-column right">
 						<i class="bi_interface-minimize"></i>
 						<p class="title u-margin-top-20">Aùn no sigues a nadie :/</p>
@@ -261,7 +236,7 @@
 				</div>
 			{% else %}
 				<!-- <p class="empty-profile-text bare-message empty-message hide u-margin-top-30">{{profile.fullname}} no sigue a nadie<br><br></p> -->
-				<div class="empty-box bare-message hide" style="max-width: 500px;">
+				<div class="empty-box bare-message hide">
 					<div class="empty-box-column right">
 						<i class="bi_interface-minimize"></i>
 						<p class="title u-margin-top-20">Algunos somos lobos esteparios</p>
@@ -287,11 +262,11 @@
 					<a href="/users/specialty/all/page-1?order=popularity">Descubre y empieza a seguir tu primer artista</a>
 				</p> -->
 				<div class="empty-box bare-message hide">
-					<div class="empty-box-column left">
+					<!-- <div class="empty-box-column left">
 						<div class="plus-container">
 							<i class="bi_interface-minimize"></i>
 						</div>
-					</div>
+					</div> -->
 					<div class="empty-box-column right">
 						<i class="bi_interface-minimize"></i>
 						<p class="title u-margin-top-20">Compartir es amar</p>
@@ -302,7 +277,7 @@
 				</div>
 			{% else %}
 				<!-- <p class="empty-profile-text bare-message empty-message hide u-margin-top-30">{{profile.fullname}} no sigue a nadie<br><br></p> -->
-				<div class="empty-box bare-message hide" style="max-width: 500px;">
+				<div class="empty-box bare-message hide">
 					<div class="empty-box-column right">
 						<i class="bi_interface-minimize"></i>
 						<p class="title u-margin-top-20">Este usuario aún no tiene seguidores</p>
