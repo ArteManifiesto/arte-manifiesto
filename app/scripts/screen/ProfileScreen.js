@@ -32,6 +32,8 @@ APP.ProfileScreen.prototype.listeners = function () {
 APP.ProfileScreen.prototype.saveClickHandler = function () {
   var url = DataApp.currentUser.url + '/account/update_cover';
   this.requestHandler(url, {cover: this.uploaderCover.photo}, this.updateCoverComplete);
+  $('.save-icon, .cancel-icon').hide();
+	$('.cloudinary-fileupload, .upload').show();
 };
 
 APP.ProfileScreen.prototype.followClickHandler = function () {
@@ -70,13 +72,13 @@ APP.ProfileScreen.prototype.menuItemClickHandler = function(event) {
 
 APP.ProfileScreen.prototype.updateCoverComplete = function (response) {
   $('.save-icon, .cancel-icon').hide();
-  $('.cloudinary-fileupload, upload').show();
+  $('.cloudinary-fileupload, .upload').show();
 };
 
 APP.ProfileScreen.prototype.cancelClickHandler = function () {
   $('.preview > img').attr('src', user.cover);
   $('.save-icon, .cancel-icon').hide();
-  $('.cloudinary-fileupload, upload').show();
+  $('.cloudinary-fileupload, .upload').show();
 };
 
 APP.ProfileScreen.prototype.followComplete = function (response) {
