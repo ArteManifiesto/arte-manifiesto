@@ -197,15 +197,18 @@ body
 	overflow-x hidden
 
 .flash-message
-	position absolute
-	// bottom 0
+	// position absolute
+	position fixed
+	bottom 20px
+	// left 0
 	width 250px
-	margin 50px 20px
-	border solid 1px #999
-	border-radius 4px
+	// border solid 1px #999
+	box-shadow 0 2px 4px 0 rgba(black, .5)
+	border-radius 0 4px 4px 0
 	overflow hidden
 	z-index 1
 	background white
+	transform translatex(-100%)
 	&.error
 		.top-bar
 			background linear-gradient(left, #9f041b, #f5515f)
@@ -241,6 +244,66 @@ body
 			float right
 			margin-top 10px
 			cursor pointer
+
+
+.fadeIn
+	animation 5s fadeIn
+
+
+// .flash-message2
+// 	// position absolute
+// 	position fixed
+// 	bottom 20px
+// 	// left 0
+// 	width 250px
+// 	// border solid 1px #999
+// 	box-shadow 0 2px 4px 0 rgba(black, .5)
+// 	border-radius 0 4px 4px 0
+// 	overflow hidden
+// 	z-index 1
+// 	background white
+// 	transform translatex(-100%)
+// 	&.error
+// 		.top-bar
+// 			background linear-gradient(left, #9f041b, #f5515f)
+// 	&.succes
+// 		.top-bar
+// 			background linear-gradient(left, #3023ae, #c86dd7)
+// 	.top-bar
+// 		height 8px
+// 	.content
+// 		padding 20px 10px 10px 10px
+// 		overflow hidden
+// 		position relative
+// 		.closed
+// 			position: absolute;
+// 			top: 10px;
+// 			right: 10px;
+// 			font-family: 'Montserrat',sans-serif;
+// 			color #9b9b9b
+// 			cursor pointer
+// 		p
+// 			font-family: 'Montserrat',sans-serif;
+// 			font-size 12px
+// 			color charcoal-grey
+// 			line-height 1.5
+// 		button
+// 			font-family: 'Montserrat',sans-serif;
+// 			font-size 9px
+// 			color charcoal-grey
+// 			letter-spacing 1.5px
+// 			background white
+// 			padding 6px 7px
+// 			border solid 1px #c2c2c2
+// 			float right
+// 			margin-top 10px
+// 			cursor pointer
+
+
+.fadeIn2
+	// animation 5s fadeIn2
+	transform translatex(0)
+	transition transform .5s
 
 
 /*------------------------------------*
@@ -3053,15 +3116,6 @@ body
 		margin 20px 0
 
 
-@keyframes load
-	0%
-		transform rotate(0)
-	50%
-		transform rotate(-180deg)
-	100%
-		transform rotate(-360deg)
-
-
 .empty-box
 	border-radius 4px
 	// border solid 1px #9b9b9b
@@ -3169,6 +3223,20 @@ body
 		border none
 
 
-// [class^="bi_"]:before, [class*=" bi_"]:before {
-// 	margin-right: 0;
-// }
+@keyframes load
+	0%
+		transform rotate(0)
+	50%
+		transform rotate(-180deg)
+	100%
+		transform rotate(-360deg)
+
+@keyframes fadeIn
+	0%
+		transform translateX(-100%)
+	10%
+		transform translateX(0%)
+	90%
+		transform translateX(0%)
+	100%
+		transform translateX(-100%)
