@@ -5,7 +5,8 @@ exports.profile = function (currentPath, req, res) {
       req.profile.numOfWorks(query),
       req.profile.numOfCollections(query),
       req.profile.numOfFollowings(),
-      req.profile.numOfFollowers()
+      req.profile.numOfFollowers(),
+      req.profile.calcPopularity()
   ];
   global.db.sequelize.Promise.all(promises).then(function (numbers) {
       return res.render(basePath + 'index', {

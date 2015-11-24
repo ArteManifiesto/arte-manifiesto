@@ -17,16 +17,15 @@ module.exports = function (sequelize, DataTypes) {
         }, {
             classMethods: {
                 associate: function (models) {
+                  Work.belongsToMany(models.User, {as: 'WorkViews', through: 'WorkViews'});
                   Work.belongsToMany(models.User, {as: 'WorkLikes', through: 'WorkLikes'});
                   Work.belongsToMany(models.User, {as: 'WorkRequests', through: 'WorkRequests'});
-
+                  Work.belongsToMany(models.Collection, {through: 'CollectionWork'});
                   Work.belongsToMany(models.Tag, {through: 'WorkTags'});
 
-                  Work.belongsTo(models.User, {onDelete: 'cascade'});
-                  Work.belongsToMany(models.Collection, {through: 'CollectionWork'});
-
+                  Work.belongsTo(models.User);
                   Work.belongsTo(models.Category);
-                  Work.hasMany(models.Review);
+                  Work.hasMany(models.Review, {onDelete: 'cascade'});
                 }
             },
             instanceMethods: {
@@ -128,7 +127,7 @@ module.exports = function (sequelize, DataTypes) {
                 },
                 more: function () {
                     var query = {
-                        where: {id: {$not: [this.id]}},
+                        where: {id: {$not: [this.id]}, public: true},
                         order: [global.db.sequelize.fn('RAND')],
                         limit: 6,
                         addUser: true

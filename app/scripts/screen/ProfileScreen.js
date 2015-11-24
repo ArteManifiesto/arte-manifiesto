@@ -35,7 +35,7 @@ APP.ProfileScreen.prototype.saveClickHandler = function () {
 };
 
 APP.ProfileScreen.prototype.followClickHandler = function () {
-  var url = DataApp.currentUser.url + (following ? '/unfollow/' : '/follow/');
+  var url = DataApp.currentUser.url + (profile.following ? '/unfollow/' : '/follow/');
   this.requestHandler(url, {idUser: profile.id}, this.followComplete);
 };
 
@@ -80,12 +80,12 @@ APP.ProfileScreen.prototype.cancelClickHandler = function () {
 };
 
 APP.ProfileScreen.prototype.followComplete = function (response) {
-  if (following)
-    $('.am-Follow-button').addClass('following').text('Siguiendo');
+  if (!profile.following)
+    $('.am-Follow-button').text('Siguiendo').addClass('following');
   else
-    $('.am-Follow-button').removeClass('following').text('+Seguir');
+    $('.am-Follow-button').text('+Seguir').removeClass('following');
 
-  following = !following;
+  profile.following = !profile.following;
 };
 APP.ProfileScreen.prototype.uploadComplete = function (idImage) {
   var filters = {format: 'jpg', width: 1600, crop: "limit", quality: 80};

@@ -22,7 +22,7 @@ APP.BaseScreen.prototype.requestHandler = function(url, payload, next) {
   $.post(url, payload).then(function(response) {
     if(response.status !== 200)
       return this.showFlashMessage();
-    next();
+    next(response);
   });
 }
 

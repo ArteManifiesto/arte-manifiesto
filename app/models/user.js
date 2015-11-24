@@ -51,11 +51,15 @@ module.exports = function (sequelize, DataTypes) {
                     User.belongsToMany(models.User, {as: 'Followers', foreignKey: 'FollowingId', through: 'Followers'});
                     User.belongsToMany(models.User, {as: 'Followings', foreignKey: 'FollowerId', through: 'Followers'});
 
+                    User.belongsToMany(models.User, {as: 'Viewings', foreignKey: 'ViewingId', through: 'Viewers'});
+                    User.belongsToMany(models.User, {as: 'Viewers', foreignKey: 'ViewerId', through: 'Viewers'});
+
+                    User.belongsToMany(models.Work, {as: 'WorkViews', through: 'WorkViews'});
                     User.belongsToMany(models.Work, {as: 'WorkLikes', through: 'WorkLikes'});
                     User.belongsToMany(models.Work, {as: 'WorkRequests', through: 'WorkRequests'});
 
-                    User.hasMany(models.Collection);
-                    User.hasMany(models.Work);
+                    User.hasMany(models.Collection, {onDelete: 'cascade'});
+                    User.hasMany(models.Work, {onDelete: 'cascade'});
                     User.hasMany(models.Review);
                 }
             },
@@ -109,6 +113,21 @@ module.exports = function (sequelize, DataTypes) {
                         scope.setDataValue('following', result[2]);
                         scope.setDataValue('Works', result[3]);
                     });
+                },
+                calcPopularity: function() {
+                  return this.getWorks().then(function(works){
+                    var promises = [];
+                    for (var i = 0; i < works.length - 1; i++) {
+                      promises.push(works[i].numOfLikes());
+                    }
+                    return global.db.Sequelize.Promise.all(promises).then(function (result) {
+                      var total = 0;
+                      for (var i = 0; i < result.length - 1; i++) {
+                        total += parseInt(result[i], 10);
+                      }
+                      return total;
+                    });
+                  });
                 },
                 numOfWorks: function (options) {
                     options = options || {};

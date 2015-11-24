@@ -160,6 +160,7 @@ var beforePagination = function (req, discover) {
     discover.options.entity = model;
     discover.options.method = method;
     discover.options.association = true;
+    
     return global.getPaginationEntity(discover.options, discover.query);
   });
 }

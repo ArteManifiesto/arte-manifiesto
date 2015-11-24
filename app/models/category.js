@@ -15,15 +15,13 @@ module.exports = function (sequelize, DataTypes) {
                 associate: function (models) {
                     Category.belongsToMany(models.User, {as: 'Specialties', through: 'Specialties'});
                     Category.belongsToMany(models.User, {as: 'Interests', through: 'Interests'});
-                    Category.hasMany(models.Work);
+                    Category.hasMany(models.Work, {onDelete: 'cascade'});
                 }
             },
             instanceMethods: {
               appendWork: function(options) {
                 var query = {limit:1, order: [global.db.sequelize.fn('RAND')]}
-                console.log('addd work');
                 var scope = this;
-                console.log(this);
                 return this.getWorks(query).then(function(works){
                   scope.setDataValue('work', works[0]);
                 });
