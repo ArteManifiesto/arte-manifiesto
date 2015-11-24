@@ -16,6 +16,8 @@ APP.AddWorkScreen = function () {
 		$.cloudinary.image(idImage, {width: 300, crop:'limit'})
 		.appendTo(this.$view.find('.preview'));
 	});
+
+  this.work = null;
 };
 
 APP.AddWorkScreen.constructor = APP.AddWorkScreen;
@@ -58,18 +60,17 @@ APP.AddWorkScreen.prototype.workFormSubmitHandler = function(event) {
 };
 
 APP.AddWorkScreen.prototype.workCreatedComplete = function(response) {
-  console.log(this);
   $('.send').show();
   $('.send-loading').hide();
   this.showFlash('succes', 'Su obra se subió exitosamente')
-  var work = response.data.work;
+  this.work = response.data.work;
   $('.work-form').hide();
-  var workUrl = DataApp.currentUser.url + '/work/' + work.nameSlugify
+  var workUrl = DataApp.currentUser.url + '/work/' + this.work.nameSlugify
   $('.work-view').attr('href', workUrl);
   $('.work-new').attr('href', DataApp.currentUser.url + '/work/add');
   $('.work-edit').attr('href', workUrl + '/edit');
-  $('.work-photo-published').attr('src', Utils.addImageFilter(work.photo, 'w_300,c_limit'));
-  $('.work-name-published').text(work.name);
+  $('.work-photo-published').attr('src', Utils.addImageFilter(this.work.photo, 'w_300,c_limit'));
+  $('.work-name-published').text(this.work.name);
   $('.work-user-published').text(DataApp.currentUser.fullname);
   $('.work-published').show();
 }
@@ -77,10 +78,9 @@ APP.AddWorkScreen.prototype.workCreatedComplete = function(response) {
 APP.AddWorkScreen.prototype.workDeleteHandler = function(event) {
   event.preventDefault();
   var url = DataApp.currentUser.url + '/work/delete';
-  this.requestHandler(url, {idWork: work.id}, this.workDeleteComplete);
-}
+  this.requestHandler(url, {idWork: this.work.id}, this.workDeleteComplete);
+};
 
 APP.AddWorkScreen.prototype.workDeleteComplete = function (response) {
-  this.showFlash('success', 'Su obra se elimino exitosamente');
-  window.location.href =  DataApp.currentUser.url;
-}
+  window.location.href = DataApp.currentUser.url;
+};

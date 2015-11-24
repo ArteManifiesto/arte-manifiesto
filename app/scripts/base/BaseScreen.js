@@ -41,7 +41,10 @@ APP.BaseScreen.prototype.showFlash = function(meta , data) {
   }
   element.css('visibility', 'visible');
   element.removeClass('fadeIn');
-  element.addClass('fadeIn');
+  var timeout = setTimeout(function() {
+    clearTimeout(timeout);
+    element.addClass('fadeIn');
+  }, 100);
 };
 
 APP.BaseScreen.prototype.getTemplate = function (path) {
