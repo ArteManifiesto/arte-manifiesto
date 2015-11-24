@@ -6,7 +6,7 @@ var APP = APP || {};
 
 APP.UploaderImage = function (view, onComplete) {
   this.$view = view;
-  this.photo = '';
+  this.photo = null;
   this.listeners();
   this.onComplete = onComplete;
 };

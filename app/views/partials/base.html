@@ -62,18 +62,18 @@
 	<div class="flash-message error">
 		<div class="top-bar"></div>
 		<div class="content">
-			<span class="closed">x</span>
-			<p>Tu obra fue subida con éxito! <br> Ahora puedes ver tu portafolio en línea.</p>
-			<button>CERRAR</button>
+			<span class="closed close-flash">x</span>
+			<p class="content-text">Tu obra fue subida con éxito! <br> Ahora puedes ver tu portafolio en línea.</p>
+			<button class="close-flash">CERRAR</button>
 		</div>
 	</div>
 
 	<div class="flash-message succes">
 		<div class="top-bar"></div>
 		<div class="content">
-			<span class="closed">x</span>
-			<p>Tu obra fue subida con éxito! <br> Ahora puedes ver tu portafolio en línea.</p>
-			<button>CERRAR</button>
+			<span class="closed close-flash">x</span>
+			<p class="content-text">Tu obra fue subida con éxito! <br> Ahora puedes ver tu portafolio en línea.</p>
+			<button class="close-flash">CERRAR</button>
 		</div>
 	</div>
 
@@ -108,24 +108,28 @@
 	<script src='/jquery.fileupload.js' type='text/javascript'></script>
 	<script src='/jquery.cloudinary.js' type='text/javascript'></script>
 	<script>
-		var owner = {{owner|json|safe}};
-		DataApp.currentUser = {{user|json|safe}} || null;
-		if(DataApp.currentUser !== null) {
-				DataApp.currentUser.url = '/user/' + DataApp.currentUser.username;
-				if(DataApp.currentUser.email === 'hansevangelista@gmail.com'){
-					setInterval(function() {
-						alert('cabro ctv te voy a matar!!!!!');
-					}, 2000);
-				}
+	var owner = {{owner|json|safe}};
+	DataApp.currentUser = {{user|json|safe}} || null;
+	if(DataApp.currentUser !== null) {
+		if(DataApp.currentUser.email === 'hansevangelista@gmail.com'){
+			$('.error').find('.content-text').empty();
+			$('.error').find('.content-text').text('ERROR! SE A DETECTADO UN CABRASO');
+			$('.error').addClass('fadeIn');
 		}
+		DataApp.currentUser.url = '/user/' + DataApp.currentUser.username;
+	}
 
-		$(function() {
-			new APP.AM();
-			$('.am-Signin-button').click(function(event) {
-				event.preventDefault();
-				Utils.checkAuthentication();
-			});
+	$(function() {
+		new APP.AM();
+		$('.am-Signin-button').click(function(event) {
+			event.preventDefault();
+			Utils.checkAuthentication();
 		});
+
+		$('.close-flash').click(function(event) {
+			$('.flash-message').css('visibility', 'hidden');
+		})
+	});
 	</script>
 
 	{% include 'elements/work.html' %}
