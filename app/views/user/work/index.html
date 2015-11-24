@@ -6,13 +6,13 @@
 
 {% block elements %}
 {% set element = element.toJSON() %}
-	<div class="grid-container u-margin-top-30">
+	<div class="grid-container u-margin-top-20">
 		<div class="grid-100">
 			<div class="single-info">
 				<div class="single-image">
 					<div class="single-image-inner">
 						<img src="{{element.photo|addFilter('w_700,h_800,q_80,c_limit')}}" class="work-photo">
-						<div class="actions u-padding-top-20 u-padding-bottom-0">
+						<div class="actions u-padding-top-10">
 							<a class="action {% if element.liked %} active {% endif %}">
 								<div class="like-btn">
 									<i class="icon bi_ecommerce-diamon  valuation"></i>
@@ -30,7 +30,7 @@
 								</a>
 							{% endif %}
 						</div>
-						<div class="actions-box u-margin-bottom-20 after-like {% if !element.liked %} hide {% endif %}">
+						<div class="actions-box after-like {% if !element.liked %} hide {% endif %}">
 
 							<i class="bi_interface-top arrow" {% if owner %} style="left: 32px;" {% endif %}></i>
 
@@ -51,6 +51,8 @@
 								</button>
 							</div>
 						</div>
+
+						<div class="u-margin-top-10">&nbsp;</div>
 					</div>
 				</div>
 				<div class="single-data u-padding-bottom-40">

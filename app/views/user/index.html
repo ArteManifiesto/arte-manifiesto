@@ -121,22 +121,16 @@
 
 			{% if owner %}
 			<div class="empty-box bare-message hide">
-				<!-- <div class="empty-box-column left">
-					<div class="plus-container">
-						<i class="bi_interface-plus"></i>
-					</div>
-				</div> -->
 				<div class="empty-box-column right">
 					<i class="bi_interface-plus"></i>
 					<p class="title u-margin-top-20">No tienes ninguna obra o creación <br> subida todavía :(</p>
 					<p class="subtitle u-margin-top-20">Pero anímate cualquiera puede crear! <br> Sube un dibujo o una foto y comienza tu aventura!</p>
 					<a href="#" class="subtitle u-margin-top-20">Saber mas sobre subir obras</a>
-					<a href="#" class="u-margin-top-30 button"><i class="bi_interface-plus"></i>&nbsp;&nbsp;SUBIR PRIMERA OBRA</a>
+					<a href="/user/{{user.username}}/work/add" class="u-margin-top-30 button"><i class="bi_interface-plus"></i>&nbsp;&nbsp;SUBIR PRIMERA OBRA</a>
 				</div>
 			</div>
 
 			{% else %}
-				<!-- <p class="empty-profile-text bare-message empty-message hide u-margin-top-30">{{profile.fullname}} no ha subido ninguna obra aún<br><br></p> -->
 				<div class="empty-box bare-message hide">
 					<div class="empty-box-column right">
 						<i class="bi_interface-plus"></i>
@@ -154,7 +148,7 @@
 		</div>
 	</div>
 
-	<div class="discover-content store-wrapper grid-container u-padding-top-10 u-padding-bottom-70
+	<!-- <div class="discover-content store-wrapper grid-container u-padding-top-10 u-padding-bottom-70
 		{% if currentPath !== 'store' %} hide {% endif %}">
 		<div class="grid-100 grid-parent">
 
@@ -170,38 +164,32 @@
       </div>
 			<div class="am-More-preload loading hide"><i class="fa fa-spinner"></i></div>
 		</div>
-	</div>
+	</div> -->
 
 	<div class="discover-content collections-wrapper grid-container u-padding-top-10 u-padding-bottom-70
 		{% if currentPath !== 'collections' %} hide {% endif %}">
 		<div class="grid-100 grid-parent">
 
 			{% if owner %}
-				<!-- <p class="empty-profile-text bare-message empty-message hide u-margin-top-30">Aún no tienes ningun colecccion <br><br> -->
 				<div class="empty-box bare-message hide">
-					<!-- <div class="empty-box-column left">
-						<div class="plus-container">
-							<i class=" bi_doc-documents"></i>
-						</div>
-					</div> -->
 					<div class="empty-box-column right">
 						<i class=" bi_doc-documents"></i>
 						<p class="title u-margin-top-20">Crea tu primera colección de arte</p>
 						<p class="subtitle u-margin-top-20">Todo es válido, descubre el arte que más te guste <br> y gúardalo en tus colecciones.</p>
 						<a href="#" class="subtitle u-margin-top-20">Saber más sobre colecciones</a>
-						<a href="#" class="u-margin-top-30 button"><i class=" bi_doc-documents"></i>&nbsp;&nbsp;DESCUBRIR OBRAS</a>
+						<br>
+						<a href="/works/category/all/page-1/?order=popularity" class="u-margin-top-30 button"><i class=" bi_doc-documents"></i>&nbsp;&nbsp;DESCUBRIR OBRAS</a>
 					</div>
 				</div>
 			</p>
 			{% else %}
-				<!-- <p class="empty-profile-text bare-message empty-message hide u-margin-top-30">{{profile.fullname}} no tiene ninguna coleccion<br><br></p> -->
 				<div class="empty-box bare-message hide">
 					<div class="empty-box-column right">
 						<i class=" bi_doc-documents"></i>
 						<p class="title u-margin-top-20">No existen colecciones aquí (todavía)</p>
 						<p class="subtitle u-margin-top-20">Coleccionar es divertido y gratis! <br> Tu también puedes hacerlo.</p>
 						<a href="#" class="subtitle u-margin-top-20">Saber más sobre colecciones</a>
-						<a href="#" class="u-margin-top-30 button"><i class=" bi_doc-documents"></i>&nbsp;&nbsp;DESCUBRIR OBRAS</a>
+						<a href="/works/category/all/page-1/?order=popularity" class="u-margin-top-30 button"><i class=" bi_doc-documents"></i>&nbsp;&nbsp;DESCUBRIR OBRAS</a>
 					</div>
 				</div>
 
