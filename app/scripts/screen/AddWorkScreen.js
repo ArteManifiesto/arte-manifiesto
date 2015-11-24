@@ -78,7 +78,7 @@ APP.AddWorkScreen.prototype.workCreatedComplete = function(response) {
 APP.AddWorkScreen.prototype.workDeleteHandler = function(event) {
   event.preventDefault();
   var url = DataApp.currentUser.url + '/work/delete';
-  this.requestHandler(url, {idWork: this.work.id}, this.workDeleteComplete);
+    this.requestHandler(url, {idWork: this.work.id}, this.workDeleteComplete);
 };
 
 APP.AddWorkScreen.prototype.workDeleteComplete = function (response) {
