@@ -62,7 +62,7 @@
 	<div class="flash-message error">
 		<div class="top-bar"></div>
 		<div class="content">
-			<span class="closed close-flash">x</span>
+			<span class="closed close-flash"><i class="fa fa-times"></i></span>
 			<p class="content-text">Tu obra fue subida con éxito! <br> Ahora puedes ver tu portafolio en línea.</p>
 			<button class="close-flash">CERRAR</button>
 		</div>
@@ -71,7 +71,7 @@
 	<div class="flash-message succes">
 		<div class="top-bar"></div>
 		<div class="content">
-			<span class="closed close-flash">x</span>
+			<span class="closed close-flash"><i class="fa fa-times"></i></span>
 			<p class="content-text">Tu obra fue subida con éxito! <br> Ahora puedes ver tu portafolio en línea.</p>
 			<button class="close-flash">CERRAR</button>
 		</div>
@@ -79,7 +79,7 @@
 
 	{% block elements %} {% endblock %}
 
-	<div id="lean_overlay"></div>
+	<!-- <div id="lean_overlay"></div> -->
 
 	{% include 'footer.html' %}
 
@@ -142,5 +142,20 @@
 	{% include 'elements/filterItem.html' %}
 
 	{% block scripts %} {% endblock %}
+
+	<script type="text/javascript">
+
+		$('.closed-modal').click(function () {
+			$('#lean_overlay').trigger( "click" );
+		})
+
+		$(document).keyup(function(e) {
+			if (e.keyCode == 27) {
+				$('#lean_overlay').trigger( "click" );
+			}
+		});
+
+	</script>
+
 </body>
 </html>
