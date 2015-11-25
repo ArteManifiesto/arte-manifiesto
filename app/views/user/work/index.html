@@ -8,13 +8,13 @@
 {% block elements %}
 {% set element = element.toJSON() %}
 
-
 {% if neighbors.prev %}
 	<p class="prev-btn">anterior</p>
 {% endif %}
 {% if neighbors.next %}
 	<p class="next-btn">siguiente</p>
 {% endif %}
+
 	<div class="grid-container u-margin-top-20">
 		<div class="grid-100">
 			<div class="single-info">
@@ -409,7 +409,6 @@
 			$('.next-btn').click(function() {
 				window.location.href = '/user/' + neighbors.next.User.username + '/work/' + neighbors.next.nameSlugify;
 			});
-
 			$("#go-collection-modal").leanModal();
 			$("#go-share-modal").leanModal();
 		});
@@ -466,7 +465,6 @@
 			};
 			document.getElementById('btn').onclick = openPhotoSwipe;
 		}, 3000)
-		// openPhotoSwipe();
 	</script>
 
 	<script src='/work-product.js'></script>
