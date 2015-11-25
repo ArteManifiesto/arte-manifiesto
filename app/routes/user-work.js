@@ -23,6 +23,8 @@ router.post('/create', isLoggedAndOwner, controller.create);
 router.post('/delete', global.md.isAdminOrOwner, controller.delete);
 router.post('/update', isLoggedAndOwner, controller.update);
 
+router.post('/save_manifest', controller.saveManifest);
+
 router.post('/featured', global.md.isAdmin, controller.featured);
 router.post('/unfeatured', global.md.isAdmin, controller.unFeatured);
 router.post('/like', isLoggedAndOwner, controller.like);

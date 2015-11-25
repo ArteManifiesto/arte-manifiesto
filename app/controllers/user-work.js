@@ -280,6 +280,15 @@ exports.private = function (req, res) {
     });
 };
 
+exports.saveManifest = function(req, res) {
+  console.log(req.body);
+  global.db.Work.find({where:{nameSlugify: 'netflix-and-chill-231115025546'}}).then(function(work) {
+    work.updateAttributes(req.body).then(function() {
+      return res.ok({work:work}, 'lelele');
+    });
+  });
+};
+
 exports.availability = function (req, res) {
   req.work.getWorkRequests({where:{id:req.user.id}}).then(function(users) {
     req.work.getUser().then(function(user){

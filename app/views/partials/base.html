@@ -18,11 +18,9 @@
 	{% block styles %} {% endblock %}
 
 	<style>
-
 	.hide {
 		display: none;
 	}
-
 	.cloudinary-fileupload
 {
 	border: none;
@@ -118,14 +116,12 @@
 		}
 		DataApp.currentUser.url = '/user/' + DataApp.currentUser.username;
 	}
-
 	$(function() {
 		new APP.AM();
 		$('.am-Signin-button').click(function(event) {
 			event.preventDefault();
 			Utils.checkAuthentication();
 		});
-
 		$('.close-flash').click(function(event) {
 			$('.flash-message').css('visibility', 'hidden');
 		})
@@ -144,17 +140,14 @@
 	{% block scripts %} {% endblock %}
 
 	<script type="text/javascript">
-
 		$('.closed-modal').click(function () {
 			$('#lean_overlay').trigger( "click" );
 		})
-
 		$(document).keyup(function(e) {
 			if (e.keyCode == 27) {
 				$('#lean_overlay').trigger( "click" );
 			}
 		});
-
 	</script>
 
 </body>

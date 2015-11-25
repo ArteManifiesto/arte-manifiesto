@@ -14,6 +14,7 @@ exports.index = function (req, res) {
   //       });
   //   });
   // } else {
+
     var queryUsers = {where: {featured: true}, limit: 4, build: true, addUser: true, viewer: req.viewer};
     var queryWorks = {where: {featured: true}, limit: 15, build: true, addUser: true, viewer: req.viewer};
     var promises = [
@@ -22,10 +23,15 @@ exports.index = function (req, res) {
     ];
 
     return global.db.Sequelize.Promise.all(promises).then(function (result) {
-      return res.render('pages/index', {
-        users: result[0],
-        works: result[1]
-      })
+      global.db.Work.findById(24005).then(function(work) {
+        return res.render('pages/index', {
+          users: result[0],
+          works: result[1],
+          cloudinary: global.cl,
+          cloudinayCors: global.cl_cors,
+          manifest: work.manifest
+        })
+      });
     });
   // }
 };
