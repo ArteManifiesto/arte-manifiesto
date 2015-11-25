@@ -3,18 +3,19 @@ var Promise = require('bluebird');
 var request = require('request');
 
 exports.index = function (req, res) {
-  // if(req.user) {
-  //   req.user.getFollowings().then(function(followings) {
-  //       var followingsArray = global._.pluck(followings, 'id');
-  //       var query = {where: {UserId: {$in: followingsArray}}, order:[global.getOrder('newest')],
-  //       build:true, viewer:req.viewer
-  //     }
-  //       global.db.Action.findAll(query).then(function(actions) {
-  //         return res.json(actions);
-  //       });
-  //   });
-  // } else {
-
+  if(req.user) {
+    req.user.getFollowings().then(function(followings) {
+        var followingsArray = global._.pluck(followings, 'id');
+        var query = {where: {UserId: {$in: followingsArray}}, order:[global.getOrder('newest')],
+        build:true, viewer:req.viewer
+      }
+      global.db.Action.findAll(query).then(function(actions) {
+        return res.render('pages/index', {
+          actions: actions
+        });
+      });
+    });
+  } else {
     var queryUsers = {where: {featured: true}, limit: 4, build: true, addUser: true, viewer: req.viewer};
     var queryWorks = {where: {featured: true}, limit: 15, build: true, addUser: true, viewer: req.viewer};
     var promises = [
@@ -30,10 +31,10 @@ exports.index = function (req, res) {
           cloudinary: global.cl,
           cloudinayCors: global.cl_cors,
           manifest: work.manifest
-        })
+        });
       });
     });
-  // }
+  }
 };
 
 var searchHandler = function (entity, req, res) {

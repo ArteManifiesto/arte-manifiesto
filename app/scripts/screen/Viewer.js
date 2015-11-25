@@ -97,7 +97,17 @@ APP.Viewer.prototype.addItems = function(items) {
   var scopetemp = this;
   var i = 0, item , counter = 0, lel = [];
   for(i; i< items.length; i++) {
+    if (this.id === 'actionItem') {
+      console.log(items[i]);
+      if(items[i].verb === 'create-work') {
+        item = new APP.FeedWorkCreated(items[i], this.options);
+      }
+      if(items[i].verb === 'follow-user') {
+        item = new APP.FeedUserFollow(items[i], this.options);
+      }
+    } else {
       item = new APP[Utils.capitalize(this.id)](items[i], this.options);
+    }
     if(item.view.children().hasClass( "work-card" )) {
       var $items = item.view;
       $items.hide();
