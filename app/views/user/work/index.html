@@ -20,7 +20,7 @@
 			<div class="single-info">
 				<div class="single-image">
 					<div class="single-image-inner">
-						<img src="{{element.photo|addFilter('w_700,h_800,q_80,c_limit')}}" class="work-photo" id="btn">
+						<img src="{{element.photo|addFilter('w_700,h_800,q_80,c_limit')}}" class="work-photo" id="work-image">
 						<div class="actions u-padding-top-10">
 							<a class="action {% if element.liked %} active {% endif %}">
 								<div class="like-btn">
@@ -433,38 +433,54 @@
 		}
 		var carousel = new Carousel (document.querySelector('.js-more-carousel'))
 		var carousel = new Carousel (document.querySelector('.js-similar-carousel'))
-		var meta
-		$("<img/>").load(function(){
-			var width = this.width, height = this.height;
-			meta = { width: width, height: height }
-		}).attr("src", element.photo);
+
+
+		var meta;
+		var zoom = false;
+
 		setTimeout(function () {
-			// console.log('meta: ', meta)
-			var openPhotoSwipe = function() {
-		    var pswpElement = document.querySelectorAll('.pswp')[0];
-		    // build items array
-		    var items = [
-					{
-						// src: Utils.addImageFilter(element.photo, 'w_1000,h_700')
-						// w: $('#btn')[0].width,
-						// h: $('#btn')[0].height,
-						src: element.photo,
-						w: meta.width,
-						h: meta.height
-					}
-		    ];
-		    // define options (if needed)
-		    var options = {
-		    	getThumbBoundsFn: function () {
-		    		return {
-		    			x: $('#btn')[0].offsetLeft ,y: $('#btn')[0].offsetTop, w: $('#btn')[0].width}
-		    	}
-		    };
-		    window.gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
-		    gallery.init();
-			};
-			document.getElementById('btn').onclick = openPhotoSwipe;
+
+			$('#work-image').click(function () {
+				if( !zoom ) {
+
+					console.log('1')
+					$("<img/>").load(function(){
+						console.log('2')
+						var width = this.width, height = this.height;
+						meta = { width: width, height: height }
+
+						document.getElementById('work-image').onclick = openPhotoSwipe;
+						$('#work-image').trigger( "click" );
+
+					// }).attr("src", element.photo);
+					}).attr("src", Utils.addImageFilter(element.photo, 'w_1500,h_800,c_limit,q_80'));
+
+					zoom = true
+				}
+			})
+
 		}, 3000)
+
+		var openPhotoSwipe = function() {
+	    var pswpElement = document.querySelectorAll('.pswp')[0];
+	    var items = [
+				{
+					// src: element.photo,
+					src: Utils.addImageFilter(element.photo, 'w_1500,h_800,c_limit,q_80'),
+					w: meta.width,
+					h: meta.height
+				}
+	    ];
+	    var options = {
+	    	getThumbBoundsFn: function () {
+	    		return {
+	    			x: $('#work-image')[0].offsetLeft ,y: $('#work-image')[0].offsetTop, w: $('#work-image')[0].width}
+	    	}
+	    };
+	    window.gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+	    gallery.init();
+		};
+
 	</script>
 
 	<script src='/work-product.js'></script>
