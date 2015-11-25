@@ -111,11 +111,11 @@
 	var owner = {{owner|json|safe}};
 	DataApp.currentUser = {{user|json|safe}} || null;
 	if(DataApp.currentUser !== null) {
-		if(DataApp.currentUser.email === 'juliocanares@gmail.com'){
-			$('.error').find('.content-text').empty();
-			$('.error').find('.content-text').text('BAÑATE GORDITOO!!!');
-			$('.error').addClass('fadeIn');
-		}
+		// if(DataApp.currentUser.email === 'juliocanares@gmail.com'){
+		// 	$('.error').find('.content-text').empty();
+		// 	$('.error').find('.content-text').text('BAÑATE GORDITOO!!!');
+		// 	$('.error').addClass('fadeIn');
+		// }
 		DataApp.currentUser.url = '/user/' + DataApp.currentUser.username;
 	}
 
