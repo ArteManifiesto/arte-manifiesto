@@ -9,10 +9,10 @@
 {% set element = element.toJSON() %}
 
 {% if neighbors.prev %}
-	<p class="prev-btn">anterior</p>
+	<!-- <p class="prev-btn">anterior</p> -->
 {% endif %}
 {% if neighbors.next %}
-	<p class="next-btn">siguiente</p>
+	<!-- <p class="next-btn">siguiente</p> -->
 {% endif %}
 
 	<div class="grid-container u-margin-top-20">
@@ -21,24 +21,50 @@
 				<div class="single-image">
 					<div class="single-image-inner">
 						<img src="{{element.photo|addFilter('w_700,h_800,q_80,c_limit')}}" class="work-photo" id="work-image">
-						<div class="actions u-padding-top-10">
-							<a class="action {% if element.liked %} active {% endif %}">
-								<div class="like-btn">
-									<i class="icon bi_ecommerce-diamon  valuation"></i>
-									<p class="text">VALORAR</p>
-								</div>
-							</a>
-							<a id="go-share-modal" href="#share-modal" class="action">
-								<i class="icon bi_web-share share"></i>
-								<p class="text">COMPARTIR</p>
-							</a>
-							{% if owner %}
-								<a id="go-share-modal" href="/user/{{element.User.username}}/work/{{element.nameSlugify}}/edit" class="action">
-									<i class="icon bi_editorial-compose"></i>
-									<p class="text">EDITAR</p>
+
+						<div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+
+
+							<div class="actions">
+								<a class="action prev-btn" style="padding: 0; cursor: pointer;">
+									<div class="">
+										<i class="arrow bi_interface-left"></i>
+										<p class="text desktop">VALORAR</p>
+									</div>
 								</a>
-							{% endif %}
+							</div>
+
+							<div class="actions u-padding-top-10">
+								<a class="action {% if element.liked %} active {% endif %}">
+									<div class="like-btn">
+										<i class="icon bi_ecommerce-diamon  valuation"></i>
+										<p class="text">VALORAR</p>
+									</div>
+								</a>
+								<a id="go-share-modal" href="#share-modal" class="action">
+									<i class="icon bi_web-share share"></i>
+									<p class="text">COMPARTIR</p>
+								</a>
+								{% if owner %}
+									<a id="go-share-modal" href="/user/{{element.User.username}}/work/{{element.nameSlugify}}/edit" class="action">
+										<i class="icon bi_editorial-compose"></i>
+										<p class="text">EDITAR</p>
+									</a>
+								{% endif %}
+							</div>
+
+							<div class="actions">
+								<a class="action next-btn" style="padding: 0; cursor: pointer;">
+									<div class="">
+										<i class="arrow bi_interface-right"></i>
+										<p class="text desktop">VALORAR</p>
+									</div>
+								</a>
+							</div>
+
+
 						</div>
+
 						<div class="actions-box after-like {% if !element.liked %} hide {% endif %}">
 
 							<i class="bi_interface-top arrow" {% if owner %} style="left: 32px;" {% endif %}></i>
@@ -60,7 +86,6 @@
 								</button>
 							</div>
 						</div>
-
 						<div class="u-margin-top-10">&nbsp;</div>
 					</div>
 				</div>

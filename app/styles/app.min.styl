@@ -2535,6 +2535,9 @@ body
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		.arrow
+			font-size 1.5em
+			color #9b9b9b
 		.icon
 			cursor pointer
 			border-radius 50%
@@ -2546,6 +2549,7 @@ body
 			font-size 1.75em
 			border solid 1.5px #9b9b9b
 			color #000
+			margin: auto;
 		.text
 			font-family 'Montserrat', sans-serif
 			font-weight bold
@@ -2553,6 +2557,8 @@ body
 			color #333
 			letter-spacing 2px
 			padding-top 10px
+			&.desktop
+				display none
 		&:hover
 			.icon
 				border solid 1.5px #4000ff
