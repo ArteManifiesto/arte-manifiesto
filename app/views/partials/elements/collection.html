@@ -2,7 +2,8 @@
   <div class="grid-item">
       <div class="collection-card">
         <% if(!public) { %>
-          <div class="lock"><i class="bi_user-lock"></i></div>
+          {# <div class="lock"><i class="bi_user-lock"></i></div> #}
+          <div class="private">PRIVADO</div>
         <% } %>
         <% if (viewer && viewer.isAdmin) { %>
           <div class="featured <% if (!featured) { %>disabled<% } %>">AM</div>
