@@ -60,6 +60,25 @@ module.exports = function (sequelize, DataTypes) {
                         scope.setDataValue('requested', result[3]);
                     });
                 },
+                neighbors: function() {
+                  var promises = [
+                    global.db.Work.max('id', {where:{id:{ lt: this.id}}, addUser: true}),
+                    global.db.Work.min('id', {where:{id:{ gt: this.id}}, addUser: true})
+                  ];
+                  return global.db.Sequelize.Promise.all(promises).then(function (data) {
+                    var prev = parseInt(data[0], 10), next = parseInt(data[1], 10);
+                    promises = [];
+                    !global._.isNaN(prev) && promises.push(global.db.Work.find({where:{id: prev}, addUser: true}))
+                    !global._.isNaN(next) && promises.push(global.db.Work.find({where:{id: next}, addUser: true}))
+                    return global.db.Sequelize.Promise.all(promises).then(function(result) {
+                      if(result.length > 1)
+                        return {prev: result[0], next:result[1]};
+                      !global._.isNaN(prev) && (neighbors = {prev: result[0], next: null});
+                      !global._.isNaN(next) && (neighbors = {prev: null, next: result[0]});
+                      return neighbors;
+                    });
+                  });
+                },
                 numOfLikes: function () {
                     var scope = this,
                         query = {

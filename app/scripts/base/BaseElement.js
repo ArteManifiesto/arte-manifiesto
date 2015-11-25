@@ -3,8 +3,7 @@
  *Email : juliocanares@gmail.com
  */
 var APP = APP || {};
-      APP.BaseElement = function (data, id, options) {
-    console.log(options);
+  APP.BaseElement = function (data, id, options) {
     this.options = options || {context: 'normal'};
 
     this.template = APP.TemplateManager.instance.getFromDoc(id);
@@ -19,7 +18,6 @@ var APP = APP || {};
     };
     _.extend(this.data, this.options);
     _.extend(this.data, viewHelpers);
-    console.log(this.data);
     this.view = $(this.template(this.data));
     this.rawView = this.view[0];
     this.listeners();

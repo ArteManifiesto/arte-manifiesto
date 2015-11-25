@@ -8,6 +8,7 @@ exports.index = function (currentPath, req, res) {
         req.work.similar(req.viewer),
         req.work.getTags(),
         req.work.getReviews({include:[global.db.User]}),
+        req.work.neighbors(),
         global.db.Category.findAll()
     ];
     global.db.Sequelize.Promise.all(promises).then(function (result) {
@@ -23,7 +24,8 @@ exports.index = function (currentPath, req, res) {
               more: result[2], similar: result[3],
               tags: result[4],
               reviews: result[5],
-              categories: result[6]
+              neighbors: result[6],
+              categories: result[7]
           });
         });
     });
@@ -241,6 +243,18 @@ exports.featured = function (req, res) {
 exports.unFeatured = function (req, res) {
     req.work.updateAttributes({featured: false}).then(function () {
         return res.ok({work: req.work}, 'Work unFeatured');
+    });
+};
+
+exports.public = function (req, res) {
+    req.work.updateAttributes({public: true}).then(function () {
+        return res.ok({work: req.work}, 'Work published');
+    });
+};
+
+exports.private = function (req, res) {
+    req.work.updateAttributes({public: false}).then(function () {
+        return res.ok({work: req.work}, 'Work unPublished');
     });
 };
 

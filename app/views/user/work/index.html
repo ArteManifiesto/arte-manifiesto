@@ -6,6 +6,13 @@
 
 {% block elements %}
 {% set element = element.toJSON() %}
+
+{% if neighbors.prev %}
+	<p class="prev-btn">anterior</p>
+{% endif %}
+{% if neighbors.next %}
+	<p class="next-btn">siguiente</p>
+{% endif %}
 	<div class="grid-container u-margin-top-20">
 		<div class="grid-100">
 			<div class="single-info">
@@ -330,11 +337,19 @@
 		var reviews = {{reviews|json|safe}};
 		var more = {{more|json|safe}};
 		var similar = {{similar|json|safe}};
-
+		var neighbors = {{neighbors|json|safe}};
+		console.log(neighbors);
 		$(function() {
 			$("#go-collection-modal").leanModal();
 			$("#go-share-modal").leanModal();
 
+			$('.prev-btn').click(function() {
+				window.location.href = '/user/' + neighbors.prev.User.username + '/work/' + neighbors.prev.nameSlugify;
+			});
+
+			$('.next-btn').click(function() {
+				window.location.href = '/user/' + neighbors.next.User.username + '/work/' + neighbors.next.nameSlugify;
+			});
 			// setTimeout(function () {
 			// 	$('.your-class').slick({
 			// 		// dots: true,

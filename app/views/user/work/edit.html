@@ -77,13 +77,13 @@
 						</a>
 					</div>
 					<div class="grid-50">
-		        <button class="button inline upload trash" style="border: none; box-shadow: none;">
+		        <button class="button inline upload work-delete trash" style="border: none; box-shadow: none;">
 		          <i class="bi_editorial-trash-l"></i>&nbsp;&nbsp;&nbsp;ELIMINAR
 		        </button>
-						<div class="edit-options">
+						<div class="edit-options work-delete-confirm hide">
 							ELIMINAR? &nbsp;
-							<i class="bi_interface-box-tick hide save-icon" style="display: inline;"></i>
-							<i class="bi_interface-box-cross hide cancel-icon" style="display: inline;"></i>
+							<i class="bi_interface-box-tick work-delete-force hide save-icon" style="display: inline;"></i>
+							<i class="bi_interface-box-cross work-delete-cancel hide cancel-icon" style="display: inline;"></i>
 						</div>
 					</div>
 
@@ -91,109 +91,68 @@
 
 			</div>
 		</form>
-
-		<div class="hide work-published">
-			<div class="grid-100">
-	  		<p class="main-title">TU OBRA SE HA PUBLICADO CON ÉXITO</p>
-	  		<div class="u-separator"></div>
-	  		<div class="work-collection-card u-margin-top-40">
-	  			<div class="work-collection-card-img">
-						<img class="work-photo-published">
-	  			</div>
-	  			<div class="work-collection-card-data">
-	  				<p class="work-collection-card-title work-name-published"></p>
-	  				<p class="work-collection-card-artist work-user-published"></p>
-	  			</div>
-	  		</div>
-	  		<div class="separator u-margin-top-20">
-	  			<span class="line"></span><span class="text">¿QUE QUIERES HACER AHORA?</span><span class="line"></span>
-	  		</div>
-	  	</div>
-	  	<div class="u-padding-top-20" style="oferoverflow: hidden;">
-	  		<div class="grid-50">
-	        <a class='work-view'>
-	          <button class="button inline upload u-margin-top-30 upload_button">
-	            <i class="bi_interface-view"></i>&nbsp;&nbsp;&nbsp;VER OBRA
-	          </button>
-	        </a>
-	  		</div>
-	  		<div class="grid-50">
-	  			<a class="work-edit">
-	          <button class="button inline upload u-margin-top-30 upload_button"><i class="bi_editorial-compose"></i>&nbsp;&nbsp;&nbsp;EDITAR OBRA</button>
-	  			</a>
-	  		</div>
-	  		<div class="grid-50">
-	  			<a class='work-new'>
-	          <button class="button inline upload u-margin-top-30 upload_button"><i class="bi_interface-cloud-upload"></i>&nbsp;&nbsp;&nbsp;SUBIR OTRA OBRA</button>
-	  			</a>
-	  		</div>
-	  		<div>
-	  			<button class="button inline upload u-margin-top-30 upload_button work-delete" data-color="red">
-	  				<i class="bi_editorial-trash-l"></i>&nbsp;&nbsp;&nbsp;ELIMINAR OBRA
-	  			</button>
-	  		</div>
-	  	</div>
-		</div>
 	</div>
 </div>
 {% endblock %}
 
 {% block scripts %}
 <script>
+$.cloudinary.config({{cloudinary.config()|json|safe}});
+var category = {{category|json|safe}};
+var work = {{work|json|safe}};
+$(function() {
+	new APP.EditWorkScreen();
+})
 $(document).ready(function() {
-	$.cloudinary.config({{cloudinary.config()|json|safe}});
-  var category = {{category|json|safe}};
-  var work = {{work|json|safe}};
-
-	$('input[name=tags]').tagsInput({
-		height:'50px', width:'100%', defaultText:'+ Etiqueta'
-	});
-
-	$('select[name=category]')
-	.find('option[value=' + category.id + ']')
-	.attr('selected', true);
-
-	var uploaderImage = new APP.UploaderImage($('.uploader-work'), function(idImage) {
-			this.$view.find('.upload').show();
-			$('.cloudinary-fileupload').show();
-			$.cloudinary.image(idImage, {width: 300, crop:'limit'})
-			.appendTo(this.$view.find('.preview'));
-	});
-  uploaderImage.photo = work.photo;
-	$('.work-form').submit(function(event) {
-		event.preventDefault();
-		var tags = $('input[name=tags]').val();
-		var photo = uploaderImage.photo;
-		if(!photo) {
-			return alert('agrega foto mierda T_T');
-		}
-		if(tags.split(',')[0].length < 1) {
-			return alert('agrega tags ctv');
-		}
-		$('.send').hide();
-		$('.send-loading').show();
-		$.ajax({
-			method: 'POST',
-			url: DataApp.currentUser.url + '/work/update',
-			data: {
-        idWork: work.id,
-				photo: photo,
-				name: $('input[name=name]').val(),
-				idCategory: parseInt($('select[name=category]').val(), 10),
-				tags: tags,
-				description: $('textarea[name=description]').val(),
-				public: $('input[name=public]:checked').val() !== undefined
-			}
-		}).then(function(response) {
-			$('.send').show();
-			$('.send-loading').hide();
-			if (response.status === 200) {
-				var work = response.data.work;
-        var workUrl = DataApp.currentUser.url + '/work/' + work.nameSlugify + '/edit';
-        Utils.changeUrl(work.name, workUrl);
-			}
-		});
-	});
+	// $('input[name=tags]').tagsInput({
+	// 	height:'50px', width:'100%', defaultText:'+ Etiqueta'
+	// });
+	//
+	// $('select[name=category]')
+	// .find('option[value=' + category.id + ']')
+	// .attr('selected', true);
+	//
+	// var uploaderImage = new APP.UploaderImage($('.uploader-work'), function(idImage) {
+	// 		this.$view.find('.upload').show();
+	// 		$('.cloudinary-fileupload').show();
+	// 		$.cloudinary.image(idImage, {width: 300, crop:'limit'})
+	// 		.appendTo(this.$view.find('.preview'));
+	// });
+  // uploaderImage.photo = work.photo;
+	// $('.work-form').submit(function(event) {
+	// 	event.preventDefault();
+	// 	var tags = $('input[name=tags]').val();
+	// 	var photo = uploaderImage.photo;
+	// 	if(!photo) {
+	// 		return alert('agrega foto mierda T_T');
+	// 	}
+	// 	if(tags.split(',')[0].length < 1) {
+	// 		return alert('agrega tags ctv');
+	// 	}
+	// 	$('.send').hide();
+	// 	$('.send-loading').show();
+	// 	$.ajax({
+	// 		method: 'POST',
+	// 		url: DataApp.currentUser.url + '/work/update',
+	// 		data: {
+  //       idWork: work.id,
+	// 			photo: photo,
+	// 			name: $('input[name=name]').val(),
+	// 			idCategory: parseInt($('select[name=category]').val(), 10),
+	// 			tags: tags,
+	// 			description: $('textarea[name=description]').val(),
+	// 			public: $('input[name=public]:checked').val() !== undefined
+	// 		}
+	// 	}).then(function(response) {
+	// 		$('.send').show();
+	// 		$('.send-loading').hide();
+	// 		if (response.status === 200) {
+	// 			var work = response.data.work;
+  //       var workUrl = DataApp.currentUser.url + '/work/' + work.nameSlugify + '/edit';
+  //       Utils.changeUrl(work.name, workUrl);
+	// 		}
+	// 	});
+	// });
 });
 </script>
 {% endblock %}
