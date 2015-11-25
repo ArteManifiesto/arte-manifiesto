@@ -57,13 +57,19 @@ exports.isFollowing = function (req, res) {
 
 exports.follow = function (req, res) {
     req.user.follow(req.userTo).then(function (followers) {
+      var actionQuery = {UserId: req.user.id, verb:'follow-user', ObjectId:req.userTo.id, OwnerId: req.userTo.id};
+      global.db.Action.create(actionQuery).then(function() {
         return res.ok({user: req.userTo, followers: followers}, 'Usuario seguido');
+      });
     });
 };
 
 exports.unFollow = function (req, res) {
     req.user.unFollow(req.userTo).then(function (followers) {
+      var actionQuery = {where:{UserId: req.user.id, ObjectId: req.userTo.id, verb: 'follow-user'}};
+      global.db.Action.destroy(actionQuery).then(function() {
         return res.ok({user: req.userTo, followers: followers}, 'Usuario precedido');
+      });
     });
 };
 

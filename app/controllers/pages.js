@@ -3,19 +3,31 @@ var Promise = require('bluebird');
 var request = require('request');
 
 exports.index = function (req, res) {
-  var queryUsers = {where: {featured: true}, limit: 4, build: true, addUser: true, viewer: req.viewer};
-  var queryWorks = {where: {featured: true}, limit: 15, build: true, addUser: true, viewer: req.viewer};
-  var promises = [
-    global.db.User.findAll(queryUsers),
-    global.db.Work.findAll(queryWorks)
-  ];
+  // if(req.user) {
+  //   req.user.getFollowings().then(function(followings) {
+  //       var followingsArray = global._.pluck(followings, 'id');
+  //       var query = {where: {UserId: {$in: followingsArray}}, order:[global.getOrder('newest')],
+  //       build:true, viewer:req.viewer
+  //     }
+  //       global.db.Action.findAll(query).then(function(actions) {
+  //         return res.json(actions);
+  //       });
+  //   });
+  // } else {
+    var queryUsers = {where: {featured: true}, limit: 4, build: true, addUser: true, viewer: req.viewer};
+    var queryWorks = {where: {featured: true}, limit: 15, build: true, addUser: true, viewer: req.viewer};
+    var promises = [
+      global.db.User.findAll(queryUsers),
+      global.db.Work.findAll(queryWorks)
+    ];
 
-  return global.db.Sequelize.Promise.all(promises).then(function (result) {
-    return res.render('pages/index', {
-      users: result[0],
-      works: result[1]
-    })
-  });
+    return global.db.Sequelize.Promise.all(promises).then(function (result) {
+      return res.render('pages/index', {
+        users: result[0],
+        works: result[1]
+      })
+    });
+  // }
 };
 
 var searchHandler = function (entity, req, res) {

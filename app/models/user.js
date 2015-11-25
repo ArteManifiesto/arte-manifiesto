@@ -61,6 +61,7 @@ module.exports = function (sequelize, DataTypes) {
                     User.hasMany(models.Collection, {onDelete: 'cascade'});
                     User.hasMany(models.Work, {onDelete: 'cascade'});
                     User.hasMany(models.Review);
+                    User.hasMany(models.Action);
                 }
             },
             instanceMethods: {

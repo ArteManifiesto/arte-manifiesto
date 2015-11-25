@@ -66,7 +66,9 @@ exports.create = function (req, res) {
     ];
     global.db.Sequelize.Promise.all(promises).then(function (data) {
         var category = data[0], work = data[1];
+        var actionQuery = {UserId: req.user.id, verb:'create-work', ObjectId:work.id, OwnerId: req.user.id};
         var promises = [
+            global.db.Action.create(actionQuery),
             work.setUser(req.user),
             work.setTags(tagsResult),
             work.setCategory(category)
@@ -214,17 +216,25 @@ exports.insideCollection = function (req, res) {
 
 exports.delete = function (req, res) {
     req.work.destroy().then(function () {
-        if (req.xhr)
-            return res.ok({work: req.work}, 'Obra eliminada');
+      var actionQuery = {where:{ObjectId: req.work.id, verb: 'like-work'}};
+      global.db.Action.destroy(actionQuery).then(function() {
+          if (req.xhr)
+              return res.ok({work: req.work}, 'Obra eliminada');
 
-        req.flash('successMessage', 'Obra eliminada');
-        return res.redirect('back');
+          req.flash('successMessage', 'Obra eliminada');
+          return res.redirect('back');
+      });
     });
 };
 
 exports.like = function (req, res) {
     req.work.like(req.user).then(function (likes) {
-        return res.ok({work: req.work, likes: likes}, 'Work liked');
+      req.work.getUser().then(function(user) {
+        var actionQuery = {UserId: req.user.id, verb:'like-work', ObjectId:req.work.id, OwnerId: user.id};
+        global.db.Action.create(actionQuery).then(function() {
+          return res.ok({work: req.work, likes: likes}, 'Work liked');
+        });
+      });
     });
 };
 

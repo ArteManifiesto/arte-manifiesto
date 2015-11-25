@@ -1,11 +1,13 @@
 {% extends '../../partials/base.html' %}
 
 {% block styles %}
-	<link rel="stylesheet" type="text/css" href="/css/slick.css"/>
+	<link rel="stylesheet" href="/css/photoswipe.css">
+	<link rel="stylesheet" href="/css/default-skin/default-skin.css">
 {% endblock %}
 
 {% block elements %}
 {% set element = element.toJSON() %}
+
 
 {% if neighbors.prev %}
 	<p class="prev-btn">anterior</p>
@@ -18,7 +20,7 @@
 			<div class="single-info">
 				<div class="single-image">
 					<div class="single-image-inner">
-						<img src="{{element.photo|addFilter('w_700,h_800,q_80,c_limit')}}" class="work-photo">
+						<img src="{{element.photo|addFilter('w_700,h_800,q_80,c_limit')}}" class="work-photo" id="btn">
 						<div class="actions u-padding-top-10">
 							<a class="action {% if element.liked %} active {% endif %}">
 								<div class="like-btn">
@@ -278,6 +280,8 @@
 {% include '../../partials/report.html' %}
 
 	<div id="collection-modal" style="display:none;">
+		<i class="closed-modal fa fa-times"></i>
+
 		<div class="actions-box add-collection">
 			<p class="title">Añadir a las colecciones</p>
 			<div class="u-separator u-margin-top-7"></div>
@@ -301,6 +305,8 @@
 	</div>
 
 	<div id="share-modal" style="display:none;">
+		<i class="closed-modal fa fa-times"></i>
+
 		<div class="actions-box social-share">
 			<p class="title">Compartir obras</p>
 			<div class="u-separator u-margin-top-7"></div>
@@ -313,11 +319,69 @@
 		</div>
 	</div>
 	<div id="fb-root"></div>
+
+	<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+	    <div class="pswp__bg"></div>
+
+	    <div class="pswp__scroll-wrap">
+
+	        <div class="pswp__container">
+	            <div class="pswp__item"></div>
+	            <div class="pswp__item"></div>
+	            <div class="pswp__item"></div>
+	        </div>
+
+	        <div class="pswp__ui pswp__ui--hidden">
+
+	            <div class="pswp__top-bar">
+
+
+	                <div class="pswp__counter"></div>
+
+	                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+	                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+	                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+	                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+	                <div class="pswp__preloader">
+	                    <div class="pswp__preloader__icn">
+	                      <div class="pswp__preloader__cut">
+	                        <div class="pswp__preloader__donut"></div>
+	                      </div>
+	                    </div>
+	                </div>
+	            </div>
+
+	            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+	                <div class="pswp__share-tooltip"></div>
+	            </div>
+
+	            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+	            </button>
+
+	            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+	            </button>
+
+	            <div class="pswp__caption">
+	                <div class="pswp__caption__center"></div>
+	            </div>
+
+	          </div>
+
+	        </div>
+
+	</div>
+
 {% endblock %}
 
 {% block scripts %}
 
-	<script type="text/javascript" src="/slick.js"></script>
+	<script src="/photoswipe.js"></script>
+	<script src="/photoswipe-ui-default.js"></script>
 
 	<script>
 		(function (d, s, id) {
@@ -329,7 +393,6 @@
 			js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=1473636902857068";
 			fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
-
 		var owner = {{owner|json|safe}};
 		var entity = {{entity|json|safe}};
 		var element = {{element|json|safe}};
@@ -338,11 +401,7 @@
 		var more = {{more|json|safe}};
 		var similar = {{similar|json|safe}};
 		var neighbors = {{neighbors|json|safe}};
-		console.log(neighbors);
 		$(function() {
-			$("#go-collection-modal").leanModal();
-			$("#go-share-modal").leanModal();
-
 			$('.prev-btn').click(function() {
 				window.location.href = '/user/' + neighbors.prev.User.username + '/work/' + neighbors.prev.nameSlugify;
 			});
@@ -350,86 +409,65 @@
 			$('.next-btn').click(function() {
 				window.location.href = '/user/' + neighbors.next.User.username + '/work/' + neighbors.next.nameSlugify;
 			});
-			// setTimeout(function () {
-			// 	$('.your-class').slick({
-			// 		// dots: true,
-			// 		infinite: true,
-			// 		// speed: 300,
-			// 		// slidesToShow: 1,
-			// 		// centerMode: true,
-			// 		variableWidth: true
-			// 		// slidesToShow: 2,
-			// 		// slidesToScroll: 1
-			// 	});
-			// }, 1000)
 
-			// var similar = document.querySelector('.similar')
-			// var next = document.querySelector('.next')
-			// var prev = document.querySelector('.prev')
-
-			// var interval
-
-			// $('.next').mousedown( function () {
-			// 	interval = setInterval( function () {
-			// 		similar.scrollLeft = similar.scrollLeft + 20
-			// 	}, 100)
-			// })
-
-			// $('.prev').mousedown( function () {
-			// 	interval = setInterval( function () {
-			// 		similar.scrollLeft = similar.scrollLeft - 20
-			// 	}, 100)
-
-			// })
-
-			// $(document).mouseup (function () {
-			// 	console.log('mouseup')
-			// 	clearInterval(interval)
-			// })
-
+			$("#go-collection-modal").leanModal();
+			$("#go-share-modal").leanModal();
 		});
-
-
 		function Carousel (el) {
 			var nextButton = el.querySelector('.nextButton'),
 					prevButton = el.querySelector('.prevButton'),
 					carousel = el.querySelector('.more-images'),
 					interval;
-
 			function setup () {
 				$(nextButton).click(function () {
-					// console.log('mousedown!')
-					// $(carousel).animate({
-					// 	scrollLeft: 1000
-					// })
-					// interval = setInterval( function () {
-						// carousel.scrollLeft = carousel.scrollLeft + 20
-						// console.log('animate')
 						$(carousel).animate({
 							scrollLeft: (carousel.scrollLeft + 230)
 						})
-					// }, 100)
 				})
 				$(prevButton).click(function () {
-					// interval = setInterval( function () {
-					// 	carousel.scrollLeft = carousel.scrollLeft - 20
-					// }, 100)
 					$(carousel).animate({
 						scrollLeft: (carousel.scrollLeft - 230)
 					})
 				})
-
-				// $(document).mouseup (function () {
-				// 	clearInterval(interval)
-				// })
 			}
-
 			setup()
 		}
-
 		var carousel = new Carousel (document.querySelector('.js-more-carousel'))
 		var carousel = new Carousel (document.querySelector('.js-similar-carousel'))
-
+		var meta
+		$("<img/>").load(function(){
+			var width = this.width, height = this.height;
+			meta = { width: width, height: height }
+		}).attr("src", element.photo);
+		setTimeout(function () {
+			// console.log('meta: ', meta)
+			var openPhotoSwipe = function() {
+		    var pswpElement = document.querySelectorAll('.pswp')[0];
+		    // build items array
+		    var items = [
+					{
+						// src: Utils.addImageFilter(element.photo, 'w_1000,h_700')
+						// w: $('#btn')[0].width,
+						// h: $('#btn')[0].height,
+						src: element.photo,
+						w: meta.width,
+						h: meta.height
+					}
+		    ];
+		    // define options (if needed)
+		    var options = {
+		    	getThumbBoundsFn: function () {
+		    		return {
+		    			x: $('#btn')[0].offsetLeft ,y: $('#btn')[0].offsetTop, w: $('#btn')[0].width}
+		    	}
+		    };
+		    window.gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+		    gallery.init();
+			};
+			document.getElementById('btn').onclick = openPhotoSwipe;
+		}, 3000)
+		// openPhotoSwipe();
 	</script>
+
 	<script src='/work-product.js'></script>
 {% endblock %}
