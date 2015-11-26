@@ -3,7 +3,10 @@
     <header class="feed-card-header">
       <a href="#" class="user">
         <img src="<%= User.photo %>">&nbsp;&nbsp;&nbsp;
-        <p><%= User.fullname %></p>
+        <div>
+          <p class="uppercase"><%= User.fullname %></p>
+          <p class="u-margin-top-5">empezó a seguir a un artista</p>
+        </div>
       </a>
       <div class="info">
         <p><%=formatDate(createdAt)%></p>&nbsp;&nbsp;&nbsp;
