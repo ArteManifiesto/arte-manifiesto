@@ -59,7 +59,8 @@ APP.AddWorkScreen.prototype.workFormSubmitHandler = function(event) {
     idCategory: parseInt($('select[name=category]').val(), 10),
     tags: tags,
     description: $('textarea[name=description]').val(),
-    public: $('input[name=public]:checked').val() !== undefined
+    public: $('input[name=public]:checked').val() !== undefined,
+    nswf: $('input[name=nswf]:checked').val() !== undefined
   };
   this.requestHandler(url, payload, this.workCreatedComplete);
 };

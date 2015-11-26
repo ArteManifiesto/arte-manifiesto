@@ -25,7 +25,8 @@ exports.index = function (req, res) {
 };
 
 exports.update = function (req, res) {
-    req.body.birthday = moment(req.body.birthday, 'DDMMYY');
+  console.log('updateee');
+    console.log(req.body.birthday);
     req.body.filled = true;
     req.body.fullname = req.body.firstname + ' ' + req.body.lastname;
     //var specialtiesData = req.body.specialties;

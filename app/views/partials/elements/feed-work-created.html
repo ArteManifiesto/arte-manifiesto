@@ -5,7 +5,11 @@
         <img src="<%= User.photo %>">&nbsp;&nbsp;&nbsp;
         <div>
           <p class="uppercase"><%= User.fullname %></p>
-          <p class="u-margin-top-5">ha subido una obra</p>
+          <% if(verb === 'create-work') { %>
+            <p class="u-margin-top-5">ha subido una obra</p>
+          <% } else { %>
+            <p class="u-margin-top-5">ha valorado una obra</p>
+          <% } %>
         </div>
         <p></p>
       </a>

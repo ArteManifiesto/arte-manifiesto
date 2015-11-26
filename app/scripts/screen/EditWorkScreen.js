@@ -33,7 +33,12 @@ APP.EditWorkScreen.prototype.listeners = function () {
   $('.work-delete').click(this.workDeleteHandler.bind(this));
   $('.work-delete-force').click(this.workDeleteForceHandler.bind(this));
   $('.work-delete-cancel').click(this.workDeleteCancelHandler.bind(this));
+  $('input[type=checkbox]').change(this.checkPublicHandler);
 };
+
+APP.AddWorkScreen.prototype.checkPublicHandler = function() {
+  $(this).parent().find('.value').text((this.checked ? 'On' : 'Off'));
+}
 
 APP.EditWorkScreen.prototype.workFormSubmitHandler = function(event) {
   event.preventDefault();
@@ -60,7 +65,8 @@ APP.EditWorkScreen.prototype.workFormSubmitHandler = function(event) {
     idCategory: parseInt($('select[name=category]').val(), 10),
     tags: tags,
     description: $('textarea[name=description]').val(),
-    public: $('input[name=public]:checked').val() !== undefined
+    public: $('input[name=public]:checked').val() !== undefined,
+    nswf: $('input[name=nswf]:checked').val() !== undefined
   };
   this.requestHandler(url, payload, this.workCreatedComplete);
 };

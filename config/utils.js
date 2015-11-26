@@ -78,7 +78,7 @@ global.discoverGenerator = function (entity, req) {
 
   query.viewer = req.viewer;
   query.order = [global.getOrder(req.query.order)]
-
+  
   if (req.query.featured)
     query.where.featured = true;
 

@@ -58,7 +58,7 @@
 				</div>
 				<div class="grid-50 mobile-grid-100">
 					<p class="title">Fecha de nacimiento</p>
-					<input id="date" class="input" type="text" name='birthday' value="{{user.birthday|date('DDMMYY')}}" required placeholder="dd/mm/yy"/ maxlength="8">
+					<input id="date" class="input" type="text" name='birthday' value="{{user.birthday|date('d/m/Y')}}" required placeholder="dd/mm/yy"/ maxlength="8">
 				</div>
 
 				<div class="grid-50 mobile-grid-100">
@@ -145,6 +145,7 @@
 {% block scripts %}
 <script src="/jquery.maskedinput.js" lang="text/javascript"></script>
 	<script>
+	console.log({{user|json|safe}});
 		$(document).ready(function () {
 			var context = {{context|json|safe}};
 

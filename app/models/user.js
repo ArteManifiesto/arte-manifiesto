@@ -11,6 +11,7 @@ module.exports = function (sequelize, DataTypes) {
             lastname: DataTypes.STRING,
             fullname: DataTypes.STRING,
             gender: DataTypes.STRING,
+            age: DataTypes.INTEGER,
             photo: DataTypes.STRING,
             cover: DataTypes.STRING,
             isArtist: {type: DataTypes.BOOLEAN, defaultValue: false},
@@ -18,7 +19,15 @@ module.exports = function (sequelize, DataTypes) {
             city: DataTypes.STRING,
             country: DataTypes.STRING,
             biography: DataTypes.TEXT,
-            birthday: DataTypes.DATE,
+            birthday: {
+                type: DataTypes.DATE,
+                set: function(value) {
+                  var birthday = moment(value, 'DD/MM/YYYY');
+                  var age = moment().diff(birthday, 'years');
+                  this.setDataValue('age', age);
+                  this.setDataValue('birthday', birthday.toDate());
+                }
+            },
 
             school: DataTypes.TEXT,
 

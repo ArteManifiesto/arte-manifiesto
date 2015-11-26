@@ -51,20 +51,23 @@
 				<div class="switch u-margin-top-10">
 					<p class="title">Público</p>
 					<span class="value">On</span>
-					<input type="checkbox" name="public" id="public" {% if work.public %} checked {% endif %}/>
+					<input type="checkbox" name="public" id="public" checked/>
 					<label for="public">
 						<div class="am-Switch-button">
 							<i class="fa fa-bars"></i>
 						</div>
 					</label>
 				</div>
-				<!-- <button class="button u-margin-top-30 send" data-color="blue">GUARDAR</button>
-				<div class="hide send-loading">
-					<button class="button u-margin-top-30" data-color="blue">
-						<i class="load fa fa-spinner"></i>
-					</button>
-				</div> -->
-
+				<div class="switch u-margin-top-10">
+					<p class="title">NSWF</p>
+					<span class="value">Off</span>
+					<input type="checkbox" name="nswf" id="nswf"/>
+					<label for="nswf">
+						<div class="am-Switch-button">
+							<i class="fa fa-bars"></i>
+						</div>
+					</label>
+				</div>
 				<div class="u-padding-top-20">
 					<div class="grid-50">
 						<a href="#">
@@ -102,57 +105,6 @@ var category = {{category|json|safe}};
 var work = {{work|json|safe}};
 $(function() {
 	new APP.EditWorkScreen();
-})
-$(document).ready(function() {
-	// $('input[name=tags]').tagsInput({
-	// 	height:'50px', width:'100%', defaultText:'+ Etiqueta'
-	// });
-	//
-	// $('select[name=category]')
-	// .find('option[value=' + category.id + ']')
-	// .attr('selected', true);
-	//
-	// var uploaderImage = new APP.UploaderImage($('.uploader-work'), function(idImage) {
-	// 		this.$view.find('.upload').show();
-	// 		$('.cloudinary-fileupload').show();
-	// 		$.cloudinary.image(idImage, {width: 300, crop:'limit'})
-	// 		.appendTo(this.$view.find('.preview'));
-	// });
-  // uploaderImage.photo = work.photo;
-	// $('.work-form').submit(function(event) {
-	// 	event.preventDefault();
-	// 	var tags = $('input[name=tags]').val();
-	// 	var photo = uploaderImage.photo;
-	// 	if(!photo) {
-	// 		return alert('agrega foto mierda T_T');
-	// 	}
-	// 	if(tags.split(',')[0].length < 1) {
-	// 		return alert('agrega tags ctv');
-	// 	}
-	// 	$('.send').hide();
-	// 	$('.send-loading').show();
-	// 	$.ajax({
-	// 		method: 'POST',
-	// 		url: DataApp.currentUser.url + '/work/update',
-	// 		data: {
-  //       idWork: work.id,
-	// 			photo: photo,
-	// 			name: $('input[name=name]').val(),
-	// 			idCategory: parseInt($('select[name=category]').val(), 10),
-	// 			tags: tags,
-	// 			description: $('textarea[name=description]').val(),
-	// 			public: $('input[name=public]:checked').val() !== undefined
-	// 		}
-	// 	}).then(function(response) {
-	// 		$('.send').show();
-	// 		$('.send-loading').hide();
-	// 		if (response.status === 200) {
-	// 			var work = response.data.work;
-  //       var workUrl = DataApp.currentUser.url + '/work/' + work.nameSlugify + '/edit';
-  //       Utils.changeUrl(work.name, workUrl);
-	// 		}
-	// 	});
-	// });
 });
 </script>
 {% endblock %}
