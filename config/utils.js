@@ -16,15 +16,14 @@ global.lift = function (app) {
   });
 };
 
-
 global.config = {
   search: {
     entities: ['works', 'users', 'products', 'collections'],
     orders: {
-      works: ['popularity', 'views', 'newest'],
-      users: ['popularity', 'views', 'newest'],
-      collections: ['popularity', 'views', 'newest'],
-      products: ['popularity', 'views', 'newest', 'price_asc', 'price_desc']
+      works: ['popularity', 'hottest', 'newest'],
+      users: ['popularity', 'hottest', 'newest'],
+      collections: ['popularity', 'hottest', 'newest'],
+      products: ['popularity', 'hottest', 'newest', 'price_asc', 'price_desc']
     },
     times: ['day', 'week', 'month', 'year'],
     params: {
@@ -87,7 +86,11 @@ global.discoverGenerator = function (entity, req) {
     query.where.createdAt = {
       $between: [moment().startOf(req.query.time).toDate(), moment().toDate()]
     };
-
+  if(req.query.order === 'hottest') {
+    query.where.createdAt = {
+      $between: [moment().startOf('week').toDate(), moment().toDate()]
+    };
+  }
   if (req.query.lo_p || req.query.hi_p)
     query.where.price = {
       $between: [req.query.lo_p || 0, req.query.hi_p || 3000]
@@ -221,10 +224,8 @@ global.encodeToQuery = function (data) {
 global.getOrder = function (order) {
   switch (order) {
     case 'popularity':
+    case 'hottest':
       order = [global.db.sequelize.col('popularity'), 'DESC'];
-      break;
-    case 'views':
-      order = [global.db.sequelize.col('views'), 'DESC'];
       break;
     case 'newest':
       order = [global.db.sequelize.col('createdAt'), 'DESC'];
