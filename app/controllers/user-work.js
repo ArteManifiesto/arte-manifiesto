@@ -291,7 +291,7 @@ exports.saveManifest = function(req, res) {
 
 exports.availability = function (req, res) {
   req.work.getWorkRequests({where:{id:req.user.id}}).then(function(users) {
-    req.work.getUser().then(function(user){
+    req.work.getUser().then(function(user) {
       var actionQuery = {UserId: req.user.id, verb:'request-work', ObjectId:req.work.id, OwnerId: user.id};
       global.db.Action.create(actionQuery).then(function() {
         req.work.addWorkRequests(req.user).then(function() {
