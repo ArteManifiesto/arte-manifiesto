@@ -11,7 +11,9 @@
 {% block scripts %}
 	<script>
 	$(function(){
-		new APP.Viewer('actionItem', $('.feedInner'), null, {{actions|json|safe}});
+		var actions = {{actions|json|safe}};
+		console.log(actions);
+		new APP.Viewer('actionItem', $('.feed-inner'), null, actions);
 	})
 	</script>
 {% endblock %}

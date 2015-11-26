@@ -7,9 +7,11 @@ exports.index = function (req, res) {
     req.user.getFollowings().then(function(followings) {
         var followingsArray = global._.pluck(followings, 'id');
         var query = {where: {UserId: {$in: followingsArray}}, order:[global.getOrder('newest')],
+        include:[global.db.User],
         build:true, viewer:req.viewer
       }
       global.db.Action.findAll(query).then(function(actions) {
+        // return res.json({actions:actions});
         return res.render('pages/index', {
           actions: actions
         });
@@ -25,7 +27,7 @@ exports.index = function (req, res) {
 
     return global.db.Sequelize.Promise.all(promises).then(function (result) {
       global.db.Work.findById(24005).then(function(work) {
-        return res.render('pages/index', {
+        return res.render('pages/index-org', {
           users: result[0],
           works: result[1],
           cloudinary: global.cl,

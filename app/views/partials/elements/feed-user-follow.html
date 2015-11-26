@@ -3,10 +3,10 @@
     <header class="feed-card-header">
       <div class="user">
         <img src="http://res.cloudinary.com/hackdudes/image/upload/w_150,h_150,c_thumb,d_am_avatar.jpg/v1448413621/d35z0dcxnppobefpreco.jpg">&nbsp;&nbsp;&nbsp;
-        <p>Sergio Gonzales Mucho</p>
+        <p><%= User.fullname %></p>
       </div>
       <div class="info">
-        <p>hace 1 min</p>&nbsp;&nbsp;&nbsp;
+        <p><%=formatDate(createdAt)%></p>&nbsp;&nbsp;&nbsp;
         <i class="bi_interface-plus"></i>
       </div>
     </header>
@@ -14,22 +14,25 @@
     <div class="u-separator" style="background: #ccc;"></div>
 
     <section class="feed-card-userInfo">
-      <img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150,h_150,q_70,d_am_avatar.jpg/avatars/avatar_diegorossell.jpg">
+      <img src="<%= element.photo %>">
       <div class="info">
-        <p class="name">PETRONILO CURABANCA</p>
-        <p class="city u-margin-top-7">Lima, Perú</p>
+        <p class="name"><%= element.fullname %></p>
+        <p class="city u-margin-top-7"><%=element.city%>, <%=element.country%></p>
         <p class="stats u-margin-top-10">
-          <i class="bi_interface-view"></i>&nbsp;<span>252</span>&nbsp;&nbsp;
-          <i class="bi_ecommerce-diamon"></i>&nbsp;<span class="likes">2,342</span>
+          <i class="bi_interface-view"></i>&nbsp;<span>200</span>&nbsp;&nbsp;
+          <i class="bi_ecommerce-diamon"></i>&nbsp;<span class="likes">300</span>
         </p>
       </div>
     </section>
 
     <section class="feed-card-images">
-      <div style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,d_am_avatar.jpg/works/4830c2a53b077c81c51e11644f46acf2.jpg')"></div>
-      <div style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,d_am_avatar.jpg/works/5ec42564e870b384e42f44af695fbf67.jpg')"></div>
-      <div style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,d_am_avatar.jpg/works/2d7f0e5a4c747ac1041aac89daf9563d.jpg')"></div>
-      <div style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,d_am_avatar.jpg/works/28ba723927abca1d95cc8ef65f1e8bc3.jpg')"></div>
+      <% _.each([0,1,2,3], function(i) { %>
+        <% if(element.Works[i] && element.Works[i].photo) { %>
+          <div style="background-image: url('<%= addFilter(element.Works[i].photo, 'w_300,h_300,c_fill') %>')"></div>
+        <% } else { %>
+          <div class="artist-card-work empty"></div>
+        <% } %>
+      <% }); %>
     </section>
 
     <section class="feed-card-button">
@@ -39,8 +42,21 @@
     <div class="u-separator" style="background: #ccc;"></div>
 
     <footer class="feed-card-footer">
-      <img src="http://res.cloudinary.com/hackdudes/image/upload/w_150,h_150,c_thumb,d_am_avatar.jpg/v1448413621/d35z0dcxnppobefpreco.jpg">&nbsp;&nbsp;&nbsp;
-      <p>Sergio Gonzales Mucho y 234 amigos siguieron a este artista</p>
+      <% _.each([0,1,2], function(i) { %>
+        <% if(element.friends[i] && element.friends[i].photo) { %>
+          <img src="<%= element.friends[i].photo %>"></img>
+        <% } %>
+      <% }); %>
+      <% if(element.friends.length > 3) { %>
+        <p>y <%= element.friends.length - 3 %> amigos siguieron a este artista</p>
+        <div style="background-image: url('<%= addFilter(element.Works[i].photo, 'w_300,h_300,c_fill') %>')"></div>
+      <% } else { %>
+        <% if(element.friends.length > 1) { %>
+          <p> estan siguiendo a este artista</p>
+        <% } else { %>
+          <p> sigue a este artista</p>
+        <% } %>
+      <% } %>
     </footer>
   </div>
 </script>

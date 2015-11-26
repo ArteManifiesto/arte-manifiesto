@@ -7,7 +7,8 @@ var APP = APP || {};
 APP.Viewer = function (id, container, navigation, data , options) {
   this.container = container;
   this.options = options;
-  if (id !== 'carrouselItem') {
+  if (id === 'carrouselItem' || id === 'actionItem') {
+  }else {
     this.setupMasonry();
   }
 
@@ -99,7 +100,7 @@ APP.Viewer.prototype.addItems = function(items) {
   for(i; i< items.length; i++) {
     if (this.id === 'actionItem') {
       console.log(items[i]);
-      if(items[i].verb === 'create-work') {
+      if(items[i].verb === 'create-work' || items[i].verb === 'like-work') {
         item = new APP.FeedWorkCreated(items[i], this.options);
       }
       if(items[i].verb === 'follow-user') {
@@ -129,10 +130,10 @@ APP.Viewer.prototype.addItems = function(items) {
       });
     }
     else {
-      if(this.id !== 'carrouselItem') {
-        this.container.append(item.view).masonry('appended', item.view);
+      if(this.id === 'carrouselItem' || this.id === 'actionItem') {
+        this.container.append(item.view);
       }else{
-        this.container.append(item.view)
+        this.container.append(item.view).masonry('appended', item.view);
       }
       if(scopetemp.navigationManager){
         scopetemp.navigationManager.navigator.restart();

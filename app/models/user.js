@@ -107,12 +107,14 @@ module.exports = function (sequelize, DataTypes) {
                         scope.numOfFollowers(),
                         scope.numOfWorks(),
                         scope.following(options.viewer),
+                        scope.friends(options.viewer),
                         scope.getWorks(worksQuery)
                     ]).then(function (result) {
                         scope.setDataValue('numOfFollowers', result[0]);
                         scope.setDataValue('numOfWorks', result[1]);
                         scope.setDataValue('following', result[2]);
-                        scope.setDataValue('Works', result[3]);
+                        scope.setDataValue('friends', result[3]);
+                        scope.setDataValue('Works', result[4]);
                     });
                 },
                 calcPopularity: function() {
@@ -162,6 +164,32 @@ module.exports = function (sequelize, DataTypes) {
                     var query = {where: {id: viewer}};
                     return this.getFollowers(query).then(function (followers) {
                         return followers.length > 0;
+                    });
+                },
+                friends: function (viewer) {
+                    if (viewer < 0)
+                        return [];
+
+                    var scope = this, queryLikes = {attributes: ['id']},
+                        queryFollowings = {attributes: ['id', 'username', 'fullname', 'photo']};
+
+                    var promises = [
+                        this.getFollowers(queryLikes),
+                        global.db.User.findById(viewer).then(function (user) {
+                            return user.getFollowings(queryFollowings);
+                        })
+                    ]
+                    return global.db.Sequelize.Promise.all(promises).then(function (result) {
+                        var likes = result[0], followings = result[1];
+
+                        var likesId = global._.pluck(likes, 'id');
+                        var followingsId = global._.pluck(followings, 'id');
+                        var intersection = global._.intersection(likesId, followingsId);
+                        var i, friends = [];
+                        for (i = 0; i < intersection.length; i++)
+                            friends.push(global._.where(followings, {id: intersection[i]})[0]);
+
+                        return friends;
                     });
                 }
             },
