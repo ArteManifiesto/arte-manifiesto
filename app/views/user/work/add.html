@@ -50,9 +50,19 @@
 				</div>
 				<div class="switch u-margin-top-10">
 					<p class="title">Público</p>
-					<span class="value" id="public-value"></span>
+					<span class="value">On</span>
 					<input type="checkbox" name="public" id="public" checked/>
 					<label for="public">
+						<div class="am-Switch-button">
+							<i class="fa fa-bars"></i>
+						</div>
+					</label>
+				</div>
+				<div class="switch u-margin-top-10">
+					<p class="title">NSWF</p>
+					<span class="value">Off</span>
+					<input type="checkbox" name="nswf" id="nswf"/>
+					<label for="nswf">
 						<div class="am-Switch-button">
 							<i class="fa fa-bars"></i>
 						</div>
@@ -126,15 +136,6 @@
 $(document).ready(function() {
 	$.cloudinary.config({{cloudinary.config()|json|safe}});
 	new APP.AddWorkScreen();
-
-
-	$("input[name=public]").change(function() {
-    if(this.checked)
-			$('#public-value').text('On')
-    else
-			$('#public-value').text('Off')
-	});
-
 });
 </script>
 {% endblock %}
