@@ -53,14 +53,14 @@
 
 @font-face {
   font-family: "dante";
-  src: url("./font/fontello.eot");
-  src: url("./font/fontello.eot?#iefix") format("embedded-opentype"), url("./font/fontello.woff") format("woff"), url("./font/fontello.ttf") format("truetype"), url("./font/fontello.svgfontello") format("svg");
+  src: url("/font/fontello.eot");
+  src: url("/font/fontello.eot?#iefix") format("embedded-opentype"), url("/font/fontello.woff") format("woff"), url("/font/fontello.ttf") format("truetype"), url("/font/fontello.svgfontello") format("svg");
   font-weight: normal;
   font-style: normal; }
 @font-face {
   font-family: "dante-tooltip";
-  src: url("./font/dante.eot");
-  src: url("./font/dante.eot?#iefix") format("embedded-opentype"), url("./font/dante.woff") format("woff"), url("./font/dante.ttf") format("truetype"), url("./font/dante.svgdante") format("svg");
+  src: url("/font/dante.eot");
+  src: url("/font/dante.eot?#iefix") format("embedded-opentype"), url("/font/dante.woff") format("woff"), url("/font/dante.ttf") format("truetype"), url("/font/dante.svgdante") format("svg");
   font-weight: normal;
   font-style: normal; }
 @-webkit-keyframes pop-upwards {

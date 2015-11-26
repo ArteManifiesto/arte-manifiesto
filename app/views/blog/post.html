@@ -33,7 +33,7 @@
 </head>
 <body>
 	<div id="editor">
-		{% autoescape false %} {{manifest}} {% endautoescape %}
+		{% autoescape false %} {{post.body}} {% endautoescape %}
 	</div>
   <button class="saven">Save</button>
 
@@ -72,9 +72,9 @@
 	<script type="text/javascript">
     editor = new Dante.Editor({
     el: "#editor",
-    store_url: "/blog/create",
-    title_placeholder: 'Titulo',
-    body_placeholder: 'Cuenta algo...'
+    // store_url: "/blog/create",
+    // title_placeholder: 'Titulo',
+    // body_placeholder: 'Cuenta algo...'
   });
     editor.start();
 		$('.saven').click(function(event) {

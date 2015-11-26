@@ -568,9 +568,6 @@ var uploading = false;
     };
 
     Editor.prototype.store = function() {
-      if (!this.store_url || uploading) {
-        return;
-      }
       return setTimeout((function(_this) {
         return function() {
           return _this.checkforStore();
@@ -589,7 +586,7 @@ var uploading = false;
           url: this.store_url,
           method: 'post',
           data: {
-            manifest: this.getContent()
+            body: this.getContent()
           },
           success: function(res) {
             utils.log("store!");
