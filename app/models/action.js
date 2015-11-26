@@ -23,7 +23,7 @@ module.exports = function (sequelize, DataTypes) {
                 }
                 if(this.verb === 'follow-user') {
                   if(options.reverse) {
-                    return null;
+                    return global.db.User.find({where:{id:this.ObjectId}});
                   }
                   return global.db.User.find({where:{id:this.ObjectId}, build:true, viewer: options.viewer});
                 }
