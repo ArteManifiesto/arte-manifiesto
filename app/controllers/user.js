@@ -50,7 +50,16 @@ exports.followings = function (req, res) {
 };
 
 exports.notifications = function(req, res) {
-    return res.render(basePath + 'notifications');
+    global.db.Action.findAll({where: {
+        OwnerId: req.user.id},
+        order:[global.getOrder('newest')],
+        include:[global.db.User],
+        build:true, viewer:req.viewer, reverse:true
+      }).then(function(notifications) {
+      return res.render(basePath + 'notifications', {
+        notifications: notifications
+      });
+    });
 };
 
 exports.isFollowing = function (req, res) {

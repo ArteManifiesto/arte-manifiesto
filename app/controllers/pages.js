@@ -6,7 +6,10 @@ exports.index = function (req, res) {
   if(req.user) {
     req.user.getFollowings().then(function(followings) {
         var followingsArray = global._.pluck(followings, 'id');
-        var query = {where: {UserId: {$in: followingsArray}}, order:[global.getOrder('newest')],
+        var verbs = ['like-work', 'follow-user','create-work'];
+        var query = {where: {UserId: {$in: followingsArray},
+        verb:{$in:[verbs]}
+      }, order:[global.getOrder('newest')],
         include:[global.db.User],
         build:true, viewer:req.viewer
       }

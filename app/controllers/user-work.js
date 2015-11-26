@@ -292,14 +292,17 @@ exports.saveManifest = function(req, res) {
 exports.availability = function (req, res) {
   req.work.getWorkRequests({where:{id:req.user.id}}).then(function(users) {
     req.work.getUser().then(function(user){
-      req.work.addWorkRequests(req.user).then(function() {
-        var params = {
-            to: user,
-            requester: req.user,
-            work: req.work
-        };
-        global.emails.availability(req, params).then(function () {
-          return res.ok({user: users[0]}, 'asked');
+      var actionQuery = {UserId: req.user.id, verb:'request-work', ObjectId:req.work.id, OwnerId: user.id};
+      global.db.Action.create(actionQuery).then(function() {
+        req.work.addWorkRequests(req.user).then(function() {
+          var params = {
+              to: user,
+              requester: req.user,
+              work: req.work
+          };
+          global.emails.availability(req, params).then(function () {
+            return res.ok({user: users[0]}, 'asked');
+          });
         });
       });
     });

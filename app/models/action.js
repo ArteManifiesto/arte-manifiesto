@@ -18,10 +18,13 @@ module.exports = function (sequelize, DataTypes) {
                 });
               },
               getElement:function(options) {
-                if(this.verb === 'like-work' || this.verb === 'create-work') {
+                if(this.verb === 'like-work' || this.verb === 'create-work' || this.verb === 'request-work') {
                   return global.db.Work.find({where:{id:this.ObjectId}, addUser:true, build:true, viewer: options.viewer});
                 }
                 if(this.verb === 'follow-user') {
+                  if(options.reverse) {
+                    return null;
+                  }
                   return global.db.User.find({where:{id:this.ObjectId}, build:true, viewer: options.viewer});
                 }
               }

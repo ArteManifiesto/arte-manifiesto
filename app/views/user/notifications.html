@@ -11,3 +11,10 @@
 </p>
 
 {% endblock %}
+
+
+{% block scripts %}
+<script>
+  console.log({{notifications|json|safe}});
+</script>
+{% endblock %}
