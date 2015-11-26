@@ -61,7 +61,7 @@
 
 					<div class="switch u-margin-top-10">
 						<p class="title">Público</p>
-						<span class="value">On</span>
+						<span class="value" id="public-value"></span>
 
 						<input type="checkbox" name="public" id="public" {% if collection.public %} checked {%endif %}/>
 						<label for="public">
@@ -151,6 +151,15 @@
 				Utils.changeUrl(collection.name, newUrl);
 			}
 		});
+	});
+
+
+
+	$("input[name=public]").change(function() {
+    if(this.checked)
+			$('#public-value').text('On')
+    else
+			$('#public-value').text('Off')
 	});
 
 	</script>
