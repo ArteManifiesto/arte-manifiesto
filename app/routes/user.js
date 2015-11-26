@@ -12,6 +12,9 @@ router.get('/collections', controller.profile.bind(this, 'collections'));
 router.get('/followers', controller.profile.bind(this, 'followers'));
 router.get('/followings', controller.profile.bind(this, 'followings'));
 
+router.get('/notifications', isLoggedAndOwner, controller.notifications);
+
+
 router.use('/work', require(global.cf.routes + "/user-work"));
 router.use('/collection', require(global.cf.routes + "/user-collection"));
 router.use('/account', isLoggedAndOwner, require(global.cf.routes + "/user-account"));

@@ -49,6 +49,10 @@ exports.followings = function (req, res) {
     return getData(req, res, {method: 'getFollowings', name: 'followings'});
 };
 
+exports.notifications = function(req, res) {
+    return res.render(basePath + 'notifications');
+};
+
 exports.isFollowing = function (req, res) {
   req.user.getFollowings({where:{id: req.userTo.id}}).then(function(result){
     return res.ok({following: (result.length > 0) }, 'IsFollowing');
