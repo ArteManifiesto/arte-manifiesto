@@ -19,7 +19,6 @@ module.exports = function (sequelize, DataTypes) {
                   Post.belongsToMany(models.Tag, {through: 'PostTags'});
                   Post.belongsTo(models.User);
                   Post.belongsTo(models.PostCategory);
-                  Post.hasMany(models.Review, {onDelete: 'cascade'});
                 }
             },
             hooks: {

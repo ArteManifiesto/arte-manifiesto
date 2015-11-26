@@ -27,7 +27,12 @@ APP.AddWorkScreen.prototype.listeners = function () {
   APP.BaseScreen.prototype.listeners.call(this);
   $('.work-form').submit(this.workFormSubmitHandler.bind(this));
   $('.work-delete').click(this.workDeleteHandler.bind(this));
+  $('input[type=checkbox]').change(this.checkPublicHandler);
 };
+
+APP.AddWorkScreen.prototype.checkPublicHandler = function() {
+  $(this).parent().find('.value').text((this.checked ? 'On' : 'Off'));
+}
 
 APP.AddWorkScreen.prototype.workFormSubmitHandler = function(event) {
   event.preventDefault();

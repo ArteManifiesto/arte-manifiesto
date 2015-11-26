@@ -39,7 +39,11 @@
     </section>
 
     <section class="feed-card-button">
-      <button class="am-Follow-button" style="font-size: 13.3px;">&nbsp; + SEGUIR &nbsp;</button>
+      <% if(element.following) { %>
+        <button class="am-Follow-button following" style="font-size: 13.3px;">&nbsp; SIGUIENDO &nbsp;</button>
+      <% } else { %>
+        <button class="am-Follow-button" style="font-size: 13.3px;">&nbsp; + SEGUIR &nbsp;</button>
+      <% } %>
     </section>
 
     <div class="u-separator" style="background: #ccc;"></div>

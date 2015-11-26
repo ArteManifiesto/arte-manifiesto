@@ -2,36 +2,36 @@
   <div class="feed-card u-margin-top-40">
     <header class="feed-card-header">
       <a href="#" class="user">
-        <img src="http://res.cloudinary.com/hackdudes/image/upload/w_150,h_150,c_thumb,d_am_avatar.jpg/v1448413621/d35z0dcxnppobefpreco.jpg">&nbsp;&nbsp;&nbsp;
-        <p>Sergio Gonzales Mucho</p>
+        <img src="<%= User.photo %>">&nbsp;&nbsp;&nbsp;
+        <p><%= User.fullname %></p>
       </a>
       <div class="info">
-        <p>hace 1 min</p>&nbsp;&nbsp;&nbsp;
+        <p><%=formatDate(createdAt)%></p>&nbsp;&nbsp;&nbsp;
         <i class="bi_interface-plus"></i>
       </div>
     </header>
 
     <a href="#">
-      <img class="feed-card-image" src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_300,d_am_avatar.jpg/works/6e32d4d1e3917831b07e4f0e53faea90.jpg">
+      <img class="feed-card-image" src="<%= addFilter(element.photo, 'w_500,h_400,c_fill') %>">
     </a>
 
     <section class="feed-card-info">
       <div class="info">
-        <p class="title">OUR LEGACY SPLASH MID SLEEVE AND I WILL NOT SLEEP</p>
+        <p class="title"><%= element.name %></p>
         <div class="avatar u-margin-top-10">
-          <img src="http://res.cloudinary.com/hackdudes/image/upload/w_150,h_150,c_thumb,d_am_avatar.jpg/v1448413621/d35z0dcxnppobefpreco.jpg">&nbsp;&nbsp;&nbsp;
-          <p class="name">por Sergio Gonzales Mucho</p>
+          <img src="<%= element.User.photo %>">&nbsp;&nbsp;&nbsp;
+          <p class="name"><%= element.User.fullname %></p>
         </div>
       </div>
       <div class="stats">
         <table class="am-Single-stats" style="font-size: 14px;">
           <tr>
             <td><i class="bi_interface-view"></i></td>
-            <td><span>252</span></td>
+            <td><span><%= element.views %></span></td>
           </tr>
           <tr>
             <td><i class="bi_ecommerce-diamon"></i></td>
-            <td><span class="likes">2,342</span></td>
+            <td><span class="likes"><%= element.likes %></span></td>
           </tr>
         </table>
       </div>
@@ -57,8 +57,23 @@
     <div class="u-separator" style="background: #bbb;"></div>
 
     <footer class="feed-card-footer">
-      <img src="http://res.cloudinary.com/hackdudes/image/upload/w_150,h_150,c_thumb,d_am_avatar.jpg/v1448413621/d35z0dcxnppobefpreco.jpg">&nbsp;&nbsp;&nbsp;
-      <p>Sergio Gonzales Mucho y 23 amigos valoraron esta obra</p>
+      <% _.each([0,1,2], function(i) { %>
+        <% if(element.friends[i] && element.friends[i].photo) { %>
+          <a href="#">
+            <img src="<%= element.friends[i].photo %>"></img>
+          </a>
+        <% } %>
+      <% }); %>
+      &nbsp;&nbsp;
+      <% if(element.friends.length > 3) { %>
+        <p>y <%= element.friends.length - 3 %> han valorado esta obra</p>
+      <% } else { %>
+        <% if(element.friends.length > 1) { %>
+          <p> valoraron esta obra</p>
+        <% } else { %>
+          <p> valoro esta obra</p>
+        <% } %>
+      <% } %>
     </footer>
   </div>
 </script>
