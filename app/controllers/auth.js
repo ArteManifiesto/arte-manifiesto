@@ -124,9 +124,9 @@ var loginUser = function (req, res, user) {
     req.login(user, function (err) {
         if (err)
             return res.internalServerError('No se pudo iniciar sesion');
-
+        
         checkReturnTo(req, res);
-        var returnTo = req.cookies.returnTo || req.protocol + '://' + req.get('host');
+        var returnTo = req.cookies.returnTo || req.protocol + '://' + req.get('host') + '/feed';
 
         res.clearCookie('returnTo');
 

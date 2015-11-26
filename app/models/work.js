@@ -11,7 +11,7 @@ module.exports = function (sequelize, DataTypes) {
             description: DataTypes.TEXT,
             public: {type: DataTypes.BOOLEAN, defaultValue: true},
             featured: {type: DataTypes.BOOLEAN, defaultValue: false},
-            nswf: {type: DataTypes.BOOLEAN, defaultValue: false},
+            nsfw: {type: DataTypes.BOOLEAN, defaultValue: false},
             manifest: DataTypes.TEXT,
             onSale: {type: DataTypes.BOOLEAN, defaultValue: false},
             views: {type: DataTypes.INTEGER, defaultValue: 0},

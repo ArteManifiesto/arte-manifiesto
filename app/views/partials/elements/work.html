@@ -60,12 +60,16 @@
             </div>
           </div>
         </div> #}
-
       <% } %>
-
-      <a href="/user/<%=User.username%>/work/<%=nameSlugify%>">
-        <img src="<%= addFilter(photo, 'w_300,d_am_avatar.jpg') %>">
-      </a>
+      <% if(!viewer && nsfw) { %>
+          <a href="/auth/login/?returnTo=/user/<%=User.username%>/work/<%=nameSlugify%>">
+            <img src="<%= addFilter(photo, 'w_300,e_blur:1500') %>">
+          </a>
+      <% } else { %>
+        <a href="/user/<%=User.username%>/work/<%=nameSlugify%>">
+          <img src="<%= addFilter(photo, 'w_300') %>">
+        </a>
+      <% } %>
     </div>
   </div>
 </script>

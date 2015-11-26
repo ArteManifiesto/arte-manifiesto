@@ -109,8 +109,9 @@ module.exports = function (sequelize, DataTypes) {
                 buildParts: function (options) {
                     var scope = this, worksQuery = {
                         attributes: ['id', 'name', 'nameSlugify', 'photo'],
-                        where:{public: true},
-                        limit: 4
+                        where:{public: true },
+                        limit: 4,
+                        order : [global.getOrder('popularity')]
                     };
                     return global.db.Sequelize.Promise.all([
                         scope.numOfFollowers(),

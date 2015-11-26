@@ -1,0 +1,45 @@
+{% extends '../partials/base.html' %}
+
+{% block elements %}
+	<div class="feed">
+		<div class="feed-title">
+			<div class="title">MY FEED</div>
+			<div class="u-separator" style="background: #eee;"></div>
+			<div class="user-info">
+				<div class="avatar">
+					<img src="{{user.photo}}">
+					<div class="info">
+						<p class="name">{{user.firstname}} <br> {{user.lastname}}</p>
+						<p class="city u-margin-top-5">{{user.city}}, {{user.country}}</p>
+					</div>
+				</div>
+				<div class="stats">
+					<div class="stat">
+						<p>18</p>
+						<p class="u-margin-top-7">seguidores</p>
+					</div>
+					<div class="stat">
+						<p>21</p>
+						<p class="u-margin-top-7">obras</p>
+					</div>
+					<div class="stat">
+						<p>264</p>
+						<p class="u-margin-top-7">siguiendo</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="feed-inner">
+			<div class="am-More-preload loading hide"><i class="fa fa-spinner"></i></div>
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block scripts %}
+	<script>
+	$(function(){
+		new APP.Viewer('actionItem', $('.feed-inner'), 'infinite', {{data|json|safe}});
+	})
+	</script>
+{% endblock %}

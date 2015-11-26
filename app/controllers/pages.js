@@ -4,44 +4,77 @@ var request = require('request');
 
 exports.index = function (req, res) {
   if(req.user) {
-    req.user.getFollowings().then(function(followings) {
-        var followingsArray = global._.pluck(followings, 'id');
-        var verbs = ['like-work', 'follow-user','create-work'];
-        var query = {where: {UserId: {$in: followingsArray},
-        OwnerId:{$not: [req.viewer]},
-        verb:{$in:[verbs]}
-      }, order:[global.getOrder('newest')],
-        include:[global.db.User],
-        build:true, viewer:req.viewer
-      }
-      global.db.Action.findAll(query).then(function(actions) {
-        // return res.json({actions:actions});
-        return res.render('pages/index', {
-          actions: actions
-        });
-      });
-    });
-  } else {
-    var queryUsers = {where: {featured: true}, limit: 4, build: true, addUser: true, viewer: req.viewer};
-    var queryWorks = {where: {featured: true}, limit: 15, build: true, addUser: true, viewer: req.viewer};
-    var promises = [
-      global.db.User.findAll(queryUsers),
-      global.db.Work.findAll(queryWorks)
-    ];
-
-    return global.db.Sequelize.Promise.all(promises).then(function (result) {
-      global.db.Work.findById(24005).then(function(work) {
-        return res.render('pages/index-org', {
-          users: result[0],
-          works: result[1],
-          cloudinary: global.cl,
-          cloudinayCors: global.cl_cors,
-          manifest: work.manifest
-        });
+    return searchFeed(req).then(function(data) {
+      return res.render('pages/feed', {
+        data: data
       });
     });
   }
+
+  var queryUsers = {where: {featured: true}, limit: 4, build: true, addUser: true, viewer: req.viewer};
+  var queryWorks = {where: {featured: true}, limit: 15, build: true, addUser: true, viewer: req.viewer};
+  var promises = [
+    global.db.User.findAll(queryUsers),
+    global.db.Work.findAll(queryWorks)
+  ];
+  return global.db.Sequelize.Promise.all(promises).then(function (result) {
+    global.db.Work.findById(24005).then(function(work) {
+      return res.render('pages/index', {
+        users: result[0],
+        works: result[1],
+        cloudinary: global.cl,
+        cloudinayCors: global.cl_cors,
+        manifest: work.manifest
+      });
+    });
+  });
 };
+
+var searchFeed = function(req) {
+  return req.user.getFollowings().then(function(followings) {
+    var followingsArray = global._.pluck(followings, 'id');
+    var verbs = ['like-work', 'follow-user','create-work'];
+    var query = {
+      where: {
+        UserId: {$in: followingsArray},
+        OwnerId:{$not: [req.viewer]}, verb:{$in:[verbs]}
+      },
+      order:[global.getOrder('newest')],
+      include:[global.db.User],
+      build:true, viewer:req.viewer
+    };
+    var page = req.params.page ? req.params.page : 'page-1';
+    var options = {entity: 'Action', page: page, limit: 2};
+    return global.getPaginationEntity(options, query);
+    // global.getPaginationEntity(options, query).then(function(result) {
+    //   return res.json(result);
+    // });
+  });
+}
+
+exports.feed = function(req, res){
+  searchFeed(req).then(function(data){
+    return res.json(data);
+  });
+  // req.user.getFollowings().then(function(followings) {
+  //   var followingsArray = global._.pluck(followings, 'id');
+  //   var verbs = ['like-work', 'follow-user','create-work'];
+  //   var query = {
+  //     where: {
+  //       UserId: {$in: followingsArray},
+  //       OwnerId:{$not: [req.viewer]}, verb:{$in:[verbs]}
+  //     },
+  //     order:[global.getOrder('newest')],
+  //     include:[global.db.User],
+  //     build:true, viewer:req.viewer
+  //   };
+  //   var options = {entity: 'Action', page: req.params.page, limit: 2};
+  //   global.getPaginationEntity(options, query);
+  //   // global.getPaginationEntity(options, query).then(function(result) {
+  //   //   return res.json(result);
+  //   // });
+  // });
+}
 
 var searchHandler = function (entity, req, res) {
   var config = global.config.search;
@@ -75,8 +108,11 @@ var searchHandler = function (entity, req, res) {
 var searchBridge = function (req) {
   var url = req.protocol + '://' + req.get('host') + req.url;
   url = url.replace(req.params.page, 'page-1');
-
-  var payload = {method: 'POST', url: url, body: {viewer: req.viewer}, json: true};
+  console.log('bridge');
+  console.log((req.user ? req.user.toJSON() : req.user ));
+  console.log('bridge==>');
+  var body = {viewer: req.viewer, user: (req.user ? JSON.stringify(req.user.toJSON()) : req.user)};
+  var payload = {method: 'POST', url: url, body: body, json: true};
 
   return new Promise(function (resolve, reject) {
     request.post(payload, function (error, response, body) {
@@ -116,9 +152,12 @@ exports.collections = function (req, res) {
 };
 
 exports.search = function (entity, req, res) {
-  if (!req.body.viewer)
-    return searchHandler(entity, req, res);
-
-  req.viewer = req.body.viewer;
+  req.body.user && (req.user = JSON.parse(req.body.user));
+  req.body.viewer && (req.viewer = req.body.viewer);
   return searchHandler(entity, req, res);
+  // if (!req.body.viewer)
+  //   return searchHandler(entity, req, res);
+  //
+  // req.viewer = req.body.viewer;
+  // return searchHandler(entity, req, res);
 };

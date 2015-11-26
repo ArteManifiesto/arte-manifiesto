@@ -24,7 +24,7 @@ var getData = function (req, res, options, query) {
         entity: req.profile, association: true,
         page: req.params.page, limit: 10
     });
-    query = query || {}
+    query = query || {};
     query = global._.assign(query, {build: true, viewer: req.viewer});
     return global.getPaginationEntity(options, query).then(function (result) {
         return res.json(result);

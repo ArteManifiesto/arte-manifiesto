@@ -94,6 +94,12 @@ var entityExists = function (entity, query, req, res, next, method) {
       return res.render('errors/401', {url: req.url});
     }
 
+    if(entity === 'Work') {
+      if (!req.user && element.nsfw) {
+        res.status(401);
+        return res.render('errors/nsfw');
+      }
+    }
     req[entity.toLowerCase()] = element;
     next();
   });

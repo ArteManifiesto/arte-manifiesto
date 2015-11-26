@@ -20,7 +20,11 @@
     </header>
 
     <a href="#">
-      <img class="feed-card-image" src="<%= addFilter(element.photo, 'w_500,h_400,c_fill') %>">
+      <% if(element.nsfw) { %>
+        <img class="feed-card-image" src="<%= addFilter(element.photo, 'w_500,h_400,c_fill,e_blur:1500') %>">
+      <% } else { %>
+        <img class="feed-card-image" src="<%= addFilter(element.photo, 'w_500,h_400,c_fill') %>">
+      <% } %>
     </a>
 
     <section class="feed-card-info">

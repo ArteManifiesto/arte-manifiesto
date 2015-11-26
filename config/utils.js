@@ -75,10 +75,9 @@ global.discoverGenerator = function (entity, req) {
   options.limit = 15;
 
   var query = {where: {}, build: true};
-
   query.viewer = req.viewer;
   query.order = [global.getOrder(req.query.order)]
-  
+
   if (req.query.featured)
     query.where.featured = true;
 
@@ -131,9 +130,6 @@ var beforePagination = function (req, discover) {
   discover.options.tempEntity = tempEntity;
   var query = {where: {nameSlugify: req.params.value}};
   var tempModel = tempEntity === 'Product' ? 'ProductType' : 'Category';
-  console.log('NO TAG');
-  console.log('PARAMMMMMS');
-  console.log(req.params.value);
   if (req.query.term && req.query.term.substring(0, 1) === '#') {
     tempEntity = 'Work';
     query = {where: {name: req.query.term.substring(1, req.query.term.length)}};

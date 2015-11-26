@@ -4,6 +4,8 @@ var router = express.Router();
 var controller = require(global.cf.controllers + "/pages");
 
 router.get('/', controller.index);
+router.post('/:page', global.md.isLogged, controller.feed);
+
 router.get('/collections/category/:value/:page', controller.collections);
 router.get('/works/category/:value/:page', controller.works);
 router.get('/users/specialty/:value/:page', controller.users);
