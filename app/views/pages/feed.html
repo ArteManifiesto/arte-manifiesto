@@ -1,6 +1,48 @@
 {% extends '../partials/base.html' %}
 
 {% block elements %}
+
+	<a id="go-collection-modal" href="#collection-modal"></a>
+	<a id="go-share-modal" href="#share-modal"></a>
+
+	<div id="collection-modal" style="display:none;">
+		<i class="closed-modal fa fa-times"></i>
+		<div class="actions-box add-collection">
+			<p class="title">Añadir a las colecciones</p>
+			<div class="u-separator u-margin-top-7"></div>
+
+			<form class="add-collection-form">
+				<input class="u-margin-top-10" type="text" name='name' required placeholder="Crear una colección nueva">
+				<button class="u-margin-top-10 color-black bg-gray wd-auto">AÑADIR</button>
+			</form>
+			<ul class="collections u-margin-top-20">
+			</ul>
+			<div class="u-separator u-margin-top-20"></div>
+			<div class="buttons u-margin-top-20">
+				<button class="wd-auto bg-blue color-white save-collections">GUARDAR</button>
+				<div class="hide save-collections-loading">
+					<button class="wd-auto bg-blue color-white">
+						<i class="load fa fa-spinner"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="share-modal" style="display:none;">
+		<i class="closed-modal fa fa-times"></i>
+		<div class="actions-box social-share">
+			<p class="title">Compartir obras</p>
+			<div class="u-separator u-margin-top-7"></div>
+			<div class="share share-fb">
+				<i class="fa fa-facebook"></i>Compartir en facebook
+			</div>
+			<div class="share share-tw">
+				<i class="fa fa-twitter"></i>Compartir en twitter
+			</div>
+		</div>
+	</div>
+
 	<div class="feed">
 		<div class="feed-title">
 			<div class="title">MY FEED</div>
@@ -9,7 +51,7 @@
 				<div class="avatar">
 					<img src="{{user.photo}}">
 					<div class="info">
-						<p class="name">{{user.firstname}} <br> {{user.lastname}}</p>
+						<p class="name uppercase">{{user.firstname}} <br> {{user.lastname}}</p>
 						<p class="city u-margin-top-5">{{user.city}}, {{user.country}}</p>
 					</div>
 				</div>
@@ -33,6 +75,8 @@
 			<div class="am-More-preload loading hide"><i class="fa fa-spinner"></i></div>
 		</div>
 	</div>
+
+
 {% endblock %}
 
 
@@ -40,6 +84,11 @@
 	<script>
 	$(function(){
 		new APP.Viewer('actionItem', $('.feed-inner'), 'infinite', {{data|json|safe}});
+
+
+		$("#go-collection-modal").leanModal();
+		$("#go-share-modal").leanModal();
+
 	})
 	</script>
 {% endblock %}

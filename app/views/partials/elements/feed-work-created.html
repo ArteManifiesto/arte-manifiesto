@@ -21,9 +21,9 @@
 
     <a href="#">
       <% if(element.nsfw) { %>
-        <img class="feed-card-image" src="<%= addFilter(element.photo, 'w_500,h_400,c_fill,e_blur:1500') %>">
+        <img class="feed-card-image" src="<%= addFilter(element.photo, 'w_540,h_500,c_fill,e_blur:1500') %>">
       <% } else { %>
-        <img class="feed-card-image" src="<%= addFilter(element.photo, 'w_500,h_400,c_fill') %>">
+        <img class="feed-card-image" src="<%= addFilter(element.photo, 'w_540,h_500,c_fill') %>">
       <% } %>
     </a>
 
@@ -59,11 +59,31 @@
             <p class="text">VALORAR</p>
           </div>
         </a>
-        <a id="go-share-modal" href="#share-modal" class="action">
+        <a href="#share-modal" class="action">
           <i class="icon bi_web-share share"></i>
           <p class="text">COMPARTIR</p>
         </a>
       </div>
+
+      <div class="actions-box after-like">
+        <a href="#collection-modal" >
+          <button class="color-blue bg-gray">AÑADIR A LA COLECCIÓN</button>
+        </a>
+        {% if !owner %}
+        <button class="u-margin-top-10 am-Follow-button">+ SEGUIR</button>
+        {% endif %}
+        <div class="hide">
+          <button class="u-margin-top-10 follow-loading">
+            <i class="load fa fa-spinner"></i>
+          </button>
+        </div>
+        <div class="hide">
+          <button class="following u-margin-top-10">
+            <i class="fa fa-check-circle"></i>&nbsp;SIGUIENDO
+          </button>
+        </div>
+      </div>
+
     </section>
 
     <div class="u-separator" style="background: #bbb;"></div>
