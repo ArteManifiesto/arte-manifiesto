@@ -82,13 +82,61 @@
 
 {% block scripts %}
 	<script>
+	var collections = [];
+	var currentIdWork = null;
 	$(function(){
+		console.log({{data|json|safe}});
 		new APP.Viewer('actionItem', $('.feed-inner'), 'infinite', {{data|json|safe}});
+		var url = DataApp.currentUser.url + '/collection/all';
+	  $.post(url, {}, function (response) {
+	    if(response.status === 200) {
+	    collections = response.data.collections;
+	      var item = '<li class="collection" data-id="<%=id%>"><p><%=name%></p><i class="fa fa-check"></i></li>'
+	      for(var i= 0; i <collections.length; i++) {
+	        $('.collections').append($(_.template(item)(collections[i])));
+	      }
+	    }
+	  });
 
+		$('.collections').on("click", ".collection", function() {
+	    var id = parseInt($(this).data('id'),10);
+	    var index = collections.indexOf(id);
+	    if(index === -1) {
+	        collections.push(id);
+	        $(this).addClass('selected');
+	    }else {
+	      collections.splice(index, 1);
+	      $(this).removeClass('selected');
+	    }
+	  });
+
+		$('.save-collections').click(function() {
+	    $(this).hide();
+	    $('.save-collections-loading').show();
+	    var url = DataApp.currentUser.url + '/work/add_to_collection';
+	    var payload = {collections: JSON.stringify(collections), idWork: currentIdWork};
+	    $.post(url, payload, function (response) {
+	      if(response.status === 200) {
+	        $('.save-collections-loading').hide();
+	        $('.save-collections').show();
+	        $('#lean_overlay').trigger( "click" );
+	      }
+	    });
+	  });
+
+		$('.add-collection-form').submit(function(event){
+	    event.preventDefault();
+	    var url = DataApp.currentUser.url + '/collection/create';
+	    $.post(url, $(this).serialize(), function (response) {
+	      if(response.status === 200) {
+	        var item = '<li class="collection" data-id="<%=id%>"><p><%=name%></p><i class="fa fa-check"></i></li>'
+	        $('.collections').append($(_.template(item)(response.data.collection)));
+	      }
+	    });
+	  });
 
 		$("#go-collection-modal").leanModal();
 		$("#go-share-modal").leanModal();
-
 	})
 	</script>
 {% endblock %}

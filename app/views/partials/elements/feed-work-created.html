@@ -23,12 +23,8 @@
       </div>
     </header>
 
-    <a href="#">
-      <% if(element.nsfw) { %>
-        <img class="feed-card-image" src="<%= addFilter(element.photo, 'w_540,h_500,c_fill,e_blur:1500') %>">
-      <% } else { %>
+    <a href="/user/<%=element.User.username%>/work/<%=element.nameSlugify%>">
         <img class="feed-card-image" src="<%= addFilter(element.photo, 'w_540,h_500,c_fill') %>">
-      <% } %>
     </a>
 
     <section class="feed-card-info">
@@ -55,39 +51,26 @@
 
     <div class="u-separator" style="background: #bbb;"></div>
 
-    <section class="feed-card-socials">
+    <section class="feed-card-socials" data-id='<%= element.id %>'>
       <div class="actions">
-        <a class="action {% if element.liked %} active {% endif %}">
+        <a class="action like  <% if(element.liked) { %> active <% } %>">
           <div class="like-btn">
             <i class="icon bi_ecommerce-diamon  valuation"></i>
             <p class="text">VALORAR</p>
           </div>
         </a>
-        <a href="#share-modal" class="action">
+        <a class="action share">
           <i class="icon bi_web-share share"></i>
           <p class="text">COMPARTIR</p>
         </a>
       </div>
 
-      <div class="actions-box" style="max-width: 300px; margin: 0px auto 20px auto;">
-        <a href="#collection-modal" >
-          <button class="color-blue bg-gray">AÑADIR A LA COLECCIÓN</button>
-        </a>
-        {% if !owner %}
-        <button class="u-margin-top-10 am-Follow-button">+ SEGUIR</button>
-        {% endif %}
-        <div class="hide">
-          <button class="u-margin-top-10 follow-loading">
-            <i class="load fa fa-spinner"></i>
-          </button>
+        <div class="actions-box after-like <% if(!element.liked) { %> hide <% } %>" style="max-width: 300px; margin: 0px auto 20px auto;">
+          <a class="add-collection">
+            <button class="color-blue bg-gray">AÑADIR A LA COLECCIÓN</button>
+          </a>
+          <button class="u-margin-top-10 am-Follow-button">+ SEGUIR</button>
         </div>
-        <div class="hide">
-          <button class="following u-margin-top-10">
-            <i class="fa fa-check-circle"></i>&nbsp;SIGUIENDO
-          </button>
-        </div>
-      </div>
-
     </section>
 
     <div class="u-separator" style="background: #bbb;"></div>

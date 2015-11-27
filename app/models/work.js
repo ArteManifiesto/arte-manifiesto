@@ -56,7 +56,9 @@ module.exports = function (sequelize, DataTypes) {
                         scope.friends(options.viewer),
                         scope.requested(options.viewer),
                     ]).then(function (result) {
-                        scope.setDataValue('owner' , (scope.User.id === options.viewer));
+                        if(scope.User) {
+                          scope.setDataValue('owner' , (scope.User.id === options.viewer));
+                        }
                         scope.setDataValue('likes', result[0]);
                         scope.setDataValue('liked', result[1]);
                         scope.setDataValue('friends', result[2]);

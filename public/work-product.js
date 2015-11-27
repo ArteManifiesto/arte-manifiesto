@@ -70,7 +70,6 @@ $(document).ready(function() {
 
   var url = DataApp.currentUser.url + '/collection/all';
   $.post(url, {}, function (response) {
-    console.log(response);
     if(response.status === 200) {
       var collections = response.data.collections;
       var item = '<li class="collection" data-id="<%=id%>"><p><%=name%></p><i class="fa fa-check"></i></li>'
@@ -150,7 +149,6 @@ $(document).ready(function() {
 
   $('.like-btn').click(function(){
     Utils.checkAuthentication();
-
     var payload = {};
     payload['id' + Utils.capitalize(entity)] = element.id;
     if(!element.liked) {
