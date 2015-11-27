@@ -9,7 +9,8 @@ module.exports = function (sequelize, DataTypes) {
                     this.setDataValue('name', value);
                 }
             },
-            nameSlugify: DataTypes.STRING
+            nameSlugify: DataTypes.STRING,
+            photo: DataTypes.STRING
         }, {
             classMethods: {
                 associate: function (models) {

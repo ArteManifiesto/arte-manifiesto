@@ -49,23 +49,35 @@ exports.followings = function (req, res) {
     return getData(req, res, {method: 'getFollowings', name: 'followings'});
 };
 
-exports.notifications = function(req, res) {
-  var verbs = ['like-work', 'follow-user','review-work', 'request-work'];
-  var query = {
-    where: {
-      OwnerId: req.user.id,
-      verb:{$in:[verbs]}
-    },
-    order:[global.getOrder('newest')],
-    include:[global.db.User],
-    build:true, viewer:req.viewer , reverse: true
-  };
 
-    global.db.Action.findAll(query).then(function(notifications) {
-      return res.render(basePath + 'notifications', {
-        notifications: notifications
-      });
+var searchNotifications = function(req) {
+    var verbs = ['like-work', 'follow-user','review-work', 'request-work'];
+    var query = {
+      where: {
+        OwnerId: req.user.id,
+        verb:{$in:[verbs]}
+      },
+      order:[global.getOrder('newest')],
+      include:[global.db.User],
+      build:true, viewer:req.viewer , reverse: true
+    };
+    var page = req.params.page ? req.params.page : 'page-1';
+    var options = {entity: 'Action', page: page, limit: 2};
+    return global.getPaginationEntity(options, query);
+}
+
+exports.notificationsPage = function(req, res) {
+  return searchNotifications(req).then(function(data) {
+    return res.render(basePath + 'notifications', {
+      data: data
     });
+  });
+};
+
+exports.notifications = function(req,res) {
+  searchNotifications(req).then(function(data){
+    return res.json(data);
+  });
 };
 
 exports.isFollowing = function (req, res) {

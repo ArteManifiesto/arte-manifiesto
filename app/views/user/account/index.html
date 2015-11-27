@@ -119,11 +119,10 @@
 
 				<div class="interests">
 					{% for category in categories %}
-						{% set category = category.toJSON() %}
 						<div>
 							<input type="checkbox" value='{{category.id}}' name="interests" id="interest-{{category.id}}"/>
 							<label for="interest-{{category.id}}">
-								<div class="interest" style="background-image: url('{{category.work.photo|addFilter('w_120,h_120,c_fill')}}')">
+								<div class="interest" style="background-image: url('{{category.photo|addFilter('w_120,h_120,c_fill')}}')">
 									<div class="cover"><p>{{category.name}}</p></div>
 								</div>
 							</label>

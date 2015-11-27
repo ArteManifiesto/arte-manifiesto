@@ -15,13 +15,15 @@ exports.index = function (req, res) {
   var queryWorks = {where: {featured: true}, limit: 15, build: true, addUser: true, viewer: req.viewer};
   var promises = [
     global.db.User.findAll(queryUsers),
-    global.db.Work.findAll(queryWorks)
+    global.db.Work.findAll(queryWorks),
+    global.db.Category.findAll({limit:8})
   ];
   return global.db.Sequelize.Promise.all(promises).then(function (result) {
     global.db.Work.findById(24005).then(function(work) {
       return res.render('pages/index', {
         users: result[0],
         works: result[1],
+        categories: result[2],
         cloudinary: global.cl,
         cloudinayCors: global.cl_cors,
         manifest: work.manifest

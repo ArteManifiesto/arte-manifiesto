@@ -40,8 +40,7 @@
 {% block scripts %}
 <script>
 $(function(){
-	console.log({{notifications|json|safe}});
-	new APP.Viewer('notificationItem', $('.notifications-container'), null , {{notifications|json|safe}});
+	new APP.Viewer('notificationItem', $('.notifications-container'), 'infinite' , {{data|json|safe}});
 });
 </script>
 {% endblock %}

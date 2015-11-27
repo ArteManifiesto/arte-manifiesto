@@ -12,7 +12,8 @@ router.get('/collections', controller.profile.bind(this, 'collections'));
 router.get('/followers', controller.profile.bind(this, 'followers'));
 router.get('/followings', controller.profile.bind(this, 'followings'));
 
-router.get('/notifications', isLoggedAndOwner, controller.notifications);
+router.get('/notifications', isLoggedAndOwner, controller.notificationsPage);
+router.post('/notifications/:page', isLoggedAndOwner, controller.notifications);
 
 
 router.use('/work', require(global.cf.routes + "/user-work"));
