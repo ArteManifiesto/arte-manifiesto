@@ -7,29 +7,25 @@
 
 {% block elements %}
 {% set element = element.toJSON() %}
-
-{% if neighbors.prev %}
-	<!-- <p class="prev-btn">anterior</p> -->
-{% endif %}
-{% if neighbors.next %}
-	<!-- <p class="next-btn">siguiente</p> -->
-{% endif %}
-
 	<div class="grid-container u-margin-top-15 u-margin-bottom-15">
 		<div class="grid-100">
 			<div class="works-nav">
-				<div href="#" class="nav prev-btn">
-					<i class="bi_interface-left"></i>
-					<p>&nbsp;&nbsp;PREV</p>
-				</div>
-				<div href="#" class="nav">
+				{% if neighbors.prev %}
+				<a href='/user/{{neighbors.prev.User.username}}/work/{{neighbors.prev.nameSlugify}}' class="nav prev-btn">
+						<i class="bi_interface-left"></i>
+						<p>&nbsp;&nbsp;ANTERIOR</p>
+					</a>
+				{% endif %}
+				<a href="/user/{{element.User.username}}" class="nav">
 					<i class="bi_media-image-b"></i>
 					<p>&nbsp;&nbsp;IR AL PORTAFOLIO</p>
-				</div>
-				<div href="#" class="nav next-btn">
-					<i class="bi_interface-right"></i>
-					<p>&nbsp;&nbsp;NEXT</p>
-				</div>
+				</a>
+				{% if neighbors.next %}
+				<a href='/user/{{neighbors.next.User.username}}/work/{{neighbors.next.nameSlugify}}' class="nav next-btn">
+						<p>SIGUIENTE&nbsp;&nbsp;</p>
+						<i class="bi_interface-right"></i>
+					</a>
+				{% endif %}
 			</div>
 		</div>
 	</div>
@@ -444,15 +440,7 @@
 		var reviews = {{reviews|json|safe}};
 		var more = {{more|json|safe}};
 		var similar = {{similar|json|safe}};
-		var neighbors = {{neighbors|json|safe}};
 		$(function() {
-			$('.prev-btn').click(function() {
-				window.location.href = '/user/' + neighbors.prev.User.username + '/work/' + neighbors.prev.nameSlugify;
-			});
-
-			$('.next-btn').click(function() {
-				window.location.href = '/user/' + neighbors.next.User.username + '/work/' + neighbors.next.nameSlugify;
-			});
 			$("#go-collection-modal").leanModal();
 			$("#go-share-modal").leanModal();
 		});

@@ -109,8 +109,17 @@ exports.createReview = function (req, res) {
   req.body.UserId = parseInt(req.viewer,10);
   global.db.Review.create(req.body).then(function(review) {
     var query = {where:{id: review.id}, include:[global.db.User]};
-    global.db.Review.find(query).then(function(final){
-      return res.ok({review: final}, 'Review creado');
+    global.db.Review.find(query).then(function(final) {
+      console.log('id work');
+      console.log(req.body.idWork , req.work.id);
+      req.work.getUser().then(function(user) {
+        console.log('id user');
+        console.log(req.user.id , user.id);
+        var actionQuery = {UserId: req.user.id, verb:'review-work', ObjectId:req.work.id, OwnerId: user.id};
+        global.db.Action.create(actionQuery).then(function() {
+          return res.ok({review: final}, 'Review creado');
+        });
+      });
     });
   });
 };

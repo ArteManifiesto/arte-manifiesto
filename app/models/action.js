@@ -18,9 +18,13 @@ module.exports = function (sequelize, DataTypes) {
                 });
               },
               getElement:function(options) {
-                if(this.verb === 'like-work' || this.verb === 'create-work' || this.verb === 'request-work') {
+                if(this.verb === 'like-work' || this.verb === 'create-work' || this.verb === 'request-work' || this.verb === 'review-work') {
                   return global.db.Work.find({where:{id:this.ObjectId},
                     build:true, viewer: options.viewer}).then(function(work){
+                      if(options.reverse) {
+                        return work;
+                      }
+
                       return work.getUser({build:true, viewer: options.viewer}).then(function(user){
                         work.setDataValue('User', user);
                         return work;
