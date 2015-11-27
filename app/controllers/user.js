@@ -50,12 +50,18 @@ exports.followings = function (req, res) {
 };
 
 exports.notifications = function(req, res) {
-    global.db.Action.findAll({where: {
-        OwnerId: req.user.id},
-        order:[global.getOrder('newest')],
-        include:[global.db.User],
-        build:true, viewer:req.viewer, reverse:true
-      }).then(function(notifications) {
+  var verbs = ['like-work', 'follow-user','review-work', 'request-work'];
+  var query = {
+    where: {
+      OwnerId: req.user.id,
+      verb:{$in:[verbs]}
+    },
+    order:[global.getOrder('newest')],
+    include:[global.db.User],
+    build:true, viewer:req.viewer , reverse: true
+  };
+
+    global.db.Action.findAll(query).then(function(notifications) {
       return res.render(basePath + 'notifications', {
         notifications: notifications
       });

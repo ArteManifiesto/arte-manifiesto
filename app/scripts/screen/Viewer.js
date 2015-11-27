@@ -7,7 +7,7 @@ var APP = APP || {};
 APP.Viewer = function (id, container, navigation, data , options) {
   this.container = container;
   this.options = options;
-  if (id === 'carrouselItem' || id === 'actionItem') {
+  if (id === 'carrouselItem' || id === 'actionItem' || id === 'noficationItem') {
   }else {
     this.setupMasonry();
   }
@@ -98,15 +98,29 @@ APP.Viewer.prototype.addItems = function(items) {
   var scopetemp = this;
   var i = 0, item , counter = 0, lel = [];
   for(i; i< items.length; i++) {
+    console.log(items[i]);
     if (this.id === 'actionItem') {
-      console.log(items[i]);
       if(items[i].verb === 'create-work' || items[i].verb === 'like-work') {
         item = new APP.FeedWorkCreated(items[i], this.options);
       }
       if(items[i].verb === 'follow-user') {
         item = new APP.FeedUserFollow(items[i], this.options);
       }
-    } else {
+    }else if (this.id === 'notificationItem') {
+      if(items[i].verb === 'review-work'){
+        item = new APP.NotificationReview(items[i], this.options);
+      }
+      if(items[i].verb === 'follow-user') {
+          item = new APP.NotificationFollow(items[i], this.options);
+      }
+      if(items[i].verb === 'like-work') {
+        item = new APP.NotificationLike(items[i], this.options);
+      }
+      if(items[i].verb === 'request-work') {
+        item = new APP.NotificationRequest(items[i], this.options);
+      }
+    }
+     else {
       item = new APP[Utils.capitalize(this.id)](items[i], this.options);
     }
     if(item.view.children().hasClass( "work-card" )) {
@@ -130,7 +144,7 @@ APP.Viewer.prototype.addItems = function(items) {
       });
     }
     else {
-      if(this.id === 'carrouselItem' || this.id === 'actionItem') {
+      if(this.id === 'carrouselItem' || this.id === 'actionItem' || this.id === 'notificationItem') {
         this.container.append(item.view);
       }else{
         this.container.append(item.view).masonry('appended', item.view);
