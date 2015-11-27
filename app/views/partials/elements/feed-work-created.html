@@ -15,7 +15,11 @@
       </a>
       <div class="info">
         <p><%=formatDate(createdAt)%></p>&nbsp;&nbsp;&nbsp;
-        <i class="bi_interface-plus"></i>
+        <% if(verb === 'create-work') { %>
+          <i class="bi_interface-plus"></i>
+        <% } else { %>
+          <i class="bi_ecommerce-diamon"></i>
+        <% } %>
       </div>
     </header>
 
@@ -28,13 +32,13 @@
     </a>
 
     <section class="feed-card-info">
-      <div class="info">
-        <p class="title"><%= element.name %></p>
+      <a href="#" class="info">
+        <p class="title uppercase"><%= element.name %></p>
         <div class="avatar u-margin-top-10">
           <img src="<%= element.User.photo %>">&nbsp;&nbsp;&nbsp;
           <p class="name"><%= element.User.fullname %></p>
         </div>
-      </div>
+      </a>
       <div class="stats">
         <table class="am-Single-stats" style="font-size: 14px;">
           <tr>
@@ -65,7 +69,7 @@
         </a>
       </div>
 
-      <div class="actions-box after-like">
+      <div class="actions-box" style="max-width: 300px; margin: 0px auto 20px auto;">
         <a href="#collection-modal" >
           <button class="color-blue bg-gray">AÑADIR A LA COLECCIÓN</button>
         </a>
