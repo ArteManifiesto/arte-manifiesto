@@ -65,10 +65,10 @@ module.exports = function (sequelize, DataTypes) {
                         scope.setDataValue('requested', result[3]);
                     });
                 },
-                neighbors: function() {
+                neighbors: function(options) {
                   var promises = [
-                    global.db.Work.max('id', {where:{id:{ lt: this.id}}, addUser: true}),
-                    global.db.Work.min('id', {where:{id:{ gt: this.id}}, addUser: true})
+                    global.db.Work.max('id', {where:{UserId:options.idUser, id:{ lt: this.id}}, addUser: true}),
+                    global.db.Work.min('id', {where:{UserId:options.idUser, id:{ gt: this.id}}, addUser: true})
                   ];
                   return global.db.Sequelize.Promise.all(promises).then(function (data) {
                     var prev = parseInt(data[0], 10), next = parseInt(data[1], 10);

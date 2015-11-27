@@ -1,6 +1,7 @@
 var basePath = 'user/work/';
 
 exports.index = function (currentPath, req, res) {
+  req.work.getUser().then(function(user){
     var promises = [
         req.work.save(),
         req.work.userLikes(),
@@ -8,7 +9,7 @@ exports.index = function (currentPath, req, res) {
         req.work.similar(req.viewer),
         req.work.getTags(),
         req.work.getReviews({include:[global.db.User]}),
-        req.work.neighbors(),
+        req.work.neighbors({idUser: user.id}),
         global.db.Category.findAll()
     ];
     global.db.Sequelize.Promise.all(promises).then(function (result) {
@@ -29,6 +30,7 @@ exports.index = function (currentPath, req, res) {
           });
         });
     });
+  });
 };
 
 exports.add = function (req, res) {
