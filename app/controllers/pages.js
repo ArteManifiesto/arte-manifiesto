@@ -108,9 +108,6 @@ var searchHandler = function (entity, req, res) {
 var searchBridge = function (req) {
   var url = req.protocol + '://' + req.get('host') + req.url;
   url = url.replace(req.params.page, 'page-1');
-  console.log('bridge');
-  console.log((req.user ? req.user.toJSON() : req.user ));
-  console.log('bridge==>');
   var body = {viewer: req.viewer, user: (req.user ? JSON.stringify(req.user.toJSON()) : req.user)};
   var payload = {method: 'POST', url: url, body: body, json: true};
 

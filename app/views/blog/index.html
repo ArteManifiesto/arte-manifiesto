@@ -1,75 +1,70 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="/jquery-2.1.1.min.js"></script>
+		<script src="/fabric.js"></script>
+		<style media="screen">
+			.render {
+				margin-top: -80px;
+				height: 80px;
+			}
+			.left {
+				position: absolute;
+				left: 23px;
+			}
+			.center {
+					position: absolute;
+					left: -19px;
+			}
+			.preview {
+				position: relative;
+    cursor: pointer;
+    height: 80px;
+    overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="c1" width="567" height="330"></canvas>
+	</br>
+</br>
+</br>
+</br>
 
-	<title>Arte Manifiesto Blog</title>
+<img  src="/left.png">
+<img src="/center.png">
+<img src="/right.png">
 
-  <!-- <link rel="stylesheet" type="text/css" href="/app.min.css"> -->
-  <link rel="stylesheet" href="/dante-editor.css">
+</br>
+<div class="render">
+	<div class="preview">
+		<img class="left" width="120">
+	</div>
+	<div class="preview">
+		<img class="center" width="120">
+	</div>
+	<div class="preview">
+		<img class="right" width="120">
+	</div>
+</div>
+<script>
+ var canvas = new fabric.Canvas('c1');
+ fabric.Image.fromURL('/img/invitation.png', function(image) {
+         canvas.add(image);
+         canvas.calcOffset();
+         canvas.setActiveObject(image);
+			 });
+		canvas.on('object:scaling', function(e){
+			var img = e.target;
+			
+			if(img.scaleX >= 1 || img.scaleY >=1) {
+				img.scaleX = img.scaleY = 1;
+			}
+	 	});
 
-	{% block styles %} {% endblock %}
+</script>
 
-	<style>
-
-	.hide {
-		display: none;
-	}
-
-	.cloudinary-fileupload
-{
-	border: none;
-	cursor: pointer;
-	/*height: 44px;*/
-	/*left: 80px;*/
-	opacity: 0;
-	padding: 0;
-	position: absolute;
-	top: 0;
-	/*width: 275px;*/
-}
-	</style>
-</head>
-<body>
-
-    <ul>
-      {% for post in posts %}
-      <li><a href="/blog/post/{{post.id}}">{{post.id}}</a></li>
-      {% endfor %}
-    </ul>
-
-  {{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:230px;height:55px;top:-70px;left: 105px;" } })}}
-
-
-	{% block elements %} {% endblock %}
-
-
-  <script>
-	  var ADAPT_CONFIG = {
-	    path: '/',
-	    dynamic: true,
-	    range: [
-	      '0 to 767px = unsemantic-grid-mobile.css',
-	      '767px = unsemantic-grid-desktop.css'
-	    ]
-	  };
-	</script>
-  <script src="/adapt.min.js"></script>
-	<script src="/EventDispatcher.js"></script>
-	<script src="/jquery-2.1.1.min.js"></script>
-	<script src="/moment.js"></script>
-	<script src='/app.min.js'></script>
-	<script src='/sanitize.js'></script>
-	<script src='/dante-editor.js'></script>
-	<script src="/imagesloaded.pkgd.min.js"></script>
-	<script src="/masonry.pkgd.min.js"></script>
-	<script src="/jquery.leanModal.min.js"></script>
-	<script src='/jquery.tagsinput.js'></script>
-	<script src='/jquery.ui.widget.js'></script>
-	<script src='/jquery.iframe-transport.js'></script>
-	<script src='/jquery.fileupload.js'></script>
-	<script src='/jquery.cloudinary.js'></script>
-  {% block scripts %} {% endblock %}
-</body>
+	</body>
 </html>
