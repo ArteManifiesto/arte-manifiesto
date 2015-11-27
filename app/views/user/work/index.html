@@ -15,25 +15,42 @@
 	<!-- <p class="next-btn">siguiente</p> -->
 {% endif %}
 
-	<div class="grid-container u-margin-top-20">
+	<div class="grid-container u-margin-top-20 u-margin-bottom-20">
+		<div class="grid-100">
+			<div class="works-nav">
+				<div href="#" class="nav prev-btn">
+					<i class="bi_interface-left"></i>&nbsp;&nbsp;
+					<p>PREV</p>
+				</div>
+				<div href="#" class="nav">
+					<i class="bi_media-image-b"></i>&nbsp;&nbsp;
+					<p>IR AL PORTAFOLIO</p>
+				</div>
+				<div href="#" class="nav next-btn">
+					<i class="bi_interface-right"></i>&nbsp;&nbsp;
+					<p>NEXT</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="grid-container u-margin-top-10">
 		<div class="grid-100">
 			<div class="single-info">
 				<div class="single-image">
 					<div class="single-image-inner">
 						<img src="{{element.photo|addFilter('w_700,h_800,q_80,c_limit')}}" class="work-photo" id="work-image">
 
-						<div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+						<!-- <div style="width: 100%; display: flex; justify-content: space-between; align-items: center;"> -->
 
-
-							<div class="actions">
+							<!-- <div class="actions">
 								<a class="action prev-btn" style="padding: 0; cursor: pointer;">
 									<div class="">
 										<i class="arrow bi_interface-left"></i>
 										<p class="text desktop">VALORAR</p>
 									</div>
 								</a>
-							</div>
-
+							</div> -->
 							<div class="actions u-padding-top-10">
 								<a class="action {% if element.liked %} active {% endif %}">
 									<div class="like-btn">
@@ -52,18 +69,16 @@
 									</a>
 								{% endif %}
 							</div>
-
-							<div class="actions">
+							<!-- <div class="actions">
 								<a class="action next-btn" style="padding: 0; cursor: pointer;">
 									<div class="">
 										<i class="arrow bi_interface-right"></i>
 										<p class="text desktop">VALORAR</p>
 									</div>
 								</a>
-							</div>
+							</div> -->
 
-
-						</div>
+						<!-- </div> -->
 
 						<div class="actions-box after-like {% if !element.liked %} hide {% endif %}">
 
