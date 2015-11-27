@@ -3,14 +3,14 @@
     <div></div>
     <div class="content">
       <header class="notification-header">
-        <a href="#">
-          <img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150,h_150,q_70,d_am_avatar.jpg/avatars/avatar_alfierirossi.jpg">
+        <a href="/user/<%=User.username%>">
+          <img src="<%=User.photo%>">
         </a>
         <div class="info">
-          <a href="#" class="name">ANNA OSTYANKO</a>
+          <a href="/user/<%=User.username%>" class="name"><%= User.fullname %></a>
           <p class="u-margin-top-5">te está siguiendo ahora</p>
         </div>
-        <div class="time"><i class="bi_interface-clock"></i> <span>15 min ago</span></div>
+        <div class="time"><i class="bi_interface-clock"></i> <span><%=formatDate(createdAt)%></span></div>
       </header>
     </div>
   </div>

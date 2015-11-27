@@ -7,7 +7,7 @@ var APP = APP || {};
 APP.Viewer = function (id, container, navigation, data , options) {
   this.container = container;
   this.options = options;
-  if (id === 'carrouselItem' || id === 'actionItem' || id === 'noficationItem') {
+  if (id === 'carrouselItem' || id === 'actionItem' || id === 'notificationItem') {
   }else {
     this.setupMasonry();
   }

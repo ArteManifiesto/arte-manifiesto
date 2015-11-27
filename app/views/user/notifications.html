@@ -5,7 +5,7 @@
 	<div class="notifications">
 		<div class="inner">
 			<p class="notifications-title">TUS NOTIFICACIONES</p>
-			<div class="notifications">
+			<div class="notifications-container">
 
 			</div>
 			<!-- <div class="notification">
@@ -30,7 +30,7 @@
 					</a>
 				</div>
 			</div> -->
-			<p class="notifications-more">TODA TU ACTIVIDAD</p>
+			<!-- <p class="notifications-more">TODA TU ACTIVIDAD</p> -->
 		</div>
 	</div>
 
@@ -39,8 +39,9 @@
 
 {% block scripts %}
 <script>
-	new APP.Viewer('notificationItem', $('.notifications'), null , {{notifications|json|safe}});
-
-  console.log({{notifications|json|safe}});
+$(function(){
+	console.log({{notifications|json|safe}});
+	new APP.Viewer('notificationItem', $('.notifications-container'), null , {{notifications|json|safe}});
+});
 </script>
 {% endblock %}

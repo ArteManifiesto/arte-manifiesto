@@ -1,24 +1,24 @@
 <script type="text/template" id="template-notification-request">
-<div class="notification">
-  <div></div>
-  <div class="content">
-    <header class="notification-header">
-      <a href="#">
-        <img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150,h_150,q_70,d_am_avatar.jpg/avatars/avatar_diegorossell.jpg">
+  <div class="notification">
+    <div></div>
+    <div class="content">
+      <header class="notification-header">
+        <a href="/user/<%=User.username%>">
+          <img src="<%=User.photo%>">
+        </a>
+        <div class="info">
+          <a href="/user/<%=User.username%>" class="name"><%= User.fullname %></a>
+          <p class="u-margin-top-5">preguntó sobre la disponibilidad de una obra</p>
+        </div>
+        <div class="time"><i class="bi_interface-clock"></i> <span><%=formatDate(createdAt)%></span></div>
+      </header>
+      <a href="/user/<%=element.User.username%>/work/<%=element.nameSlugify%>" class="notification-content">
+        <img src="<%= addFilter(element.photo, 'w_60,h_60,c_fill') %>">
+        <div class="info">
+          <p class="name uppercase"><%=element.name%></p>
+          <p class="valuations u-margin-top-15"><i class="bi_ecommerce-diamon"></i>&nbsp;&nbsp; <%= element.likes%></p>
+        </div>
       </a>
-      <div class="info">
-        <a href="#" class="name">ANNA OSTYANKO</a>
-        <p class="u-margin-top-5">preguntó sobre la disponibilidad de una obra</p>
-      </div>
-      <div class="time"><i class="bi_interface-clock"></i> <span>15 min ago</span></div>
-    </header>
-    <a href="#" class="notification-content">
-      <img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_120,h_120,c_fill/works/4e2097b6d3f203ff3a79d878e8ba3ab6.jpg">
-      <div class="info">
-        <p class="name uppercase">OUR LEGACY SPLASH MID SLEEVE AND I WILL NOT  SLEEP</p>
-        <p class="valuations u-margin-top-15"><i class="bi_ecommerce-diamon"></i>&nbsp;&nbsp; 252</p>
-      </div>
-    </a>
+    </div>
   </div>
-</div>
 </script>
