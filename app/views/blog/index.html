@@ -1,70 +1,278 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-		<script src="/jquery-2.1.1.min.js"></script>
-		<script src="/fabric.js"></script>
-		<style media="screen">
-			.render {
-				margin-top: -80px;
-				height: 80px;
-			}
-			.left {
-				position: absolute;
-				left: 23px;
-			}
-			.center {
-					position: absolute;
-					left: -19px;
-			}
-			.preview {
-				position: relative;
-    cursor: pointer;
-    height: 80px;
-    overflow: hidden;
-			}
-		</style>
-	</head>
-	<body>
-		<canvas id="c1" width="567" height="330"></canvas>
-	</br>
-</br>
-</br>
-</br>
+{% extends '../partials/base.html' %}
 
-<img  src="/left.png">
-<img src="/center.png">
-<img src="/right.png">
+{% block elements %}
 
-</br>
-<div class="render">
-	<div class="preview">
-		<img class="left" width="120">
+	<!-- ********************************************************************
+		$ BLOG HEADER
+	********************************************************************* -->
+	<div class="grid-container">
+		<div class="grid-100">
+			<header class="header-blog">
+				<div class="logo">am <span>blog</span></div>
+				<div class="menu">
+					<a href="#" class="item">TRAVEL</a>
+					<a href="#" class="item">EXPLORERS</a>
+					<a href="#" class="item">NATURE</a>
+					<a href="#" class="item">SCIENCE</a>
+					<a href="#" class="item">ADVICES</a>
+				</div>
+				<div class="socials">
+					<p>Síguenos:</p>
+					<a href="#" class="bi_logo-facebook"></a>
+					<a href="#" class="bi_logo-twitter"></a>
+					<a href="#" class="bi_logo-instagram"></a>
+					<a href="#" class="bi_web-rss"></a>
+				</div>
+			</header>
+		</div>
 	</div>
-	<div class="preview">
-		<img class="center" width="120">
-	</div>
-	<div class="preview">
-		<img class="right" width="120">
-	</div>
-</div>
-<script>
- var canvas = new fabric.Canvas('c1');
- fabric.Image.fromURL('/img/invitation.png', function(image) {
-         canvas.add(image);
-         canvas.calcOffset();
-         canvas.setActiveObject(image);
-			 });
-		canvas.on('object:scaling', function(e){
-			var img = e.target;
-			
-			if(img.scaleX >= 1 || img.scaleY >=1) {
-				img.scaleX = img.scaleY = 1;
-			}
-	 	});
 
-</script>
+	<div class="u-separator" style="background: #eee;"></div>
 
-	</body>
-</html>
+
+	<!-- ********************************************************************
+		$ BLOG MAIN ARTICLE
+	********************************************************************* -->
+	<div class="grid-container u-margin-top-20">
+		<div class="grid-100">
+			<section class="slider">
+				<div class="slider-items">
+					<div class="slider-item js-slide" style="background-image: url('/img/slider/slider 1.png')">
+						<span class="slider-item-tag">NATURE</span>
+						<div class="slider-item-inner">
+							<p class="title">Tentacles Abound in Our Best Jellyfish Pictures</p>
+							<div class="author u-margin-top-30">
+								<p>Por &nbsp;&nbsp;</p>
+								<img src="http://res.cloudinary.com/hackdudes/image/upload/w_150,h_150,c_thumb,d_am_avatar.jpg/v1448493683/qujhapblpptr30wjrj3l.jpg">
+								<p class="name">&nbsp;&nbsp; ARTE MANIFIESTO</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+
+
+
+	<div class="grid-container u-margin-top-10">
+		<div class="grid-100 grid-parent">
+			<div class="blog-articles-container">
+				<div class="blog-article-container large">
+					<article class="blog-article">
+						<header class="header" style="background-image: url('/img/slider/slider 1.png')">
+							<span class="tag">NATURE</span>
+							<div class="inner">
+								<p class="title">Offbeat Portraits Give Stars a New Turn</p>
+								<div class="stats u-margin-top-15">
+									<p><i class="fa fa-heart"></i>&nbsp;&nbsp;54</p>
+									<p><i class="fa fa-heart"></i>&nbsp;&nbsp;12</p>
+								</div>
+							</div>
+						</header>
+						<p class="content">I whipped the Scotch tape from my pocket and said y ahora lo que hay que hacer es que todo tenga coherencia para que se puedan ver las cosas bajo.</p>
+						<footer class="footer">
+							<p class="date"><i class="bi_interface-clock"></i> June 11, 2014</p>
+							<span class="author">
+								<p>Por&nbsp;&nbsp;</p>
+								<img src="http://res.cloudinary.com/hackdudes/image/upload/w_150,h_150,c_thumb,d_am_avatar.jpg/v1448493683/qujhapblpptr30wjrj3l.jpg">
+								<P>&nbsp;ARTE MANIFIESTO</P>
+							</span>
+						</footer>
+					</article>
+				</div>
+				<div class="blog-article-container large">
+					<article class="blog-article">
+						<header class="header" style="background-image: url('/img/slider/slider 1.png')">
+							<span class="tag">NATURE</span>
+							<div class="inner">
+								<p class="title">Offbeat Portraits Give Stars a New Turn</p>
+								<div class="stats u-margin-top-15">
+									<p><i class="fa fa-heart"></i>&nbsp;&nbsp;54</p>
+									<p><i class="fa fa-heart"></i>&nbsp;&nbsp;12</p>
+								</div>
+							</div>
+						</header>
+						<p class="content">I whipped the Scotch tape from my pocket and said y ahora lo que hay que hacer es que todo tenga coherencia para que se puedan ver las cosas bajo.</p>
+						<footer class="footer">
+							<p class="date"><i class="bi_interface-clock"></i> June 11, 2014</p>
+							<span class="author">
+								<p>Por&nbsp;&nbsp;</p>
+								<img src="http://res.cloudinary.com/hackdudes/image/upload/w_150,h_150,c_thumb,d_am_avatar.jpg/v1448493683/qujhapblpptr30wjrj3l.jpg">
+								<P>&nbsp;ARTE MANIFIESTO</P>
+							</span>
+						</footer>
+					</article>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- ********************************************************************
+		$ LAST ARTICLES
+	********************************************************************* -->
+	<div class="grid-container u-margin-top-30">
+		<div class="grid-100">
+			<p class="am-more-text u-text-center u-padding-bottom-10">Últimos artículos</p>
+			<div class="u-separator-center"></div>
+		</div>
+	</div>
+
+	<div class="grid-container u-margin-top-10">
+		<div class="grid-100 grid-parent">
+
+			<div class="blog-articles-container">
+				<div class="blog-article-container">
+					<article class="blog-article">
+						<header class="header" style="background-image: url('/img/slider/slider 1.png')">
+							<span class="tag">NATURE</span>
+							<div class="inner">
+								<p class="title">Offbeat Portraits Give Stars a New Turn</p>
+								<div class="stats u-margin-top-15">
+									<p><i class="fa fa-heart"></i>&nbsp;&nbsp;54</p>
+									<p><i class="fa fa-heart"></i>&nbsp;&nbsp;12</p>
+								</div>
+							</div>
+						</header>
+						<p class="content">I whipped the Scotch tape from my pocket and said y ahora lo que hay que hacer es que todo tenga coherencia para que se puedan ver las cosas bajo.</p>
+						<footer class="footer">
+							<p class="date"><i class="bi_interface-clock"></i> June 11, 2014</p>
+							<span class="author">
+								<p>Por&nbsp;&nbsp;</p>
+								<img src="http://res.cloudinary.com/hackdudes/image/upload/w_150,h_150,c_thumb,d_am_avatar.jpg/v1448493683/qujhapblpptr30wjrj3l.jpg">
+								<P>&nbsp;ARTE MANIFIESTO</P>
+							</span>
+						</footer>
+					</article>
+				</div>
+				<div class="blog-article-container">
+					<article class="blog-article">
+						<header class="header" style="background-image: url('/img/slider/slider 1.png')">
+							<span class="tag">NATURE</span>
+							<div class="inner">
+								<p class="title">Offbeat Portraits Give Stars a New Turn</p>
+								<div class="stats u-margin-top-15">
+									<p><i class="fa fa-heart"></i>&nbsp;&nbsp;54</p>
+									<p><i class="fa fa-heart"></i>&nbsp;&nbsp;12</p>
+								</div>
+							</div>
+						</header>
+						<p class="content">I whipped the Scotch tape from my pocket and said y ahora lo que hay que hacer es que todo tenga coherencia para que se puedan ver las cosas bajo.</p>
+						<footer class="footer">
+							<p class="date"><i class="bi_interface-clock"></i> June 11, 2014</p>
+							<span class="author">
+								<p>Por&nbsp;&nbsp;</p>
+								<img src="http://res.cloudinary.com/hackdudes/image/upload/w_150,h_150,c_thumb,d_am_avatar.jpg/v1448493683/qujhapblpptr30wjrj3l.jpg">
+								<P>&nbsp;ARTE MANIFIESTO</P>
+							</span>
+						</footer>
+					</article>
+				</div>
+				<div class="blog-article-container">
+					<article class="blog-article">
+						<header class="header" style="background-image: url('/img/slider/slider 1.png')">
+							<span class="tag">NATURE</span>
+							<div class="inner">
+								<p class="title">Offbeat Portraits Give Stars a New Turn</p>
+								<div class="stats u-margin-top-15">
+									<p><i class="fa fa-heart"></i>&nbsp;&nbsp;54</p>
+									<p><i class="fa fa-heart"></i>&nbsp;&nbsp;12</p>
+								</div>
+							</div>
+						</header>
+						<p class="content">I whipped the Scotch tape from my pocket and said y ahora lo que hay que hacer es que todo tenga coherencia para que se puedan ver las cosas bajo.</p>
+						<footer class="footer">
+							<p class="date"><i class="bi_interface-clock"></i> June 11, 2014</p>
+							<span class="author">
+								<p>Por&nbsp;&nbsp;</p>
+								<img src="http://res.cloudinary.com/hackdudes/image/upload/w_150,h_150,c_thumb,d_am_avatar.jpg/v1448493683/qujhapblpptr30wjrj3l.jpg">
+								<P>&nbsp;ARTE MANIFIESTO</P>
+							</span>
+						</footer>
+					</article>
+				</div>
+				<div class="blog-article-container">
+					<article class="blog-article">
+						<header class="header" style="background-image: url('/img/slider/slider 1.png')">
+							<span class="tag">NATURE</span>
+							<div class="inner">
+								<p class="title">Offbeat Portraits Give Stars a New Turn</p>
+								<div class="stats u-margin-top-15">
+									<p><i class="fa fa-heart"></i>&nbsp;&nbsp;54</p>
+									<p><i class="fa fa-heart"></i>&nbsp;&nbsp;12</p>
+								</div>
+							</div>
+						</header>
+						<p class="content">I whipped the Scotch tape from my pocket and said y ahora lo que hay que hacer es que todo tenga coherencia para que se puedan ver las cosas bajo.</p>
+						<footer class="footer">
+							<p class="date"><i class="bi_interface-clock"></i> June 11, 2014</p>
+							<span class="author">
+								<p>Por&nbsp;&nbsp;</p>
+								<img src="http://res.cloudinary.com/hackdudes/image/upload/w_150,h_150,c_thumb,d_am_avatar.jpg/v1448493683/qujhapblpptr30wjrj3l.jpg">
+								<P>&nbsp;ARTE MANIFIESTO</P>
+							</span>
+						</footer>
+					</article>
+				</div>
+				<div class="blog-article-container">
+					<article class="blog-article">
+						<header class="header" style="background-image: url('/img/slider/slider 1.png')">
+							<span class="tag">NATURE</span>
+							<div class="inner">
+								<p class="title">Offbeat Portraits Give Stars a New Turn</p>
+								<div class="stats u-margin-top-15">
+									<p><i class="fa fa-heart"></i>&nbsp;&nbsp;54</p>
+									<p><i class="fa fa-heart"></i>&nbsp;&nbsp;12</p>
+								</div>
+							</div>
+						</header>
+						<p class="content">I whipped the Scotch tape from my pocket and said y ahora lo que hay que hacer es que todo tenga coherencia para que se puedan ver las cosas bajo.</p>
+						<footer class="footer">
+							<p class="date"><i class="bi_interface-clock"></i> June 11, 2014</p>
+							<span class="author">
+								<p>Por&nbsp;&nbsp;</p>
+								<img src="http://res.cloudinary.com/hackdudes/image/upload/w_150,h_150,c_thumb,d_am_avatar.jpg/v1448493683/qujhapblpptr30wjrj3l.jpg">
+								<P>&nbsp;ARTE MANIFIESTO</P>
+							</span>
+						</footer>
+					</article>
+				</div>
+				<div class="blog-article-container">
+					<article class="blog-article">
+						<header class="header" style="background-image: url('/img/slider/slider 1.png')">
+							<span class="tag">NATURE</span>
+							<div class="inner">
+								<p class="title">Offbeat Portraits Give Stars a New Turn</p>
+								<div class="stats u-margin-top-15">
+									<p><i class="fa fa-heart"></i>&nbsp;&nbsp;54</p>
+									<p><i class="fa fa-heart"></i>&nbsp;&nbsp;12</p>
+								</div>
+							</div>
+						</header>
+						<p class="content">I whipped the Scotch tape from my pocket and said y ahora lo que hay que hacer es que todo tenga coherencia para que se puedan ver las cosas bajo.</p>
+						<footer class="footer">
+							<p class="date"><i class="bi_interface-clock"></i> June 11, 2014</p>
+							<span class="author">
+								<p>Por&nbsp;&nbsp;</p>
+								<img src="http://res.cloudinary.com/hackdudes/image/upload/w_150,h_150,c_thumb,d_am_avatar.jpg/v1448493683/qujhapblpptr30wjrj3l.jpg">
+								<P>&nbsp;ARTE MANIFIESTO</P>
+							</span>
+						</footer>
+					</article>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="grid-100 u-padding-top-30 u-padding-bottom-30">
+		<a class="am-More-button" style="display: table; margin: auto; min-width: 150px;">Ver más</a>
+	</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+{% endblock %}
