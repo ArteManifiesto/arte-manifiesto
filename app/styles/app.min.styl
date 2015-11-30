@@ -113,6 +113,18 @@ white = #fff
 		// min-height 400px
 		min-height 300px
 		display flex
+		&-tag
+			position absolute
+			top 20px
+			left 20px
+			background #41a674
+			font-family: 'Montserrat',sans-serif;
+			font-weight bold
+			font-size 12px
+			color white
+			padding 3px 6px
+			letter-spacing 1px
+			border-radius 3px
 		&-inner
 			margin auto
 			padding 20px
@@ -133,6 +145,28 @@ white = #fff
 			font-family: 'PT Serif', serif;
 			color #cddfe0
 			line-height 1.25
+		.author
+			display flex
+			align-items center
+			justify-content center
+			img
+				width 30px
+				height 30px
+				min-width 30px
+				border-radius 50%
+			p:first-child
+				font-family: 'PT Serif', serif;
+				font-size 14.9px
+				color white
+				font-style italic
+			p:last-child
+				font-family: 'Montserrat',sans-serif;
+				font-weight bold
+				font-size 11px
+				color white
+				letter-spacing 1.5px
+
+
 
 @media (min-width: 900px)
 	.slider
@@ -3537,6 +3571,137 @@ body
 			letter-spacing 1.5px
 			border-top solid 1px #ededed
 
+
+/*------------------------------------*
+	$ BLOG
+*------------------------------------*/
+.header-blog
+	display flex
+	justify-content space-between
+	padding 30px 0
+	.menu
+		display flex
+		.item
+			font-family: 'Montserrat',sans-serif;
+			font-weight bold
+			font-size 13px
+			color charcoal-grey
+			letter-spacing 1px
+			padding 0 15px
+	.socials
+		display flex
+		align-items center
+		p
+			font-family: 'Montserrat',sans-serif;
+			color charcoal-grey
+			font-size 12px
+		a
+			color charcoal-grey
+			margin-left 25px
+
+
+.blog-article
+	box-shadow 0 2px 4px 0 rgba(black, .5)
+	border-radius 3px
+	overflow hidden
+	margin 10px
+	.header
+		display flex
+		position relative
+		min-height 220px
+		img
+			position absolute
+		.tag
+			position absolute
+			top 20px
+			left 20px
+			background #41a674
+			font-family: 'Montserrat',sans-serif;
+			font-weight bold
+			font-size 10px
+			color white
+			padding 3px 5px
+			letter-spacing 1px
+			border-radius 3px
+		.inner
+			margin auto
+			padding 20px
+			.title
+				font-family: 'Montserrat',sans-serif;
+				font-weight bold
+				font-size 26px
+				color white
+				text-shadow 0 2px 4px rgba(black, .5)
+				text-align center
+			.stats
+				display flex
+				justify-content space-between
+				font-family: 'Montserrat',sans-serif;
+				font-size 18px
+				color white
+				max-width 150px
+				margin-left auto
+				margin-right auto
+	.content
+		font-family: 'PT Serif', serif;
+		font-size 14px
+		color #666d70
+		line-height 1.15
+		padding 15px 20px
+	.footer
+		display flex
+		align-items center
+		justify-content space-between
+		padding 0 20px 10px 20px
+		.date
+			font-family: 'PT Serif', serif;
+			font-style italic
+			font-size 11px
+			color #333
+		.author
+			display flex
+			align-items center
+			justify-content center
+			img
+				width 30px
+				height 30px
+				min-width 30px
+				border-radius 50%
+			p:first-child
+				font-family: 'PT Serif', serif;
+				font-size 11px
+				color #666d70
+				font-style italic
+			p:last-child
+				font-family: 'Montserrat',sans-serif;
+				font-weight bold
+				font-size 10px
+				color charcoal-grey
+				letter-spacing 1px
+				overflow ellipsis
+				// max-width: 110px;
+
+
+.blog-articles-container
+	display flex
+	flex-wrap wrap
+
+@media (min-width: 650px)
+	.blog-article-container
+		width 50%
+@media (min-width: 1000px)
+	.blog-article-container
+		width 33.333%
+	.blog-article
+		.header
+			min-height 260px
+
+@media (min-width: 650px)
+	.blog-article-container.large
+		width 100%
+@media (min-width: 900px)
+	.blog-article-container.large
+		width 50%
 
 
 @keyframes load
