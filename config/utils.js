@@ -4,7 +4,7 @@ var _ = require('lodash');
 
 
 global.fbPermissions = [
-  'email', 'user_about_me',
+  'email'     , 'user_about_me',
   'user_birthday', 'user_friends',
   'user_website'
 ];

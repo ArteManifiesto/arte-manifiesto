@@ -12,7 +12,7 @@
         </div>
         <div class="time"><i class="bi_interface-clock"></i> <span><%=formatDate(createdAt)%></span></div>
       </header>
-      <a href="/user/<%=element.User.username%>/work/<%=element.nameSlugify%>" class="notification-content">
+      <a href="/user/<%=element.User.username%>/work/<%=element.nameSlugify%>/reviews" class="notification-content">
         <img src="<%= addFilter(element.photo, 'w_60,h_60,c_fill') %>">
         <div class="info">
           <p class="name uppercase"><%=element.name%></p>

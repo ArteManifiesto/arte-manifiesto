@@ -62,7 +62,7 @@ var searchNotifications = function(req) {
       build:true, viewer:req.viewer , reverse: true
     };
     var page = req.params.page ? req.params.page : 'page-1';
-    var options = {entity: 'Action', page: page, limit: 2};
+    var options = {entity: 'Action', page: page, limit: 10};
     return global.getPaginationEntity(options, query);
 }
 
