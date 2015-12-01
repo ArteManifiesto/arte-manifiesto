@@ -1,4 +1,4 @@
-{% extends '../partials/base.html' %}
+,{% extends '../partials/base.html' %}
 
 {% set path = 'discover-works' %}
 
@@ -88,7 +88,10 @@
 			<br><br>
 			<a href="/works/category/all/page-1" class="am-report-link blue" href="">Volver a todas las obras</a>
 		</div>
-		<div class="am-More-preload loading hide"><i class="fa fa-spinner"></i></div>
+
+		<!-- <div class="am-More-preload loading hide"><i class="fa fa-spinner"></i></div> -->
+		<div class="loader extra-small gray loading hide" style="border-color: gree;"></div>
+
 	</div>
 </div>
 {% endblock %}
