@@ -3633,6 +3633,7 @@ body
 				color white
 				text-shadow 0 2px 4px rgba(black, .5)
 				text-align center
+				line-height 1.25
 			.stats
 				display flex
 				justify-content space-between
@@ -3697,15 +3698,32 @@ body
 			min-height 260px
 
 
-// .blog-article-container.large
-
-
 @media (min-width: 650px)
 	.blog-article-container.large
 		width 100%
 @media (min-width: 900px)
 	.blog-article-container.large
 		width 50%
+
+		.header
+			min-height 400px
+			.tag
+				font-size 12px
+			.inner
+				.title
+					font-size 30px
+		.content
+			font-size 15px
+			line-height 1.5
+		.footer
+			.date
+				font-size 13px
+			.author
+				p:first-child
+					font-size 15px
+				p:last-child
+					font-size 11px
+
 
 
 @keyframes load
