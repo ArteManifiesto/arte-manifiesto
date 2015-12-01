@@ -37,7 +37,10 @@
 			<div class="single-info">
 				<div class="single-image">
 					<div class="single-image-inner">
-						<img src="{{element.photo|addFilter('w_700,h_800,q_80,c_limit')}}" class="work-photo" id="work-image">
+						<div class="work-photo-container">
+							<!-- <div class="cover"></div> -->
+							<img src="{{element.photo|addFilter('w_700,h_800,q_80,c_limit')}}" class="work-photo" id="work-image">
+						</div>
 
 						<!-- <div style="width: 100%; display: flex; justify-content: space-between; align-items: center;"> -->
 
@@ -357,6 +360,10 @@
 		</div>
 	</div>
 
+	<a id="go-preload-modal" href="#preload-modal"></a>
+	<div id="preload-modal" style="display:none;">
+		<div class="loader">Loading...</div>
+	</div>
 
 	<div id="fb-root"></div>
 
@@ -443,6 +450,7 @@
 		$(function() {
 			$("#go-collection-modal").leanModal();
 			$("#go-share-modal").leanModal();
+			$("#go-preload-modal").leanModal();
 		});
 		function Carousel (el , container) {
 			var nextButton = el.querySelector('.nextButton'),
@@ -507,18 +515,22 @@
 		setTimeout(function () {
 
 			$('#work-image').click(function () {
+
 				if( !zoom ) {
 
-					console.log('1')
-					$("<img/>").load(function(){
-						console.log('2')
+					$('#go-preload-modal').trigger( "click" );
+
+					$("<img/>").load(function() {
+
+						$('#lean_overlay').trigger( "click" );
+
 						var width = this.width, height = this.height;
 						meta = { width: width, height: height }
 
 						document.getElementById('work-image').onclick = openPhotoSwipe;
+
 						$('#work-image').trigger( "click" );
 
-					// }).attr("src", element.photo);
 					}).attr("src", Utils.addImageFilter(element.photo, 'w_1500,h_800,c_limit,q_80'));
 
 					zoom = true
