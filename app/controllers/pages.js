@@ -3,14 +3,6 @@ var Promise = require('bluebird');
 var request = require('request');
 
 exports.index = function (req, res) {
-  if(req.user) {
-    return searchFeed(req).then(function(data) {
-      return res.render('pages/feed', {
-        data: data
-      });
-    });
-  }
-
   var queryUsers = {where: {featured: true}, limit: 4, build: true, addUser: true, viewer: req.viewer};
   var queryWorks = {where: {featured: true}, limit: 15, build: true, addUser: true, viewer: req.viewer};
   var promises = [
@@ -19,18 +11,30 @@ exports.index = function (req, res) {
     global.db.Category.findAll({limit:8})
   ];
   return global.db.Sequelize.Promise.all(promises).then(function (result) {
-    global.db.Work.findById(24005).then(function(work) {
       return res.render('pages/index', {
         users: result[0],
         works: result[1],
         categories: result[2],
         cloudinary: global.cl,
-        cloudinayCors: global.cl_cors,
-        manifest: work.manifest
+        cloudinayCors: global.cl_cors
       });
-    });
   });
 };
+
+exports.feedPage = function (req, res ){
+    var promises = [
+      req.user.numOfFollowers(),
+      req.user.numOfWorks(),
+      req.user.numOfFollowings(),
+      searchFeed(req)
+    ]
+    return global.db.sequelize.Promise.all(promises).then(function (data) {
+      return res.render('pages/feed', {
+        numbers: global._.slice(data, 0, 3),
+        data: data[3]
+      });
+    });
+}
 
 var searchFeed = function(req) {
   return req.user.getFollowings().then(function(followings) {

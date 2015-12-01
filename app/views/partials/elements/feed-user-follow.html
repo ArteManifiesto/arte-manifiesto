@@ -1,7 +1,7 @@
 <script type="text/template" id="template-feed-user-follow">
   <div class="feed-card u-margin-top-40">
     <header class="feed-card-header">
-      <a href="#" class="user">
+      <a href="/user/<%=User.username%>" class="user">
         <img src="<%= User.photo %>">&nbsp;&nbsp;&nbsp;
         <div>
           <p class="uppercase"><%= User.fullname %></p>
@@ -15,8 +15,7 @@
     </header>
 
     <div class="u-separator" style="background: #ccc;"></div>
-
-    <a href="#" class="feed-card-userInfo">
+    <a href="/user/<%=element.username%>" class="feed-card-userInfo">
       <img src="<%= element.photo %>">
       <div class="info">
         <p class="name"><%= element.fullname %></p>
@@ -32,7 +31,7 @@
       <% _.each([0,1,2,3], function(i) { %>
         <% if(element.Works[i] && element.Works[i].photo) { %>
             <div style="background-image: url('<%= addFilter(element.Works[i].photo, 'w_300,h_300,c_fill') %>')">
-              <a href="#" style="display: block; height: 100%; width: 100%;">
+              <a href="/user/<%=element.username%>/work/<%=element.Works[i].nameSlugify%>" style="display: block; height: 100%; width: 100%;">
               </a>
             </div>
         <% } else { %>

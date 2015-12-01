@@ -100,10 +100,10 @@
 
 {% block scripts %}
 <script>
-$.cloudinary.config({{cloudinary.config()|json|safe}});
 var category = {{category|json|safe}};
 var work = {{work|json|safe}};
 $(function() {
+	$.cloudinary.config({{cloudinary.config()|json|safe}});
 	new APP.EditWorkScreen();
 });
 </script>

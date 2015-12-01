@@ -12,6 +12,13 @@
 					</a>
 				</figure>
 				<ul class="am-Header-menu">
+					{% if user %}
+					<li class="am-Header-menu-item">
+						<a class="am-Header-text desktop" href="/feed">
+							<p>MI MURO</p><i class="bi_media-image-b"></i>
+						</a>
+					</li>
+					{% endif %}
 					<li class="am-Header-menu-item">
 						<a class="am-Header-text desktop" href="/collections/category/all/page-1?order=popularity">
 							<!-- <p>COLECCIONES</p><i class="fa fa-heart-o"></i> -->

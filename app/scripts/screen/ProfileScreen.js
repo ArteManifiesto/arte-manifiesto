@@ -76,7 +76,7 @@ APP.ProfileScreen.prototype.updateCoverComplete = function (response) {
 };
 
 APP.ProfileScreen.prototype.cancelClickHandler = function () {
-  $('.preview > img').attr('src', user.cover);
+  $('.preview > img').attr('src', DataApp.currentUser.cover);
   $('.save-icon, .cancel-icon').hide();
   $('.cloudinary-fileupload, .upload').show();
 };

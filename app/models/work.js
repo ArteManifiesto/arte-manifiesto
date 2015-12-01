@@ -67,14 +67,15 @@ module.exports = function (sequelize, DataTypes) {
                 },
                 neighbors: function(options) {
                   var promises = [
-                    global.db.Work.max('id', {where:{UserId:options.idUser, id:{ lt: this.id}}, addUser: true}),
-                    global.db.Work.min('id', {where:{UserId:options.idUser, id:{ gt: this.id}}, addUser: true})
+                    global.db.Work.max('id', {where:{UserId:options.idUser, id:{ lt: this.id}}}),
+                    global.db.Work.min('id', {where:{UserId:options.idUser, id:{ gt: this.id}}})
                   ];
                   return global.db.Sequelize.Promise.all(promises).then(function (data) {
                     var prev = parseInt(data[0], 10), next = parseInt(data[1], 10);
                     promises = [];
                     !global._.isNaN(prev) && promises.push(global.db.Work.find({where:{id: prev}, addUser: true}))
                     !global._.isNaN(next) && promises.push(global.db.Work.find({where:{id: next}, addUser: true}))
+                    if(promises.length < 1) return {};
                     return global.db.Sequelize.Promise.all(promises).then(function(result) {
                       if(result.length > 1)
                         return {prev: result[0], next:result[1]};

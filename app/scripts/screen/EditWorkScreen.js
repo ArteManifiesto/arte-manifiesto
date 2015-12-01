@@ -60,6 +60,7 @@ APP.EditWorkScreen.prototype.workFormSubmitHandler = function(event) {
 
   var url = DataApp.currentUser.url + '/work/update';
   var payload = {
+    idWork: work.id,
     photo: photo,
     name: $('input[name=name]').val(),
     idCategory: parseInt($('select[name=category]').val(), 10),

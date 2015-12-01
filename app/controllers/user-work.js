@@ -227,11 +227,10 @@ exports.insideCollection = function (req, res) {
 
 exports.delete = function (req, res) {
     req.work.destroy().then(function () {
-      var actionQuery = {where:{ObjectId: req.work.id, verb: 'like-work'}};
+      var actionQuery = {where:{ObjectId: req.work.id}};
       global.db.Action.destroy(actionQuery).then(function() {
           if (req.xhr)
               return res.ok({work: req.work}, 'Obra eliminada');
-
           req.flash('successMessage', 'Obra eliminada');
           return res.redirect('back');
       });
