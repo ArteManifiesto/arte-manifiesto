@@ -10,7 +10,7 @@
 	<div class="grid-container u-margin-top-15 u-margin-bottom-15">
 		<div class="grid-100">
 			<div class="works-nav">
-				<div>
+				<div style="min-width: 100px;">
 					{% if neighbors.prev %}
 						<a href='/user/{{neighbors.prev.User.username}}/work/{{neighbors.prev.nameSlugify}}' class="nav prev-btn">
 							<i class="bi_interface-left"></i>
@@ -22,7 +22,7 @@
 					<i class="bi_media-image-b"></i>
 					<p>&nbsp;&nbsp;IR AL PORTAFOLIO</p>
 				</a>
-				<div>
+				<div style="min-width: 100px;">
 					{% if neighbors.next %}
 						<a href='/user/{{neighbors.next.User.username}}/work/{{neighbors.next.nameSlugify}}' class="nav next-btn">
 							<p>SIGUIENTE&nbsp;&nbsp;</p>
