@@ -484,26 +484,26 @@ body
 		border-radius 50%
 	i
 		font-size: 12px;
-	.user-menu
-		position absolute
-		right 0
-		transform translate(0, 50px)
-		background white
-		z-index: 1;
-		width 218px
-		display none
-		border: solid 1px #ddd;
-		border-radius: 4px;
-		&-item
-			font-family: 'Montserrat',sans-serif;
-			letter-spacing: 2px;
-			font-weight: bold;
-			// text-transform: uppercase;
-			font-size: 10.5px;
-			// cursor: pointer;
-			color: #3b3d40;
-			display: block;
-			padding: 20px;
+.user-menu
+	position absolute
+	right 0
+	transform translate(0, 50px)
+	background white
+	z-index: 1;
+	width 218px
+	display none
+	border: solid 1px #ddd;
+	border-radius: 4px;
+	&-item
+		font-family: 'Montserrat',sans-serif;
+		letter-spacing: 2px;
+		font-weight: bold;
+		// text-transform: uppercase;
+		font-size: 10.5px;
+		// cursor: pointer;
+		color: #3b3d40;
+		display: block;
+		padding: 20px;
 
 
 .am-Header-icon
@@ -552,7 +552,6 @@ body
 	.logo
 		max-width 200px
 		margin-right 20px
-		
 	.options
 		font-family 'Montserrat', sans-serif
 		font-weight bold
@@ -578,9 +577,13 @@ body
 		height 40px
 		display flex
 		align-items center
+		position relative
 		img
 			border-radius 50%
 			margin-right 2px
+		&:hover
+			.user-menu
+				display block
 		
 	
 
