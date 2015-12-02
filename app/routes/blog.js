@@ -6,5 +6,5 @@ router.get('/', controller.index);
 router.get('/post/:id', controller.post);
 router.get('/add', controller.add);
 router.post('/create', controller.create);
-router.post('/canvas', controller.canvas);
+// router.post('/canvas', controller.canvas);
 module.exports = router;
