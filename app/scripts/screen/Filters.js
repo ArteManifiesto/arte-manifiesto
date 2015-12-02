@@ -111,6 +111,14 @@ APP.Filters.prototype.filterItemHandler = function(meta, event) {
 
 	this[currentFilter] = $(event.target).attr('data-value');
 
+
+		if(meta === 'category') {
+			mixpanel.track(
+		    "Changed category",
+		    {"category": this[currentFilter]}
+			);
+		}
+
 	$('.am-Filter-option[data-value='+ this[oldFilter] +']').parent().removeClass('selected');
 	$('.am-Filter-option[data-value='+ this[currentFilter] +']').parent().addClass('selected');
 

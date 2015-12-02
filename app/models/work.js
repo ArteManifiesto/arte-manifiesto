@@ -72,15 +72,18 @@ module.exports = function (sequelize, DataTypes) {
                   ];
                   return global.db.Sequelize.Promise.all(promises).then(function (data) {
                     var prev = parseInt(data[0], 10), next = parseInt(data[1], 10);
+                    console.log('prev and next');
+                    console.log(prev, next);
                     promises = [];
                     !global._.isNaN(prev) && promises.push(global.db.Work.find({where:{id: prev}, addUser: true}))
                     !global._.isNaN(next) && promises.push(global.db.Work.find({where:{id: next}, addUser: true}))
-                    if(promises.length < 1) return {};
+                    console.log(promises.length);
+                    if(promises.length < 1) return [];
                     return global.db.Sequelize.Promise.all(promises).then(function(result) {
                       if(result.length > 1)
-                        return {prev: result[0], next:result[1]};
-                      !global._.isNaN(prev) && (neighbors = {prev: result[0], next: null});
-                      !global._.isNaN(next) && (neighbors = {prev: null, next: result[0]});
+                        return [result[0], result[1]];
+                      !global._.isNaN(prev) && (neighbors = [result[0], null]);
+                      !global._.isNaN(next) && (neighbors = [null, result[0]]);
                       return neighbors;
                     });
                   });

@@ -8,7 +8,7 @@ APP.BaseNavigation = function () {
   this.currentPage = 0;
   this.totalPages = null;
 
-  this.pagesCache = {};
+  // this.pagesCache = {};
   this.currentPageData;
   this.listeners();
 
@@ -46,8 +46,8 @@ APP.BaseNavigation.prototype.gotoPage = function (next, force) {
 
   this.newPageUrl(nextPage);
 
-  if (this.pagesCache[nextPage] && !force)
-    return this.afterGetData(this.pagesCache[nextPage]);
+  // if (this.pagesCache[nextPage] && !force)
+  //   return this.afterGetData(this.pagesCache[nextPage]);
 
   Utils.getData({url: DataApp.currentUrl}).done(this.afterGetData.bind(this));
 };
@@ -61,7 +61,7 @@ APP.BaseNavigation.prototype.afterGetData = function (response) {
   // }
   // if (this.currentPage > response.pagination.pages)return;
 
-  this.pagesCache[this.currentPage] = response;
+  // this.pagesCache[this.currentPage] = response;
   this.currentPageData = response;
   // if(this.needChangeUrl) {
   //   Utils.changeUrl(DataApp.baseTitle, response.url);

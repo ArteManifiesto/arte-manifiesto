@@ -29,9 +29,21 @@ exports.feedPage = function (req, res ){
       searchFeed(req)
     ]
     return global.db.sequelize.Promise.all(promises).then(function (data) {
-      return res.render('pages/feed', {
-        numbers: global._.slice(data, 0, 3),
-        data: data[3]
+      var feedData = data[3];
+      if(feedData.length > 1 ) {
+        return res.render('pages/feed', {
+          numbers: global._.slice(data, 0, 3),
+          data: feedData
+        });
+      }
+
+      var queryUsers = {where: {featured: true}, limit: 4, build: true, addUser: true, viewer: req.viewer};
+      global.db.User.findAll(queryUsers).then(function(users){
+        return res.render('pages/feed', {
+          numbers: global._.slice(data, 0, 3),
+          users: users,
+          data: feedData
+        });
       });
     });
 }

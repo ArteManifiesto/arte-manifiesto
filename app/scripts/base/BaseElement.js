@@ -9,6 +9,7 @@ var APP = APP || {};
     this.template = APP.TemplateManager.instance.getFromDoc(id);
     this.data = data;
     this.id = id;
+    console.log(this.data);
     var viewHelpers = {
       addFilter: Utils.addImageFilter,
       formatDate: function(date){
@@ -66,7 +67,6 @@ APP.BaseElement.prototype.callToApi = function (params) {
 }
 
 APP.BaseElement.prototype.isLogged = function () {
-    if (!DataApp.currentUser)
-        location.href = DataApp.loginRedirect;
+    Utils.checkAuthentication();
     return DataApp.currentUser !== null;
 };

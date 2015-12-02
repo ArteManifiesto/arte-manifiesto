@@ -11,11 +11,13 @@
 		<div class="grid-100">
 			<div class="works-nav">
 				<div style="min-width: 100px;">
-					{% if neighbors.prev %}
-						<a href='/user/{{neighbors.prev.User.username}}/work/{{neighbors.prev.nameSlugify}}' class="nav prev-btn">
-							<i class="bi_interface-left"></i>
-							<p>&nbsp;&nbsp;ANTERIOR</p>
-						</a>
+					{% if neighbors.length > 1 %}
+						{% if neighbors[0] %}
+							<a href='/user/{{neighbors.prev.User.username}}/work/{{neighbors.prev.nameSlugify}}' class="nav prev-btn">
+								<i class="bi_interface-left"></i>
+								<p>&nbsp;&nbsp;ANTERIOR</p>
+							</a>
+						{% endif %}
 					{% endif %}
 				</div>
 				<a href="/user/{{element.User.username}}" class="nav">
@@ -23,11 +25,13 @@
 					<p>&nbsp;&nbsp;IR AL PORTAFOLIO</p>
 				</a>
 				<div style="min-width: 100px;">
-					{% if neighbors.next %}
-						<a href='/user/{{neighbors.next.User.username}}/work/{{neighbors.next.nameSlugify}}' class="nav next-btn">
-							<p>SIGUIENTE&nbsp;&nbsp;</p>
-							<i class="bi_interface-right"></i>
-						</a>
+					{% if neighbors.length > 1 %}
+						{% if neighbors[1] %}
+							<a href='/user/{{neighbors.next.User.username}}/work/{{neighbors.next.nameSlugify}}' class="nav next-btn">
+								<p>SIGUIENTE&nbsp;&nbsp;</p>
+								<i class="bi_interface-right"></i>
+							</a>
+						{% endif %}
 					{% endif %}
 				</div>
 			</div>

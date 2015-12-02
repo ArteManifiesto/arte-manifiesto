@@ -60,7 +60,7 @@ APP.AddWorkScreen.prototype.workFormSubmitHandler = function(event) {
     tags: tags,
     description: $('textarea[name=description]').val(),
     public: $('input[name=public]:checked').val() !== undefined,
-    nswf: $('input[name=nswf]:checked').val() !== undefined
+    nsfw: $('input[name=nsfw]:checked').val() !== undefined
   };
   this.requestHandler(url, payload, this.workCreatedComplete);
 };

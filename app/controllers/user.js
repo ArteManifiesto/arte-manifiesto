@@ -68,8 +68,10 @@ var searchNotifications = function(req) {
 
 exports.notificationsPage = function(req, res) {
   return searchNotifications(req).then(function(data) {
-    return res.render(basePath + 'notifications', {
-      data: data
+    global.db.Action.update({seen: 1}, {where:{OwnerId: req.user.id}}).then(function(){
+      return res.render(basePath + 'notifications', {
+        data: data
+      });
     });
   });
 };

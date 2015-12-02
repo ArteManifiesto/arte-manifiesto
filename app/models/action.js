@@ -3,7 +3,8 @@ module.exports = function (sequelize, DataTypes) {
             verb: DataTypes.STRING,
             ObjectId: DataTypes.INTEGER,
             OwnerId: DataTypes.INTEGER,
-            data: DataTypes.TEXT
+            data: DataTypes.TEXT,
+            seen: {type: DataTypes.BOOLEAN, defaultValue: false}
         }, {
             classMethods: {
                 associate: function (models) {

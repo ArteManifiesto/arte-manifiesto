@@ -108,7 +108,7 @@ module.exports = function (sequelize, DataTypes) {
                 },
                 buildParts: function (options) {
                     var scope = this, worksQuery = {
-                        attributes: ['id', 'name', 'nameSlugify', 'photo'],
+                        attributes: ['id', 'name', 'nameSlugify', 'photo','nsfw'],
                         where:{public: true },
                         limit: 4,
                         order : [global.getOrder('popularity')]
