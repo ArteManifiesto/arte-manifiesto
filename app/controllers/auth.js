@@ -5,136 +5,136 @@ var simple_recaptcha = require('simple-recaptcha-new');
 var uuid = require('node-uuid');
 
 var checkReturnTo = function (req, res) {
-    var returnTo = req.query.returnTo || req.protocol + '://' + req.get('host');
-    res.cookie('returnTo', returnTo, {maxAge: 900000, httpOnly: true});
+  var returnTo = req.query.returnTo || req.protocol + '://' + req.get('host');
+  res.cookie('returnTo', returnTo, {maxAge: 900000, httpOnly: true});
 };
 
 /**
  * Show the view page for signup
  */
 exports.signupPage = function (req, res) {
-    checkReturnTo(req, res);
-    var profile = req.cookies.profile;
-    res.clearCookie('profile');
-    return res.render('auth/signup', {profile: profile});
+  checkReturnTo(req, res);
+  var profile = req.cookies.profile;
+  res.clearCookie('profile');
+  return res.render('auth/signup', {profile: profile});
 };
 
 /**
  * User signup
  */
 exports.signup = function (req, res) {
-    check('email', req.body.email).then(function (emailAvailable) {
-        var errors = {};
+  check('email', req.body.email).then(function (emailAvailable) {
+    var errors = [];
+    req.body.isArtist = req.body.isArtist === 'on';
+    if (!emailAvailable)
+      errors.push('Email no esta disponible');
 
-        if (!emailAvailable)
-            errors['email'] = 'Email no esta disponible';
+    var ip = req.ip, response = req.body['g-recaptcha-response'];
 
-        var ip = req.ip, response = req.body['g-recaptcha-response'];
+    simple_recaptcha(config.recaptcha.privateKey, ip, response, function (error) {
+      if (error)
+        errors.push('Recaptcha invalido');
 
-        simple_recaptcha(config.recaptcha.privateKey, ip, response, function (error) {
-            if (error)
-                errors['recaptcha'] = 'Recaptcha invalido';
+      if (errors.length > 0)
+        return res.badRequest({errors: errors}, 'Error');
 
-            if (errors['email'] || errors['recaptcha'])
-                return res.badRequest(errors);
-
-            var options = {password: req.body.password};
-            global.db.User.create(req.body, options).then(function (user) {
-                global.emails.verify(req, {to: user}).then(function () {
-                    loginUser(req, res, user);
-                });
-            });
-
+      var options = {password: req.body.password};
+      global.db.User.create(req.body, options).then(function (user) {
+        global.emails.verify(req, {to: user}).then(function () {
+          loginUser(req, res, user);
         });
-    })
+      });
+
+    });
+  })
 };
 
 var check = function (property, value) {
-    var query = {where: {}};
-    query.where[property] = value;
-    return global.db.User.find(query).then(function (user) {
-        return user === null;
-    });
+  var query = {where: {}};
+  query.where[property] = value;
+  return global.db.User.find(query).then(function (user) {
+    return user === null;
+  });
 };
 
 exports.check = function (req, res) {
-    if (req.query.property === undefined || req.query.value === undefined)
-        return res.badRequest('Necesitas enviar una propiedad y valor');
+  if (req.query.property === undefined || req.query.value === undefined)
+    return res.badRequest('Necesitas enviar una propiedad y valor');
 
-    var checkable = ['username', 'email'];
-    if (checkable.indexOf(req.query.property) === -1)
-        return res.badRequest('Propiedad invalida');
+  var checkable = ['username', 'email'];
+  if (checkable.indexOf(req.query.property) === -1)
+    return res.badRequest('Propiedad invalida');
 
-    check(req.query.property, req.query.value).then(function (available) {
-        return res.ok({available: available}, 'Disponibilidad de recursos');
-    });
+  check(req.query.property, req.query.value).then(function (available) {
+    return res.ok({available: available}, 'Disponibilidad de recursos');
+  });
 };
 
 /**
  * Show the view page for login
  */
 exports.loginPage = function (req, res) {
-    checkReturnTo(req, res);
-    return res.render('auth/login');
+  checkReturnTo(req, res);
+  return res.render('auth/login');
 };
 
 /**
  * Show the view page for login
  */
 exports.forgotPage = function (req, res) {
-    return res.render('auth/forgot');
+  return res.render('auth/forgot');
 };
 
 /**
  * User login
  */
 exports.login = function (req, res) {
-    passport.authenticate('local', function (err, user, error) {
-        if (!user)
-            return res.badRequest(error);
+  passport.authenticate('local', function (err, user, error) {
+    if (!user)
+      return res.badRequest({errors: [error]}, 'Error');
 
-        loginUser(req, res, user);
-    })(req, res);
+    loginUser(req, res, user);
+  })(req, res);
 };
 
 exports.facebookCallback = function (req, res) {
-    passport.authenticate('facebook', function (err, user, profile) {
-        if (user)
-            return loginUser(req, res, user);
+  passport.authenticate('facebook', function (err, user, profile) {
+    if (user)
+      return loginUser(req, res, user);
 
-        res.cookie('profile', JSON.parse(profile._raw), {maxAge: 900000, httpOnly: true});
+    res.cookie('profile', JSON.parse(profile._raw), {maxAge: 900000, httpOnly: true});
 
-        return res.redirect('/auth/signup');
-    })(req, res);
+    return res.redirect('/auth/signup');
+  })(req, res);
 };
 
 /**
  * User logout
  */
 exports.logout = function (req, res) {
-    req.session.destroy(function (err) {
-        return res.redirect('/');
-    });
+  req.session.destroy(function (err) {
+    return res.redirect('/');
+  });
 };
 
 /**
  * Login manually after signup or when the user exists
  */
 var loginUser = function (req, res, user) {
-    req.login(user, function (err) {
-        if (err)
-            return res.internalServerError('No se pudo iniciar sesion');
+  return req.login(user, function (err) {
+    if (err)
+      return res.internalServerError('No se pudo iniciar sesion');
 
-        checkReturnTo(req, res);
-      var returnTo = req.cookies.returnTo || req.protocol + '://' + req.get('host') + '/feed';
+    checkReturnTo(req, res);
+    var returnTo = req.cookies.returnTo || req.protocol + '://' + req.get('host') + '/feed';
 
-        res.clearCookie('returnTo');
+    res.clearCookie('returnTo');
 
-        if (!req.xhr)
-            return res.redirect(returnTo);
+    if (!req.xhr)
+      return res.redirect(returnTo);
 
-        return res.ok({returnTo: returnTo}, 'Sesion iniciada');
-    });
+    return res.ok({returnTo: returnTo}, 'Sesion iniciada');
+  });
 };
 
 
@@ -142,75 +142,82 @@ var loginUser = function (req, res, user) {
  * Verify user email
  */
 exports.verify = function (req, res) {
-    var query = {where: {tokenVerifyEmail: req.params.token}};
-    global.db.User.find(query).then(function (user) {
-        if (!user) {
-            req.flash('errorMessage', 'Token invalido');
-            return res.redirect('back');
-        }
+  var query = {where: {tokenVerifyEmail: req.params.token}};
+  global.db.User.find(query).then(function (user) {
+    if (!user) {
+      req.flash('errorMessage', 'Token invalido');
+      return res.redirect('back');
+    }
 
-        if (user.verified) {
-          req.flash('successMessage', 'Email ya ah sido confirmado');
-          if(user.filled) {
-            return res.redirect('/user/' + user.username);
-          } else {
-            if(req.user) {
-              return res.redirect('/user/' + user.username + '/account/?context=1');
-            } else {
-              return res.redirect('/');
-            }
-          }
+    if (user.verified) {
+      req.flash('successMessage', 'Email ya ah sido confirmado');
+      if (user.filled) {
+        return res.redirect('/user/' + user.username);
+      } else {
+        if (req.user) {
+          return res.redirect('/user/' + user.username + '/account/?context=1');
+        } else {
+          return res.redirect('/');
         }
-        user.updateAttributes({verified: true}).then(function () {
-            req.flash('successMessage', 'Email confirmado');
-            return res.redirect('/user/' + user.username + '/account/?context=1');
-        });
-    })
+      }
+    }
+    user.updateAttributes({verified: true}).then(function () {
+      req.flash('successMessage', 'Email confirmado');
+      return res.redirect('/user/' + user.username + '/account/?context=1');
+    });
+  })
 };
 
 /**
  * Send email with link for reset password
  */
 exports.forgotCreate = function (req, res) {
-    var query = {where: {email: req.body.email}};
-    global.db.User.find(query).then(function (user) {
-        if (!user)
-            return res.badRequest('No existe una cuenta para ' + req.body.email);
-        user.makeTokenResetPassword().then(function () {
-            global.emails.forgot(req, {to: user}).then(function () {
-                return res.ok('Email enviado a ' + user.email);
-            });
-        });
+  var query = {where: {email: req.body.email}};
+  global.db.User.find(query).then(function (user) {
+    if (!user)
+      return res.badRequest({errors: ['Email no encontrado']}, 'Error');
+    user.makeTokenResetPassword().then(function () {
+      global.emails.forgot(req, {to: user}).then(function () {
+        return res.ok({email: 'Email enviado'}, 'Email enviado');
+      });
     });
+  });
 };
 
 exports.reset = function (req, res) {
-    var query = {where: {tokenResetPassword: req.params.token}};
-    global.db.User.find(query).then(function (user) {
-        if (!user) {
-            req.flash('errorMessage', 'Token invalidado');
-            return res.redirect('back');
-        }
-        if (moment(user.tokenResetPasswordExpires).diff(moment()) < 0) {
-            req.flash('errorMessage', 'Token expirado');
-            return res.redirect('back')
-        }
-        return res.render('auth/reset', {userReset: user});
-    });
+  var query = {where: {tokenResetPassword: req.params.token}};
+  global.db.User.find(query).then(function (user) {
+    if (!user) {
+      req.flash('errorMessage', 'Token invalidado');
+      return res.redirect('back');
+    }
+    if (moment(user.tokenResetPasswordExpires).diff(moment()) < 0) {
+      req.flash('errorMessage', 'Token expirado');
+      return res.redirect('back')
+    }
+    return res.render('auth/reset', {token: req.params.token});
+  });
 };
 
 exports.resetVerify = function (req, res) {
-    var query = {where: {tokenResetPassword: req.params.token}};
-    global.db.User.find(query).then(function (user) {
-        user.salt = user.makeSalt();
-        user.hashedPassword = user.encryptPassword(req.body.password, user.salt);
-        user.tokenResetPassword = null;
-        user.tokenResetPasswordExpires = null;
-        user.save().then(function (err) {
-            req.flash('successMessage', 'Contraseña actualizada');
-            loginUser(req, res, user);
-        });
+  if (req.body.password !== req.body.confirm_password)
+    return res.badRequest({errors: ['Contraseñas no son iguales']}, 'Error');
+
+  var query = {where: {tokenResetPassword: req.body.token}};
+  global.db.User.find(query).then(function (user) {
+    if(!user)
+      return res.badRequest({errors: ['Token invalido']}, 'Error');
+
+    user.salt = user.makeSalt();
+    user.hashedPassword = user.encryptPassword(req.body.password, user.salt);
+    user.tokenResetPassword = null;
+    user.tokenResetPasswordExpires = null;
+    user.save().then(function () {
+      loginUser(req, res, user).then(function() {
+        return res.ok({user: user}, 'Contraseña actualizada');
+      });
     });
+  });
 };
 
 exports.resend = function (req, res) {

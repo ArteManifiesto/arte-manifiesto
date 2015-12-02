@@ -73,7 +73,8 @@ exports.create = function (req, res) {
             global.db.Action.create(actionQuery),
             work.setUser(req.user),
             work.setTags(tagsResult),
-            work.setCategory(category)
+            work.setCategory(category),
+            req.user.addSpecialties(category)
         ];
         global.db.Sequelize.Promise.all(promises).then(function () {
             if (req.xhr)

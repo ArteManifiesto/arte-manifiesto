@@ -216,29 +216,15 @@
 
 {% endblock %}
 
-
 {% block scripts %}
-
-	<script src="/hammer.min.js"></script>
-	<script src="/slider.js"></script>
-
 	<script>
-		$(function(){
-			var users = {{users|json|safe}}
-
-	  	var usersViewer = new APP.Viewer('user', $('.grid'), null, {{users|json|safe}});
-			var banner = $('.banner-user').detach();
-			usersViewer.container.append(banner).masonry('appended', banner);
-
-	  	new APP.Viewer('work', $('.grid-works'), null, {{works|json|safe}});
-
-		})
+	var users = {{users|json|safe}};
+	var works = {{works|json|safe}};
+		$(function() {
+			new APP.HomeScreen();
+		});
 	</script>
-
 {% endblock %}
-
-
-
 			<!-- <section class="slider-large">
 				<div class="slider-large__items">
 					<div class="slider-large__item js-slide"><img src="/img/slide-large1.jpg"></div>

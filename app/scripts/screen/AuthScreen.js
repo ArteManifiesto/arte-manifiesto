@@ -6,45 +6,44 @@ var APP = APP || {};
 
 APP.AuthScreen = function (meta) {
   this.meta = meta;
-  this.listeners();
+  APP.BaseScreen.call(this, 'auth');
 };
 
 APP.AuthScreen.constructor = APP.AuthScreen;
+APP.AuthScreen.prototype = Object.create(APP.BaseScreen.prototype);
 
-APP.AuthScreen.prototype.listeners = function() {
+APP.AuthScreen.prototype.listeners = function () {
+  APP.BaseScreen.prototype.listeners.call(this);
   $('.fb').click(this.fbHandler.bind(this));
   $('.auth-form').submit(this.formHandler.bind(this));
 };
 
-APP.AuthScreen.prototype.fbHandler = function() {
+APP.AuthScreen.prototype.fbHandler = function () {
   $('.fb').hide();
   $('.fb-loading').show();
 };
 
-APP.AuthScreen.prototype.formHandler = function() {
+APP.AuthScreen.prototype.formHandler = function (event) {
   event.preventDefault();
   $('.submit').hide();
   $('.submit-loading').show();
-  //var url =  '/auth/' + this.meta;
-  $.post(window.location.href , $('.auth-form').serialize(), this.authRequestHandler);
+
+  var url = '/auth/' + this.meta, payload = $('.auth-form').serialize();
+  this.requestHandler(url, payload, this.requestAuthComplete, this.requestAuthError, true);
 };
 
-APP.AuthScreen.prototype.authRequestHandler = function(response) {
-    if(response.status === 400){
-      $('.errors').empty();
-      $.each(response.data, function( key, value ) {
-        $('.' + key).removeClass('error');
-      });
-      $.each(response.data, function( key, value ) {
-        $('.' + key).addClass('error');
-        $('.errors').append($('<li>'+ value +'</li>'));
-      });
-    }
+APP.AuthScreen.prototype.requestAuthError = function (response) {
+  this.meta === 'signup' && grecaptcha.reset();
+  $('.submit').show();
+  $('.submit-loading').hide();
+};
 
-    if(response.status === 200) {
-      return location.href = response.data.returnTo
-    }
+APP.AuthScreen.prototype.requestAuthComplete = function (response) {
+  $('.submit').show();
+  $('.submit-loading').hide();
 
-    $('.submit').show();
-    $('.submit-loading').hide();
+  if (this.meta !== 'forgot')
+    return location.href = response.data.returnTo;
+
+  this.showFlash('succes', 'Se envio el correo');
 };

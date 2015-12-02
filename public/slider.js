@@ -61,8 +61,3 @@ function Slider (el, data) {
 
 	setup()
 }
-
-window.slider = new Slider(document.querySelector('.slider'), {
-	slideClass: 'js-slide',
-	sliderNavItemClass: 'js-slideNavItem'
-})

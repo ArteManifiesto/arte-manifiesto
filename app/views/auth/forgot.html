@@ -26,14 +26,8 @@
 
 {% block scripts %}
 <script>
-  $('.auth-form').submit(function(){
-    event.preventDefault();
-    $('.submit').hide();
-    $('.submit-loading').show();
-    $.post('/auth/forgot', $('.auth-form').serialize(), function(response) {
-      $('.submit').show();
-      $('.submit-loading').hide();
-    });
-  });
+	$(function() {
+		new APP.AuthScreen('forgot');
+	});
 </script>
 {% endblock %}

@@ -11,23 +11,21 @@ exports.index = function (req, res) {
     global.db.Category.findAll({limit:8})
   ];
   return global.db.Sequelize.Promise.all(promises).then(function (result) {
-      return res.render('pages/index', {
-        users: result[0],
-        works: result[1],
-        categories: result[2],
-        cloudinary: global.cl,
-        cloudinayCors: global.cl_cors
+      return res.render(basePath + 'index', {
+        users: result[0], works: result[1],
+        categories: result[2]
       });
   });
 };
 
-exports.feedPage = function (req, res ){
+exports.feedPage = function (req, res ) {
     var promises = [
       req.user.numOfFollowers(),
       req.user.numOfWorks(),
       req.user.numOfFollowings(),
       searchFeed(req)
-    ]
+    ];
+
     return global.db.sequelize.Promise.all(promises).then(function (data) {
       var feedData = data[3];
       if(feedData.length > 1 ) {

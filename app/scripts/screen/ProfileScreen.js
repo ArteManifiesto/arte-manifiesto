@@ -33,7 +33,7 @@ APP.ProfileScreen.prototype.saveClickHandler = function () {
   var url = DataApp.currentUser.url + '/account/update_cover';
   this.requestHandler(url, {cover: this.uploaderCover.photo}, this.updateCoverComplete);
   $('.save-icon, .cancel-icon').hide();
-	$('.cloudinary-fileupload, .upload').show();
+  $('.cloudinary-fileupload, .upload').show();
 };
 
 APP.ProfileScreen.prototype.followClickHandler = function () {
@@ -41,11 +41,11 @@ APP.ProfileScreen.prototype.followClickHandler = function () {
   this.requestHandler(url, {idUser: profile.id}, this.followComplete);
 };
 
-APP.ProfileScreen.prototype.menuItemClickHandler = function(event) {
+APP.ProfileScreen.prototype.menuItemClickHandler = function (event) {
   this.currentItem = $(event.currentTarget);
   var path = this.currentItem.data('name');
-	var url = '/user/' + profile.username + '/' + (path === 'portfolio' ? '' : path)
-	Utils.changeUrl(DataApp.baseTitle + Utils.capitalize(path), url);
+  var url = '/user/' + profile.username + '/' + (path === 'portfolio' ? '' : path)
+  Utils.changeUrl(DataApp.baseTitle + Utils.capitalize(path), url);
 
   this.currentSection = $('.' + path + '-wrapper');
 
@@ -55,16 +55,16 @@ APP.ProfileScreen.prototype.menuItemClickHandler = function(event) {
 
   this.currentItem.addClass('selected');
   this.currentSection.show();
-  if(this.paths.indexOf(path) === -1) {
+  if (this.paths.indexOf(path) === -1) {
     var template = this.getTemplate(path), section = $('.' + path + '-container');
-	  this.currentViewer = new APP.Viewer(template, section, 'infinite', null);
-		this.currentViewer.navigationManager.navigator.needChangeUrl = true;
+    this.currentViewer = new APP.Viewer(template, section, 'infinite', null);
+    this.currentViewer.navigationManager.navigator.needChangeUrl = true;
     this.viewers.push(this.currentViewer);
     this.paths.push(path);
-	} else {
-		this.currentViewer = this.viewers[this.paths.indexOf(path)]
-		this.currentViewer.restart();
-	}
+  } else {
+    this.currentViewer = this.viewers[this.paths.indexOf(path)]
+    this.currentViewer.restart();
+  }
   this.oldItem = this.currentItem;
   this.oldViewer = this.currentViewer;
   this.oldSection = this.currentSection;

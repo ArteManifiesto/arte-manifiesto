@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var flash = require('connect-flash');
 var swig = require('swig');
+var compression = require('compression')
 
 module.exports = function (app, passport) {
     /**
@@ -28,6 +29,7 @@ module.exports = function (app, passport) {
      * Setup express middlewares
      * ====================================================
      */
+    app.use(compression());
     app.use(morgan('dev'));
     app.use(cookieParser('luelennuckyinleDfOfkugGEsErLQQDcS'));
     app.use(expressSession({

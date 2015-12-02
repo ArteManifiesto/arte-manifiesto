@@ -36,43 +36,24 @@
 </head>
 <body>
 {% include 'header.html' %}
-{% if successMessage.length > 1 %}
-<div class="message succes visible">
-	<div class="grid-container">
-		<div class="grid-100">
-			<p>{{successMessage}}</p>
-		</div>
+
+<div class="flash-message error">
+	<div class="top-bar"></div>
+	<div class="content">
+		<span class="closed close-flash"><i class="fa fa-times"></i></span>
+		<p class="content-text">Tu obra fue subida con éxito! <br> Ahora puedes ver tu portafolio en línea.</p>
+		<button class="close-flash">CERRAR</button>
 	</div>
 </div>
-{% endif %}
 
-{% if errorMessage.length > 1 %}
-<div class="message error visible">
-	<div class="grid-container">
-		<div class="grid-100">
-			<p>{{errorMessage}}</p>
-		</div>
+<div class="flash-message succes">
+	<div class="top-bar"></div>
+	<div class="content">
+		<span class="closed close-flash"><i class="fa fa-times"></i></span>
+		<p class="content-text">Tu obra fue subida con éxito! <br> Ahora puedes ver tu portafolio en línea.</p>
+		<button class="close-flash">CERRAR</button>
 	</div>
 </div>
-{% endif %}
-
-	<div class="flash-message error">
-		<div class="top-bar"></div>
-		<div class="content">
-			<span class="closed close-flash"><i class="fa fa-times"></i></span>
-			<p class="content-text">Tu obra fue subida con éxito! <br> Ahora puedes ver tu portafolio en línea.</p>
-			<button class="close-flash">CERRAR</button>
-		</div>
-	</div>
-
-	<div class="flash-message succes">
-		<div class="top-bar"></div>
-		<div class="content">
-			<span class="closed close-flash"><i class="fa fa-times"></i></span>
-			<p class="content-text">Tu obra fue subida con éxito! <br> Ahora puedes ver tu portafolio en línea.</p>
-			<button class="close-flash">CERRAR</button>
-		</div>
-	</div>
 
 	{% block elements %} {% endblock %}
 
@@ -93,6 +74,8 @@
 	<script src="/adapt.min.js"></script>
 	<script src="/EventDispatcher.js"></script>
 	<script src="/jquery-2.1.1.min.js"></script>
+	<script src="/hammer.min.js"></script>
+	<script src="/slider.js"></script>
 	<script src="/jquery.maskedinput.js"></script>
 	<script src="/moment.js"></script>
 	<script src='/app.min.js'></script>
@@ -106,21 +89,31 @@
 	<script src='/jquery.cloudinary.js'></script>
 	<script>
 	var owner = {{owner|json|safe}};
+	var errorMessage = {{errorMessage|json|safe}};
+	var successMessage = {{successMessage|json|safe}};
+
 	DataApp.currentUser = {{user|json|safe}} || null;
 	if(DataApp.currentUser !== null) {
-		if(DataApp.currentUser.email === 'luis.augusto@artemanifiesto.com'){
-			$('.error').find('.content-text').empty();
-			$('.error').find('.content-text').text('ERROR! SE DETECTO UN CABRASO :v');
-			$('.error').addClass('fadeIn');
-		}
 		DataApp.currentUser.url = '/user/' + DataApp.currentUser.username;
 	}
 	$(function() {
 		new APP.AM();
+		var flash, flashMessage;
+		errorMessage.length > 0 && (flash = $('.error'), flashMessage = errorMessage[0]);
+		successMessage.length > 0 && (flash = $('.succes'), flashMessage = successMessage[0]);
+
+		console.log(errorMessage, successMessage);
+		console.log(flashMessage);
+		if(flash) {
+			flash.find('.content-text').text(flashMessage);
+		  flash.addClass('fadeIn');
+		}
+
 		$('.am-Signin-button').click(function(event) {
 			event.preventDefault();
 			Utils.checkAuthentication();
 		});
+
 		$('.close-flash').click(function(event) {
 			$('.flash-message').css('visibility', 'hidden');
 		})

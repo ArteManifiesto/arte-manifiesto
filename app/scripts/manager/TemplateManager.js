@@ -26,8 +26,6 @@ APP.TemplateManager.prototype.loadTemplates = function (ids) {
 };
 
 APP.TemplateManager.prototype.getFromDoc = function(id) {
-    console.log('idddd');
-  console.log('id : ' , id);
   if(this.templates[id])
     return this.templates[id];
 

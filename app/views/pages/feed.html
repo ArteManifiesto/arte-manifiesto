@@ -93,8 +93,7 @@
 	<script>
 	var collections = [];
 	var currentIdWork = null;
-	$(function(){
-		console.log({{data|json|safe}});
+	$(function() {
 		new APP.Viewer('actionItem', $('.feed-inner'), 'infinite', {{data|json|safe}});
 		var url = DataApp.currentUser.url + '/collection/all';
 	  $.post(url, {}, function (response) {

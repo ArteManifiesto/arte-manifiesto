@@ -24,7 +24,7 @@ router.post('/check', controller.check);
 router.post('/resend', global.md.isLogged, controller.resend);
 
 router.post('/forgot', controller.forgotCreate);
-router.post('/reset/:token', controller.resetVerify);
+router.post('/reset/', controller.resetVerify);
 
 
 module.exports = router;

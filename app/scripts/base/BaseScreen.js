@@ -17,22 +17,27 @@ APP.BaseScreen.prototype.listeners = function () {
 
 };
 
-APP.BaseScreen.prototype.requestHandler = function(url, payload, next) {
-  Utils.checkAuthentication();
-  next = next.bind(this);
-  $.post(url, payload).then(function(response) {
-    if(response.status !== 200)
-      return this.showFlash('error', ['Algo sucedió mal']);
-    next(response);
-  });
-}
+APP.BaseScreen.prototype.requestHandler = function (url, payload, next, error, free) {
+  !free && Utils.checkAuthentication();
+  $.post(url, payload).then(this.requestComplete.bind(this, next, error));
+};
 
-APP.BaseScreen.prototype.showFlash = function(meta , data) {
+APP.BaseScreen.prototype.requestComplete = function (next, error, response) {
+  if (response.status !== 200) {
+    console.log(response.data.errors);
+    var errors = response.data.errors || ['Algo sucedió mal'];
+    error && error.bind(this)();
+    return this.showFlash('error', errors);
+  }
+  next.bind(this)(response);
+};
+
+APP.BaseScreen.prototype.showFlash = function (meta, data) {
   var element = $('.' + meta);
   $('.flash-message').css('visibility', 'hidden');
   var container = element.find('.content-text');
   container.empty();
-  if(meta === 'error') {
+  if (meta === 'error') {
     for (var i = 0; i < data.length; i++) {
       container.append($('<p>').text('✘ ' + data[i]));
     }
@@ -41,7 +46,7 @@ APP.BaseScreen.prototype.showFlash = function(meta , data) {
   }
   element.css('visibility', 'visible');
   element.removeClass('fadeIn');
-  var timeout = setTimeout(function() {
+  var timeout = setTimeout(function () {
     clearTimeout(timeout);
     element.addClass('fadeIn');
   }, 100);
