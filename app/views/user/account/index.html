@@ -114,14 +114,14 @@
 
 				<div class="grid-100">
 					<p class="title">Elige tu foto de perfil:</p>
-					<div class="uploader-profile">
+					<div class="uploader-profile u-margin-top-20">
 						<div class="profile-imgage">
 							<div class="preview">
 								<img src="{{user.photo}}"/>
 							</div>
 						</div>
 						<div class="preload hide"><i class="fa fa-spinner"></i></div>
-						<button class="button upload u-margin-top-30">BUSCAR ARCHIVO</button>
+						<button class="button upload" style="margin-top: 10px;">BUSCAR ARCHIVO</button>
 					</div>
 
 					<div class="image-uploader" style="position:relative;">
@@ -146,11 +146,30 @@
 				</div>
 
 
-				<div class="separator">
+				<div class="separator u-margin-top-40">
 					<span class="line"></span><span class="text">DATOS ARTISTA</span><span class="line"></span>
 				</div>
 
 
+				<!-- <div class="grid-100">
+					<p class="title">Apellido</p>
+					<input class="input" type="text" value="{{user.lastname}}" name='lastname' required placeholder="Ingresa tus apellidos"/>
+					<p class="title">Elige tu nombre de usuario</p>
+				</div> -->
+
+				<div class="grid-100 mobile-grid-100">
+					<p class="title">Nombre de artista o pseudónimo</p>
+					<input class="input" type="text" value="" name='firstname' required placeholder="Ingresa tu nombre de artista, pseudónimo o alter ego"/>
+					<p class="title">Nombre a mostrar publicamente</p>
+				</div>
+
+				<div class="grid-50 mobile-grid-100">
+					<select class="input select" name='gender' required>
+						<option disabled checked>Nombre completo</option>
+						<option>Nombre de artista</option>
+					</select>
+				</div>
+				
 				<div class="grid-100 mobile-grid-100">
 					<p class="title">Mi Manifiesto</p>
 					<textarea name='biography' rows="7" required class="input" placeholder="Cuentanos sobre tí, lo que te define lo que hace que te levantes cada día.">{{user.biography}}</textarea>
@@ -192,11 +211,11 @@
 				</div>
 
 				<div class="grid-100 mobile-grid-100">
-					<button class="button save u-margin-top-30" data-color="green">GUARDAR CAMBIOS</button>
+					<button class="button save u-margin-top-40" data-color="green">GUARDAR CAMBIOS</button>
 				</div>
 
 				<div class="grid-100 save-loading hide mobile-grid-100">
-					<button class="button u-margin-top-30" data-color="green"><i class="load fa fa-spinner"></i></button>
+					<button class="button u-margin-top-40" data-color="green"><i class="load fa fa-spinner"></i></button>
 				</div>
 			</form>
 		</div>
