@@ -620,7 +620,7 @@ white = #fff
 .body
 	position relative
 	overflow hidden
-	.left-menu
+	.left-mobile-menu
 		position absolute
 		left 0
 		top 0
@@ -661,7 +661,7 @@ white = #fff
 				padding 0px 5px
 				margin-left 5px
 
-	.right-menu
+	.right-mobile-menu
 		position absolute
 		right 0
 		top 0
@@ -704,11 +704,11 @@ white = #fff
 			top 0
 			bottom 0
 			background rgba(black, .5)
-			z-index 2
+			z-index 3
 			display none
 
 .body.open-left
-	.left-menu
+	.left-mobile-menu
 		transform translateX(0)
 	.body-inner
 		transform translatex(70%)
@@ -716,7 +716,7 @@ white = #fff
 			display block
 
 .body.open-right
-	.right-menu
+	.right-mobile-menu
 		transform translateX(0)
 	.body-inner
 		transform translatex(-70%)
