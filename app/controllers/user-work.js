@@ -21,7 +21,7 @@ exports.index = function (currentPath, req, res) {
               entity: 'work',
               owner : req.owner,
               currentPath: currentPath,
-              element: work, userLikes: result[1],
+              work: work, userLikes: result[1],
               more: result[2], similar: result[3],
               tags: result[4],
               reviews: result[5],

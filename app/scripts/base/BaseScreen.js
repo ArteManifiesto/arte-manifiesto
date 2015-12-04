@@ -6,12 +6,17 @@ var APP = APP || {};
 
 APP.BaseScreen = function (id) {
   this.id = id;
+
+  this.setupUI();
   this.listeners();
 };
 
 APP.BaseScreen.prototype = Object.create(Object.prototype);
 
 APP.BaseScreen.constructor = APP.BaseScreen;
+APP.BaseScreen.prototype.setupUI = function() {
+
+};
 
 APP.BaseScreen.prototype.listeners = function () {
 

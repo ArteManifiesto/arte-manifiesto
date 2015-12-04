@@ -27,10 +27,11 @@ exports.all = function (req, res) {
  */
 exports.create = function (req, res) {
   req.body.UserId = req.user.id;
-    global.db.Collection.create(req.body).then(function (collection) {
-      if (req.xhr)
-          return res.ok({collection: collection}, 'Coleccion creada');
-    });
+  req.body.description = 'Coleccion curada por ' + req.user.fullname;
+  global.db.Collection.create(req.body).then(function (collection) {
+    if (req.xhr)
+        return res.ok({collection: collection}, 'Coleccion creada');
+  });
 };
 
 /**

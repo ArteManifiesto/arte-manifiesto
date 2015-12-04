@@ -1,8 +1,6 @@
 var passport = require('passport');
 var moment = require('moment');
-var config = require('../../config/config');
 var simple_recaptcha = require('simple-recaptcha-new');
-var uuid = require('node-uuid');
 
 var checkReturnTo = function (req, res) {
   var returnTo = req.query.returnTo || req.protocol + '://' + req.get('host');
@@ -31,7 +29,7 @@ exports.signup = function (req, res) {
 
     var ip = req.ip, response = req.body['g-recaptcha-response'];
 
-    simple_recaptcha(config.recaptcha.privateKey, ip, response, function (error) {
+    simple_recaptcha(global.cf.recaptcha.privateKey, ip, response, function (error) {
       if (error)
         errors.push('Recaptcha invalido');
 
@@ -49,23 +47,15 @@ exports.signup = function (req, res) {
   })
 };
 
-var check = function (property, value) {
-  var query = {where: {}};
-  query.where[property] = value;
-  return global.db.User.find(query).then(function (user) {
-    return user === null;
-  });
+var check = function (req) {
+
 };
 
 exports.check = function (req, res) {
-  if (req.query.property === undefined || req.query.value === undefined)
-    return res.badRequest('Necesitas enviar una propiedad y valor');
-
-  var checkable = ['username', 'email'];
-  if (checkable.indexOf(req.query.property) === -1)
-    return res.badRequest('Propiedad invalida');
-
-  check(req.query.property, req.query.value).then(function (available) {
+  var query = {where: {id:{$not: [req.user.id]}}};
+  query.where[req.body.property] = req.body.value;
+  return global.db.User.find(query).then(function (user) {
+    var available = (user === null);
     return res.ok({available: available}, 'Disponibilidad de recursos');
   });
 };
@@ -151,19 +141,12 @@ exports.verify = function (req, res) {
 
     if (user.verified) {
       req.flash('successMessage', 'Email ya ah sido confirmado');
-      if (user.filled) {
-        return res.redirect('/user/' + user.username);
-      } else {
-        if (req.user) {
-          return res.redirect('/user/' + user.username + '/account/?context=1');
-        } else {
-          return res.redirect('/');
-        }
-      }
+      return res.redirect('/');
     }
+
     user.updateAttributes({verified: true}).then(function () {
       req.flash('successMessage', 'Email confirmado');
-      return res.redirect('/user/' + user.username + '/account/?context=1');
+      return res.redirect('/');
     });
   })
 };
@@ -213,9 +196,7 @@ exports.resetVerify = function (req, res) {
     user.tokenResetPassword = null;
     user.tokenResetPasswordExpires = null;
     user.save().then(function () {
-      loginUser(req, res, user).then(function() {
-        return res.ok({user: user}, 'Contraseña actualizada');
-      });
+      return res.ok({user: user}, 'Contraseña actualizada');
     });
   });
 };

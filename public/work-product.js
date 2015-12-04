@@ -1,250 +1,107 @@
 $(document).ready(function() {
-  $('.share-btn').on('click',function() {
-    $('.add-collection').hide();
-    $('.social-share').toggle();
-  });
-
-  $('.share-fb').click(function(){
-    Utils.share.facebook({
-      link: 'http://google.com',
-      picture: Utils.addImageFilter(element.photo, 'w_1200,h_630,q_60,c_crop'),
-      name: element.name,
-      caption: 'Arte Manifiesto',
-      description: element.description
-    }, function() {
-      $('#lean_overlay').trigger( "click" );
-    });
-  });
-
-  $('.products-item-menu').click(function() {
-    if(entity === 'work') {
-      $('html, body').animate({
-        scrollTop: $(".carousel").offset().top
-      }, 600);
-      $('.products').click();
-    } else {
-      $('.original-item-menu').removeClass('selected');
-      $(this).addClass('selected');
-
-      $('.original-tab-menu').hide();
-      $('.products-tab-menu').show();
-    }
-  });
-
-  $('.ask-availability').click(function(event) {
-    event.preventDefault();
-    Utils.checkAuthentication();
-    var url = DataApp.currentUser.url + '/work/availability';
-    $.post(url, {idWork: element.id}, function (response) {
-      if(response.status === 200) {
-        $('.ask-requester').hide();
-        $('.thanks-requester').show();
-      }
-    });
-  });
-
-  $('.original-item-menu').click(function() {
-      $('.products-item-menu').removeClass('selected');
-      $(this).addClass('selected');
-
-      $('.original-tab-menu').show();
-      $('.products-tab-menu').hide();
-  });
-
-  var following = false;
-  $('.login-first').click(function(event) {
-    event.preventDefault();
-    Utils.checkAuthentication();
-  });
-  if(DataApp.currentUser) {
-    if(!owner) {
-      var url = DataApp.currentUser.url + '/isFollowing';
-      $.post(url, {idUser:element.User.id}, function (response) {
-        if(response.status === 200) {
-          following = response.data.following;
-          if(response.data.following)
-          $('.am-Follow-button').addClass('following').text('Siguiendo');
-        }
-      });
-    }
-
-  var url = DataApp.currentUser.url + '/collection/all';
-  $.post(url, {}, function (response) {
-    if(response.status === 200) {
-      var collections = response.data.collections;
-      var item = '<li class="collection" data-id="<%=id%>"><p><%=name%></p><i class="fa fa-check"></i></li>'
-      for(var i= 0; i <collections.length; i++) {
-        $('.collections').append($(_.template(item)(collections[i])));
-      }
-
-      var url = DataApp.currentUser.url + '/'+entity+'/inside_collection';
-      var payload = {};
-      payload['id' + Utils.capitalize(entity)] = element.id;
-      $.post(url,payload, function (response) {
-        var collections = response.data.collections;
-        for(var i= 0; i <collections.length; i++) {
-          var id = collections[i].id;
-          $('.collection[data-id='+id+']').addClass('selected');
-          collectionsClicked.push(id);
-        }
-      });
-    }
-  });
-}
-
-  $('.collect-btn').on('click',function() {
-    $('.add-collection').toggle();
-    $('.social-share').hide();
-  });
+  function Carousel (el , container) {
+  	var nextButton = el.querySelector('.nextButton'),
+  			prevButton = el.querySelector('.prevButton'),
+  			carousel = el.querySelector('.more-images'),
+  			interval;
 
 
-  for (var i = 0; i <reviews.length; i++) {
-    $('.reviews-items-container').append(new APP.Review(reviews[i]).view);
+  			var checkArrows = function () {
+  				clearTimeout(timeout);
+  				if (container[0].scrollWidth > $(container).innerWidth()) {
+  						$(nextButton).show();
+  						$(prevButton).show();
+  	        } else {
+  						$(nextButton).hide();
+  						$(prevButton).hide();
+  	        }
+  			}
+  			var timeout = setTimeout(function() {
+  				checkArrows();
+  				$(carousel).scroll();
+  			},1000);
+
+
+  	function setup () {
+  		var completeAnimation = function () {
+  			if(this.scrollLeft <=0 ) {
+  				$(prevButton).hide();
+  			}else {
+  				$(prevButton).show();
+  			}
+  			console.log(this.scrollLeft , this.scrollLeft + $(this).innerWidth())
+  			if(this.scrollLeft +  $(this).innerWidth() >= this.scrollWidth) {
+  				$(nextButton).hide();
+  			}else {
+  				$(nextButton).show();
+  			}
+  		}
+  		$(nextButton).click(function () {
+  				$(carousel).animate({
+  					scrollLeft: (carousel.scrollLeft + 230)
+  				},400, completeAnimation);
+  		});
+
+  		$(prevButton).click(function () {
+  			$(carousel).animate({
+  				scrollLeft: (carousel.scrollLeft - 230)
+  			},400,completeAnimation);
+  		});
+  		$(carousel).scroll(completeAnimation);
+  		$( window ).resize(checkArrows);
+  	}
+  	setup()
   }
-
-  for (var i = 0; i <more.length; i++) {
-    more[i].entity = entity;
-  }
-
-  for (var i = 0; i <similar.length; i++) {
-    similar[i].entity = entity;
-  }
+  var carousel = new Carousel (document.querySelector('.js-more-carousel') , $('.more'));
+  var carousel = new Carousel (document.querySelector('.js-similar-carousel'), $('.similar'));
 
 
-  new APP.Viewer('carrouselItem', $('.more'), null, more);
-  new APP.Viewer('carrouselItem', $('.similar'), null, similar);
+  var meta;
+  var zoom = false;
 
-  $('.am-Follow-button').click(function(event){
-    Utils.checkAuthentication();
+  setTimeout(function () {
 
-    if(following) {
-      var url = DataApp.currentUser.url + '/unfollow/';
-      $.post(url,{idUser: element.User.id}, function (response) {
-        if(response.status === 200) {
-          following = false;
-          $('.am-Follow-button').removeClass('following').text('+Seguir');
-        }
-      });
-    }else {
-      var url = DataApp.currentUser.url + '/follow/';
-      $.post(url,{idUser: element.User.id}, function (response) {
-        if(response.status === 200) {
-          following = true;
-          $('.am-Follow-button').addClass('following').text('Siguiendo');
-        }
-      });
-    }
-  });
+  	$('#work-image').click(function () {
 
-  $('.add-collection-form').submit(function(event){
-    event.preventDefault();
-    var url = DataApp.currentUser.url + '/collection/create';
-    $.post(url, $(this).serialize(), function (response) {
-      if(response.status === 200) {
-        var item = '<li class="collection" data-id="<%=id%>"><p><%=name%></p><i class="fa fa-check"></i></li>'
-        $('.collections').append($(_.template(item)(response.data.collection)));
-      }
-    });
-  });
+  		if( !zoom ) {
 
-  $('.like-btn').click(function(){
-    Utils.checkAuthentication();
-    var payload = {};
-    payload['id' + Utils.capitalize(entity)] = element.id;
-    if(!element.liked) {
-      var url = DataApp.currentUser.url + '/'+entity+'/like';
-      $.post(url, payload, function (response) {
-        if(response.status === 200) {
-          element.liked = true;
-          $('.likes').text(response.data.likes)
-          $('.like-btn').parent().addClass('active');
-          $('.after-like').show();
-        }
-      });
-    }
-  });
+  			$('#go-preload-modal').trigger( "click" );
 
-  $('.review-form').submit(function(event){
-    event.preventDefault();
-    var url = DataApp.currentUser.url + '/'+entity+'/review/create';
-    $.post(url, $(this).serialize(), function (response) {
-      if(response.status === 200) {
-        $('.value-input').val('');
-        $('.reviews-items-container').append(new APP.Review(response.data.review).view);
-      }
-    });
-  });
+  			$("<img/>").load(function() {
 
-  var collectionsClicked = [];
-  $('.collections').on("click", ".collection", function() {
-    var id = parseInt($(this).data('id'),10);
-    var index = collectionsClicked.indexOf(id);
-    if(index === -1){
-        collectionsClicked.push(id);
-        $(this).addClass('selected');
-    }else {
-      collectionsClicked.splice(index, 1);
-      $(this).removeClass('selected');
-    }
-  });
+  				$('#lean_overlay').trigger( "click" );
 
-  var lastMenuItem = $('.' + currentPath);
-  $('.index').click(function() {
-    lastMenuItem.removeClass('selected');
-    $(this).addClass('selected');
-    Utils.changeUrl(DataApp.baseTitle + element.name, '/user/' + element.User.username + '/'+entity+'/' + element.nameSlugify);
-    $('.index-container').show();
-    $('.reviews-container').hide();
-    $('.tags-container').hide();
-    $('.products-container').hide();
-    lastMenuItem = $(this);
-  });
+  				var width = this.width, height = this.height;
+  				meta = { width: width, height: height }
 
-  $('.reviews').click(function() {
-    lastMenuItem.removeClass('selected');
-    $(this).addClass('selected');
-    Utils.changeUrl(DataApp.baseTitle + 'Reviews' + element.name, '/user/' + element.User.username + '/'+entity+'/' + element.nameSlugify + '/reviews');
-    $('.index-container').hide();
-    $('.reviews-container').show();
-    $('.tags-container').hide();
-    $('.products-container').hide();
-    lastMenuItem = $(this);
-  });
+  				document.getElementById('work-image').onclick = openPhotoSwipe;
 
-  $('.products').click(function() {
-    lastMenuItem.removeClass('selected');
-    $(this).addClass('selected');
-    Utils.changeUrl(DataApp.baseTitle + 'Productos' + element.name, '/user/' + element.User.username + '/'+entity+'/' + element.nameSlugify + '/products');
-    $('.index-container').hide();
-    $('.reviews-container').hide();
-    $('.tags-container').hide();
-    $('.products-container').show();
-    lastMenuItem = $(this);
-  });
+  				$('#work-image').trigger( "click" );
 
-  $('.tags').click(function(){
-    lastMenuItem.removeClass('selected');
-    $(this).addClass('selected');
-    Utils.changeUrl(DataApp.baseTitle + 'Tags' + element.name, '/user/' + element.User.username + '/'+entity+'/' + element.nameSlugify + '/tags');
-    $('.index-container').hide();
-    $('.reviews-container').hide();
-    $('.tags-container').show();
-    $('.products-container').hide();
-    lastMenuItem = $(this);
-  });
-  $('.save-collections').click(function() {
-    $(this).hide();
-    $('.save-collections-loading').show();
-    var url = DataApp.currentUser.url + '/'+entity+'/add_to_collection';
-    var payload = {collections: JSON.stringify(collectionsClicked)};
-    payload['id' + Utils.capitalize(entity)] = element.id;
-    $.post(url, payload, function (response) {
-      if(response.status === 200) {
-        $('.save-collections-loading').hide();
-        $('.save-collections').show();
-        $('#lean_overlay').trigger( "click" );
-      }
-    });
-  });
-  $('.' + currentPath).click();
+  			}).attr("src", Utils.addImageFilter(work.photo, 'w_1500,h_800,c_limit,q_80'));
+
+  			zoom = true
+  		}
+  	})
+
+  }, 3000)
+
+  var openPhotoSwipe = function() {
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    var items = [
+  		{
+  			src: Utils.addImageFilter(work.photo, 'w_1500,h_800,c_limit,q_80'),
+  			w: meta.width,
+  			h: meta.height
+  		}
+    ];
+    var options = {
+    	getThumbBoundsFn: function () {
+    		return {
+    			x: $('#work-image')[0].offsetLeft ,y: $('#work-image')[0].offsetTop, w: $('#work-image')[0].width}
+    	}
+    };
+    window.gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+    gallery.init();
+  };
 });

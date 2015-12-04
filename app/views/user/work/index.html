@@ -6,28 +6,28 @@
 {% endblock %}
 
 {% block elements %}
-{% set element = element.toJSON() %}
+{% set work = work.toJSON() %}
 	<div class="grid-container u-margin-top-15 u-margin-bottom-15">
 		<div class="grid-100">
 			<div class="works-nav">
 				<div style="min-width: 100px;">
 					{% if neighbors.length > 1 %}
 						{% if neighbors[0] %}
-							<a href='/user/{{neighbors.prev.User.username}}/work/{{neighbors.prev.nameSlugify}}' class="nav prev-btn">
+							<a href='/user/{{neighbors[0].User.username}}/work/{{neighbors[0].nameSlugify}}' class="nav prev-btn">
 								<i class="bi_interface-left"></i>
 								<p>&nbsp;&nbsp;ANTERIOR</p>
 							</a>
 						{% endif %}
 					{% endif %}
 				</div>
-				<a href="/user/{{element.User.username}}" class="nav">
+				<a href="/user/{{work.User.username}}" class="nav">
 					<i class="bi_media-image-b"></i>
 					<p>&nbsp;&nbsp;IR AL PORTAFOLIO</p>
 				</a>
 				<div style="min-width: 100px;">
 					{% if neighbors.length > 1 %}
 						{% if neighbors[1] %}
-							<a href='/user/{{neighbors.next.User.username}}/work/{{neighbors.next.nameSlugify}}' class="nav next-btn">
+							<a href='/user/{{neighbors[1].User.username}}/work/{{neighbors[1].nameSlugify}}' class="nav next-btn">
 								<p>SIGUIENTE&nbsp;&nbsp;</p>
 								<i class="bi_interface-right"></i>
 							</a>
@@ -46,22 +46,10 @@
 				<div class="single-image">
 					<div class="single-image-inner">
 						<div class="work-photo-container">
-							<!-- <div class="cover"></div> -->
-							<img src="{{element.photo|addFilter('w_700,h_800,q_80,c_limit')}}" class="work-photo" id="work-image">
+							<img src="{{work.photo|addFilter('w_700,h_800,q_80,c_limit')}}" class="work-photo" id="work-image">
 						</div>
-
-						<!-- <div style="width: 100%; display: flex; justify-content: space-between; align-items: center;"> -->
-
-							<!-- <div class="actions">
-								<a class="action prev-btn" style="padding: 0; cursor: pointer;">
-									<div class="">
-										<i class="arrow bi_interface-left"></i>
-										<p class="text desktop">VALORAR</p>
-									</div>
-								</a>
-							</div> -->
 							<div class="actions u-padding-top-10">
-								<a class="action {% if element.liked %} active {% endif %}">
+								<a class="action {% if work.liked %} active {% endif %}">
 									<div class="like-btn">
 										<i class="icon bi_ecommerce-diamon  valuation"></i>
 										<p class="text">VALORAR</p>
@@ -72,24 +60,13 @@
 									<p class="text">COMPARTIR</p>
 								</a>
 								{% if owner %}
-									<a id="go-share-modal" href="/user/{{element.User.username}}/work/{{element.nameSlugify}}/edit" class="action">
+									<a id="go-share-modal" href="/user/{{work.User.username}}/work/{{work.nameSlugify}}/edit" class="action">
 										<i class="icon bi_editorial-compose"></i>
 										<p class="text">EDITAR</p>
 									</a>
 								{% endif %}
 							</div>
-							<!-- <div class="actions">
-								<a class="action next-btn" style="padding: 0; cursor: pointer;">
-									<div class="">
-										<i class="arrow bi_interface-right"></i>
-										<p class="text desktop">VALORAR</p>
-									</div>
-								</a>
-							</div> -->
-
-						<!-- </div> -->
-
-						<div class="actions-box after-like {% if !element.liked %} hide {% endif %}">
+						<div class="actions-box after-like {% if !work.liked %} hide {% endif %}">
 
 							<i class="bi_interface-top arrow" {% if owner %} style="left: 32px;" {% endif %}></i>
 
@@ -97,7 +74,7 @@
 								<button class="color-blue bg-gray">AÑADIR A LA COLECCIÓN</button>
 							</a>
 							{% if !owner %}
-							<button class="u-margin-top-10 am-Follow-button">+ SEGUIR</button>
+							<button class="u-margin-top-10 am-Follow-button">+SEGUIR</button>
 							{% endif %}
 							<div class="hide">
 								<button class="u-margin-top-10 follow-loading">
@@ -116,28 +93,27 @@
 				<div class="single-data u-padding-bottom-40">
 					<div class="FollowArtist u-padding-bottom-10">
 						<div style="width: 100%;">
-							<a href="/user/{{element.User.username}}">
-								<p class="u-padding-bottom-7 big uppercase"><strong>{{element.User.fullname}}</strong></p>
+							<a href="/user/{{work.User.username}}">
+								<p class="u-padding-bottom-7 big uppercase"><strong>{{work.User.fullname}}</strong></p>
 							</a>
 							<div class="button-container">
 								{% if !owner %}
 									<button class="am-Follow-button">+ SEGUIR</button>
 								{% endif %}
 								{% if owner %}
-									<!-- <a id="go-edit-modal" href="#edit-modal"><i class="bi_editorial-compose"></i></a> -->
 								{% endif %}
 							</div>
 						</div>
 					</div>
 					<div class="u-separator"></div>
-					<p class="am-Single-title-text u-margin-top-15 work-name" style="font-size: 15px;">{{element.name}}</p>
+					<p class="am-Single-title-text u-margin-top-15 work-name" style="font-size: 15px;">{{work.name}}</p>
 					<p class="am-collection-desc u-margin-top-10 work-description">
-						{{element.description}}
+						{{work.description}}
 					</p>
 					<p class="am-Single-text u-margin-top-20">Categoría:</p>
 					<div class='work-category'>
-						<a href='/works/category/{{element.Category.nameSlugify}}/page-1/'>
-							<span class="am-Category-box u-margin-top-7 uppercase">{{element.Category.name}}</span>
+						<a href='/works/category/{{work.Category.nameSlugify}}/page-1/'>
+							<span class="am-Category-box u-margin-top-7 uppercase">{{work.Category.name}}</span>
 						</a>
 					</div>
 					<div class="info-box u-margin-top-25">
@@ -145,12 +121,12 @@
 							<p class="selected">COMPRAR</p>
 						</div>
 						<div class="body u-text-center">
-							<div class="ask-requester {% if element.requested %} hide {% endif %}">
+							<div class="ask-requester {% if work.requested %} hide {% endif %}">
 								<p class="title large">Puedes preguntar al artista la disponibilidad</p>
 									<button class="am-View-button expand u-margin-top-20 ask-availability">PREGUNTAR</button>
 									<p class="msg u-padding-top-15 u-padding-bottom-4">Muy pronto la tienda en línea</p>
 							</div>
-							<div class="thanks-requester {% if !element.requested %} hide {% endif %}">
+							<div class="thanks-requester {% if !work.requested %} hide {% endif %}">
 								<p class="title large">Gracias por preguntar la disponibilidad</p>
 								<p class="msg u-padding-top-15 u-padding-bottom-4">te avisaremos cuando el artista ponga en venta esta obra</p>
 							</div>
@@ -163,12 +139,12 @@
 						  <tr>
 						    <td><i class="bi_interface-view"></i></td>
 						    <td><p>VISTAS</p></td>
-						    <td><span>{{element.views}}</span></td>
+						    <td><span>{{work.views}}</span></td>
 						  </tr>
 						  <tr>
 						    <td><i class="bi_ecommerce-diamon"></i></td>
 						    <td><p>VALORACIONES</p></td>
-						    <td><span class="likes">{{element.likes || 0}}</span></td>
+						    <td><span class="likes">{{work.likes || 0}}</span></td>
 						  </tr>
 						</table>
 					</div>
@@ -182,13 +158,13 @@
 	      <div class="single-menu">
 	        <div class="artist">
 	          <div class="FollowArtist">
-	            <a href="/user/{{element.User.username}}">
-	              <img src="{{element.User.photo}}">
+	            <a href="/user/{{work.User.username}}">
+	              <img src="{{work.User.photo}}">
 	            </a>
 	            <div>
-								<a href="/user/{{element.User.username}}">
-		              <p class="u-padding-bottom-4 uppercase" style="font-weight: bold;">{{element.User.fullname}}</p>
-		              <p class="u-padding-bottom-7"> <strong></strong> {{element.User.city}}, {{element.User.country}}</p>
+								<a href="/user/{{work.User.username}}">
+		              <p class="u-padding-bottom-4 uppercase" style="font-weight: bold;">{{work.User.fullname}}</p>
+		              <p class="u-padding-bottom-7"> <strong></strong> {{work.User.city}}, {{work.User.country}}</p>
 	            	</a>
 	              {% if !owner %}
 	              <button class="am-Follow-button">+ SEGUIR</button>
@@ -199,15 +175,15 @@
 	        <div class="menu">
 	          <div class="carousel">
 	            <div class="single-tabs">
-	              <div class="single-tab index">
+	              <div class="single-tab menu-item" data-name='index'>
 									<p>+ OBRAS</p>
 	                <i class="bi_misc-cube"></i>
 	              </div>
-	              <div class="single-tab reviews">
+	              <div class="single-tab menu-item" data-name='reviews'>
 	                <p>REVIEWS</p>
 	                <span>{{reviews.length}}</span>
 	              </div>
-	              <div class="single-tab tags">
+	              <div class="single-tab menu-item" data-name='tags'>
 	                <p>TAGS</p>
 	                <i class="bi_editorial-left-align"></i>
 	              </div>
@@ -285,14 +261,14 @@
 	      	<div class="review">
 	          <div class="avatar"><img src="{{user.photo}}"></div>
 	          <form class="content review-form">
-	            <input type="hidden" name='id{{entity|capitalize}}' value="{{element.id}}"/>
+	            <input type="hidden" name='id{{entity|capitalize}}' value="{{work.id}}"/>
 	            <textarea class='value-input' name="value"></textarea>
 	            <button>AGREGAR REVIEW</button>
 	          </form>
 	      	</div>
         {% else %}
         	<p class="empty-profile-text  empty-message bare-message u-margin-top-30" style="display: block;">
-        		<a href="/auth/login">Logeate, para agregar review</a>
+        		<a class="login-review">Logeate, para agregar review</a>
         	</p>
         {% endif %}
 	    </div>
@@ -439,135 +415,29 @@
 	<script src="/photoswipe-ui-default.js"></script>
 
 	<script>
+		var owner = {{owner|json|safe}};
+		var entity = {{entity|json|safe}};
+		var work = {{work|json|safe}};
+		var currentPath = {{currentPath|json|safe}};
+		var reviews = {{reviews|json|safe}};
+		var more = {{more|json|safe}};
+		var similar = {{similar|json|safe}};
 		(function (d, s, id) {
 			var js;
 			var fjs = d.getElementsByTagName(s)[0];
 			if (d.getElementById(id)) return;
 			js = d.createElement(s);
 			js.id = id;
-			js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=1473636902857068";
+			js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=" + DataApp.fbAppID;
 			fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
-		var owner = {{owner|json|safe}};
-		var entity = {{entity|json|safe}};
-		var element = {{element|json|safe}};
-		var currentPath = {{currentPath|json|safe}};
-		var reviews = {{reviews|json|safe}};
-		var more = {{more|json|safe}};
-		var similar = {{similar|json|safe}};
 		$(function() {
 			$("#go-collection-modal").leanModal();
 			$("#go-share-modal").leanModal();
 			$("#go-preload-modal").leanModal();
+			new APP.WorkScreen();
 		});
-		function Carousel (el , container) {
-			var nextButton = el.querySelector('.nextButton'),
-					prevButton = el.querySelector('.prevButton'),
-					carousel = el.querySelector('.more-images'),
-					interval;
-
-
-					var checkArrows = function () {
-						clearTimeout(timeout);
-						if (container[0].scrollWidth > $(container).innerWidth()) {
-								$(nextButton).show();
-								$(prevButton).show();
-			        } else {
-								$(nextButton).hide();
-								$(prevButton).hide();
-			        }
-					}
-					var timeout = setTimeout(function() {
-						checkArrows();
-						$(carousel).scroll();
-					},1000);
-
-
-			function setup () {
-				var completeAnimation = function () {
-					if(this.scrollLeft <=0 ) {
-						$(prevButton).hide();
-					}else {
-						$(prevButton).show();
-					}
-					console.log(this.scrollLeft , this.scrollLeft + $(this).innerWidth())
-					if(this.scrollLeft +  $(this).innerWidth() >= this.scrollWidth) {
-						$(nextButton).hide();
-					}else {
-						$(nextButton).show();
-					}
-				}
-				$(nextButton).click(function () {
-						$(carousel).animate({
-							scrollLeft: (carousel.scrollLeft + 230)
-						},400, completeAnimation);
-				});
-
-				$(prevButton).click(function () {
-					$(carousel).animate({
-						scrollLeft: (carousel.scrollLeft - 230)
-					},400,completeAnimation);
-				});
-				$(carousel).scroll(completeAnimation);
-				$( window ).resize(checkArrows);
-			}
-			setup()
-		}
-		var carousel = new Carousel (document.querySelector('.js-more-carousel') , $('.more'));
-		var carousel = new Carousel (document.querySelector('.js-similar-carousel'), $('.similar'));
-
-
-		var meta;
-		var zoom = false;
-
-		setTimeout(function () {
-
-			$('#work-image').click(function () {
-
-				if( !zoom ) {
-
-					$('#go-preload-modal').trigger( "click" );
-
-					$("<img/>").load(function() {
-
-						$('#lean_overlay').trigger( "click" );
-
-						var width = this.width, height = this.height;
-						meta = { width: width, height: height }
-
-						document.getElementById('work-image').onclick = openPhotoSwipe;
-
-						$('#work-image').trigger( "click" );
-
-					}).attr("src", Utils.addImageFilter(element.photo, 'w_1500,h_800,c_limit,q_80'));
-
-					zoom = true
-				}
-			})
-
-		}, 3000)
-
-		var openPhotoSwipe = function() {
-	    var pswpElement = document.querySelectorAll('.pswp')[0];
-	    var items = [
-				{
-					// src: element.photo,
-					src: Utils.addImageFilter(element.photo, 'w_1500,h_800,c_limit,q_80'),
-					w: meta.width,
-					h: meta.height
-				}
-	    ];
-	    var options = {
-	    	getThumbBoundsFn: function () {
-	    		return {
-	    			x: $('#work-image')[0].offsetLeft ,y: $('#work-image')[0].offsetTop, w: $('#work-image')[0].width}
-	    	}
-	    };
-	    window.gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
-	    gallery.init();
-		};
 
 	</script>
-
 	<script src='/work-product.js'></script>
 {% endblock %}

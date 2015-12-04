@@ -34,8 +34,9 @@ require('./config/errors')(app);
 
 app.set('port', process.env.PORT || cf.port);
 
-global.db.sequelize.sync({force: false}).then(function () {
-  global.lift(app);
-});
+global.db.sequelize.sync({force: false}).then(function () {});
 
-exports = module.exports = app;
+var server = app.listen(app.get('port'), function () {
+  console.log('Express server listening  on http://127.0.0.1');
+});
+exports = module.exports = server;

@@ -25,8 +25,6 @@ exports.index = function (req, res) {
 };
 
 exports.update = function (req, res) {
-  console.log('updateee');
-    console.log(req.body.birthday);
     req.body.filled = true;
     req.body.fullname = req.body.firstname + ' ' + req.body.lastname;
     //var specialtiesData = req.body.specialties;
@@ -42,9 +40,9 @@ exports.update = function (req, res) {
         //var specialties = result[0];
         var interests = result[0];
         promises = [
+            req.user.setInterests(interests),
             req.user.updateAttributes(req.body),
             //req.user.setSpecialties(specialties),
-            req.user.setInterests(interests)
         ];
 
         global.db.Sequelize.Promise.all(promises).then(function () {

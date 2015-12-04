@@ -14,31 +14,22 @@ APP.FeedWorkCreated.constructor = APP.FeedWorkCreated;
 APP.FeedWorkCreated.prototype.listeners = function() {
   this.addCollectionBtn = this.view.find('.add-collection');
   this.likeBtn = this.view.find('.like');
+  this.shareBtn = this.view.find('.share');
   this.afterLike = this.view.find('.after-like');
   this.followBtn = this.view.find('.am-Follow-button');
+
   if(this.data.element.User.following) {
     this.followBtn.addClass('following').text('Siguiendo');
   }
   this.addCollectionBtn.click(this.addCollectionHandler.bind(this));
   this.likeBtn.click(this.likeHandler.bind(this));
+  this.shareBtn.click(this.shareHandler.bind(this));
   this.followBtn.click(this.followHandler.bind(this));
 };
 
 APP.FeedWorkCreated.prototype.addCollectionHandler = function() {
     $('#go-collection-modal').click();
-    currentIdWork = this.data.element.id;
-    var url = DataApp.currentUser.url + '/work/inside_collection';
-    $.post(url,{idWork: this.data.element.id}, function (response) {
-      var collectionsSelected = response.data.collections;
-      for(var i= 0; i <collections.length; i++) {
-        var id = collections[i].id;
-        $('.collection[data-id='+ id +']').removeClass('selected');
-      }
-      for(var i= 0; i <collectionsSelected.length; i++) {
-        var id = collectionsSelected[i].id;
-        $('.collection[data-id='+ id +']').addClass('selected');
-      }
-    });
+    Broadcaster.dispatchEvent(Events.ADD_COLLECTION, {data: {work: this.data.element}});
 };
 
 APP.FeedWorkCreated.prototype.likeHandler = function() {
@@ -52,6 +43,11 @@ APP.FeedWorkCreated.prototype.likeHandler = function() {
         }
       });
     }
+};
+
+APP.FeedWorkCreated.prototype.shareHandler = function() {
+  $('#go-share-modal').click();
+  Broadcaster.dispatchEvent(Events.SHARE, {data: {work: this.data.element}});
 };
 
 APP.FeedWorkCreated.prototype.followHandler = function() {

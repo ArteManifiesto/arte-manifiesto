@@ -7,7 +7,7 @@ var APP = APP || {};
 APP.Viewer = function (id, container, navigation, data , options) {
   this.container = container;
   this.options = options;
-  if (id === 'carrouselItem' || id === 'actionItem' || id === 'notificationItem') {
+  if (id === 'carrouselItem' || id === 'action' || id === 'notificationItem') {
   }else {
     this.setupMasonry();
   }
@@ -98,7 +98,7 @@ APP.Viewer.prototype.addItems = function(items) {
   var scopetemp = this;
   var i = 0, item , counter = 0, lel = [];
   for(i; i< items.length; i++) {
-    if (this.id === 'actionItem') {
+    if (this.id === 'action') {
       if(items[i].verb === 'create-work' || items[i].verb === 'like-work') {
         item = new APP.FeedWorkCreated(items[i], this.options);
       }
@@ -143,7 +143,7 @@ APP.Viewer.prototype.addItems = function(items) {
       });
     }
     else {
-      if(this.id === 'carrouselItem' || this.id === 'actionItem' || this.id === 'notificationItem') {
+      if(this.id === 'carrouselItem' || this.id === 'action' || this.id === 'notificationItem') {
         this.container.append(item.view);
       }else{
         this.container.append(item.view).masonry('appended', item.view);

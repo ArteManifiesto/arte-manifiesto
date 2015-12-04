@@ -19,7 +19,7 @@ router.get('/facebook/callback', controller.facebookCallback);
 
 router.post('/login', controller.login);
 router.post('/signup', controller.signup);
-router.post('/check', controller.check);
+router.post('/check', global.md.isLogged, controller.check);
 
 router.post('/resend', global.md.isLogged, controller.resend);
 

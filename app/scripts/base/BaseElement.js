@@ -23,7 +23,7 @@ var APP = APP || {};
     this.listeners();
 };
 
-APP.BaseElement.prototype = Object.create(Object.prototype);
+APP.BaseElement.prototype = Object.create(EventDispatcher.prototype);
 
 APP.BaseElement.constructor = APP.BaseElement;
 

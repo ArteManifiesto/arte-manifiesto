@@ -28,7 +28,7 @@
     </a>
 
     <section class="feed-card-info">
-      <a href="#" class="info">
+      <a href="/user/<%= element.User.username %>" class="info">
         <p class="title uppercase"><%= element.name %></p>
         <div class="avatar u-margin-top-10">
           <img src="<%= element.User.photo %>">&nbsp;&nbsp;&nbsp;
@@ -78,7 +78,7 @@
     <footer class="feed-card-footer">
       <% _.each([0,1,2], function(i) { %>
         <% if(element.friends[i] && element.friends[i].photo) { %>
-          <a href="#">
+          <a href="/user/<%= element.friends[i].username %>">
             <img src="<%= element.friends[i].photo %>"></img>
           </a>
         <% } %>
@@ -90,7 +90,14 @@
         <% if(element.friends.length > 1) { %>
           <p> valoraron esta obra</p>
         <% } else { %>
-          <p> valoro esta obra</p>
+          <% if(element.likes === 1 && element.liked) { %>
+            <a href="/user/<%= viewer.username %>">
+              <img src="<%= viewer.photo %>"></img>
+            </a> &nbsp;&nbsp;
+            <p> valoraste esta obra</p>
+          <% } else { %>
+            <p> valoro esta obra</p>
+          <% } %>
         <% } %>
       <% } %>
     </footer>

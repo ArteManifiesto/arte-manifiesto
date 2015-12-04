@@ -102,8 +102,6 @@
 		errorMessage.length > 0 && (flash = $('.error'), flashMessage = errorMessage[0]);
 		successMessage.length > 0 && (flash = $('.succes'), flashMessage = successMessage[0]);
 
-		console.log(errorMessage, successMessage);
-		console.log(flashMessage);
 		if(flash) {
 			flash.find('.content-text').text(flashMessage);
 		  flash.addClass('fadeIn');
@@ -124,7 +122,8 @@
 	{% include 'elements/user.html' %}
 	{% include 'elements/product.html' %}
 	{% include 'elements/collection.html' %}
-	{% include 'elements/carrouselItem.html' %}
+	{% include 'elements/collection-item.html' %}
+	{% include 'elements/carrousel-item.html' %}
 
 	{% include 'elements/feed-user-follow.html' %}
 	{% include 'elements/feed-work-created.html' %}

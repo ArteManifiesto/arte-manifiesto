@@ -71,96 +71,42 @@
 						</label>
 					</div>
 				</div>
-
-				<div class="u-padding-top-20">
-					<div class="grid-50">
-						<a href='#'>
-							<button class="button save" style="margin-top: 5px;" data-color="blue">GUARDAR</button>
-							<div class="hide save-loading">
-								<button class="button" style="margin-top: 5px;" data-color="blue">
-									<i class="load fa fa-spinner"></i>
-								</button>
-							</div>
-						</a>
-					</div>
-					<div class="grid-50">
-		        <!-- <button class="button inline upload u-margin-top-30 upload_button delete-collection" style="border: none; box-shadow: none;">
-		          <i class="bi_editorial-trash-l"></i>&nbsp;&nbsp;&nbsp;ELIMINAR
-		        </button> -->
-
-            <button class="button inline upload work-delete trash" style="border: none; box-shadow: none;">
-              <i class="bi_editorial-trash-l"></i>&nbsp;&nbsp;&nbsp;ELIMINAR
-            </button>
-    				<div class="edit-options work-delete-confirm">
-    					ELIMINAR? &nbsp;
-    					<i class="bi_interface-box-tick work-delete-force save-icon" style="display: inline;"></i>
-    					<i class="bi_interface-box-cross work-delete-cancel cancel-icon" style="display: inline;"></i>
-    				</div>
-
+			</form>
+			<div class="u-padding-top-20">
+				<div class="grid-50">
+					<button class="button save" style="margin-top: 5px;" data-color="blue">GUARDAR</button>
+					<div class="hide save-loading">
+						<button class="button" style="margin-top: 5px;" data-color="blue">
+							<i class="load fa fa-spinner"></i>
+						</button>
 					</div>
 				</div>
-			</form>
+				<div class="grid-50">
+	        <!-- <button class="button inline upload u-margin-top-30 upload_button delete-collection" style="border: none; box-shadow: none;">
+	          <i class="bi_editorial-trash-l"></i>&nbsp;&nbsp;&nbsp;ELIMINAR
+	        </button> -->
+
+          <button class="button inline upload work-delete trash" style="border: none; box-shadow: none;">
+            <i class="bi_editorial-trash-l"></i>&nbsp;&nbsp;&nbsp;ELIMINAR
+          </button>
+  				<div class="edit-options work-delete-confirm hide">
+  					ELIMINAR? &nbsp;
+  					<i class="bi_interface-box-tick work-delete-force save-icon" style="display: inline;"></i>
+  					<i class="bi_interface-box-cross work-delete-cancel cancel-icon" style="display: inline;"></i>
+  				</div>
+
+				</div>
+			</div>
 		</div>
 	</div>
 	{% endblock %}
 
 	{% block scripts %}
 	<script type="text/javascript">
+	var works = {{works|safe|json}};
 	var collection = {{collection|safe|json}};
-		$(document).ready(function() {
-			var data= {
-				pagination: {
-					page:1,
-					pages:2
-				},
-				items: {{works|json|safe}}
-			}
-			new APP.Viewer('work', $('.grid'), 'infinite', data , {context: 'single-collection'});
-		});
-
-	$("#go-collection-modal").leanModal();
-
-	$('.delete-collection').click(function() {
-		var payload = {idCollection: collection.id};
-	  $.post(DataApp.currentUser.url + '/collection/delete' , payload, function(response) {
-			if(response.status === 200) {
-				window.location.href = '/user/' + collection.User.username + '/collections';
-			}
-		});
+	$(function() {
+		new APP.CollectionScreen();
 	});
-
-	$('.collection-form').submit(function() {
-		event.preventDefault();
-	  $('.save').hide();
-	  $('.save-loading').show();
-		var payload = {
-			name: $('input[name=name]').val(),
-			description: $('textarea[name=description]').val(),
-			public: $( "input[name=public]:checked" ).val() !== undefined,
-			idCollection: collection.id
-		}
-	  $.post(DataApp.currentUser.url + '/collection/update' , payload, function(response) {
-			if(response.status === 200) {
-				$('.save').show();
-				$('.save-loading').hide();
-				var newCollection = response.data.collection;
-				var newUrl = '/user/' + collection.User.username + '/collection/' + newCollection.nameSlugify;
-				$('.collection-name').text(newCollection.name);
-				$('.collection-description').text(newCollection.description);
-				$('#lean_overlay').trigger( "click" );
-				Utils.changeUrl(collection.name, newUrl);
-			}
-		});
-	});
-
-
-
-	$("input[name=public]").change(function() {
-    if(this.checked)
-			$('#public-value').text('On')
-    else
-			$('#public-value').text('Off')
-	});
-
 	</script>
 	{% endblock %}

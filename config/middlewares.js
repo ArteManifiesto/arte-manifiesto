@@ -83,9 +83,9 @@ var entityExists = function (entity, query, req, res, next, method) {
     var element = method ? elements[0] : elements;
     if (!element) {
         if (req.xhr)
-            return res.badRequest(entity + ' not exists');
+            return res.badRequest(entity + ' no existe');
 
-        req.flash('errorMessage', entity + ' not exists');
+        req.flash('errorMessage', entity + ' no existe');
         return res.redirect('/user/' + req.params.username);
     }
 

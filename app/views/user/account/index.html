@@ -3,47 +3,19 @@
 	<div class="am-profile">
 
 		{% if !context %}
-		<!-- <div class="single-tabs" style="max-width: 580px; margin: auto;">
+		<div class="single-tabs" style="max-width: 580px; margin: auto;">
 		  <a href="/user/{{user.username}}/account/" class="single-tab selected" style="padding: 10px;">
 		    <p style="padding: 5px;">DATOS</p>
 		  </a>
 		  <a href="/user/{{user.username}}/account/password" class="single-tab" style="padding: 10px;">
 		    <p style="padding: 5px;">PASSWORD</p>
 		  </a>
-		</div> -->
+		</div>
 		{% endif %}
 
 		<div class="am-profile-box grid-container">
 			<form class="complete-form">
-
-				<div class="separator">
-					<span class="line"></span><span class="text">ELIGE TU CUENTA</span><span class="line"></span>
-				</div>
-
-				<div class="interests">
-					<div>
-						<input type="checkbox" value='' name="type" id=""/>
-						<label for="type">
-							<div class="interest" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/w_120,h_120,c_fill/v1448431745/categories/collage.png')">
-								<div class="cover"><p>No soy artista (todavía)</p></div>
-							</div>
-						</label>
-					</div>
-					<div>
-						<input type="checkbox" value='' name="type" id=""/>
-						<label for="type">
-							<div class="interest" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/w_120,h_120,c_fill/v1448431745/categories/collage.png')">
-								<div class="cover"><p>Soy Artista Visual / Creador</p></div>
-							</div>
-						</label>
-					</div>
-				</div>
-
-				<div class="separator">
-					<span class="line"></span><span class="text">DATOS DE USUARIO</span><span class="line"></span>
-				</div>
-
-				<!-- <div class="grid-100">
+				<div class="grid-100">
 					<div class="uploader-profile">
 						<div class="profile-imgage">
 							<div class="preview">
@@ -58,48 +30,40 @@
 						{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:230px;height:55px;top:-70px;left: 105px;" } })}}
 					</div>
 					<p class="title">Nombre</p>
-					<input class="input" type="text" value="{{user.firstname}}" name='firstname' required placeholder="Ingresa tus nombres"/>
+					<input class="input" type="text" value="{{user.firstname}}" name='firstname'  placeholder="Ingresa tus nombres"/>
 					<p class="title">Apellido</p>
-					<input class="input" type="text" value="{{user.lastname}}" name='lastname' required placeholder="Ingresa tus apellidos"/>
+					<input class="input" type="text" value="{{user.lastname}}" name='lastname'  placeholder="Ingresa tus apellidos"/>
 					<p class="title">Usuario en la plataforma</p>
-				</div> -->
-
-				<div class="grid-100">
-					<p class="title">Nombre</p>
-					<input class="input" type="text" value="{{user.firstname}}" name='firstname' required placeholder="Ingresa tus nombres"/>
-					<p class="title">Apellido</p>
-					<input class="input" type="text" value="{{user.lastname}}" name='lastname' required placeholder="Ingresa tus apellidos"/>
-					<p class="title">Elige tu nombre de usuario</p>
 				</div>
 
 				<div class="grid-50 mobile-grid-100">
 					<p class="link" style="line-height: 46px;">artemanifiesto.com/user/</p>
 				</div>
 				<div class="grid-50 mobile-grid-100">
-					<input class="input" type="text" name='username' value="{{user.username}}" required placeholder="Ingresa tu usuario"/>
+					<input class="input" type="text" name='username' value="{{user.username}}"  placeholder="Ingresa tu usuario"/>
 				</div>
 
 				<!-- <div class="grid-100">
 					<p class="title">Nombre a mostrar publicamente</p>
-					<input class="input" type="text" value="" name='lastname' required placeholder="Ingresa tu nombre como artista o pseudónimo"/>
+					<input class="input" type="text" value="" name='lastname'  placeholder="Ingresa tu nombre como artista o pseudónimo"/>
 				</div> -->
 
 				<div class="grid-50 mobile-grid-100">
 					<p class="title">Genero</p>
-					<select class="input select" name='gender' required>
-						<option disabled checked>Genero</option>
+					<select class="input select" name='gender' >
+						<option disabled selected>Genero</option>
 						<option>Masculino</option>
 						<option>Femenino</option>
 					</select>
 				</div>
 				<div class="grid-50 mobile-grid-100">
 					<p class="title">Fecha de nacimiento</p>
-					<input id="date" class="input" type="text" name='birthday' value="{{user.birthday|date('d/m/Y')}}" required placeholder="dd/mm/yy"/ maxlength="8">
+					<input id="date" class="input" type="text" name='birthday' value="{{user.birthday|date('d/m/Y')}}"  placeholder="dd/mm/yy"/ maxlength="8">
 				</div>
 
 				<div class="grid-50 mobile-grid-100">
 					<p class="title">País</p>
-					<select class="input select" name='country' required>
+					<select class="input select" name='country' >
 						<option disabled selected>Elige tu pais</option>
 						<option>Peru</option>
 						<option>Argentina</option>
@@ -109,70 +73,10 @@
 				</div>
 				<div class="grid-50 mobile-grid-100">
 					<p class="title">Ciudad</p>
-					<input class="input" name='city' value="{{user.city}}" required type="text" placeholder="Ingresa tu ciudad de residencia actual"/>
+					<input class="input" name='city' value="{{user.city}}"  type="text" placeholder="Ingresa tu ciudad de residencia actual"/>
 				</div>
-
-				<div class="grid-100">
-					<p class="title">Elige tu foto de perfil:</p>
-					<div class="uploader-profile u-margin-top-20">
-						<div class="profile-imgage">
-							<div class="preview">
-								<img src="{{user.photo}}"/>
-							</div>
-						</div>
-						<div class="preload hide"><i class="fa fa-spinner"></i></div>
-						<button class="button upload" style="margin-top: 10px;">BUSCAR ARCHIVO</button>
-					</div>
-
-					<div class="image-uploader" style="position:relative;">
-						{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:230px;height:55px;top:-70px;left: 105px;" } })}}
-					</div>
-
-					<p class="title">Elige tus intereses</p>
-				</div>
-
-
-				<div class="interests">
-					{% for category in categories %}
-						<div>
-							<input type="checkbox" value='{{category.id}}' name="interests" id="interest-{{category.id}}"/>
-							<label for="interest-{{category.id}}">
-								<div class="interest" style="background-image: url('{{category.photo|addFilter('w_120,h_120,c_fill')}}')">
-									<div class="cover"><p>{{category.name}}</p></div>
-								</div>
-							</label>
-						</div>
-					{% endfor %}
-				</div>
-
-
-				<div class="separator u-margin-top-40">
-					<span class="line"></span><span class="text">DATOS ARTISTA</span><span class="line"></span>
-				</div>
-
-
-				<!-- <div class="grid-100">
-					<p class="title">Apellido</p>
-					<input class="input" type="text" value="{{user.lastname}}" name='lastname' required placeholder="Ingresa tus apellidos"/>
-					<p class="title">Elige tu nombre de usuario</p>
-				</div> -->
 
 				<div class="grid-100 mobile-grid-100">
-					<p class="title">Nombre de artista o pseudónimo</p>
-					<input class="input" type="text" value="" name='firstname' required placeholder="Ingresa tu nombre de artista, pseudónimo o alter ego"/>
-					<p class="title">Nombre a mostrar publicamente</p>
-				</div>
-
-				<div class="grid-50 mobile-grid-100">
-					<select class="input select" name='gender' required>
-						<option disabled checked>Nombre completo</option>
-						<option>Nombre de artista</option>
-					</select>
-				</div>
-				
-				<div class="grid-100 mobile-grid-100">
-					<p class="title">Mi Manifiesto</p>
-					<textarea name='biography' rows="7" required class="input" placeholder="Cuentanos sobre tí, lo que te define lo que hace que te levantes cada día.">{{user.biography}}</textarea>
 					<p class="title">Redes Sociales</p>
 					<div class="socials">
 						<div class="social">
@@ -208,14 +112,29 @@
 							<input class="input" name='dribble' value="{{user.dribble}}" type="text" placeholder="Ingresa tu link del perfil en dribble"/>
 						</div>
 					</div>
+					<p class="title">Mi Manifiesto</p>
+					<textarea name='biography' rows="7"  class="input" placeholder="Cuentanos sobre tí, lo que te define lo que hace que te levantes cada día.">{{user.biography}}</textarea>
+					<p class="title">Elige tus intereses</p>
 				</div>
 
+				<div class="interests">
+					{% for category in categories %}
+						<div>
+							<input type="checkbox" value='{{category.id}}' name="interests" id="interest-{{category.id}}"/>
+							<label for="interest-{{category.id}}">
+								<div class="interest" style="background-image: url('{{category.photo|addFilter('w_120,h_120,c_fill')}}')">
+									<div class="cover"><p>{{category.name}}</p></div>
+								</div>
+							</label>
+						</div>
+					{% endfor %}
+				</div>
 				<div class="grid-100 mobile-grid-100">
-					<button class="button save u-margin-top-40" data-color="green">GUARDAR CAMBIOS</button>
+					<button class="button save u-margin-top-30" data-color="green">GUARDAR CAMBIOS</button>
 				</div>
 
 				<div class="grid-100 save-loading hide mobile-grid-100">
-					<button class="button u-margin-top-40" data-color="green"><i class="load fa fa-spinner"></i></button>
+					<button class="button u-margin-top-30" data-color="green"><i class="load fa fa-spinner"></i></button>
 				</div>
 			</form>
 		</div>
@@ -224,55 +143,11 @@
 
 {% block scripts %}
 	<script>
-	console.log({{user|json|safe}});
-		$(document).ready(function () {
-			var context = {{context|json|safe}};
-
-			$.cloudinary.config({{cloudinary.config()|json|safe}});
-			var uploaderImage = new APP.UploaderImage($('.uploader-profile'), function(idImage){
-        this.$view.find('.upload').show();
-        $('.cloudinary-fileupload').show();
-				var filters =  {width: 150, height: 150, crop: 'thumb'};
-				$.cloudinary.image(idImage, filters).appendTo(this.$view.find('.preview'));
-			});
-
-			var user= {{user|json|safe}};
-			$('select[name="gender"]').find('option:contains('+ user.gender +')').attr("selected",true);
-			$('select[name="country"]').find('option:contains('+ user.country +')').attr("selected",true);
-
-			var interests = {{interests|json|safe}};
-			for(var i = 0 ; i < interests.length ; i++) {
-				$('input[type=checkbox][value='+ interests[i].id +']').attr('checked', true);
-			}
-
-			$('.image-uploader').append(uploaderImage.view);
-			$('.complete-form').submit(function(e){
-				e.preventDefault();
-				$('.save').hide();
-				$('.save-loading').show();
-
-				var data = $(this).serializeArray();
-				$.each(data, function(index, value) {
-					if (value.name === 'photo')
-						value.value = uploaderImage.photo.replace('/upload', '/upload/w_150,h_150,c_thumb,d_am_avatar.jpg');
-				});
-
-				$.ajax({
-					method: 'POST',
-					url: '/user/' + DataApp.currentUser.username + '/account/update',
-					data: data
-				}).then(function(response) {
-					if (response.status === 200) {
-						var user = response.data.user;
-						if(context) {
-							window.location.href = '/user/' + user.username;
-						}else {
-							//TODO show flash changed :D;
-						}
-					}
-				});
-			});
-   		$("#date").mask("99/99/9999");
-		})
+	var context = {{context|json|safe}};
+	var interests = {{interests|json|safe}};
+	$(function() {
+		$.cloudinary.config({{cloudinary.config()|json|safe}});
+		new APP.AccountIndexScreen();
+	});
 	</script>
 {% endblock %}

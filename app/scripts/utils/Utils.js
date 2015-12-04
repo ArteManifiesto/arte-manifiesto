@@ -84,8 +84,15 @@ Utils = {
       return url.replace('upload/', 'upload/' + filter +'/');
     },
     checkAuthentication: function() {
-      if (!DataApp.currentUser)
-        window.location.href = DataApp.loginUrl + '/?returnTo=' + window.location.href;
+      if (!DataApp.currentUser) {
+        var redirectUrl = null;
+        if(DataApp.currentUrl.indexOf('auth') === -1) {
+          redirectUrl = DataApp.loginUrl + '/?returnTo=' + DataApp.currentUrl;
+        } else {
+          redirectUrl = DataApp.loginUrl;
+        }
+        window.location.href = redirectUrl;
+      }
     },
     share: {
       facebook: function(options, complete) {
