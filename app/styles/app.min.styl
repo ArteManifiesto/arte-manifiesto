@@ -601,7 +601,7 @@ white = #fff
 		font-size 1.25em
 		cursor pointer
 	.logo
-		max-width 170px
+		max-width 200px
 		margin 5px 10px
 	.avatar
 		display flex
@@ -661,6 +661,38 @@ white = #fff
 				padding 0px 5px
 				margin-left 5px
 
+	.right-menu
+		position absolute
+		right 0
+		top 0
+		bottom 0
+		width 70%
+		background #333
+		padding 20px
+		box-sizing border-box
+		transform: translateX(100%);
+		transition transform .3s
+		.options
+			font-family 'Montserrat', sans-serif
+			font-size 13px
+			color #ddd
+			letter-spacing 1.5px
+			width 100%
+			i
+				margin-right 10px
+				font-size 1.15em
+			p
+			a
+				display block
+				color #ddd
+				padding 12.5px 0
+			span
+				background #277cea
+				border-radius 4px
+				color white
+				font-size 10px
+				padding 0px 5px
+				margin-left 5px
 	&-inner
 		// transform translatex(70%)
 		overflow hidden
@@ -682,6 +714,24 @@ white = #fff
 		transform translatex(70%)
 		.cover
 			display block
+
+.body.open-right
+	.right-menu
+		transform translateX(0)
+	.body-inner
+		transform translatex(-70%)
+		.cover
+			display block
+
+
+.custon-desktop-header
+	display none
+
+@media (min-width: 1135px)
+	.costom-mobile-header
+		display none
+	.custon-desktop-header
+		display block
 
 
 /*------------------------------------*

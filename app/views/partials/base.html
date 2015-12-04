@@ -88,6 +88,31 @@
 				</tr>
 			</table>
 		</div>
+		<div class="right-menu">
+
+			<table class="options u-margin-top-10" style="margin-left: 0px;">
+				<tr>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><a href="#">MI PORTAFOLIO</a></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><a href="#">DATOS DE PERFIL</a></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><a href="#">ADMINISTRAR CUENTA</a></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><a href="#">SALIR</a></td>
+				</tr>
+			</table>
+		</div>
 		<div class="body-inner">
 			<div class="cover"></div>
 			{% block elements %} {% endblock %}
@@ -157,7 +182,13 @@
 
 
 		$('.am-header-mobile .bars').click(function () {
+			$('.body').removeClass('open-right')
 			$('.body').toggleClass('open-left')
+		})
+
+		$('.am-header-mobile .avatar').click(function () {
+			$('.body').removeClass('open-left')
+			$('.body').toggleClass('open-right')
 		})
 	});
 	</script>
