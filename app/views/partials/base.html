@@ -55,7 +55,72 @@
 	</div>
 </div>
 
-	{% block elements %} {% endblock %}
+	<div class="body">
+		<div class="left-mobile-menu">
+			<div class="am-Search-input2">
+				<input type="text" placeholder="Busca obras y artistas" />
+				<i class="bi_interface-search search-btn"></i>
+			</div>
+			<table class="options u-margin-top-10">
+				<tr>
+					<td></td>
+					<td><a href="/feed">ART FEED</a></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><p></p></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><a href="/works/category/all/page-1/?order=popularity">OBRAS</a></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><a href="/users/specialty/all/page-1?order=popularity">ARTISTAS</a></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><a href="/collections/category/all/page-1?order=popularity">COLECCIONES</a></td>
+				</tr>
+				<tr>
+					<td><i class="bi_interface-plus"></i></td>
+					<td><a href="/user/{{user.username}}/work/add">SUBIR</a></td>
+				</tr>
+				<tr>
+					<td><i class="bi_interface-bell-a"></i></td>
+					<td><a href="/user/{{user.username}}/notifications">NOTIFICACIONES <span>29</span></a></td>
+				</tr>
+			</table>
+		</div>
+		<div class="right-mobile-menu">
+			<table class="options u-margin-top-10" style="margin-left: 0px;">
+				<tr>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><a href="/user/{{user.username}}">MI PORTAFOLIO</a></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><a href="/user/{{user.username}}/work/add">DATOS DE PERFIL</a></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><a href="/user/{{user.username}}/account">ADMINISTRAR CUENTA</a></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><a href="/auth/logout">SALIR</a></td>
+				</tr>
+			</table>
+		</div>
+		<div class="body-inner">
+			<div class="cover"></div>
+			{% block elements %} {% endblock %}
+		</div>
+	</div>
 
 	<!-- <div id="lean_overlay"></div> -->
 
@@ -114,6 +179,22 @@
 
 		$('.close-flash').click(function(event) {
 			$('.flash-message').css('visibility', 'hidden');
+		})
+
+
+		$('.am-header-mobile .bars').click(function () {
+			$('.body').removeClass('open-right')
+			$('.body').toggleClass('open-left')
+		})
+
+		$('.am-header-mobile .avatar').click(function () {
+			$('.body').removeClass('open-left')
+			$('.body').toggleClass('open-right')
+		})
+
+		$('.body-inner .cover').click(function () {
+			$('.body').removeClass('open-right')
+			$('.body').removeClass('open-left')
 		})
 	});
 	</script>

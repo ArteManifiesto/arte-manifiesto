@@ -295,8 +295,8 @@ white = #fff
 			&.desktop
 				display block
 
-body
-	overflow-x hidden
+// body
+// 	overflow-x hidden
 
 .flash-message
 	// position absolute
@@ -581,11 +581,162 @@ body
 		img
 			border-radius 50%
 			margin-right 2px
+		i
+			font-size .8em
 		&:hover
 			.user-menu
 				display block
-		
-	
+
+	.am-Signin-button
+		margin-left 15px
+
+
+.am-header-mobile
+	display flex
+	justify-content space-between
+	&-left
+		display flex
+		align-items center
+	.bars
+		background #333
+		color white
+		padding 15px
+		font-size 1.25em
+		cursor pointer
+	.logo
+		max-width 200px
+		margin 5px 10px
+	.avatar
+		display flex
+		align-items center
+		position relative
+		margin-right 20px
+		cursor pointer
+		img
+			width 40px
+			height 40px
+			border-radius 50%
+			margin-right 2px
+		i
+			font-size .8em
+
+.body
+	position relative
+	overflow hidden
+	.left-mobile-menu
+		position absolute
+		left 0
+		top 0
+		bottom 0
+		width 70%
+		background #333
+		padding 20px
+		box-sizing border-box
+		transform: translateX(-100%);
+		transition transform .3s
+		.am-Search-input2
+			min-width auto
+			i
+				background #eee
+				color #333
+			input
+				border none
+				border-right solid 1px #333
+		.options
+			font-family 'Montserrat', sans-serif
+			font-size 13px
+			color #ddd
+			letter-spacing 1.5px
+			width 100%
+			i
+				margin-right 10px
+				font-size 1.15em
+			p
+			a
+				display block
+				color #ddd
+				padding 12.5px 0
+			span
+				background #277cea
+				border-radius 4px
+				color white
+				font-size 10px
+				padding 0px 5px
+				margin-left 5px
+
+	.right-mobile-menu
+		position absolute
+		right 0
+		top 0
+		bottom 0
+		width 70%
+		background #333
+		padding 20px
+		box-sizing border-box
+		transform: translateX(100%);
+		transition transform .3s
+		.options
+			font-family 'Montserrat', sans-serif
+			font-size 13px
+			color #ddd
+			letter-spacing 1.5px
+			width 100%
+			i
+				margin-right 10px
+				font-size 1.15em
+			p
+			a
+				display block
+				color #ddd
+				padding 12.5px 0
+			span
+				background #277cea
+				border-radius 4px
+				color white
+				font-size 10px
+				padding 0px 5px
+				margin-left 5px
+	&-inner
+		// transform translatex(70%)
+		overflow hidden
+		transition transform .3s
+		>.cover
+			position absolute
+			left 0
+			right 0
+			top 0
+			bottom 0
+			background rgba(black, .5)
+			z-index 3
+			display none
+			cursor pointer
+
+.body.open-left
+	.left-mobile-menu
+		transform translateX(0)
+	.body-inner
+		transform translatex(70%)
+		>.cover
+			display block
+
+.body.open-right
+	.right-mobile-menu
+		transform translateX(0)
+	.body-inner
+		transform translatex(-70%)
+		>.cover
+			display block
+
+
+.custon-desktop-header
+	display none
+
+@media (min-width: 1135px)
+	.costom-mobile-header
+		display none
+	.custon-desktop-header
+		display block
+
 
 /*------------------------------------*
 	$ NAVIGATION MENU
@@ -1903,7 +2054,7 @@ body
 	box-sizing border-box
 	padding-top 30px
 	padding-bottom 30px
-	
+
 	.separator
 		font-family 'Montserrat', sans-serif
 		font-weight bold
@@ -1918,7 +2069,7 @@ body
 			flex 1
 		.text
 			padding 0 20px
-			
+
 	.title
 		font-family 'Montserrat', sans-serif
 		font-size 14px
