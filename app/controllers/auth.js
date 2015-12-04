@@ -21,12 +21,10 @@ exports.signupPage = function (req, res) {
  * User signup
  */
 exports.signup = function (req, res) {
-  check('email', req.body.email).then(function (emailAvailable) {
+  req.body.isArtist = req.body.isArtist === 'on';
+  global.db.User.find({where:{email: req.body.email}}).then(function(user) {
     var errors = [];
-    req.body.isArtist = req.body.isArtist === 'on';
-    if (!emailAvailable)
-      errors.push('Email no esta disponible');
-
+    if(user) errors.push('Email no esta disponible');
     var ip = req.ip, response = req.body['g-recaptcha-response'];
 
     simple_recaptcha(global.cf.recaptcha.privateKey, ip, response, function (error) {
@@ -42,13 +40,8 @@ exports.signup = function (req, res) {
           loginUser(req, res, user);
         });
       });
-
     });
-  })
-};
-
-var check = function (req) {
-
+  });
 };
 
 exports.check = function (req, res) {
@@ -56,8 +49,8 @@ exports.check = function (req, res) {
   query.where[req.body.property] = req.body.value;
   return global.db.User.find(query).then(function (user) {
     var available = (user === null);
-    return res.ok({available: available}, 'Disponibilidad de recursos');
   });
+  return res.ok({available: available}, 'Disponibilidad de recursos');
 };
 
 /**

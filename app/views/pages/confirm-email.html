@@ -32,17 +32,8 @@
 
 {% block scripts %}
 <script>
-	$('.resend-btn').click(function() {
-		$('.msg-succes, .resend-btn').hide();
-		$('.resend-loading').show();
-		Utils.getData({
-			url:'/auth/resend'
-		}).then(function(response) {
-			if (response.status === 200) {
-				$('.msg-succes, .resend-btn').show();
-				$('.resend-loading').hide();
-			}
-		});
+	$(function() {
+		new APP.ConfirmEmailScreen();
 	});
 </script>
 {% endblock %}
