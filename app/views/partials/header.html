@@ -23,36 +23,36 @@
 				</div>
 
 				<div class="am-Header-new-right">
-					<ul class="options">
-						<a href="#">ART FEED</a>
-						<a href="/works/category/all/page-1/?order=popularity">OBRAS</a>
-						<a href="/users/specialty/all/page-1?order=popularity">ARTISTAS</a>
-						<a href="/collections/category/all/page-1?order=popularity">COLECCIONES</a>
-					</ul>
-
-					<!-- <ul class="socials">
-						<a href="/user/{{user.username}}/work/add" class="upload">SUBIR</a>
-						<a href="#" class="notif"></a>
-						<a href="#" class="cart"></a>
-					</ul> -->
-
-					<!-- <div class="avatar">
-						<img src="http://res.cloudinary.com/hackdudes/image/upload/w_150,h_150,c_thumb,d_am_avatar.jpg/v1448493683/qujhapblpptr30wjrj3l.jpg">
-						<i class="fa fa-caret-down"></i>
-						<div class="user-menu" style="top: -8px;">
-							<a href="/user/{{user.username}}" class="user-menu-item">MI PORTAFOLIO</a>
-							<div class="u-separator"></div>
-							<a href="/user/{{user.username}}/work/add" class="user-menu-item">SUBIR OBRA</a>
-							<div class="u-separator"></div>
-							<a href="/user/{{user.username}}/account" class="user-menu-item">ADMINISTRAR CUENTA</a>
-							<div class="u-separator"></div>
-							<a href="/auth/logout" class="user-menu-item">SALIR</a>
+					{% if user %}
+						<ul class="options">
+							<a href="/feed">ART FEED</a>
+							<a href="/works/category/all/page-1/?order=popularity">OBRAS</a>
+							<a href="/users/specialty/all/page-1?order=popularity">ARTISTAS</a>
+							<a href="/collections/category/all/page-1?order=popularity">COLECCIONES</a>
+						</ul>
+						<ul class="socials">
+							<a href="/user/{{user.username}}/work/add" class="upload">SUBIR</a>
+							<a href="#" class="notif"></a>
+							<a href="#" class="cart"></a>
+						</ul>
+						<div class="avatar">
+							<img src="http://res.cloudinary.com/hackdudes/image/upload/w_150,h_150,c_thumb,d_am_avatar.jpg/v1448493683/qujhapblpptr30wjrj3l.jpg">
+							<i class="fa fa-caret-down"></i>
+							<div class="user-menu" style="top: -8px;">
+								<a href="/user/{{user.username}}" class="user-menu-item">MI PORTAFOLIO</a>
+								<div class="u-separator"></div>
+								<a href="/user/{{user.username}}/work/add" class="user-menu-item">SUBIR OBRA</a>
+								<div class="u-separator"></div>
+								<a href="/user/{{user.username}}/account" class="user-menu-item">ADMINISTRAR CUENTA</a>
+								<div class="u-separator"></div>
+								<a href="/auth/logout" class="user-menu-item">SALIR</a>
+							</div>
 						</div>
-					</div> -->
-
-					<a class="am-Signin-button">
-						<i class="bi_user-single-a"></i> INGRESAR
-					</a>
+					{% else %}
+						<a class="am-Signin-button">
+							<i class="bi_user-single-a"></i> INGRESAR
+						</a>
+					{% endif %}
 				</div>
 
 			</header>
@@ -74,19 +74,18 @@
 		</div>
 
 		<div class="am-header-mobile-left">
-			<div class="avatar">
-				<img src="http://res.cloudinary.com/hackdudes/image/upload/w_150,h_150,c_thumb,d_am_avatar.jpg/v1448493683/qujhapblpptr30wjrj3l.jpg">
-				<i class="fa fa-caret-down"></i>
-				<div class="user-menu" style="top: -8px;">
-					<a href="/user/{{user.username}}" class="user-menu-item">MI PORTAFOLIO</a>
-					<div class="u-separator"></div>
-					<a href="/user/{{user.username}}/work/add" class="user-menu-item">SUBIR OBRA</a>
-					<div class="u-separator"></div>
-					<a href="/user/{{user.username}}/account" class="user-menu-item">ADMINISTRAR CUENTA</a>
-					<div class="u-separator"></div>
-					<a href="/auth/logout" class="user-menu-item">SALIR</a>
+
+			{% if user %}
+				<div class="avatar">
+					<img src="{{user.photo}}">
+					<i class="fa fa-caret-down"></i>
 				</div>
-			</div>
+			{% else %}
+				<a class="am-Signin-button" style="margin-right: 20px">
+					<i class="bi_user-single-a"></i> INGRESAR
+				</a>
+			{% endif %}
+
 		</div>
 	</header>
 </div>
