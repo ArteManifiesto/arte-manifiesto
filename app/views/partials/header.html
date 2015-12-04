@@ -2,12 +2,14 @@
 	<!-- ********************************************************************
 		$ HEADER
 	********************************************************************* -->
-	<div class="grid-container u-padding-top-15 u-padding-bottom-15" {% if user %} style="padding-top: 10px; padding-bottom: 10px;" {% endif %}>
+	<!-- <div class="grid-container u-padding-top-15 u-padding-bottom-15" {% if user %} style="padding-top: 10px; padding-bottom: 10px;" {% endif %}>
 		<div class="grid-100">
 			<header class="am-Header-new">
-				
+
 				<div class="am-Header-new-left">
-					<img class="logo" src="/img/logo.png">
+					<a href="#">
+						<img class="logo" src="/img/logo.png">
+					</a>
 					<div class="search">
 
 						<div class="am-Search-input2">
@@ -46,9 +48,42 @@
 						</div>
 					</div>
 				</div>
-				
 
 			</header>
 		</div>
 	</div>
-	<div class="u-separator"></div>
+ -->
+	<!-- <div class="grid-container"> -->
+		<!-- <div class="grid-100"> -->
+			<header class="am-header-mobile">
+
+				<div class="am-header-mobile-left">
+					<div class="bars">
+						<i class="fa fa-bars"></i>
+					</div>
+					<a href="#">
+						<img class="logo" src="/img/logo.png">
+					</a>
+				</div>
+
+				<div class="am-header-mobile-left">
+					<div class="avatar">
+						<img src="http://res.cloudinary.com/hackdudes/image/upload/w_150,h_150,c_thumb,d_am_avatar.jpg/v1448493683/qujhapblpptr30wjrj3l.jpg">
+						<i class="fa fa-caret-down"></i>
+						<div class="user-menu" style="top: -8px;">
+							<a href="/user/{{user.username}}" class="user-menu-item">MI PORTAFOLIO</a>
+							<div class="u-separator"></div>
+							<a href="/user/{{user.username}}/work/add" class="user-menu-item">SUBIR OBRA</a>
+							<div class="u-separator"></div>
+							<a href="/user/{{user.username}}/account" class="user-menu-item">ADMINISTRAR CUENTA</a>
+							<div class="u-separator"></div>
+							<a href="/auth/logout" class="user-menu-item">SALIR</a>
+						</div>
+					</div>
+				</div>
+
+			</header>
+		<!-- </div> -->
+	<!-- </div> -->
+
+	<!-- <div class="u-separator"></div> -->
