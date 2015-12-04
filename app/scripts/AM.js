@@ -15,7 +15,7 @@ APP.AM = function () {
   var flash, flashMessage;
   errorMessage.length > 0 && (flash = $('.error'), flashMessage = errorMessage[0]);
   successMessage.length > 0 && (flash = $('.succes'), flashMessage = successMessage[0]);
-  
+
   if(flash) {
     flash.find('.content-text').text(flashMessage);
     flash.addClass('fadeIn');
