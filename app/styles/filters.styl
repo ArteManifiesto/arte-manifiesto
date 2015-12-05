@@ -68,6 +68,7 @@ l/*------------------------------------*
 		background #f7f7f7
 		padding 20px
 		li
+		a
 			font-family 'Montserrat', sans-serif
 			font-size 12.4px
 			cursor pointer
@@ -84,3 +85,39 @@ l/*------------------------------------*
 			padding-left 10px
 			font-size 12.4px
 			color #838d8f
+
+.am-Filter.account
+	background white
+	display none
+	max-width 580px
+	margin-left auto
+	margin-right auto
+	.am-Filter-header
+		p
+			font-size 14px
+			color #4a4a4a
+	.am-Filter-subOptions
+		background white
+		li
+		a
+			display block
+			font-size 14px
+			color #9b9b9b
+			&:not(:first-child)
+				padding-top 20px
+			&:last-child
+				padding-bottom 5px
+			&.selected
+				color #2e71f0
+	&.visible
+		display block
+
+@media (min-width: 1130px)
+	.am-Filter.account
+		float left
+		margin-top -20px
+		display block
+	.account-title
+		cursor auto !important
+		i
+			display none
