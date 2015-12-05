@@ -487,7 +487,7 @@ white = #fff
 .user-menu
 	position absolute
 	right 0
-	transform translate(0, 50px)
+	transform translate(0, 48px)
 	background white
 	z-index: 1;
 	width 218px
@@ -2173,6 +2173,13 @@ white = #fff
 			border solid 5px #3bd64a
 			box-sizing border-box
 
+		input[type="radio"]
+			display none
+
+		input[type="radio"]:checked+label .interest
+			border solid 5px #3bd64a
+			box-sizing border-box
+
 		.interest
 			// background #d8d8d8
 			background-size: cover;
@@ -2206,6 +2213,20 @@ white = #fff
 	.am-profile-box
 		padding 60px 60px !important
 
+.am-profile-box
+	.interests.large
+		>div
+			width 50%
+		.interest
+			width auto
+
+@media (min-width: 500px)
+	.am-profile-box
+		.interests.large
+			>div
+				width 50%
+			.interest
+				height 150px
 
 
 /*------------------------------------*
