@@ -139,7 +139,9 @@ exports.verify = function (req, res) {
 
     user.updateAttributes({verified: true}).then(function () {
       req.flash('successMessage', 'Email confirmado');
-      return res.redirect('/');
+      if(!req.user)
+        return res.redirect('/');
+      return res.redirect('/user/' + req.user.username + '/account/?context=1');
     });
   })
 };

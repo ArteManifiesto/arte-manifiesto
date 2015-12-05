@@ -17,7 +17,6 @@ APP.AccountIndexScreen.prototype = Object.create(APP.BaseScreen.prototype);
 APP.AccountIndexScreen.prototype.setupUI = function() {
   this.uploaderImage = new APP.UploaderImage($('.uploader-profile'), this.uploaderImageComplete);
   this.uploaderImage.photo = DataApp.currentUser.photo;
-  $('.image-uploader').append(this.uploaderImage.view);
 
   this.save = $('.save');
   this.saveLoading = $('.save-loading');

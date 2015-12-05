@@ -86,8 +86,8 @@ Utils = {
     checkAuthentication: function() {
       if (!DataApp.currentUser) {
         var redirectUrl = null;
-        if(DataApp.currentUrl.indexOf('auth') === -1) {
-          redirectUrl = DataApp.loginUrl + '/?returnTo=' + DataApp.currentUrl;
+        if(window.location.href.indexOf('auth') === -1) {
+          redirectUrl = DataApp.loginUrl + '/?returnTo=' + window.location.href;
         } else {
           redirectUrl = DataApp.loginUrl;
         }

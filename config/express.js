@@ -55,21 +55,22 @@ module.exports = function (app, passport) {
             successMessage: req.flash('successMessage'),
             errorMessage: req.flash('errorMessage')
         };
-        if(!req.user) {
-          return next();
-        }
-        var verbs = ['like-work', 'follow-user','review-work', 'request-work'];
-        var query = {
-          where: {
-            OwnerId: req.user.id,
-            verb:{$in:[verbs]},
-            seen: false
-          }
-        };
-        global.db.Action.count(query).then(function(actions) {
-          res.locals.numOfNotifications = actions;
-          next();
-        });
+        next();
+        // if(!req.user) {
+        //   return next();
+        // }
+        // var verbs = ['like-work', 'follow-user','review-work', 'request-work'];
+        // var query = {
+        //   where: {
+        //     OwnerId: req.user.id,
+        //     verb:{$in:[verbs]},
+        //     seen: false
+        //   }
+        // };
+        // global.db.Action.count(query).then(function(actions) {
+        //   res.locals.numOfNotifications = actions;
+        //   next();
+        // });
     });
     app.use(global.md.check);
 };

@@ -284,7 +284,7 @@
       <div class="tags-container">
         <p class="title" style="margin-top: 30px;">Tags&nbsp;&nbsp;<span class="tags-number">{{tags.length}}</span></p>
         <div class="u-separator"></div>
-				{% if tags.length > 1 %}
+				{% if tags.length > 0 %}
 					<div class="tags work-tags">
 	          {% for tag in tags %}
 	          {% set url = "#" + tag.name %}
@@ -415,6 +415,7 @@
 	<script src="/photoswipe-ui-default.js"></script>
 
 	<script>
+	console.log({{tags|json|safe}});
 		var owner = {{owner|json|safe}};
 		var entity = {{entity|json|safe}};
 		var work = {{work|json|safe}};

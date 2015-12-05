@@ -8,9 +8,9 @@ DataApp.currentUser = null;
 DataApp.baseUrl = window.location.origin + '/';
 DataApp.baseTitle = 'Arte Manifiesto | ';
 DataApp.loginUrl = DataApp.baseUrl + 'auth/login';
-DataApp.discoverWorks = DataApp.baseUrl + '/works/category/all/page-1/';
-DataApp.discoverUsers = DataApp.baseUrl + '/users/specialties/all/page-1/';
-DataApp.discoverProducts = DataApp.baseUrl + '/products/type/all/page-1/';
+DataApp.discoverWorks = DataApp.baseUrl + 'works/category/all/page-1/';
+DataApp.discoverUsers = DataApp.baseUrl + 'users/specialties/all/page-1/';
+DataApp.discoverProducts = DataApp.baseUrl + 'products/type/all/page-1/';
 DataApp.searchCollections = DataApp.baseUrl + 'artjam/collections/page-1';
 
 DataApp.currentUrl = window.location.href.replace(/\/$/g, '');

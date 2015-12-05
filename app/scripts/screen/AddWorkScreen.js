@@ -5,28 +5,46 @@
 var APP = APP || {};
 
 APP.AddWorkScreen = function () {
-  APP.BaseScreen.call(this, 'add-work');
-  $('input[name=tags]').tagsInput({
-		height:'50px', width:'100%', defaultText:'+ Etiqueta'
-	});
-
-	this.uploaderImage = new APP.UploaderImage($('.uploader-work'), function(idImage) {
-		this.$view.find('.upload').show();
-		$('.cloudinary-fileupload').show();
-		$.cloudinary.image(idImage, {width: 300, crop:'limit'})
-		.appendTo(this.$view.find('.preview'));
-	});
-
+  APP.BaseScreen.call(this, 'addWork');
   this.work = null;
 };
 
 APP.AddWorkScreen.constructor = APP.AddWorkScreen;
 APP.AddWorkScreen.prototype = Object.create(APP.BaseScreen.prototype);
 
+APP.AddWorkScreen.prototype.setupUI = function() {
+  this.workForm = $('.work-form');
+  this.uploaderImage = new APP.UploaderImage($('.uploader-work'), this.uploaderImageComplete);
+  this.name = $('input[name=name]');
+  this.category = $('select[name=category]');
+  this.description = $('textarea[name=description]');
+  this.tags = $('input[name=tags]');
+  this.tags.tagsInput({height:'50px', width:'100%', defaultText:'+Etiqueta'});
+
+  this.send = $('.send');
+  this.sendLoading = $('.send-loading');
+
+  this.workDelete = $('.work-delete');
+  this.workDeleteConfirm = $('.work-delete-confirm');
+  this.workDeleteCancel = $('.work-delete-cancel');
+  this.workDeleteForce = $('.work-delete-force');
+
+  this.workPhotoPublished = $('.work-photo-published');
+  this.workNamePublished = $('.work-name-published');
+  this.workUserPublished = $('.work-user-published');
+  this.workPublished = $('.work-published');
+  this.workView = $('.work-view');
+  this.workNew = $('.work-new');
+  this.workEdit = $('.work-edit');
+};
+
 APP.AddWorkScreen.prototype.listeners = function () {
   APP.BaseScreen.prototype.listeners.call(this);
-  $('.work-form').submit(this.workFormSubmitHandler.bind(this));
-  $('.work-delete').click(this.workDeleteHandler.bind(this));
+  this.workForm.submit(this.workFormSubmitHandler.bind(this));
+
+  this.workDelete.click(this.workDeleteHandler.bind(this));
+  this.workDeleteForce.click(this.workDeleteForceHandler.bind(this));
+  this.workDeleteCancel.click(this.workDeleteCancelHandler.bind(this));
   $('input[type=checkbox]').change(this.checkPublicHandler);
 };
 
@@ -36,57 +54,77 @@ APP.AddWorkScreen.prototype.checkPublicHandler = function() {
 
 APP.AddWorkScreen.prototype.workFormSubmitHandler = function(event) {
   event.preventDefault();
+  var errors = [], scope = this;
+  if(!this.uploaderImage.photo) errors.push('photo');
+  if(Validations.notBlank(this.name.val())) errors.push('name');
+  if(Validations.notBlank(this.category.val())) errors.push('category');
+  if(Validations.notBlank(this.description.val())) errors.push('description');
+  if(this.tags.val().split(',')[0].length < 1) errors.push('tags');
 
-  var tags = $('input[name=tags]').val();
-  var photo = this.uploaderImage.photo;
-  var errors = [];
-  if(!photo)
-    errors.push('agrega foto mierda T_T');
+  if(errors.length > 0) return this.showFlash('error', errors);
 
-  if(tags.split(',')[0].length < 1)
-    errors.push('agrega tags ctv');
+  this.sendLoading.show();
+  this.send.hide();
 
-  if(errors.length > 0)
-    return this.showFlash('error', errors);
+  var data = this.workForm.serializeArray();
+  $.each(data, function(index, value) {
+    if (value.name === 'photo')
+      value.value = scope.uploaderImage.photo;
 
-  $('.send').hide();
-  $('.send-loading').show();
+    if(value.name === 'nsfw' || value.name === 'public')
+      value.value = (value.value === 'on');
+  });
 
   var url = DataApp.currentUser.url + '/work/create';
-  var payload = {
-    photo: photo,
-    name: $('input[name=name]').val(),
-    idCategory: parseInt($('select[name=category]').val(), 10),
-    tags: tags,
-    description: $('textarea[name=description]').val(),
-    public: $('input[name=public]:checked').val() !== undefined,
-    nsfw: $('input[name=nsfw]:checked').val() !== undefined
-  };
-  this.requestHandler(url, payload, this.workCreatedComplete);
+  this.requestHandler(url, data, this.workCreatedComplete);
 };
 
 APP.AddWorkScreen.prototype.workCreatedComplete = function(response) {
-  $('.send').show();
-  $('.send-loading').hide();
   this.showFlash('succes', 'Su obra se subió exitosamente')
   this.work = response.data.work;
-  $('.work-form').hide();
-  var workUrl = DataApp.currentUser.url + '/work/' + this.work.nameSlugify
-  $('.work-view').attr('href', workUrl);
-  $('.work-new').attr('href', DataApp.currentUser.url + '/work/add');
-  $('.work-edit').attr('href', workUrl + '/edit');
-  $('.work-photo-published').attr('src', Utils.addImageFilter(this.work.photo, 'w_300,c_limit'));
-  $('.work-name-published').text(this.work.name);
-  $('.work-user-published').text(DataApp.currentUser.fullname);
-  $('.work-published').show();
-}
 
-APP.AddWorkScreen.prototype.workDeleteHandler = function(event) {
-  event.preventDefault();
-  var url = DataApp.currentUser.url + '/work/delete';
-  this.requestHandler(url, {idWork: this.work.id}, this.workDeleteComplete);
+  this.workForm.hide();
+
+  this.sendLoading.hide();
+  this.send.show();
+
+  var url = DataApp.currentUser.url + '/work/' + this.work.nameSlugify
+  var photo = Utils.addImageFilter(this.work.photo, 'w_300,c_limit');
+
+  this.workView.attr('href', url);
+  this.workNew.attr('href', DataApp.currentUser.url + '/work/add');
+  this.workEdit.attr('href', url + '/edit');
+  this.workPhotoPublished.attr('src', photo);
+  this.workNamePublished.text(this.work.name);
+  this.workUserPublished.text(DataApp.currentUser.fullname);
+  this.workPublished.show();
 };
 
-APP.AddWorkScreen.prototype.workDeleteComplete = function (response) {
-  window.location.href = DataApp.currentUser.url;
+APP.AddWorkScreen.prototype.workDeleteHandler = function (event) {
+  this.workDelete.hide();
+  this.workDeleteConfirm.show();
+};
+
+APP.AddWorkScreen.prototype.workDeleteForceHandler = function () {
+  var url = DataApp.currentUser.url + '/work/delete';
+  this.requestHandler(url, {idWork: this.work.id}, this.workDeleteForceComplete);
+};
+
+APP.AddWorkScreen.prototype.workDeleteForceComplete = function () {
+  this.showFlash('succes', 'Se elimino tu obra');
+  setTimeout(function () {
+    window.location.href = DataApp.currentUser.url;
+  }, 1000);
+};
+
+APP.AddWorkScreen.prototype.workDeleteCancelHandler = function (response) {
+  this.workDelete.show();
+  this.workDeleteConfirm.hide();
+};
+
+APP.AddWorkScreen.prototype.uploaderImageComplete = function(idImage) {
+   this.$view.find('.upload').show();
+   $('.cloudinary-fileupload').show();
+   var filters =  {width: 300, crop: 'limit'};
+   $.cloudinary.image(idImage, filters).appendTo(this.$view.find('.preview'));
 };

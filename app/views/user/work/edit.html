@@ -24,13 +24,14 @@
 				<div class="separator">
 					<span class="line"></span><span class="text">DATOS DE LA OBRA</span><span class="line"></span>
 				</div>
+				<input type='hidden' name='idWork' value='{{work.id}}'/>
 				<p class="title">Título de la obra</p>
-				<input name='name' value='{{work.name}}' class="input input-modal" type="text" required placeholder="Ingrese el nombre"/>
+				<input name='name' value='{{work.name}}' class="input input-modal" type="text" placeholder="Ingrese el nombre"/>
 			</div>
 
 			<div class="grid-100 mobile-grid-100">
 				<p class="title">Categoría de la obra</p>
-				<select class="input select" required name='category'>
+				<select class="input select" name='category'>
 					{% for category in categories %}
 						<option value="{{category.id}}">{{category.name}}</option>
 					{% endfor %}
@@ -39,7 +40,7 @@
 
 			<div class="grid-100 mobile-grid-100">
 				<p class="title">Descripcion de la obra</p>
-				<textarea name='description' required class='input' placeholder="Descripcion" maxlength='140'>{{work.description}}</textarea>
+				<textarea name='description' class='input' placeholder="Descripcion" maxlength='140'>{{work.description}}</textarea>
 			</div>
 
 			<div class="grid-100 mobile-grid-100">

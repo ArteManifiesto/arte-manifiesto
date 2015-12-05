@@ -52,7 +52,12 @@ APP.AM = function () {
   });
   $('.closed-modal').click(function () {
     $('#lean_overlay').trigger( "click" );
-  })
+  });
+
+  $('.search-box').submit(function(event) {
+    event.preventDefault();
+    window.location.href = DataApp.discoverWorks + '?term=' + $('.search-box-value').val();
+  });
 };
 
 APP.AM.constructor = APP.AM;

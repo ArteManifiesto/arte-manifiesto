@@ -63,7 +63,7 @@ exports.create = function (req, res) {
     for(var i = 0; i < results.length ; i++)
       tagsResult.push(results[i][0]);
     promises = [
-        global.db.Category.findById(req.body.idCategory),
+        global.db.Category.findById(req.body.category),
         global.db.Work.create(req.body),
     ];
     global.db.Sequelize.Promise.all(promises).then(function (data) {
@@ -181,7 +181,7 @@ exports.update = function (req, res) {
     for(var i = 0; i < results.length ; i++)
       tagsResult.push(results[i][0]);
 
-    global.db.Category.findById(req.body.idCategory).then(function(category) {
+    global.db.Category.findById(req.body.category).then(function(category) {
       var promises = [
           req.work.updateAttributes(req.body),
           req.work.setTags(tagsResult),

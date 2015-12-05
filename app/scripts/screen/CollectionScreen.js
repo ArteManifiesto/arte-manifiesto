@@ -71,6 +71,7 @@ APP.CollectionScreen.prototype.collectionUpdateComplete = function (response) {
   this.collectionName.text(newCollection.name);
   this.collectionDescription.text(newCollection.description);
   $('#lean_overlay').trigger('click');
+  this.showFlash('succes', 'Se actualizo tu coleccion');
   Utils.changeUrl(collection.name, newUrl);
 }
 
