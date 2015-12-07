@@ -615,8 +615,13 @@ white = #fff
 		font-size 1.25em
 		cursor pointer
 	.logo
-		max-width 200px
+		max-width 35px
+		// margin 0px 10px
 		margin 5px 10px
+		&.desktop
+			margin 5px 10px
+			max-width 200px
+			display none
 	.avatar
 		display flex
 		align-items center
@@ -630,6 +635,16 @@ white = #fff
 			margin-right 2px
 		i
 			font-size .8em
+
+
+@media (min-width: 450px)
+	.am-header-mobile
+		.logo
+			display none
+		.logo
+			&.desktop
+				display block
+
 
 .body
 	position relative
