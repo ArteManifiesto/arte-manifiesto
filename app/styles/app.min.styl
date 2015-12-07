@@ -3637,6 +3637,7 @@ white = #fff
 			font-family: 'Montserrat',sans-serif;
 		.user-info
 			display flex
+			flex-direction column
 			.avatar
 				flex 1
 				display flex
@@ -3664,6 +3665,8 @@ white = #fff
 			.stats
 				display flex
 				background #f9f9f9
+				>a
+					flex 1
 				.stat
 					padding 20px 15px
 					text-align center
@@ -3825,6 +3828,13 @@ white = #fff
 			&-images
 				div
 					height 270px
+
+
+@media (min-width: 500px)
+	.feed
+		.feed-title
+			.user-info
+				flex-direction initial
 
 
 /*------------------------------------*
