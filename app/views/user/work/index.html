@@ -13,7 +13,7 @@
 				<div style="min-width: 100px;">
 					{% if neighbors.length > 1 %}
 						{% if neighbors[0] %}
-							<a href='/user/{{neighbors[0].User.username}}/work/{{neighbors[0].nameSlugify}}' class="nav prev-btn">
+							<a href='/user/{{neighbors[0].User.username}}/work/{{neighbors[0].nameSlugify}}' class="nav prev-btn" style="float: left;">
 								<i class="bi_interface-left"></i>
 								<p>&nbsp;&nbsp;ANTERIOR</p>
 							</a>
@@ -27,7 +27,7 @@
 				<div style="min-width: 100px;">
 					{% if neighbors.length > 1 %}
 						{% if neighbors[1] %}
-							<a href='/user/{{neighbors[1].User.username}}/work/{{neighbors[1].nameSlugify}}' class="nav next-btn">
+							<a href='/user/{{neighbors[1].User.username}}/work/{{neighbors[1].nameSlugify}}' class="nav next-btn" style="float: right;">
 								<p>SIGUIENTE&nbsp;&nbsp;</p>
 								<i class="bi_interface-right"></i>
 							</a>
