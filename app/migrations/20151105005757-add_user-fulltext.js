@@ -4,7 +4,7 @@ module.exports = {
   up: function (queryInterface, Sequelize) {
     queryInterface.addIndex(
       'Users',
-      ['firstname', 'lastname', 'username'],
+      ['firstname', 'lastname', 'username', 'pseudonimo'],
       {
         indexName: 'UsersFullText',
         indicesType: 'FULLTEXT'

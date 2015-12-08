@@ -13,7 +13,10 @@ APP.AM = function () {
 	// 		 location.reload()
 	// 		 }
 	//  });
-  //  
+  //
+
+  $('.' + path + '-menu').addClass('selected');
+
   DataApp.currentUser = user || null;
 	if(DataApp.currentUser !== null)
 		DataApp.currentUser.url = '/user/' + DataApp.currentUser.username;
