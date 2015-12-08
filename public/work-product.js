@@ -58,30 +58,42 @@ $(document).ready(function() {
 
   var meta;
   var zoom = false;
+  var loadImage = 'default'
+
 
   setTimeout(function () {
 
-  	$('#work-image').click(function () {
+    $('#work-image').click(function () {
 
-  		if( !zoom ) {
+      if( !zoom ) {
 
-  			$('#go-preload-modal').trigger( "click" );
+        $('#go-preload-modal').trigger( "click" );
+
+        loadImage = 'loading'
 
   			$("<img/>").load(function() {
 
-  				$('#lean_overlay').trigger( "click" );
+          loadImage = 'load'
 
-  				var width = this.width, height = this.height;
-  				meta = { width: width, height: height }
+          $('#lean_overlay').trigger( "click" );
 
-  				document.getElementById('work-image').onclick = openPhotoSwipe;
+          var width = this.width, height = this.height;
+          meta = { width: width, height: height }
 
-  				$('#work-image').trigger( "click" );
+          document.getElementById('work-image').onclick = openPhotoSwipe;
 
-  			}).attr("src", Utils.addImageFilter(work.photo, 'w_1500,h_800,c_limit,q_80'));
+          $('#work-image').trigger( "click" );
 
-  			zoom = true
-  		}
+        }).attr("src", Utils.addImageFilter(work.photo, 'w_1500,h_800,c_limit,q_80'));
+
+        zoom = true
+
+  		} else {
+        console.log(loadImage)
+        if( loadImage == 'loading' ) {
+          $('#go-preload-modal').trigger( "click" );
+        }
+      }
   	})
 
   }, 3000)
@@ -98,7 +110,7 @@ $(document).ready(function() {
     var options = {
     	getThumbBoundsFn: function () {
     		return {
-    			x: $('#work-image')[0].offsetLeft ,y: $('#work-image')[0].offsetTop, w: $('#work-image')[0].width}
+    			x: $('#work-image')[0].offsetLeft ,y: $('#work-image')[0].offsetTop + 50, w: $('#work-image')[0].width}
     	}
     };
     window.gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
