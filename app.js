@@ -1,7 +1,5 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-
-var dotenv = require('dotenv').config({path: '../.env'});
-// dotenv.load();
+require('dotenv').load();
 
 var express = require('express');
 
