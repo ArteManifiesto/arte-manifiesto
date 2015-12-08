@@ -8,73 +8,77 @@
 {% set bannerImg = 'discover-banner-artists.jpg' %}
 {% include '../partials/banner.html' %}
 
-<div class="grid-container u-padding-top-20">
-	<div class="grid-100 grid-parent">
-		<div class="discover-menu">
-			<div class="filter left" data-state="open">
-				<div class="am-Select">
-					CATEGORÍAS &nbsp;&nbsp;<i class="fa fa-caret-left"></i>
-				</div>
-				<div class="left-menu u-padding-top-10">
-					<div class="am-Filter filter-category">
-						<div class="am-Filter-item">
-							<header class="am-Filter-header">
-								<i class="fa fa-bars"></i><p>Ver sólo</p>
-							</header>
-						</div>
-						<div class="am-Filter-item">
-							<div class="am-Filter-switch">
+<div style="max-width: 1500px; margin: auto; overflow: hidden">
 
-								<input type="checkbox" name="AM" id="AM"/>
-								<label for="AM">
-								  <div class="am-Switch-button">
-								  	<i class="fa fa-bars"></i>
-								  </div>
-								</label>
-								<!-- <div class="am-Switch-button" data-state="active">
-									<i class="fa fa-bars"></i>
-								</div> -->
-								<span>Seleccionado AM</span>
+	<div class="grid-container u-padding-top-20">
+		<div class="grid-100 grid-parent">
+			<div class="discover-menu">
+				<div class="filter left" data-state="open">
+					<div class="am-Select">
+						CATEGORÍAS &nbsp;&nbsp;<i class="fa fa-caret-left"></i>
+					</div>
+					<div class="left-menu u-padding-top-10">
+						<div class="am-Filter filter-category">
+							<div class="am-Filter-item">
+								<header class="am-Filter-header">
+									<i class="fa fa-bars"></i><p>Ver sólo</p>
+								</header>
+							</div>
+							<div class="am-Filter-item">
+								<div class="am-Filter-switch">
+
+									<input type="checkbox" name="AM" id="AM"/>
+									<label for="AM">
+									  <div class="am-Switch-button">
+									  	<i class="fa fa-bars"></i>
+									  </div>
+									</label>
+									<!-- <div class="am-Switch-button" data-state="active">
+										<i class="fa fa-bars"></i>
+									</div> -->
+									<span>Seleccionado AM</span>
+								</div>
+							</div>
+							<div class="am-Filter-item">
+								<header class="am-Filter-header">
+									<i class="fa fa-bars"></i><p>Categorías</p>
+								</header>
 							</div>
 						</div>
-						<div class="am-Filter-item">
-							<header class="am-Filter-header">
-								<i class="fa fa-bars"></i><p>Categorías</p>
-							</header>
+					</div>
+				</div>
+				<div class="text navigation" style="text-align: center;">
+					<span class="am-navigation-text uppercase category-text"></span>
+					<span class="am-navigation-text uppercase order-text"></span>
+					<span class="am-navigation-text uppercase search-text hide"></span>
+					<span class="am-navigation-text uppercase featured-text hide"></span>
+				</div>
+				<div class="filter right" data-state="closed">
+					<div class="am-Select">
+						ORDENAR &nbsp;&nbsp;<i class="fa fa-caret-down"></i>
+					</div>
+					<div class="right-menu u-padding-top-10">
+						<div class="am-Filter filter-order">
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="text navigation" style="text-align: center;">
-				<span class="am-navigation-text uppercase category-text"></span>
-				<span class="am-navigation-text uppercase order-text"></span>
-				<span class="am-navigation-text uppercase search-text hide"></span>
-				<span class="am-navigation-text uppercase featured-text hide"></span>
-			</div>
-			<div class="filter right" data-state="closed">
-				<div class="am-Select">
-					ORDENAR &nbsp;&nbsp;<i class="fa fa-caret-down"></i>
-				</div>
-				<div class="right-menu u-padding-top-10">
-					<div class="am-Filter filter-order">
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
-</div>
-<div class="discover-content grid-container u-padding-top-10 u-padding-bottom-40" data-state="expand">
-	<div class="grid-100 grid-parent">
-		<div class="grid work-layout-discover">
-			<div class="grid-sizer"></div>
+	<div class="discover-content grid-container u-padding-top-10 u-padding-bottom-40" data-state="expand">
+		<div class="grid-100 grid-parent">
+			<div class="grid work-layout-discover">
+				<div class="grid-sizer"></div>
+			</div>
+			<div class="am-search-result bare-message hide">
+				No se encontraron resultados
+				<br><br>
+				<a href="/users/specialty/all/page-1" class="am-report-link blue" href="">Volver a todas los artistas</a>
+			</div>
+			<div class="loader extra-small gray loading hide" style="border-color: gree;"></div>
 		</div>
-		<div class="am-search-result bare-message hide">
-			No se encontraron resultados
-			<br><br>
-			<a href="/users/specialty/all/page-1" class="am-report-link blue" href="">Volver a todas los artistas</a>
-		</div>
-		<div class="loader extra-small gray loading hide" style="border-color: gree;"></div>
 	</div>
+
 </div>
 {% endblock %}
 
