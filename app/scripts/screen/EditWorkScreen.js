@@ -19,6 +19,10 @@ APP.EditWorkScreen.prototype.setupUI = function() {
   this.name = $('input[name=name]');
   this.category = $('select[name=category]');
   $('select[name=category]').find('option[value=' + category.id + ']').attr('selected', true);
+
+  $('input[name=public]').attr('checked', work.public);
+  $('input[name=nsfw]').attr('checked', work.nsfw);
+
   this.description = $('textarea[name=description]');
   this.tags = $('input[name=tags]');
   this.tags.tagsInput({height:'50px', width:'100%', defaultText:'+Etiqueta'});
@@ -40,6 +44,7 @@ APP.EditWorkScreen.prototype.listeners = function () {
   this.workDeleteForce.click(this.workDeleteForceHandler.bind(this));
   this.workDeleteCancel.click(this.workDeleteCancelHandler.bind(this));
   $('input[type=checkbox]').change(this.checkPublicHandler);
+  $('input[type=checkbox]').change();
 };
 
 APP.EditWorkScreen.prototype.checkPublicHandler = function() {

@@ -61,7 +61,7 @@ module.exports = function (sequelize, DataTypes) {
 
           User.belongsToMany(models.User, {as: 'Viewings', foreignKey: 'ViewingId', through: 'Viewers'});
           User.belongsToMany(models.User, {as: 'Viewers', foreignKey: 'ViewerId', through: 'Viewers'});
-          
+
           User.belongsToMany(models.Work, {as: 'WorkViews', through: 'WorkViews'});
           User.belongsToMany(models.Work, {as: 'WorkLikes', through: 'WorkLikes'});
           User.belongsToMany(models.Work, {as: 'WorkRequests', through: 'WorkRequests'});
@@ -69,8 +69,7 @@ module.exports = function (sequelize, DataTypes) {
           User.hasMany(models.Collection);
           User.hasMany(models.Work, {onDelete: 'cascade'});
           User.hasMany(models.Review, {onDelete: 'cascade'});
-          User.hasMany(models.Action, {foreignKey:'UserId'});
-          User.hasMany(models.Action, {foreignKey: 'OwnerId'});
+          User.hasMany(models.Action);
         }
       },
       instanceMethods: {

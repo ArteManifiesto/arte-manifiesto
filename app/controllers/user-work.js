@@ -28,7 +28,7 @@ exports.index = function (currentPath, req, res) {
               neighbors: result[6],
               categories: result[7]
           };
-          
+
           if(req.user) {
             if(req.user.username === work.User.username)
               return res.render(basePath + 'index', data);
@@ -67,6 +67,9 @@ exports.add = function (req, res) {
 exports.create = function (req, res) {
   var promises = [];
   var tags = req.body.tags.split(',');
+  if(!req.body.public) req.body.public = false;
+  if(!req.body.nswf) req.body.nswf = false;
+
   for(var i = 0; i < tags.length ; i++) {
     promises.push(global.db.Tag.findOrCreate({where:{name: tags[i]}}));
   }
@@ -185,6 +188,8 @@ exports.sell = function (req, res) {
 exports.update = function (req, res) {
   var promises = [];
   var tags = req.body.tags.split(',');
+  if(!req.body.public) req.body.public = false;
+  if(!req.body.nswf) req.body.nswf = false;
   for(var i = 0; i < tags.length ; i++) {
     promises.push(global.db.Tag.findOrCreate({where:{name: tags[i]}}));
   }
