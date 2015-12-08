@@ -131,7 +131,7 @@ APP.Viewer.prototype.addItems = function(items) {
       $items.imagesLoaded().progress(function(imgLoad, image) {
         ++counter;
         var $item = $(image.img).parents('.grid-item');
-          lel.push($item);
+        lel.push($item);
         if(counter === items.length) {
           for(i = 0; i< lel.length; i++) {
             lel[i].show();

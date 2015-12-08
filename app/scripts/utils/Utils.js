@@ -99,5 +99,15 @@ Utils = {
         options.method = 'feed';
         window.FB && FB.ui(options, complete);
       }
+    },
+    shareFBWork: function(work) {
+      $('#lean_overlay').trigger("click");
+      Utils.share.facebook({
+        link: DataApp.baseUrl + '/user/' + work.User.username + '/work/' + work.nameSlugify,
+        picture: Utils.addImageFilter(work.photo, 'w_1200,h_630,q_60,c_crop'),
+        name: work.name,
+        caption: 'Arte Manifiesto',
+        description: work.description
+      });
     }
 };

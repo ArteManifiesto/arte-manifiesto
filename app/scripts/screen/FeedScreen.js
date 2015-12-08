@@ -55,15 +55,7 @@ APP.FeedScreen.prototype.feedShareHandler = function (event) {
 };
 
 APP.FeedScreen.prototype.shareFBHandler = function () {
-  Utils.share.facebook({
-    link: 'http://google.com',
-    picture: Utils.addImageFilter(this.currentWork.photo, 'w_1200,h_630,q_60,c_crop'),
-    name: this.currentWork.name,
-    caption: 'Arte Manifiesto',
-    description: this.currentWork.description
-  }, function () {
-    $('#lean_overlay').trigger('click');
-  });
+  Utils.shareFBWork(this.currentWork);
 };
 
 APP.FeedScreen.prototype.collectionFormHandler = function (event) {

@@ -223,12 +223,5 @@ APP.WorkScreen.prototype.menuItemHandler = function (event) {
 }
 
 APP.WorkScreen.prototype.shareFBHandler = function () {
-  $('#lean_overlay').trigger("click");
-  Utils.share.facebook({
-    link: 'http://google.com',
-    picture: Utils.addImageFilter(work.photo, 'w_1200,h_630,q_60,c_crop'),
-    name: work.name,
-    caption: 'Arte Manifiesto',
-    description: work.description
-  });
+  Utils.shareFBWork(work);
 }
