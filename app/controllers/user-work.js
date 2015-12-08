@@ -13,11 +13,11 @@ exports.index = function (currentPath, req, res) {
         global.db.Category.findAll()
     ];
     global.db.Sequelize.Promise.all(promises).then(function (result) {
-        var query = { where:{id: req.work.id}, include:[global.db.Category],
+        var query = {where:{id: req.work.id}, include:[global.db.Category],
           viewer: req.viewer, build: true, addUser: true
         }
         global.db.Work.find(query).then(function(work) {
-          return res.render(basePath + 'index', {
+          var data = {
               entity: 'work',
               owner : req.owner,
               currentPath: currentPath,
@@ -27,6 +27,19 @@ exports.index = function (currentPath, req, res) {
               reviews: result[5],
               neighbors: result[6],
               categories: result[7]
+          };
+          
+          if(req.user) {
+            if(req.user.username === work.User.username)
+              return res.render(basePath + 'index', data);
+            else
+              work.views++
+          } else {
+            work.views++;
+          }
+
+          work.save().then(function() {
+            return res.render(basePath + 'index', data);
           });
         });
     });

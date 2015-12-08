@@ -23,7 +23,9 @@
 
 				<div class="am-Header-new-right">
 						<ul class="options">
-							<a href="/feed">ART FEED</a>
+              {% if user %}
+                <a href="/feed">ART FEED</a>
+              {% endif %}
 							<a href="/works/category/all/page-1/?order=popularity">OBRAS</a>
 							<a href="/users/specialty/all/page-1?order=popularity">ARTISTAS</a>
 							<a href="/collections/category/all/page-1?order=popularity">COLECCIONES</a>
@@ -41,6 +43,8 @@
 								<a href="/user/{{user.username}}" class="user-menu-item">MI PORTAFOLIO</a>
 								<div class="u-separator"></div>
 								<a href="/user/{{user.username}}/work/add" class="user-menu-item">SUBIR OBRA</a>
+								<div class="u-separator"></div>
+								<a href="/user/{{user.username}}/notifications" class="user-menu-item">NOTIFICACIONES</a>
 								<div class="u-separator"></div>
 								<a href="/user/{{user.username}}/account" class="user-menu-item">ADMINISTRAR CUENTA</a>
 								<div class="u-separator"></div>

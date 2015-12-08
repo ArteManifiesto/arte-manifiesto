@@ -60,7 +60,7 @@ var searchFeed = function(req) {
       build:true, viewer:req.viewer
     };
     var page = req.params.page ? req.params.page : 'page-1';
-    var options = {entity: 'Action', page: page, limit: 2};
+    var options = {entity: 'Action', page: page, limit: 10};
     return global.getPaginationEntity(options, query);
     // global.getPaginationEntity(options, query).then(function(result) {
     //   return res.json(result);
@@ -140,6 +140,22 @@ var discover = function (req, entity) {
 
   return global.db.Sequelize.Promise.all(promises).then(function (data) {
     var order = global.config.search.orders[entity];
+
+    order = global._.map(order, function(value, index) {
+			var esName;
+			switch(value) {
+				case 'popularity': esName = 'popularidad';break;
+				case 'hottest': esName = 'caliente';break;
+				case 'newest': esName = 'mas nuevo';break;
+				case 'price_asc': esName = 'precios ↑';break;
+				case 'price_desc': esName = 'precios ↓';break;
+			}
+			return {
+				value: value,
+				name: esName
+			}
+    });
+    // data[0].filters.currentCategory =
     data[0].filters.categories = entity !== 'collections' ? data[1] : [];
     data[0].filters.order = order;
     return {data: data[0]};

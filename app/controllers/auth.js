@@ -47,10 +47,10 @@ exports.signup = function (req, res) {
 exports.check = function (req, res) {
   var query = {where: {id:{$not: [req.user.id]}}};
   query.where[req.body.property] = req.body.value;
-  return global.db.User.find(query).then(function (user) {
+  global.db.User.find(query).then(function (user) {
     var available = (user === null);
+    return res.ok({available: available}, 'Disponibilidad de recursos');
   });
-  return res.ok({available: available}, 'Disponibilidad de recursos');
 };
 
 /**
@@ -181,6 +181,7 @@ exports.resetVerify = function (req, res) {
   if (req.body.password !== req.body.confirm_password)
     return res.badRequest({errors: ['Contraseñas no son iguales']}, 'Error');
 
+  console.log('req.body', req.body.token);
   var query = {where: {tokenResetPassword: req.body.token}};
   global.db.User.find(query).then(function (user) {
     if(!user)

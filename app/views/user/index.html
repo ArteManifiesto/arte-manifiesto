@@ -33,7 +33,11 @@
 						<img src="{{profile.photo}}">
 					</div>
 					<div>
+						{% if profile.typeName === 1 %}
 						<p class="name">{{profile.fullname}}</p>
+						{% else %}
+						<p class="name">{{profile.pseudonimo}}</p>
+						{% endif %}
 						<p class="city">{{profile.city}}, {{profile.country}}</p>
 						{% if !owner %}
 							{% if profile.following %}

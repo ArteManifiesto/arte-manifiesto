@@ -28,7 +28,13 @@
           <div class="collection-card-artist">
             <div>
               <p>Curado Por:</p>
-              <p><%=User.firstname%></p>
+              <p>
+                <% if(User.typeName === 1) { %>
+                  <%= User.fullname %>
+                <% } else { %>
+                  <%= User.pseudonimo %>
+                <% } %>
+              </p>
             </div>
             <img src="<%=User.photo%>">
           </div>

@@ -51,7 +51,12 @@
 				<div class="avatar">
 					<img src="{{user.photo}}">
 					<div class="info">
-						<p class="name uppercase">{{user.firstname}} {{user.lastname}}</p>
+						<p class="name uppercase">
+							{% if user.typeName === 1 %}
+								{{user.fullname}}
+							{% else %}
+								{{user.pseudonimo}}
+							{% endif %}
 						<p class="city u-margin-top-5">{{user.city}}, {{user.country}}</p>
 					</div>
 				</div>

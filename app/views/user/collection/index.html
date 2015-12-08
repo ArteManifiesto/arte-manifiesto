@@ -15,7 +15,13 @@
 					<img src="{{collection.User.photo}}">
 				</a>
 				<div>
-					<p class="am-navigation-text">{{collection.User.fullname}}</p>
+					<p class="am-navigation-text">
+						{% if collection.User.typeName === 1 %}
+							{{collection.User.fullname}}
+						{% else %}
+							{{collection.User.pseudonimo}}
+						{% endif %}
+					</p>
 					<p class="am-collection-text"><span>Coleccion ></span>&nbsp;&nbsp;<span class="collection-name">{{collection.name}}</span></p>
 				</div>
 			</div>

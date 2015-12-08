@@ -23,6 +23,7 @@ Events.LOAD_END = 'loadEnd';
 Events.COLLECTION_ITEM_SELECTED = 'collectionItemSelected';
 Events.ADD_COLLECTION = 'addCollection';
 Events.SHARE = 'share';
+Events.FILTER_CHANGED = 'filterChanged';
 
 
 var Validations = {

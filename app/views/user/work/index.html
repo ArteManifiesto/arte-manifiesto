@@ -94,7 +94,13 @@
 					<div class="FollowArtist u-padding-bottom-10">
 						<div style="width: 100%;">
 							<a href="/user/{{work.User.username}}">
-								<p class="u-padding-bottom-7 big uppercase"><strong>{{work.User.fullname}}</strong></p>
+								<p class="u-padding-bottom-7 big uppercase"><strong>
+									{% if work.User.typeName === 1 %}
+										{{work.User.fullname}}
+									{% else %}
+										{{work.User.pseudonimo}}
+									{% endif %}
+								</strong></p>
 							</a>
 							<div class="button-container">
 								{% if !owner %}
@@ -163,7 +169,13 @@
 	            </a>
 	            <div>
 								<a href="/user/{{work.User.username}}">
-		              <p class="u-padding-bottom-4 uppercase" style="font-weight: bold;">{{work.User.fullname}}</p>
+		              <p class="u-padding-bottom-4 uppercase" style="font-weight: bold;">
+										{% if work.User.typeName === 1 %}
+											{{work.User.fullname}}
+										{% else %}
+											{{work.User.pseudonimo}}
+										{% endif %}
+									</p>
 		              <p class="u-padding-bottom-7"> <strong></strong> {{work.User.city}}, {{work.User.country}}</p>
 	            	</a>
 	              {% if !owner %}

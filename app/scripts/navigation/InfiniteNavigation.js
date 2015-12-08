@@ -16,7 +16,6 @@ APP.InfiniteNavigation.constructor = APP.InfiniteNavigation;
 APP.InfiniteNavigation.prototype.listeners = function() {
   this.scrollHandler = this.scrollHandler.bind(this);
   $(window).on("scroll", this.scrollHandler);
-
 };
 
 APP.InfiniteNavigation.prototype.scrollHandler = function() {

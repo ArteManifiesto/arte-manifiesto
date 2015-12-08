@@ -25,6 +25,7 @@ module.exports = function (app, passport) {
     swig.setFilter('addFilter', function (url, filter) {
         return url.replace('upload/', 'upload/' + filter +'/');
     });
+
     /**
      * Setup express middlewares
      * ====================================================
@@ -38,7 +39,7 @@ module.exports = function (app, passport) {
         saveUninitialized: false
     }));
     app.use(flash());
-    app.use(bodyParser.json({limit :'5mb'}));
+    // app.use(bodyParser.json({limit :'5mb'}));
     app.use(bodyParser.urlencoded({extended: false}));
     app.use(express.static(global.cf.public));
     /**
@@ -56,21 +57,6 @@ module.exports = function (app, passport) {
             errorMessage: req.flash('errorMessage')
         };
         next();
-        // if(!req.user) {
-        //   return next();
-        // }
-        // var verbs = ['like-work', 'follow-user','review-work', 'request-work'];
-        // var query = {
-        //   where: {
-        //     OwnerId: req.user.id,
-        //     verb:{$in:[verbs]},
-        //     seen: false
-        //   }
-        // };
-        // global.db.Action.count(query).then(function(actions) {
-        //   res.locals.numOfNotifications = actions;
-        //   next();
-        // });
     });
     app.use(global.md.check);
 };

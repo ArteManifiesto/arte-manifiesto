@@ -1,7 +1,7 @@
 var plan = require('flightplan');
 
 var appName = 'am-app';
-var username = 'am';
+var username = 'deploy';
 var startFile = './app';
 
 var tmpDir = appName + '-' + new Date().getTime();
@@ -9,7 +9,7 @@ var tmpDir = appName + '-' + new Date().getTime();
 // configuration
 plan.target('staging', [
   {
-    host: '104.131.93.214',
+    host: '104.131.108.229',
     username: username,
     agent: process.env.SSH_AUTH_SOCK
   }
@@ -17,7 +17,7 @@ plan.target('staging', [
 
 plan.target('production', [
   {
-    host: '107.170.186.111',
+    host: '104.131.108.229',
     username: username,
     agent: process.env.SSH_AUTH_SOCK
   },

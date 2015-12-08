@@ -5,105 +5,66 @@
 var APP = APP || {};
 
 APP.DiscoverScreen = function (id, container, navigation, data) {
-		DataApp.currentUrl = data.url;
-		Utils.changeUrl(id, data.url);
-    this.id = id;
-    this.viewer =  new APP.Viewer(id, container, navigation, data);
-    this.filters =  new APP.Filters(data.filters);
-    this.listeners();
-				var filterRight = $('.filter.right')
-				var rightSelect = $('.filter.right .am-Select')
-
-				$(rightSelect).click(function () {
-					var state = filterRight.attr('data-state')
-					if(state == 'closed') filterRight.attr('data-state', 'open')
-					else filterRight.attr('data-state', 'closed')
-				})
-
-				var filterLeft = $('.filter.left')
-				var leftSelect = $('.filter.left .am-Select')
-				var discoverContent = $('.discover-content')
-
-				$(leftSelect).click(function () {
-					var state = filterLeft.attr('data-state')
-					if(state == 'closed') {
-						filterLeft.attr('data-state', 'open')
-						discoverContent.attr('data-state', 'expand').trigger('resetLayout')
-					}
-					else{
-						filterLeft.attr('data-state', 'closed')
-						discoverContent.attr('data-state', 'reduce').trigger('resetLayout')
-					}
-				})
-
-				var device = new Device({
-													toDesktop: function () {
-														console.log('toDesktop!')
-													},
-													toMobile: function () {
-														console.log('toMobile!')
-														$('.filter.left .left-menu').css('display', 'block')
-													}
-												})
-
-				if(device.getVal() == "mobile") {
-					$(leftSelect).trigger( "click" )
-					$('.filter.left .left-menu').css('display', 'block')
-				}
-
-
-			function Device (options) {
-
-				var val = window.innerWidth < 1000 ? 'mobile' : 'desktop',
-				    toDesktop = options.toDesktop,
-				    toMobile = options.toMobile;
-
-
-				window.addEventListener('resize', function(){
-
-					var temp = val;
-
-					val = window.innerWidth < 1000 ? 'mobile' : 'desktop';
-
-					if(temp == 'mobile' && val == 'desktop') toDesktop();
-					if(temp == 'desktop' && val == 'mobile') toMobile();
-				});
-
-				function getVal () { return val; }
-
-				return {
-				    getVal: getVal
-				};
-			}
+  this.container = container;
+  this.navigation = navigation;
+  this.data = data;
+  APP.BaseScreen.call(this, id);
 };
 
 APP.DiscoverScreen.constructor = APP.DiscoverScreen;
+APP.DiscoverScreen.prototype = Object.create(APP.BaseScreen.prototype);
 
-APP.DiscoverScreen.prototype.listeners = function() {
-  Broadcaster.addEventListener('FILTER_CHANGED', this.filterChangedHandler.bind(this));
+APP.DiscoverScreen.prototype.setupUI = function () {
+  DataApp.currentUrl = this.data.url;
+  Utils.changeUrl(this.id, this.data.url);
+
+  this.searchText = $('.search-text');
+  this.featuredText = $('.featured-text');
+
+  this.viewer = new APP.Viewer(this.id, this.container, this.navigation, this.data);
+  this.filters = new APP.Filters(this.data.filters);
 };
 
-APP.DiscoverScreen.prototype.filterChangedHandler = function(event) {
-	if(event.meta) {
-		$('.' + event.meta + '-text').text(event.newValue);
-	}
+APP.DiscoverScreen.prototype.listeners = function () {
+  Broadcaster.addEventListener(Events.FILTER_CHANGED, this.filterChangedHandler.bind(this));
+  this.filters.start();
+};
 
-	if(this.filters.term && this.filters.term.length > 0) {
-		$('.search-text').show();
-		$('.search-text').text(this.filters.term);
-	}else {
-		$('.search-text').hide();
-		$('.search-text').text('');
-	}
+APP.DiscoverScreen.prototype.filterChangedHandler = function (event) {
+  if (event.meta) $('.' + event.meta + '-text').text(event.newValue);
 
-	if(this.filters.isFeatured) {
-		$('.featured-text').show();
-		$('.featured-text').text('AM');
-	}else {
-		$('.featured-text').hide();
-		$('.featured-text').text('');
-	}
+  if (this.filters.term && this.filters.term.length > 0) {
+    this.searchText.show();
+    this.searchText.text(decodeURIComponent(this.filters.term));
+  } else {
+    this.searchText.hide();
+    this.searchText.text('');
+  }
+
+  if (this.filters.isFeatured) {
+    this.featuredText.show();
+    this.featuredText.text('AM');
+  } else {
+    this.featuredText.hide();
+    this.featuredText.text('');
+  }
 
   Utils.changeUrl(this.id, DataApp.currentUrl);
-  this.viewer.reset();
+
+  if (this.filters.isInitialized) this.viewer.reset();
+
+  var texts = [], currentText;
+  $('.navigation > span').filter(function (index, value) {
+    if ($(value).css('display') !== 'none')
+      texts.push($(value));
+  });
+
+  var i;
+  for (i = 0; i < texts.length; i++) {
+    if (texts[i].text().indexOf(' >') !== -1)
+      texts[i].text(texts[i].text().replace(' >', ''))
+  }
+  for (i = 0; i < texts.length - 1; i++) {
+    texts[i].text(texts[i].text() + ' >');
+  }
 };

@@ -111,7 +111,7 @@ global.discoverGenerator = function (entity, req) {
     }
     if (entity === 'User') {
       query.where.$and = global.db.sequelize.literal(
-        "MATCH(firstname, lastname, username) AGAINST('" + req.query.term + "' IN BOOLEAN MODE)"
+        "MATCH(firstname, lastname, username, pseudonimo) AGAINST('" + req.query.term + "' IN BOOLEAN MODE)"
       );
     }
     if (entity === 'Collection') {

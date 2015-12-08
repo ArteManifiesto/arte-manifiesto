@@ -14,7 +14,13 @@
         <div class="artist-card-info">
           <img src="<%=photo%>">
           <div>
-            <p class="name uppercase"><%=fullname %></p>
+            <p class="name uppercase">
+              <% if(typeName === 1) { %>
+                <%= fullname %>
+              <% } else { %>
+                <%= pseudonimo %>
+              <% } %>
+            </p>
             <p class="city"><%=city%>, <%=country%></p>
             <p class="stats"><i class="bi_ecommerce-diamon"></i> <%=numOfFollowers%></p>
           </div>

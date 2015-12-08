@@ -27,8 +27,9 @@ APP.Viewer = function (id, container, navigation, data , options) {
     }
     this.navigationManager.navigator.start();
     this.listeners();
-    if(data)
+    if(data) {
       this.addItems(data.items);
+    }
     else{
       this.fromExternal = true;
       this.navigationManager.navigator.gotoPage(1, true);

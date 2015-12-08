@@ -4,14 +4,19 @@
       <a href="/user/<%=User.username%>" class="user">
         <img src="<%= User.photo %>">&nbsp;&nbsp;&nbsp;
         <div>
-          <p class="uppercase"><%= User.fullname %></p>
+          <p class="uppercase">
+            <% if(User.typeName === 1) { %>
+              <%= User.fullname %>
+            <% } else { %>
+              <%= User.pseudonimo %>
+            <% } %>
+          </p>
           <p class="u-margin-top-5">empezó a seguir a un artista</p>
         </div>
       </a>
       <div class="info">
         <p><%=formatDate(createdAt)%></p>&nbsp;&nbsp;&nbsp;
-        <i class="bi_interface-plus"></i>
-        // <i class="bi_interface-enlarge"></i>
+        <i class="bi_interface-enlarge"></i>
       </div>
     </header>
 
@@ -19,7 +24,13 @@
     <a href="/user/<%=element.username%>" class="feed-card-userInfo">
       <img src="<%= element.photo %>">
       <div class="info">
-        <p class="name"><%= element.fullname %></p>
+        <p class="name">
+          <% if(element.typeName === 1) { %>
+            <%= element.fullname %>
+          <% } else { %>
+            <%= element.pseudonimo %>
+          <% } %>
+        </p>
         <p class="city u-margin-top-7"><%=element.city%>, <%=element.country%></p>
         <p class="stats u-margin-top-10">
           <i class="bi_interface-view"></i>&nbsp;<span>200</span>&nbsp;&nbsp;

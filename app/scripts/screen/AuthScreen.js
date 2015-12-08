@@ -42,8 +42,13 @@ APP.AuthScreen.prototype.requestAuthComplete = function (response) {
   $('.submit').show();
   $('.submit-loading').hide();
 
-  if (this.meta !== 'forgot')
+  if(this.meta === 'reset') {
+    this.showFlash('succes', 'Contraseña cambiada');
+  }
+  else if(this.meta === 'forgot') {
+    this.showFlash('succes', 'Se envio el correo');
+  }
+  else {
     return location.href = response.data.returnTo;
-
-  this.showFlash('succes', 'Se envio el correo');
+  }
 };

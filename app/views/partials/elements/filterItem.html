@@ -1,14 +1,17 @@
 <script type="text/template" id="template-filter-item">
-  <div class="am-Filter-item">
-    <% if (meta === "category") { %>
-      <p class="am-Filter-option uppercase" data-meta=<%= meta %> data-value=<%= nameSlugify %> ><%= name %>
+  <% if (meta === "category") { %>
+    <div class="am-Filter-item" data-meta="<%= meta %>">
+      <p class="am-Filter-option uppercase" data-name="<%=name%>" data-value="<%= nameSlugify %>" ><%= name %>
         <i class="fa fa-chevron-right"></i>
       </p>
-    <% } %>
-    <% if (meta === "order") { %>
-      <p class="am-Filter-option uppercase" data-meta=<%= meta %> data-value=<%= name %> ><%= name %>
-        <i class="fa fa-chevron-right"></i>
-      </p>
-    <% } %>
   </div>
+  <% } %>
+  <% if (meta === "order") { %>
+    <div class="am-Filter-item" data-meta="<%= meta %>">
+      <p class="am-Filter-option uppercase" data-value="<%= value %>" data-name="<%=name%>" ><%= name %>
+        <i class="fa fa-chevron-right"></i>
+      </p>
+    </div>
+  <% } %>
+
 </script>

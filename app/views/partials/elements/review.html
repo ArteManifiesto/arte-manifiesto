@@ -3,7 +3,13 @@
     <div class="avatar"><img src="<%=User.photo%>"></div>
     <div class="content">
       <div class="info">
-        <p class="name"><%=User.firstname %></p>&nbsp;&nbsp;&nbsp;
+        <p class="name">
+          <% if(User.typeName === 1) { %>
+            <%= User.fullname %>
+          <% } else { %>
+            <%= User.pseudonimo %>
+          <% } %>
+        </p>&nbsp;&nbsp;&nbsp;
         <p class="date"><i class="bi_interface-clock"></i> <%=formatDate(createdAt)%></p>
       </div>
       <p class="text"><%=value%></p>

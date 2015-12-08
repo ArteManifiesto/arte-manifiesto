@@ -20,8 +20,10 @@ APP.AccountIndexScreen.prototype.setupUI = function() {
 
   this.save = $('.save');
   this.saveLoading = $('.save-loading');
+  this.isArtist = $('input[name=isArtist]');
   this.firstname = $('input[name=firstname]');
   this.lastname = $('input[name=lastname]');
+  this.pseudonimo = $('input[name=pseudonimo]');
   this.username = $('input[name=username]');
   this.gender = $('select[name=gender]');
   this.birthday = $('input[name=birthday]');
@@ -29,12 +31,18 @@ APP.AccountIndexScreen.prototype.setupUI = function() {
   this.city = $('input[name=city]');
   this.biography = $('textarea[name=biography]');
   this.completeForm = $('.complete-form');
-
+  this.artistData = $('.artist-data');
   this.gender.find('option:contains('+ DataApp.currentUser.gender +')').attr("selected",true);
   this.country.find('option:contains('+ DataApp.currentUser.country +')').attr("selected",true);
+  this.typeName = $('select[name=typeName]');
 
+  var isArtist = DataApp.currentUser.isArtist ? 1 : 0;
+
+  $('input[name=isArtist][value=' + isArtist +']').attr('checked', true);
   for(var i = 0; i < interests.length; i++)
     $('input[type=checkbox][value='+ interests[i].id +']').attr('checked', true);
+
+  this.typeName.val(DataApp.currentUser.typeName);
 
   $("#date").mask("99/99/9999");
 }
@@ -44,6 +52,12 @@ APP.AccountIndexScreen.prototype.listeners = function () {
   APP.BaseScreen.prototype.listeners.call(this);
   this.username.keyup(this.usernameKeyUpHandler.bind(this));
   this.completeForm.submit(this.completeFormHandler.bind(this));
+  this.isArtist.change(this.isArtistHandler.bind(this));
+};
+
+APP.AccountIndexScreen.prototype.isArtistHandler = function(event) {
+  var value = parseInt($(event.target).val(), 10);
+  this.artistData[value === 0 ? 'hide' : 'show']();
 };
 
 APP.AccountIndexScreen.prototype.usernameKeyUpHandler = function(event) {
@@ -73,7 +87,11 @@ APP.AccountIndexScreen.prototype.completeFormHandler = function(event) {
     if(Validations.notBlank(this.birthday.val())) errors.push('Ingrese su cumpleaños');
     if(Validations.notBlank(this.country.val())) errors.push('Ingrese su pais');
     if(Validations.notBlank(this.city.val())) errors.push('Ingrese su ciudad');
-    if(Validations.notBlank(this.biography.val())) errors.push('Ingrese su biografia');
+    // if(Validations.notBlank(this.biography.val())) errors.push('Ingrese su biografia');
+
+    if(this.typeName.val() === '2') {
+      if(Validations.notBlank(this.pseudonimo.val())) errors.push('Ingrese su pseudonimo');
+    }
 
     var interests = [];
     $('input[name=interests]:checked').each(function() {
@@ -90,12 +108,14 @@ APP.AccountIndexScreen.prototype.completeFormHandler = function(event) {
 
     var data = this.completeForm.serializeArray();
     $.each(data, function(index, value) {
-      if (value.name === 'photo'){
+      if (value.name === 'photo') {
         var filter = 'w_150,h_150,c_thumb,d_am_avatar.jpg';
         value.value = Utils.addImageFilter(scope.uploaderImage.photo, filter);
       }
+      if (value.name === 'typeName') {
+        value.value = parseInt(value.value, 10);
+      }
     });
-
     var url = DataApp.currentUser.url + '/account/update';
     this.requestHandler(url, data, this.afterSaveHandler);
 }
@@ -106,7 +126,8 @@ APP.AccountIndexScreen.prototype.afterSaveHandler = function(response) {
   this.save.show();
 	var user = response.data.user;
   if(context) {
-    setTimeout(function() {
+    var timeout = setTimeout(function() {
+      clearTimeout(timeout);
       window.location.href = '/user/' + user.username;
     }, 1000);
   }

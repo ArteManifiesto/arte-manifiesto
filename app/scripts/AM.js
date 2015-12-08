@@ -8,6 +8,12 @@ APP.AM = function () {
   new APP.RestClientManager();
   new APP.TemplateManager();
 
+  // $(window).on("popstate", function(e) {
+	// 		 if (e.originalEvent.state !== null) {
+	// 		 location.reload()
+	// 		 }
+	//  });
+  //  
   DataApp.currentUser = user || null;
 	if(DataApp.currentUser !== null)
 		DataApp.currentUser.url = '/user/' + DataApp.currentUser.username;

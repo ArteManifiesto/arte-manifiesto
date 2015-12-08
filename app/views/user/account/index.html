@@ -2,25 +2,21 @@
 {% block elements %}
 	<div class="am-profile" style="padding-left: 0; padding-right: 0;">
 
-		{% if !context %}
-		<!-- <div class="single-tabs" style="max-width: 580px; margin: auto;">
-		  <a href="/user/{{user.username}}/account/" class="single-tab selected" style="padding: 10px;">
-		    <p style="padding: 5px;">DATOS</p>
-		  </a>
-		  <a href="/user/{{user.username}}/account/password" class="single-tab" style="padding: 10px;">
-		    <p style="padding: 5px;">PASSWORD</p>
-		  </a>
-		</div> -->
-		{% endif %}
+
 
 		<div class="grid-container u-margin-top-20">
 			<div class="grid-100">
+				{% if !context %}
 				<p class="account-title"><i class="fa fa-caret-down"></i>Mis datos de perfil</p>
+				{% else %}
+				<p class="account-title"><i class="fa fa-caret-down"></i>Completar mi perfil</p>
+				{% endif %}
 			</div>
 		</div>
 
 		<div class="grid-container">
 			<div class="grid-100">
+				{% if !context %}
 				<div class="am-Filter account mobile u-margin-top-10">
 					<div class="am-Filter-item">
 						<header class="am-Filter-header">
@@ -34,7 +30,7 @@
 							<!-- <a href="#">Administración de cuenta</a> -->
 						</ul>
 					</div>
-					<div class="am-Filter-item">
+					<!-- <div class="am-Filter-item">
 						<header class="am-Filter-header">
 							<i class="fa fa-bars"></i><p>Tienda en línea</p>
 						</header>
@@ -43,8 +39,9 @@
 						<ul class="am-Filter-subOptions">
 							<a href="#">Quiero abrir mi tienda</a>
 						</ul>
-					</div>
+					</div> -->
 				</div>
+				{% endif %}
 
 				<div class="am-profile-box grid-container u-margin-top-20">
 					<form class="complete-form">
@@ -55,7 +52,7 @@
 
 						<div class="interests large u-margin-top-10">
 							<div>
-								<input type="radio" value='' name="type" id="type1"/>
+								<input type="radio" value='0' name="isArtist" id="type1"/>
 								<label for="type1">
 									<div class="interest" style="background-image: url('/img/banners/formulario 1.png')">
 										<div class="cover"><p style="font-size: 16px; line-height: 1.25;">No soy artista (todavía)</p></div>
@@ -63,7 +60,7 @@
 								</label>
 							</div>
 							<div>
-								<input type="radio" value='' name="type" id="type2"/>
+								<input type="radio" value='1' name="isArtist" id="type2"/>
 								<label for="type2">
 									<div class="interest" style="background-image: url('/img/banners/formulario artista 2 sin rect.png')">
 										<div class="cover"><p style="font-size: 16px; line-height: 1.25;">Soy Artista Visual / Creador</p></div>
@@ -91,17 +88,17 @@
 								{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:230px;height:55px;top:-70px;left: 105px;" } })}}
 							</div>
 							<p class="title">Nombre</p>
-							<input class="input" type="text" value="{{user.firstname}}" name='firstname' required placeholder="Ingresa tus nombres"/>
+							<input class="input" type="text" value="{{user.firstname}}" name='firstname' placeholder="Ingresa tus nombres"/>
 							<p class="title">Apellido</p>
-							<input class="input" type="text" value="{{user.lastname}}" name='lastname' required placeholder="Ingresa tus apellidos"/>
+							<input class="input" type="text" value="{{user.lastname}}" name='lastname' placeholder="Ingresa tus apellidos"/>
 							<p class="title">Usuario en la plataforma</p>
 						</div> -->
 
 						<div class="grid-100">
 							<p class="title">Nombre</p>
-							<input class="input" type="text" value="{{user.firstname}}" name='firstname' required placeholder="Ingresa tus nombres"/>
+							<input class="input" type="text" value="{{user.firstname}}" name='firstname' placeholder="Ingresa tus nombres"/>
 							<p class="title">Apellido</p>
-							<input class="input" type="text" value="{{user.lastname}}" name='lastname' required placeholder="Ingresa tus apellidos"/>
+							<input class="input" type="text" value="{{user.lastname}}" name='lastname' placeholder="Ingresa tus apellidos"/>
 							<p class="title">Elige tu nombre de usuario</p>
 						</div>
 
@@ -109,17 +106,17 @@
 							<p class="link" style="line-height: 46px;">artemanifiesto.com/user/</p>
 						</div>
 						<div class="grid-50 mobile-grid-100">
-							<input class="input" type="text" name='username' value="{{user.username}}" required placeholder="Ingresa tu usuario"/>
+							<input class="input" type="text" name='username' value="{{user.username}}" placeholder="Ingresa tu usuario"/>
 						</div>
 
 						<!-- <div class="grid-100">
 							<p class="title">Nombre a mostrar publicamente</p>
-							<input class="input" type="text" value="" name='lastname' required placeholder="Ingresa tu nombre como artista o pseudónimo"/>
+							<input class="input" type="text" value="" name='lastname' placeholder="Ingresa tu nombre como artista o pseudónimo"/>
 						</div> -->
 
 						<div class="grid-50 mobile-grid-100">
 							<p class="title">Genero</p>
-							<select class="input select" name='gender' required>
+							<select class="input select" name='gender'>
 								<option disabled checked>Genero</option>
 								<option>Masculino</option>
 								<option>Femenino</option>
@@ -127,12 +124,12 @@
 						</div>
 						<div class="grid-50 mobile-grid-100">
 							<p class="title">Fecha de nacimiento</p>
-							<input id="date" class="input" type="text" name='birthday' value="{{user.birthday|date('d/m/Y')}}" required placeholder="dd/mm/yy"/ maxlength="8">
+							<input id="date" class="input" type="text" name='birthday' value="{{user.birthday|date('d/m/Y')}}" placeholder="dd/mm/yy"/ maxlength="8">
 						</div>
 
 						<div class="grid-50 mobile-grid-100">
 							<p class="title">País</p>
-							<select class="input select" name='country' required>
+							<select class="input select" name='country'>
 								<option disabled selected>Elige tu pais</option>
 								<option>Peru</option>
 								<option>Argentina</option>
@@ -142,7 +139,7 @@
 						</div>
 						<div class="grid-50 mobile-grid-100">
 							<p class="title">Ciudad</p>
-							<input class="input" name='city' value="{{user.city}}" required type="text" placeholder="Ingresa tu ciudad de residencia actual"/>
+							<input class="input" name='city' value="{{user.city}}" type="text" placeholder="Ingresa tu ciudad de residencia actual"/>
 						</div>
 
 						<div class="grid-100">
@@ -178,71 +175,71 @@
 							{% endfor %}
 						</div>
 
+						<div class="artist-data {% if !user.isArtist %} hide {%endif%}">
+							<div class="separator u-margin-top-40">
+								<span class="line"></span><span class="text">DATOS ARTISTA</span><span class="line"></span>
+							</div>
 
-						<div class="separator u-margin-top-40">
-							<span class="line"></span><span class="text">DATOS ARTISTA</span><span class="line"></span>
-						</div>
 
+							<!-- <div class="grid-100">
+								<p class="title">Apellido</p>
+								<input class="input" type="text" value="{{user.lastname}}" name='lastname' placeholder="Ingresa tus apellidos"/>
+								<p class="title">Elige tu nombre de usuario</p>
+							</div> -->
 
-						<!-- <div class="grid-100">
-							<p class="title">Apellido</p>
-							<input class="input" type="text" value="{{user.lastname}}" name='lastname' required placeholder="Ingresa tus apellidos"/>
-							<p class="title">Elige tu nombre de usuario</p>
-						</div> -->
+							<div class="grid-100 mobile-grid-100">
+								<p class="title">Nombre de artista o pseudónimo</p>
+								<input class="input" type="text" value="{{user.pseudonimo}}" name='pseudonimo' placeholder="Ingresa tu nombre de artista, pseudónimo o alter ego"/>
+								<p class="title">Nombre a mostrar publicamente</p>
+							</div>
 
-						<div class="grid-100 mobile-grid-100">
-							<p class="title">Nombre de artista o pseudónimo</p>
-							<input class="input" type="text" value="" name='firstname' required placeholder="Ingresa tu nombre de artista, pseudónimo o alter ego"/>
-							<p class="title">Nombre a mostrar publicamente</p>
-						</div>
+							<div class="grid-50 mobile-grid-100">
+								<select class="input select" name='typeName'>
+									<option value='1' checked>Nombre completo</option>
+									<option value='2' >Nombre de artista</option>
+								</select>
+							</div>
 
-						<div class="grid-50 mobile-grid-100">
-							<select class="input select" name='gender' required>
-								<option disabled checked>Nombre completo</option>
-								<option>Nombre de artista</option>
-							</select>
-						</div>
-
-						<div class="grid-100 mobile-grid-100">
-							<p class="title">Mi Manifiesto</p>
-							<textarea name='biography' rows="7" required class="input" placeholder="Cuentanos sobre tí, lo que te define lo que hace que te levantes cada día.">{{user.biography}}</textarea>
-							<p class="title">Redes Sociales</p>
-							<div class="socials">
-								<div class="social">
-									<i class="fa fa-facebook"></i>
-									<input class="input" name='facebook' value="{{user.facebook}}" type="text" placeholder="Ingresa tu link de tu página en facebook"/>
-								</div>
-								<div class="social">
-									<i class="fa fa-twitter"></i>
-									<input class="input" name='twitter' value="{{user.twitter}}" type="text" placeholder="Ingresa tu link del perfil en twitter"/>
-								</div>
-								<div class="social">
-									<i class="fa fa-instagram"></i>
-									<input class="input" name='instagram' value="{{user.instagram}}" type="text" placeholder="Ingresa tu link del perfil en instagram"/>
-								</div>
-								<div class="social">
-									<i class="fa fa-behance"></i>
-									<input class="input" name='behance' value="{{user.behance}}" type="text" placeholder="Ingresa tu link del perfil en behance"/>
-								</div>
-								<div class="social">
-									<i class="fa fa-tumblr"></i>
-									<input class="input" name='tumblr' value="{{user.tumblr}}" type="text" placeholder="Ingresa tu link del perfil en tumblr"/>
-								</div>
-								<div class="social">
-									<i class="fa fa-wordpress"></i>
-									<input class="input" name='blog' value="{{user.blog}}" type="text" placeholder="Ingresa tu link de tu blog"/>
-								</div>
-								<div class="social">
-									<i class="fa fa-vimeo"></i>
-									<input class="input" name='vimeo' value="{{user.vimeo}}" type="text" placeholder="Ingresa tu link del perfil en vimeo"/>
-								</div>
-								<div class="social">
-									<i class="fa fa-dribbble"></i>
-									<input class="input" name='dribble' value="{{user.dribble}}" type="text" placeholder="Ingresa tu link del perfil en dribble"/>
+							<div class="grid-100 mobile-grid-100">
+								<p class="title">Mi Manifiesto</p>
+								<textarea name='biography' rows="7" class="input" placeholder="Cuentanos sobre tí, lo que te define lo que hace que te levantes cada día.">{{user.biography}}</textarea>
+								<p class="title">Redes Sociales</p>
+								<div class="socials">
+									<div class="social">
+										<i class="fa fa-facebook"></i>
+										<input class="input" name='facebook' value="{{user.facebook}}" type="text" placeholder="Ingresa tu link de tu página en facebook"/>
+									</div>
+									<div class="social">
+										<i class="fa fa-twitter"></i>
+										<input class="input" name='twitter' value="{{user.twitter}}" type="text" placeholder="Ingresa tu link del perfil en twitter"/>
+									</div>
+									<div class="social">
+										<i class="fa fa-instagram"></i>
+										<input class="input" name='instagram' value="{{user.instagram}}" type="text" placeholder="Ingresa tu link del perfil en instagram"/>
+									</div>
+									<div class="social">
+										<i class="fa fa-behance"></i>
+										<input class="input" name='behance' value="{{user.behance}}" type="text" placeholder="Ingresa tu link del perfil en behance"/>
+									</div>
+									<div class="social">
+										<i class="fa fa-tumblr"></i>
+										<input class="input" name='tumblr' value="{{user.tumblr}}" type="text" placeholder="Ingresa tu link del perfil en tumblr"/>
+									</div>
+									<div class="social">
+										<i class="fa fa-wordpress"></i>
+										<input class="input" name='blog' value="{{user.blog}}" type="text" placeholder="Ingresa tu link de tu blog"/>
+									</div>
+									<div class="social">
+										<i class="fa fa-vimeo"></i>
+										<input class="input" name='vimeo' value="{{user.vimeo}}" type="text" placeholder="Ingresa tu link del perfil en vimeo"/>
+									</div>
+									<div class="social">
+										<i class="fa fa-dribbble"></i>
+										<input class="input" name='dribble' value="{{user.dribble}}" type="text" placeholder="Ingresa tu link del perfil en dribble"/>
+									</div>
 								</div>
 							</div>
 						</div>
-
 						<div class="grid-100 mobile-grid-100">
 							<button class="button save u-margin-top-40" data-color="green">GUARDAR CAMBIOS</button>
 						</div>

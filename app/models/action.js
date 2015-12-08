@@ -2,13 +2,13 @@ module.exports = function (sequelize, DataTypes) {
     var Action = sequelize.define('Action', {
             verb: DataTypes.STRING,
             ObjectId: DataTypes.INTEGER,
-            OwnerId: DataTypes.INTEGER,
             data: DataTypes.TEXT,
             seen: {type: DataTypes.BOOLEAN, defaultValue: false}
         }, {
             classMethods: {
                 associate: function (models) {
-                  Action.belongsTo(models.User);
+                  Action.belongsTo(models.User, {onDelete: 'cascade', foreignKey:'UserId'});
+                  Action.belongsTo(models.User, {onDelete: 'cascade', foreignKey:'OwnerId'});
                 }
             },
             instanceMethods: {
