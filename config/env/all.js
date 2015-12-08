@@ -3,7 +3,7 @@ var path = require('path'),
 
 module.exports = {
     root: rootPath,
-    port: process.env.PORT || 3000,
+    port: process.env.PORT || 80,
     models: rootPath + '/app/models',
     views: rootPath + '/app/views',
     controllers: rootPath + '/app/controllers',
