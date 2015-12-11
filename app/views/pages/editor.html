@@ -122,18 +122,51 @@
 		});
 
     var updateControls = function () {
-      // 	console.info(JSON.stringify(canvas.toJSON()));
+      console.log(canvas.toDataURL({
+        top: config.offsetY,
+        left: config.offsetX,
+        height: config.height,
+        width: config.weight,
+        multiplier: 2
+      }));
+      	// console.info(JSON.stringify(canvas.toJSON()));
     }
 
 		$('.save-btn').click(function(){
 			var a = imageTemp.getBoundingRect();
-			var x = Math.round(a.left * 5);
-			var y = (Math.round(a.top * 5) - (60 * 5));
-			var stageW = Math.round(config.width * 5);
-			var stageH = Math.round(config.height * 5);
-			var imageW = Math.round(imageTemp.getWidth() * 5);
-			var imageH = Math.round(imageTemp.getHeight() * 5);
-			var filters =
+			var x = Math.round(a.left * config.scaleFactor);
+			var y = (Math.round(a.top * config.scaleFactor) - (60 * config.scaleFactor));
+			var stageW = Math.round(config.width * config.scaleFactor);
+			var stageH = Math.round(config.height * config.scaleFactor);
+			var imageW = Math.round(imageTemp.getWidth() * config.scaleFactor);
+			var imageH = Math.round(imageTemp.getHeight() * config.scaleFactor);
+      var portion = Math.round(stageW / 3);
+
+      var filters =
+    	'w_' + stageW + ',' +
+    	'h_' + stageH + ',e_colorize,co_rgb:' + color + '/' +
+    	'l_' + baseName + ',b_rgb:' + color + ',' +
+    	'w_' + imageW + ',' +
+    	'h_' + imageH + ',' +
+    	'x_' + x + ',' +
+    	'y_' + y + ',g_north_west/' +
+    	'x_' + (x < 0 ? (x * -1) : 0) + ',' +
+    	'y_' + (y < 0 ? (y * -1) : 0) + ',' +
+    	'w_' + stageW + ',' +
+    	'h_' + stageH + ',c_crop,g_north_west';
+    	var temp = addImageFilter(urlImage, filters);
+    	// window.open(temp, '_blank');
+      
+      config.scaleFactor = 1.5;
+      x = Math.round(a.left * config.scaleFactor);
+			y = (Math.round(a.top * config.scaleFactor) - (60 * config.scaleFactor));
+			stageW = Math.round(config.width * config.scaleFactor);
+			stageH = Math.round(config.height * config.scaleFactor);
+			imageW = Math.round(imageTemp.getWidth() * config.scaleFactor);
+			imageH = Math.round(imageTemp.getHeight() * config.scaleFactor);
+      portion = Math.round(stageW / 3);
+
+			filters =
 			'w_' + stageW + ',' +
 			'h_' + stageH + ',e_colorize,co_rgb:' + color + '/' +
 			'l_' + baseName + ',b_rgb:' + color + ',' +
@@ -143,10 +176,40 @@
 			'y_' + y + ',g_north_west/' +
 			'x_' + (x < 0 ? (x * -1) : 0) + ',' +
 			'y_' + (y < 0 ? (y * -1) : 0) + ',' +
+			'w_' + Math.round(stageW / 3)+ ',' +
+			'h_' + stageH + ',c_crop,g_north_west/l_left/';
+			var temp1 = addImageFilter(urlImage, filters);
+			window.open(temp1, '_blank');
+
+      filters =
 			'w_' + stageW + ',' +
-			'h_' + stageH + ',c_crop,g_north_west';
-			var temp = addImageFilter(urlImage, filters);
-			window.open(temp, '_blank');
+			'h_' + stageH + ',e_colorize,co_rgb:' + color + '/' +
+			'l_' + baseName + ',b_rgb:' + color + ',' +
+			'w_' + imageW + ',' +
+			'h_' + imageH + ',' +
+			'x_' + x + ',' +
+			'y_' + y + ',g_north_west/' +
+			'x_' + ((x < 0 ? (x * -1) : 0) + Math.round(portion)) + ',' +
+			'y_' + (y < 0 ? (y * -1) : 0) + ',' +
+			'w_' + portion + ',' +
+			'h_' + stageH + ',c_crop,g_north_west/l_center/';
+			var temp2 = addImageFilter(urlImage, filters);
+			window.open(temp2, '_blank');
+
+      filters =
+  		'w_' + stageW + ',' +
+  		'h_' + stageH + ',e_colorize,co_rgb:' + color + '/' +
+  		'l_' + baseName + ',b_rgb:' + color + ',' +
+  		'w_' + imageW + ',' +
+  		'h_' + imageH + ',' +
+  		'x_' + x + ',' +
+  		'y_' + y + ',g_north_west/' +
+  		'x_' + ((x < 0 ? (x * -1) : 0) + Math.round(portion * 2)) + ',' +
+  		'y_' + (y < 0 ? (y * -1) : 0) + ',' +
+  		'w_' + portion + ',' +
+  		'h_' + stageH + ',c_crop,g_north_west/l_right/';
+  		var temp3 = addImageFilter(urlImage, filters);
+  		window.open(temp3, '_blank');
 		});
 
     canvas.on({
