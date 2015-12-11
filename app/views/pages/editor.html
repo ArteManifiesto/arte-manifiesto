@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css" media="screen" title="no title" charset="utf-8"> -->
+    <script src="/jquery-2.1.1.min.js"></script>
+    <script src="/fabric.js"></script>
+    <style media="screen">
+        /*body {
+            background-color: black;
+        }*/
+
+        .render {
+            position: relative;
+            margin-top: -80px;
+            height: 80px;
+            z-index: -1;
+        }
+
+        .preview {
+            position: absolute;
+            top: 87px;
+            width: 50px;
+            overflow: hidden;
+        }
+
+        .left-preview {
+            left: 25px;
+        }
+
+        .center-preview {
+            left: 70px;
+        }
+    </style>
+</head>
+<body>
+<canvas id="c1"></canvas>
+<input type="button" name="save" class="save-btn" value="Save">
+</br>
+<!-- <div class="render"> -->
+<!-- <div class="preview left-preview"> -->
+<img class="left" width="120">
+<!-- </div> -->
+<!-- <div class="preview center-preview"> -->
+<img class="center" width="120">
+<!-- </div> -->
+<!-- <div class="preview right-preview"> -->
+<img class="right" width="120">
+
+<input type="color"/>
+<!-- </div> -->
+<!-- </div> -->
+
+<!--
+<img src="/left.png" style="z-index:10;">
+<img src="/center.png">
+<img src="/right.png"> -->
+
+<script>
+
+    var config = {
+        scaleFactor: 5,
+        width: 567,
+        height: 211,
+        offsetX: 0,
+        offsetY: 60
+    };
+		var color = '000000';
+
+    var canvas = new fabric.Canvas('c1', {
+        'backgroundColor': color,
+        'width': config.width + (config.offsetX * 2),
+        'height': config.height + (config.offsetY * 2)
+    });
+
+    var rect = new fabric.Rect({
+        width: config.width, height: config.offsetY, left: 0, top: 0, fill: '#FF0',
+        opacity: 0.5
+    });
+    var rect2 = new fabric.Rect({
+        width: config.width, height: config.offsetY, left: 0, top: config.height + config.offsetY, fill: '#FF0',
+        opacity: 0.5
+    });
+
+    rect.selectable = rect2.selectable = false;
+
+    var imageTemp;
+
+
+    var addImageFilter = function (url, filter) {
+        return url.replace('upload/', 'upload/' + filter + '/');
+    }
+
+    var urlImage = 'http://res.cloudinary.com/hackdudes/image/upload/v1449719700/prueba2_e4tx4f.jpg';
+    // var urlImage = 'http://res.cloudinary.com/hackdudes/image/upload/v1449596597/igw5cweq4gswvepaongi.jpg'
+    var baseName = urlImage.replace(/^.*\/|\.[^.]*$/g, '')
+    url = addImageFilter(urlImage, 'w_0.2,h_0.2');
+    fabric.Image.fromURL(url, function (image) {
+        imageTemp = image;
+        //  image.scale(0.2);
+        //  image.hasBorders = image.hasControls = image.hasRotatingPoint = false;
+        canvas.add(image);
+        canvas.calcOffset();
+
+        canvas.sendToBack(image);
+        canvas.setActiveObject(canvas.item(0));
+        // canvas.item(0).hasBorders = false;
+        canvas.item(0).lockRotation = true;
+        canvas.item(0).hasRotatingPoint = false;
+        canvas.item(0).lockUniScaling = true;
+        canvas.centerObject(image);
+        image.setCoords();
+    }, {crossOrigin: 'Anonymous'});
+    canvas.add(rect);
+    canvas.add(rect2);
+
+		$('input[type=color]').change(function() {
+			color = $(this).val().replace('#', '');
+			canvas.backgroundColor = '#' + color;
+			canvas.renderAll();
+		});
+
+    var updateControls = function () {
+      // 	console.info(JSON.stringify(canvas.toJSON()));
+    }
+
+		$('.save-btn').click(function(){
+			var a = imageTemp.getBoundingRect();
+			var x = Math.round(a.left * 5);
+			var y = (Math.round(a.top * 5) - (60 * 5));
+			var stageW = Math.round(config.width * 5);
+			var stageH = Math.round(config.height * 5);
+			var imageW = Math.round(imageTemp.getWidth() * 5);
+			var imageH = Math.round(imageTemp.getHeight() * 5);
+			var filters =
+			'w_' + stageW + ',' +
+			'h_' + stageH + ',e_colorize,co_rgb:' + color + '/' +
+			'l_' + baseName + ',b_rgb:' + color + ',' +
+			'w_' + imageW + ',' +
+			'h_' + imageH + ',' +
+			'x_' + x + ',' +
+			'y_' + y + ',g_north_west/' +
+			'x_' + (x < 0 ? (x * -1) : 0) + ',' +
+			'y_' + (y < 0 ? (y * -1) : 0) + ',' +
+			'w_' + stageW + ',' +
+			'h_' + stageH + ',c_crop,g_north_west';
+			var temp = addImageFilter(urlImage, filters);
+			window.open(temp, '_blank');
+		});
+
+    canvas.on({
+        'mouse:up': updateControls,
+        // 'object:scaling': scaling,
+        'object:resizing': updateControls
+    });
+
+</script>
+
+</body>
+</html>

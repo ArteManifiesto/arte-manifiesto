@@ -4,6 +4,7 @@ var router = express.Router();
 var controller = require(global.cf.controllers + "/pages");
 
 router.get('/', controller.index);
+router.get('/editor', controller.editor);
 
 router.get('/feed', global.md.isLogged, controller.feedPage);
 router.post('/feed/:page', global.md.isLogged, controller.feed);

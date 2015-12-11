@@ -16,6 +16,10 @@ exports.index = function (req, res) {
   });
 };
 
+exports.editor = function(req, res) {
+  return res.render(basePath + 'editor');
+};
+
 exports.feedPage = function (req, res ) {
     var promises = [
       req.user.numOfFollowers(),
