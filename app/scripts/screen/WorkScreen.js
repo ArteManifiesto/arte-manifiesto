@@ -23,9 +23,10 @@ APP.WorkScreen.prototype.setupUI = function () {
   new APP.Viewer('carrouselItem', $('.similar'), null, similar);
 
   //TODO add review viewer
-  // for (var i = 0; i <reviews.length; i++) {
-  //   $('.reviews-items-container').append(new APP.Review(reviews[i]).view);
-  // }
+  this.reviewsContainer = $('.reviews-items-container');
+  for (var i = 0; i <reviews.length; i++) {
+    this.reviewsContainer.append(new APP.Review(reviews[i]).view);
+  }
   this.shareFb = $('.share-fb');
   this.askBtn = $('.ask-availability');
   this.loginReview = $('.login-review');

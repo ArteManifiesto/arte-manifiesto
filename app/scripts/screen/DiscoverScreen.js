@@ -62,9 +62,11 @@ APP.DiscoverScreen.prototype.filterChangedHandler = function (event) {
   var i;
   for (i = 0; i < texts.length; i++) {
     if (texts[i].text().indexOf(' >') !== -1)
-      texts[i].text(texts[i].text().replace(' >', ''))
+      texts[i].text(texts[i].text().replace(' >', '')).removeClass('link');
   }
+
   for (i = 0; i < texts.length - 1; i++) {
-    texts[i].text(texts[i].text() + ' >');
+    texts[i].text(texts[i].text() + ' >').addClass('link');
+    console.log(texts[i].attr('id'));
   }
 };

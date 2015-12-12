@@ -37,6 +37,7 @@ APP.ProfileScreen.prototype.saveClickHandler = function () {
 };
 
 APP.ProfileScreen.prototype.followClickHandler = function () {
+  Utils.checkAuthentication();
   var url = DataApp.currentUser.url + (profile.following ? '/unfollow/' : '/follow/');
   this.requestHandler(url, {idUser: profile.id}, this.followComplete);
 };

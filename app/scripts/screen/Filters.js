@@ -40,6 +40,8 @@ APP.Filters.prototype.setupUI = function () {
   $('[data-value=' + this.oldOrder + ']').parent().addClass('selected');
 
   if (this.isFeatured) $('input[type=checkbox]').prop('checked', true);
+  this.navigation = $('.am-navigation-text');
+
 };
 
 APP.Filters.prototype.itemFilterRenderer = function (data, meta) {
@@ -61,6 +63,23 @@ APP.Filters.prototype.listeners = function () {
   this.searchBtn.click(this.searchHandler.bind(this));
 
   this.searchInput.keypress(this.searchKeyPressHandler.bind(this));
+
+  this.navigation.click(this.navigationClickHandler.bind(this));
+};
+
+APP.Filters.prototype.navigationClickHandler = function (event) {
+  var obj = $(event.target);
+  var currentIndex, url = DataApp.currentUrl;
+  this.navigation.each(function (index, value) {
+    var idValue = $(value).attr('id');
+    if ($(value).hasClass('link')) {
+      if (obj.attr('id') === idValue) currentIndex = index;
+    }
+    if (index > currentIndex) {
+      url = Utils.removeURLParameter(url, idValue);
+    }
+  });
+  window.location.href = url;
 };
 
 APP.Filters.prototype.searchKeyPressHandler = function (event) {

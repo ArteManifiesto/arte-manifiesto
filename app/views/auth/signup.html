@@ -24,6 +24,14 @@
 			<ul class="error errors">
 			</ul>
 			<form class="auth-form">
+				{% if profile %}
+				<input name="firstname" value="{{profile.first_name}} {{profile.middle_name}}" type="hidden"/>
+				<input name="lastname" value="{{profile.last_name}}" type="hidden"/>
+				<input name="gender" value="{% if profile.gender === 'male' %}Masculino{%else%}Femenino{% endif %}" type="hidden"/>
+				<input name="photo" value="http://res.cloudinary.com/hackdudes/image/facebook/w_150,h_150,q_70/{{profile.id}}.jpg" type="hidden"/>
+				<input name="birthday" value="{{profile.birthday|date('d/m/Y')}}" type="hidden"/>
+				<input name="biography" value="{{profile.bio}}" type="hidden"/>
+				{% endif %}
 				<input name="email" class="input email" type="email" placeholder="Correo" value="{{profile.email}}" required/>
 				<input name="password" class="input password u-margin-top-10" type="password" placeholder="Contraseña" required/>
 				<div class="g-recaptcha u-margin-top-10 recaptcha" data-sitekey="6LdnUQoTAAAAALPzF3glOaqzGcbhBrmT1yQwVYls"></div>
@@ -43,6 +51,7 @@
 {% block scripts %}
 	<script src='https://www.google.com/recaptcha/api.js'></script>
 	<script>
+	console.log({{profile|json|safe}});
 		$(function() {
 			new APP.AuthScreen('signup');
 		});

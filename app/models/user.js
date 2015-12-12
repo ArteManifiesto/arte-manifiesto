@@ -205,42 +205,42 @@ module.exports = function (sequelize, DataTypes) {
       hooks: {
         afterCreate: function (user, options) {
           options.password = options.password || '123';
-          // if (user.email === 'juliocanares@gmail.com') {
-          //   user.isAdmin = true;
-          //   user.verified = true;
-          // }
-
           user.username = 'am' + moment().format('DDMMYYhhmmss') + user.id;
-          user.photo = 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_150,h_150,q_70/am_avatar.jpg';
+          if(!user.photo)
+            user.photo = 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_150,h_150,q_70/am_avatar.jpg';
           user.cover = 'http://res.cloudinary.com/arte-manifiesto/image/upload/c_limit,w_1600/general/am-cover.jpg';
           user.salt = user.makeSalt();
           user.hashedPassword = user.encryptPassword(options.password, user.salt);
           user.tokenVerifyEmail = uuid.v4();
           user.fullname = user.firstname + ' ' + user.lastname;
 
-          var promises = [
-            user.save(),
-            global.db.Collection.create({
-              name: 'Deseos',
-              description: 'Cosas que me encataria tener un dia.',
-              meta: 'product',
-              public: false
-            }),
-            global.db.Collection.create({
-              name: 'Regalos',
-              description: 'Buenas ideas para regalos.',
-              meta: 'product',
-              public: false
-            }),
-            global.db.Collection.create({
-              name: 'Obras favoritas',
-              description: 'Obras que me encantan',
-              meta: 'work',
-              public: false
-            })
-          ];
-          return global.db.Sequelize.Promise.all(promises).then(function (data) {
-            return user.addCollections(data.slice(1, data.length));
+          var query = {where:{username: 'artemanifiesto'}};
+          return global.db.User.find(query).then(function(am) {
+            var promises = [
+              user.save(),
+              user.follow(am),
+              global.db.Collection.create({
+                name: 'Deseos',
+                description: 'Cosas que me encataria tener un dia.',
+                meta: 'product',
+                public: false
+              }),
+              global.db.Collection.create({
+                name: 'Regalos',
+                description: 'Buenas ideas para regalos.',
+                meta: 'product',
+                public: false
+              }),
+              global.db.Collection.create({
+                name: 'Obras favoritas',
+                description: 'Obras que me encantan',
+                meta: 'work',
+                public: false
+              })
+            ];
+            return global.db.Sequelize.Promise.all(promises).then(function (data) {
+              return user.addCollections(data.slice(2, data.length));
+            });
           });
         },
         afterFind: global.afterFind

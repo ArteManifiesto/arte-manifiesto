@@ -20,10 +20,10 @@ global.config = {
   search: {
     entities: ['works', 'users', 'products', 'collections'],
     orders: {
-      works: ['popularity', 'hottest', 'newest'],
-      users: ['popularity', 'hottest', 'newest'],
-      collections: ['popularity', 'hottest', 'newest'],
-      products: ['popularity', 'hottest', 'newest', 'price_asc', 'price_desc']
+      works: ['hottest', 'popularity', 'newest'],
+      users: ['hottest', 'popularity', 'newest'],
+      collections: ['hottest', 'popularity', 'newest'],
+      products: ['hottest', 'popularity', 'newest', 'price_asc', 'price_desc']
     },
     times: ['day', 'week', 'month', 'year'],
     params: {
@@ -174,7 +174,7 @@ global.searchWorks = function (req) {
 
 global.searchUsers = function (req) {
   var discover = discoverGenerator('User', req);
-  // discover.query.where.public = true;
+  discover.query.where.firstname = {ne: null};
   discover.query.order.push([global.db.sequelize.col('id')]);
   return beforePagination(req, discover);
 };
