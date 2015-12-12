@@ -142,21 +142,21 @@
 			var imageH = Math.round(imageTemp.getHeight() * config.scaleFactor);
       var portion = Math.round(stageW / 3);
 
-      var filters =
-    	'w_' + stageW + ',' +
-    	'h_' + stageH + ',e_colorize,co_rgb:' + color + '/' +
-    	'l_' + baseName + ',b_rgb:' + color + ',' +
-    	'w_' + imageW + ',' +
-    	'h_' + imageH + ',' +
-    	'x_' + x + ',' +
-    	'y_' + y + ',g_north_west/' +
-    	'x_' + (x < 0 ? (x * -1) : 0) + ',' +
-    	'y_' + (y < 0 ? (y * -1) : 0) + ',' +
-    	'w_' + stageW + ',' +
-    	'h_' + stageH + ',c_crop,g_north_west';
-    	var temp = addImageFilter(urlImage, filters);
+      // var filters =
+    	// 'w_' + stageW + ',' +
+    	// 'h_' + stageH + ',e_colorize,co_rgb:' + color + '/' +
+    	// 'l_' + baseName + ',b_rgb:' + color + ',' +
+    	// 'w_' + imageW + ',' +
+    	// 'h_' + imageH + ',' +
+    	// 'x_' + x + ',' +
+    	// 'y_' + y + ',g_north_west/' +
+    	// 'x_' + (x < 0 ? (x * -1) : 0) + ',' +
+    	// 'y_' + (y < 0 ? (y * -1) : 0) + ',' +
+    	// 'w_' + stageW + ',' +
+    	// 'h_' + stageH + ',c_crop,g_north_west';
+    	// var temp = addImageFilter(urlImage, filters);
     	// window.open(temp, '_blank');
-      
+
       config.scaleFactor = 1.5;
       x = Math.round(a.left * config.scaleFactor);
 			y = (Math.round(a.top * config.scaleFactor) - (60 * config.scaleFactor));
@@ -165,6 +165,21 @@
 			imageW = Math.round(imageTemp.getWidth() * config.scaleFactor);
 			imageH = Math.round(imageTemp.getHeight() * config.scaleFactor);
       portion = Math.round(stageW / 3);
+
+      var filters =
+      'w_' + stageW + ',' +
+      'h_' + stageH + ',e_colorize,co_rgb:' + color + '/' +
+      'l_' + baseName + ',b_rgb:' + color + ',' +
+      'w_' + imageW + ',' +
+      'h_' + imageH + ',' +
+      'x_' + x + ',' +
+      'y_' + y + ',g_north_west/' +
+      'x_' + (x < 0 ? (x * -1) : 0) + ',' +
+      'y_' + (y < 0 ? (y * -1) : 0) + ',' +
+      'w_' + stageW + ',' +
+      'h_' + stageH + ',c_crop,g_north_west';
+      var temp = addImageFilter(urlImage, filters);
+      window.open(temp, '_blank');
 
 			filters =
 			'w_' + stageW + ',' +
@@ -177,7 +192,7 @@
 			'x_' + (x < 0 ? (x * -1) : 0) + ',' +
 			'y_' + (y < 0 ? (y * -1) : 0) + ',' +
 			'w_' + Math.round(stageW / 3)+ ',' +
-			'h_' + stageH + ',c_crop,g_north_west/l_left/';
+			'h_' + stageH + ',c_crop,g_north_west/l_left_m';
 			var temp1 = addImageFilter(urlImage, filters);
 			window.open(temp1, '_blank');
 
@@ -192,7 +207,7 @@
 			'x_' + ((x < 0 ? (x * -1) : 0) + Math.round(portion)) + ',' +
 			'y_' + (y < 0 ? (y * -1) : 0) + ',' +
 			'w_' + portion + ',' +
-			'h_' + stageH + ',c_crop,g_north_west/l_center/';
+			'h_' + stageH + ',c_crop,g_north_west/l_center_m';
 			var temp2 = addImageFilter(urlImage, filters);
 			window.open(temp2, '_blank');
 
@@ -207,7 +222,7 @@
   		'x_' + ((x < 0 ? (x * -1) : 0) + Math.round(portion * 2)) + ',' +
   		'y_' + (y < 0 ? (y * -1) : 0) + ',' +
   		'w_' + portion + ',' +
-  		'h_' + stageH + ',c_crop,g_north_west/l_right/';
+  		'h_' + stageH + ',c_crop,g_north_west/l_right_m';
   		var temp3 = addImageFilter(urlImage, filters);
   		window.open(temp3, '_blank');
 		});
