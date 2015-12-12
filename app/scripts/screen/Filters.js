@@ -32,6 +32,7 @@ APP.Filters.prototype.setupUI = function () {
   this.featuredBtn = $('.am-Switch-button');
   this.searchInput = $('.am-Search-input input');
   this.searchBtn = $('.search-btn');
+  this.closeBtn = $('.close-btn');
 
   this.categories = $('[data-meta=category]');
   this.orders = $('[data-meta=order]');
@@ -65,6 +66,13 @@ APP.Filters.prototype.listeners = function () {
   this.searchInput.keypress(this.searchKeyPressHandler.bind(this));
 
   this.navigation.click(this.navigationClickHandler.bind(this));
+
+  this.closeBtn.click(this.closeClickHandler.bind(this));
+};
+
+APP.Filters.prototype.closeClickHandler = function (event) {
+  this.searchInput.val('');
+  this.searchBtn.click();
 };
 
 APP.Filters.prototype.navigationClickHandler = function (event) {
