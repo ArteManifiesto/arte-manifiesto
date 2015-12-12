@@ -59,6 +59,7 @@
 				<i class="bi_interface-search search-btn"></i>
 			</div> -->
 			<table class="options u-margin-top-10">
+			{% if user %}
 				<tr>
 					<td></td>
 					<td><a href="/feed">ART FEED</a></td>
@@ -67,6 +68,7 @@
 					<td></td>
 					<td><p></p></td>
 				</tr>
+			{% endif %}
 				<tr>
 					<td></td>
 					<td><a href="/works/category/all/page-1/?order=popularity">OBRAS</a></td>
@@ -79,6 +81,7 @@
 					<td></td>
 					<td><a href="/collections/category/all/page-1?order=popularity">COLECCIONES</a></td>
 				</tr>
+			{% if user %}
 				<tr>
 					<td><i class="bi_interface-plus"></i></td>
 					<td><a href="/user/{{user.username}}/work/add">SUBIR OBRA</a></td>
@@ -87,6 +90,7 @@
 					<td><i class="bi_interface-bell-a"></i></td>
 					<td><a href="/user/{{user.username}}/notifications">NOTIFICACIONES</a></td>
 				</tr>
+			{% endif %}
 			</table>
 		</div>
 		<div class="right-mobile-menu">
