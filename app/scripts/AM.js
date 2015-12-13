@@ -59,6 +59,11 @@ APP.AM = function () {
       $('#lean_overlay').trigger( "click" );
     }
   });
+
+  $(document).click(function(e) {
+    $('.general-search-options').hide();
+  });
+
   $('.closed-modal').click(function () {
     $('#lean_overlay').trigger( "click" );
   });
@@ -67,6 +72,57 @@ APP.AM = function () {
     event.preventDefault();
     window.location.href = DataApp.discoverWorks + '?term=' + $('.search-box-value').val();
   });
+
+  this.setupUI();
+  this.listeners();
 };
 
 APP.AM.constructor = APP.AM;
+
+APP.AM.prototype.setupUI = function() {
+  this.generalSearch = $('.general-search');
+  this.generalSearchBtn = $('.search-general-btn');
+  this.generalSearchOptions = $('.general-search-options');
+
+  this.worksOption = this.generalSearchOptions.find('.works');
+  this.usersOption = this.generalSearchOptions.find('.users');
+  this.collectionsOption = this.generalSearchOptions.find('.collections');
+};
+
+APP.AM.prototype.listeners = function() {
+  // this.generalSearch.focus(this.searchFocusHandler.bind(this));
+  this.generalSearch.keyup(this.searchKeyUpHandler.bind(this));
+
+  this.generalSearchBtn.click(this.generalSearchBtnClickHandler.bind(this));
+};
+
+APP.AM.prototype.searchFocusHandler = function(event) {
+};
+
+APP.AM.prototype.generalSearchBtnClickHandler = function(event) {
+  var baseUrl = this.getBaseUrl();
+  window.location.href = '/works/category' + baseUrl;
+};
+
+APP.AM.prototype.searchKeyUpHandler = function(event) {
+  var currentValue = this.generalSearch.val();
+  this.generalSearchOptions.show();
+
+  this.worksOption.text(currentValue);
+  this.usersOption.text(currentValue);
+  this.collectionsOption.text(currentValue);
+
+  var baseUrl = this.getBaseUrl();
+
+  this.worksOption.parent().attr('href', '/works/category' + baseUrl);
+  this.usersOption.parent().attr('href', '/users/specialty' + baseUrl);
+  this.collectionsOption.parent().attr('href', '/collections/category' + baseUrl);
+};
+
+APP.AM.prototype.getBaseUrl = function() {
+  var baseUrl = '/all/page-1';
+  var value = this.generalSearch.val();
+  if(value.length > 0)
+    baseUrl += '?term=' + encodeURIComponent(value);
+  return baseUrl;
+}

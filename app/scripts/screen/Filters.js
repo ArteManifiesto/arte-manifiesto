@@ -67,7 +67,7 @@ APP.Filters.prototype.listeners = function () {
   this.searchInput.keypress(this.searchKeyPressHandler.bind(this));
 
   this.navigation.click(this.navigationClickHandler.bind(this));
-  
+
   this.closeBtn.click(this.closeClickHandler.bind(this));
   this.searchInput.keyup();
 };
