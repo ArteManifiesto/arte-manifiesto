@@ -565,6 +565,26 @@ white = #fff
 	.logo
 		max-width 200px
 		margin-right 20px
+	.search
+		position relative
+		.search-options
+			position absolute
+			width 240px
+			left 17px
+			z-index 1
+			background white
+			font-family 'Montserrat', sans-serif
+			color #9b9b9b
+			font-size 11px
+			.search-option
+				padding 10px
+				border-bottom solid 1px #979797
+				border-left solid 1px #979797
+				border-right solid 1px #979797
+				cursor pointer
+				strong
+					color #333
+
 	.options
 		font-family 'Montserrat', sans-serif
 		font-weight bold
@@ -665,16 +685,16 @@ white = #fff
 		transform: translateX(-100%);
 		transition transform .3s
 		overflow: hidden;
-		.am-Search-input2
-			min-width auto
-			overflow hidden
-			i
-				background #eee
-				color #333
-			input
-				border none
-				border-right solid 1px #333
-				box-sizing border-box
+		// .am-Search-input2
+		// 	min-width auto
+		// 	overflow hidden
+		// 	i
+		// 		background #eee
+		// 		color #333
+		// 	input
+		// 		border none
+		// 		border-right solid 1px #333
+		// 		box-sizing border-box
 		.options
 			font-family 'Montserrat', sans-serif
 			font-size 13px
