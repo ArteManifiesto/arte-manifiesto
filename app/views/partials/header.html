@@ -38,8 +38,11 @@
 					{% if user %}
 						<ul class="socials">
 							<a href="/user/{{user.username}}/work/add" class="upload">SUBIR</a>
-							<a href="#" class="notif"></a>
-							<a href="#" class="cart"></a>
+							<a href="/user/{{user.username}}/notifications" class="am-Header-icon">
+								<i class="fa fa-bell-o"></i><span>2</span> &nbsp;
+							</a>
+							<!-- <a href="#" class="notif"></a> -->
+							<!-- <a href="#" class="cart"></a> -->
 						</ul>
 						<div class="avatar">
 							<img src="{{user.photo}}">
