@@ -127,7 +127,7 @@ APP.Viewer.prototype.addItems = function(items) {
       var $items = item.view;
       $items.hide();
       this.container.append($items);
-      var scope = this.container
+      var scope = this.container;
       $items.imagesLoaded().progress(function(imgLoad, image) {
         ++counter;
         var $item = $(image.img).parents('.grid-item');

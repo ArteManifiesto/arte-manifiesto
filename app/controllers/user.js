@@ -32,7 +32,7 @@ exports.profile = function (currentPath, req, res) {
 var getData = function (req, res, options, query) {
   options = global._.assign(options, {
     entity: req.profile, association: true,
-    page: req.params.page, limit: 10
+    page: req.params.page, limit: 50
   });
   query = query || {};
   query = global._.assign(query, {build: true, viewer: req.viewer});

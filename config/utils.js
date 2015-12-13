@@ -20,8 +20,8 @@ global.config = {
   search: {
     entities: ['works', 'users', 'products', 'collections'],
     orders: {
-      works: ['newest', 'popularity', 'hottest'],
-      users: ['newest', 'popularity', 'hottest'],
+      works: ['popularity', 'newest', 'hottest'],
+      users: ['popularity', 'newest', 'hottest'],
       collections: ['newest', 'popularity', 'hottest'],
       products: ['newest', 'popularity', 'hottest', 'price_asc', 'price_desc']
     },
@@ -72,7 +72,7 @@ global.discoverGenerator = function (entity, req) {
   options.entity = entity;
   options.name = 'items';
   options.page = req.params.page;
-  options.limit = 30;
+  options.limit = 50;
 
   var query = {where: {}, build: true};
   query.viewer = req.viewer;
