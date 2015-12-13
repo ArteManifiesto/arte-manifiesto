@@ -18,13 +18,6 @@
             z-index: -1;
         }
 
-        .preview {
-            position: absolute;
-            top: 87px;
-            width: 50px;
-            overflow: hidden;
-        }
-
         .left-preview {
             left: 25px;
         }
@@ -38,24 +31,23 @@
 <canvas id="c1"></canvas>
 <input type="button" name="save" class="save-btn" value="Save">
 </br>
-<!-- <div class="render"> -->
-<!-- <div class="preview left-preview"> -->
-<img class="left" width="120">
-<!-- </div> -->
-<!-- <div class="preview center-preview"> -->
-<img class="center" width="120">
-<!-- </div> -->
-<!-- <div class="preview right-preview"> -->
-<img class="right" width="120">
-
 <input type="color"/>
 <!-- </div> -->
 <!-- </div> -->
 
-<!--
-<img src="/left.png" style="z-index:10;">
-<img src="/center.png">
-<img src="/right.png"> -->
+<div>
+
+<div>
+  <img class="preview" width="120">
+</div>
+
+<img class="original" width="300" height="auto" style="margin-left:300px;">
+  <div>
+    <img class="left" width="300" height="auto">
+    <img class="center" width="300" height="auto">
+    <img class="right" width="300" height="auto">
+  </div>
+</div>
 
 <script>
 
@@ -75,11 +67,11 @@
     });
 
     var rect = new fabric.Rect({
-        width: config.width, height: config.offsetY, left: 0, top: 0, fill: '#FF0',
+        width: config.width, height: config.offsetY, left: 0, top: 0, fill: 'red',
         opacity: 0.5
     });
     var rect2 = new fabric.Rect({
-        width: config.width, height: config.offsetY, left: 0, top: config.height + config.offsetY, fill: '#FF0',
+        width: config.width, height: config.offsetY, left: 0, top: config.height + config.offsetY, fill: 'red',
         opacity: 0.5
     });
 
@@ -122,17 +114,21 @@
 		});
 
     var updateControls = function () {
-      console.log(canvas.toDataURL({
+      var source  = canvas.toDataURL({
         top: config.offsetY,
         left: config.offsetX,
         height: config.height,
-        width: config.weight,
-        multiplier: 2
-      }));
-      	// console.info(JSON.stringify(canvas.toJSON()));
+        width: config.weight
+      });
+      $('.preview').attr('src', source);
     }
 
-		$('.save-btn').click(function(){
+    var original;
+    var left;
+    var center;
+    var right;
+
+		var lel = function(){
 			var a = imageTemp.getBoundingRect();
 			var x = Math.round(a.left * config.scaleFactor);
 			var y = (Math.round(a.top * config.scaleFactor) - (60 * config.scaleFactor));
@@ -165,6 +161,8 @@
 			imageW = Math.round(imageTemp.getWidth() * config.scaleFactor);
 			imageH = Math.round(imageTemp.getHeight() * config.scaleFactor);
       portion = Math.round(stageW / 3);
+      var stripe = 8;
+      var distortion = -13;
 
       var filters =
       'w_' + stageW + ',' +
@@ -178,23 +176,7 @@
       'y_' + (y < 0 ? (y * -1) : 0) + ',' +
       'w_' + stageW + ',' +
       'h_' + stageH + ',c_crop,g_north_west';
-      var temp = addImageFilter(urlImage, filters);
-      window.open(temp, '_blank');
-
-			filters =
-			'w_' + stageW + ',' +
-			'h_' + stageH + ',e_colorize,co_rgb:' + color + '/' +
-			'l_' + baseName + ',b_rgb:' + color + ',' +
-			'w_' + imageW + ',' +
-			'h_' + imageH + ',' +
-			'x_' + x + ',' +
-			'y_' + y + ',g_north_west/' +
-			'x_' + (x < 0 ? (x * -1) : 0) + ',' +
-			'y_' + (y < 0 ? (y * -1) : 0) + ',' +
-			'w_' + Math.round(stageW / 3)+ ',' +
-			'h_' + stageH + ',c_crop,g_north_west/l_left_m';
-			var temp1 = addImageFilter(urlImage, filters);
-			window.open(temp1, '_blank');
+      original = addImageFilter(urlImage, filters);
 
       filters =
 			'w_' + stageW + ',' +
@@ -204,32 +186,58 @@
 			'h_' + imageH + ',' +
 			'x_' + x + ',' +
 			'y_' + y + ',g_north_west/' +
-			'x_' + ((x < 0 ? (x * -1) : 0) + Math.round(portion)) + ',' +
+			'x_' + ((x < 0 ? (x * -1) : 0)) + ',' +
 			'y_' + (y < 0 ? (y * -1) : 0) + ',' +
 			'w_' + portion + ',' +
-			'h_' + stageH + ',c_crop,g_north_west/l_center_m';
-			var temp2 = addImageFilter(urlImage, filters);
-			window.open(temp2, '_blank');
+			'h_' + stageH + ',c_crop,g_north_west/' +
+      'e_distort:0:0:' + portion + ':0:'+ (portion - stripe) +':' + stageH + ':' + stripe + ':' + stageH + '/' +
+      'c_pad,h_2.0,w_1.0/l_radial,e_displace,y_' + distortion + '/e_trim/u_mugleft/w_0.3';
+			left = addImageFilter(urlImage, filters);
 
       filters =
-  		'w_' + stageW + ',' +
-  		'h_' + stageH + ',e_colorize,co_rgb:' + color + '/' +
-  		'l_' + baseName + ',b_rgb:' + color + ',' +
-  		'w_' + imageW + ',' +
-  		'h_' + imageH + ',' +
-  		'x_' + x + ',' +
-  		'y_' + y + ',g_north_west/' +
-  		'x_' + ((x < 0 ? (x * -1) : 0) + Math.round(portion * 2)) + ',' +
-  		'y_' + (y < 0 ? (y * -1) : 0) + ',' +
-  		'w_' + portion + ',' +
-  		'h_' + stageH + ',c_crop,g_north_west/l_right_m';
-  		var temp3 = addImageFilter(urlImage, filters);
-  		window.open(temp3, '_blank');
-		});
+			'w_' + stageW + ',' +
+			'h_' + stageH + ',e_colorize,co_rgb:' + color + '/' +
+			'l_' + baseName + ',b_rgb:' + color + ',' +
+			'w_' + imageW + ',' +
+			'h_' + imageH + ',' +
+			'x_' + x + ',' +
+			'y_' + y + ',g_north_west/' +
+			'x_' + ((x < 0 ? (x * -1) : 0) + (Math.round(portion) * 1 )) + ',' +
+			'y_' + (y < 0 ? (y * -1) : 0) + ',' +
+			'w_' + portion + ',' +
+			'h_' + stageH + ',c_crop,g_north_west/' +
+      'e_distort:0:0:' + portion + ':0:'+ (portion - stripe) +':' + stageH + ':' + stripe + ':' + stageH + '/' +
+      'c_pad,h_2.0,w_1.0/l_radial,e_displace,y_' + distortion + '/e_trim/u_mugcenter/w_0.3';
+			center = addImageFilter(urlImage, filters);
+
+      filters =
+			'w_' + stageW + ',' +
+			'h_' + stageH + ',e_colorize,co_rgb:' + color + '/' +
+			'l_' + baseName + ',b_rgb:' + color + ',' +
+			'w_' + imageW + ',' +
+			'h_' + imageH + ',' +
+			'x_' + x + ',' +
+			'y_' + y + ',g_north_west/' +
+			'x_' + ((x < 0 ? (x * -1) : 0) + (Math.round(portion) * 2)) + ',' +
+			'y_' + (y < 0 ? (y * -1) : 0) + ',' +
+			'w_' + portion + ',' +
+			'h_' + stageH + ',c_crop,g_north_west/' +
+      'e_distort:0:0:' + portion + ':0:'+ (portion - stripe) +':' + stageH + ':' + stripe + ':' + stageH + '/' +
+      'c_pad,h_2.0,w_1.0/l_radial,e_displace,y_' + distortion + '/e_trim/u_mugright/w_0.3';
+  		right = addImageFilter(urlImage, filters);
+
+
+      $('.original').attr('src', original);
+      $('.left').attr('src', left);
+      $('.center').attr('src', center);
+      $('.right').attr('src', right);
+
+		};
+
+    $('.save-btn').click(lel);
 
     canvas.on({
         'mouse:up': updateControls,
-        // 'object:scaling': scaling,
         'object:resizing': updateControls
     });
 
