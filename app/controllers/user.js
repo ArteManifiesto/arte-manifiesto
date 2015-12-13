@@ -43,20 +43,24 @@ var getData = function (req, res, options, query) {
 
 exports.portfolio = function (req, res) {
   var query = req.owner ? {addUser: true} : {addUser: true, where: {public: true}};
+  query.order = [global.getOrder('newest')];
   return getData(req, res, {method: 'getWorks', name: 'works'}, query);
 };
 
 exports.collections = function (req, res) {
   var query = req.owner ? {addUser: true} : {addUser: true, where: {public: true}};
+  query.order = [global.getOrder('newest')];
   return getData(req, res, {method: 'getCollections', name: 'collections'}, query);
 };
 
 exports.followers = function (req, res) {
-  return getData(req, res, {method: 'getFollowers', name: 'followers'});
+  var query = {order: [[global.db.sequelize.col('Followers.createdAt'), 'DESC']]}
+  return getData(req, res, {method: 'getFollowers', name: 'followers'}, query);
 };
 
 exports.followings = function (req, res) {
-  return getData(req, res, {method: 'getFollowings', name: 'followings'});
+  var query = {order: [[global.db.sequelize.col('Followers.createdAt'), 'DESC']]}
+  return getData(req, res, {method: 'getFollowings', name: 'followings'}, query);
 };
 
 var searchNotifications = function (req) {

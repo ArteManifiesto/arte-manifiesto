@@ -54,11 +54,11 @@ APP.EditWorkScreen.prototype.checkPublicHandler = function() {
 APP.EditWorkScreen.prototype.workFormSubmitHandler = function(event) {
   event.preventDefault();
   var errors = [], scope = this;
-  if(!this.uploaderImage.photo) errors.push('photo');
-  if(Validations.notBlank(this.name.val())) errors.push('name');
-  if(Validations.notBlank(this.category.val())) errors.push('category');
-  if(Validations.notBlank(this.description.val())) errors.push('description');
-  if(this.tags.val().split(',')[0].length < 1) errors.push('tags');
+  if(!this.uploaderImage.photo) errors.push('Ingrese una foto');
+  if(Validations.notBlank(this.name.val())) errors.push('Ingrese un nombre');
+  if(Validations.notBlank(this.category.val())) errors.push('Ingrese una categoria');
+  if(Validations.notBlank(this.description.val())) errors.push('Ingrese una descripcion');
+  if(this.tags.val().split(',')[0].length < 1) errors.push('Ingrese etiquetas');
 
   if(errors.length > 0) return this.showFlash('error', errors);
 

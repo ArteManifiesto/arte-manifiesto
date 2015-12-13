@@ -39,9 +39,10 @@ module.exports = function (app, passport) {
         saveUninitialized: false
     }));
     app.use(flash());
-    // app.use(bodyParser.json({limit :'5mb'}));
+
     app.use(bodyParser.urlencoded({extended: false}));
     app.use(express.static(global.cf.public));
+
     /**
      * Passport initialize
      * ====================================================
@@ -56,7 +57,22 @@ module.exports = function (app, passport) {
             successMessage: req.flash('successMessage'),
             errorMessage: req.flash('errorMessage')
         };
-        next();
+
+        if(!req.user) return next();
+
+        var verbs = ['like-work', 'follow-user', 'review-work', 'request-work'];
+        var query = {
+          where: {
+            OwnerId: req.user.id,
+            verb: {$in: [verbs]},
+            seen: false
+          }
+        };
+        global.db.Action.count(query).then(function(total) {
+          res.locals.numOfNotifications = total;
+          next();
+        });
     });
+
     app.use(global.md.check);
 };

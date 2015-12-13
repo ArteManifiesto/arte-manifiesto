@@ -7,7 +7,7 @@ var APP = APP || {};
 APP.AM = function () {
   new APP.RestClientManager();
   new APP.TemplateManager();
-
+  
   // $(window).on("popstate", function(e) {
 	// 		 if (e.originalEvent.state !== null) {
 	// 		 location.reload()
