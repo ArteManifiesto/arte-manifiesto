@@ -60,9 +60,9 @@ APP.AM = function () {
     }
   });
 
-  $(document).click(function(e) {
-    $('.general-search-options').hide();
-  });
+  // $(document).click(function(e) {
+  //   $('.general-search-options').hide();
+  // });
 
   $('.closed-modal').click(function () {
     $('#lean_overlay').trigger( "click" );
@@ -90,13 +90,19 @@ APP.AM.prototype.setupUI = function() {
 };
 
 APP.AM.prototype.listeners = function() {
-  // this.generalSearch.focus(this.searchFocusHandler.bind(this));
+  this.generalSearch.focus(this.searchFocusHandler.bind(this));
+  this.generalSearch.blur(this.searchBlurHandler.bind(this));
   this.generalSearch.keyup(this.searchKeyUpHandler.bind(this));
 
   this.generalSearchBtn.click(this.generalSearchBtnClickHandler.bind(this));
 };
 
 APP.AM.prototype.searchFocusHandler = function(event) {
+  this.generalSearchOptions.show();
+};
+
+APP.AM.prototype.searchBlurHandler = function(event) {
+  this.generalSearchOptions.hide();
 };
 
 APP.AM.prototype.generalSearchBtnClickHandler = function(event) {
