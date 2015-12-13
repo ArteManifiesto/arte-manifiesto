@@ -27,8 +27,9 @@ APP.FeedScreen.prototype.setupUI = function() {
 
   this.viewer = new APP.Viewer('action', $('.feed-inner'), 'infinite', actions);
 
-  $('#go-collection-modal').leanModal();
-  $('#go-share-modal').leanModal();
+  new Clipboard('.copy', {
+    text: this.copyHandler.bind(this)
+  });
 };
 
 APP.FeedScreen.prototype.listeners = function () {
@@ -49,6 +50,15 @@ APP.FeedScreen.prototype.listeners = function () {
 
   this.shareFB.click(this.shareFBHandler.bind(this));
 };
+
+
+APP.FeedScreen.prototype.copyHandler = function(trigger) {
+  $('#lean_overlay').trigger("click");
+  this.showFlash('succes', 'Link Copiado');
+  return DataApp.baseUrl + 'user/' + this.currentWork.User.username +
+        '/work/' + this.currentWork.nameSlugify;
+};
+
 
 APP.FeedScreen.prototype.feedShareHandler = function (event) {
   this.currentWork = event.data.work;

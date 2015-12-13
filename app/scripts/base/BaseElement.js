@@ -8,7 +8,7 @@ var APP = APP || {};
     this.template = APP.TemplateManager.instance.getFromDoc(id);
     this.data = data;
     this.id = id;
-    console.log(this.data);
+    // console.log(this.data);
     var viewHelpers = {
       addFilter: Utils.addImageFilter,
       formatDate: function(date){

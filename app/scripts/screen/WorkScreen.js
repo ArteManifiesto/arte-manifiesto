@@ -22,11 +22,10 @@ APP.WorkScreen.prototype.setupUI = function () {
   new APP.Viewer('carrouselItem', $('.more'), null, more);
   new APP.Viewer('carrouselItem', $('.similar'), null, similar);
 
-  //TODO add review viewer
   this.reviewsContainer = $('.reviews-items-container');
-  for (var i = 0; i <reviews.length; i++) {
+  for (var i = 0; i <reviews.length; i++)
     this.reviewsContainer.append(new APP.Review(reviews[i]).view);
-  }
+
   this.shareFb = $('.share-fb');
   this.askBtn = $('.ask-availability');
   this.loginReview = $('.login-review');
@@ -41,6 +40,10 @@ APP.WorkScreen.prototype.setupUI = function () {
   this.collectionForm = $('.add-collection-form');
   this.reviewForm = $('.review-form');
   this.reviewContainer = $('.reviews-items-container');
+
+  new Clipboard('.copy', {
+    text: this.copyHandler.bind(this)
+  });
 }
 
 APP.WorkScreen.prototype.listeners = function () {
@@ -69,6 +72,13 @@ APP.WorkScreen.prototype.listeners = function () {
   this.followBtn.click(this.followHandler.bind(this));
   this.collectionForm.submit(this.collectionFormHandler.bind(this));
   this.reviewForm.submit(this.reviewFormHandler.bind(this));
+
+};
+
+APP.WorkScreen.prototype.copyHandler = function(trigger) {
+  $('#lean_overlay').trigger("click");
+  this.showFlash('succes', 'Link Copiado');
+  return window.location.href;
 };
 
 APP.WorkScreen.prototype.reviewFormHandler = function(event) {

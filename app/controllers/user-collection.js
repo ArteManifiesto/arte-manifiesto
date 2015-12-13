@@ -1,7 +1,10 @@
 var basePath = 'user/collection/';
 
 exports.index = function (req, res) {
-    var query = {build: true, viewer: req.viewer, addUser:true};
+    var query = {
+      build: true, viewer: req.viewer, addUser:true,
+      order: [[global.db.sequelize.col('CollectionWork.createdAt'), 'DESC']]
+    };
     req.collection.getWorks(query).then(function (works) {
         return res.render(basePath + 'index', {
             collection: req.collection,

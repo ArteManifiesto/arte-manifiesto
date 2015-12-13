@@ -31,6 +31,7 @@ APP.DiscoverScreen.prototype.listeners = function () {
 };
 
 APP.DiscoverScreen.prototype.filterChangedHandler = function (event) {
+
   if (event.meta) $('.' + event.meta + '-text').text(event.newValue);
 
   if (this.filters.term && this.filters.term.length > 0) {
@@ -49,10 +50,6 @@ APP.DiscoverScreen.prototype.filterChangedHandler = function (event) {
     this.featuredText.text('');
   }
 
-  Utils.changeUrl(this.id, DataApp.currentUrl);
-
-  if (this.filters.isInitialized) this.viewer.reset();
-
   var texts = [], currentText;
   $('.navigation > span').filter(function (index, value) {
     if ($(value).css('display') !== 'none')
@@ -67,6 +64,10 @@ APP.DiscoverScreen.prototype.filterChangedHandler = function (event) {
 
   for (i = 0; i < texts.length - 1; i++) {
     texts[i].text(texts[i].text() + ' >').addClass('link');
-    console.log(texts[i].attr('id'));
   }
+
+  if(DataApp.currentUrl === window.location.href) return;
+  
+  Utils.changeUrl(this.id, DataApp.currentUrl);
+  if (this.filters.isInitialized) this.viewer.reset();
 };

@@ -35,7 +35,11 @@ module.exports = function (sequelize, DataTypes) {
           });
         },
         works: function () {
-          var query = {include: [{model: global.db.User}], limit: 3};
+          var query = {
+            include: [{model: global.db.User}], limit: 3,
+            where: {public: true},
+            order: [[global.db.sequelize.col('CollectionWork.createdAt'), 'DESC']]
+          };
           return this.getWorks(query);
         }
       },

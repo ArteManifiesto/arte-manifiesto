@@ -56,7 +56,7 @@ APP.Viewer.prototype.setupMasonry = function() {
 
   $('.discover-content').on('resetLayout', function () {
     console.log('expand');
-    scope.container.masonry()
+    scope.container.masonry();
   })
 };
 
@@ -135,14 +135,18 @@ APP.Viewer.prototype.addItems = function(items) {
         // var $item =
         $(image.img).parents('.grid-item');
         if(counter === items.length) {
-          for(i = 0; i< lel.length; i++) {
-            var it = $('#' + lel[i]);
-            it.show();
-            scope.masonry('appended',it);
-            if(scopetemp.navigationManager)
-              scopetemp.navigationManager.navigator.restart();
-            scope.parent().find('.loading').hide();
-          }
+          var timeout = setTimeout(function() {
+            clearTimeout(timeout);
+            for(i = 0; i< lel.length; i++) {
+              var it = $('#' + lel[i]);
+              it.show();
+              scope.masonry('appended',it);
+              scope.masonry();
+              if(scopetemp.navigationManager)
+                scopetemp.navigationManager.navigator.restart();
+              scope.parent().find('.loading').hide();
+            }
+          }, 1000);
         }
       });
     }
@@ -168,17 +172,17 @@ APP.Viewer.prototype.reset = function() {
 APP.Viewer.prototype.clean = function() {
   this.container.masonry('remove', this.container.find('.grid-item')).masonry();
   this.initialize = false;
-}
+};
 
 APP.Viewer.prototype.suspend = function() {
   this.navigationManager.navigator.suspend();
   this.navigationManager.navigator.removeEventListener(Events.LOAD_START, this.pageStart);
   this.navigationManager.navigator.removeEventListener(Events.LOAD_END, this.pageEnd);
-}
+};
 
 APP.Viewer.prototype.restart = function() {
   this.navigationManager.navigator.addEventListener(Events.LOAD_START, this.pageStart);
   this.navigationManager.navigator.addEventListener(Events.LOAD_END, this.pageEnd);
   this.navigationManager.navigator.restart();
   this.container.masonry();
-}
+};

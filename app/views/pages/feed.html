@@ -40,6 +40,9 @@
 			<div class="share share-tw">
 				<i class="fa fa-twitter"></i>Compartir en twitter
 			</div>
+			<div class="share copy">
+				Copiar link
+			</div>
 		</div>
 	</div>
 
@@ -108,7 +111,10 @@
 		js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=" + DataApp.fbAppID;
 		fjs.parentNode.insertBefore(js, fjs);
 	}(document, 'script', 'facebook-jssdk'));
+	
 	$(function() {
+	  $('#go-collection-modal').leanModal();
+	  $('#go-share-modal').leanModal();
 		new APP.FeedScreen();
 	})
 	</script>
