@@ -41,6 +41,9 @@ APP.WorkScreen.prototype.setupUI = function () {
   this.reviewForm = $('.review-form');
   this.reviewContainer = $('.reviews-items-container');
 
+  this.prevBtn = $('.prev-btn');
+  this.nextBtn = $('.next-btn');
+
   new Clipboard('.copy', {
     text: this.copyHandler.bind(this)
   });
@@ -73,6 +76,15 @@ APP.WorkScreen.prototype.listeners = function () {
   this.collectionForm.submit(this.collectionFormHandler.bind(this));
   this.reviewForm.submit(this.reviewFormHandler.bind(this));
 
+  $(document).bind('keyup', this.documentKeyupHandler.bind(this));
+};
+
+APP.WorkScreen.prototype.documentKeyupHandler = function(event) {
+  if(event.keyCode === 37 && this.prevBtn.length > 0)
+    window.location.href = this.prevBtn.attr('href');
+
+  if(event.keyCode === 39 && this.nextBtn.length > 0)
+    window.location.href = this.nextBtn.attr('href');
 };
 
 APP.WorkScreen.prototype.copyHandler = function(trigger) {
