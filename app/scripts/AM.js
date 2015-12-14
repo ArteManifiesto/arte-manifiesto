@@ -7,7 +7,7 @@ var APP = APP || {};
 APP.AM = function () {
   new APP.RestClientManager();
   new APP.TemplateManager();
-  
+
   // $(window).on("popstate", function(e) {
 	// 		 if (e.originalEvent.state !== null) {
 	// 		 location.reload()
@@ -84,9 +84,9 @@ APP.AM.prototype.setupUI = function() {
   this.generalSearchBtn = $('.search-general-btn');
   this.generalSearchOptions = $('.general-search-options');
 
-  this.worksOption = this.generalSearchOptions.find('.works');
-  this.usersOption = this.generalSearchOptions.find('.users');
-  this.collectionsOption = this.generalSearchOptions.find('.collections');
+  this.worksOption = this.generalSearchOptions.find('.works-option');
+  this.usersOption = this.generalSearchOptions.find('.users-option');
+  this.collectionsOption = this.generalSearchOptions.find('.collections-option');
 };
 
 APP.AM.prototype.listeners = function() {
@@ -102,7 +102,11 @@ APP.AM.prototype.searchFocusHandler = function(event) {
 };
 
 APP.AM.prototype.searchBlurHandler = function(event) {
-  this.generalSearchOptions.hide();
+  var scope = this;
+  var timeout = setTimeout(function() {
+    clearTimeout(timeout);
+    scope.generalSearchOptions.hide();
+  }, 200);
 };
 
 APP.AM.prototype.generalSearchBtnClickHandler = function(event) {
