@@ -33,7 +33,7 @@ APP.User.prototype.followHandlerComplete = function(response) {
     if(this.data.following){
       this.view.find('.am-Follow-button').removeClass('following').text('+Seguir');
     }else {
-      this.view.find('.am-Follow-button').addClass('following').text('-Siguiendo');
+      this.view.find('.am-Follow-button').addClass('following').text('Siguiendo');
     }
     this.data.following = !this.data.following;
   }

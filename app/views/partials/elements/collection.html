@@ -19,7 +19,19 @@
           <div class="collection-card-images">
             <% _.each([0,1,2], function(i) { %>
               <% if(works[i] && works[i].photo) { %>
-                <div class="collection-card-image" style="background-image: url('<%= addFilter(works[i].photo, 'w_300,h_300,c_fill') %>')"></div>
+                <% if (!viewer && works[i].nsfw) { %>
+                    <% if(i === 0) { %>
+                      <div class="collection-card-image" style="background-image: url('<%= addFilter(works[i].photo, 'w_230,h_110,c_fill,e_blur:1500/l_text:Arial_24_bold:NSFW,co_rgb:ffffff') %>')"></div>
+                    <% } else { %>
+                      <div class="collection-card-image" style="background-image: url('<%= addFilter(works[i].photo, 'w_110,h_110,c_fill,e_blur:1500/l_text:Arial_24_bold:NSFW,co_rgb:ffffff') %>')"></div>
+                    <% } %>
+                <% } else { %>
+                    <% if(i === 0) { %>
+                      <div class="collection-card-image" style="background-image: url('<%= addFilter(works[i].photo, 'w_230,h_110,c_fill') %>')"></div>
+                    <% } else { %>
+                      <div class="collection-card-image" style="background-image: url('<%= addFilter(works[i].photo, 'w_110,h_110,c_fill') %>')"></div>
+                    <% } %>
+                <% } %>
               <% } else { %>
                 <div class="collection-card-image empty"></div>
               <% } %>

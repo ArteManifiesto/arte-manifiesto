@@ -20,7 +20,7 @@ global.config = {
   search: {
     entities: ['works', 'users', 'products', 'collections'],
     orders: {
-      works: ['popularity', 'newest', 'hottest'],
+      works: ['newest', 'popularity', 'hottest'],
       users: ['popularity', 'newest', 'hottest'],
       collections: ['newest', 'popularity', 'hottest'],
       products: ['newest', 'popularity', 'hottest', 'price_asc', 'price_desc']
