@@ -125,12 +125,10 @@ APP.AccountIndexScreen.prototype.afterSaveHandler = function(response) {
   this.saveLoading.hide();
   this.save.show();
 	var user = response.data.user;
-  if(context) {
-    var timeout = setTimeout(function() {
-      clearTimeout(timeout);
-      window.location.href = '/user/' + user.username;
-    }, 1000);
-  }
+  var timeout = setTimeout(function() {
+    clearTimeout(timeout);
+    window.location.href = '/user/' + user.username;
+  }, 1000);
 }
 
 APP.AccountIndexScreen.prototype.uploaderImageComplete = function(idImage) {

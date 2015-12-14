@@ -104,7 +104,7 @@ APP.AM.prototype.listeners = function() {
 APP.AM.prototype.subscriptionFormHandler = function(event) {
   event.preventDefault();
   var payload = this.subscriptionForm.serialize();
-
+  
   $.post('/subscribe', payload).then(this.subscriptionComplete.bind(this));
 };
 
