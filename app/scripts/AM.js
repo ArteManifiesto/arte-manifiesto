@@ -84,6 +84,9 @@ APP.AM.prototype.setupUI = function() {
   this.generalSearchBtn = $('.search-general-btn');
   this.generalSearchOptions = $('.general-search-options');
 
+  this.subscriptionForm = $('.subscription-form');
+  this.subscriptionBtn = $('.subscription-btn');
+
   this.worksOption = this.generalSearchOptions.find('.works-option');
   this.usersOption = this.generalSearchOptions.find('.users-option');
   this.collectionsOption = this.generalSearchOptions.find('.collections-option');
@@ -93,8 +96,24 @@ APP.AM.prototype.listeners = function() {
   this.generalSearch.focus(this.searchFocusHandler.bind(this));
   this.generalSearch.blur(this.searchBlurHandler.bind(this));
   this.generalSearch.keyup(this.searchKeyUpHandler.bind(this));
-
   this.generalSearchBtn.click(this.generalSearchBtnClickHandler.bind(this));
+
+  this.subscriptionForm.submit(this.subscriptionFormHandler.bind(this));
+};
+
+APP.AM.prototype.subscriptionFormHandler = function(event) {
+  event.preventDefault();
+  var payload = this.subscriptionForm.serialize();
+
+  $.post('/subscribe', payload).then(this.subscriptionComplete.bind(this));
+};
+
+APP.AM.prototype.subscriptionComplete = function(response) {
+  if(response.data.created) {
+    APP.BaseScreen.prototype.showFlash('succes', 'Suscripcion exitosa');
+  } else {
+    APP.BaseScreen.prototype.showFlash('error', ['Ya estas Suscrito']);
+  }
 };
 
 APP.AM.prototype.searchFocusHandler = function(event) {
@@ -135,4 +154,4 @@ APP.AM.prototype.getBaseUrl = function() {
   if(value.length > 0)
     baseUrl += '?term=' + encodeURIComponent(value);
   return baseUrl;
-}
+};

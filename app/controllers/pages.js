@@ -153,3 +153,12 @@ exports.search = function (entity, req, res) {
     return res.json(data);
   });
 };
+
+exports.subscribe = function(req, res) {
+  var emailParam = {email: req.body.email};
+  var query = {where: emailParam, defaults: emailParam};
+  global.db.Subscriber.findOrCreate(query).then(function(data) {
+    var subscriber = data[0], created = data[1];
+    return res.ok({subscriber: subscriber, created: created}, 'Suscripcion exitosa');
+  });
+};

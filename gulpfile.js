@@ -25,7 +25,7 @@ gulp.task('watch', function () {
 
 gulp.task('scripts', function () {
     return gulp.src(paths.jsDir)
-        //.pipe(uglify({compress: true}))
+        // .pipe(uglify({compress: true}))
         .pipe(concat('app.min.js'))
         .pipe(gulp.dest(paths.publicDir));
 });

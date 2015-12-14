@@ -12,6 +12,8 @@ router.get('/collections/category/:value/:page', controller.collections);
 router.get('/works/category/:value/:page', controller.works);
 router.get('/users/specialty/:value/:page', controller.users);
 
+router.post('/subscribe', controller.subscribe);
+
 router.post('/collections/category/:value/:page', controller.search.bind(null ,'collections'));
 router.post('/works/category/:value/:page', controller.search.bind(null ,'works'));
 router.post('/users/specialty/:value/:page', controller.search.bind(null ,'users'));
