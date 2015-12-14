@@ -44,6 +44,10 @@ APP.AuthScreen.prototype.requestAuthComplete = function (response) {
 
   if(this.meta === 'reset') {
     this.showFlash('succes', 'Contraseña cambiada');
+    var timeout = setTimeout(function() {
+      clearTimeout(timeout);
+      return location.href = '/auth/login';
+    }, 1000);
   }
   else if(this.meta === 'forgot') {
     this.showFlash('succes', 'Se envio el correo');
