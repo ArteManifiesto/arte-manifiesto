@@ -63,6 +63,7 @@ module.exports = function (app, passport) {
         var verbs = ['like-work', 'follow-user', 'review-work', 'request-work'];
         var query = {
           where: {
+            UserId: {$not: [req.user.id]},
             OwnerId: req.user.id,
             verb: {$in: [verbs]},
             seen: false
