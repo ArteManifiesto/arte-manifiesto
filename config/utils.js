@@ -3,6 +3,15 @@ var email = require('../app/controllers/email');
 var _ = require('lodash');
 
 
+global.limits = {
+  usersHome: 4,
+  worksHome: 15,
+  categoriesHome: 8,
+  feed: 10
+};
+
+global.feedVerbs = ['like-work', 'follow-user', 'create-work'];
+
 global.fbPermissions = [
   'email'     , 'user_about_me',
   'user_birthday', 'user_friends',
@@ -255,7 +264,7 @@ global.emails = {
 global.getPaginationEntity = function (options, query, empty) {
   var pages = global.getPagination(options.page, options.limit);
   query = _.assign(query, {offset: pages.offset, limit: pages.limit});
-
+  
   if (empty)
     return {
       items: [],

@@ -37,6 +37,7 @@ module.exports = function (sequelize, DataTypes) {
               }
             },
             hooks: {
+              beforeFind: global.beforeFind,
               afterFind: global.afterFind
             }
         }
