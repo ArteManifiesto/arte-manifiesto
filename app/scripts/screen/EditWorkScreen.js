@@ -85,8 +85,11 @@ APP.EditWorkScreen.prototype.workUpdatedComplete = function(response) {
   this.sendLoading.hide();
   this.send.show();
 
-  var url = DataApp.currentUser.url + '/work/' + this.work.nameSlugify
-  Utils.changeUrl(work.name, url);
+  var url = DataApp.currentUser.url + '/work/' + this.work.nameSlugify;
+  var timeout = setTimeout(function() {
+    clearTimeout(timeout);
+    window.location.href = url;
+  }, 1000);
 };
 
 APP.EditWorkScreen.prototype.workDeleteHandler = function (event) {
