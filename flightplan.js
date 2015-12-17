@@ -9,7 +9,7 @@ var tmpDir = appName + '-' + new Date().getTime();
 // configuration
 plan.target('staging', [
   {
-    host: '104.131.108.229',
+    host: '159.203.120.86',
     username: username,
     agent: process.env.SSH_AUTH_SOCK
   }
@@ -17,7 +17,7 @@ plan.target('staging', [
 
 plan.target('production', [
   {
-    host: '104.131.108.229',
+    host: '159.203.120.86',
     username: username,
     agent: process.env.SSH_AUTH_SOCK
   },
@@ -52,6 +52,6 @@ plan.remote(function(remote) {
 
   remote.log('Reload application');
   remote.sudo('ln -snf ~/' + tmpDir + ' ~/'+appName, {user: username});
-  remote.exec('pm2 restart app ', {failsafe: true});
-  // remote.exec('pm2 start ~/'+appName+'/'+startFile);
+  remote.exec('pm2 stop ~/'+appName+'/'+startFile, {failsafe: true});
+  remote.exec('pm2 start ~/'+appName+'/'+startFile);
 });
