@@ -83,6 +83,7 @@ APP.AccountIndexScreen.prototype.completeFormHandler = function(event) {
     if(Validations.notBlank(this.firstname.val())) errors.push('Ingrese sus nombre');
     if(Validations.notBlank(this.lastname.val())) errors.push('Ingrese sus apellidos');
     if(Validations.notBlank(this.username.val())) errors.push('Ingrese su nombre de usuario');
+    if(!Validations.username(this.username.val())) errors.push('Nombre de usuario solo acepta numeros y letras');
     if(Validations.notBlank(this.gender.val())) errors.push('Ingrese su genero');
     if(Validations.notBlank(this.birthday.val())) errors.push('Ingrese su cumpleaños');
     if(Validations.notBlank(this.country.val())) errors.push('Ingrese su pais');
