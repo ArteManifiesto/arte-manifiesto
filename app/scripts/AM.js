@@ -7,7 +7,7 @@ var APP = APP || {};
 APP.AM = function () {
   new APP.RestClientManager();
   new APP.TemplateManager();
-
+  
   // $(window).on("popstate", function(e) {
 	// 		 if (e.originalEvent.state !== null) {
 	// 		 location.reload()
@@ -99,12 +99,23 @@ APP.AM.prototype.listeners = function() {
   this.generalSearchBtn.click(this.generalSearchBtnClickHandler.bind(this));
 
   this.subscriptionForm.submit(this.subscriptionFormHandler.bind(this));
+  this.subscriptionBtn.click(this.subscriptionHandler.bind(this));
+};
+
+APP.AM.prototype.subscriptionHandler = function(event) {
+  this.subscriptionForm.submit();
 };
 
 APP.AM.prototype.subscriptionFormHandler = function(event) {
   event.preventDefault();
-  var payload = this.subscriptionForm.serialize();
-  
+
+  var errors = [];
+  if(Validations.notBlank(this.name.val())) errors.push('Ingrese un nombre');
+
+  if(errors.length > 0) return this.showFlash('error', errors);
+
+  // var payload = {email: };
+
   $.post('/subscribe', payload).then(this.subscriptionComplete.bind(this));
 };
 

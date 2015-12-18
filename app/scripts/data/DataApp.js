@@ -34,5 +34,9 @@ var Validations = {
   username: function(value) {
     var re = new RegExp(/^[a-zA-Z0-9]+$/);
     return re.test(value);
+  },
+  email: function() {
+    var re = new RegExp(/^\w+@\w+\.\w{2,3}$/);
+    return res.test(value);
   }
 }
