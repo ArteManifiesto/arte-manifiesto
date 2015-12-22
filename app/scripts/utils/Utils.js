@@ -85,13 +85,10 @@ Utils = {
   },
   checkAuthentication: function () {
     if (!DataApp.currentUser) {
-      var redirectUrl = null;
-      if (window.location.href.indexOf('auth') === -1) {
-        redirectUrl = DataApp.loginUrl + '/?returnTo=' + window.location.href;
-      } else {
-        redirectUrl = DataApp.loginUrl;
-      }
-      window.location.href = redirectUrl;
+      if (window.location.href.indexOf('auth') === -1)
+        Cookies.set('return_to', window.location.href);
+
+      window.location.href = DataApp.loginUrl;
     }
   },
   share: {
@@ -113,7 +110,6 @@ Utils = {
   removeURLParameter: function (url, parameter) {
     var urlparts = url.split('?');
     if (urlparts.length >= 2) {
-
       var prefix = encodeURIComponent(parameter) + '=';
       var pars = urlparts[1].split(/[&;]/g);
 

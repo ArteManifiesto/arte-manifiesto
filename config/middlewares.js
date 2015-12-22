@@ -23,8 +23,10 @@ exports.isOwner = function (req, res, next) {
 exports.isAdmin = function (req, res, next) {
     if (!req.isAuthenticated() || !req.user.isAdmin) {
       if (req.xhr)
-          return res.badRequest('Necesitas ser admin');
-      return res.redirect('/');
+          return res.badRequest('Necesitas ser administrador');
+
+      req.flash('errorMessage', 'Necesitas ser administrador');
+      return res.redirect('/auth/login');
     }
     next();
 };

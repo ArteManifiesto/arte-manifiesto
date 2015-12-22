@@ -25,6 +25,7 @@
     "email-templates": "^1.2.0",
     "express": "^4.12.4",
     "express-session": "^1.10.3",
+    "express-subdomain": "^1.0.4",
     "forever": "^0.15.1",
     "json-response": "0.0.2",
     "lodash": "^3.3.1",

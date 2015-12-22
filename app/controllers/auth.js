@@ -2,16 +2,10 @@ var passport = require('passport');
 var moment = require('moment');
 var simple_recaptcha = require('simple-recaptcha-new');
 
-var checkReturnTo = function (req, res) {
-  var returnTo = req.query.returnTo || req.protocol + '://' + req.get('host');
-  res.cookie('returnTo', returnTo, {maxAge: 900000, httpOnly: true});
-};
-
 /**
  * Show the view page for signup
  */
 exports.signupPage = function (req, res) {
-  checkReturnTo(req, res);
   var profile = req.cookies.profile;
   res.clearCookie('profile');
   return res.render('auth/signup', {profile: profile});
@@ -57,7 +51,6 @@ exports.check = function (req, res) {
  * Show the view page for login
  */
 exports.loginPage = function (req, res) {
-  checkReturnTo(req, res);
   return res.render('auth/login');
 };
 
@@ -108,10 +101,7 @@ var loginUser = function (req, res, user) {
     if (err)
       return res.internalServerError('No se pudo iniciar sesion');
 
-    checkReturnTo(req, res);
-    var returnTo = req.cookies.returnTo || req.protocol + '://' + req.get('host') + '/feed';
-
-    res.clearCookie('returnTo');
+    var returnTo = req.cookies.return_to;
 
     if (!req.xhr)
       return res.redirect(returnTo);
@@ -181,7 +171,6 @@ exports.resetVerify = function (req, res) {
   if (req.body.password !== req.body.confirm_password)
     return res.badRequest({errors: ['Contraseñas no son iguales']}, 'Error');
 
-  console.log('req.body', req.body.token);
   var query = {where: {tokenResetPassword: req.body.token}};
   global.db.User.find(query).then(function (user) {
     if(!user)

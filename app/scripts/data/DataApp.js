@@ -17,6 +17,7 @@ DataApp.currentUrl = window.location.href.replace(/\/$/g, '');
 DataApp.currentUrl = DataApp.currentUrl.replace(/#_=_$/g, '');
 DataApp.fbAppID = '1473636902857068';
 
+
 var Events = {};
 Events.LOAD_START = 'loadStart';
 Events.LOAD_END = 'loadEnd';

@@ -54,6 +54,7 @@ module.exports = function (app, passport) {
         req.viewer = req.user ? req.user.id : -1;
         res.locals = {
             user: req.user,
+            env: process.env.NODE_ENV,
             successMessage: req.flash('successMessage'),
             errorMessage: req.flash('errorMessage')
         };
