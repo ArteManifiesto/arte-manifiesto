@@ -17,7 +17,7 @@ var userRouter = require(global.cf.routes + '/user');
 exports.init = function (app) {
   app.use(subdomain('blog', blogRouter));
   app.use(subdomain('admin', adminRouter));
-
+  
   app.use('/', pagesRouter);
   app.use('/auth', authRouter);
   app.use('/user/:username', userRouter);

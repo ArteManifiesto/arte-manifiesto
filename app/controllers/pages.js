@@ -28,6 +28,10 @@ exports.index = function (req, res) {
   });
 };
 
+exports.landing = function(req, res) {
+  return res.render(basePath + 'landing');
+};
+
 var searchFeed = function (req) {
   return req.user.getFollowings().then(function (result) {
     var followings = global._.pluck(result, 'id');
