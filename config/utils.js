@@ -7,7 +7,8 @@ global.limits = {
   usersHome: 4,
   worksHome: 15,
   categoriesHome: 8,
-  feed: 10
+  feed: 10,
+  blog: 20
 };
 
 global.feedVerbs = ['like-work', 'follow-user', 'create-work'];
@@ -264,7 +265,7 @@ global.emails = {
 global.getPaginationEntity = function (options, query, empty) {
   var pages = global.getPagination(options.page, options.limit);
   query = _.assign(query, {offset: pages.offset, limit: pages.limit});
-  
+
   if (empty)
     return {
       items: [],

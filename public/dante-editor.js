@@ -2136,12 +2136,12 @@ var uploading = false;
         fail: function (e, data) {
           console.log("Upload failed");
         }
-      })
-      $uploader.fileupload('option', 'formData').file = file;
-      $uploader.fileupload('add', { files: [ file ] });
-      $uploader.off('onprogress')
-      return $uploader.off('cloudinarydone').on('cloudinarydone', function (e, data) {
-        handleUp(Utils.addImageFilter(data.result.url, 'w_640,c_limit,q_80'));
+      });
+
+      $uploader.off('cloudinarydone').on('cloudinarydone', function (e, data) {
+        console.log('cloudinary');
+        console.log(data);
+        // handleUp(Utils.addImageFilter(data.result.url, 'w_640,c_limit,q_80'));
       });
       // return
       // return $.ajax({
