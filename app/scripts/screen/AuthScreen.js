@@ -6,7 +6,10 @@ var APP = APP || {};
 
 APP.AuthScreen = function (meta) {
   this.meta = meta;
+  
   APP.BaseScreen.call(this, 'auth');
+
+  console.log(Cookies.get('return_to'));
 };
 
 APP.AuthScreen.constructor = APP.AuthScreen;
@@ -42,14 +45,14 @@ APP.AuthScreen.prototype.requestAuthComplete = function (response) {
   $('.submit').show();
   $('.submit-loading').hide();
 
-  if(this.meta === 'reset') {
+  if (this.meta === 'reset') {
     this.showFlash('succes', 'Contraseña cambiada');
-    var timeout = setTimeout(function() {
+    var timeout = setTimeout(function () {
       clearTimeout(timeout);
       return location.href = '/auth/login';
     }, 1000);
   }
-  else if(this.meta === 'forgot') {
+  else if (this.meta === 'forgot') {
     this.showFlash('succes', 'Se envio el correo');
   }
   else {
