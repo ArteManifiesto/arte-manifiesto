@@ -1863,6 +1863,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
       $progressbar.css('width', progress + '%');
 
       if (progress === 0) {
+        Broadcaster.dispatchEvent('imageProgressComplete');
         $progressbar.remove();
       }
     }

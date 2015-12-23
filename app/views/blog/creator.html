@@ -25,6 +25,9 @@
 </head>
 <body>
 
+<p>
+  status : <span class="status">Inicio</span>
+</p>
 <div id="container">
     {{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: {
     style: "width:230px;height:55px;top:-70px;left: 105px;" } })}}
@@ -71,20 +74,31 @@
         });
 
         var uploadingImage = false;
+
+        var $status = $('.status');
+
+        Broadcaster.addEventListener('imageProgressComplete', function () {
+            uploadingImage = true;
+            $status.text('Procesando imagen....');
+            console.log('started');
+        });
+
         Broadcaster.addEventListener('imageStarted', function () {
             uploadingImage = true;
+            $status.text('Cargando imagen....');
             console.log('started');
         });
 
         Broadcaster.addEventListener('imageLoaded', function () {
             uploadingImage = false;
-            console.log('loaded');
+            $status.text('Imagen cargada');
         });
 
         var triggerAutoSave = function (event, editable) {
             if (uploadingImage) return console.log('subiendo imagen');
             var payload = {body: editor.serialize()['element-0']['value']};
-            console.log(payload);
+
+            $status.text('Guardando.....');
             if(!post) {
               var url = '/post/create';
               $.post(url, payload).then(function(response) {
@@ -95,6 +109,7 @@
               payload.idPost = post.id;
               $.post(url, payload).then(function(response) {
                 post = response.data.post;
+                $status.text('✓ guardado');
               });
             }
         };
