@@ -25,9 +25,9 @@
 </head>
 <body>
 
-<p>
-  status : <span class="status">Inicio</span>
-</p>
+<h6>
+  estado : <span class="status">Inicio</span>
+</h6>
 <div id="container">
     {{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: {
     style: "width:230px;height:55px;top:-70px;left: 105px;" } })}}
@@ -53,10 +53,6 @@
 <script src="/medium-editor-insert-plugin.js"></script>
 
 <script>
-    var Events = {
-        CREATOR_READY: 'creatorReady'
-    };
-
     var post = {{post|json|safe}} || null;
 
     $(function () {

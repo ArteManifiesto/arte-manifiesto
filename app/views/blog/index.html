@@ -10,7 +10,9 @@
     <ul>
       {% for post in data.items %}
         <li>
-          <a href="/creator/?idPost={{post.id}}">{{post.id}}</a>
+          {{post.id}}
+          <a href="/post/{{post.id}}">ver</a>
+          <a href="/creator/?idPost={{post.id}}">editar</a>
         </li>
       {% endfor %}
     </ul>

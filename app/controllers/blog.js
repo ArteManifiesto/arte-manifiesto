@@ -55,8 +55,10 @@ exports.creator = function (req, res) {
 };
 
 exports.postPage = function (req, res) {
-  return res.render(basePath + 'post', {
-    post: req.post
+  global.db.Post.findById(req.params.id).then(function(post) {
+    return res.render(basePath + 'post', {
+      post: post
+    });
   });
 };
 
