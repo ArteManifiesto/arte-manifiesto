@@ -31,7 +31,7 @@
 
 <div id="container">
     {{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: {
-    style: "width:230px;height:55px;top:-70px;left: 105px;" } })}}
+    style: "width:230px;height:55px;top:-70px;left: 105px;", multiple:1 } })}}
 
     <div class="editable">
         {% if post %}
@@ -65,12 +65,22 @@
             targetBlank: true,
             imageDragging: false,
             toolbar: {
-                buttons: ['h2', 'h3', 'bold', 'italic', 'underline', 'strikethrough', 'quote', 'anchor', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'orderedlist', 'unorderedlist']
+                buttons: [
+                'h2', 'h3', 'bold', 'italic', 'quote', 'anchor'
+              ]
             }
         });
 
         $('.editable').mediumInsert({
-            editor: editor
+            editor: editor,
+            addons: {
+              images: {
+                styles: {
+                  grid: false
+                }
+              },
+              embeds: false
+            }
         });
 
         var uploadingImage = false;
@@ -79,19 +89,19 @@
 
         Broadcaster.addEventListener('imageProgressComplete', function () {
             uploadingImage = true;
-            $status.text('Procesando imagen....');
+            $status.text('Procesando imagenes....');
             console.log('started');
         });
 
         Broadcaster.addEventListener('imageStarted', function () {
             uploadingImage = true;
-            $status.text('Cargando imagen....');
+            $status.text('Cargando imagenes....');
             console.log('started');
         });
 
         Broadcaster.addEventListener('imageLoaded', function () {
             uploadingImage = false;
-            $status.text('Imagen cargada');
+            $status.text('Imagenes cargadas');
         });
 
         var triggerAutoSave = function (event, editable) {

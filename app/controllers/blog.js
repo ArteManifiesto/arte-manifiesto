@@ -62,7 +62,7 @@ exports.postPage = function (req, res) {
     post = post.toJSON();
     return res.render(basePath + 'post', {
       post: global._.omit(post, 'body'),
-      postBody: post.body,
+      postBody: post.body
     });
   });
 };

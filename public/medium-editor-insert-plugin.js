@@ -1621,6 +1621,8 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
     this.templates = window.MediumInsert.Templates;
     this.core = this.$el.data('plugin_' + pluginName);
 
+    this.isFinished = false;
+
     this.options = $.extend(true, {}, defaults, options);
 
     this._defaults = defaults;
@@ -1740,9 +1742,9 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
         $.proxy(that, 'uploadProgress', e, data)();
       };
 
-      // fileUploadOptions.progressall = function (e, data) {
-      //   $.proxy(that, 'uploadProgressall', e, data)();
-      // };
+      fileUploadOptions.progressall = function (e, data) {
+        $.proxy(that, 'uploadProgressall', e, data)();
+      };
     }
 
     $file.fileupload($.extend(true, {}, this.options.fileUploadOptions, fileUploadOptions));
@@ -1798,22 +1800,36 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
         // If preview is set to true, let the showImage handle the upload start
         if (that.options.preview) {
           reader = new FileReader();
-
           reader.onload = function (e) {
-            var img = new Image();
-            img.onload = function () {
-              if ((this.width > 1200) && (this.height))
-                return alert("choose another file");
-
-              $.proxy(that, 'showImage', e.target.result, data)();
-            };
-            img.src = e.target.result;
+            var arrayBuffer = reader.result;
+            var blob = new Blob([arrayBuffer], {type: data.files[0].type});
+            var url = URL.createObjectURL(blob);
+            $.proxy(that, 'showImage', url, data)();
           };
-
-          reader.readAsDataURL(data.files[0]);
+          reader.readAsArrayBuffer(data.files[0]);
         } else {
           data.submit();
         }
+
+        // if (that.options.preview) {
+        //   reader = new FileReader();
+        //
+        //   // reader.onload = function (e) {
+        //   //   var img = new Image();
+        //   //   img.onload = function () {
+        //   //     if ((this.width > 1200) && (this.height))
+        //   //       return alert("choose another file");
+        //   //     $.proxy(that, 'showImage', e.target.result, data)();
+        //   //   };
+        //   //   img.src = e.target.result;
+        //   // };
+        //   reader.readAsArrayBuffer(data.files[0]);
+        //   var blob = new Blob([arrayBuffer], {type: data.files[0].type});
+        //   var url = URL.createObjectURL(blob);
+        //   console.
+        // } else {
+        //   data.submit();
+        // }
       });
     }
   };
@@ -1830,7 +1846,8 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
   Images.prototype.uploadProgressall = function (e, data) {
     var progress, $progressbar;
 
-    if (this.options.preview === false) {
+
+    if (this.options.preview) {
       progress = parseInt(data.loaded / data.total * 100, 10);
       $progressbar = this.$el.find('.medium-insert-active').find('progress');
 
@@ -1839,6 +1856,9 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
         .text(progress);
 
       if (progress === 100) {
+        this.isFinished = true;
+        Broadcaster.dispatchEvent('imageProgressComplete');
+        console.log('complete');
         $progressbar.remove();
       }
     }
@@ -1863,7 +1883,6 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
       $progressbar.css('width', progress + '%');
 
       if (progress === 0) {
-        Broadcaster.dispatchEvent('imageProgressComplete');
         $progressbar.remove();
       }
     }
@@ -1910,7 +1929,9 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
     if (this.options.preview && data.context) {
       domImage = this.getDOMImage();
       domImage.onload = function () {
-        Broadcaster.dispatchEvent('imageLoaded');
+        if(that.isFinished) {
+          Broadcaster.dispatchEvent('imageLoaded');
+        }
         data.context.find('img').attr('src', domImage.src);
         that.core.triggerInput();
       };
