@@ -9,33 +9,34 @@
     <link rel="stylesheet" href="/default.css">
     <link rel="stylesheet" href="/medium-editor-insert-plugin.css">
     <style>
-  	.hide {
-  		display: none;
-  	}
-  	.cloudinary-fileupload
-  {
-  	border: none;
-  	cursor: pointer;
-  	opacity: 0;
-  	padding: 0;
-  	position: absolute;
-  	top: 0;
-  }
-  	</style>
+        .hide {
+            display: none;
+        }
+
+        .cloudinary-fileupload {
+            border: none;
+            cursor: pointer;
+            opacity: 0;
+            padding: 0;
+            position: absolute;
+            top: 0;
+        }
+    </style>
 </head>
 <body>
 
 <h6>
-  estado : <span class="status">Inicio</span>
+    estado : <span class="status">Inicio</span>
 </h6>
+
 <div id="container">
     {{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: {
     style: "width:230px;height:55px;top:-70px;left: 105px;" } })}}
 
     <div class="editable">
-      {% if post %}
-        {{post.body|safe}}
-      {% endif %}
+        {% if post %}
+          {{postBody|safe}}
+        {% endif %}
     </div>
 </div>
 
@@ -53,7 +54,8 @@
 <script src="/medium-editor-insert-plugin.js"></script>
 
 <script>
-    var post = {{post|json|safe}} || null;
+  var post = {{post|json|safe}};
+  console.log(post);
 
     $(function () {
         $.cloudinary.config({{cloudinary.config()|json|safe}});
@@ -63,7 +65,7 @@
             targetBlank: true,
             imageDragging: false,
             toolbar: {
-              buttons: ['h2', 'h3', 'bold', 'italic', 'underline', 'strikethrough', 'quote', 'anchor', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull','orderedlist', 'unorderedlist']
+                buttons: ['h2', 'h3', 'bold', 'italic', 'underline', 'strikethrough', 'quote', 'anchor', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'orderedlist', 'unorderedlist']
             }
         });
 
@@ -97,18 +99,18 @@
             var payload = {body: editor.serialize()['element-0']['value']};
 
             $status.text('Guardando.....');
-            if(!post) {
-              var url = '/post/create';
-              $.post(url, payload).then(function(response) {
-                post = response.data.post;
-              });
+            if (!post) {
+                var url = '/post/create';
+                $.post(url, payload).then(function (response) {
+                    post = response.data.post;
+                });
             } else {
-              var url = '/post/update';
-              payload.idPost = post.id;
-              $.post(url, payload).then(function(response) {
-                post = response.data.post;
-                $status.text('✓ guardado');
-              });
+                var url = '/post/update';
+                payload.idPost = post.id;
+                $.post(url, payload).then(function (response) {
+                    post = response.data.post;
+                    $status.text('✓ guardado');
+                });
             }
         };
 

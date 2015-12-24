@@ -46,8 +46,11 @@ exports.creator = function (req, res) {
   };
 
   global.db.Post.find(query).then(function (post) {
+    post = post.toJSON();
+
     return res.render(view, {
-      post: post,
+      post: global._.omit(post, 'body'),
+      postBody: post.body,
       cloudinary: global.cl,
       cloudinayCors: global.cl_cors,
     });
@@ -56,23 +59,21 @@ exports.creator = function (req, res) {
 
 exports.postPage = function (req, res) {
   global.db.Post.findById(req.params.id).then(function(post) {
+    post = post.toJSON();
     return res.render(basePath + 'post', {
-      post: post
+      post: global._.omit(post, 'body'),
+      postBody: post.body,
     });
   });
 };
 
 exports.postCreate = function (req, res) {
-  console.log('post create');
-  console.log(req.body);
   global.db.Post.create(req.body).then(function(post) {
     return res.ok({post: post}, 'post');
   });
 };
 
 exports.postUpdate = function (req, res) {
-  console.log('post update');
-  console.log(req.body);
   req.post.updateAttributes(req.body).then(function(post) {
     return res.ok({post: post}, 'post');
   });
