@@ -116,7 +116,14 @@
 
         var triggerAutoSave = function (event, editable) {
             if (uploadingImage) return console.log('subiendo imagen');
-            var payload = {body: editor.serialize()['element-0']['value']};
+            var b = editor.serialize()['element-0']['value'];
+            var $editable = $(editable);
+
+            var payload = {
+              body: b,
+              description: $editable.find('p').text().substr(0, 300),
+              photo: $editable.find('img').attr('src')
+            };
 
             $status.text('Guardando.....');
             if (!post) {

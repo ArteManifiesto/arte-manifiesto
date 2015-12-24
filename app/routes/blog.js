@@ -7,7 +7,7 @@ var entity = 'Post';
 
 router.get('/', controller.index);
 
-router.get('/draft', controller.draft);
+// router.get('/draft', controller.draft);
 
 router.post('/:page', controller.posts);
 
