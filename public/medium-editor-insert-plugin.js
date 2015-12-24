@@ -1621,7 +1621,6 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
     this.templates = window.MediumInsert.Templates;
     this.core = this.$el.data('plugin_' + pluginName);
 
-    this.isFinished = false;
 
     this.options = $.extend(true, {}, defaults, options);
 
@@ -1638,6 +1637,8 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
       this.core.getEditor()._serializePreImages = this.core.getEditor().serialize;
       this.core.getEditor().serialize = this.editorSerialize;
     }
+
+    this.jqXHR = [];
 
     this.init();
   }
@@ -1804,6 +1805,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
             var arrayBuffer = reader.result;
             var blob = new Blob([arrayBuffer], {type: data.files[0].type});
             var url = URL.createObjectURL(blob);
+            that.jqXHR.push({data: data, url: url});
             $.proxy(that, 'showImage', url, data)();
           };
           reader.readAsArrayBuffer(data.files[0]);
@@ -1856,9 +1858,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
         .text(progress);
 
       if (progress === 100) {
-        this.isFinished = true;
         Broadcaster.dispatchEvent('imageProgressComplete');
-        console.log('complete');
         $progressbar.remove();
       }
     }
@@ -1928,12 +1928,19 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
     that = this;
     if (this.options.preview && data.context) {
       domImage = this.getDOMImage();
+
       domImage.onload = function () {
-        if(that.isFinished) {
-          Broadcaster.dispatchEvent('imageLoaded');
+        for(var i = 0; i < that.jqXHR.length; i++) {
+          if(that.jqXHR[i].url === data.context.find('img').attr('src'))
+            that.jqXHR.splice(i, 1);
         }
+
         data.context.find('img').attr('src', domImage.src);
         that.core.triggerInput();
+
+        if(that.jqXHR.length === 0) {
+          Broadcaster.dispatchEvent('imageLoaded');
+        }
       };
       domImage.src = img;
     } else {
@@ -2046,9 +2053,17 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
       $image = this.$el.find('.medium-insert-image-active');
 
       if ($image.length) {
+        for(var i = 0; i < this.jqXHR.length; i++) {
+          if(this.jqXHR[i].url === $image[0].currentSrc) {
+            console.log('carga abortada ._.');
+            this.jqXHR[i].data.abort();
+            this.jqXHR.splice(i, 1);
+          }
+        }
+
         e.preventDefault();
 
-        this.deleteFile($image.attr('src'));
+        // this.deleteFile($image.attr('src'));
 
         $parent = $image.closest('.medium-insert-images');
         $image.closest('figure').remove();
@@ -2069,28 +2084,13 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
           this.core.moveCaret($empty);
         }
 
+
+        if(this.jqXHR.length === 0) {
+          Broadcaster.dispatchEvent('imageLoaded');
+        }
+
         this.core.triggerInput();
       }
-    }
-  };
-
-  /**
-   * Makes ajax call to deleteScript
-   *
-   * @param {String} file File name
-   * @returns {void}
-   */
-
-  Images.prototype.deleteFile = function (file) {
-    if (this.options.deleteScript) {
-      // If deleteMethod is somehow undefined, defaults to POST
-      var method = this.options.deleteMethod || 'POST';
-
-      $.ajax({
-        url: this.options.deleteScript,
-        type: method,
-        data: {file: file}
-      });
     }
   };
 

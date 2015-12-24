@@ -50,7 +50,7 @@
 <script src='/jquery.cloudinary.js'></script>
 <script src='/broadcaster.js'></script>
 
-<script src="//cdn.jsdelivr.net/medium-editor/latest/js/medium-editor.min.js"></script>
+<script src="/medium-editor.js"></script>
 <script src="/medium-editor-insert-plugin.js"></script>
 
 <script>
@@ -83,7 +83,6 @@
         var $status = $('.status');
 
         Broadcaster.addEventListener('imageProgressComplete', function () {
-            uploadingImage = true;
             $status.text('Procesando imagenes....');
             console.log('started');
         });
@@ -108,6 +107,7 @@
                 var url = '/post/create';
                 $.post(url, payload).then(function (response) {
                     post = response.data.post;
+                    $status.text('✓ guardado');
                 });
             } else {
                 var url = '/post/update';
@@ -119,8 +119,23 @@
             }
         };
 
-        var throttledAutoSave = MediumEditor.util.throttle(triggerAutoSave, 1000);
+        var throttledAutoSave = MediumEditor.util.throttle(triggerAutoSave, 3000);
         editor.subscribe('editableInput', throttledAutoSave);
+
+        window.onbeforeunload = function(evt) {
+          if(uploadingImage) {
+            var message = 'Aun no se han guardado tus cambios!';
+            if (typeof evt == 'undefined') {
+                evt = window.event;
+            }
+            if (evt) {
+                evt.returnValue = message;
+            }
+
+            return message;
+          }
+
+}
     });
 </script>
 </body>
