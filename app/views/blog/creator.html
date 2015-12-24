@@ -29,6 +29,10 @@
     estado : <span class="status">Inicio</span>
 </h6>
 
+<button class="publish-btn">
+  publicar
+</button>
+
 <div id="container">
     {{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: {
     style: "width:230px;height:55px;top:-70px;left: 105px;", multiple:1 } })}}
@@ -71,6 +75,17 @@
             }
         });
 
+        $('.publish-btn').click(function() {
+          if(!post) return alert('Necesitas escribir algo =)');
+
+          var url = '/post/update';
+          var payload = {published:true}
+          payload.idPost = post.id;
+          $.post(url, payload).then(function (response) {
+            alert('publicado');
+          });
+        });
+
         $('.editable').mediumInsert({
             editor: editor,
             addons: {
@@ -95,6 +110,7 @@
 
         Broadcaster.addEventListener('imageLoaded', function () {
             uploadingImage = false;
+            triggerAutoSave(null, null);
             $status.text('Imagenes cargadas');
         });
 
@@ -119,7 +135,7 @@
             }
         };
 
-        var throttledAutoSave = MediumEditor.util.throttle(triggerAutoSave, 3000);
+        var throttledAutoSave = MediumEditor.util.throttle(triggerAutoSave, 1000);
         editor.subscribe('editableInput', throttledAutoSave);
 
         window.onbeforeunload = function(evt) {

@@ -1,9 +1,11 @@
 var basePath = 'blog/';
 
-var searchPosts = function (req) {
+var searchPosts = function (req, addQuery) {
   var query = {
     order: [global.getOrder('newest')]
   };
+
+
 
   var page = req.params.page ? req.params.page : 'page-1';
   var options = {
@@ -17,7 +19,6 @@ var searchPosts = function (req) {
 
 exports.index = function (req, res) {
   searchPosts(req).then(function (data) {
-    console.log(data);
     return res.render(basePath + 'index', {
       data: data
     });

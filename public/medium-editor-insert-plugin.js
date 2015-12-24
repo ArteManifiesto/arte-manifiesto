@@ -1939,6 +1939,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
         that.core.triggerInput();
 
         if(that.jqXHR.length === 0) {
+          console.log('everything was onloaded');
           Broadcaster.dispatchEvent('imageLoaded');
         }
       };
@@ -2086,6 +2087,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
 
 
         if(this.jqXHR.length === 0) {
+          console.log('because it was canceled');
           Broadcaster.dispatchEvent('imageLoaded');
         }
 

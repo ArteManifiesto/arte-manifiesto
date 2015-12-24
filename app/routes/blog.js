@@ -6,6 +6,9 @@ var controller = require(global.cf.controllers + '/blog');
 var entity = 'Post';
 
 router.get('/', controller.index);
+
+router.get('/draft', controller.draft);
+
 router.post('/:page', controller.posts);
 
 router.get('/creator', controller.creator);

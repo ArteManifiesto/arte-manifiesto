@@ -9,7 +9,8 @@ module.exports = function (sequelize, DataTypes) {
       nameSlugify: DataTypes.STRING,
       photo: DataTypes.STRING,
       description: DataTypes.TEXT,
-      body: DataTypes.TEXT
+      body: DataTypes.TEXT,
+      published: {type: DataTypes.BOOLEAN, defaultValue: false},
     }, {
       classMethods: {
         associate: function (models) {
