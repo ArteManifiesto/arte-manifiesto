@@ -7,7 +7,8 @@ var APP = APP || {};
 APP.Viewer = function (id, container, navigation, data , options) {
   this.container = container;
   this.options = options;
-  if (id === 'carrouselItem' || id === 'action' || id === 'notificationItem') {
+
+  if (id === 'carrouselItem' || id === 'action' || id === 'notificationItem' || id === 'table') {
   }else {
     this.setupMasonry();
   }
@@ -80,6 +81,8 @@ APP.Viewer.prototype.pageLoadEndHandler = function(event) {
     this.initialize = false;
   }
   this.addItems(event.data.items);
+
+  this.options.getTotal(event.data.pagination.total);
 };
 
 APP.Viewer.prototype.addItems = function(items) {
@@ -151,7 +154,7 @@ APP.Viewer.prototype.addItems = function(items) {
       });
     }
     else {
-      if(this.id === 'carrouselItem' || this.id === 'action' || this.id === 'notificationItem') {
+      if(this.id === 'carrouselItem' || this.id === 'action' || this.id === 'notificationItem' || this.id === 'table') {
         this.container.append(item.view);
       }else{
         this.container.append(item.view).masonry('appended', item.view);
@@ -170,7 +173,11 @@ APP.Viewer.prototype.reset = function() {
 };
 
 APP.Viewer.prototype.clean = function() {
-  this.container.masonry('remove', this.container.find('.grid-item')).masonry();
+  if(this.id === "work") {
+    this.container.masonry('remove', this.container.find('.grid-item')).masonry();
+  }else {
+    this.container.empty();
+  }
   this.initialize = false;
 };
 

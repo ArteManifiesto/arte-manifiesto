@@ -107,7 +107,7 @@ var searchDiscover = function (entity, req) {
 };
 
 var discover = function (req, res, entity) {
-  if (req.params.page !== 'page-1')
+  if(req.params.page !== 'page-1')
     return res.redirect(req.url.replace(req.params.page, 'page-1'));
 
   var promises = [searchDiscover(entity, req)];
