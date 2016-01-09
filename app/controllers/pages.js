@@ -164,6 +164,10 @@ exports.collections = function (req, res) {
   });
 };
 
+exports.landing = function (req, res) {
+  return res.render(basePath + 'landing');
+};
+
 exports.search = function (entity, req, res) {
   return searchDiscover(entity, req).then(function (data) {
     return res.json(data);
