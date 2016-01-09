@@ -23,14 +23,14 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">Arte Manifiesto</a>
+          <a class="navbar-brand" href="/users/page-1">Arte Manifiesto</a>
         </div>
 
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
+            <li><a href="/general">General</a></li>
             <li><a href="/users/page-1">Usuarios</a></li>
             <li><a href="/works/page-1">Obras</a></li>
-            <li><a href="/collections/page-1">Colecciones</a></li>
           </ul>
         </div>
       </div>
@@ -57,7 +57,8 @@
     	  };
     	</script>
 
-      {% include '../partials/elements/table-item.html' %}
+      {% include '../partials/elements/table-user-item.html' %}
+      {% include '../partials/elements/table-work-item.html' %}
 
     	<script src="/js.cookie.js"></script>
     	<script src="/adapt.min.js"></script>

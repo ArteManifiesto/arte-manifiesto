@@ -1,7 +1,7 @@
 {% extends '../partials/report.html' %}
 
 {% block content %}
-<h2 class="sub-header">Obras <span class="total">({{data.pagination.total}})</span></h2>
+<h2 class="sub-header">Datos Generales <span class="total"></span></h2>
 
 <div class="row">
   <div class="col-lg-2">
@@ -20,17 +20,6 @@
         </div>
     </div>
   </div>
-  <div class="col-lg-6">
-    <div class="input-group">
-      <div class="input-group-btn">
-        <button type="button" class="btn btn-drop btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="property">Propiedad</span> <span class="caret"></span></button>
-        <ul class="dropdown-menu">
-          <li><a class="name">nombre</a></li>
-        </ul>
-      </div>
-      <input type="text" class="form-control search-box" aria-label="...">
-    </div>
-  </div>
 
   <div class="col-lg-1">
     <button type="submit" class="btn search-btn btn-default">Buscar</button>
@@ -42,19 +31,19 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th></th>
-        <th>nombre</th>
-        <th>popularidad</th>
-        <th>vistas</th>
-        <th>publico</th>
-        <th>en venta</th>
-        <th>creado</th>
-        <th></th>
-        <th></th>
+        <th>obras creadas</th>
+        <th>likes a obras</th>
+        <th>colecciones creadas</th>
+        <th>obras coleccionadas</th>
+        <th>preguntas por obra</th>
       </tr>
     </thead>
     <tbody class="container-items">
-
+      <tr>
+        {% for number in numbers %}
+          <td>{{number}}</td>
+        {% endfor %}
+      </tr>
     </tbody>
   </table>
 </div>
@@ -67,7 +56,7 @@
   var options = {format: 'mm/dd/yyyy', clearBtn: true};
 
   $(function() {
-    new APP.AM();
+      new APP.AM();
 
     if(Utils.getUrlParameter('start')) {
       var startValue  = Utils.getUrlParameter('start');
@@ -90,25 +79,6 @@
     });
 
     $('.search-btn').click(function() {
-      var termValue = $('.search-box').val().trim();
-
-      if(term && term.trim().length > 0) {
-        if(termValue.length > 0) {
-          DataApp.currentUrl = Utils.updateQueryStringParameter(DataApp.currentUrl, 'term', term);
-          DataApp.currentUrl = Utils.updateQueryStringParameter(DataApp.currentUrl, 'termValue', termValue);
-        } else {
-          DataApp.currentUrl = Utils.removeURLParameter(DataApp.currentUrl, 'term');
-          DataApp.currentUrl = Utils.removeURLParameter(DataApp.currentUrl, 'termValue');
-        }
-      }else {
-        DataApp.currentUrl = Utils.removeURLParameter(DataApp.currentUrl, 'term');
-        DataApp.currentUrl = Utils.removeURLParameter(DataApp.currentUrl, 'termValue');
-
-        if(termValue.length > 0) {
-          return alert('Necesitas seleccionar una propiedad');
-        }
-      }
-
       if(start) {
         if(!end) {
           return alert('Ingresa una fecha de fin');
@@ -129,37 +99,9 @@
         DataApp.currentUrl = Utils.removeURLParameter(DataApp.currentUrl, 'end');
       }
 
-      if(DataApp.currentUrl === window.location.href) return;
-
-      Utils.changeUrl(this.id, DataApp.currentUrl);
-      viewer.reset();
+      if(DataApp.currentUrl !== window.location.href)
+        window.location.href = DataApp.currentUrl;
     });
-
-    viewer = new APP.Viewer('tableWork', $('.container-items'), 'infinite', data , {
-      getTotal: function(total) {
-        $('.total').text('(' + total + ')');
-      }
-    });
-
-    $(".dropdown-menu li a").click(function() {
-      var text = $(this).text();
-
-      $(".btn-drop .property").text(text);
-      $(".btn-drop .property").val(text);
-
-      switch(text) {
-        case 'nombre':term = 'name';break;
-      }
-    });
-
-    if(Utils.getUrlParameter('term')) {
-      term = Utils.getUrlParameter('term');
-      $('.' + term).click();
-    }
-    
-    if(Utils.getUrlParameter('termValue')) {
-      $('.search-box').val(decodeURI(Utils.getUrlParameter('termValue')));
-    }
   });
 
 </script>

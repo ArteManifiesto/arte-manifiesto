@@ -3,21 +3,32 @@ var moment = require('moment');
 
 
 exports.index = function(req,res) {
-  return res.render(basePath + 'index');
+  return res.redirect('/users/page-1');
+  // return res.render(basePath + 'index');
 };
 
-var searchData = function (req) {
+var searchData = function (req, entity) {
   var query = {
     order: [global.getOrder('newest')],
     where: {}
   };
+
+  if(entity === 'Work') {
+    query.addUser = true;
+  }
 
   if(req.query.term && req.query.termValue) {
     var term = req.query.term;
     if(term === 'isArtist' || term === 'verified' || term === 'filled' ) {
       query.where[req.query.term] = parseInt(req.query.termValue, 10) === 1 ? true : false;
     }else {
-      query.where[req.query.term] = req.query.termValue;
+      // if(entity === 'Work' && term === 'name') {
+      //   query.where.$and = global.db.sequelize.literal(
+      //     "MATCH(name, description) AGAINST('" + term + "' IN BOOLEAN MODE)"
+      //   );
+      // }else {
+        query.where[req.query.term] = req.query.termValue;
+      // }
     }
   }
 
@@ -29,7 +40,7 @@ var searchData = function (req) {
 
   var page = req.params.page ? req.params.page : 'page-1';
   var options = {
-    entity: 'User',
+    entity: entity,
     limit: 30,
     page: page
   };
@@ -40,7 +51,7 @@ exports.users = function (req, res) {
   if (req.params.page !== 'page-1')
     return res.redirect(req.url.replace(req.params.page, 'page-1'));
 
-  searchData(req).then(function(data) {
+  searchData(req, 'User').then(function(data) {
     return res.render(basePath + 'users', {
       data: data
     });
@@ -52,15 +63,50 @@ exports.works = function (req, res) {
   if (req.params.page !== 'page-1')
     return res.redirect(req.url.replace(req.params.page, 'page-1'));
 
-  searchData(req).then(function(data) {
+  searchData(req, 'Work').then(function(data) {
     return res.render(basePath + 'works', {
       data: data
     });
   });
 };
 
-exports.search = function (req, res) {
-  searchData(req).then(function (data) {
+
+exports.general = function (req, res) {
+  var shouldInterval = false, queryTemp;
+  if(req.query.start && req.query.end) {
+    shouldInterval = true;
+    var start = moment(req.query.start).format('YYYY-MM-DD');
+    var end = moment(req.query.end).format('YYYY-MM-DD');
+
+    queryTemp = " WHERE (createdAt BETWEEN '"+ start + "' AND '" + end + "')";
+  }
+  queryTemp = (shouldInterval ? queryTemp : "");
+
+  var promises = [
+    global.db.sequelize.query("SELECT COUNT(id) as total FROM Works" + queryTemp),
+    global.db.sequelize.query("SELECT COUNT(WorkId) as total FROM WorkLikes" + queryTemp),
+    global.db.sequelize.query("SELECT COUNT(id) as total FROM Collections" + queryTemp),
+    global.db.sequelize.query("SELECT COUNT(WorkId) as total FROM CollectionWork" + queryTemp),
+    global.db.sequelize.query("SELECT COUNT(WorkId) as total FROM WorkRequests" + queryTemp)
+  ]
+  return global.db.sequelize.Promise.all(promises).then(function (data) {
+    var numbers = [];
+    for (var i = 0; i < data.length; i++) {
+      numbers.push(data[i][0][0].total);
+    }
+    return res.render(basePath + 'general', {numbers: numbers});
+  });
+
+  var query = {where: {}};
+  if(req.query.start && req.query.end) {
+    var start = req.query.start;
+    var end = req.query.end;
+  }
+};
+
+
+exports.search = function (entity, req, res) {
+  searchData(req, entity).then(function (data) {
     return res.json(data);
   });
 };

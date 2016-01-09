@@ -145,7 +145,7 @@
       viewer.reset();
     });
 
-    viewer = new APP.Viewer('table', $('.container-items'), 'infinite', users , {
+    viewer = new APP.Viewer('tableUser', $('.container-items'), 'infinite', users , {
       getTotal: function(total) {
         $('.total').text('(' + total + ')');
       }
@@ -169,11 +169,10 @@
     if(Utils.getUrlParameter('term')) {
       term = Utils.getUrlParameter('term');
       $('.' + term).click();
-      $('.search-box').val(Utils.getUrlParameter('termValue'));
     }
 
     if(Utils.getUrlParameter('termValue')) {
-      $('.search-box').val(Utils.getUrlParameter('termValue'));
+      $('.search-box').val(decodeURI(Utils.getUrlParameter('termValue')));
     }
   });
 
