@@ -3,7 +3,6 @@
  *Email : juliocanares@gmail.com
  */
 var APP = APP || {};
-
 APP.AM = function () {
   new APP.RestClientManager();
   new APP.TemplateManager();
@@ -15,20 +14,20 @@ APP.AM = function () {
 	//  });
   //
 
-  $('.' + path + '-menu').addClass('selected');
+  // $('.' + path + '-menu').addClass('selected');
 
-  DataApp.currentUser = user || null;
-	if(DataApp.currentUser !== null)
-		DataApp.currentUser.url = '/user/' + DataApp.currentUser.username;
+  // DataApp.currentUser = user || null;
+	// if(DataApp.currentUser !== null)
+	// 	DataApp.currentUser.url = '/user/' + DataApp.currentUser.username;
 
-  var flash, flashMessage;
-  errorMessage.length > 0 && (flash = $('.error'), flashMessage = errorMessage[0]);
-  successMessage.length > 0 && (flash = $('.succes'), flashMessage = successMessage[0]);
-
-  if(flash) {
-    flash.find('.content-text').text(flashMessage);
-    flash.addClass('fadeIn');
-  }
+  // var flash, flashMessage;
+  // errorMessage.length > 0 && (flash = $('.error'), flashMessage = errorMessage[0]);
+  // successMessage.length > 0 && (flash = $('.succes'), flashMessage = successMessage[0]);
+  //
+  // if(flash) {
+  //   flash.find('.content-text').text(flashMessage);
+  //   flash.addClass('fadeIn');
+  // }
 
   $('.am-Signin-button').click(function(event) {
     event.preventDefault();
@@ -99,12 +98,23 @@ APP.AM.prototype.listeners = function() {
   this.generalSearchBtn.click(this.generalSearchBtnClickHandler.bind(this));
 
   this.subscriptionForm.submit(this.subscriptionFormHandler.bind(this));
+  this.subscriptionBtn.click(this.subscriptionHandler.bind(this));
+};
+
+APP.AM.prototype.subscriptionHandler = function(event) {
+  this.subscriptionForm.submit();
 };
 
 APP.AM.prototype.subscriptionFormHandler = function(event) {
   event.preventDefault();
-  var payload = this.subscriptionForm.serialize();
-  
+
+  var errors = [];
+  if(Validations.notBlank(this.name.val())) errors.push('Ingrese un nombre');
+
+  if(errors.length > 0) return this.showFlash('error', errors);
+
+  // var payload = {email: };
+
   $.post('/subscribe', payload).then(this.subscriptionComplete.bind(this));
 };
 

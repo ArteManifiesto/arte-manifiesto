@@ -1,0 +1,166 @@
+{% extends '../partials/report.html' %}
+
+{% block content %}
+<h2 class="sub-header">Obras <span class="total">({{data.pagination.total}})</span></h2>
+
+<div class="row">
+  <div class="col-lg-2">
+    <div class="input-group date start" data-provide="datepicker">
+      <input type="text" placeholder="Fecha Inicio" class="form-control">
+        <div class="input-group-addon">
+          <span class="fa fa-calendar"></span>
+        </div>
+    </div>
+  </div>
+  <div class="col-lg-2">
+    <div class="input-group date end" data-provide="datepicker">
+      <input type="text" placeholder="Fecha Fin" class="form-control">
+        <div class="input-group-addon">
+          <span class="fa fa-calendar"></span>
+        </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="input-group">
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-drop btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="property">Propiedad</span> <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a class="name">nombre</a></li>
+        </ul>
+      </div>
+      <input type="text" class="form-control search-box" aria-label="...">
+    </div>
+  </div>
+
+  <div class="col-lg-1">
+    <button type="submit" class="btn search-btn btn-default">Buscar</button>
+  </div>
+</div>
+</br>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th></th>
+        <th>nombre</th>
+        <th>popularidad</th>
+        <th>vistas</th>
+        <th>publico</th>
+        <th>en venta</th>
+        <th>creado</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody class="container-items">
+
+    </tbody>
+  </table>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  var data = {{data|json|safe}};
+  var viewer , term, start, end;
+  var options = {format: 'mm/dd/yyyy', clearBtn: true};
+
+  $(function() {
+    new APP.AM();
+
+    if(Utils.getUrlParameter('start')) {
+      var startValue  = Utils.getUrlParameter('start');
+      start = new Date(startValue);
+      $('.start').find('input').val(startValue.replace(/-/gi, '/'));
+    };
+
+    if(Utils.getUrlParameter('end')) {
+      var endValue  = Utils.getUrlParameter('end');
+      end = new Date(endValue);
+      $('.end').find('input').val(endValue.replace(/-/gi, '/'));
+    };
+
+    $('.start').datepicker(options).on('changeDate', function(e) {
+      start = e.date;
+    });
+
+    $('.end').datepicker(options).on('changeDate', function(e) {
+      end = e.date;
+    });
+
+    $('.search-btn').click(function() {
+      var termValue = $('.search-box').val().trim();
+
+      if(term && term.trim().length > 0) {
+        if(termValue.length > 0) {
+          DataApp.currentUrl = Utils.updateQueryStringParameter(DataApp.currentUrl, 'term', term);
+          DataApp.currentUrl = Utils.updateQueryStringParameter(DataApp.currentUrl, 'termValue', termValue);
+        } else {
+          DataApp.currentUrl = Utils.removeURLParameter(DataApp.currentUrl, 'term');
+          DataApp.currentUrl = Utils.removeURLParameter(DataApp.currentUrl, 'termValue');
+        }
+      }else {
+        DataApp.currentUrl = Utils.removeURLParameter(DataApp.currentUrl, 'term');
+        DataApp.currentUrl = Utils.removeURLParameter(DataApp.currentUrl, 'termValue');
+
+        if(termValue.length > 0) {
+          return alert('Necesitas seleccionar una propiedad');
+        }
+      }
+
+      if(start) {
+        if(!end) {
+          return alert('Ingresa una fecha de fin');
+        }
+        var startStr = (start.getMonth()+1) + "-" + start.getDate()  + "-" + start.getFullYear();
+        DataApp.currentUrl = Utils.updateQueryStringParameter(DataApp.currentUrl, 'start', startStr);
+      }else {
+        DataApp.currentUrl = Utils.removeURLParameter(DataApp.currentUrl, 'start');
+      }
+
+      if(end) {
+        if(!start) {
+          return alert('Ingresa una fecha de inicio');
+        }
+        var endStr = (end.getMonth()+1) + "-" + end.getDate()  + "-" + end.getFullYear();
+        DataApp.currentUrl = Utils.updateQueryStringParameter(DataApp.currentUrl, 'end', endStr);
+      }else {
+        DataApp.currentUrl = Utils.removeURLParameter(DataApp.currentUrl, 'end');
+      }
+
+      if(DataApp.currentUrl === window.location.href) return;
+
+      Utils.changeUrl(this.id, DataApp.currentUrl);
+      viewer.reset();
+    });
+
+    viewer = new APP.Viewer('tableWork', $('.container-items'), 'infinite', data , {
+      getTotal: function(total) {
+        $('.total').text('(' + total + ')');
+      }
+    });
+
+    $(".dropdown-menu li a").click(function() {
+      var text = $(this).text();
+
+      $(".btn-drop .property").text(text);
+      $(".btn-drop .property").val(text);
+
+      switch(text) {
+        case 'nombre':term = 'name';break;
+      }
+    });
+
+    if(Utils.getUrlParameter('term')) {
+      term = Utils.getUrlParameter('term');
+      $('.' + term).click();
+    }
+    
+    if(Utils.getUrlParameter('termValue')) {
+      $('.search-box').val(decodeURI(Utils.getUrlParameter('termValue')));
+    }
+  });
+
+</script>
+{% endblock %}

@@ -264,7 +264,7 @@ global.emails = {
 global.getPaginationEntity = function (options, query, empty) {
   var pages = global.getPagination(options.page, options.limit);
   query = _.assign(query, {offset: pages.offset, limit: pages.limit});
-  
+
   if (empty)
     return {
       items: [],

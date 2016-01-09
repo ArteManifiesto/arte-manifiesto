@@ -1,0 +1,20 @@
+<script type="text/template" id="template-table-work">
+  <tr>
+    <td><img src="<%= addFilter(photo, 'w_35') %>"></td>
+    <td><a href="http://am.local:3000/user/<%=User.username%>/work/<%=nameSlugify%>"><%=name%></a></td>
+    <td><%=popularity%></td>
+    <td><%=views%></td>
+    <td><% if(public) { %> si <% } else { %> no <% } %></td>
+    <td><% if(onSale) { %> si <% } else { %> no <% } %></td>
+    <td><%
+        var d = new Date(createdAt),
+            fragments = [
+                d.getMonth() + 1,
+                d.getDate(),
+                d.getFullYear()
+            ];
+            print(fragments.join('-'));
+        %></td>
+    <td><button type="button" class="btn btn-success">editar</button></td>
+  </tr>
+</script>

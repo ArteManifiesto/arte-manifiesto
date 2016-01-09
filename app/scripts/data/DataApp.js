@@ -17,6 +17,7 @@ DataApp.currentUrl = window.location.href.replace(/\/$/g, '');
 DataApp.currentUrl = DataApp.currentUrl.replace(/#_=_$/g, '');
 DataApp.fbAppID = '1473636902857068';
 
+
 var Events = {};
 Events.LOAD_START = 'loadStart';
 Events.LOAD_END = 'loadEnd';
@@ -34,5 +35,9 @@ var Validations = {
   username: function(value) {
     var re = new RegExp(/^[a-zA-Z0-9]+$/);
     return re.test(value);
+  },
+  email: function() {
+    var re = new RegExp(/^\w+@\w+\.\w{2,3}$/);
+    return res.test(value);
   }
 }
