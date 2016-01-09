@@ -25,8 +25,13 @@ exports.isAdmin = function (req, res, next) {
       if (req.xhr)
           return res.badRequest('Necesitas ser administrador');
 
+          var domain = req.headers.host,
+              subDomain = domain.split('.');
+              subDomain[1] + '.' + subDomain[2]
+
       req.flash('errorMessage', 'Necesitas ser administrador');
-      return res.redirect('/auth/login');
+      
+      return res.redirect(req.protocol + '://' + subDomain[1] + '.' + subDomain[2] + '/auth/login');
     }
     next();
 };

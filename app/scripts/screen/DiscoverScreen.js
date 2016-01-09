@@ -67,7 +67,7 @@ APP.DiscoverScreen.prototype.filterChangedHandler = function (event) {
   }
 
   if(DataApp.currentUrl === window.location.href) return;
-  
+
   Utils.changeUrl(this.id, DataApp.currentUrl);
   if (this.filters.isInitialized) this.viewer.reset();
 };
