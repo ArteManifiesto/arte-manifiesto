@@ -78,7 +78,7 @@ exports.facebookCallback = function (req, res) {
     if (user)
       return loginUser(req, res, user);
 
-    res.cookie('profile', JSON.parse(profile._raw), {maxAge: 900000, httpOnly: true});
+      res.cookie('profile', JSON.parse(profile._raw), {maxAge: 900000, httpOnly: true});
 
     return res.redirect('/auth/signup');
   })(req, res);
@@ -102,6 +102,16 @@ var loginUser = function (req, res, user) {
       return res.internalServerError('No se pudo iniciar sesion');
 
     var returnTo = req.cookies.return_to;
+
+    console.log('return to : ', returnTo);
+    console.log('return to 2w : ', req.query);
+    if(req.query.returnTo) {
+      returnTo = req.query.returnTo;
+    }
+
+    if(returnTo === undefined) {
+      returnTo = 'http://am.local:3000';
+    }
 
     if (!req.xhr)
       return res.redirect(returnTo);

@@ -6,7 +6,7 @@ var APP = APP || {};
 
 APP.AuthScreen = function (meta) {
   this.meta = meta;
-  
+
   APP.BaseScreen.call(this, 'auth');
 
   console.log(Cookies.get('return_to'));

@@ -11,6 +11,8 @@ var flash = require('connect-flash');
 var swig = require('swig');
 var compression = require('compression')
 
+var RedisStore = require('connect-redis')(expressSession);
+
 module.exports = function (app, passport) {
     /**
      * View engine setup
@@ -33,11 +35,25 @@ module.exports = function (app, passport) {
     app.use(compression());
     app.use(morgan('dev'));
     app.use(cookieParser('luelennuckyinleDfOfkugGEsErLQQDcS'));
+
     app.use(expressSession({
-        secret: '123',
+        secret: "123",
+        domain : '.am.local',
         resave: false,
-        saveUninitialized: false
+        saveUninitialized: false,
+        store: new RedisStore({ host: 'localhost', port: 6379}),
+        cookie : {
+        maxAge : 604800, // one week
+        domain: '.am.local', //<-- This put into the cookie the domain
+      }
     }));
+
+    // app.use(expressSession({
+    //     secret: '123',
+    //     resave: false,
+    //     saveUninitialized: false,
+    //     cookie: {domain: '.am.local'}
+    // }));
     app.use(flash());
 
     app.use(bodyParser.urlencoded({extended: false}));

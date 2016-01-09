@@ -1,12 +1,28 @@
 exports.isLogged = function (req, res, next) {
+  
+  console.log('is loggeed : ' , req.originalUrl, req.isAuthenticated());
+
     if (!req.isAuthenticated()) {
         if (req.xhr)
             return res.badRequest(global.lg.isNotLogged);
 
-        req.flash('errorMessage', global.lg.isNotLogged);
-        var url = '/auth/login/?returnTo=' + req.protocol + '://' + req.get('host') + req.originalUrl;
-        return res.redirect(url);
+
+                      var domain = req.headers.host,
+                          subDomain = domain.split('.');
+                          subDomain[1] + '.' + subDomain[2]
+
+                  var returnTo = req.protocol + '://' + req.get('host') + req.originalUrl;
+                  console.log(returnTo);
+
+                  res.cookie('return_to', returnTo, {maxAge: 3600000, domain: 'am.local'});
+
+                  return res.redirect(req.protocol + '://' + subDomain[1] + '.' + subDomain[2] + '/auth/login');
+
+        // req.flash('errorMessage', global.lg.isNotLogged);
+        // var url = '/auth/login/?returnTo=' + req.protocol + '://' + req.get('host') + req.originalUrl;
+        // return res.redirect(url);
     }
+    console.log('loggeeeed');
     next();
 };
 
@@ -29,8 +45,11 @@ exports.isAdmin = function (req, res, next) {
               subDomain = domain.split('.');
               subDomain[1] + '.' + subDomain[2]
 
-      req.flash('errorMessage', 'Necesitas ser administrador');
-      
+      var returnTo = req.protocol + '://' + req.get('host') + req.originalUrl;
+      console.log(returnTo);
+
+      res.cookie('return_to', returnTo, {maxAge: 3600000, domain: 'am.local'});
+
       return res.redirect(req.protocol + '://' + subDomain[1] + '.' + subDomain[2] + '/auth/login');
     }
     next();
