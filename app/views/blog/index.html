@@ -5,7 +5,7 @@
     <title>Blog</title>
   </head>
   <body>
-    <a href="/creator">nuevo</a>
+    <a href="/blog/creator">nuevo</a>
 
     <ul>
       {% for post in data.items %}
@@ -13,8 +13,8 @@
           <strong>{{post.description}}</strong>
         <br/>
           <img src="{{post.photo}}" width="300"/>
-          <a href="/post/{{post.id}}">ver</a>
-          <a href="/creator/?idPost={{post.id}}">editar</a>
+          <a href="/blog/post/{{post.id}}">ver</a>
+          <a href="/blog/creator/?idPost={{post.id}}">editar</a>
         </li>
       {% endfor %}
     </ul>
