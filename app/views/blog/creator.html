@@ -29,9 +29,9 @@
     estado : <span class="status">Inicio</span>
 </h6>
 
-<button class="publish-btn">
+<!-- <button class="publish-btn">
   publicar
-</button>
+</button> -->
 
 <div id="container">
     {{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: {
@@ -74,17 +74,17 @@
               ]
             }
         });
-
-        $('.publish-btn').click(function() {
-          if(!post) return alert('Necesitas escribir algo =)');
-
-          var url = '/post/update';
-          var payload = {published:true}
-          payload.idPost = post.id;
-          $.post(url, payload).then(function (response) {
-            alert('publicado');
-          });
-        });
+        //
+        // $('.publish-btn').click(function() {
+        //   if(!post) return alert('Necesitas escribir algo =)');
+        //
+        //   var url = '/blog/post/update';
+        //   var payload = {published:true}
+        //   payload.idPost = post.id;
+        //   $.post(url, payload).then(function (response) {
+        //     alert('publicado');
+        //   });
+        // });
 
         $('.editable').mediumInsert({
             editor: editor,
@@ -127,13 +127,13 @@
 
             $status.text('Guardando.....');
             if (!post) {
-                var url = '/post/create';
+                var url = '/blog/post/create';
                 $.post(url, payload).then(function (response) {
                     post = response.data.post;
                     $status.text('✓ guardado');
                 });
             } else {
-                var url = '/post/update';
+                var url = '/blog/post/update';
                 payload.idPost = post.id;
                 $.post(url, payload).then(function (response) {
                     post = response.data.post;
