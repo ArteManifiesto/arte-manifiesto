@@ -36,17 +36,24 @@ module.exports = function (app, passport) {
     app.use(morgan('dev'));
     app.use(cookieParser('luelennuckyinleDfOfkugGEsErLQQDcS'));
 
+
     app.use(expressSession({
         secret: "123",
-        domain : '.am.local',
         resave: false,
-        saveUninitialized: false,
-        store: new RedisStore({ host: 'localhost', port: 6379}),
-        cookie : {
-        maxAge : 604800, // one week
-        domain: '.am.local', //<-- This put into the cookie the domain
-      }
+        saveUninitialized: false
     }));
+
+    // app.use(expressSession({
+    //     secret: "123",
+    //     domain : '.am.local',
+    //     resave: false,
+    //     saveUninitialized: false,
+    //     store: new RedisStore({ host: 'localhost', port: 6379}),
+    //     cookie : {
+    //     maxAge : 604800, // one week
+    //     domain: '.am.local', //<-- This put into the cookie the domain
+    //   }
+    // }));
 
     // app.use(expressSession({
     //     secret: '123',
