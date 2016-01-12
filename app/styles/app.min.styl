@@ -4015,7 +4015,7 @@ white = #fff
 
 .blog-article
 	box-shadow 0 2px 4px 0 rgba(black, .5)
-	border-radius 3px
+	// border-radius 3px
 	overflow hidden
 	margin 10px
 	.header
@@ -4192,6 +4192,48 @@ white = #fff
 		border-radius 17px
 
 
+.blog-single-socials
+	max-width 500px
+	margin 20px auto 40px auto
+	.tags
+		padding 20px 0
+		.tag
+			font-family: 'Montserrat',sans-serif;
+			font-weight bold
+			font-size 9px
+			color #838d8f
+			padding 3px 5px 3px 5px
+			border-radius 4px
+			border solid 1px #ededed
+			display inline-block
+	.buttons
+		padding 20px 0
+		.button
+			font-family: 'Montserrat',sans-serif;
+			font-weight bold
+			font-size 10px
+			padding 10px 25px
+			border-radius 17px
+			letter-spacing 2px
+			display inline-block
+			&.white
+				border solid 1px #ededed
+				color #666
+				i
+					color #b8c6c7
+				span
+					background #b8c6c7
+					border-radius 17px
+					padding 1px 4px 1px 7px
+					color white
+			&.blue
+				background #225b99
+				color white
+			&.sky-blue
+				background #00adf2
+				color white
+
+
 .blog-single-user
 	display flex
 	align-items center
@@ -4251,6 +4293,8 @@ white = #fff
 			.image
 				height 170px
 				position relative
+				background-size cover
+				background-position center center
 				.tag
 					position absolute
 					top 20px
