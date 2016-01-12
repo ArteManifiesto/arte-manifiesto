@@ -1,0 +1,175 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Post nuevo</title>
+    <link rel="stylesheet" href="/demo.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/medium-editor/latest/css/medium-editor.min.css">
+    <link rel="stylesheet" href="/default.css">
+    <link rel="stylesheet" href="/medium-editor-insert-plugin.css">
+</head>
+<body>
+<div id="container">
+    {{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: {
+    style: "width:230px;height:55px;top:-70px;left: 105px;" } })}}
+
+    <div class="editable">
+      {% if post %}
+        {{postBody|safe}}
+      {% endif %}
+    </div>
+</div>
+
+<script src="/jquery-2.1.1.min.js"></script>
+<script src="http://linkesch.com/medium-editor-insert-plugin/bower_components/handlebars/handlebars.runtime.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/medium-editor/latest/js/medium-editor.min.js"></script>
+<script src="/medium-editor-insert-plugin.js"></script>
+
+<script>
+  var post = {{post|json|safe}};
+  console.log(post);
+    $(function () {
+        var editor = new MediumEditor('.editable', {
+            buttonLabels: 'fontawesome',
+            toolbar: false,
+            spellcheck: false,
+            disableEditing: true
+        });
+    });
+</script>
+</body>
+</html>
+ -->
+
+
+{% extends '../partials/base.html' %}
+{% set path = '' %}
+
+{% block styles %}
+
+    <!-- <link rel="stylesheet" href="/demo.css"> -->
+    <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css"> -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/medium-editor/latest/css/medium-editor.min.css">
+    <link rel="stylesheet" href="/default.css">
+    <link rel="stylesheet" href="/medium-editor-insert-plugin.css">
+
+{% endblock %}
+
+
+{% block elements %}
+
+
+    <div class="blog-single-cover" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1450852734/general/blog-cover-1.png')">
+        <div class="grid-container" style="text-align: center;">
+            <div class="grid-100">
+                <!-- <div class="inner"> -->
+                    <span class="tag">TRAVEL</span>
+                    <p class="title">The Soul Of Siberia Hidden Beneath The Waters</p>
+                    <div class="info">
+                        <span class="date"><i class="bi_interface-clock"></i> June 11, 2014 9:26 pm</span> &nbsp; &nbsp; &nbsp;
+                        <span class="social"><i class="fa fa-heart"></i> 54</span> &nbsp; &nbsp;
+                        <span class="social"><i class="fa fa-comment"></i> 12</span> &nbsp; &nbsp;
+                        <a class="share">93 shares <i class="bi_web-download"></i></a>
+                    </div>
+                <!-- </div> -->
+            </div>
+        </div>
+    </div>
+
+    <div id="container">
+        {{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: {
+        style: "width:230px;height:55px;top:-70px;left: 105px;" } })}}
+
+        <div class="editable">
+          {% if post %}
+            {{postBody|safe}}
+          {% endif %}
+        </div>
+    </div>
+
+    <div class="grid-container">
+        <div class="grid-100">
+            <div class="blog-single-user">
+                <img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_150,h_150,q_70,d_am_avatar.jpg/avatars/avatar_diegorossell.jpg">
+                <div class="info">
+                    <p class="name">ARTE MANIFIESTO</p>
+                    <p class="description">Equipo de redacción de artemanifiesto.com, no somos muchos pero somos los que somos.</p>
+                </div>
+                <a class="button"> + SEGUIR</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="blog-single-popular">
+        <div class="grid-container">
+            <div class="grid-100">
+                <p class="title">Artículos populares</p>
+                <div class="articles">
+                    <div class="article">
+                        <div class="image">
+                            <span class="tag orange">EXPLORERS</span>
+                        </div>
+                        <div class="info">
+                            <div class="title">Style Essay: The Rise And Fall Of The Dress Code</div>
+                            <div class="description">Wear on a night out has never been more complicated</div>
+                        </div>
+                    </div>
+                    <div class="article">
+                        <div class="image">
+                            <span class="tag green">SCIENCE</span>
+                        </div>
+                        <div class="info">
+                            <div class="title">Robot’s Penguin Disguise Keeps Birds Calm</div>
+                            <div class="description">Wear on a night out has never been more complicated</div>
+                        </div>
+                    </div>
+                    <div class="article">
+                        <div class="image">
+                            <span class="tag purple">SCIENCE</span>
+                        </div>
+                        <div class="info">
+                            <div class="title">Where To Get Stuffed In The Capital</div>
+                            <div class="description">Wear on a night out has never been more complicated</div>
+                        </div>
+                    </div>
+                    <div class="article">
+                        <div class="image">
+                            <span class="tag blue">TRAVEL</span>
+                        </div>
+                        <div class="info">
+                            <div class="title">6 Of The Best Private Members’ Clubs </div>
+                            <div class="description">Wear on a night out has never been more complicated</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<script src="/jquery-2.1.1.min.js"></script>
+<script src="http://linkesch.com/medium-editor-insert-plugin/bower_components/handlebars/handlebars.runtime.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/medium-editor/latest/js/medium-editor.min.js"></script>
+<script src="/medium-editor-insert-plugin.js"></script>
+
+<script>
+  var post = {{post|json|safe}};
+  console.log(post);
+    $(function () {
+        var editor = new MediumEditor('.editable', {
+            buttonLabels: 'fontawesome',
+            toolbar: false,
+            spellcheck: false,
+            disableEditing: true
+        });
+    });
+</script>
+
+{% endblock %}
