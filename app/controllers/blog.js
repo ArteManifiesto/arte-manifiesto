@@ -65,7 +65,7 @@ exports.creator = function (req, res) {
 };
 
 exports.postPage = function (req, res) {
-  var query = {where:{id: req.params.id}, addUser: true, build: true};
+  var query = {where:{id: req.params.id}, addUser: true, build: true, include:[global.db.Category]};
   global.db.Post.find(query).then(function(post) {
     post = post.toJSON();
     return res.render(basePath + 'post', {
@@ -77,7 +77,7 @@ exports.postPage = function (req, res) {
 
 exports.postCreate = function (req, res) {
   req.body.UserId = 3;
-  req.body.CategoryId = 12;
+  req.body.CategoryId = req.body.category;
   global.db.Post.create(req.body).then(function(post) {
     return res.ok({post: post}, 'post');
   });

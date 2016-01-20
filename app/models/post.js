@@ -19,6 +19,7 @@ module.exports = function (sequelize, DataTypes) {
         associate: function (models) {
           Post.belongsTo(models.User, {onDelete: 'cascade'});
           Post.belongsTo(models.Category);
+          Post.hasMany(models.Review, {onDelete: 'cascade'});
           Post.belongsToMany(models.User, {as: 'PostLikes', through: 'PostLikes'});
         }
       },
@@ -26,10 +27,11 @@ module.exports = function (sequelize, DataTypes) {
         buildParts: function (options) {
           var scope = this;
           return global.db.Sequelize.Promise.all([
-            scope.numOfLikes()
-            // scope.numOfComments()
+            scope.numOfLikes(),
+            scope.numOfReviews()
           ]).then(function (result) {
             scope.setDataValue('likes', result[0]);
+            scope.setDataValue('reviews', result[1]);
           });
         },
         numOfLikes: function () {
@@ -42,19 +44,18 @@ module.exports = function (sequelize, DataTypes) {
           return this.getPostLikes(query).then(function (result) {
             return result[0].getDataValue('total');
           });
+        },
+        numOfReviews: function () {
+          var scope = this,
+            query = {
+              attributes: [
+                [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'total']
+              ]
+            };
+          return this.getReviews(query).then(function (result) {
+            return result[0].getDataValue('total');
+          });
         }
-        // ,
-        // numOfComments: function () {
-        //   var scope = this,
-        //     query = {
-        //       attributes: [
-        //         [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'total']
-        //       ]
-        //     };
-        //   return this.getReviews(query).then(function (result) {
-        //     return result[0].getDataValue('total');
-        //   });
-        // }
       },
       hooks: {
         beforeFind: global.beforeFind,

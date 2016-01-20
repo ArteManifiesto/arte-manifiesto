@@ -65,12 +65,12 @@
         <div class="grid-container" style="text-align: center;">
             <div class="grid-100">
                 <!-- <div class="inner"> -->
-                    <span class="tag">TRAVEL</span>
+                    <span class="tag">{{post.Category.name}}</span>
                     <p class="title">{{post.name}}</p>
                     <div class="info">
-                        <span class="date"><i class="bi_interface-clock"></i> {{post.createdAt|date("d/m/Y")}}</span> &nbsp; &nbsp; &nbsp;
-                        <span class="social"><i class="fa fa-heart"></i> 54</span> &nbsp; &nbsp;
-                        <span class="social"><i class="fa fa-comment"></i> 12</span> &nbsp; &nbsp;
+                        <span class="date"><i class="bi_interface-clock"></i> {{post.createdAt|formatDate()}}</span> &nbsp; &nbsp; &nbsp;
+                        <span class="social"><i class="fa fa-heart"></i> {{post.likes}}</span> &nbsp; &nbsp;
+                        <span class="social"><i class="fa fa-comment"></i> {{post.reviews}}</span> &nbsp; &nbsp;
                     </div>
                 <!-- </div> -->
             </div>
