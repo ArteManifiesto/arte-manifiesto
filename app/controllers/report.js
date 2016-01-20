@@ -10,7 +10,8 @@ exports.index = function(req,res) {
 var searchData = function (req, entity) {
   var query = {
     order: [global.getOrder('newest')],
-    where: {}
+    where: {},
+    build: true
   };
 
   if(entity === 'Work') {
