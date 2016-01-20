@@ -24,11 +24,9 @@
       <header class="header-blog">
         <div class="logo">am <span>blog</span></div>
         <div class="menu">
-          <a href="#" class="item">TRAVEL</a>
-          <a href="#" class="item">EXPLORERS</a>
-          <a href="#" class="item">NATURE</a>
-          <a href="#" class="item">SCIENCE</a>
-          <a href="#" class="item">ADVICES</a>
+          {% for category in categories %}
+            <a href="#" class="item">{{category.name}}</a>
+          {% endfor %}
         </div>
         <div class="socials">
           <p>Síguenos:</p>

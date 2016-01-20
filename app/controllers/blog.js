@@ -20,9 +20,12 @@ var searchPosts = function (req, addQuery) {
 };
 
 exports.index = function (req, res) {
-  searchPosts(req).then(function (data) {
-    return res.render(basePath + 'index', {
-      data: data
+  global.db.Category.findAll({where:{meta: 1}}).then(function(categories) {
+    searchPosts(req).then(function (data) {
+      return res.render(basePath + 'index', {
+        data: data,
+        categories: categories
+      });
     });
   });
 };
@@ -76,6 +79,7 @@ exports.postPage = function (req, res) {
           $between: [moment().startOf('week').toDate(), moment().toDate()]
         }
       },
+      include: [global.db.Category],
       order: [global.getOrder('popularity')]
     };
     global.db.Post.findAll(query).then(function(posts){
