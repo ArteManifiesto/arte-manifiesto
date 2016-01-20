@@ -7,7 +7,7 @@ var APP = APP || {};
 APP.Viewer = function (id, container, navigation, data , options) {
   this.container = container;
   this.options = options;
-  if (id === 'carrouselItem' || id === 'action' || id === 'notificationItem') {
+  if (id === 'carrouselItem' || id === 'action' || id === 'notificationItem' || id === 'post') {
   }else {
     this.setupMasonry();
   }
@@ -151,8 +151,8 @@ APP.Viewer.prototype.addItems = function(items) {
       });
     }
     else {
-      if(this.id === 'carrouselItem' || this.id === 'action' || this.id === 'notificationItem') {
-        this.container.append(item.view);
+        if(this.id === 'carrouselItem' || this.id === 'action' || this.id === 'notificationItem'  || this.id === 'post') {
+        this.container.append(item.view); 
       }else{
         this.container.append(item.view).masonry('appended', item.view);
       }

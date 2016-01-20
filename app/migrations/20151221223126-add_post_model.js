@@ -21,9 +21,32 @@ module.exports = {
         updatedAt: {
           type: Sequelize.DATE
         },
+        published: {
+          type: Sequelize.BOOLEAN,
+          defaultValue: false
+        },
+        featured: {
+          type: Sequelize.BOOLEAN,
+          defaultValue: false
+        },
+        views: {
+          type: Sequelize.INTEGER,
+          defaultValue: 0
+        },
+        popularity: {
+          type: Sequelize.INTEGER,
+          defaultValue: 0
+        },
         UserId: {
           type: Sequelize.INTEGER,
           references: "Users",
+          referenceKey: "id",
+          onUpdate: "CASCADE",
+          onDelete: "CASCADE"
+        },
+        CategoryId: {
+          type: Sequelize.INTEGER,
+          references: "Categories",
           referenceKey: "id",
           onUpdate: "CASCADE",
           onDelete: "CASCADE"

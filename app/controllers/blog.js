@@ -2,10 +2,11 @@ var basePath = 'blog/';
 
 var searchPosts = function (req, addQuery) {
   var query = {
-    order: [global.getOrder('newest')]
+    order: [global.getOrder('newest')],
+    addUser: true,
+    build: true,
+    include: [global.db.Category]
   };
-
-
 
   var page = req.params.page ? req.params.page : 'page-1';
   var options = {
@@ -34,32 +35,38 @@ exports.posts = function (req, res) {
 exports.creator = function (req, res) {
   var view = basePath + 'creator';
 
-  if (!req.query.idPost)
-    return res.render(view, {
-      cloudinary: global.cl,
-      cloudinayCors: global.cl_cors,
-    });
+  global.db.Category.findAll({where:{meta: 1}}).then(function(categories) {
+    if (!req.query.idPost)
+      return res.render(view, {
+        cloudinary: global.cl,
+        cloudinayCors: global.cl_cors,
+        categories: categories
+      });
 
-  var query = {
-    where: {
-      id: req.query.idPost
-    }
-  };
+    var query = {
+      where: {
+        id: req.query.idPost
+      },
+      include:[global.db.Category]
+    };
 
-  global.db.Post.find(query).then(function (post) {
-    post = post.toJSON();
+    global.db.Post.find(query).then(function (post) {
+      post = post.toJSON();
 
-    return res.render(view, {
-      post: global._.omit(post, 'body'),
-      postBody: post.body,
-      cloudinary: global.cl,
-      cloudinayCors: global.cl_cors,
+      return res.render(view, {
+        post: global._.omit(post, 'body'),
+        postBody: post.body,
+        cloudinary: global.cl,
+        cloudinayCors: global.cl_cors,
+        categories: categories
+      });
     });
   });
 };
 
 exports.postPage = function (req, res) {
-  global.db.Post.findById(req.params.id).then(function(post) {
+  var query = {where:{id: req.params.id}, addUser: true, build: true};
+  global.db.Post.find(query).then(function(post) {
     post = post.toJSON();
     return res.render(basePath + 'post', {
       post: global._.omit(post, 'body'),
@@ -69,6 +76,8 @@ exports.postPage = function (req, res) {
 };
 
 exports.postCreate = function (req, res) {
+  req.body.UserId = 3;
+  req.body.CategoryId = 12;
   global.db.Post.create(req.body).then(function(post) {
     return res.ok({post: post}, 'post');
   });

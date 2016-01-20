@@ -33,6 +33,17 @@
   publicar
 </button> -->
 
+<select class="input select" name='category'>
+  <option disabled selected>Selecciona una Categoria</option>
+  {% for category in categories %}
+    <option value="{{category.id}}">{{category.name}}</option>
+  {% endfor %}
+</select>
+</br>
+
+
+<input type="text" name="name" placeholder="Titulo del post" value="{{post.name}}">
+
 <div id="container">
     {{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: {
     style: "width:230px;height:55px;top:-70px;left: 105px;", multiple:1 } })}}
@@ -62,6 +73,10 @@
   console.log(post);
 
     $(function () {
+
+        if(post) {
+          $('select[name=category]').find('option[value=' + post.Category.id + ']').attr('selected', true);
+        }
         $.cloudinary.config({{cloudinary.config()|json|safe}});
 
         var editor = new MediumEditor('.editable', {
@@ -116,11 +131,23 @@
 
         var triggerAutoSave = function (event, editable) {
             if (uploadingImage) return console.log('subiendo imagen');
+
+            var name = $('input[name=name]').val().trim();
+            if(name.length < 1) {
+              return alert('Agrega un titulo');
+            }
+
+            var category = $('select[name=category]').val().trim();
+            if(category.length < 1)  return alert('Agregar categoria');
+
+
             var b = editor.serialize()['element-0']['value'];
             var $editable = $(editable);
 
             var payload = {
               body: b,
+              name: name,
+              category: category,
               description: $editable.find('p').text().substr(0, 300),
               photo: $editable.find('img').attr('src')
             };

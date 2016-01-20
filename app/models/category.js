@@ -10,13 +10,15 @@ module.exports = function (sequelize, DataTypes) {
                 }
             },
             nameSlugify: DataTypes.STRING,
-            photo: DataTypes.STRING
+            photo: DataTypes.STRING,
+            meta: {type: DataTypes.INTEGER, defaultValue: 0}
         }, {
             classMethods: {
                 associate: function (models) {
                     Category.belongsToMany(models.User, {as: 'Specialties', through: 'Specialties'});
                     Category.belongsToMany(models.User, {as: 'Interests', through: 'Interests'});
                     Category.hasMany(models.Work, {onDelete: 'cascade'});
+                    Category.hasMany(models.Post, {onDelete: 'cascade'});
                 }
             },
             instanceMethods: {
