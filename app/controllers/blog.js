@@ -1,4 +1,5 @@
 var basePath = 'blog/';
+var moment = require('moment');
 
 var searchPosts = function (req, addQuery) {
   var query = {
@@ -67,10 +68,23 @@ exports.creator = function (req, res) {
 exports.postPage = function (req, res) {
   var query = {where:{id: req.params.id}, addUser: true, build: true, include:[global.db.Category]};
   global.db.Post.find(query).then(function(post) {
-    post = post.toJSON();
-    return res.render(basePath + 'post', {
-      post: global._.omit(post, 'body'),
-      postBody: post.body
+    query = {
+      limit: 4,
+      where:{
+        id: {$not: [post.id]},
+        createdAt: {
+          $between: [moment().startOf('week').toDate(), moment().toDate()]
+        }
+      },
+      order: [global.getOrder('popularity')]
+    };
+    global.db.Post.findAll(query).then(function(posts){
+      post = post.toJSON();
+      return res.render(basePath + 'post', {
+        post: global._.omit(post, 'body'),
+        postBody: post.body,
+        posts: posts
+      });
     });
   });
 };
