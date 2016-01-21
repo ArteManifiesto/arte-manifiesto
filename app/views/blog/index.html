@@ -49,14 +49,18 @@
     <div class="grid-100">
       <section class="slider">
         <div class="slider-items">
-          <div class="slider-item js-slide" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1450852734/general/blog-cover-1.png')">
-            <span class="slider-item-tag">NATURE</span>
+          <div class="slider-item js-slide" style="background-image: url('{{featureds[0].photo|addFilter('w_1200,h_400,q_80,c_limit')}}')">
+            <span class="slider-item-tag">{{featureds[0].Category.name}}</span>
             <div class="slider-item-inner">
-              <p class="title">Tentacles Abound in Our Best Jellyfish Pictures</p>
+              <p class="title">{{featureds[0].name}}</p>
               <div class="author u-margin-top-30">
                 <p>Por &nbsp;&nbsp;</p>
-                <img src="http://res.cloudinary.com/hackdudes/image/upload/w_150,h_150,c_thumb,d_am_avatar.jpg/v1448493683/qujhapblpptr30wjrj3l.jpg">
-                <p class="name">&nbsp;&nbsp; ARTE MANIFIESTO</p>
+                <img src="{{featureds[0].User.photo}}">
+                <p class="name">&nbsp;&nbsp; {% if featureds[0].User.typeName === 1 %}
+                  {{featureds[0].User.fullname}}
+                {% else %}
+                  {{featureds[0].User.pseudonimo}}
+                {% endif %}</p>
               </div>
             </div>
           </div>
@@ -69,54 +73,35 @@
   <div class="grid-container u-margin-top-10">
     <div class="grid-100 grid-parent">
       <div class="blog-articles-container">
-
+        {% for i in [1,2] %}
         <div class="blog-article-container large">
           <article class="blog-article">
-            <header class="header" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1450852734/general/blog-cover-1.png')">
-              <span class="tag">NATURE</span>
+            <header class="header" style="background-image: url('{{featureds[i].photo|addFilter('w_600,h_400,q_80,c_limit')}}')">
+              <span class="tag">{{featureds[i].Category.name}}</span>
               <div class="inner">
-                <p class="title">Offbeat Portraits Give Stars a New Turn</p>
+                <p class="title">{{featureds[i].name}}</p>
                 <div class="stats u-margin-top-15">
-                  <p><i class="fa fa-heart"></i>&nbsp;&nbsp;54</p>
-                  <p><i class="fa fa-heart"></i>&nbsp;&nbsp;12</p>
+                  <p><i class="fa fa-heart"></i>&nbsp;&nbsp;{{featureds[i].likes}}</p>
+                  <p><i class="fa fa-comment"></i>&nbsp;&nbsp;{{featureds[i].reviews}}</p>
                 </div>
               </div>
             </header>
-            <p class="content">I whipped the Scotch tape from my pocket and said y ahora lo que hay que hacer es que todo tenga coherencia para que se puedan ver las cosas bajo el modelo de lo que es medium</p>
+            <p class="content">{{featureds[i].description}}</p>
             <footer class="footer">
-              <p class="date"><i class="bi_interface-clock"></i> June 11, 2014</p>
+              <p class="date"><i class="bi_interface-clock"></i> {{featureds[i].createdAt|formatDate()}}</p>
               <span class="author">
                 <p>Por&nbsp;&nbsp;</p>
-                <img src="http://res.cloudinary.com/hackdudes/image/upload/w_150,h_150,c_thumb,d_am_avatar.jpg/v1448493683/qujhapblpptr30wjrj3l.jpg">
-                <P>&nbsp;ARTE MANIFIESTO</P>
+                <img src="{{featureds[i].User.photo}}">
+                <P>&nbsp;{% if featureds[i].User.typeName === 1 %}
+                  {{featureds[i].User.fullname}}
+                {% else %}
+                  {{featureds[i].User.pseudonimo}}
+                {% endif %}</P>
               </span>
             </footer>
           </article>
         </div>
-
-        <div class="blog-article-container large">
-          <article class="blog-article">
-            <header class="header" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1450852734/general/blog-cover-1.png')">
-              <span class="tag">NATURE</span>
-              <div class="inner">
-                <p class="title">Offbeat Portraits Give Stars a New Turn</p>
-                <div class="stats u-margin-top-15">
-                  <p><i class="fa fa-heart"></i>&nbsp;&nbsp;54</p>
-                  <p><i class="fa fa-heart"></i>&nbsp;&nbsp;12</p>
-                </div>
-              </div>
-            </header>
-            <p class="content">I whipped the Scotch tape from my pocket and said y ahora lo que hay que hacer es que todo tenga coherencia para que se puedan ver las cosas bajo el modelo de lo que es medium</p>
-            <footer class="footer">
-              <p class="date"><i class="bi_interface-clock"></i> June 11, 2014</p>
-              <span class="author">
-                <p>Por&nbsp;&nbsp;</p>
-                <img src="http://res.cloudinary.com/hackdudes/image/upload/w_150,h_150,c_thumb,d_am_avatar.jpg/v1448493683/qujhapblpptr30wjrj3l.jpg">
-                <P>&nbsp;ARTE MANIFIESTO</P>
-              </span>
-            </footer>
-          </article>
-        </div>
+        {% endfor %}
       </div>
     </div>
   </div>
@@ -149,7 +134,8 @@
 {% block scripts %}
   <script>
   var posts = {{data|json|safe}};
-  console.log(posts);
+  var featureds = {{featureds|json|safe}};
+  console.log(featureds);
   $(function() {
     var viewer = new APP.Viewer('post', $('.container-2'), 'infinite', posts);
   });

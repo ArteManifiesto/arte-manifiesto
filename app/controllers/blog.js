@@ -6,6 +6,7 @@ var searchPosts = function (req, addQuery) {
     order: [global.getOrder('newest')],
     addUser: true,
     build: true,
+    where: {featured: false},
     include: [global.db.Category]
   };
 
@@ -20,11 +21,23 @@ var searchPosts = function (req, addQuery) {
 };
 
 exports.index = function (req, res) {
-  global.db.Category.findAll({where:{meta: 1}}).then(function(categories) {
-    searchPosts(req).then(function (data) {
-      return res.render(basePath + 'index', {
-        data: data,
-        categories: categories
+
+  global.db.Post.findAll({where:{featured:true},
+    order: [global.getOrder('newest')],
+    addUser: true,
+    build: true,
+    include: [global.db.Category]
+  }).then(function(featureds){
+    for (var i = 0; i < featureds.length; i++) {
+      featureds[i] = featureds[i].toJSON();
+    }
+    global.db.Category.findAll({where:{meta: 1}}).then(function(categories) {
+      searchPosts(req).then(function (data) {
+        return res.render(basePath + 'index', {
+          data: data,
+          featureds: featureds,
+          categories: categories
+        });
       });
     });
   });
@@ -72,7 +85,7 @@ exports.postPage = function (req, res) {
   var query = {where:{id: req.params.id}, addUser: true, build: true, include:[global.db.Category]};
   global.db.Post.find(query).then(function(post) {
     query = {
-      limit: 4,
+      limit: 3,
       where:{
         id: {$not: [post.id]},
         createdAt: {
@@ -80,6 +93,8 @@ exports.postPage = function (req, res) {
         }
       },
       include: [global.db.Category],
+      build: true,
+      addUser: true,
       order: [global.getOrder('popularity')]
     };
     global.db.Post.findAll(query).then(function(posts){
