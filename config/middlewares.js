@@ -115,17 +115,20 @@ var entityExists = function (entity, query, req, res, next, method) {
         return res.redirect('/user/' + req.params.username);
     }
 
-    if(!req.owner && !element.public) {
-      res.status(401);
-      return res.render('errors/401', {url: req.url});
-    }
-
-    if(entity === 'Work') {
-      if (!req.user && element.nsfw) {
+    if(entity !== 'Post') {
+      if(!req.owner && !element.public) {
         res.status(401);
-        return res.render('errors/nsfw');
+        return res.render('errors/401', {url: req.url});
       }
-    }
+
+      if(entity === 'Work') {
+        if (!req.user && element.nsfw) {
+          res.status(401);
+          return res.render('errors/nsfw');
+        }
+      }
+  }
+
     req[entity.toLowerCase()] = element;
     next();
   });

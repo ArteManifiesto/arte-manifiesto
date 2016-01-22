@@ -7,7 +7,8 @@ global.limits = {
   usersHome: 4,
   worksHome: 15,
   categoriesHome: 8,
-  feed: 10
+  feed: 10,
+  blog: 20
 };
 
 global.feedVerbs = ['like-work', 'follow-user', 'create-work'];

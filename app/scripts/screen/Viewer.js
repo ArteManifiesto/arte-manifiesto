@@ -8,8 +8,8 @@ APP.Viewer = function (id, container, navigation, data , options) {
   this.container = container;
   this.options = options;
 
-  if (id === 'carrouselItem' || id === 'action' || id === 'notificationItem' || id === 'tableUser'
- || id === 'tableWork') {
+  if (id === 'carrouselItem' || id === 'action' || id === 'notificationItem'
+  || id === 'tableUser' || id === 'tableWork' || id === 'post' || id === 'postMinimal') {
   }else {
     this.setupMasonry();
   }
@@ -155,9 +155,9 @@ APP.Viewer.prototype.addItems = function(items) {
       });
     }
     else {
-      if(this.id === 'carrouselItem' || this.id === 'action' || this.id === 'notificationItem' || this.id === 'tableUser'
-    || this.id === 'tableWork') {
-        this.container.append(item.view); 
+        if(this.id === 'carrouselItem' || this.id === 'action' || this.id === 'notificationItem'  || this.id === 'post'
+        || this.id === 'postMinimal' || this.id === 'tableUser' || this.id === 'tableWork') {
+        this.container.append(item.view);
       }else{
         this.container.append(item.view).masonry('appended', item.view);
       }

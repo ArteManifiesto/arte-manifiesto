@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var controller = require(global.cf.controllers + "/report");
+var controller = require(global.cf.controllers + '/admin');
 
 router.use(global.md.isLogged);
 

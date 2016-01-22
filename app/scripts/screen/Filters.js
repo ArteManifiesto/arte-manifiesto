@@ -147,7 +147,7 @@ APP.Filters.prototype.filterItemHandler = function (meta, event) {
 
   var current = $(event.currentTarget).find('.am-Filter-option');
   this[currentFilter] = current.attr('data-value');
-  
+
   $('[data-value=' + this[oldFilter] + ']').parent().removeClass('selected');
   $('[data-value=' + this[currentFilter] + ']').parent().addClass('selected');
 

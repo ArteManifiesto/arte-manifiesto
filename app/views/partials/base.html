@@ -12,9 +12,9 @@
 
 	<link rel="stylesheet" href="/css/budicon.css">
 
-	<link rel="stylesheet" type="text/css" href="/app.min.css">
-
 	{% block styles %} {% endblock %}
+
+	<link rel="stylesheet" type="text/css" href="/app.min.css">
 
 	<style>
 	.hide {
@@ -172,6 +172,9 @@
 	{% include 'elements/notification-review.html' %}
 
 	{% include 'elements/feed-work-created.html' %}
+
+	{% include 'elements/post.html' %}
+	{% include 'elements/post-minimal.html' %}
 
 	{% include 'elements/review.html' %}
 	{% include 'elements/filterItem.html' %}

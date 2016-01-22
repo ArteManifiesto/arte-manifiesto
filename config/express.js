@@ -9,7 +9,8 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var flash = require('connect-flash');
 var swig = require('swig');
-var compression = require('compression')
+var compression = require('compression');
+var moment = require('moment');
 
 var RedisStore = require('connect-redis')(expressSession);
 
@@ -26,6 +27,10 @@ module.exports = function (app, passport) {
     swig.setDefaults({cache: false});
     swig.setFilter('addFilter', function (url, filter) {
         return url.replace('upload/', 'upload/' + filter +'/');
+    });
+
+    swig.setFilter('formatDate', function (date) {
+      return moment(date).fromNow();
     });
 
     /**

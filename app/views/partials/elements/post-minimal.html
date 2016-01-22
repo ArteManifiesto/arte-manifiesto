@@ -1,0 +1,13 @@
+<script type="text/template" id="template-post-minimal">
+  <div class="article">
+    <a href="/post/<%=id%>">
+      <div class="image" style="background-image: url('<%= addFilter(photo, 'w_380,h_260,c_fill') %>')">
+          <span class="tag blue"><%= Category.name %></span>
+      </div>
+      <div class="info">
+          <div class="title"><%=name%></div>
+          <div class="description"><%=description%></div>
+      </div>
+    </a>
+  </div>
+</script>

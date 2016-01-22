@@ -2,13 +2,13 @@
  * Load routers
  * ====================================================
  */
-
 var subdomain = require('express-subdomain');
 
 
 var pagesRouter = require(global.cf.routes + '/pages');
 var authRouter = require(global.cf.routes + '/auth');
-var reportRouter = require(global.cf.routes + '/report');
+var reportRouter = require(global.cf.routes + '/admin');
+var blogRouter = require(global.cf.routes + '/blog');
 var userRouter = require(global.cf.routes + '/user');
 
 /**
@@ -16,9 +16,11 @@ var userRouter = require(global.cf.routes + '/user');
  * ====================================================
  */
 exports.init = function (app) {
-    app.use(subdomain('report', reportRouter));
+  app.use(subdomain('blog', blogRouter));
+  app.use(subdomain('report', reportRouter));
 
-    app.use('/', pagesRouter);
-    app.use('/auth', authRouter);
-    app.use('/user/:username', userRouter);
+  app.use('/', pagesRouter);
+  app.use('/auth', authRouter);
+  app.use('/blog', blogRouter);
+  app.use('/user/:username', userRouter);
 };

@@ -1,0 +1,143 @@
+{% extends '../partials/base.html' %}
+
+{% block elements %}
+<!--
+    <a href="/blog/creator">nuevo</a>
+
+    <ul>
+      {% for post in data.items %}
+        <li>
+          <strong>{{post.description}}</strong>
+        <br/>
+          <img src="{{post.photo}}" width="300"/>
+          <a href="/blog/post/{{post.id}}">ver</a>
+          <a href="/blog/creator/?idPost={{post.id}}">editar</a>
+        </li>
+      {% endfor %}
+    </ul> -->
+
+  <!-- ********************************************************************
+    $ BLOG HEADER
+  ********************************************************************* -->
+  <div class="grid-container">
+    <div class="grid-100">
+      <header class="header-blog">
+        <div class="logo">am <span>blog</span></div>
+        <div class="menu">
+          {% for category in categories %}
+            <a href="#" class="item">{{category.name}}</a>
+          {% endfor %}
+        </div>
+        <div class="socials">
+          <p>Síguenos:</p>
+          <a href="#" class="bi_logo-facebook"></a>
+          <a href="#" class="bi_logo-twitter"></a>
+          <a href="#" class="bi_logo-instagram"></a>
+          <a href="#" class="bi_web-rss"></a>
+        </div>
+      </header>
+    </div>
+  </div>
+
+  <div class="u-separator" style="background: #eee;"></div>
+
+
+  <!-- ********************************************************************
+    $ BLOG MAIN ARTICLE
+  ********************************************************************* -->
+  <div class="grid-container u-margin-top-20">
+    <div class="grid-100">
+      <section class="slider">
+        <div class="slider-items">
+          <div class="slider-item js-slide" style="background-image: url('{{featureds[0].photo|addFilter('w_1200,h_400,q_80,c_limit')}}')">
+            <span class="slider-item-tag">{{featureds[0].Category.name}}</span>
+            <div class="slider-item-inner">
+              <p class="title">{{featureds[0].name}}</p>
+              <div class="author u-margin-top-30">
+                <p>Por &nbsp;&nbsp;</p>
+                <img src="{{featureds[0].User.photo}}">
+                <p class="name">&nbsp;&nbsp; {% if featureds[0].User.typeName === 1 %}
+                  {{featureds[0].User.fullname}}
+                {% else %}
+                  {{featureds[0].User.pseudonimo}}
+                {% endif %}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+
+  <div class="grid-container u-margin-top-10">
+    <div class="grid-100 grid-parent">
+      <div class="blog-articles-container">
+        {% for i in [1,2] %}
+        <div class="blog-article-container large">
+          <article class="blog-article">
+            <header class="header" style="background-image: url('{{featureds[i].photo|addFilter('w_600,h_400,q_80,c_limit')}}')">
+              <span class="tag">{{featureds[i].Category.name}}</span>
+              <div class="inner">
+                <p class="title">{{featureds[i].name}}</p>
+                <div class="stats u-margin-top-15">
+                  <p><i class="fa fa-heart"></i>&nbsp;&nbsp;{{featureds[i].likes}}</p>
+                  <p><i class="fa fa-comment"></i>&nbsp;&nbsp;{{featureds[i].reviews}}</p>
+                </div>
+              </div>
+            </header>
+            <p class="content">{{featureds[i].description}}</p>
+            <footer class="footer">
+              <p class="date"><i class="bi_interface-clock"></i> {{featureds[i].createdAt|formatDate()}}</p>
+              <span class="author">
+                <p>Por&nbsp;&nbsp;</p>
+                <img src="{{featureds[i].User.photo}}">
+                <P>&nbsp;{% if featureds[i].User.typeName === 1 %}
+                  {{featureds[i].User.fullname}}
+                {% else %}
+                  {{featureds[i].User.pseudonimo}}
+                {% endif %}</P>
+              </span>
+            </footer>
+          </article>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ********************************************************************
+    $ LAST ARTICLES
+  ********************************************************************* -->
+  <div class="grid-container u-margin-top-30">
+    <div class="grid-100">
+      <p class="am-more-text u-text-center u-padding-bottom-10">Últimos artículos</p>
+      <div class="u-separator-center"></div>
+    </div>
+  </div>
+
+  <div class="grid-container u-margin-top-10">
+    <div class="grid-100 grid-parent">
+      <div class="blog-articles-container container-2">
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-100 u-padding-top-30 u-padding-bottom-30">
+    <a class="am-More-button" style="display: table; margin: auto; min-width: 150px;">Ver más</a>
+  </div>
+
+{% endblock %}
+
+
+{% block scripts %}
+  <script>
+  var posts = {{data|json|safe}};
+  var featureds = {{featureds|json|safe}};
+  console.log(featureds);
+  $(function() {
+    var viewer = new APP.Viewer('post', $('.container-2'), 'infinite', posts);
+  });
+  </script>
+{% endblock %}
