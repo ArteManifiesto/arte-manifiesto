@@ -1721,8 +1721,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
 
   Images.prototype.add = function () {
     var that = this,
-    // $file = $(this.templates['src/js/templates/images-fileupload.hbs']()),
-      $file = $('.cloudinary-fileupload'),
+      $file = $('.editor-photos'),
       fileUploadOptions = {
         dataType: 'json',
         add: function (e, data) {
@@ -1935,11 +1934,11 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
             that.jqXHR.splice(i, 1);
         }
 
-        data.context.find('img').attr('src', domImage.src);
+        data.context.find('img').attr('src', Utils.addImageFilter(domImage.src, 'w_1000,c_limit'));
         that.core.triggerInput();
 
         if(that.jqXHR.length === 0) {
-          console.log('everything was onloaded');
+          // console.log('everything was onloaded');
           Broadcaster.dispatchEvent('imageLoaded');
         }
       };
@@ -2056,7 +2055,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
       if ($image.length) {
         for(var i = 0; i < this.jqXHR.length; i++) {
           if(this.jqXHR[i].url === $image[0].currentSrc) {
-            console.log('carga abortada ._.');
+            // console.log('carga abortada ._.');
             this.jqXHR[i].data.abort();
             this.jqXHR.splice(i, 1);
           }
@@ -2087,7 +2086,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
 
 
         if(this.jqXHR.length === 0) {
-          console.log('because it was canceled');
+          // console.log('because it was canceled');
           Broadcaster.dispatchEvent('imageLoaded');
         }
 

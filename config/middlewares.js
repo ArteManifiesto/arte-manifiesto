@@ -1,5 +1,5 @@
 exports.isLogged = function (req, res, next) {
-  
+
   console.log('is loggeed : ' , req.originalUrl, req.isAuthenticated());
 
     if (!req.isAuthenticated()) {
@@ -149,7 +149,8 @@ exports.nameSlugify = function (entity) {
             where: {nameSlugify: req.params.nameSlugify},
             viewer: req.viewer, build: true, addUser: true
         };
-        entityExists(entity, query, req, res, next , true);
+
+        entityExists(entity, query, req, res, next , entity !== 'Post');
     }
 };
 

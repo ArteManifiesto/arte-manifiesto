@@ -14,20 +14,20 @@ APP.AM = function () {
 	//  });
   //
 
-  // $('.' + path + '-menu').addClass('selected');
+  $('.' + path + '-menu').addClass('selected');
 
-  // DataApp.currentUser = user || null;
-	// if(DataApp.currentUser !== null)
-	// 	DataApp.currentUser.url = '/user/' + DataApp.currentUser.username;
+  DataApp.currentUser = user || null;
+	if(DataApp.currentUser !== null)
+		DataApp.currentUser.url = '/user/' + DataApp.currentUser.username;
 
-  // var flash, flashMessage;
-  // errorMessage.length > 0 && (flash = $('.error'), flashMessage = errorMessage[0]);
-  // successMessage.length > 0 && (flash = $('.succes'), flashMessage = successMessage[0]);
-  //
-  // if(flash) {
-  //   flash.find('.content-text').text(flashMessage);
-  //   flash.addClass('fadeIn');
-  // }
+  var flash, flashMessage;
+  errorMessage.length > 0 && (flash = $('.error'), flashMessage = errorMessage[0]);
+  successMessage.length > 0 && (flash = $('.succes'), flashMessage = successMessage[0]);
+
+  if(flash) {
+    flash.find('.content-text').text(flashMessage);
+    flash.addClass('fadeIn');
+  }
 
   $('.am-Signin-button').click(function(event) {
     event.preventDefault();

@@ -15,7 +15,7 @@
 {% block elements %}
 
 
-    <div class="blog-single-cover" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1450852734/general/blog-cover-1.png')">
+    <div class="blog-single-cover" style="background-image: url('{{post.photo}}')">
         <div class="grid-container" style="text-align: center;">
             <div class="grid-100">
                 <!-- <div class="inner"> -->
@@ -32,9 +32,6 @@
     </div>
 
     <div id="container">
-        {{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: {
-        style: "width:230px;height:55px;top:-70px;left: 105px;" } })}}
-
         <div class="editable">
           {% if post %}
             {{postBody|safe}}
@@ -57,8 +54,11 @@
     <div class="grid-container">
         <div class="grid-100">
             <div class="blog-single-user">
+              <a href="/user/{{post.User.username}}">
                 <img src="{{post.User.photo}}">
+              </a>
                 <div class="info">
+                  <a href="/user/{{post.User.username}}">
                     <p class="name">
                       {% if post.User.typeName === 1 %}
     										{{post.User.fullname}}
@@ -66,9 +66,10 @@
     										{{post.User.pseudonimo}}
     									{% endif %}
                     </p>
-                    <p class="description">{{post.User.biography}}</p>
+                  </a>
+                    <p class="description">{{post.User.biography.substr(0,140)}}</p>
                 </div>
-                <a class="button"> + SEGUIR</a>
+                <a class="button following"> + SEGUIR</a>
             </div>
         </div>
     </div>

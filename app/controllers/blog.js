@@ -22,16 +22,17 @@ var searchPosts = function (req, addQuery) {
 
 exports.index = function (req, res) {
 
-  global.db.Post.findAll({where:{featured:true},
+  global.db.Post.findAll({
+    where: {featured: true},
     order: [global.getOrder('newest')],
     addUser: true,
     build: true,
     include: [global.db.Category]
-  }).then(function(featureds){
+  }).then(function (featureds) {
     for (var i = 0; i < featureds.length; i++) {
       featureds[i] = featureds[i].toJSON();
     }
-    global.db.Category.findAll({where:{meta: 1}}).then(function(categories) {
+    global.db.Category.findAll({where: {meta: 1}}).then(function (categories) {
       searchPosts(req).then(function (data) {
         return res.render(basePath + 'index', {
           data: data,
@@ -52,42 +53,50 @@ exports.posts = function (req, res) {
 exports.creator = function (req, res) {
   var view = basePath + 'creator';
 
-  global.db.Category.findAll({where:{meta: 1}}).then(function(categories) {
-    if (!req.query.idPost)
-      return res.render(view, {
-        cloudinary: global.cl,
-        cloudinayCors: global.cl_cors,
-        categories: categories
-      });
-
-    var query = {
-      where: {
-        id: req.query.idPost
-      },
-      include:[global.db.Category]
-    };
-
-    global.db.Post.find(query).then(function (post) {
-      post = post.toJSON();
-
-      return res.render(view, {
-        post: global._.omit(post, 'body'),
-        postBody: post.body,
-        cloudinary: global.cl,
-        cloudinayCors: global.cl_cors,
-        categories: categories
-      });
+  global.db.Category.findAll({where: {meta: 1}}).then(function (categories) {
+    return res.render(view, {
+      cloudinary: global.cl,
+      cloudinayCors: global.cl_cors,
+      categories: categories
     });
+  //
+  //   if (!req.query.idPost) {
+  //     console.log('we are passing by');
+  //       return res.render(view, {
+  //         cloudinary: global.cl,
+  //         cloudinayCors: global.cl_cors,
+  //         categories: categories
+  //       });
+  //   }
+  //
+  //   var query = {
+  //     where: {
+  //       id: req.query.idPost
+  //     },
+  //     include: [global.db.Category]
+  //   };
+  //
+  //   global.db.Post.find(query).then(function (post) {
+  //     post = post.toJSON();
+  //
+  //     return res.render(view, {
+  //       post: global._.omit(post, 'body'),
+  //       postBody: post.body,
+  //       cloudinary: global.cl,
+  //       cloudinayCors: global.cl_cors,
+  //       categories: categories
+  //     });
+  //   });
   });
 };
 
 exports.postPage = function (req, res) {
-  var query = {where:{id: req.params.id}, addUser: true, build: true, include:[global.db.Category]};
-  global.db.Post.find(query).then(function(post) {
-    query = {
+  req.post.getCategory().then(function (category) {
+    req.post.setDataValue('Category', category);
+    var query = {
       limit: 3,
-      where:{
-        id: {$not: [post.id]},
+      where: {
+        id: {$not: [req.post.id]},
         createdAt: {
           $between: [moment().startOf('week').toDate(), moment().toDate()]
         }
@@ -97,8 +106,8 @@ exports.postPage = function (req, res) {
       addUser: true,
       order: [global.getOrder('popularity')]
     };
-    global.db.Post.findAll(query).then(function(posts){
-      post = post.toJSON();
+    global.db.Post.findAll(query).then(function (posts) {
+      post = req.post.toJSON();
       return res.render(basePath + 'post', {
         post: global._.omit(post, 'body'),
         postBody: post.body,
@@ -109,15 +118,15 @@ exports.postPage = function (req, res) {
 };
 
 exports.postCreate = function (req, res) {
-  req.body.UserId = 3;
+  req.body.UserId = req.user.id;
   req.body.CategoryId = req.body.category;
-  global.db.Post.create(req.body).then(function(post) {
+  global.db.Post.create(req.body).then(function (post) {
     return res.ok({post: post}, 'post');
   });
 };
 
 exports.postUpdate = function (req, res) {
-  req.post.updateAttributes(req.body).then(function(post) {
+  req.post.updateAttributes(req.body).then(function (post) {
     return res.ok({post: post}, 'post');
   });
 };

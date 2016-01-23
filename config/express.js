@@ -66,7 +66,7 @@ module.exports = function (app, passport) {
     //     saveUninitialized: false,
     //     cookie: {domain: '.am.local'}
     // }));
-    
+
     app.use(flash());
 
     app.use(bodyParser.urlencoded({extended: false}));
