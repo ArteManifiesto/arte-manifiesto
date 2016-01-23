@@ -86,7 +86,7 @@ APP.CreatorPostScreen.prototype.imageLoaded = function () {
 };
 
 APP.CreatorPostScreen.prototype.autoSave = function (event, editable) {
-  console.log('ggpe');
+  if(this.isUploading) return;
   var errors = [];
   var nameValue = this.name.val(), categoryValue = this.category.val();
 
