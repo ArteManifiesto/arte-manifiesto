@@ -25,7 +25,7 @@
         <div class="info">
           <span class="date"><i class="bi_interface-clock"></i> {{ post.createdAt|formatDate() }}</span>
           &nbsp; &nbsp; &nbsp;
-          <span class="social"><i class="fa fa-heart"></i> {{ post.likes }}</span> &nbsp; &nbsp;
+          <span class="social"><i class="fa fa-heart"></i> <span class="likes">{{ post.likes }}</span></span> &nbsp; &nbsp;
           <span class="social"><i class="fa fa-comment"></i> {{ post.reviews }}</span> &nbsp; &nbsp;
         </div>
       </div>
@@ -44,7 +44,7 @@
       <div class="blog-single-socials">
         <div class="buttons">
           <a class="button white like-btn"><i class="fa fa-heart"></i>&nbsp;&nbsp; LIKE
-            &nbsp;&nbsp;<span>{{ post.likes }}</span></a>
+            &nbsp;&nbsp;<span class="likes">{{ post.likes }}</span></a>
           <a href="#" class="button blue"><i class="fa fa-facebook"></i>&nbsp;&nbsp; SHARE</a>
           <a href="#" class="button sky-blue"><i class="fa fa-twitter"></i>&nbsp;&nbsp; TWEET</a>
         </div>

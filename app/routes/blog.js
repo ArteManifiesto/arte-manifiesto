@@ -15,6 +15,7 @@ router.post('/:page', controller.posts);
 router.get('/creator', controller.creator);
 
 router.get('/post/:nameSlugify', global.md.nameSlugify(entity), controller.postPage);
+router.get('/post/:nameSlugify/edit', global.md.nameSlugify(entity), controller.editPage);
 
 router.post('/post/review/create', controller.createReview);
 

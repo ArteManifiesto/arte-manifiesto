@@ -51,7 +51,6 @@ APP.PostScreen.prototype.likeComplete = function(response) {
   post.liked = !post.liked;
   $('.likes').text(response.data.likes);
   this.likeBtn.parent().addClass('active');
-  this.afterLike.show();
 };
 
 

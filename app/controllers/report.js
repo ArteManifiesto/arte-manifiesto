@@ -3,7 +3,7 @@ var moment = require('moment');
 
 
 exports.index = function(req,res) {
-  return res.redirect('/users/page-1');
+  return res.redirect(basePath + 'users/page-1');
   // return res.render(basePath + 'index');
 };
 
