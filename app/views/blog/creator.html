@@ -8,54 +8,96 @@
 
 
 {% block elements %}
-{% if edit %}
-Edicion
-{% endif %}
-    <p>
-        estado : <span class="status">Inicio</span>
-    </p>
 
-    <div class="uploader-work">
-      <div class="profile-imgage">
-        <div class="preview">
-          {% if edit %}
-            <img src="{{post.photo|addFilter('w_300,c_limit')}}"/>
-          {% endif %}
+  <div style="min-height: 600px;">
+
+    <div class="blog-single-cover">
+
+      <div class="uploader-cover">
+
+        <div class="edit-options">
+          <div class="image-uploader" style="position:relative;">
+            {{ cloudinary.uploader.image_upload_tag('cover', {callback: cloudinary_cors,return_delete_token: true, html: {
+            style: "width:50px;height:55px;top:-18px;", class:'editor-cover' } })}}
+          </div>
+          <i class="bi_tool-camera-b upload edit-icon"></i>
+          <i class="prelaod fa fa-spinner hide preload"></i>
+          <i class="bi_interface-box-tick hide save-icon"></i>
+          <i class="bi_interface-box-cross hide cancel-icon"></i>
+        </div>
+
+        <div class="profile-imgage">
+          <div class="preview">
+            <img class="am-Profile-banner-img" src="http://res.cloudinary.com/arte-manifiesto/image/upload/c_limit,w_1600/general/am-cover.jpg">
+          </div>
         </div>
       </div>
-      <div class="preload hide"><i class="fa fa-spinner"></i></div>
-      <button class="button upload u-margin-top-30">BUSCAR ARCHIVO</button>
-    </div>
-    <div class="image-uploader" style="position:relative;">
-        {{ cloudinary.uploader.image_upload_tag('cover', {callback: cloudinary_cors, return_delete_token: true, html: {
-        style: "width:230px;height:55px;top:-70px;left: 105px;", class:'editor-cover' } })}}
-    </div>
 
-</br>
+      <div class="grid-container" style="text-align: center;">
+        <div class="grid-100">
 
-    <select class="input select" name='category'>
-      <option disabled selected>Selecciona una Categoria</option>
-      {% for category in categories %}
-        <option value="{{category.id}}">{{category.name}}</option>
-      {% endfor %}
-    </select>
-    </br>
+          <select class="select-tag input select" name='category'>
+            <option class="select-tag-option" disabled selected>Selecciona una Categoria</option>
+            {% for category in categories %}
+              <option class="select-tag-option" value="{{category.id}}">{{category.name}}</option>
+            {% endfor %}
+          </select>
 
-    {% if edit %}
-      <input type="text" name="name" placeholder="Titulo del post" value="{{post.name}}">
-    {% else %}
-      <input type="text" name="name" placeholder="Titulo del post">
-    {% endif %}
+          <input class="input-title" type="text" name="name" placeholder="Titulo del post">
 
-    <div id="container">
-        {{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: {
-        style: "width:230px;height:55px;top:-70px;left: 105px;", multiple:1, class:'editor-photos' } })}}
-        <div class="editable">
-            {% if edit %}
-              {{postBody|safe}}
-            {% endif %}
+          <div class="info">
+            <span class="date status">No guardado</span>
+            &nbsp; &nbsp; &nbsp;
+            <span class="social"><i class="fa fa-heart"></i> {{ post.likes }}</span> &nbsp; &nbsp;
+            <span class="social"><i class="fa fa-comment"></i> {{ post.reviews }}</span> &nbsp; &nbsp;
+          </div>
         </div>
+      </div>
     </div>
+
+
+      <!-- <p>
+          estado : <span class="status">Inicio</span>
+      </p> -->
+
+
+      <!-- <div class="uploader-work">
+        <div class="profile-imgage">
+          <div class="preview">
+          </div>
+        </div>
+        <div class="preload hide"><i class="fa fa-spinner"></i></div>
+        <button class="button upload u-margin-top-30">BUSCAR ARCHIVO</button>
+      </div> -->
+      <!-- <div class="image-uploader" style="position:relative;">
+          {{ cloudinary.uploader.image_upload_tag('cover', {callback: cloudinary_cors, return_delete_token: true, html: {
+          style: "width:230px;height:55px;top:-70px;left: 105px;", class:'editor-cover' } })}}
+      </div> -->
+
+      <!-- </br> -->
+
+      <!-- <select class="input select" name='category'>
+        <option disabled selected>Selecciona una Categoria</option>
+        {% for category in categories %}
+          <option value="{{category.id}}">{{category.name}}</option>
+        {% endfor %}
+      </select>
+      </br> -->
+
+      <!-- <input type="text" name="name" placeholder="Titulo del post"> -->
+
+      <div id="container">
+          {{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: {
+          style: "width:230px;height:55px;top:-70px;left: 105px;", multiple:1, class:'editor-photos' } })}}
+          <div class="editable">
+              {% if post %}
+                {{postBody|safe}}
+              {% endif %}
+          </div>
+      </div>
+
+  </div>
+
 {% endblock %}
 
 
@@ -67,8 +109,6 @@ Edicion
     <script src="/medium-editor-insert-plugin.js"></script>
     <script>
       var post = null;
-      var edit = {{edit}};
-      if(edit) post = {{post|json|safe}};
       $(function () {
           $.cloudinary.config({{cloudinary.config()|json|safe}});
           new APP.CreatorPostScreen();
