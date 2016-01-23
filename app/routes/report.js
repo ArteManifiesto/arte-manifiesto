@@ -3,8 +3,6 @@ var router = express.Router();
 
 var controller = require(global.cf.controllers + "/report");
 
-// router.use(global.md.isAdmin);
-
 router.get('/', controller.index);
 
 router.get('/users/:page', controller.users);

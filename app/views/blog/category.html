@@ -11,7 +11,7 @@
       <div class="logo">am <span>blog</span></div>
       <div class="menu">
         {% for category in categories %}
-          <a href="/category/{{category.nameSlugify}}" class="item">{{category.name}}</a>
+          <a href="/blog/category/{{category.nameSlugify}}" class="item">{{category.name}}</a>
         {% endfor %}
       </div>
       <div class="socials">
@@ -28,10 +28,12 @@
 
   <div class="grid-container u-margin-top-10">
     <div class="grid-100 grid-parent">
-      <div class="blog-articles-container container-2">
+      <div class="blog-articles-container articles-container">
       </div>
     </div>
   </div>
+  <div class="grid-100 u-padding-top-30 u-padding-bottom-30"></div>
+
 {% endblock %}
 
 

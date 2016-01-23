@@ -35,6 +35,9 @@ APP.CreatorPostScreen.prototype.setupUI = function () {
     buttonLabels: 'fontawesome',
     targetBlank: true,
     imageDragging: false,
+    placeholder: {
+      text: 'Ingresa el contenido del post :)'
+    },
     toolbar: {
       buttons: [
         'h2', 'h3', 'bold', 'italic', 'quote', 'anchor'

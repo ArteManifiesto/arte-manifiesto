@@ -12,7 +12,7 @@ var searchPosts = function (req, options) {
   };
 
   var page = req.params.page ? req.params.page : 'page-1';
-  options.limit = 3;
+  options.limit = 20;
   options.page = page;
 
   return global.getPaginationEntity(options, query);
