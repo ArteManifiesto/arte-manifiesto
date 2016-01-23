@@ -34,7 +34,6 @@
     <div class="grid-container" style="text-align: center;">
       <div class="grid-100">
 
-        <!-- <span class="tag">{{ post.Category.name }}</span> -->
         <select class="select-tag input select" name='category'>
           <option class="select-tag-option" disabled selected>Selecciona una Categoria</option>
           {% for category in categories %}
@@ -42,7 +41,6 @@
           {% endfor %}
         </select>
 
-        <!-- <p class="title">{{ post.name }}</p> -->
         <input class="input-title" type="text" name="name" placeholder="Titulo del post">
 
         <div class="info">
