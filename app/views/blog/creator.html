@@ -8,9 +8,36 @@
 
 
 {% block elements %}
-    <p>
+
+    <!-- <p>
         estado : <span class="status">Inicio</span>
-    </p>
+    </p> -->
+
+  <div class="blog-single-cover" style="background-image: url('{{ post.photo }}')">
+    <div class="grid-container" style="text-align: center;">
+      <div class="grid-100">
+
+        <!-- <span class="tag">{{ post.Category.name }}</span> -->
+        <select class="select-tag input select" name='category'>
+          <option class="select-tag-option" disabled selected>Selecciona una Categoria</option>
+          {% for category in categories %}
+            <option class="select-tag-option" value="{{category.id}}">{{category.name}}</option>
+          {% endfor %}
+        </select>
+
+        <!-- <p class="title">{{ post.name }}</p> -->
+        <input class="input-title" type="text" name="name" placeholder="Titulo del post">
+
+        <div class="info">
+          <span class="date status">No guardado</span>
+          &nbsp; &nbsp; &nbsp;
+          <span class="social"><i class="fa fa-heart"></i> {{ post.likes }}</span> &nbsp; &nbsp;
+          <span class="social"><i class="fa fa-comment"></i> {{ post.reviews }}</span> &nbsp; &nbsp;
+        </div>
+      </div>
+    </div>
+  </div>
+
 
     <div class="uploader-work">
       <div class="profile-imgage">
@@ -27,15 +54,15 @@
 
 </br>
 
-    <select class="input select" name='category'>
+    <!-- <select class="input select" name='category'>
       <option disabled selected>Selecciona una Categoria</option>
       {% for category in categories %}
         <option value="{{category.id}}">{{category.name}}</option>
       {% endfor %}
     </select>
-    </br>
+    </br> -->
 
-    <input type="text" name="name" placeholder="Titulo del post">
+    <!-- <input type="text" name="name" placeholder="Titulo del post"> -->
 
     <div id="container">
         {{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: {
