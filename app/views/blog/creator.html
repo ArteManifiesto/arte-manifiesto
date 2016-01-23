@@ -12,19 +12,18 @@
         estado : <span class="status">Inicio</span>
     </p>
 
-
-<div class="uploader-cover">
-  <div class="profile-imgage">
-    <div class="preview">
+    <div class="uploader-work">
+      <div class="profile-imgage">
+        <div class="preview">
+        </div>
+      </div>
+      <div class="preload hide"><i class="fa fa-spinner"></i></div>
+      <button class="button upload u-margin-top-30">BUSCAR ARCHIVO</button>
     </div>
-  </div>
-  <div class="preload hide"><i class="fa fa-spinner"></i></div>
-  <button class="button upload u-margin-top-30">BUSCAR ARCHIVO</button>
-</div>
-
-<div class="image-uploader" style="position:relative;">
-  {{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:230px;height:55px;top:-70px;left: 105px;" } })}}
-</div>
+    <div class="image-uploader" style="position:relative;">
+        {{ cloudinary.uploader.image_upload_tag('cover', {callback: cloudinary_cors, return_delete_token: true, html: {
+        style: "width:230px;height:55px;top:-70px;left: 105px;", class:'editor-cover' } })}}
+    </div>
 
 </br>
 
@@ -41,7 +40,6 @@
     <div id="container">
         {{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: {
         style: "width:230px;height:55px;top:-70px;left: 105px;", multiple:1, class:'editor-photos' } })}}
-
         <div class="editable">
             {% if post %}
               {{postBody|safe}}
@@ -52,19 +50,11 @@
 
 
 {% block scripts %}
-    <script src="/jquery-2.1.1.min.js"></script>
     <script src="http://linkesch.com/medium-editor-insert-plugin/bower_components/handlebars/handlebars.runtime.min.js"></script>
     <script src="http://linkesch.com/medium-editor-insert-plugin/bower_components/jquery-sortable/source/js/jquery-sortable-min.js"></script>
 
-    <script src='/jquery.ui.widget.js'></script>
-    <script src='/jquery.iframe-transport.js'></script>
-    <script src='/jquery.fileupload.js'></script>
-    <script src='/jquery.cloudinary.js'></script>
-    <script src='/broadcaster.js'></script>
-
     <script src="/medium-editor.js"></script>
     <script src="/medium-editor-insert-plugin.js"></script>
-
     <script>
       var post = null;
       $(function () {

@@ -4,9 +4,11 @@
 */
 var APP = APP || {};
 
-APP.UploaderImage = function (view, onComplete) {
+APP.UploaderImage = function (view, onComplete, options) {
   this.$view = view;
   this.photo = null;
+  this.options = options || {uploader: $('.cloudinary-fileupload')};
+  this.uploader = this.options.uploader;
   this.listeners();
   this.onComplete = onComplete;
 };
@@ -14,16 +16,16 @@ APP.UploaderImage = function (view, onComplete) {
 APP.UploaderImage.constructor = APP.UploaderImage;
 
 APP.UploaderImage.prototype.listeners = function () {
-  var scope = this, $uploader = $('.cloudinary-fileupload');
-  $uploader.fileupload({
+  var scope = this;
+  this.uploader.fileupload({
     start: function (e) {
       scope.$view.find('.upload').hide();
-      $('.cloudinary-fileupload').hide();
+      scope.uploader.hide();
       scope.$view.find('.preload').show();
     },
     fail: function (e, data) {
       scope.$view.find('.upload').show();
-      $uploader.show();
+      scope.uploader.show();
       scope.$view.find('.preload').hide();
     }
   })

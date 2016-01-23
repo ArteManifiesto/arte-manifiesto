@@ -15,7 +15,7 @@ APP.CreatorPostScreen.prototype.setupUI = function () {
   this.category = $('select[name=category]');
   this.name = $('input[name=name]');
   this.status = $('.status');
-  this.cover = new APP.UploaderImage($('.uploader-cover'), null, {
+  this.cover = new APP.UploaderImage($('.uploader-work'), this.coverComplete, {
     uploader: $('.editor-cover')
   });
 
@@ -127,3 +127,11 @@ APP.CreatorPostScreen.prototype.beforeUnLoad = function (event) {
     return message;
   }
 };
+
+
+APP.CreatorPostScreen.prototype.coverComplete = function(idImage) {
+   this.$view.find('.upload').show();
+   this.uploader.show();
+   var filters =  {width: 300, crop: 'limit'};
+   $.cloudinary.image(idImage, filters).appendTo(this.$view.find('.preview'));
+}
