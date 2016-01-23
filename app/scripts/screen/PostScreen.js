@@ -38,7 +38,6 @@ APP.PostScreen.prototype.listeners = function () {
 
 APP.PostScreen.prototype.likeBtnHandler = function(event) {
   event.preventDefault();
-
   Utils.checkAuthentication();
 
   if (!post.liked) {

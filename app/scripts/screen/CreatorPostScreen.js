@@ -3,9 +3,12 @@
  *Email : juliocanares@gmail.com
  */
 var APP = APP || {};
+var scope;
+var timeout;
 
 APP.CreatorPostScreen = function () {
   APP.BaseScreen.call(this, 'creatorPost');
+  scope = this;
 };
 
 APP.CreatorPostScreen.constructor = APP.CreatorPostScreen;
@@ -17,7 +20,7 @@ APP.CreatorPostScreen.prototype.setupUI = function () {
   this.status = $('.status');
 
 
-  this.cover = new APP.UploaderImage($('.uploader-work'), this.coverComplete, {
+  this.cover = new APP.UploaderImage($('.uploader-cover'), this.coverComplete, {
     uploader: $('.editor-cover')
   });
 
@@ -25,6 +28,7 @@ APP.CreatorPostScreen.prototype.setupUI = function () {
     this.category.find('option[value=' + post.Category.id + ']').attr('selected', true);
     this.cover.photo = post.photo;
   }
+
   this.editable = $('.editable');
 
   this.editor = new MediumEditor('.editable', {
@@ -58,6 +62,9 @@ APP.CreatorPostScreen.prototype.listeners = function () {
   this.editor.subscribe('editableInput', throttledAutoSave);
 
   window.onbeforeunload = this.beforeUnLoad.bind(this);
+
+  this.category.change(this.inputChange.bind(this));
+  this.name.keyup(this.nameKeyUp.bind(this));
 };
 
 APP.CreatorPostScreen.prototype.imageStarted = function () {
@@ -71,13 +78,16 @@ APP.CreatorPostScreen.prototype.progressComplete = function () {
 
 APP.CreatorPostScreen.prototype.imageLoaded = function () {
   this.isUploading = false;
-  this.autoSave(null, null);
+  this.autoSave(null, this.editable);
   this.status.text('Imagenes cargadas');
 };
 
 APP.CreatorPostScreen.prototype.autoSave = function (event, editable) {
+  console.log('ggpe');
   var errors = [];
   var nameValue = this.name.val(), categoryValue = this.category.val();
+
+  this.editable = editable;
 
   if (nameValue.trim().length < 1)
     errors.push('Agrega un titulo');
@@ -118,6 +128,9 @@ APP.CreatorPostScreen.prototype.autoSave = function (event, editable) {
 
 APP.CreatorPostScreen.prototype.saveRequestComplete = function (response) {
   post = response.data.post;
+  if(edit)
+    Utils.changeUrl(post.name, '/blog/post/' + post.nameSlugify + '/edit');
+
   this.status.text('✓ guardado');
 };
 
@@ -134,10 +147,25 @@ APP.CreatorPostScreen.prototype.beforeUnLoad = function (event) {
   }
 };
 
-
 APP.CreatorPostScreen.prototype.coverComplete = function(idImage) {
    this.$view.find('.upload').show();
    this.uploader.show();
-   var filters =  {width: 300, crop: 'limit'};
-   $.cloudinary.image(idImage, filters).appendTo(this.$view.find('.preview'));
-}
+
+   var filters = {format: 'jpg', width: 1600, crop: "limit", quality: 80};
+   var img = $.cloudinary.image(idImage, filters);
+   img.addClass('am-Profile-banner-img').appendTo(this.$view.find('.preview'));
+   this.photo = img.attr('src');
+
+   scope.autoSave(null, scope.editable);
+};
+
+APP.CreatorPostScreen.prototype.inputChange = function() {
+  this.autoSave(null, this.editable);
+};
+
+APP.CreatorPostScreen.prototype.nameKeyUp = function() {
+  clearTimeout(timeout);
+  timeout = setTimeout(function() {
+    scope.autoSave(null, scope.editable);
+  }, 1000);
+};

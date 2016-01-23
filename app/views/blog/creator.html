@@ -28,14 +28,17 @@
 
         <div class="profile-imgage">
           <div class="preview">
-            <img class="am-Profile-banner-img" src="http://res.cloudinary.com/arte-manifiesto/image/upload/c_limit,w_1600/general/am-cover.jpg">
+            {% if edit %}
+              <img class="am-Profile-banner-img" src="{{post.photo}}">
+            {% else %}
+              <img class="am-Profile-banner-img" src="http://res.cloudinary.com/arte-manifiesto/image/upload/c_limit,w_1600/general/am-cover.jpg">
+            {% endif %}
           </div>
         </div>
       </div>
 
       <div class="grid-container" style="text-align: center;">
         <div class="grid-100">
-
           <select class="select-tag input select" name='category'>
             <option class="select-tag-option" disabled selected>Selecciona una Categoria</option>
             {% for category in categories %}
@@ -43,7 +46,11 @@
             {% endfor %}
           </select>
 
-          <input class="input-title" type="text" name="name" placeholder="Titulo del post">
+          {% if edit %}
+            <input class="input-title" type="text" name="name" placeholder="Titulo del post" value="{{post.name}}">
+          {% else %}
+            <input class="input-title" type="text" name="name" placeholder="Titulo del post">
+          {% endif %}
 
           <div class="info">
             <span class="date status">No guardado</span>
@@ -109,6 +116,10 @@
     <script src="/medium-editor-insert-plugin.js"></script>
     <script>
       var post = null;
+      var edit = {{edit|json|safe}};
+      if(edit) {
+        post = {{post|json|safe}}
+      }
       $(function () {
           $.cloudinary.config({{cloudinary.config()|json|safe}});
           new APP.CreatorPostScreen();
