@@ -48,6 +48,7 @@ APP.BaseNavigation.prototype.gotoPage = function (next, force) {
 };
 
 APP.BaseNavigation.prototype.afterGetData = function (response) {
+  console.log(response);
   this.currentPage = response.pagination.page;
   this.totalPages = response.pagination.pages;
   this.currentPageData = response;

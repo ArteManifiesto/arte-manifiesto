@@ -82,8 +82,9 @@ APP.Viewer.prototype.pageLoadEndHandler = function(event) {
     this.initialize = false;
   }
   this.addItems(event.data.items);
-
-  this.options.getTotal(event.data.pagination.total);
+  if(this.options && this.options.getTotal) {
+    this.options.getTotal(event.data.pagination.total);
+  }
 };
 
 APP.Viewer.prototype.addItems = function(items) {

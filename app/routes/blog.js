@@ -7,13 +7,17 @@ var entity = 'Post';
 
 router.get('/', controller.index);
 
+router.get('/category/:category', controller.categoryPosts);
+
 router.post('/:page', controller.posts);
 
-router.get('/creator', global.md.isAdmin, controller.creator);
+router.get('/creator', controller.creator);
 
 router.get('/post/:nameSlugify', global.md.nameSlugify(entity), controller.postPage);
 
-router.post('/post/create', global.md.isAdmin, controller.postCreate);
-router.post('/post/update', global.md.isAdmin, global.md.entity(entity), controller.postUpdate);
+router.post('/post/review/create', controller.createReview);
+
+router.post('/post/create', controller.postCreate);
+router.post('/post/update', global.md.entity(entity), controller.postUpdate);
 
 module.exports = router;

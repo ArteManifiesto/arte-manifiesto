@@ -2,24 +2,6 @@
 {% extends '../partials/base.html' %}
 
 {% block elements %}
-
-{% if user %}
-  <a href="/creator">nuevo</a>
-{% endif %}
-<!--
-
-    <ul>
-      {% for post in data.items %}
-        <li>
-          <strong>{{post.description}}</strong>
-        <br/>
-          <img src="{{post.photo}}" width="300"/>
-          <a href="/blog/post/{{post.id}}">ver</a>
-          <a href="/blog/creator/?idPost={{post.id}}">editar</a>
-        </li>
-      {% endfor %}
-    </ul> -->
-
   <!-- ********************************************************************
     $ BLOG HEADER
   ********************************************************************* -->
@@ -29,7 +11,7 @@
         <div class="logo">am <span>blog</span></div>
         <div class="menu">
           {% for category in categories %}
-            <a href="#" class="item">{{category.name}}</a>
+            <a href="/category/{{category.nameSlugify}}" class="item">{{category.name}}</a>
           {% endfor %}
         </div>
         <div class="socials">
@@ -147,7 +129,7 @@
   <script>
   var posts = {{data|json|safe}};
   var featureds = {{featureds|json|safe}};
-  console.log(featureds);
+  console.log(posts);
   $(function() {
     var viewer = new APP.Viewer('post', $('.container-2'), 'infinite', posts);
   });
