@@ -50,7 +50,7 @@ exports.isAdmin = function (req, res, next) {
 
       res.cookie('return_to', returnTo, {maxAge: 3600000, domain: 'am.local'});
 
-      return res.redirect(req.protocol + '://' + subDomain[1] + '.' + subDomain[2] + '/auth/login');
+      return res.redirect('http://am.local:3000/auth/login');
     }
     next();
 };

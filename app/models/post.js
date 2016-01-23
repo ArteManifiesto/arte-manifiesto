@@ -28,10 +28,26 @@ module.exports = function (sequelize, DataTypes) {
           var scope = this;
           return global.db.Sequelize.Promise.all([
             scope.numOfLikes(),
-            scope.numOfReviews()
+            scope.numOfReviews(),
+            scope.liked(options.viewer)
           ]).then(function (result) {
             scope.setDataValue('likes', result[0]);
             scope.setDataValue('reviews', result[1]);
+            scope.setDataValue('liked', result[2]);
+          });
+        },
+        liked: function (viewer) {
+          var scope = this, query = {where: {id: viewer}};
+          return this.getPostLikes(query).then(function (likes) {
+            return likes.length > 0;
+          });
+        },
+        like: function (user) {
+          var scope = this;
+          this.popularity += 3;
+          var promises = [user.addPostLike(this), this.save()];
+          return global.db.Sequelize.Promise.all(promises).then(function () {
+            return scope.numOfLikes();
           });
         },
         numOfLikes: function () {

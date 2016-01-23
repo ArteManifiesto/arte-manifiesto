@@ -21,18 +21,39 @@ APP.PostScreen.prototype.setupUI = function() {
       disableEditing: true
   });
 
+  this.reviewForm = $('.review-form');
   this.reviewContainer = $('.reviews-items-container');
   for (var i = 0; i <reviews.length; i++)
     this.reviewContainer.append(new APP.Review(reviews[i]).view);
 
-  this.reviewForm = $('.review-form');
+  this.likeBtn = $('.like-btn');
 };
 
 APP.PostScreen.prototype.listeners = function () {
   APP.BaseScreen.prototype.listeners.call(this);
 
   this.reviewForm.submit(this.reviewFormHandler.bind(this));
+  this.likeBtn.click(this.likeBtnHandler.bind(this));
 };
+
+APP.PostScreen.prototype.likeBtnHandler = function(event) {
+  event.preventDefault();
+
+  Utils.checkAuthentication();
+
+  if (!post.liked) {
+    var url = '/post/like';
+    this.requestHandler(url, {idPost: post.id}, this.likeComplete);
+  }
+};
+
+APP.PostScreen.prototype.likeComplete = function(response) {
+  post.liked = !post.liked;
+  $('.likes').text(response.data.likes);
+  this.likeBtn.parent().addClass('active');
+  this.afterLike.show();
+};
+
 
 APP.PostScreen.prototype.reviewFormHandler = function(event) {
   event.preventDefault();

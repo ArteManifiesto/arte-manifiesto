@@ -165,3 +165,9 @@ exports.categoryPosts = function (req, res) {
     });
   });
 };
+
+exports.like = function(req, res) {
+  req.post.like(req.user).then(function (likes) {
+    return res.ok({post: req.post, likes: likes}, 'Post liked');
+  });
+};

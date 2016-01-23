@@ -3,11 +3,11 @@
 
 {% block styles %}
 
-    <!-- <link rel="stylesheet" href="/demo.css"> -->
-    <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css"> -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/medium-editor/latest/css/medium-editor.min.css">
-    <link rel="stylesheet" href="/default.css">
-    <link rel="stylesheet" href="/medium-editor-insert-plugin.css">
+  <!-- <link rel="stylesheet" href="/demo.css"> -->
+  <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css"> -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/medium-editor/latest/css/medium-editor.min.css">
+  <link rel="stylesheet" href="/default.css">
+  <link rel="stylesheet" href="/medium-editor-insert-plugin.css">
 
 {% endblock %}
 
@@ -15,119 +15,114 @@
 {% block elements %}
 
 
-    <div class="blog-single-cover" style="background-image: url('{{post.photo}}')">
-        <div class="grid-container" style="text-align: center;">
-            <div class="grid-100">
-                <!-- <div class="inner"> -->
-                    <span class="tag">{{post.Category.name}}</span>
-                    <p class="title">{{post.name}}</p>
-                    <div class="info">
-                        <span class="date"><i class="bi_interface-clock"></i> {{post.createdAt|formatDate()}}</span> &nbsp; &nbsp; &nbsp;
-                        <span class="social"><i class="fa fa-heart"></i> {{post.likes}}</span> &nbsp; &nbsp;
-                        <span class="social"><i class="fa fa-comment"></i> {{post.reviews}}</span> &nbsp; &nbsp;
-                    </div>
-                <!-- </div> -->
-            </div>
-        </div>
-    </div>
+  <div class="blog-single-cover" style="background-image: url('{{ post.photo }}')">
+    <div class="grid-container" style="text-align: center;">
+      <div class="grid-100">
+        <span class="tag">{{ post.Category.name }}</span>
 
-    <div id="container">
-        <div class="editable">
-          {% if post %}
-            {{postBody|safe}}
-          {% endif %}
-        </div>
-    </div>
+        <p class="title">{{ post.name }}</p>
 
-    <div class="grid-container">
-        <div class="grid-100">
-            <div class="blog-single-socials">
-                <div class="buttons">
-                    <a href="#" class="button white"><i class="fa fa-heart"></i>&nbsp;&nbsp; LIKE &nbsp;&nbsp;<span>{{post.likes}}</span></a>
-                    <a href="#" class="button blue"><i class="fa fa-facebook"></i>&nbsp;&nbsp; SHARE</a>
-                    <a href="#" class="button sky-blue"><i class="fa fa-twitter"></i>&nbsp;&nbsp; TWEET</a>
-                </div>
-            </div>
+        <div class="info">
+          <span class="date"><i class="bi_interface-clock"></i> {{ post.createdAt|formatDate() }}</span>
+          &nbsp; &nbsp; &nbsp;
+          <span class="social"><i class="fa fa-heart"></i> {{ post.likes }}</span> &nbsp; &nbsp;
+          <span class="social"><i class="fa fa-comment"></i> {{ post.reviews }}</span> &nbsp; &nbsp;
         </div>
-    </div>
-
-    <div class="grid-container">
-        <div class="grid-100">
-            <div class="blog-single-user">
-              <a href="/user/{{post.User.username}}">
-                <img src="{{post.User.photo}}">
-              </a>
-                <div class="info">
-                  <a href="/user/{{post.User.username}}">
-                    <p class="name">
-                      {% if post.User.typeName === 1 %}
-    										{{post.User.fullname}}
-    									{% else %}
-    										{{post.User.pseudonimo}}
-    									{% endif %}
-                    </p>
-                  </a>
-                    <p class="description">{{post.User.biography.substr(0,140)}}</p>
-                </div>
-                <a class="button following"> + SEGUIR</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="grid-container reviews-container  hide " style="display: block;">
-        <div class="grid-100">
-            <div class="reviews">
-                <p class="title" style="margin-top: 30px;">Comentarios &nbsp;&nbsp;<span>{{post.reviews}}</span></p>
-                <div class="u-separator"></div>
-                <div class="reviews-items-container">
-                </div>
-                {% if user %}
-        	      	<div class="review">
-        	          <div class="avatar"><img src="{{user.photo}}"></div>
-        	          <form class="content review-form">
-          	            <input type="hidden" name='idPost' value="{{post.id}}"/>
-        	            <textarea class='value-input' name="value"></textarea>
-        	            <button>AGREGAR REVIEW</button>
-        	          </form>
-        	      	</div>
-                {% else %}
-                	<p class="empty-profile-text  empty-message bare-message u-margin-top-30" style="display: block;">
-                		<a class="login-review">Logeate, para agregar comentario</a>
-                	</p>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-<div class="blog-single-popular">
-  <div class="grid-container">
-    <div class="grid-100 grid-parent">
-      <p class="title">Artículos populares</p>
-
-      <div class="blog-articles-container">
       </div>
     </div>
   </div>
-</div>
 
+  <div id="container">
+    <div class="editable">
+      {% if post %}
+        {{ postBody|safe }}
+      {% endif %}
+    </div>
+  </div>
+  <div class="grid-container">
+    <div class="grid-100">
+      <div class="blog-single-socials">
+        <div class="buttons">
+          <a class="button white like-btn"><i class="fa fa-heart"></i>&nbsp;&nbsp; LIKE
+            &nbsp;&nbsp;<span>{{ post.likes }}</span></a>
+          <a href="#" class="button blue"><i class="fa fa-facebook"></i>&nbsp;&nbsp; SHARE</a>
+          <a href="#" class="button sky-blue"><i class="fa fa-twitter"></i>&nbsp;&nbsp; TWEET</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-container">
+    <div class="grid-100">
+      <div class="blog-single-user">
+        <a href="/user/{{ post.User.username }}">
+          <img src="{{ post.User.photo }}">
+        </a>
+
+        <div class="info">
+          <a href="/user/{{ post.User.username }}">
+            <p class="name">
+              {% if post.User.typeName === 1 %}
+                {{ post.User.fullname }}
+              {% else %}
+                {{ post.User.pseudonimo }}
+              {% endif %}
+            </p>
+          </a>
+
+          <p class="description">{{ post.User.biography.substr(0,140) }}</p>
+        </div>
+        <a class="button following"> + SEGUIR</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-container reviews-container  hide " style="display: block;">
+    <div class="grid-100">
+      <div class="reviews">
+        <p class="title" style="margin-top: 30px;">Comentarios &nbsp;&nbsp;<span>{{ post.reviews }}</span></p>
+
+        <div class="u-separator"></div>
+        <div class="reviews-items-container">
+        </div>
+        {% if user %}
+          <div class="review">
+            <div class="avatar"><img src="{{ user.photo }}"></div>
+            <form class="content review-form">
+              <input type="hidden" name='idPost' value="{{ post.id }}"/>
+              <textarea class='value-input' name="value"></textarea>
+              <button>AGREGAR REVIEW</button>
+            </form>
+          </div>
+        {% else %}
+          <p class="empty-profile-text  empty-message bare-message u-margin-top-30" style="display: block;">
+            <a class="login-review">Logeate, para agregar comentario</a>
+          </p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="blog-single-popular">
+    <div class="grid-container">
+      <div class="grid-100 grid-parent">
+        <p class="title">Artículos populares</p>
+
+        <div class="blog-articles-container">
+        </div>
+      </div>
+    </div>
+  </div>
 
 {% endblock %}
 
-
 {% block scripts %}
+  <script>
+    var post = {{post|json|safe}};
+    var posts = {{posts|json|safe}};
+    var reviews = {{reviews|json|safe}};
 
-<script src="/jquery-2.1.1.min.js"></script>
-<script src="http://linkesch.com/medium-editor-insert-plugin/bower_components/handlebars/handlebars.runtime.min.js"></script>
-
-<script src="//cdn.jsdelivr.net/medium-editor/latest/js/medium-editor.min.js"></script>
-<script src="/medium-editor-insert-plugin.js"></script>
-
-<script>
-  var post = {{post|json|safe}};
-  var posts = {{posts|json|safe}};
-  var reviews = {{reviews|json|safe}};
     $(function () {
-        new APP.PostScreen();
+      new APP.PostScreen();
     });
-</script>
-
+  </script>
 {% endblock %}
