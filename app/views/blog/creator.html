@@ -8,6 +8,9 @@
 
 
 {% block elements %}
+{% if edit %}
+Edicion
+{% endif %}
     <p>
         estado : <span class="status">Inicio</span>
     </p>
@@ -15,6 +18,9 @@
     <div class="uploader-work">
       <div class="profile-imgage">
         <div class="preview">
+          {% if edit %}
+            <img src="{{post.photo|addFilter('w_300,c_limit')}}"/>
+          {% endif %}
         </div>
       </div>
       <div class="preload hide"><i class="fa fa-spinner"></i></div>
@@ -35,13 +41,17 @@
     </select>
     </br>
 
-    <input type="text" name="name" placeholder="Titulo del post">
+    {% if edit %}
+      <input type="text" name="name" placeholder="Titulo del post" value="{{post.name}}">
+    {% else %}
+      <input type="text" name="name" placeholder="Titulo del post">
+    {% endif %}
 
     <div id="container">
         {{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: {
         style: "width:230px;height:55px;top:-70px;left: 105px;", multiple:1, class:'editor-photos' } })}}
         <div class="editable">
-            {% if post %}
+            {% if edit %}
               {{postBody|safe}}
             {% endif %}
         </div>
@@ -57,6 +67,8 @@
     <script src="/medium-editor-insert-plugin.js"></script>
     <script>
       var post = null;
+      var edit = {{edit}};
+      if(edit) post = {{post|json|safe}};
       $(function () {
           $.cloudinary.config({{cloudinary.config()|json|safe}});
           new APP.CreatorPostScreen();

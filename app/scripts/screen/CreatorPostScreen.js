@@ -15,10 +15,16 @@ APP.CreatorPostScreen.prototype.setupUI = function () {
   this.category = $('select[name=category]');
   this.name = $('input[name=name]');
   this.status = $('.status');
+
+
   this.cover = new APP.UploaderImage($('.uploader-work'), this.coverComplete, {
     uploader: $('.editor-cover')
   });
 
+  if(edit) {
+    this.category.find('option[value=' + post.Category.id + ']').attr('selected', true);
+    this.cover.photo = post.photo;
+  }
   this.editable = $('.editable');
 
   this.editor = new MediumEditor('.editable', {

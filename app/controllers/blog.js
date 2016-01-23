@@ -127,6 +127,7 @@ exports.postCreate = function (req, res) {
 };
 
 exports.postUpdate = function (req, res) {
+  req.body.CategoryId = req.body.category;
   req.post.updateAttributes(req.body).then(function (post) {
     return res.ok({post: post}, 'post');
   });
@@ -174,12 +175,13 @@ exports.like = function(req, res) {
 
 exports.editPage = function(req, res) {
   var view = basePath + 'creator';
-
   global.db.Category.findAll({where: {meta: 1}}).then(function (categories) {
     req.post.getCategory().then(function (category) {
       req.post.setDataValue('Category', category);
+        var post = req.post;
         post = post.toJSON();
         return res.render(view, {
+          edit: true,
           post: global._.omit(post, 'body'),
           postBody: post.body,
           cloudinary: global.cl,

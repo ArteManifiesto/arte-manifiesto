@@ -12,16 +12,16 @@ router.get('/category/:category', controller.categoryPosts);
 
 router.post('/:page', controller.posts);
 
-router.get('/creator', controller.creator);
+router.get('/creator', global.md.isAdmin, controller.creator);
 
 router.get('/post/:nameSlugify', global.md.nameSlugify(entity), controller.postPage);
-router.get('/post/:nameSlugify/edit', global.md.nameSlugify(entity), controller.editPage);
+router.get('/post/:nameSlugify/edit',global.md.isAdmin, global.md.nameSlugify(entity), controller.editPage);
 
-router.post('/post/review/create', controller.createReview);
+router.post('/post/review/create', global.md.isLogged,  controller.createReview);
 
 router.post('/post/like', global.md.isLogged, global.md.entity(entity), controller.like);
 
-router.post('/post/create', controller.postCreate);
-router.post('/post/update', global.md.entity(entity), controller.postUpdate);
+router.post('/post/create', global.md.isAdmin, controller.postCreate);
+router.post('/post/update', global.md.isAdmin, global.md.entity(entity), controller.postUpdate);
 
 module.exports = router;
