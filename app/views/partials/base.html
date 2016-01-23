@@ -59,10 +59,6 @@
 
 	<div class="body">
 		<div class="left-mobile-menu">
-			<!-- <div class="am-Search-input2">
-				<input type="text" placeholder="Busca obras y artistas"/>
-				<i class="bi_interface-search search-btn"></i>
-			</div> -->
 			<table class="options u-margin-top-10">
 			{% if user %}
 				<tr>
@@ -196,6 +192,7 @@
 	var errorMessage = {{errorMessage|json|safe}};
 	var successMessage = {{successMessage|json|safe}};
 	var user = {{user|json|safe}};
+
 	$(function() {new APP.AM();});
 	</script>
 
@@ -208,7 +205,7 @@
 
 		ga('create', 'UA-70917306-1', 'auto');
 		ga('send', 'pageview');
-	</script>
+		</script>
 	{% endif %}
 
 	{% block scripts %} {% endblock %}

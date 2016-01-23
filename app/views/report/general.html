@@ -1,5 +1,7 @@
 {% extends '../partials/report.html' %}
 
+{% set path = "general" %}
+
 {% block content %}
 <h2 class="sub-header">Datos Generales <span class="total"></span></h2>
 
@@ -56,7 +58,7 @@
   var options = {format: 'mm/dd/yyyy', clearBtn: true};
 
   $(function() {
-      new APP.AM();
+    new APP.AM();
 
     if(Utils.getUrlParameter('start')) {
       var startValue  = Utils.getUrlParameter('start');
