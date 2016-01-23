@@ -34,7 +34,7 @@
   {% if featureds[0] %}
   <div class="grid-container u-margin-top-20">
     <div class="grid-100">
-      <a href="/post/{{featureds[0].nameSlugify}}">
+      <a href="/blog/post/{{featureds[0].nameSlugify}}">
       <section class="slider">
         <div class="slider-items">
           <div class="slider-item js-slide" style="background-image: url('{{featureds[0].photo|addFilter('w_1600,c_limit')}}')">
@@ -66,7 +66,7 @@
         {% for i in [1,2] %}
         {% if featureds[i] %}
         <div class="blog-article-container large">
-          <a href="/post/{{featureds[i].nameSlugify}}">
+          <a href="/blog/post/{{featureds[i].nameSlugify}}">
             <article class="blog-article">
               <header class="header" style="background-image: url('{{featureds[i].photo|addFilter('w_600,h_400,q_80,c_limit')}}')">
                 <span class="tag">{{featureds[i].Category.name}}</span>

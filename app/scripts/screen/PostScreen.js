@@ -42,7 +42,7 @@ APP.PostScreen.prototype.likeBtnHandler = function(event) {
   Utils.checkAuthentication();
 
   if (!post.liked) {
-    var url = '/post/like';
+    var url = '/blog/post/like';
     this.requestHandler(url, {idPost: post.id}, this.likeComplete);
   }
 };
@@ -57,7 +57,7 @@ APP.PostScreen.prototype.likeComplete = function(response) {
 
 APP.PostScreen.prototype.reviewFormHandler = function(event) {
   event.preventDefault();
-  var url = '/post/review/create';
+  var url = '/blog/post/review/create';
   this.requestHandler(url, $(event.target).serialize(), this.reviewComplete);
 };
 

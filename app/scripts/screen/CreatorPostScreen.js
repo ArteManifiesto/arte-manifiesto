@@ -100,9 +100,9 @@ APP.CreatorPostScreen.prototype.autoSave = function (event, editable) {
 
   var url;
   if (!post) {
-    url = '/post/create';
+    url = '/blog/post/create';
   } else {
-    url = '/post/update';
+    url = '/blog/post/update';
     payload.idPost = post.id;
   }
 
