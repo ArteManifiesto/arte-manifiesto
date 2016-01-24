@@ -42,8 +42,7 @@ module.exports = function (app, passport) {
     app.use(expressSession({
         secret: "2x4Zvgd93yMbP,4NQEj4[Qzjqqrq,;n#PynZMawWc",
         resave: false,
-        saveUninitialized: false,
-        cookie: {domain: '.artemanifiesto.com'}
+        saveUninitialized: false
     }));
 
     app.use(flash());
@@ -66,7 +65,7 @@ module.exports = function (app, passport) {
             successMessage: req.flash('successMessage'),
             errorMessage: req.flash('errorMessage')
         };
-        
+
         if(!req.user) return next();
 
         var verbs = ['like-work', 'follow-user', 'review-work', 'request-work'];
