@@ -16,7 +16,7 @@ exports.index = function (req, res) {
   basicQuery.limit = global.limits.worksHome;
   promises.push(global.db.Work.findAll(basicQuery));
 
-  var query = {limit: global.limits.categoriesHome};
+  var query = {limit: global.limits.categoriesHome, where:{meta: 0}};
   promises.push(global.db.Category.findAll(query));
 
   global.db.Sequelize.Promise.all(promises).then(function (result) {
@@ -115,7 +115,7 @@ var discover = function (req, res, entity) {
     return res.redirect(req.url.replace(req.params.page, 'page-1'));
 
   var promises = [searchDiscover(entity, req)];
-  entity !== 'collections' && promises.push(global.db.Category.findAll());
+  entity !== 'collections' && promises.push(global.db.Category.findAll({where:{meta: 0}}));
 
   return global.db.Sequelize.Promise.all(promises).then(function (data) {
     var order = global.config.search.orders[entity];

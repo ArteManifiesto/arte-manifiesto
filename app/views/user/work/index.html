@@ -314,7 +314,8 @@
 	<!--=================================================================================
 			=================================================================================
 			=================================================================================-->
-{% include '../../partials/report.html' %}
+
+	{% include '../../partials/inform.html' %}
 
 	<div id="collection-modal" style="display:none;">
 		<i class="closed-modal fa fa-times"></i>
@@ -425,10 +426,6 @@
 {% endblock %}
 
 {% block scripts %}
-
-	<script src="/photoswipe.js"></script>
-	<script src="/photoswipe-ui-default.js"></script>
-
 	<script>
 		var owner = {{owner|json|safe}};
 		var entity = {{entity|json|safe}};
