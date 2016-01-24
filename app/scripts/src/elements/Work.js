@@ -6,7 +6,6 @@ var APP = APP || {};
 
 APP.Work = function (data, options) {
     APP.BaseElement.call(this, data, 'work', options);
-    console.log(this.options.context);
 };
 
 APP.Work.prototype = Object.create(APP.BaseElement.prototype);
@@ -23,9 +22,7 @@ APP.Work.prototype.listeners = function () {
 };
 
 APP.Work.prototype.deleteHandler = function() {
-  // this.view.find('.delete').parent().hide();
   this.view.find('.delete').hide();
-  // this.view.find('.delete-confirm').show().css('display', 'flex');
   this.view.find('.delete-confirm').show();
 };
 

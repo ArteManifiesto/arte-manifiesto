@@ -137,7 +137,6 @@ APP.Viewer.prototype.addItems = function(items) {
       var scope = this.container;
       $items.imagesLoaded().progress(function(imgLoad, image) {
         ++counter;
-        // var $item =
         $(image.img).parents('.grid-item');
         if(counter === items.length) {
           var timeout = setTimeout(function() {
