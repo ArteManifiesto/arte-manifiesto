@@ -14,17 +14,27 @@
 
 {% block elements %}
 
-  <div class="blog-single-cover" style="background-image: url('{{ post.photo }}')">
+  <!-- <div class="blog-single-cover" style="background-image: url('{{ post.photo }}')"> -->
+  <div class="blog-single-cover" >
+
+      <div class="uploader-cover">
+        <div class="profile-imgage">
+          <div class="preview">
+            <img class="am-Profile-banner-img" src="{{post.photo}}">
+          </div>
+        </div>
+      </div>
+
     <div class="grid-container" style="text-align: center;">
       <div class="grid-100">
-        <span class="tag">{{ post.Category.name }}</span>
+        <a href="#" class="tag">{{ post.Category.name }}</a>
 
         <p class="title">{{ post.name }}</p>
 
         <div class="info">
           <span class="date"><i class="bi_interface-clock"></i> {{ post.createdAt|formatDate() }}</span>
           &nbsp; &nbsp; &nbsp;
-          <span class="social"><i class="fa fa-heart"></i> <span class="likes">{{ post.likes }}</span></span> &nbsp; &nbsp;
+          <span class="social liked"><i class="fa fa-heart"></i> <span class="likes">{{ post.likes }}</span></span> &nbsp; &nbsp;
           <span class="social"><i class="fa fa-comment"></i> {{ post.reviews }}</span> &nbsp; &nbsp;
         </div>
       </div>
