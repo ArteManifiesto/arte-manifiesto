@@ -4,14 +4,14 @@
  */
 var APP = APP || {};
 
-APP.AdminUsersScreen = function () {
-  APP.BaseScreen.call(this, 'adminUsers');
+APP.AdminWorksScreen = function () {
+  APP.BaseScreen.call(this, 'adminWorks');
 };
 
-APP.AdminUsersScreen.constructor = APP.AdminUsersScreen;
-APP.AdminUsersScreen.prototype = Object.create(APP.BaseScreen.prototype);
+APP.AdminWorksScreen.constructor = APP.AdminWorksScreen;
+APP.AdminWorksScreen.prototype = Object.create(APP.BaseScreen.prototype);
 
-APP.AdminUsersScreen.prototype.setupUI = function () {
+APP.AdminWorksScreen.prototype.setupUI = function () {
   this.searchBtn = $('.search-btn');
   this.start = $('.start');
   this.end = $('.end');
@@ -33,16 +33,16 @@ APP.AdminUsersScreen.prototype.setupUI = function () {
     this.end.find('input').val(endParam.replace(/-/gi, '/'));
   }
 
-  this.viewer = new APP.Viewer('tableUser', $('.container-items'), 'infinite', data, {
+  this.viewer = new APP.Viewer('tableWork', $('.container-items'), 'infinite', data, {
     getTotal: function (total) {
       $('.total').text('(' + total + ')');
     }
   });
-  
+
   this.searchBox = $('.search-box');
 };
 
-APP.AdminUsersScreen.prototype.listeners = function () {
+APP.AdminWorksScreen.prototype.listeners = function () {
   APP.BaseScreen.prototype.listeners.call(this);
 
   this.start.datepicker().on('changeDate', this.startDateChange.bind(this));
@@ -61,45 +61,27 @@ APP.AdminUsersScreen.prototype.listeners = function () {
   }
 };
 
-APP.AdminUsersScreen.prototype.startDateChange = function (event) {
+APP.AdminWorksScreen.prototype.startDateChange = function (event) {
   this.startValue = event.date;
 };
 
-APP.AdminUsersScreen.prototype.endDateChange = function (event) {
+APP.AdminWorksScreen.prototype.endDateChange = function (event) {
   this.endValue = event.date;
 };
 
-APP.AdminUsersScreen.prototype.dropdownChange = function (event) {
+APP.AdminWorksScreen.prototype.dropdownChange = function (event) {
   var text = $(event.target).text();
 
   $(".btn-drop .property").text(text);
   $(".btn-drop .property").val(text);
 
   switch (text) {
-    case 'username':
-      this.term = 'username';
-      break;
-    case 'email':
-      this.term = 'email';
-      break;
-    case 'ciudad':
-      this.term = 'city';
-      break;
-    case 'pais':
-      this.term = 'country';
-      break;
-    case 'artista':
-      this.term = 'isArtist';
-      break;
-    case 'verificado':
-      this.term = 'verified';
-      break;
-    case 'completo':
-      this.term = 'filled';
+    case 'nombre':
+      this.term = 'name';
       break;
   }
 };
-APP.AdminUsersScreen.prototype.searchHander = function () {
+APP.AdminWorksScreen.prototype.searchHander = function () {
   var termValue = this.searchBox.val().trim();
 
   if (this.term && this.term.trim().length > 0) {
