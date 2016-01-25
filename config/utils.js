@@ -219,6 +219,16 @@ global.getParameter = function (data, value) {
   return data[index];
 };
 
+global.getUrlParameter = function (url, sParam) {
+  var sPageURL = url.substring(1)
+  var sURLVariables = sPageURL.split('&')
+  for (var i = 0; i < sURLVariables.length; i++) {
+    var sParameterName = sURLVariables[i].split('=')
+    if (sParameterName[0] == sParam)
+      return sParameterName[1]
+  }
+};
+
 global.encodeToQuery = function (data) {
   var ret = [];
   var param;
