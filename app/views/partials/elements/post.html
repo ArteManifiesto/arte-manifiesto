@@ -2,30 +2,31 @@
     <div class="blog-article-container">
       <a href="/blog/post/<%=nameSlugify%>">
       <article class="blog-article">
-        <header class="header" style="background-image: url('<%= addFilter(photo, 'w_380,h_260,c_fill') %>')">
-          <span class="tag"><%= Category.name %></span>
-          <div class="inner">
-            <p class="title"><%=name%></p>
-            <div class="stats u-margin-top-15">
-              <p><i class="fa fa-heart"></i>&nbsp;&nbsp;<%= likes %></p>
-              <p><i class="fa fa-comment"></i>&nbsp;&nbsp;<%=reviews%></p>
+          <div class="featured disabled">AM</div>
+          <header class="header" style="background-image: url('<%= addFilter(photo, 'w_380,h_260,c_fill') %>')">
+            <span class="tag"><%= Category.name %></span>
+            <div class="inner">
+              <p class="title"><%=name%></p>
+              <div class="stats u-margin-top-15">
+                <p><i class="fa fa-heart"></i>&nbsp;&nbsp;<%= likes %></p>
+                <p><i class="fa fa-comment"></i>&nbsp;&nbsp;<%=reviews%></p>
+              </div>
             </div>
-          </div>
-        </header>
-        <p class="content"><%= description %></p>
-        <footer class="footer">
-          <p class="date"><i class="bi_interface-clock"></i><%=formatDate(createdAt)%></p>
-          <span class="author">
-            <p>Por&nbsp;&nbsp;</p>
-            <img src="<%=User.photo%>">
-            <P>&nbsp;<% if(User.typeName === 1) { %>
-              <%= User.fullname %>
-            <% } else { %>
-              <%= User.pseudonimo %>
-            <% } %></P>
-          </span>
-        </footer>
-      </article>
-    </a>
+          </header>
+          <p class="content"><%= description %></p>
+          <footer class="footer">
+            <p class="date"><i class="bi_interface-clock"></i><%=formatDate(createdAt)%></p>
+            <span class="author">
+              <p>Por&nbsp;&nbsp;</p>
+              <img src="<%=User.photo%>">
+              <P>&nbsp;<% if(User.typeName === 1) { %>
+                <%= User.fullname %>
+              <% } else { %>
+                <%= User.pseudonimo %>
+              <% } %></P>
+            </span>
+          </footer>
+        </article>
+      </a>
     </div>
 </script>

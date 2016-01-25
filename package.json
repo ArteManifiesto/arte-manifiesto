@@ -3,6 +3,7 @@
   "description": "Arte Manifiesto",
   "version": "0.1.0",
   "private": false,
+  "license" : "MIT",
   "author": "Julio Canares & Hans Evangelista",
   "repository": {
     "type": "git",

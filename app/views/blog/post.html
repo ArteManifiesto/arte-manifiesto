@@ -35,7 +35,9 @@
           <span class="date"><i class="bi_interface-clock"></i> {{ post.createdAt|formatDate() }}</span>
           &nbsp; &nbsp; &nbsp;
           <span class="social liked"><i class="fa fa-heart"></i> <span class="likes">{{ post.likes }}</span></span> &nbsp; &nbsp;
-          <span class="social"><i class="fa fa-comment"></i> {{ post.reviews }}</span> &nbsp; &nbsp;
+          <span class="social"><i class="fa fa-comment"></i> {{ post.reviews }}</span> &nbsp; &nbsp; &nbsp;
+          <!-- <a href="#" class="date"><i class="bi_interface-clock"></i> Editar</a> -->
+          <a href="#" class="date"><i class="fa fa-pencil-square-o"></i> Editar</a>
         </div>
       </div>
     </div>
@@ -48,6 +50,7 @@
       {% endif %}
     </div>
   </div>
+
   <div class="grid-container">
     <div class="grid-100">
       <div class="blog-single-socials">
@@ -111,6 +114,7 @@
       </div>
     </div>
   </div>
+  
   <div class="blog-single-popular">
     <div class="grid-container">
       <div class="grid-100 grid-parent">
