@@ -33,11 +33,14 @@ var paths = {
       './app/scripts/vendor/jquery.fileupload.js',
       './app/scripts/vendor/jquery.darktooltip.js',
       './app/scripts/vendor/jquery.cloudinary.js',
+      './app/scripts/vendor/jquery.sortable.js',
       './app/scripts/vendor/hammer.js',
       './app/scripts/vendor/clipboard.js',
       './app/scripts/vendor/fabric.js',
+      './app/scripts/vendor/handlebars.js',
       './app/scripts/vendor/medium-editor.js',
-      './app/scripts/vendor/medium-editor-insert-plugin.js'
+      './app/scripts/vendor/medium-editor-insert-plugin.js',
+      './app/scripts/vendor/bootstrap-datepicker.js'
   ],
     stylesDir: './app/styles/**/*.styl',
     publicDir: './public/'

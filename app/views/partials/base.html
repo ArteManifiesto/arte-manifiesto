@@ -6,9 +6,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 
 	{% if pageTitle %}
-	<title>{{pageTitle}} | Arte Manifiesto</title>
+		<title>{{pageTitle}} | Arte Manifiesto</title>
 	{% else %}
-	<title>Arte Manifiesto</title>
+		<title>Arte Manifiesto</title>
 	{% endif %}
 
 	<link href='https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700,700italic|Montserrat:400,700' rel='stylesheet' type='text/css'>
@@ -17,28 +17,31 @@
 
 	<link rel="stylesheet" href="/css/budicon.css">
 
-	{% block styles %} {% endblock %}
-
 	<link rel="stylesheet" type="text/css" href="/app.min.css">
 
+	{% block styles %} {% endblock %}
+
+
 	<style>
-	.hide {
-		display: none;
-	}
-	.cloudinary-fileupload
-{
-	border: none;
-	cursor: pointer;
-	opacity: 0;
-	padding: 0;
-	position: absolute;
-	top: 0;
-}
+		.hide {
+			display: none;
+		}
+
+		.cloudinary-fileupload
+		{
+			border: none;
+			cursor: pointer;
+			opacity: 0;
+			padding: 0;
+			position: absolute;
+			top: 0;
+		}
 	</style>
 </head>
 <body>
-{% include 'header.html' %}
-
+	{% if !withoutHeader %}
+		{% include 'header.html' %}
+	{% endif %}
 <div class="flash-message error">
 	<div class="top-bar"></div>
 	<div class="content">
@@ -123,10 +126,10 @@
 			{% block elements %} {% endblock %}
 		</div>
 	</div>
-
-	<!-- <div id="lean_overlay"></div> -->
-
-	{% include 'footer.html' %}
+	
+	{% if !withoutFooter %}
+		{% include 'footer.html' %}
+	{% endif %}
 
 	<script>
 	  var ADAPT_CONFIG = {
@@ -138,8 +141,6 @@
 	    ]
 	  };
 	</script>
-
-	<script src="http://linkesch.com/medium-editor-insert-plugin/bower_components/handlebars/handlebars.runtime.min.js"></script>
 
 	<script src='/vendor.min.js'></script>
 	<script src='/app.min.js'></script>
@@ -163,6 +164,9 @@
 
 	{% include 'elements/post.html' %}
 	{% include 'elements/post-minimal.html' %}
+
+  {% include 'elements/table-user-item.html' %}
+  {% include 'elements/table-work-item.html' %}
 
 	{% include 'elements/review.html' %}
 	{% include 'elements/filterItem.html' %}

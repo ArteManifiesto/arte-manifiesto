@@ -1,3 +1,5 @@
+{% set path = "users" %}
+
 {% extends '../partials/report.html' %}
 
 {% block content %}
@@ -76,8 +78,6 @@
   var options = {format: 'mm/dd/yyyy', clearBtn: true};
 
   $(function() {
-    new APP.AM();
-
     if(Utils.getUrlParameter('start')) {
       var startValue  = Utils.getUrlParameter('start');
       start = new Date(startValue);
