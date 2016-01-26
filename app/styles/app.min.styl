@@ -4042,6 +4042,7 @@ white = #fff
 		.inner
 			margin auto
 			padding 20px
+			width 100%
 			.title
 				font-family: 'Montserrat',sans-serif;
 				font-weight bold
@@ -4293,6 +4294,11 @@ white = #fff
 					border-radius 17px
 					padding 1px 4px 1px 7px
 					color white
+				&.liked
+					i
+						color #fc636b
+					span
+						background #fc636b
 			&.blue
 				background #225b99
 				color white
@@ -4339,6 +4345,9 @@ white = #fff
 		border solid 1px #ddd
 		margin-left 20px
 		cursor pointer
+		&.trash
+			color #fc636b
+			border-color #fc636b
 
 .blog-single-popular
 	background #27282a
