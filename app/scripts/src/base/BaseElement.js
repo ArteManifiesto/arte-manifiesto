@@ -35,12 +35,18 @@ APP.BaseElement.prototype.featuredHandler = function() {
   if(this.data.featured) {
     if(this.id ==='user') {
       url = '/user/'+ this.data.username + '/unfeatured';
+    }
+    else if(this.id === 'post') {
+      url = '/blog/' + this.id + '/unfeatured';
     }else {
       url = '/user/'+ this.data.User.username +'/'+ this.id + '/unfeatured';
     }
   }else {
     if(this.id ==='user') {
       url = '/user/'+ this.data.username + '/featured';
+    }
+    else if(this.id === 'post') {
+      url = '/blog/' + this.id + '/featured';
     }else {
       url = '/user/'+ this.data.User.username +'/' + this.id + '/featured';
     }
@@ -48,6 +54,8 @@ APP.BaseElement.prototype.featuredHandler = function() {
   var scope = this;
   var payload = {};
   payload['id' + Utils.capitalize(this.id)] = this.data.id;
+  console.log('url : ' , url);
+  console.log('payload : ' , JSON.stringify(payload));
   $.post(url,payload, function (response) {
     if(response.status === 200) {
       if(response.data[scope.id].featured){

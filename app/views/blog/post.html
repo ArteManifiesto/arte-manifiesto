@@ -27,17 +27,18 @@
 
     <div class="grid-container" style="text-align: center;">
       <div class="grid-100">
-        <a href="#" class="tag">{{ post.Category.name }}</a>
+        <a href="/blog/category/{{post.Category.nameSlugify}}" class="tag">{{ post.Category.name }}</a>
 
         <p class="title">{{ post.name }}</p>
 
         <div class="info">
           <span class="date"><i class="bi_interface-clock"></i> {{ post.createdAt|formatDate() }}</span>
           &nbsp; &nbsp; &nbsp;
-          <span class="social liked"><i class="fa fa-heart"></i> <span class="likes">{{ post.likes }}</span></span> &nbsp; &nbsp;
+          <span class="social {% if post.liked %} liked {% endif %}"><i class="fa fa-heart"></i> <span class="likes">{{ post.likes }}</span></span> &nbsp; &nbsp;
           <span class="social"><i class="fa fa-comment"></i> {{ post.reviews }}</span> &nbsp; &nbsp; &nbsp;
-          <!-- <a href="#" class="date"><i class="bi_interface-clock"></i> Editar</a> -->
-          <a href="#" class="date"><i class="fa fa-pencil-square-o"></i> Editar</a>
+          {% if user.isAdmin %}
+          <a href="/blog/post/{{post.nameSlugify}}/edit" class="date"><i class="fa fa-pencil-square-o"></i> Editar</a>
+          {% endif %}
         </div>
       </div>
     </div>
@@ -114,7 +115,7 @@
       </div>
     </div>
   </div>
-  
+
   <div class="blog-single-popular">
     <div class="grid-container">
       <div class="grid-100 grid-parent">
