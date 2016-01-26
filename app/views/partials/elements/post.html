@@ -1,13 +1,13 @@
 <script type="text/template" id="template-post">
     <div class="blog-article-container">
       <article class="blog-article">
-        <% if (viewer && viewer.isAdmin) { %>
+        {# <% if (viewer && viewer.isAdmin) { %>
           <div class="featured <% if (!featured) { %>disabled<% } %>">AM</div>
         <% } else { %>
           <% if (featured) { %>
             <div class="featured">AM</div>
           <% } %>
-        <% } %>
+        <% } %> #}
         <a href="/blog/post/<%=nameSlugify%>">
           <header class="header" style="background-image: url('<%= addFilter(photo, 'w_380,h_260,c_fill') %>')">
             <span class="tag"><%= Category.name %></span>
