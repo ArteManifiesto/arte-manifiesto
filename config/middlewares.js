@@ -113,12 +113,14 @@ var entityExists = function (entity, query, req, res, next, method) {
           }
         }
       } else {
-        if (!req.user || !req.user.isAdmin) {
-          var returnTo = req.protocol + '://' + req.get('host') + req.originalUrl;
-          res.cookie('return_to', returnTo, {maxAge: 3600000, domain: '.' + global.cf.app.domain});
+        if(!element.published) {
+          if (!req.user || !req.user.isAdmin ) {
+            var returnTo = req.protocol + '://' + req.get('host') + req.originalUrl;
+            res.cookie('return_to', returnTo, {maxAge: 3600000, domain: '.' + global.cf.app.domain});
 
-          req.flash('errorMessage', global.lg.isNotAdmin);
-          return res.redirect('/auth/login');
+            req.flash('errorMessage', global.lg.isNotAdmin);
+            return res.redirect('/auth/login');
+          }
         }
       }
       req[entity.toLowerCase()] = element;
