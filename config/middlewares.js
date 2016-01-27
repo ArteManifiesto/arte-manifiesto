@@ -35,7 +35,11 @@ exports.isAdmin = function (req, res, next) {
     res.cookie('return_to', returnTo, {maxAge: 3600000, domain: '.' + global.cf.app.domain});
 
     req.flash('errorMessage', global.lg.isNotAdmin);
-    return res.redirect('http://am.local:3000/auth/login');
+    if(process.env.NODE_ENV === 'production') {
+      return res.redirect('http://artemanifiesto.com/auth/login');
+    }else {
+      return res.redirect('http://am.local:3000/auth/login');
+    }
   }
   next();
 };
