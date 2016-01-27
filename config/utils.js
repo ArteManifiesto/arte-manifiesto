@@ -2,7 +2,6 @@ var moment = require('moment');
 var email = require('../app/controllers/email');
 var _ = require('lodash');
 
-
 global.limits = {
   usersHome: 4,
   worksHome: 15,

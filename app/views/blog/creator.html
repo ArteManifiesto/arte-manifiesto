@@ -74,21 +74,38 @@
 
   </div>
 
-  {% if edit %}
   <div class="grid-container">
     <div class="grid-100">
       <div class="blog-single-trash">
-        <a class="button following trash">ELIMINAR</a>
-        <div>
+        {% if edit %}
+        <a class="button following delete-btn trash">ELIMINAR</a>
+        <div class="hide delete-confirm">
           <p style="display: inline-block;">Seguro que desea eliminar el post?</p>
-          <a class="button following">CANCELAR</a>
-          <a class="button following trash">ELIMINAR</a>
+          <a class="button following cancel">CANCELAR</a>
+          <a class="button following trash delete-force">ELIMINAR</a>
         </div>
+        {% endif %}
+
+        {% if edit %}
+          <a target='_blank' href="/blog/post/{{post.nameSlugify}}" class="button following preview-btn">PREVISUALIZAR</a>
+        {% else %}
+          <a target='_blank' class="button following preview-btn">PREVISUALIZAR</a>
+        {% endif %}
+
+        {% if (edit && post.published) %}
+          <a class="button following publish-btn publish">PUBLICADO</a>
+        {% else %}
+          <a class="button following publish-btn">PUBLICAR</a>
+        {% endif %}
+
+        {% if (edit && post.featured) %}
+          <a class="button following am-btn am">AM</a>
+        {% else %}
+          <a class="button following am-btn">AM</a>
+        {% endif %}
       </div>
     </div>
   </div>
-  {% endif %}
-
 {% endblock %}
 
 

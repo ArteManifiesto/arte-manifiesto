@@ -8,10 +8,11 @@
   <div class="grid-container">
     <div class="grid-100">
       <header class="header-blog">
-        <div class="logo">am <span>blog</span></div>
+        <div class="logo" style="visibility:hidden;">am <span>blog</span></div>
         <div class="menu">
+          <a href="/blog" class="item uppercase">todo</a>
           {% for category in categories %}
-            <a href="/blog/category/{{category.nameSlugify}}" class="item uppercase">{{category.name}}</a>
+          <a href="/blog/category/{{category.nameSlugify}}" class="item uppercase">{{category.name}}</a>
           {% endfor %}
         </div>
         <div class="socials">
@@ -19,7 +20,6 @@
           <a href="https://www.facebook.com/artemanifiesto" class="bi_logo-facebook"></a>
           <a href="https://twitter.com/artemanifiesto" class="bi_logo-twitter"></a>
           <a href="https://www.instagram.com/artemanifiesto/" class="bi_logo-instagram"></a>
-          <a href="#" class="bi_web-rss"></a>
         </div>
       </header>
     </div>
@@ -117,10 +117,10 @@
     <div class="grid-100 grid-parent">
       <div class="blog-articles-container articles-container">
       </div>
+      <div class="grid-100 u-padding-top-30 u-padding-bottom-30">
+        <div class="loader loading extra-small gray"></div>
+      </div>
     </div>
-  </div>
-  <div class="grid-100 u-padding-top-30 u-padding-bottom-30">
-    <div class="loader extra-small gray"></div>
   </div>
 
 {% endblock %}

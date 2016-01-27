@@ -103,11 +103,6 @@ var searchDiscover = function (entity, req) {
     data.url = req.protocol + '://' + req.get('host') + req.path + '?' + query;
     data.url = data.url.replace(tempValue, req.params.value);
 
-    if (entity === 'works') {
-      if (global.getUrlParameter(data.url, 'featured') === undefined)
-        data.url += '&featured=1';
-    }
-    
     data.filters = {
       currentCategory: req.params.value,
       currentOrder: req.query.order
@@ -119,7 +114,7 @@ var searchDiscover = function (entity, req) {
 var discover = function (req, res, entity) {
   if (req.params.page !== 'page-1')
     return res.redirect(req.url.replace(req.params.page, 'page-1'));
-
+    
   var promises = [searchDiscover(entity, req)];
   entity !== 'collections' && promises.push(global.db.Category.findAll({where: {meta: 0}}));
 

@@ -11,6 +11,8 @@
 		<title>Arte Manifiesto</title>
 	{% endif %}
 
+	{% block head %}
+	{% endblock %}
 	<link href='https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700,700italic|Montserrat:400,700' rel='stylesheet' type='text/css'>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -177,6 +179,7 @@
 	var errorMessage = {{errorMessage|json|safe}};
 	var successMessage = {{successMessage|json|safe}};
 	var user = {{user|json|safe}};
+
 
 	$(function() {new APP.AM();});
 	</script>

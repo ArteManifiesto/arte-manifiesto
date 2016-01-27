@@ -75,7 +75,8 @@ Utils = {
     DataApp.currentUrl = url;
     if (typeof (history.pushState) != 'undefined') {
       var tempUrl = {page: page, url: url};
-      history.pushState(tempUrl, tempUrl.page, tempUrl.url);
+      // history.pushState(tempUrl, tempUrl.page, tempUrl.url);
+      history.replaceState(tempUrl, tempUrl.page, tempUrl.url);
     } else {
       window.location.href = "/";
     }
@@ -86,7 +87,7 @@ Utils = {
   checkAuthentication: function () {
     if (!DataApp.currentUser) {
       if (window.location.href.indexOf('auth') === -1)
-        Cookies.set('return_to', window.location.href);
+        Cookies.set('return_to', window.location.href, {maxAge: 3600000, domain: '.' + document.domain});
 
       window.location.href = DataApp.loginUrl;
     }
@@ -100,12 +101,35 @@ Utils = {
   shareFBWork: function (work) {
     $('#lean_overlay').trigger("click");
     Utils.share.facebook({
-      link: DataApp.baseUrl + '/user/' + work.User.username + '/work/' + work.nameSlugify,
+      link: DataApp.baseUrl + 'user/' + work.User.username + '/work/' + work.nameSlugify,
       picture: Utils.addImageFilter(work.photo, 'w_1200,h_630,q_60,c_crop'),
       name: work.name,
       caption: 'Arte Manifiesto',
       description: work.description
     });
+  },
+  shareTWWork: function (work) {
+    var link = DataApp.baseUrl + 'user/' + work.User.username + '/work/' + work.nameSlugify;
+    var text = encodeURIComponent(work.name + ' vía (@artemanifiesto)');
+    var url = "https://twitter.com/intent/tweet?text=" + text;
+    url += "&url=" + encodeURIComponent(link);
+    window.open(url, "_blank", "height=300,width=550,resizable=1");
+  },
+  shareFBPost: function (post) {
+    Utils.share.facebook({
+      link: DataApp.baseUrl + 'blog/post/' + post.nameSlugify,
+      picture: Utils.addImageFilter(post.photo, 'w_1200,h_630,q_60,c_crop'),
+      name: post.name,
+      caption: 'Arte Manifiesto | Blog',
+      description: post.description
+    });
+  },
+  shareTWPost: function (post) {
+    var link = DataApp.baseUrl + 'blog/post/' + post.nameSlugify;
+    var text = encodeURIComponent(post.name + ' vía (@artemanifiesto)');
+    var url = "https://twitter.com/intent/tweet?text=" + text;
+    url += "&url=" + encodeURIComponent(link);
+    window.open(url, "_blank", "height=300,width=550,resizable=1");
   },
   removeURLParameter: function (url, parameter) {
     var urlparts = url.split('?');
@@ -125,7 +149,7 @@ Utils = {
       return url;
     }
   },
-  updateQueryStringParameter : function (uri, key, value) {
+  updateQueryStringParameter: function (uri, key, value) {
     var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
     var separator = uri.indexOf('?') !== -1 ? "&" : "?";
     if (uri.match(re)) {

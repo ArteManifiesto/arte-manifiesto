@@ -10,7 +10,7 @@ exports.index = function (currentPath, req, res) {
         req.work.getTags(),
         req.work.getReviews({include:[global.db.User]}),
         req.work.neighbors({idUser: user.id}),
-        global.db.Category.findAll()
+        global.db.Category.findAll({where:{meta :0}})
     ];
     global.db.Sequelize.Promise.all(promises).then(function (result) {
         var query = {where:{id: req.work.id}, include:[global.db.Category],
@@ -47,7 +47,7 @@ exports.index = function (currentPath, req, res) {
 };
 
 exports.add = function (req, res) {
-    global.db.Category.findAll().then(function (categories) {
+    global.db.Category.findAll({where:{meta: 0}}).then(function (categories) {
         return res.render(basePath + 'add', {
         categories: categories,
         cloudinary: global.cl,
@@ -105,7 +105,7 @@ exports.create = function (req, res) {
 
 exports.edit = function (req, res) {
   var promises = [
-    global.db.Category.findAll(),
+    global.db.Category.findAll({where:{meta: 0}}),
     req.work.getCategory(),
     req.work.getTags()
   ];

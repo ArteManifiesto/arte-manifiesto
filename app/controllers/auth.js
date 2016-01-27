@@ -101,17 +101,10 @@ var loginUser = function (req, res, user) {
     if (err)
       return res.internalServerError('No se pudo iniciar sesion');
 
-    var returnTo = req.cookies.return_to;
-
+    var returnTo = req.cookies.return_to || '/';
+    console.log('host : ', req.get('host'));
     console.log('return to : ', returnTo);
     console.log('return to 2w : ', req.query);
-    if(req.query.returnTo) {
-      returnTo = req.query.returnTo;
-    }
-
-    if(returnTo === undefined) {
-      returnTo = 'http://am.local:3000';
-    }
 
     if (!req.xhr)
       return res.redirect(returnTo);

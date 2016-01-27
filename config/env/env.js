@@ -10,6 +10,9 @@ module.exports = {
           port: process.env.DB_PORT
         }
     },
+    app: {
+      domain: process.env.APP_DOMAIN
+    },
     facebook: {
       clientID: process.env.FB_CLIENT_ID,
       clientSecret: process.env.FB_CLIENT_SECRET,

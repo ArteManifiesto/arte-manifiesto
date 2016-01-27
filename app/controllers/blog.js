@@ -1,26 +1,44 @@
 var basePath = 'blog/';
 var moment = require('moment');
 
-var searchPosts = function (req, options, ids) {
-  options = options || {entity: 'Post'}
-  var query = {
+/**
+ * search posts pagination
+ * @return {JSON} return posts
+ */
+var searchPosts = function (req, options, query) {
+  options = options || {entity: 'Post'};
+
+  query = query || {};
+  query = global._.assign(query, {
     order: [global.getOrder('newest')],
     addUser: true,
     build: true,
-    where: {id:{ $not: [ids]}},
-    include: [global.db.Category]
-  };
+    include: [global.db.Category],
+    viewer: req.viewer
+  });
+
+  if (query.where)
+    query.where.published = !query.trash;
+  else
+    query.where = {published: !query.trash};
+
+  console.log('query : ', JSON.stringify(query.where));
 
   var page = req.params.page ? req.params.page : 'page-1';
-  options.limit = 10;
+  options.limit = global.limits.blog;
   options.page = page;
 
   return global.getPaginationEntity(options, query);
 };
 
-exports.index = function (req, res) {
-  global.db.Post.findAll({
-    where: {featured: true},
+
+/**
+ * retrieve top featured posts
+ * @return {JSON} return ids and the first three featured posts
+ */
+var getFeaturedTopPosts = function () {
+  return global.db.Post.findAll({
+    where: {featured: true, published: true},
     order: [global.getOrder('newest')],
     addUser: true,
     build: true,
@@ -32,30 +50,60 @@ exports.index = function (req, res) {
       featureds[i] = featureds[i].toJSON();
       ids.push(featureds[i].id);
     }
+    return {featureds: featureds, ids: ids};
+  });
+};
 
-    global.db.Category.findAll({where: {meta: 1}}).then(function (categories) {
-      searchPosts(req, null, ids).then(function (data) {
-        return res.render(basePath + 'index', {
-          data: data,
-          featureds: featureds,
-          categories: categories
-        });
+/**
+ * get categorias filtered by meta = 1
+ */
+var getCategories = function () {
+  var categoriesQuery = {where: {meta: 1}};
+  return global.db.Category.findAll(categoriesQuery);
+};
+
+/**
+ * list all the blog's posts
+ * @return {HTML} return the main view
+ */
+exports.index = function (req, res) {
+  var promises = [
+    getFeaturedTopPosts(),
+    getCategories()
+  ];
+  global.db.sequelize.Promise.all(promises).then(function (data) {
+    var topPosts = data[0], categories = data[1];
+    var postsQuery = {where: {id: {$not: topPosts.ids}}};
+    searchPosts(req, null, postsQuery).then(function (posts) {
+      return res.render(basePath + 'index', {
+        data: posts,
+        featureds: topPosts.featureds,
+        categories: categories
       });
     });
   });
 };
 
+/**
+ * get posts exluding the first three feature posts
+ * @return {JSON} return posts in json format
+ */
 exports.posts = function (req, res) {
-  searchPosts(req).then(function (data) {
-    return res.json(data);
+  getFeaturedTopPosts().then(function (topPosts) {
+    var postsQuery = {where: {id: {$not: topPosts.ids}}};
+    searchPosts(req, null, postsQuery).then(function (posts) {
+      return res.json(posts);
+    });
   });
 };
 
+/**
+ * this method is responsible to build posts
+ * @return {HTML} return the creator view
+ */
 exports.creator = function (req, res) {
-  var view = basePath + 'creator';
-
-  global.db.Category.findAll({where: {meta: 1}}).then(function (categories) {
-    return res.render(view, {
+  getCategories().then(function (categories) {
+    return res.render(basePath + 'creator', {
       cloudinary: global.cl,
       cloudinayCors: global.cl_cors,
       categories: categories
@@ -63,24 +111,49 @@ exports.creator = function (req, res) {
   });
 };
 
-
-exports.categoryPosts = function (req, res) {
-  var query = {
-    where: {
-      nameSlugify: req.params.category
-    }
-  };
+/**
+ * filter posts by category
+ * @return {HTML} return the category view
+ */
+exports.category = function (req, res) {
+  var query = {where: {nameSlugify: req.params.category}};
   global.db.Category.find(query).then(function (category) {
-    global.db.Category.findAll({where: {meta: 1}}).then(function (categories) {
-      if (category) {
-          searchPosts(req, {entity: category, method:'getPosts',tempEntity:'Post', association: true}).then(function(posts) {
-            res.render(basePath + 'category', {
-              category: category,
-              categories: categories,
-              posts:posts
-            });
-          });
-      }
+    if (!category) {
+      req.flash('errorMessage', 'Categoría no existe');
+      return res.redirect('/blog');
+    }
+
+    getCategories().then(function (categories) {
+      var options = {
+        entity: category, method: 'getPosts',
+        tempEntity: 'Post', association: true
+      };
+
+      searchPosts(req, options).then(function (posts) {
+        res.render(basePath + 'category', {
+          category: category,
+          categories: categories,
+          posts: posts
+        });
+      });
+    });
+  });
+};
+
+/**
+ * retrieve unpublished posts
+ * @return {HTML} return the trash view
+ */
+exports.trash = function (req, res) {
+  var postsQuery = {trash: true};
+  var promises = [
+    getCategories(),
+    searchPosts(req, null, postsQuery)
+  ];
+  global.db.sequelize.Promise.all(promises).then(function (data) {
+    res.render(basePath + 'trash', {
+      categories: data[0],
+      posts: data[1]
     });
   });
 };

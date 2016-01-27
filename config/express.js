@@ -42,7 +42,9 @@ module.exports = function (app, passport) {
     app.use(expressSession({
         secret: "2x4Zvgd93yMbP,4NQEj4[Qzjqqrq,;n#PynZMawWc",
         resave: false,
-        saveUninitialized: false
+        saveUninitialized: false,
+        name: 'am-session',
+        cookie: {domain: '.' + global.cf.app.domain}
     }));
 
     app.use(flash());

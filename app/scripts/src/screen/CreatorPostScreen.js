@@ -18,13 +18,20 @@ APP.CreatorPostScreen.prototype.setupUI = function () {
   this.category = $('select[name=category]');
   this.name = $('input[name=name]');
   this.status = $('.status');
+  this.delete = $('.delete-btn');
+  this.deleteConfirm = $('.delete-confirm');
+  this.deleteForce = $('.delete-force');
+  this.cancel = $('.cancel');
 
+  this.previewBtn = $('.preview-btn');
+  this.publishBtn = $('.publish-btn');
+  this.amBtn = $('.am-btn');
 
   this.cover = new APP.UploaderImage($('.uploader-cover'), this.coverComplete, {
     uploader: $('.editor-cover')
   });
 
-  if(edit) {
+  if (edit) {
     this.category.find('option[value=' + post.Category.id + ']').attr('selected', true);
     this.cover.photo = post.photo;
   }
@@ -68,6 +75,41 @@ APP.CreatorPostScreen.prototype.listeners = function () {
 
   this.category.change(this.inputChange.bind(this));
   this.name.keyup(this.nameKeyUp.bind(this));
+
+  this.delete.click(this.deleteHandler.bind(this));
+  this.cancel.click(this.cancelHandler.bind(this));
+  this.deleteForce.click(this.deleteForceHandler.bind(this));
+
+  this.publishBtn.click(this.publishHandler.bind(this));
+  this.amBtn.click(this.featuredHandler.bind(this));
+};
+
+APP.CreatorPostScreen.prototype.publishHandler = function () {
+  if (!post) return this.showFlash('error', ['Rellena todos los campos del post']);
+  var url = '/blog/post/' + (post.published ? 'unpublish' : 'publish');
+  this.requestHandler(url, {idPost: post.id}, this.publishComplete);
+};
+
+APP.CreatorPostScreen.prototype.publishComplete = function (response) {
+  post = response.data.post;
+  if (post.published)
+    this.publishBtn.addClass('publish').text('PUBLICADO');
+  else
+    this.publishBtn.removeClass('publish').text('PUBLICAR');
+};
+
+APP.CreatorPostScreen.prototype.featuredHandler = function () {
+  if (!post) return this.showFlash('error', ['Rellena todos los campos del post']);
+  var url = '/blog/post/' + (post.featured ? 'unfeatured' : 'featured');
+  this.requestHandler(url, {idPost: post.id}, this.featuredComplete);
+};
+
+APP.CreatorPostScreen.prototype.featuredComplete = function (response) {
+  post = response.data.post;
+  if (post.featured)
+    this.amBtn.addClass('am');
+  else
+    this.amBtn.removeClass('am');
 };
 
 APP.CreatorPostScreen.prototype.imageStarted = function () {
@@ -86,7 +128,7 @@ APP.CreatorPostScreen.prototype.imageLoaded = function () {
 };
 
 APP.CreatorPostScreen.prototype.autoSave = function (event, editable) {
-  if(this.isUploading) return;
+  if (this.isUploading) return this.showFlash('error', ['Las imágenes aún se estan cargando']);
   var errors = [];
   var nameValue = this.name.val(), categoryValue = this.category.val();
 
@@ -131,9 +173,10 @@ APP.CreatorPostScreen.prototype.autoSave = function (event, editable) {
 
 APP.CreatorPostScreen.prototype.saveRequestComplete = function (response) {
   post = response.data.post;
-  if(edit)
-    Utils.changeUrl(post.name, '/blog/post/' + post.nameSlugify + '/edit');
-
+  var url = '/blog/post/' + post.nameSlugify;
+  if (edit)
+    Utils.changeUrl(post.name, url + '/edit');
+  this.previewBtn.attr('href', url);
   this.status.text('✓ guardado');
 };
 
@@ -150,25 +193,56 @@ APP.CreatorPostScreen.prototype.beforeUnLoad = function (event) {
   }
 };
 
-APP.CreatorPostScreen.prototype.coverComplete = function(idImage) {
-   this.$view.find('.upload').show();
-   this.uploader.show();
+APP.CreatorPostScreen.prototype.coverComplete = function (idImage) {
+  this.$view.find('.upload').show();
+  this.uploader.show();
 
-   var filters = {format: 'jpg', width: 1600, crop: "limit", quality: 80};
-   var img = $.cloudinary.image(idImage, filters);
-   img.addClass('am-Profile-banner-img').appendTo(this.$view.find('.preview'));
-   this.photo = img.attr('src');
+  var filters = {format: 'jpg', width: 1600, crop: "limit", quality: 80};
+  var img = $.cloudinary.image(idImage, filters);
+  img.addClass('am-Profile-banner-img').appendTo(this.$view.find('.preview'));
+  this.photo = img.attr('src');
 
-   scope.autoSave(null, scope.editable);
+  scope.autoSave(null, scope.editable);
 };
 
-APP.CreatorPostScreen.prototype.inputChange = function() {
+APP.CreatorPostScreen.prototype.inputChange = function () {
   this.autoSave(null, this.editable);
 };
 
-APP.CreatorPostScreen.prototype.nameKeyUp = function() {
+APP.CreatorPostScreen.prototype.nameKeyUp = function () {
   clearTimeout(timeout);
-  timeout = setTimeout(function() {
+  timeout = setTimeout(function () {
     scope.autoSave(null, scope.editable);
+  }, 1000);
+};
+
+APP.CreatorPostScreen.prototype.deleteHandler = function (event) {
+  event.preventDefault();
+  this.delete.hide();
+  this.previewBtn.hide();
+  this.publishBtn.hide();
+  this.amBtn.hide();
+  this.deleteConfirm.show();
+};
+
+APP.CreatorPostScreen.prototype.cancelHandler = function (event) {
+  event.preventDefault();
+  this.delete.show();
+  this.previewBtn.show();
+  this.publishBtn.show();
+  this.amBtn.show();
+  this.deleteConfirm.hide();
+};
+
+APP.CreatorPostScreen.prototype.deleteForceHandler = function (event) {
+  event.preventDefault();
+  var url = '/blog/post/delete';
+  this.requestHandler(url, {idPost: post.id}, this.deleteForceComplete);
+};
+
+APP.CreatorPostScreen.prototype.deleteForceComplete = function () {
+  this.showFlash('succes', 'Se elimino tu post');
+  setTimeout(function () {
+    window.location.href = '/blog';
   }, 1000);
 };

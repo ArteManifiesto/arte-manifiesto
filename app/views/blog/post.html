@@ -2,21 +2,25 @@
 {% set path = '' %}
 
 {% block styles %}
-
-  <!-- <link rel="stylesheet" href="/demo.css"> -->
-  <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css"> -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/medium-editor/latest/css/medium-editor.min.css">
   <link rel="stylesheet" href="/default.css">
   <link rel="stylesheet" href="/medium-editor-insert-plugin.css">
-
 {% endblock %}
 
+{% block head %}
+  <meta property='og:image' content="{{post.photo|addFilter('w_700,q_80,c_limit')}}"/>
+  <meta property='og:type' content="article"/>
+  <meta property='og:title' content="{{post.name}}"/>
+  <meta property='og:site_name' content='Arte Manifiesto'/>
+  <meta property="og:description" content="{{post.description}}"/>
 
+  <meta name="title" content="{{post.name}}" />
+  <meta name="description" content="{{post.description}}"/>
+{% endblock %}
 {% block elements %}
-
-  <!-- <div class="blog-single-cover" style="background-image: url('{{ post.photo }}')"> -->
+  <div id="fb-root"></div>
+  
   <div class="blog-single-cover" >
-
       <div class="uploader-cover">
         <div class="profile-imgage">
           <div class="preview">
@@ -34,7 +38,7 @@
         <div class="info">
           <span class="date"><i class="bi_interface-clock"></i> {{ post.createdAt|formatDate() }}</span>
           &nbsp; &nbsp; &nbsp;
-          <span class="social {% if post.liked %} liked {% endif %}"><i class="fa fa-heart"></i> <span class="likes">{{ post.likes }}</span></span> &nbsp; &nbsp;
+          <span class="social"><i class="fa fa-heart"></i> <span class="likes">{{ post.likes }}</span></span> &nbsp; &nbsp;
           <span class="social"><i class="fa fa-comment"></i> {{ post.reviews }}</span> &nbsp; &nbsp; &nbsp;
           {% if user.isAdmin %}
           <a href="/blog/post/{{post.nameSlugify}}/edit" class="date"><i class="fa fa-pencil-square-o"></i> Editar</a>
@@ -56,10 +60,10 @@
     <div class="grid-100">
       <div class="blog-single-socials">
         <div class="buttons">
-          <a href="#" class="button white like-btn liked"><i class="fa fa-heart"></i>&nbsp;&nbsp; LIKE
+          <a class="button white like-btn {% if post.liked %} liked {% endif %}"><i class="fa fa-heart"></i>&nbsp;&nbsp; LIKE
             &nbsp;&nbsp;<span class="likes">{{ post.likes }}</span></a>
-          <a href="#" class="button blue"><i class="fa fa-facebook"></i>&nbsp;&nbsp; SHARE</a>
-          <a href="#" class="button sky-blue"><i class="fa fa-twitter"></i>&nbsp;&nbsp; TWEET</a>
+          <a class="button blue share-fb"><i class="fa fa-facebook"></i>&nbsp;&nbsp; COMPARTIR</a>
+          <a class="button sky-blue share-tw"><i class="fa fa-twitter"></i>&nbsp;&nbsp; TWEET</a>
         </div>
       </div>
     </div>
@@ -73,19 +77,16 @@
         </a>
 
         <div class="info">
-          <a href="/user/{{ post.User.username }}">
-            <p class="name">
-              {% if post.User.typeName === 1 %}
-                {{ post.User.fullname }}
-              {% else %}
-                {{ post.User.pseudonimo }}
-              {% endif %}
-            </p>
-          </a>
-
+          <p class="name">
+            {% if post.User.typeName === 1 %}
+              {{ post.User.fullname }}
+            {% else %}
+              {{ post.User.pseudonimo }}
+            {% endif %}
+          </p>
           <p class="description">{{ post.User.biography.substr(0,140) }}</p>
         </div>
-        <a class="button following"> + SEGUIR</a>
+        <a class="button following">+ SEGUIR</a>
       </div>
     </div>
   </div>
@@ -109,7 +110,7 @@
           </div>
         {% else %}
           <p class="empty-profile-text  empty-message bare-message u-margin-top-30" style="display: block; margin-bottom: 40px;">
-            <a href="#" clas class="login-review">Logeate, para agregar comentario</a>
+            <a class="login-review">Logeate, para agregar comentario</a>
           </p>
         {% endif %}
       </div>
@@ -126,7 +127,6 @@
       </div>
     </div>
   </div>
-
 {% endblock %}
 
 {% block scripts %}
@@ -134,6 +134,15 @@
     var post = {{post|json|safe}};
     var posts = {{posts|json|safe}};
     var reviews = {{reviews|json|safe}};
+    (function (d, s, id) {
+			var js;
+			var fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=" + DataApp.fbAppID;
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
     $(function () {
       new APP.PostScreen();
     });

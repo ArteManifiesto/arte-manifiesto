@@ -1,7 +1,7 @@
 var basePath = 'blog/';
 var moment = require('moment');
 
-exports.postPage = function (req, res) {
+exports.post = function (req, res) {
   req.post.getCategory().then(function (category) {
     req.post.getReviews({include: [global.db.User]}).then(function(reviews) {
       req.post.setDataValue('Category', category);
@@ -19,19 +19,22 @@ exports.postPage = function (req, res) {
         order: [global.getOrder('popularity')]
       };
       global.db.Post.findAll(query).then(function (posts) {
-        post = req.post.toJSON();
-        return res.render(basePath + 'post', {
-          post: global._.omit(post, 'body'),
-          postBody: post.body,
-          posts: posts,
-          reviews: reviews
+        req.post.views++;
+        req.post.save().then(function() {
+          post = req.post.toJSON();
+          return res.render(basePath + 'post', {
+            post: global._.omit(post, 'body'),
+            postBody: post.body,
+            posts: posts,
+            reviews: reviews
+          });
         });
       });
     });
   });
 };
 
-exports.postCreate = function (req, res) {
+exports.create = function (req, res) {
   req.body.UserId = req.user.id;
   req.body.CategoryId = req.body.category;
   global.db.Post.create(req.body).then(function (post) {
@@ -39,14 +42,14 @@ exports.postCreate = function (req, res) {
   });
 };
 
-exports.postUpdate = function (req, res) {
+exports.update = function (req, res) {
   req.body.CategoryId = req.body.category;
   req.post.updateAttributes(req.body).then(function (post) {
     return res.ok({post: post}, 'post');
   });
 };
 
-exports.createReview = function (req, res) {
+exports.review = function (req, res) {
   console.log(req.body.idPost);
   req.body.PostId = parseInt(req.body.idPost,10);
   req.body.UserId = parseInt(req.viewer, 10);
@@ -66,7 +69,7 @@ exports.like = function(req, res) {
   });
 };
 
-exports.editPage = function(req, res) {
+exports.edit = function(req, res) {
   var view = basePath + 'creator';
   global.db.Category.findAll({where: {meta: 1}}).then(function (categories) {
     req.post.getCategory().then(function (category) {
@@ -95,4 +98,22 @@ exports.unFeatured = function (req, res) {
     req.post.updateAttributes({featured: false}).then(function () {
         return res.ok({post: req.post}, 'Post unFeatured');
     });
+};
+
+exports.publish = function (req, res) {
+    req.post.updateAttributes({published: true}).then(function () {
+        return res.ok({post: req.post}, 'Post published');
+    });
+};
+
+exports.unPublish = function (req, res) {
+    req.post.updateAttributes({published: false}).then(function () {
+        return res.ok({post: req.post}, 'Post unPublished');
+    });
+};
+
+exports.delete = function (req, res) {
+  req.post.destroy().then(function() {
+    return res.ok({post: req.post}, 'Post eliminado');
+  });
 };

@@ -55,7 +55,7 @@ exports.update = function (req, res) {
  */
 exports.delete = function (req, res) {
     req.collection.destroy().then(function () {
-        return res.ok({collection: req.collection}, 'Coleccion eliminada');
+      return res.ok({collection: req.collection}, 'Coleccion eliminada');
     });
 };
 

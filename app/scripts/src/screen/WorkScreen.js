@@ -114,7 +114,7 @@ APP.WorkScreen.prototype.followHandler = function() {
 APP.WorkScreen.prototype.followComplete = function(response) {
   console.log(response);
   if(this.isFollowing) {
-    this.followBtn.removeClass('following').text('+SEGUIR');
+    this.followBtn.removeClass('following').text('+ SEGUIR');
   } else {
     this.followBtn.addClass('following').text('Siguiendo');
   }
@@ -247,4 +247,4 @@ APP.WorkScreen.prototype.menuItemHandler = function (event) {
 
 APP.WorkScreen.prototype.shareFBHandler = function () {
   Utils.shareFBWork(work);
-}
+};

@@ -2,7 +2,7 @@ var basePath = 'user/account/';
 
 exports.index = function (req, res) {
   var promises = [
-    global.db.Category.findAll(),
+    global.db.Category.findAll({where:{meta: 0}}),
     req.user.getInterests()
   ];
 
