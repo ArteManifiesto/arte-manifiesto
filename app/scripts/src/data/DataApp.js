@@ -31,14 +31,14 @@ Events.CREATOR_READY = 'creatorReady';
 var Validations = {
   notBlank: function(value) {
     if(!value) {return true};
-    return '' === value.replace( /^\s+/g, '' ).replace( /\s+$/g, '' )
+    return '' === value.replace( /^\s+/g, '' ).replace( /\s+$/g, '')
   },
   username: function(value) {
     var re = new RegExp(/^[a-zA-Z0-9]+$/);
     return re.test(value);
   },
-  email: function() {
+  email: function(value) {
     var re = new RegExp(/^\w+@\w+\.\w{2,3}$/);
-    return res.test(value);
+    return re.test(value);
   }
 }

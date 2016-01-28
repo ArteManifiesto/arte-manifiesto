@@ -42,9 +42,8 @@ var searchFeed = function (req) {
         UserId: {$in: followings},
         verb: {$in: global.feedVerbs}
       },
-      group:['verb', 'ObjectId','OwnerId','UserId'],
-      order: [global.getOrder('newest')],
-      addUser: true,
+      group:['verb', 'ObjectId','OwnerId','UserId'],///////////////////////
+, m ;;      addUser: true,
       build: true,
       viewer: req.viewer
     };
