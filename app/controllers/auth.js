@@ -1,6 +1,6 @@
+var simple_recaptcha = require('simple-recaptcha-new');
 var passport = require('passport');
 var moment = require('moment');
-var simple_recaptcha = require('simple-recaptcha-new');
 
 /**
  * Show the view page for signup
