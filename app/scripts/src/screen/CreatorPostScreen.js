@@ -195,7 +195,7 @@ APP.CreatorPostScreen.prototype.beforeUnLoad = function (event) {
 
 APP.CreatorPostScreen.prototype.coverComplete = function (idImage) {
   this.$view.find('.upload').show();
-  this.uploader.show();
+  $('.cloudinary-fileupload').show();
 
   var filters = {format: 'jpg', width: 1600, crop: "limit", quality: 80};
   var img = $.cloudinary.image(idImage, filters);

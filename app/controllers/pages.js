@@ -42,6 +42,7 @@ var searchFeed = function (req) {
         UserId: {$in: followings},
         verb: {$in: global.feedVerbs}
       },
+      group:['verb', 'ObjectId','OwnerId','UserId'],
       order: [global.getOrder('newest')],
       addUser: true,
       build: true,
@@ -114,7 +115,7 @@ var searchDiscover = function (entity, req) {
 var discover = function (req, res, entity) {
   if (req.params.page !== 'page-1')
     return res.redirect(req.url.replace(req.params.page, 'page-1'));
-    
+
   var promises = [searchDiscover(entity, req)];
   entity !== 'collections' && promises.push(global.db.Category.findAll({where: {meta: 0}}));
 

@@ -160,6 +160,7 @@ APP.Viewer.prototype.addItems = function(items) {
         this.container.append(item.view);
       }else{
         this.container.append(item.view).masonry('appended', item.view);
+        this.container.masonry();
       }
       if(scopetemp.navigationManager){
         scopetemp.navigationManager.navigator.restart();
@@ -175,11 +176,7 @@ APP.Viewer.prototype.reset = function() {
 };
 
 APP.Viewer.prototype.clean = function() {
-  if(this.id === "work") {
-    this.container.masonry('remove', this.container.find('.grid-item')).masonry();
-  }else {
-    this.container.empty();
-  }
+  this.container.masonry('remove', this.container.find('.grid-item')).masonry();
   this.initialize = false;
 };
 

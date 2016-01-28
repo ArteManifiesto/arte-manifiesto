@@ -10,7 +10,7 @@ router.post('/:page', controller.posts);
 
 router.get('/creator', global.md.isAdmin, controller.creator);
 router.get('/category/:category', controller.category);
-router.get('/trash', global.md.isAdmin, controller.trash);
+router.get('/draft', global.md.isAdmin, controller.draft);
 
 router.use('/post', require(global.cf.routes + '/blog-post'));
 

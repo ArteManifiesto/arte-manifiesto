@@ -72,6 +72,7 @@ APP.ProfileScreen.prototype.menuItemClickHandler = function (event) {
 }
 
 APP.ProfileScreen.prototype.updateCoverComplete = function (response) {
+  DataApp.currentUser.cover = this.uploaderCover.photo;
   $('.save-icon, .cancel-icon').hide();
   $('.cloudinary-fileupload, .upload').show();
 };

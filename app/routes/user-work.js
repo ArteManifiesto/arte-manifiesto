@@ -18,7 +18,7 @@ router.get('/:nameSlugify/tags', global.md.nameSlugify(entity), controller.index
 
 router.get('/:nameSlugify/edit', isLoggedAdminOrOwner, global.md.nameSlugify(entity), controller.edit);
 router.get('/:nameSlugify/published', isLoggedAdminOrOwner, global.md.nameSlugify(entity), controller.published);
-//
+
 // router.get('/:nameSlugify/edit', isLoggedAndOwner, global.md.nameSlugify(entity), controller.edit);
 // router.get('/:nameSlugify/published', isLoggedAndOwner, global.md.nameSlugify(entity), controller.published);
 

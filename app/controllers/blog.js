@@ -18,9 +18,9 @@ var searchPosts = function (req, options, query) {
   });
 
   if (query.where)
-    query.where.published = !query.trash;
+    query.where.published = !query.draft;
   else
-    query.where = {published: !query.trash};
+    query.where = {published: !query.draft};
 
   console.log('query : ', JSON.stringify(query.where));
 
@@ -142,16 +142,16 @@ exports.category = function (req, res) {
 
 /**
  * retrieve unpublished posts
- * @return {HTML} return the trash view
+ * @return {HTML} return the draft view
  */
-exports.trash = function (req, res) {
-  var postsQuery = {trash: true};
+exports.draft = function (req, res) {
+  var postsQuery = {draft: true};
   var promises = [
     getCategories(),
     searchPosts(req, null, postsQuery)
   ];
   global.db.sequelize.Promise.all(promises).then(function (data) {
-    res.render(basePath + 'trash', {
+    res.render(basePath + 'draft', {
       categories: data[0],
       posts: data[1]
     });

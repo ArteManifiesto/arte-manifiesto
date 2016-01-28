@@ -20,12 +20,12 @@ APP.UploaderImage.prototype.listeners = function () {
   this.uploader.fileupload({
     start: function (e) {
       scope.$view.find('.upload').hide();
-      scope.uploader.hide();
+      $(this).hide();
       scope.$view.find('.preload').show();
     },
     fail: function (e, data) {
       scope.$view.find('.upload').show();
-      scope.uploader.show();
+      $(this).show();
       scope.$view.find('.preload').hide();
     }
   })
