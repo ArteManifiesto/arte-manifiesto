@@ -1,7 +1,7 @@
 <script type="text/template" id="template-table-work">
   <tr>
     <td><img src="<%= addFilter(photo, 'w_35') %>"></td>
-    <td><a href="http://am.local:3000/user/<%=User.username%>/work/<%=nameSlugify%>"><%=name%></a></td>
+    <td><a href="/user/<%=User.username%>/work/<%=nameSlugify%>"><%=name%></a></td>
     <td><%=popularity%></td>
     <td><%=views%></td>
     <td><% if(public) { %> si <% } else { %> no <% } %></td>
@@ -15,6 +15,6 @@
             ];
             print(fragments.join('-'));
         %></td>
-    <td><button type="button" class="btn btn-success">editar</button></td>
+    <td><a href="/user/<%=User.username%>/work/<%=nameSlugify%>/edit" class="btn btn-success">editar</a></td>
   </tr>
 </script>

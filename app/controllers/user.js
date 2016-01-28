@@ -132,3 +132,9 @@ exports.unFeatured = function (req, res) {
     return res.ok({user: req.userTo}, 'Usuario censurado');
   });
 };
+
+exports.delete = function (req, res) {
+  req.userTo.destroy().then(function () {
+    return res.ok({user: req.userTo}, 'Usuario eliminado');
+  });
+};

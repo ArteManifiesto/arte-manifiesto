@@ -4,7 +4,6 @@ var moment = require('moment');
 
 exports.index = function(req,res) {
   return res.redirect(basePath + 'users/page-1');
-  // return res.render(basePath + 'index');
 };
 
 var searchData = function (req, entity) {
@@ -108,5 +107,21 @@ exports.general = function (req, res) {
 exports.search = function (entity, req, res) {
   searchData(req, entity).then(function (data) {
     return res.json(data);
+  });
+};
+
+exports.editUser = function (req, res) {
+  global.db.User.findById(req.params.idUser).then(function(user) {
+    return res.render(basePath + 'edit-user', {
+      userToEdit: user
+    });
+  });
+};
+
+exports.editWork = function (req, res) {
+  global.db.Work.findById(req.params.idWork).then(function(work) {
+    return res.render(basePath + 'edit-work', {
+      workToEdit: work
+    });
   });
 };

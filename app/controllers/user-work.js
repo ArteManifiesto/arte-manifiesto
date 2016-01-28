@@ -111,7 +111,7 @@ exports.edit = function (req, res) {
   ];
   global.db.Sequelize.Promise.all(promises).then(function (result) {
       return res.render(basePath + 'edit', {
-        work:req.work,
+        work: req.work,
         categories: result[0],
         category: result[1],
         tags: global._.pluck(result[2], 'name'),

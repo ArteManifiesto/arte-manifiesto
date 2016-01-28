@@ -4,6 +4,7 @@ router.mergeParams = true;
 
 var controller = require(global.cf.controllers + "/user");
 var isLoggedAndOwner = [global.md.isLogged, global.md.isOwner];
+var isLoggedAdminOrOwner = [global.md.isLogged, global.md.doubleAccess];
 
 router.use(global.md.user);
 
@@ -15,14 +16,15 @@ router.get('/followings', controller.profile.bind(this, 'followings'));
 router.get('/notifications', isLoggedAndOwner, controller.notificationsPage);
 router.post('/notifications/:page', isLoggedAndOwner, controller.notifications);
 
-
 router.use('/work', require(global.cf.routes + "/user-work"));
 router.use('/collection', require(global.cf.routes + "/user-collection"));
-router.use('/account', isLoggedAndOwner, require(global.cf.routes + "/user-account"));
+router.use('/account', isLoggedAdminOrOwner, require(global.cf.routes + "/user-account"));
 
 router.post('/isFollowing', isLoggedAndOwner, global.md.userTo, controller.isFollowing);
 router.post('/follow', isLoggedAndOwner, global.md.userTo, controller.follow);
 router.post('/unfollow', isLoggedAndOwner, global.md.userTo, controller.unFollow);
+
+router.post('/delete', global.md.isAdmin, global.md.userTo, controller.delete);
 router.post('/featured', global.md.isAdmin, global.md.userTo, controller.featured);
 router.post('/unfeatured', global.md.isAdmin, global.md.userTo, controller.unFeatured);
 

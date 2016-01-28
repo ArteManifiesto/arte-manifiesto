@@ -22,8 +22,13 @@ APP.WorkScreen.prototype.setupUI = function () {
   new APP.Viewer('carrouselItem', $('.more'), null, more);
   new APP.Viewer('carrouselItem', $('.similar'), null, similar);
 
+  new APP.Carrousel($('.js-more-carousel'), $('.more'));
+  new APP.Carrousel($('.js-similar-carousel'), $('.similar'));
+
+  new APP.PhotoSwipe();
+  
   this.reviewsContainer = $('.reviews-items-container');
-  for (var i = 0; i <reviews.length; i++)
+  for (var i = 0; i < reviews.length; i++)
     this.reviewsContainer.append(new APP.Review(reviews[i]).view);
 
   this.shareFb = $('.share-fb');
@@ -64,7 +69,7 @@ APP.WorkScreen.prototype.listeners = function () {
     var collectionsUrl = DataApp.currentUser.url + '/collection/all';
     this.requestHandler(collectionsUrl, {}, this.collectionsHandlerComplete);
 
-    if(!owner) {
+    if (!owner) {
       var followingUrl = DataApp.currentUser.url + '/isFollowing';
       this.requestHandler(followingUrl, {idUser: work.User.id}, this.isFollowingComplete);
     }
@@ -79,41 +84,41 @@ APP.WorkScreen.prototype.listeners = function () {
   $(document).bind('keyup', this.documentKeyupHandler.bind(this));
 };
 
-APP.WorkScreen.prototype.documentKeyupHandler = function(event) {
-  if(event.keyCode === 37 && this.prevBtn.length > 0)
+APP.WorkScreen.prototype.documentKeyupHandler = function (event) {
+  if (event.keyCode === 37 && this.prevBtn.length > 0)
     window.location.href = this.prevBtn.attr('href');
 
-  if(event.keyCode === 39 && this.nextBtn.length > 0)
+  if (event.keyCode === 39 && this.nextBtn.length > 0)
     window.location.href = this.nextBtn.attr('href');
 };
 
-APP.WorkScreen.prototype.copyHandler = function(trigger) {
+APP.WorkScreen.prototype.copyHandler = function (trigger) {
   $('#lean_overlay').trigger("click");
   this.showFlash('succes', 'Link Copiado');
   return window.location.href;
 };
 
-APP.WorkScreen.prototype.reviewFormHandler = function(event) {
+APP.WorkScreen.prototype.reviewFormHandler = function (event) {
   event.preventDefault();
   var url = DataApp.currentUser.url + '/work/review/create';
   this.requestHandler(url, $(event.target).serialize(), this.reviewComplete);
 };
 
-APP.WorkScreen.prototype.reviewComplete = function(response) {
+APP.WorkScreen.prototype.reviewComplete = function (response) {
   $('.value-input').val('');
   this.reviewContainer.append(new APP.Review(response.data.review).view);
 }
 
 
-APP.WorkScreen.prototype.followHandler = function() {
+APP.WorkScreen.prototype.followHandler = function () {
   Utils.checkAuthentication();
   var url = DataApp.currentUser.url + (this.isFollowing ? '/unfollow/' : '/follow/');
   this.requestHandler(url, {idUser: work.User.id}, this.followComplete);
 };
 
-APP.WorkScreen.prototype.followComplete = function(response) {
+APP.WorkScreen.prototype.followComplete = function (response) {
   console.log(response);
-  if(this.isFollowing) {
+  if (this.isFollowing) {
     this.followBtn.removeClass('following').text('+ SEGUIR');
   } else {
     this.followBtn.addClass('following').text('Siguiendo');
@@ -122,7 +127,7 @@ APP.WorkScreen.prototype.followComplete = function(response) {
   this.isFollowing = !this.isFollowing;
 }
 
-APP.WorkScreen.prototype.isFollowingComplete = function(response) {
+APP.WorkScreen.prototype.isFollowingComplete = function (response) {
   this.isFollowing = response.data.following;
   this.isFollowing && this.followBtn.addClass('following').text('Siguiendo');
 }
@@ -159,7 +164,7 @@ APP.WorkScreen.prototype.collectionFormComplete = function (response) {
 };
 
 
-APP.WorkScreen.prototype.likeBtnHandler = function() {
+APP.WorkScreen.prototype.likeBtnHandler = function () {
   Utils.checkAuthentication();
   if (!work.liked) {
     var url = DataApp.currentUser.url + '/work/like';
@@ -167,7 +172,7 @@ APP.WorkScreen.prototype.likeBtnHandler = function() {
   }
 };
 
-APP.WorkScreen.prototype.likeComplete = function(response) {
+APP.WorkScreen.prototype.likeComplete = function (response) {
   work.liked = !work.liked;
   $('.likes').text(response.data.likes);
   this.likeBtn.parent().addClass('active');
@@ -243,7 +248,7 @@ APP.WorkScreen.prototype.menuItemHandler = function (event) {
   this.oldSection && this.oldSection.hide();
   this.oldSection = this.currentSection;
   Utils.changeUrl(DataApp.baseTitle + Utils.capitalize(path), url);
-}
+};
 
 APP.WorkScreen.prototype.shareFBHandler = function () {
   Utils.shareFBWork(work);

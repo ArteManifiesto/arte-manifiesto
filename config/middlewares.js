@@ -16,6 +16,18 @@ exports.isLogged = function (req, res, next) {
   next();
 };
 
+exports.doubleAccess = function(req, res, next) {
+  if(req.user.isAdmin) return next();
+
+  if (!req.owner) {
+    if (req.xhr)
+      return res.badRequest('Necesitas ser el propietario');
+
+    return res.redirect('/user/' + req.params.username);
+  }
+  next();
+}
+
 exports.isOwner = function (req, res, next) {
   if (!req.owner) {
     if (req.xhr)
@@ -34,7 +46,7 @@ exports.isAdmin = function (req, res, next) {
     var returnTo = req.protocol + '://' + req.get('host') + req.originalUrl;
     res.cookie('return_to', returnTo, {maxAge: 3600000, domain: '.' + global.cf.app.domain});
     req.flash('errorMessage', global.lg.isNotAdmin);
-    
+
     return res.redirect(req.protocol + '://' + req.get('host') + '/auth/login');
   }
   next();

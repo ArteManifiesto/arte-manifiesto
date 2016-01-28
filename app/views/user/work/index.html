@@ -59,7 +59,7 @@
 									<i class="icon bi_web-share share"></i>
 									<p class="text">COMPARTIR</p>
 								</a>
-								{% if owner %}
+								{% if owner || (user && user.isAdmin)%}
 									<a id="go-share-modal" href="/user/{{work.User.username}}/work/{{work.nameSlugify}}/edit" class="action">
 										<i class="icon bi_editorial-compose"></i>
 										<p class="text">EDITAR</p>
@@ -451,5 +451,4 @@
 		});
 
 	</script>
-	<script src='/work-product.js'></script>
 {% endblock %}

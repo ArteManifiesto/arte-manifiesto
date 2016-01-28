@@ -25,8 +25,8 @@
 					</div>
 					<div class="am-Filter-item">
 						<ul class="am-Filter-subOptions">
-							<a href="/user/{{user.username}}/account/" class="selected">Mis datos de perfil</a>
-							<a href="/user/{{user.username}}/account/password">Cambiar contraseña</a>
+							<a href="/user/{{profile.username}}/account/" class="selected">Mis datos de perfil</a>
+							<a href="/user/{{profile.username}}/account/password">Cambiar contraseña</a>
 							<!-- <a href="#">Administración de cuenta</a> -->
 						</ul>
 					</div>
@@ -77,7 +77,7 @@
 							<div class="uploader-profile">
 								<div class="profile-imgage">
 									<div class="preview">
-										<img src="{{user.photo}}"/>
+										<img src="{{profile.photo}}"/>
 									</div>
 								</div>
 								<div class="preload hide"><i class="fa fa-spinner"></i></div>
@@ -88,17 +88,17 @@
 								{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:230px;height:55px;top:-70px;left: 105px;" } })}}
 							</div>
 							<p class="title">Nombre</p>
-							<input class="input" type="text" value="{{user.firstname}}" name='firstname' placeholder="Ingresa tus nombres"/>
+							<input class="input" type="text" value="{{profile.firstname}}" name='firstname' placeholder="Ingresa tus nombres"/>
 							<p class="title">Apellido</p>
-							<input class="input" type="text" value="{{user.lastname}}" name='lastname' placeholder="Ingresa tus apellidos"/>
+							<input class="input" type="text" value="{{profile.lastname}}" name='lastname' placeholder="Ingresa tus apellidos"/>
 							<p class="title">Usuario en la plataforma</p>
 						</div> -->
 
 						<div class="grid-100">
 							<p class="title">Nombre</p>
-							<input class="input" type="text" value="{{user.firstname}}" name='firstname' placeholder="Ingresa tus nombres"/>
+							<input class="input" type="text" value="{{profile.firstname}}" name='firstname' placeholder="Ingresa tus nombres"/>
 							<p class="title">Apellido</p>
-							<input class="input" type="text" value="{{user.lastname}}" name='lastname' placeholder="Ingresa tus apellidos"/>
+							<input class="input" type="text" value="{{profile.lastname}}" name='lastname' placeholder="Ingresa tus apellidos"/>
 							<p class="title">Elige tu nombre de usuario</p>
 						</div>
 
@@ -106,7 +106,7 @@
 							<p class="link" style="line-height: 46px;">artemanifiesto.com/user/</p>
 						</div>
 						<div class="grid-50 mobile-grid-100">
-							<input class="input" type="text" name='username' value="{{user.username}}" placeholder="Ingresa tu usuario"/>
+							<input class="input" type="text" name='username' value="{{profile.username}}" placeholder="Ingresa tu usuario"/>
 						</div>
 
 						<!-- <div class="grid-100">
@@ -124,7 +124,7 @@
 						</div>
 						<div class="grid-50 mobile-grid-100">
 							<p class="title">Fecha de nacimiento</p>
-							<input id="date" class="input" type="text" name='birthday' value="{{user.birthday|date('d/m/Y')}}" placeholder="dd/mm/yy"/ maxlength="8">
+							<input id="date" class="input" type="text" name='birthday' value="{{profile.birthday|date('d/m/Y')}}" placeholder="dd/mm/yy"/ maxlength="8">
 						</div>
 
 						<div class="grid-50 mobile-grid-100">
@@ -148,7 +148,7 @@
 						</div>
 						<div class="grid-50 mobile-grid-100">
 							<p class="title">Ciudad</p>
-							<input class="input" name='city' value="{{user.city}}" type="text" placeholder="Ingresa tu ciudad de residencia actual"/>
+							<input class="input" name='city' value="{{profile.city}}" type="text" placeholder="Ingresa tu ciudad de residencia actual"/>
 						</div>
 
 						<div class="grid-100">
@@ -156,7 +156,7 @@
 							<div class="uploader-profile u-margin-top-20">
 								<div class="profile-imgage">
 									<div class="preview">
-										<img src="{{user.photo}}"/>
+										<img src="{{profile.photo}}"/>
 									</div>
 								</div>
 								<div class="preload hide"><i class="fa fa-spinner"></i></div>
@@ -192,13 +192,13 @@
 
 							<!-- <div class="grid-100">
 								<p class="title">Apellido</p>
-								<input class="input" type="text" value="{{user.lastname}}" name='lastname' placeholder="Ingresa tus apellidos"/>
+								<input class="input" type="text" value="{{profile.lastname}}" name='lastname' placeholder="Ingresa tus apellidos"/>
 								<p class="title">Elige tu nombre de usuario</p>
 							</div> -->
 
 							<div class="grid-100 mobile-grid-100">
 								<p class="title">Nombre de artista o pseudónimo</p>
-								<input class="input" type="text" value="{{user.pseudonimo}}" name='pseudonimo' placeholder="Ingresa tu nombre de artista, pseudónimo o alter ego"/>
+								<input class="input" type="text" value="{{profile.pseudonimo}}" name='pseudonimo' placeholder="Ingresa tu nombre de artista, pseudónimo o alter ego"/>
 								<p class="title">Nombre a mostrar publicamente</p>
 							</div>
 
@@ -211,40 +211,40 @@
 
 							<div class="grid-100 mobile-grid-100">
 								<p class="title">Mi Manifiesto</p>
-								<textarea name='biography' rows="7" class="input" placeholder="Cuentanos sobre tí, lo que te define lo que hace que te levantes cada día.">{{user.biography}}</textarea>
+								<textarea name='biography' rows="7" class="input" placeholder="Cuentanos sobre tí, lo que te define lo que hace que te levantes cada día.">{{profile.biography}}</textarea>
 								<p class="title">Redes Sociales</p>
 								<div class="socials">
 									<div class="social">
 										<i class="fa fa-facebook"></i>
-										<input class="input" name='facebook' value="{{user.facebook}}" type="text" placeholder="Ingresa tu link de tu página en facebook"/>
+										<input class="input" name='facebook' value="{{profile.facebook}}" type="text" placeholder="Ingresa tu link de tu página en facebook"/>
 									</div>
 									<div class="social">
 										<i class="fa fa-twitter"></i>
-										<input class="input" name='twitter' value="{{user.twitter}}" type="text" placeholder="Ingresa tu link del perfil en twitter"/>
+										<input class="input" name='twitter' value="{{profile.twitter}}" type="text" placeholder="Ingresa tu link del perfil en twitter"/>
 									</div>
 									<div class="social">
 										<i class="fa fa-instagram"></i>
-										<input class="input" name='instagram' value="{{user.instagram}}" type="text" placeholder="Ingresa tu link del perfil en instagram"/>
+										<input class="input" name='instagram' value="{{profile.instagram}}" type="text" placeholder="Ingresa tu link del perfil en instagram"/>
 									</div>
 									<div class="social">
 										<i class="fa fa-behance"></i>
-										<input class="input" name='behance' value="{{user.behance}}" type="text" placeholder="Ingresa tu link del perfil en behance"/>
+										<input class="input" name='behance' value="{{profile.behance}}" type="text" placeholder="Ingresa tu link del perfil en behance"/>
 									</div>
 									<div class="social">
 										<i class="fa fa-tumblr"></i>
-										<input class="input" name='tumblr' value="{{user.tumblr}}" type="text" placeholder="Ingresa tu link del perfil en tumblr"/>
+										<input class="input" name='tumblr' value="{{profile.tumblr}}" type="text" placeholder="Ingresa tu link del perfil en tumblr"/>
 									</div>
 									<div class="social">
 										<i class="fa fa-wordpress"></i>
-										<input class="input" name='blog' value="{{user.blog}}" type="text" placeholder="Ingresa tu link de tu blog"/>
+										<input class="input" name='blog' value="{{profile.blog}}" type="text" placeholder="Ingresa tu link de tu blog"/>
 									</div>
 									<div class="social">
 										<i class="fa fa-vimeo"></i>
-										<input class="input" name='vimeo' value="{{user.vimeo}}" type="text" placeholder="Ingresa tu link del perfil en vimeo"/>
+										<input class="input" name='vimeo' value="{{profile.vimeo}}" type="text" placeholder="Ingresa tu link del perfil en vimeo"/>
 									</div>
 									<div class="social">
 										<i class="fa fa-dribbble"></i>
-										<input class="input" name='dribble' value="{{user.dribble}}" type="text" placeholder="Ingresa tu link del perfil en dribble"/>
+										<input class="input" name='dribble' value="{{profile.dribble}}" type="text" placeholder="Ingresa tu link del perfil en dribble"/>
 									</div>
 								</div>
 							</div>
