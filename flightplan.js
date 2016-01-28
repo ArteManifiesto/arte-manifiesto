@@ -44,6 +44,6 @@ plan.remote(function (remote) {
 
   remote.log('Reload application');
   remote.sudo('ln -snf ~/' + tmpDir + ' ~/' + appName, {user: username});
-  remote.exec('pm2 stop' + appName, {failsafe: true});
+  remote.exec('pm2 stop all' + {failsafe: true});
   remote.exec('pm2 start ~/' + appName + '/' + startFile + ' --name=' + appName);
 });
