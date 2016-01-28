@@ -21,7 +21,6 @@ plan.target('production', [
     username: username,
     agent: process.env.SSH_AUTH_SOCK
   },
-//add in another server if you have more than one
 // {
 //   host: '104.131.93.216',
 //   username: username,
@@ -29,20 +28,13 @@ plan.target('production', [
 // }
 ]);
 
-// run commands on localhost
-plan.local(function(local) {
-  // uncomment these if you need to run a build on your machine first
-  // local.log('Run build');
-  // local.exec('gulp build');
-
+plan.local(function (local) {
   local.log('Copy files to remote hosts');
   var filesToCopy = local.exec('git ls-files', {silent: true});
-  // rsync files to all the destination's hosts
   local.transfer(filesToCopy, '/tmp/' + tmpDir);
 });
 
-// run commands on remote hosts (destinations)
-plan.remote(function(remote) {
+plan.remote(function (remote) {
   remote.log('Move folder to root');
   remote.sudo('cp -R /tmp/' + tmpDir + ' ~', {user: username});
   remote.rm('-rf /tmp/' + tmpDir);
@@ -51,7 +43,7 @@ plan.remote(function(remote) {
   remote.sudo('npm --production --prefix ~/' + tmpDir + ' install ~/' + tmpDir, {user: username});
 
   remote.log('Reload application');
-  remote.sudo('ln -snf ~/' + tmpDir + ' ~/'+appName, {user: username});
-  remote.exec('pm2 stop ~/'+appName+'/'+startFile, {failsafe: true});
-  remote.exec('pm2 start ~/'+appName+'/'+startFile);
+  remote.sudo('ln -snf ~/' + tmpDir + ' ~/' + appName, {user: username});
+  remote.exec('pm2 stop' + appName, {failsafe: true});
+  remote.exec('pm2 start ~/' + appName + '/' + startFile + ' --name=' + appName);
 });

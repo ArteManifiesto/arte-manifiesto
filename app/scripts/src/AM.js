@@ -4,9 +4,17 @@
  */
 var APP = APP || {};
 APP.AM = function () {
+  this.setupData();
+  this.setupUI();
+  this.listeners();
+};
+
+APP.AM.constructor = APP.AM;
+
+APP.AM.prototype.setupData = function () {
   new APP.RestClientManager();
   new APP.TemplateManager();
-
+  
   $('.' + path + '-menu').addClass('selected');
 
   DataApp.currentUser = user || null;
@@ -21,12 +29,7 @@ APP.AM = function () {
     flash.find('.content-text').text(flashMessage);
     flash.addClass('fadeIn');
   }
-
-  this.setupUI();
-  this.listeners();
 };
-
-APP.AM.constructor = APP.AM;
 
 APP.AM.prototype.setupUI = function () {
   this.signInBtn = $('.am-Signin-button');
@@ -41,13 +44,16 @@ APP.AM.prototype.setupUI = function () {
   this.subscriptionForm = $('.subscription-form');
   this.subscriptionBtn = $('.subscription-btn');
 
-  this.emailSubscription = this.subscriptionForm.find('input[name=email]');
-
+  this.body = $('.body');
   this.searchBox = $('.search-box');
+  this.headerBars = $('.am-header-mobile .bars');
+  this.headerAvatar = $('.am-header-mobile .avatar');
+  this.headerCover = $('.body-inner .cover');
 
   this.worksOption = this.generalSearchOptions.find('.works-option');
   this.usersOption = this.generalSearchOptions.find('.users-option');
   this.collectionsOption = this.generalSearchOptions.find('.collections-option');
+  this.emailSubscription = this.subscriptionForm.find('input[name=email]');
 };
 
 APP.AM.prototype.listeners = function () {
@@ -62,28 +68,30 @@ APP.AM.prototype.listeners = function () {
   this.signInBtn.click(this.signInHandler);
   this.closeFlashBtn.click(this.closeFlashHandler.bind(this));
 
-  $('.am-header-mobile .bars').click(function () {
-    $('.body').removeClass('open-right');
-    $('.body').toggleClass('open-left');
-  });
+  this.headerBars.click(this.headerBarsHandler.bind(this));
 
-  $('.am-header-mobile .avatar').click(function () {
-    $('.body').removeClass('open-left');
-    $('.body').toggleClass('open-right');
-  });
+  this.headerAvatar.click(this.headerAvatarHandler.bind(this));
 
-  $('.body-inner .cover').click(function () {
-    $('.body').removeClass('open-right');
-    $('.body').removeClass('open-left');
-  });
-
-  $(document).keyup(this.escapeHandler.bind(this));
-
+  this.headerCover.click(this.headerCoverHandler.bind(this));
   this.closeModalBtn.click(this.closeModal.bind(this));
-
   this.searchBox.submit(this.searchBoxHandler.bind(this));
+  $(document).keyup(this.escapeHandler.bind(this));
 };
 
+APP.AM.prototype.headerCoverHandler = function (event) {
+  this.body.removeClass('open-right');
+  this.body.removeClass('open-left');
+};
+APP.AM.prototype.headerAvatarHandler = function (event) {
+  event.preventDefault();
+  this.body.removeClass('open-left');
+  this.body.toggleClass('open-right');
+};
+APP.AM.prototype.headerBarsHandler = function (event) {
+  event.preventDefault();
+  this.body.removeClass('open-right');
+  this.body.toggleClass('open-left');
+};
 APP.AM.prototype.searchBoxHandler = function (event) {
   event.preventDefault();
   window.location.href = DataApp.discoverWorks + '?term=' + $('.search-box-value').val();

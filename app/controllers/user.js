@@ -72,8 +72,8 @@ var searchNotifications = function (req) {
       OwnerId: req.user.id,
       verb: {$in: [verbs]}
     },
-    group:['verb', 'ObjectId','OwnerId','UserId'],
     order: [global.getOrder('newest')],
+    group: ['verb', 'ObjectId','OwnerId', 'UserId'],
     include: [global.db.User],
     build: true, viewer: req.viewer, reverse: true
   };

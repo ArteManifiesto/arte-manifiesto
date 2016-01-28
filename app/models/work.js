@@ -35,6 +35,9 @@ module.exports = function (sequelize, DataTypes) {
         like: function (user) {
           var scope = this;
           this.popularity += 3;
+          // this.getUser().then(function(ownerWork) {
+          //   ownerWork.popularity += 2;
+          // });
           var promises = [user.addWorkLike(this), this.save()];
           return global.db.Sequelize.Promise.all(promises).then(function () {
             return scope.numOfLikes();
