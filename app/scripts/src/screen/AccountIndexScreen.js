@@ -117,7 +117,7 @@ APP.AccountIndexScreen.prototype.completeFormHandler = function(event) {
         value.value = parseInt(value.value, 10);
       }
     });
-    var url = DataApp.currentUser.url + '/account/update';
+    var url = '/user/' + profile.username + '/account/update';
     this.requestHandler(url, data, this.afterSaveHandler);
 }
 

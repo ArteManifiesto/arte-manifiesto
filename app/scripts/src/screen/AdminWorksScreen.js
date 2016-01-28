@@ -79,6 +79,9 @@ APP.AdminWorksScreen.prototype.dropdownChange = function (event) {
     case 'nombre':
       this.term = 'name';
       break;
+    case 'recomendado':
+      this.term = 'featured';
+      break;
   }
 };
 APP.AdminWorksScreen.prototype.searchHander = function () {
@@ -86,8 +89,8 @@ APP.AdminWorksScreen.prototype.searchHander = function () {
 
   if (this.term && this.term.trim().length > 0) {
 
-    if (this.term === 'isArtist' || this.term === 'verified' || this.term === 'filled') {
-      if (isNaN(parseInt(termValue, 10)))
+    if (this.term === 'featured') {
+      if (termValue.length > 0 && isNaN(parseInt(termValue, 10)))
         return this.showFlash('error', ['El valor necesita ser 1 o 0']);
     }
 

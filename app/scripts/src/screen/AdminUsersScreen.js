@@ -38,7 +38,7 @@ APP.AdminUsersScreen.prototype.setupUI = function () {
       $('.total').text('(' + total + ')');
     }
   });
-  
+
   this.searchBox = $('.search-box');
 };
 
@@ -96,6 +96,9 @@ APP.AdminUsersScreen.prototype.dropdownChange = function (event) {
       break;
     case 'completo':
       this.term = 'filled';
+      break;
+    case 'recomendado':
+      this.term = 'featured';
       break;
   }
 };

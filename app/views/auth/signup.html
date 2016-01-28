@@ -32,7 +32,7 @@
 				<input name="birthday" value="{{profile.birthday|date('d/m/Y')}}" type="hidden"/>
 				<input name="biography" value="{{profile.bio}}" type="hidden"/>
 				{% endif %}
-				<input name="email" class="input email" type="email" placeholder="Correo" value="{{profile.email}}" required/>
+				<input name="email" class="input email" type="email" placeholder="Correo" value="{{profile.email}}" autofocus required/>
 				<input name="password" class="input password u-margin-top-10" type="password" placeholder="Contraseña" required/>
 				<div class="g-recaptcha u-margin-top-10 recaptcha" data-sitekey="6LdnUQoTAAAAALPzF3glOaqzGcbhBrmT1yQwVYls"></div>
 				<button class="button submit u-margin-top-10" data-color="green">

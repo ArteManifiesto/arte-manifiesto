@@ -18,16 +18,10 @@ var searchData = function (req, entity) {
 
   if(req.query.term && req.query.termValue) {
     var term = req.query.term;
-    if(term === 'isArtist' || term === 'verified' || term === 'filled' ) {
+    if(term === 'isArtist' || term === 'verified' || term === 'filled' || term === 'featured') {
       query.where[req.query.term] = parseInt(req.query.termValue, 10) === 1 ? true : false;
     }else {
-      // if(entity === 'Work' && term === 'name') {
-      //   query.where.$and = global.db.sequelize.literal(
-      //     "MATCH(name, description) AGAINST('" + term + "' IN BOOLEAN MODE)"
-      //   );
-      // }else {
-        query.where[req.query.term] = req.query.termValue;
-      // }
+      query.where[req.query.term] = req.query.termValue;
     }
   }
 

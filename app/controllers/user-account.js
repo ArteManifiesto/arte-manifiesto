@@ -20,7 +20,6 @@ exports.index = function (req, res) {
 
 exports.update = function (req, res) {
   req.body.fullname = req.body.firstname + ' ' + req.body.lastname;
-  if (!req.body.isFromAdmin) {
     req.body.isArtist = parseInt(req.body.isArtist, 10);
     req.body.filled = true;
     var interestsData = req.body.interests || [];
@@ -28,20 +27,13 @@ exports.update = function (req, res) {
     var query = {where: {id: {in: interestsData}}};
     global.db.Category.findAll(query).then(function (interests) {
       promises = [
-        req.user.setInterests(interests),
-        req.user.updateAttributes(req.body)
+        req.profile.setInterests(interests),
+        req.profile.updateAttributes(req.body)
       ];
       global.db.Sequelize.Promise.all(promises).then(function () {
-        return res.ok({user: req.user}, 'User updated');
+        return res.ok({user: req.profile}, 'User updated');
       });
     });
-  } else {
-    global.db.User.findById(req.body.idUser).then(function(userToEdit) {
-      userToEdit.updateAttributes(req.body).then(function () {
-        return res.ok({user: userToEdit}, 'User updated');
-      });
-    });
-  }
 };
 
 //TODO make possible that the user can have multiple photos
@@ -50,28 +42,30 @@ exports.photo = function (req, res) {
 };
 
 exports.photoUpdate = function (req, res) {
-  req.user.updateAttributes(req.body).then(function () {
-    return res.ok({user: req.user}, 'Foto actualizada');
+  req.profile.updateAttributes(req.body).then(function () {
+    return res.ok({user: req.profile}, 'Foto actualizada');
   });
 };
 
 exports.password = function (req, res) {
-  return res.render(basePath + 'password');
+  return res.render(basePath + 'password', {
+    profile: req.profile
+  });
 };
 
 exports.passwordUpdate = function (req, res) {
-  req.user.salt = req.user.makeSalt();
-  req.user.hashedPassword = req.user.encryptPassword(req.body.password, req.user.salt);
-  req.user.tokenResetPassword = null;
-  req.user.tokenResetPasswordExpires = null;
-  req.user.save().then(function () {
-    return res.ok({user: req.user}, 'Contraseña actualizada');
+  req.profile.salt = req.profile.makeSalt();
+  req.profile.hashedPassword = req.profile.encryptPassword(req.body.password, req.profile.salt);
+  req.profile.tokenResetPassword = null;
+  req.profile.tokenResetPasswordExpires = null;
+  req.profile.save().then(function () {
+    return res.ok({user: req.profile}, 'Contraseña actualizada');
   });
 };
 
 
 exports.updateCover = function (req, res) {
-  req.user.updateAttributes(req.body).then(function () {
-    return res.ok({user: req.user}, 'Cover actualizado');
+  req.profile.updateAttributes(req.body).then(function () {
+    return res.ok({user: req.profile}, 'Cover actualizado');
   });
 };

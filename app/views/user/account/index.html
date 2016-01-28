@@ -265,6 +265,7 @@
 {% endblock %}
 {% block scripts %}
 	<script>
+	var profile = {{profile|json|safe}};
 	var context = {{context|json|safe}};
 	var interests = {{interests|json|safe}};
 	$(function() {

@@ -32,7 +32,7 @@ APP.AccountPasswordScreen.prototype.formHandler = function(event) {
   if(this.password.val() !== this.rePassword.val())
     return this.showFlash('error', 'Las contraseñas no coinciden');
 
-  var url = DataApp.currentUser.url + '/account/password';
+  var url = '/user/' + profile.username + '/account/password';
   this.requestHandler(url, this.form.serialize(), this.changePasswordHandler);
 };
 
