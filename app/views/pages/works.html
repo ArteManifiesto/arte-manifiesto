@@ -88,7 +88,7 @@
 {% endblock %}
 
 {% block scripts %}
-<script type="text/javascript">
+<script>
 	var data = {{data|json|safe}};
 	$(function() {
 		new APP.DiscoverScreen('work', $('.grid'), 'infinite', data);
