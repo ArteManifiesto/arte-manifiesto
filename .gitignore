@@ -1,6 +1,6 @@
 /.idea
 /.env
-/.env-production
+/production
 /node_modules
 /npm-debug.log
 /public/works
