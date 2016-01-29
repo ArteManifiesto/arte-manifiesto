@@ -33,6 +33,7 @@ plan.local(function (local) {
   var filesToCopy = local.exec('git ls-files', {silent: true});
   filesToCopy.stdout += ".env-production\n";
 
+  local.log(tmpDir);
   local.transfer(filesToCopy, '/tmp/' + tmpDir);
 });
 
