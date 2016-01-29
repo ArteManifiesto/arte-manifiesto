@@ -31,6 +31,8 @@ plan.target('production', [
 plan.local(function (local) {
   local.log('Copy files to remote hosts');
   var filesToCopy = local.exec('git ls-files', {silent: true});
+  filesToCopy.stdout += ".env-production\n";
+  
   local.transfer(filesToCopy, '/tmp/' + tmpDir);
 });
 
@@ -41,6 +43,8 @@ plan.remote(function (remote) {
 
   remote.log('Install dependencies');
   remote.sudo('npm --production --prefix ~/' + tmpDir + ' install ~/' + tmpDir, {user: username});
+
+  remote.sudo('mv .env-production .env');
 
   remote.log('Reload application');
   remote.sudo('ln -snf ~/' + tmpDir + ' ~/' + appName, {user: username});
