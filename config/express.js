@@ -11,13 +11,34 @@ var flash = require('connect-flash');
 var swig = require('swig');
 var compression = require('compression');
 var moment = require('moment');
-
+var minify = require('html-minifier').minify;
 module.exports = function (app, passport) {
     /**
      * View engine setup
      * ====================================================
      */
-    app.engine('html', swig.renderFile);
+
+     var renderFile = function(pathName, locals, cb) {
+    function cb_(err, result) {
+        var html;
+        if (!err) {
+            html = minify(result, {
+                minifyJS: true,
+                minifyCSS: true,
+                removeComments: true,
+                collapseWhitespace: true,
+                processScripts: ['text/template']
+            });
+        }
+
+        return cb(err, html);
+    }
+
+    return swig.renderFile(pathName, locals, cb_);
+};
+app.engine('html', renderFile);
+
+    // app.engine('html', swig.renderFile);
     app.set('views', global.cf.views);
     app.set('view engine', 'html');
     app.set('view cache', false);
