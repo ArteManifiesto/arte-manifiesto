@@ -4,22 +4,28 @@
 
 {% extends '../partials/base.html' %}
 
+{% block head %}
+	<meta property="og:site_name" content="Arte Manifiesto" />
+	<meta property="og:site" content="artemanifiesto.com" />
+	<meta property="og:title" content="{{post.name}}" />
+	<meta property="og:description" content="{{post.description}}" />
+	<meta property="og:image" content="{{post.photo|addFilter('w_1200,h_630,q_60,c_crop')}}" />
+	<meta property="og:url" content="http://artemanifiesto.com/blog/post/{{post.nameSlugify}}" />
+	<meta property="og:type" content="article" />
+	<meta name='twitter:card' content='summary_large_image' />
+	<meta name='twitter:image:src' content="{{post.photo|addFilter('w_1200,h_630,q_60,c_crop')}}" />
+	<meta name='twitter:site' content='@artemanifiesto' />
+	<meta name='twitter:url' content='http://artemanifiesto.com/blog/post/{{post.nameSlugify}}' />
+	<meta name='twitter:description' content='{{post.description}}' />
+	<meta name='twitter:title' content='{{post.name}}' />
+{% endblock %}
+
 {% block styles %}
   <link rel="stylesheet" href="//cdn.jsdelivr.net/medium-editor/latest/css/medium-editor.min.css">
   <link rel="stylesheet" href="/default.css">
   <link rel="stylesheet" href="/medium-editor-insert-plugin.css">
 {% endblock %}
 
-{% block head %}
-  <meta property='og:image' content="{{post.photo|addFilter('w_700,q_80,c_limit')}}"/>
-  <meta property='og:type' content="article"/>
-  <meta property='og:title' content="{{post.name}}"/>
-  <meta property='og:site_name' content='Arte Manifiesto'/>
-  <meta property="og:description" content="{{post.description}}"/>
-
-  <meta name="title" content="{{post.name}}" />
-  <meta name="description" content="{{post.description}}"/>
-{% endblock %}
 {% block elements %}
   <div id="fb-root"></div>
 
