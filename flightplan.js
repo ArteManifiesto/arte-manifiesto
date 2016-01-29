@@ -42,7 +42,8 @@ plan.remote(function (remote) {
   remote.sudo('cp -R /tmp/' + tmpDir + ' ~', {user: username});
   remote.rm('-rf /tmp/' + tmpDir);
   //
-  remote.mv('production .env', {user: username});
+
+  remote.mv(tmpDir + '/production -f .env', {user: username});
   //
   remote.log('Install dependencies');
   remote.sudo('npm --production --prefix ~/' + tmpDir + ' install ~/' + tmpDir, {user: username});

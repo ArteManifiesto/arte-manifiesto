@@ -176,7 +176,12 @@ APP.Viewer.prototype.reset = function() {
 };
 
 APP.Viewer.prototype.clean = function() {
+  if(this.id === 'carrouselItem' || this.id === 'action' || this.id === 'notificationItem'  || this.id === 'post'
+  || this.id === 'postMinimal' || this.id === 'tableUser' || this.id === 'tableWork') {
+  this.container.empty();
+}else{
   this.container.masonry('remove', this.container.find('.grid-item')).masonry();
+  }
   this.initialize = false;
 };
 
