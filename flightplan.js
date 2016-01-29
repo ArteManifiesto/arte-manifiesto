@@ -39,16 +39,16 @@ plan.local(function (local) {
 
 plan.remote(function (remote) {
   remote.log('Move folder to root');
-  // remote.sudo('cp -R /tmp/' + tmpDir + ' ~', {user: username});
-  // remote.rm('-rf /tmp/' + tmpDir);
+  remote.sudo('cp -R /tmp/' + tmpDir + ' ~', {user: username});
+  remote.rm('-rf /tmp/' + tmpDir);
   //
-  // remote.mv('.env-production .env', {user: username});
+  remote.mv('production .env', {user: username});
   //
-  // remote.log('Install dependencies');
-  // remote.sudo('npm --production --prefix ~/' + tmpDir + ' install ~/' + tmpDir, {user: username});
-  //
-  // remote.log('Reload application');
-  // remote.sudo('ln -snf ~/' + tmpDir + ' ~/' + appName, {user: username});
-  // remote.exec('pm2 stop all', {failsafe: true});
-  // remote.exec('pm2 start ~/' + appName + '/' + startFile + ' --name=' + appName);
+  remote.log('Install dependencies');
+  remote.sudo('npm --production --prefix ~/' + tmpDir + ' install ~/' + tmpDir, {user: username});
+
+  remote.log('Reload application');
+  remote.sudo('ln -snf ~/' + tmpDir + ' ~/' + appName, {user: username});
+  remote.exec('pm2 stop all', {failsafe: true});
+  remote.exec('pm2 start ~/' + appName + '/' + startFile + ' --name=' + appName);
 });
