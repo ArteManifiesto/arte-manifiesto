@@ -14,7 +14,7 @@ APP.AM.constructor = APP.AM;
 APP.AM.prototype.setupData = function () {
   new APP.RestClientManager();
   new APP.TemplateManager();
-  
+
   $('.' + path + '-menu').addClass('selected');
 
   DataApp.currentUser = user || null;
@@ -129,8 +129,7 @@ APP.AM.prototype.subscriptionFormHandler = function (event) {
   if (!Validations.email(emailValue)) errors.push('Formato de correo no valido');
   if (errors.length > 0) return APP.BaseScreen.prototype.showFlash.call(this, 'error', errors);
 
-  APP.BaseScreen.prototype.requestHandler.call(this, '/subscribe',
-    {email: emailValue}, this.subscriptionComplete, null, true);
+  $.post('/subscribe', {email: emailValue}).then(this.subscriptionComplete.bind(this));
 };
 
 APP.AM.prototype.subscriptionComplete = function (response) {
