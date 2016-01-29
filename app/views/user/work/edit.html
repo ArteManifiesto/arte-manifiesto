@@ -1,4 +1,5 @@
 {% extends '../../partials/base.html' %}
+{% set pageTitle = 'Editar Obra' %}
 
 {% block elements %}
 <div class="am-upload-work">
@@ -37,7 +38,7 @@
 					{% endfor %}
 				</select>
 			</div>
-			
+
 			<div class="grid-100 mobile-grid-100">
 				<p class="title">Descripcion de la obra</p>
 				<textarea name='description' class='input' placeholder="Descripcion" maxlength='140'>{{work.description}}</textarea>

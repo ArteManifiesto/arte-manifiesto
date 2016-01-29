@@ -1,5 +1,9 @@
-{% extends '../partials/base.html' %}
+{% set templates = ['feed-user-follow', 'feed-work-created', 'collection-item'] %}
+{% set pageTitle = 'Art Feed' %}
 {% set path = 'feed' %}
+
+{% extends '../partials/base.html' %}
+
 {% block elements %}
 
 	<a id="go-collection-modal" href="#collection-modal"></a>

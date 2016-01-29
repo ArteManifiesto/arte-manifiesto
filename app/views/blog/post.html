@@ -1,5 +1,8 @@
-{% extends '../partials/base.html' %}
+{% set templates = ['post', 'review'] %}
+{% set pageTitle = post.name %}
 {% set path = '' %}
+
+{% extends '../partials/base.html' %}
 
 {% block styles %}
   <link rel="stylesheet" href="//cdn.jsdelivr.net/medium-editor/latest/css/medium-editor.min.css">
@@ -19,7 +22,7 @@
 {% endblock %}
 {% block elements %}
   <div id="fb-root"></div>
-  
+
   <div class="blog-single-cover" >
       <div class="uploader-cover">
         <div class="profile-imgage">

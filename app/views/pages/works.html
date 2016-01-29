@@ -1,11 +1,13 @@
-{% extends '../partials/base.html' %}
-
+{% set templates = ['work', 'filter-item']%}
 {% set path = 'works' %}
+{% set pageTitle = 'Descubre Obras' %}
+{% set bannerTitle = 'Descubre obras y creaciones' %}
+{% set bannerImg = 'discover-banner-works.jpg' %}
+
+{% extends '../partials/base.html' %}
 
 {% block elements %}
 
-{% set bannerTitle = 'Descubre obras y creaciones' %}
-{% set bannerImg = 'discover-banner-works.jpg' %}
 {% include '../partials/banner.html' %}
 
 <div style="max-width: 1500px; margin: auto; overflow: hidden">

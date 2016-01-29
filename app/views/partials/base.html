@@ -145,32 +145,10 @@
 
 	<script src='/vendor.min.js'></script>
 	<script src='/app.min.js'></script>
-
-	{% include 'elements/work.html' %}
-	{% include 'elements/user.html' %}
-	{% include 'elements/product.html' %}
-	{% include 'elements/collection.html' %}
-	{% include 'elements/collection-item.html' %}
-	{% include 'elements/carrousel-item.html' %}
-
-	{% include 'elements/feed-user-follow.html' %}
-	{% include 'elements/feed-work-created.html' %}
-
-	{% include 'elements/notification-follow.html' %}
-	{% include 'elements/notification-like.html' %}
-	{% include 'elements/notification-request.html' %}
-	{% include 'elements/notification-review.html' %}
-
-	{% include 'elements/feed-work-created.html' %}
-
-	{% include 'elements/post.html' %}
-	{% include 'elements/post-minimal.html' %}
-
-  {% include 'elements/table-user-item.html' %}
-  {% include 'elements/table-work-item.html' %}
-
-	{% include 'elements/review.html' %}
-	{% include 'elements/filterItem.html' %}
+	{% for template in templates %}
+		{% set name =  'elements/' + template + '.html' %}
+		{% include name %}
+	{% endfor %}
 
 	<script>
 	var owner = {{owner|json|safe}};
@@ -178,7 +156,6 @@
 	var errorMessage = {{errorMessage|json|safe}};
 	var successMessage = {{successMessage|json|safe}};
 	var user = {{user|json|safe}};
-
 
 	$(function() {new APP.AM();});
 	</script>

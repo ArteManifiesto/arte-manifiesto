@@ -12,6 +12,7 @@ var swig = require('swig');
 var compression = require('compression');
 var moment = require('moment');
 var minify = require('html-minifier').minify;
+
 module.exports = function (app, passport) {
   /**
    * View engine setup
@@ -25,8 +26,7 @@ module.exports = function (app, passport) {
           minifyJS: true,
           minifyCSS: true,
           removeComments: true,
-          collapseWhitespace: true,
-          processScripts: ['text/template']
+          collapseWhitespace: true
         });
       }
       return cb(err, html);

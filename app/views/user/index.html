@@ -1,7 +1,11 @@
+{% set templates = ['work', 'collection', 'user'] %}
+{% set pageTitle = profile.fullname %}
+
+{% set path = 'profile' %}
+{% set profile = profile.toJSON()%}
+
 {% extends '../partials/base.html' %}
 
-{% set path = 'market' %}
-{% set profile = profile.toJSON()%}
 {% block elements %}
 	<div class="am-Profile-banner">
 			{% if owner %}
