@@ -41,8 +41,8 @@ plan.remote(function (remote) {
   remote.log('Move folder to root');
   remote.sudo('cp -R /tmp/' + tmpDir + ' ~', {user: username});
   remote.rm('-rf /tmp/' + tmpDir);
-  
-  remote.sudo('mv .env-production .env', {user: username});
+
+  remote.mv('.env-production .env', {user: username});
 
   remote.log('Install dependencies');
   remote.sudo('npm --production --prefix ~/' + tmpDir + ' install ~/' + tmpDir, {user: username});
