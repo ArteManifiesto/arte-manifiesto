@@ -110,12 +110,14 @@ exports.isFollowing = function (req, res) {
 exports.follow = function (req, res) {
   req.user.follow(req.userTo).then(function (followers) {
     var actionQuery = {
-      UserId: req.user.id,
-      verb: 'follow-user',
-      ObjectId: req.userTo.id,
-      OwnerId: req.userTo.id
+      where: {
+        UserId: req.user.id,
+        verb: 'follow-user',
+        ObjectId: req.userTo.id,
+        OwnerId: req.userTo.id
+      }
     };
-    global.db.Action.findOrCrate(actionQuery).then(function () {
+    global.db.Action.findOrCreate(actionQuery).then(function () {
       return res.ok({user: req.userTo, followers: followers}, 'seguido');
     });
   });
