@@ -134,10 +134,10 @@ white = #fff
 	$ SLIDER
 *------------------------------------*/
 .slider
-	// max-width 600px
-	// margin auto
 	position relative
 	overflow: hidden;
+	&.blog
+		overflow: inherit;
 	&-nav
 		display flex
 		justify-content center
@@ -201,6 +201,8 @@ white = #fff
 			bottom 0
 			left 0
 			right 0
+			&.blog
+				flex-direction: column;
 		.title
 			text-align center
 			// font-size 48px
