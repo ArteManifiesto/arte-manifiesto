@@ -187,6 +187,7 @@ global.searchWorks = function (req) {
 global.searchUsers = function (req) {
   var discover = discoverGenerator('User', req);
   discover.query.where.firstname = {ne: null};
+  discover.query.where.username = {$not: ['artemanifiesto']};
   discover.query.order.push([global.db.sequelize.col('id')]);
   return beforePagination(req, discover);
 };
