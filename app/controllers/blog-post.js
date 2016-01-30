@@ -98,7 +98,10 @@ exports.update = function (req, res) {
  */
 exports.delete = function (req, res) {
   var promises = [
-    global.db.Action.destroy({where: {ObjectId: req.post.id}}),
+    global.db.Action.destroy({where: {
+      ObjectId: req.post.id,
+      verb: {$in: ['create-post', 'like-post', 'review-post']}
+    }}),
     req.post.destroy()
   ];
   global.db.Sequelize.Promise.all(promises).then(function () {
@@ -114,9 +117,22 @@ exports.review = function (req, res) {
   req.body.UserId = parseInt(req.viewer, 10);
 
   global.db.Review.create(req.body).then(function (review) {
+    var actionQuery = {
+      UserId: req.user.id,
+      verb: 'review-post',
+      ObjectId: req.post.id,
+      OwnerId: req.user.id
+    };
+
     var query = {where: {id: review.id}, include: [global.db.User]};
-    global.db.Review.find(query).then(function (final) {
-      return res.ok({review: final}, 'Review creado');
+
+    var promises = [
+      global.db.Review.find(query),
+      global.db.Action.create(actionQuery)
+    ];
+
+    global.db.Sequelize.Promise.all(promises).then(function (result) {
+      return res.ok({review: result[0]}, 'Review creado');
     });
   });
 };
@@ -130,7 +146,7 @@ exports.like = function (req, res) {
       UserId: req.user.id,
       verb: 'like-post',
       ObjectId: req.post.id,
-      OwnerId: user.id
+      OwnerId: req.user.id
     };
     global.db.Action.create(actionQuery).then(function () {
       return res.ok({post: req.post, likes: likes}, 'Post liked');
