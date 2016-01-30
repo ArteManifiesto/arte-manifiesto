@@ -29,15 +29,16 @@
 
   <div class="u-separator" style="background: #eee;"></div>
 
-
+  {% if user && user.isAdmin %}
   <div class="grid-container">
     <div class="grid-100">
       <div class="blog-single-trash" style="max-width: initial;border: none;margin-bottom: 0;">
-          <a href="#" class="button following publish-btn publish">Nuevo post</a>
-          <a href="#" class="button following preview-btn">Borradores</a>
+          <a href="/blog/creator" class="button following publish-btn publish">Nuevo post</a>
+          <a href="/blog/draft" class="button following preview-btn">Borradores</a>
       </div>
     </div>
   </div>
+  {% endif %}
 
   <!-- ********************************************************************
     $ BLOG MAIN ARTICLE
