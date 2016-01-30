@@ -32,23 +32,20 @@ module.exports = function (sequelize, DataTypes) {
         }
       },
       instanceMethods: {
+        view: function () {
+          this.views += 1;
+          this.popularity += 1;
+          return this.save();
+        },
         like: function (user) {
           var scope = this;
-          this.popularity += 3;
-          // this.getUser().then(function(ownerWork) {
-          //   ownerWork.popularity += 2;
-          // });
-          var promises = [user.addWorkLike(this), this.save()];
-          return global.db.Sequelize.Promise.all(promises).then(function () {
-            return scope.numOfLikes();
-          });
-        },
-        unLike: function (user) {
-          var scope = this;
-          this.popularity -= 3;
-          var promises = [user.removeWorkLike(this), this.save()];
-          return global.db.Sequelize.Promise.all(promises).then(function () {
-            return scope.numOfLikes();
+          return user.addWorkLike(this).then(function () {
+            return scope.numOfLikes().then(function (likes) {
+              scope.popularity = scope.views + (likes * 50);
+              scope.save().then(function () {
+                return likes;
+              });
+            });
           });
         },
         buildParts: function (options) {
@@ -75,12 +72,9 @@ module.exports = function (sequelize, DataTypes) {
           ];
           return global.db.Sequelize.Promise.all(promises).then(function (data) {
             var prev = parseInt(data[0], 10), next = parseInt(data[1], 10);
-            console.log('prev and next');
-            console.log(prev, next);
             promises = [];
             !global._.isNaN(prev) && promises.push(global.db.Work.find({where: {id: prev}, addUser: true}))
             !global._.isNaN(next) && promises.push(global.db.Work.find({where: {id: next}, addUser: true}))
-            console.log(promises.length);
             if (promises.length < 1) return [];
             return global.db.Sequelize.Promise.all(promises).then(function (result) {
               if (result.length > 1)

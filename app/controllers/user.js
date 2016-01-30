@@ -1,4 +1,5 @@
 var basePath = 'user/';
+
 exports.profile = function (currentPath, req, res) {
   var query = req.owner ? {all: true} : {where: {public: true}};
 
@@ -7,7 +8,7 @@ exports.profile = function (currentPath, req, res) {
     req.profile.numOfCollections(query),
     req.profile.numOfFollowings(),
     req.profile.numOfFollowers(),
-    req.profile.calcPopularity()
+    req.profile.calculateValoration()
   ];
 
   global.db.sequelize.Promise.all(promises).then(function (numbers) {
@@ -19,11 +20,7 @@ exports.profile = function (currentPath, req, res) {
       cloudinayCors: global.cl_cors
     };
 
-    if (req.owner)
-      return res.render(basePath + 'index', data);
-
-    ++req.profile.views;
-    req.profile.save().then(function () {
+    req.profile.view().then(function () {
       return res.render(basePath + 'index', data);
     });
   });
@@ -73,7 +70,7 @@ var searchNotifications = function (req) {
       verb: {$in: [verbs]}
     },
     order: [global.getOrder('newest')],
-    group: ['verb', 'ObjectId','OwnerId', 'UserId'],
+    group: ['verb', 'ObjectId', 'OwnerId', 'UserId'],
     include: [global.db.User],
     build: true, viewer: req.viewer, reverse: true
   };
@@ -84,7 +81,10 @@ var searchNotifications = function (req) {
 
 exports.notificationsPage = function (req, res) {
   return searchNotifications(req).then(function (data) {
-    global.db.Action.update({seen: 1}, {where: {OwnerId: req.user.id}}).then(function () {
+    var actionQuery = {
+      where: {OwnerId: req.user.id}
+    };
+    global.db.Action.update({seen: 1}, actionQuery).then(function () {
       return res.render(basePath + 'notifications', {
         data: data
       });
@@ -99,25 +99,39 @@ exports.notifications = function (req, res) {
 };
 
 exports.isFollowing = function (req, res) {
-  req.user.getFollowings({where: {id: req.userTo.id}}).then(function (result) {
-    return res.ok({following: (result.length > 0)}, 'IsFollowing');
+  var query = {
+    where: {id: req.userTo.id}
+  };
+  req.user.getFollowings(query).then(function (result) {
+    return res.ok({following: (result.length > 0)}, 'following');
   });
 };
 
 exports.follow = function (req, res) {
   req.user.follow(req.userTo).then(function (followers) {
-    var actionQuery = {UserId: req.user.id, verb: 'follow-user', ObjectId: req.userTo.id, OwnerId: req.userTo.id};
-    global.db.Action.create(actionQuery).then(function () {
-      return res.ok({user: req.userTo, followers: followers}, 'Usuario seguido');
+    var actionQuery = {
+      UserId: req.user.id,
+      verb: 'follow-user',
+      ObjectId: req.userTo.id,
+      OwnerId: req.userTo.id
+    };
+    global.db.Action.findOrCrate(actionQuery).then(function () {
+      return res.ok({user: req.userTo, followers: followers}, 'seguido');
     });
   });
 };
 
 exports.unFollow = function (req, res) {
   req.user.unFollow(req.userTo).then(function (followers) {
-    var actionQuery = {where: {UserId: req.user.id, ObjectId: req.userTo.id, verb: 'follow-user'}};
+    var actionQuery = {
+      where: {
+        UserId: req.user.id,
+        ObjectId: req.userTo.id,
+        verb: 'follow-user'
+      }
+    };
     global.db.Action.destroy(actionQuery).then(function () {
-      return res.ok({user: req.userTo, followers: followers}, 'Usuario precedido');
+      return res.ok({user: req.userTo, followers: followers}, 'precedido');
     });
   });
 };

@@ -26,7 +26,7 @@ APP.WorkScreen.prototype.setupUI = function () {
   new APP.Carrousel($('.js-similar-carousel'), $('.similar'));
 
   new APP.PhotoSwipe();
-  
+
   this.reviewsContainer = $('.reviews-items-container');
   for (var i = 0; i < reviews.length; i++)
     this.reviewsContainer.append(new APP.Review(reviews[i]).view);
@@ -173,6 +173,7 @@ APP.WorkScreen.prototype.likeBtnHandler = function () {
 };
 
 APP.WorkScreen.prototype.likeComplete = function (response) {
+  console.log(response);
   work.liked = !work.liked;
   $('.likes').text(response.data.likes);
   this.likeBtn.parent().addClass('active');

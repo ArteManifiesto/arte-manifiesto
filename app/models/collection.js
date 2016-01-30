@@ -29,7 +29,10 @@ module.exports = function (sequelize, DataTypes) {
           });
         },
         numOfWorks: function () {
-          var query = {attributes: [[global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'total']]};
+          var query = {
+            attributes: [[global.db.sequelize.fn('COUNT',
+              global.db.sequelize.col('id')), 'total']]
+          };
           return this.getWorks(query).then(function (result) {
             return result[0].getDataValue('total');
           });

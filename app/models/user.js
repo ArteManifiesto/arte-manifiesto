@@ -92,20 +92,31 @@ module.exports = function (sequelize, DataTypes) {
           this.tokenResetPasswordExpires = moment().add(1, 'hour');
           return this.save();
         },
+        view: function () {
+          this.views += 1;
+          this.popularity += 1;
+          return this.save();
+        },
         follow: function (user) {
           var scope = this;
-          user.popularity += 3;
-          var promises = [user.addFollower(this), user.save()];
-          return global.db.Sequelize.Promise.all(promises).then(function () {
-            return user.numOfFollowers();
+          return user.addFollower(this).then(function () {
+            return scope.numOfFollowers().then(function (followers) {
+              scope.popularity = scope.views + (followers * 50);
+              scope.save().then(function () {
+                return followers;
+              });
+            });
           });
         },
         unFollow: function (user) {
           var scope = this;
-          user.popularity -= 3;
-          var promises = [user.removeFollower(this), user.save()];
-          return global.db.Sequelize.Promise.all(promises).then(function () {
-            return user.numOfFollowers();
+          return user.removeFollower(this).then(function () {
+            return scope.numOfFollowers().then(function (followers) {
+              scope.popularity = scope.views + (followers * 50);
+              scope.save().then(function () {
+                return followers;
+              });
+            });
           });
         },
         buildParts: function (options) {
@@ -129,12 +140,12 @@ module.exports = function (sequelize, DataTypes) {
             scope.setDataValue('Works', result[4]);
           });
         },
-        calcPopularity: function () {
+        calculateValoration: function () {
           return this.getWorks().then(function (works) {
             var promises = [];
-            for (var i = 0; i < works.length - 1; i++) {
+            for (var i = 0; i < works.length - 1; i++)
               promises.push(works[i].numOfLikes());
-            }
+
             return global.db.Sequelize.Promise.all(promises).then(function (result) {
               var total = 0;
               for (var i = 0; i < result.length - 1; i++) {

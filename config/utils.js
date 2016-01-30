@@ -32,7 +32,7 @@ global.config = {
     orders: {
       works: ['newest', 'popularity', 'hottest'],
       users: ['popularity', 'newest', 'hottest'],
-      collections: ['newest', 'popularity', 'hottest'],
+      collections: ['newest'],
       products: ['newest', 'popularity', 'hottest', 'price_asc', 'price_desc']
     },
     times: ['day', 'week', 'month', 'year'],
@@ -95,6 +95,8 @@ global.discoverGenerator = function (entity, req) {
     query.where.createdAt = {
       $between: [moment().startOf(req.query.time).toDate(), moment().toDate()]
     };
+  console.log('query order =>');
+  console.log(query.order);
   if(req.query.order === 'hottest') {
     query.where.createdAt = {
       $between: [moment().startOf('week').toDate(), moment().toDate()]
@@ -135,7 +137,7 @@ global.discoverGenerator = function (entity, req) {
 
 var beforePagination = function (req, discover) {
   var isTag = false;
-  console.log('term', req.query.term);
+
   var tempEntity = discover.options.entity;
   discover.options.tempEntity = tempEntity;
   var query = {where: {nameSlugify: req.params.value}};
@@ -194,6 +196,8 @@ global.searchCollections = function (req) {
   discover.query.where.public = true;
   discover.query.addUser = true;
   discover.query.order.push([global.db.sequelize.col('id')]);
+  console.log('order ===>');
+  console.log(discover.query.order);
   return beforePagination(req, discover);
 };
 
