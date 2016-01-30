@@ -155,6 +155,10 @@ exports.forgotCreate = function (req, res) {
   });
 };
 
+/**
+ * Well this method decide whether a token is valid and shows the page
+ * where the user will change their password or it just make you cry
+ */
 exports.reset = function (req, res) {
   var query = {where: {tokenResetPassword: req.params.token}};
   global.db.User.find(query).then(function (user) {
@@ -170,6 +174,10 @@ exports.reset = function (req, res) {
   });
 };
 
+/**
+ * verify is the token is still valid and if the password and confirm_password
+ * are the same
+ */
 exports.resetVerify = function (req, res) {
   if (req.body.password !== req.body.confirm_password)
     return res.badRequest({errors: ['Contraseñas no son iguales']}, 'Error');
@@ -189,6 +197,9 @@ exports.resetVerify = function (req, res) {
   });
 };
 
+/**
+ * resend email to confirm the damn user's email
+ */
 exports.resend = function (req, res) {
   global.emails.verify(req, {to: req.user}).then(function () {
     return res.ok(null, 'email sent');

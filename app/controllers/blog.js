@@ -2,8 +2,8 @@ var basePath = 'blog/';
 var moment = require('moment');
 
 /**
- * search posts pagination
- * @return {JSON} return posts
+ * search posts using pagination, one day a girl told me I need to
+ * paginate my cock because of the longitud :]
  */
 var searchPosts = function (req, options, query) {
   options = options || {entity: 'Post'};
@@ -33,8 +33,8 @@ var searchPosts = function (req, options, query) {
 
 
 /**
- * retrieve top featured posts
- * @return {JSON} return ids and the first three featured posts
+ * get top featured posts, I don't realize why I am doing this kind
+ * of comments in my code, but it's funny :P
  */
 var getFeaturedTopPosts = function () {
   return global.db.Post.findAll({
@@ -56,6 +56,7 @@ var getFeaturedTopPosts = function () {
 
 /**
  * get categorias filtered by meta = 1
+ * meta = 1, categories that belongs to posts
  */
 var getCategories = function () {
   var categoriesQuery = {where: {meta: 1}};
@@ -63,8 +64,8 @@ var getCategories = function () {
 };
 
 /**
- * list all the blog's posts
- * @return {HTML} return the main view
+ * list all the blog's posts, as well as
+ * the best three featured posts
  */
 exports.index = function (req, res) {
   var promises = [
@@ -85,8 +86,8 @@ exports.index = function (req, res) {
 };
 
 /**
- * get posts exluding the first three feature posts
- * @return {JSON} return posts in json format
+ * get posts exluding the first three feature posts, because
+ * their are in top =]
  */
 exports.posts = function (req, res) {
   getFeaturedTopPosts().then(function (topPosts) {
@@ -98,8 +99,7 @@ exports.posts = function (req, res) {
 };
 
 /**
- * this method is responsible to build posts
- * @return {HTML} return the creator view
+ * this method is responsible for building the posts, yep it is.
  */
 exports.creator = function (req, res) {
   getCategories().then(function (categories) {
@@ -112,8 +112,8 @@ exports.creator = function (req, res) {
 };
 
 /**
- * filter posts by category
- * @return {HTML} return the category view
+ * filter posts by category, you should create a category called porn,
+ * trust me it'll generate lots of traffic ;)
  */
 exports.category = function (req, res) {
   var query = {where: {nameSlugify: req.params.category}};
@@ -141,8 +141,9 @@ exports.category = function (req, res) {
 };
 
 /**
- * retrieve unpublished posts
- * @return {HTML} return the draft view
+ * get unpublished posts, maybe you want to tell the dumb editor
+ * that it's such a bad place to stay the post?, I didn't work vainly
+ * in this damn editor -.-
  */
 exports.draft = function (req, res) {
   var postsQuery = {draft: true};
