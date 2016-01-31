@@ -102,9 +102,11 @@ var loginUser = function (req, res, user) {
       return res.internalServerError('No se pudo iniciar sesion');
 
     var returnTo = req.cookies.return_to || '/';
-    console.log('host : ', req.get('host'));
-    console.log('return to : ', returnTo);
-    console.log('return to 2w : ', req.query);
+
+    if(returnTo.indexOf('compra-y-vende-arte-en-internet-latinoamerica') > -1)
+      returnTo = '/';
+
+    res.cookie('return_to', returnTo, {maxAge: 3600000, domain: '.' + global.cf.app.domain});
 
     if (!req.xhr)
       return res.redirect(returnTo);
