@@ -53,7 +53,7 @@ plan.remote(function (remote) {
   remote.sudo('npm --production --prefix ~/' + tmpDir + ' install ~/' + tmpDir, {user: username});
 
   remote.exec('cd ~/' + tmpDir);
-  remote.sudo('sequelize db:migrate', {user: username});
+  remote.exec('sequelize db:migrate', {user: username});
 
   remote.log('Reload application');
   remote.sudo('ln -snf ~/' + tmpDir + ' ~/' + appName, {user: username});
