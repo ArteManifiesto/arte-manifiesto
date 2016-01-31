@@ -5,7 +5,7 @@
 /npm-debug.log
 /public/works
 /public/avatars
-
+/config/config.json
 */.DS_Store
 .DS_Store
 .DS_Store?
