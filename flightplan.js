@@ -48,7 +48,7 @@ plan.remote(function (remote) {
   remote.mv(tmpDir + '/production -f .env', {user: username});
 
   remote.log('rename the default config');
-  remote.mv(tmpDir + '/config/config-production.json -f config.json', {user: username});
+  remote.mv(tmpDir + '/config/config-production.json -f ' + tmpDir +'/config/config.json', {user: username});
 
   //
   remote.log('Install dependencies');
