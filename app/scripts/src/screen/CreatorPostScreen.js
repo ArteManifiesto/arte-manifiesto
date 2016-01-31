@@ -47,7 +47,8 @@ APP.CreatorPostScreen.prototype.setupUI = function () {
     },
     toolbar: {
       buttons: [
-        'h2', 'h3', 'bold', 'italic', 'quote', 'anchor'
+        'h2', 'h3', 'bold', 'italic', 'quote', 'anchor',
+        'justifyLeft', 'justifyCenter', 'justifyRight'
       ]
     }
   });
