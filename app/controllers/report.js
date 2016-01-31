@@ -2,7 +2,7 @@ var basePath = 'report/';
 var moment = require('moment');
 
 
-exports.index = function(req,res) {
+exports.index = function (req, res) {
   return res.redirect(basePath + 'users/page-1');
 };
 
@@ -12,20 +12,20 @@ var searchData = function (req, entity) {
     where: {}
   };
 
-  if(entity === 'Work') {
+  if (entity === 'Work') {
     query.addUser = true;
   }
 
-  if(req.query.term && req.query.termValue) {
+  if (req.query.term && req.query.termValue) {
     var term = req.query.term;
-    if(term === 'isArtist' || term === 'verified' || term === 'filled' || term === 'featured') {
+    if (term === 'isArtist' || term === 'verified' || term === 'filled' || term === 'featured') {
       query.where[req.query.term] = parseInt(req.query.termValue, 10) === 1 ? true : false;
-    }else {
+    } else {
       query.where[req.query.term] = req.query.termValue;
     }
   }
 
-  if(req.query.start && req.query.end) {
+  if (req.query.start && req.query.end) {
     query.where.createdAt = {
       $between: [moment(req.query.start, 'M-D-YYYY').toDate(), moment(req.query.end, 'M-D-YYYY').toDate()]
     };
@@ -44,7 +44,7 @@ exports.users = function (req, res) {
   if (req.params.page !== 'page-1')
     return res.redirect(req.url.replace(req.params.page, 'page-1'));
 
-  searchData(req, 'User').then(function(data) {
+  searchData(req, 'User').then(function (data) {
     return res.render(basePath + 'users', {
       data: data
     });
@@ -56,7 +56,7 @@ exports.works = function (req, res) {
   if (req.params.page !== 'page-1')
     return res.redirect(req.url.replace(req.params.page, 'page-1'));
 
-  searchData(req, 'Work').then(function(data) {
+  searchData(req, 'Work').then(function (data) {
     return res.render(basePath + 'works', {
       data: data
     });
@@ -66,12 +66,12 @@ exports.works = function (req, res) {
 
 exports.general = function (req, res) {
   var shouldInterval = false, queryTemp;
-  if(req.query.start && req.query.end) {
+  if (req.query.start && req.query.end) {
     shouldInterval = true;
     var start = moment(req.query.start).format('YYYY-MM-DD');
     var end = moment(req.query.end).format('YYYY-MM-DD');
 
-    queryTemp = " WHERE (createdAt BETWEEN '"+ start + "' AND '" + end + "')";
+    queryTemp = " WHERE (createdAt BETWEEN '" + start + "' AND '" + end + "')";
   }
   queryTemp = (shouldInterval ? queryTemp : "");
 
@@ -91,31 +91,40 @@ exports.general = function (req, res) {
   });
 
   var query = {where: {}};
-  if(req.query.start && req.query.end) {
+  if (req.query.start && req.query.end) {
     var start = req.query.start;
     var end = req.query.end;
   }
 };
 
+exports.banners = function (req, res) {
+  global.db.Banner.findAll({order:[['name', 'ASC']]}).then(function (banners) {
+    res.render(basePath + 'banners', {
+      banners: banners
+    });
+  });
+};
+
+exports.editBanner = function (req, res) {
+  global.db.Banner.findById(req.params.idBanner).then(function (banner) {
+    return res.render(basePath + 'edit-banner', {
+      banner: banner,
+      cloudinary: global.cl,
+      cloudinayCors: global.cl_cors
+    });
+  });
+};
+
+exports.updateBanner = function (req, res) {
+  global.db.Banner.findById(req.body.idBanner).then(function(banner) {
+    banner.updateAttributes(req.body).then(function() {
+      return res.ok({banner: banner}, 'Banner updated')
+    });
+  })
+};
 
 exports.search = function (entity, req, res) {
   searchData(req, entity).then(function (data) {
     return res.json(data);
-  });
-};
-
-exports.editUser = function (req, res) {
-  global.db.User.findById(req.params.idUser).then(function(user) {
-    return res.render(basePath + 'edit-user', {
-      userToEdit: user
-    });
-  });
-};
-
-exports.editWork = function (req, res) {
-  global.db.Work.findById(req.params.idWork).then(function(work) {
-    return res.render(basePath + 'edit-work', {
-      workToEdit: work
-    });
   });
 };

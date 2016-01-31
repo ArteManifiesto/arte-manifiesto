@@ -3,7 +3,7 @@ var basePath = 'pages/';
 exports.index = function (req, res) {
   if (!req.isAuthenticated())
     return res.redirect('/compra-y-vende-arte-en-internet-latinoamerica');
-  
+
   var basicQuery = {
     where: {featured: true},
     addUser: true,
@@ -22,11 +22,15 @@ exports.index = function (req, res) {
   var query = {limit: global.limits.categoriesHome, where: {meta: 0}};
   promises.push(global.db.Category.findAll(query));
 
+  var bannersQuery = {order:[['name', 'ASC']]};
+  promises.push(global.db.Banner.findAll(bannersQuery));
+
   global.db.Sequelize.Promise.all(promises).then(function (result) {
     return res.render(basePath + 'index', {
       users: result[0],
       works: result[1],
-      categories: result[2]
+      categories: result[2],
+      banners: result[3]
     });
   });
 };

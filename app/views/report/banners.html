@@ -1,0 +1,31 @@
+{% set templates = ['table-work-item']%}
+{% set pageTitle = 'Reporte Obras' %}
+{% set path = 'works' %}
+
+{% extends '../partials/report.html' %}
+
+{% block content %}
+<h2 class="sub-header">Banners</h2>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>nombre</th>
+        <th>image</th>
+        <th>link</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody class="container-items">
+      {% for banner in banners %}
+        <tr>
+          <td>{{banner.name}}</td>
+          <td><a href="{{banner.image}}" target='_blank'><img src="{{ banner.image|addFilter('w_35') }}"></a></td>
+          <td>{{banner.link}}</td>
+          <td><a href="/report/banners/edit/{{banner.id}}" class="btn btn-success">editar</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

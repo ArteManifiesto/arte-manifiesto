@@ -21,6 +21,7 @@ APP.UploaderImage.prototype.listeners = function () {
     start: function (e) {
       scope.$view.find('.upload').hide();
       $(this).hide();
+      scope.$view.find('.preload').removeClass('hide');
       scope.$view.find('.preload').show();
     },
     fail: function (e, data) {

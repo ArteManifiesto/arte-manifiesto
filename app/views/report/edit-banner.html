@@ -1,0 +1,52 @@
+{% set path = "users" %}
+
+{% extends '../partials/report.html' %}
+
+{% block content %}
+  <h2 class="sub-header">{{ banner.name }}</h2>
+  <div class="row">
+    <form>
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="description">Imagen</label>
+          <div class="input-group">
+            <div class="uploader-image">
+    					<div class="profile-imgage">
+    						<div class="preview">
+                  <img src="{{ banner.image|addFilter('w_300,c_limit') }}"/>
+    						</div>
+    					</div>
+              <div class="loader extra-small gray loading preload hide" style="border-color: gree;"></div>
+              </br>
+    					<button class="btn btn-primary">BUSCAR ARCHIVO</button>
+    				</div>
+    				<div class="image-uploader" style="position:relative;">
+    					{{ cloudinary.uploader.image_upload_tag('image', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:230px;height:55px;top:-45px;left: 0;" } })}}
+    				</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="link">Link</label>
+
+          <div class="input-group">
+            <input type="text" class="form-control" name="link" id="link" placeholder="Link" value="{{banner.link}}" required>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+          </div>
+        </div>
+
+        <input type="hidden" class="form-control" name="idBanner" value="{{banner.id}}">
+        <input type="submit" value="Actualizar" class="btn btn-success send-btn">
+      </div>
+    </form>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    $.cloudinary.config({{cloudinary.config()|json|safe}});
+    var banner = {{banner|json|safe}};
+    $(function () {
+      new APP.AdminEditBannerScreen();
+    });
+  </script>
+{% endblock %}
