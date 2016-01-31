@@ -5,6 +5,7 @@
 /npm-debug.log
 /public/works
 /public/avatars
+/config/config.json
 /config/config-production.json
 */.DS_Store
 .DS_Store

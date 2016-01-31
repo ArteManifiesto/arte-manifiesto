@@ -40,20 +40,22 @@ plan.local(function (local) {
 
 plan.remote(function (remote) {
   remote.log('Move folder to root');
+
   remote.sudo('cp -R /tmp/' + tmpDir + ' ~', {user: username});
   remote.rm('-rf /tmp/' + tmpDir);
 
+  remote.log('rename production to .env');
   remote.mv(tmpDir + '/production -f .env', {user: username});
 
-  remote.rm('-rf ' + tmpDir + '/config/config.json', {user: username});
+  remote.log('rename the default config');
   remote.mv(tmpDir + '/config/config-production.json -f config.json', {user: username});
 
   //
   remote.log('Install dependencies');
   remote.sudo('npm --production --prefix ~/' + tmpDir + ' install ~/' + tmpDir, {user: username});
 
-  remote.exec('cd ~/' + tmpDir);
-  remote.exec('sequelize db:migrate', {user: username});
+  // remote.exec('cd  ~/' + tmpDir);
+  // remote.exec('sequelize db:migrate');
 
   remote.log('Reload application');
   remote.sudo('ln -snf ~/' + tmpDir + ' ~/' + appName, {user: username});
