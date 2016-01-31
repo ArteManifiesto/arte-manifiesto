@@ -99,7 +99,7 @@ global.discoverGenerator = function (entity, req) {
   console.log(query.order);
   if(req.query.order === 'hottest') {
     query.where.createdAt = {
-      $between: [moment().startOf('week').toDate(), moment().toDate()]
+      $between: [moment().subtract(7, 'd').toDate(), moment().toDate()]
     };
   }
   if (req.query.lo_p || req.query.hi_p)
