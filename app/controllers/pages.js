@@ -1,6 +1,9 @@
 var basePath = 'pages/';
 
 exports.index = function (req, res) {
+  if (!req.isAuthenticated())
+    return res.redirect('/compra-y-vende-arte-en-internet-latinoamerica');
+    
   var basicQuery = {
     where: {featured: true},
     addUser: true,
