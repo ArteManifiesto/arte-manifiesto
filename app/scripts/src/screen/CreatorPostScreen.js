@@ -53,10 +53,10 @@ APP.CreatorPostScreen.prototype.setupUI = function () {
   });
 
   this.editable.mediumInsert({
-    editor: this.editor,
-    addons: {
-      embeds: false
-    }
+    editor: this.editor
+    // addons: {
+    //   embeds: false
+    // }
   });
 
   this.isUploading = false;
