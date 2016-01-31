@@ -43,7 +43,7 @@ APP.CreatorPostScreen.prototype.setupUI = function () {
     targetBlank: true,
     imageDragging: false,
     placeholder: {
-      text: 'Ingresa el contenido del post :)'
+      text: 'Ingresa el contenido del post :)',
     },
     toolbar: {
       buttons: [
@@ -53,10 +53,12 @@ APP.CreatorPostScreen.prototype.setupUI = function () {
   });
 
   this.editable.mediumInsert({
-    editor: this.editor
-    // addons: {
-    //   embeds: false
-    // }
+    editor: this.editor,
+    addons: {
+      embeds: {
+        placeholder: 'Inserta el código de embebido de youtube y luego presiona enter'
+      }
+    }
   });
 
   this.isUploading = false;
