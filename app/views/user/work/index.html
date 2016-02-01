@@ -31,10 +31,10 @@
 			<div class="works-nav">
 				<div style="min-width: 100px;">
 					{% if neighbors.length > 1 %}
-						{% if neighbors[0] %}
-							<a href='/user/{{neighbors[0].User.username}}/work/{{neighbors[0].nameSlugify}}' class="nav prev-btn" style="float: left;">
+						{% if neighbors[1] %}
+							<a href='/user/{{neighbors[1].User.username}}/work/{{neighbors[1].nameSlugify}}' class="nav next-btn" style="float: right;">
 								<i class="bi_interface-left"></i>
-								<p>&nbsp;&nbsp;ANTERIOR</p>
+								<p>ANTERIOR&nbsp;&nbsp;</p>
 							</a>
 						{% endif %}
 					{% endif %}
@@ -45,9 +45,9 @@
 				</a>
 				<div style="min-width: 100px;">
 					{% if neighbors.length > 1 %}
-						{% if neighbors[1] %}
-							<a href='/user/{{neighbors[1].User.username}}/work/{{neighbors[1].nameSlugify}}' class="nav next-btn" style="float: right;">
-								<p>SIGUIENTE&nbsp;&nbsp;</p>
+						{% if neighbors[0] %}
+							<a href='/user/{{neighbors[0].User.username}}/work/{{neighbors[0].nameSlugify}}' class="nav prev-btn" style="float: left;">
+								<p>&nbsp;&nbsp;SIGUIENTE</p>
 								<i class="bi_interface-right"></i>
 							</a>
 						{% endif %}

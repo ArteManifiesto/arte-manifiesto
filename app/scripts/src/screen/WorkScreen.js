@@ -85,10 +85,10 @@ APP.WorkScreen.prototype.listeners = function () {
 };
 
 APP.WorkScreen.prototype.documentKeyupHandler = function (event) {
-  if (event.keyCode === 37 && this.prevBtn.length > 0)
+  if (event.keyCode === 39 && this.prevBtn.length > 0)
     window.location.href = this.prevBtn.attr('href');
 
-  if (event.keyCode === 39 && this.nextBtn.length > 0)
+  if (event.keyCode === 37 && this.nextBtn.length > 0)
     window.location.href = this.nextBtn.attr('href');
 };
 
