@@ -6,10 +6,10 @@
           <div class="private">PRIVADO</div>
         <% } %>
         <% if (viewer && viewer.isAdmin) { %>
-          <div class="featured <% if (!featured) { %>disabled<% } %>">AM</div>
+          <div class="featured <% if (!featured) { %>disabled<% } %>">DESTACADO</div>
         <% } else { %>
           <% if (featured) { %>
-            <div class="featured">AM</div>
+            <div class="featured">DESTACADO</div>
           <% } %>
         <% } %>
         <a href='/user/<%=User.username%>/collection/<%=nameSlugify%>' target="_blank">
@@ -21,9 +21,9 @@
               <% if(works[i] && works[i].photo) { %>
                 <% if (!viewer && works[i].nsfw) { %>
                     <% if(i === 0) { %>
-                      <div class="collection-card-image" style="background-image: url('<%= addFilter(works[i].photo, 'w_230,h_110,c_fill,e_blur:1500/l_text:Arial_24_bold:NSFW,co_rgb:ffffff') %>')"></div>
+                      <div class="collection-card-image" style="background-image: url('<%= addFilter(works[i].photo, 'w_230,h_110,c_fill,e_blur:1500/l_text:Arial_24_bold:+18,co_rgb:ffffff') %>')"></div>
                     <% } else { %>
-                      <div class="collection-card-image" style="background-image: url('<%= addFilter(works[i].photo, 'w_110,h_110,c_fill,e_blur:1500/l_text:Arial_24_bold:NSFW,co_rgb:ffffff') %>')"></div>
+                      <div class="collection-card-image" style="background-image: url('<%= addFilter(works[i].photo, 'w_110,h_110,c_fill,e_blur:1500/l_text:Arial_24_bold:+18,co_rgb:ffffff') %>')"></div>
                     <% } %>
                 <% } else { %>
                     <% if(i === 0) { %>

@@ -598,8 +598,22 @@ white = #fff
 		a
 			color charcoal-grey
 			margin-left 25px
+			position relative
+			span
+				display none
+				background black
+				position absolute
+				height 3px
+				width 40px
+				bottom -10px
+				left 50%
+				transform translate(-50%, 0)
 			&.selected
-				text-decoration underline
+				// background blue
+				span
+					display block
+			// &.selected
+			// 	text-decoration underline 
 	.socials
 		margin-left 20px
 		.upload
@@ -1073,13 +1087,13 @@ white = #fff
 			i
 				font-size 1.25em
 
-
 .featured
 	z-index: 1;
 	position absolute
 	top -10px
 	left 5px
-	background #ed86ff
+	// background #ed86ff
+	background: #4a4a4a;
 	font-family 'Montserrat', sans-serif
 	font-weight bold
 	font-size 8px
@@ -1087,6 +1101,7 @@ white = #fff
 	padding 4px 11px
 	border-radius 3px
 	cursor pointer
+	letter-spacing: .8px;
 	&.disabled
 		background #aaa
 

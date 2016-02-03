@@ -3,10 +3,10 @@
     <div class="artist-card">
 
       <% if (viewer && viewer.isAdmin) { %>
-        <div class="featured <% if (!featured) { %>disabled<% } %>">AM</div>
+        <div class="featured <% if (!featured) { %>disabled<% } %>">DESTACADO</div>
       <% } else { %>
         <% if (featured) { %>
-          <div class="featured">AM</div>
+          <div class="featured">DESTACADO</div>
         <% } %>
       <% } %>
 
@@ -31,7 +31,7 @@
           <% if(Works[i] && Works[i].photo) { %>
             <% if (!viewer && Works[i].nsfw) { %>
               <a href="/user/<%=username%>/work/<%=Works[i].nameSlugify%>" class="artist-card-work" target="_blank">
-                <div style="background-image: url('<%= addFilter(Works[i].photo, 'w_120,h_120,c_fill,e_blur:1500/l_text:Arial_24_bold:NSFW,co_rgb:ffffff') %>')"></div>
+                <div style="background-image: url('<%= addFilter(Works[i].photo, 'w_120,h_120,c_fill,e_blur:1500/l_text:Arial_24_bold:+18,co_rgb:ffffff') %>')"></div>
               </a>
             <% } else { %>
               <a href="/user/<%=username%>/work/<%=Works[i].nameSlugify%>" class="artist-card-work" target="_blank">

@@ -6,10 +6,10 @@
         <div class="private">PRIVADO</div>
       <% } %>
       <% if (viewer && viewer.isAdmin) { %>
-        <div class="featured <% if (!featured) { %>disabled<% } %>">AM</div>
+        <div class="featured <% if (!featured) { %>disabled<% } %>">DESTACADO</div>
       <% } else { %>
         <% if (featured) { %>
-          <div class="featured">AM</div>
+          <div class="featured">DESTACADO</div>
         <% } %>
       <% } %>
 
@@ -63,7 +63,7 @@
       <% } %>
       <% if(!viewer && nsfw) { %>
         <a href="/user/<%=User.username%>/work/<%=nameSlugify%>" target="_blank">
-          <img src="<%= addFilter(photo, 'w_300,e_blur:1500/l_text:Arial_36_bold:NSFW,co_rgb:ffffff') %>">
+          <img src="<%= addFilter(photo, 'w_300,e_blur:1500/l_text:Arial_36_bold:+18,co_rgb:ffffff') %>">
         </a>
       <% } else { %>
         <a href="/user/<%=User.username%>/work/<%=nameSlugify%>" target="_blank">
