@@ -4013,8 +4013,20 @@ white = #fff
 			color charcoal-grey
 			letter-spacing 1px
 			padding 10px 15px
-			&.	
-				text-decoration: underline;
+			position relative
+			span
+				display none
+				background black
+				position absolute
+				height 3px
+				width 40px
+				bottom 0px
+				left 50%
+				transform translate(-50%, 0)
+			&.selected
+				span
+					display block
+					
 	.socials
 		display flex
 		align-items center

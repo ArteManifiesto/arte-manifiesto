@@ -18,7 +18,9 @@
       <div class="menu">
         {% for category in categories %}
           <a href="/blog/category/{{category.nameSlugify}}"
-             class="item uppercase {{category.nameSlugify}}-blog-menu">{{category.name}}</a>
+             class="item uppercase {{category.nameSlugify}}-blog-menu">{{category.name}}
+             <span></span>
+           </a>
         {% endfor %}
       </div>
       <div class="socials">

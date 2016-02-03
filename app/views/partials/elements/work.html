@@ -62,11 +62,11 @@
         </div> #}
       <% } %>
       <% if(!viewer && nsfw) { %>
-        <a href="/user/<%=User.username%>/work/<%=nameSlugify%>">
+        <a href="/user/<%=User.username%>/work/<%=nameSlugify%>" target="_blank">
           <img src="<%= addFilter(photo, 'w_300,e_blur:1500/l_text:Arial_36_bold:NSFW,co_rgb:ffffff') %>">
         </a>
       <% } else { %>
-        <a href="/user/<%=User.username%>/work/<%=nameSlugify%>">
+        <a href="/user/<%=User.username%>/work/<%=nameSlugify%>" target="_blank">
           <img src="<%= addFilter(photo, 'w_300') %>">
         </a>
       <% } %>
