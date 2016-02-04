@@ -7,6 +7,8 @@ var moment = require('moment');
 exports.post = function (req, res) {
   var popularPostsQuery = {
     limit: global.limits.singlePost,
+    attributes: ['id', 'name', 'nameSlugify', 'photo', 'description', 'published', 'featured',
+    'views', 'popularity', 'createdAt', 'updatedAt'],
     where: {
       published: true,
       id: {$not: [req.post.id]},

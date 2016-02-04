@@ -10,6 +10,8 @@ var searchPosts = function (req, options, query) {
 
   query = query || {};
   query = global._.assign(query, {
+    attributes: ['id', 'name', 'nameSlugify', 'photo', 'description', 'published', 'featured',
+    'views', 'popularity', 'createdAt', 'updatedAt'],
     order: [global.getOrder('newest')],
     addUser: true,
     build: true,
