@@ -1,6 +1,22 @@
 {% set templates = ['post'] %}
 {% set pageTitle = "Blog" %}
 
+{% block head %}
+	<meta property="og:site_name" content="Arte Manifiesto" />
+	<meta property="og:site" content="artemanifiesto.com" />
+  <meta property="og:title" content="Unete a la primera red social de artistas emergentes y almas independientes en Latinoamérica" />
+  <meta property="og:description" content="La primera red social de artistas visuales y creadores de latinoamerica" />
+	<meta property="og:image" content="{{featureds[0].photo}}" />
+	<meta property="og:url" content="http://artemanifiesto.com/blog" />
+	<meta property="og:type" content="article" />
+	<meta name='twitter:card' content='summary_large_image' />
+	<meta name='twitter:image:src' content="{{featureds[0].photo}}" />
+	<meta name='twitter:url' content='http://artemanifiesto.com/blog' />
+	<meta name='twitter:description' content='La primera red social de artistas visuales y creadores de latinoamerica' />
+	<meta name='twitter:title' content='Unete a la primera red social de artistas emergentes y almas independientes en Latinoamérica' />
+{% endblock %}
+
+
 {% extends '../partials/base.html' %}
 
 {% block elements %}
