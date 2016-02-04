@@ -19,7 +19,13 @@
               </div>
             </div>
           </header>
-          <p class="content"><%= description %></p>
+          <p class="content">
+            <% if (description.length >= 180) { %>
+              <%= description  + "..." %>
+            <% } else { %>
+              <%= description %>
+            <% } %>
+          </p>
           <footer class="footer">
             <p class="date"><i class="bi_interface-clock"></i><%=formatDate(createdAt)%></p>
             <span class="author">

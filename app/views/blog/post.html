@@ -93,7 +93,13 @@
               {{ post.User.pseudonimo }}
             {% endif %}
           </p>
-          <p class="description">{{ post.User.biography.substr(0,140) }}</p>
+          <p class="description">
+						{% if post.User.biography.length >=  160 %}
+							{{ post.User.biography.substr(0,160) + "..." }}
+						{% else %}
+							{{ post.User.biography }}
+						{% endif %}
+					</p>
         </div>
         <a class="button following">+ SEGUIR</a>
       </div>

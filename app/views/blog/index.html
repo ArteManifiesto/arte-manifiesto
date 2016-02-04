@@ -99,7 +99,13 @@
                   </div>
                 </div>
               </header>
-              <p class="content">{{featureds[i].description}}</p>
+              <p class="content">
+                {% if featureds[i].description.length >= 180 %}
+                  {{featureds[i].description + "..." }}
+                {% else %}
+                  {{featureds[i].description}}
+                {% endif %}
+              </p>
               <footer class="footer">
                 <p class="date"><i class="bi_interface-clock"></i> {{featureds[i].createdAt|formatDate()}}</p>
                 <span class="author">

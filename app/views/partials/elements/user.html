@@ -16,9 +16,17 @@
           <div>
             <p class="name uppercase">
               <% if(typeName === 1) { %>
-                <%= fullname %>
+                <% if (fullname.length >= 20) { %>
+                  <%= fullname.substring(0, 20)  + "..." %>
+                <% } else { %>
+                  <%= fullname %>
+                <% } %>
               <% } else { %>
-                <%= pseudonimo %>
+                <% if (pseudonimo.length >= 20) { %>
+                  <%= pseudonimo.substring(0, 20)  + "..." %>
+                <% } else { %>
+                  <%= pseudonimo %>
+                <% } %>
               <% } %>
             </p>
             <p class="city"><%=city%>, <%=country%></p>
