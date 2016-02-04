@@ -61,3 +61,15 @@ plan.remote(function (remote) {
   remote.exec('pm2 stop all', {failsafe: true});
   remote.exec('pm2 start ~/' + appName + '/' + startFile + ' --name=' + appName);
 });
+// 
+//
+// plan.remote('rollback', function(remote){
+//   var backups, selectedBackup;
+//
+//   remote.with('cd ~', function(){
+//     backups = remote.find('-type d -maxdepth 1');
+//   });
+//
+//   selectedBackup = remote.prompt("Select a backup:");
+//   remote.exec('ln -s ~/' + selectedBackup.replace('./', '') + ' current');
+// });
