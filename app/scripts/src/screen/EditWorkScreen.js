@@ -44,6 +44,7 @@ APP.EditWorkScreen.prototype.listeners = function () {
   this.workDelete.click(this.workDeleteHandler.bind(this));
   this.workDeleteForce.click(this.workDeleteForceHandler.bind(this));
   this.workDeleteCancel.click(this.workDeleteCancelHandler.bind(this));
+
   $('input[type=checkbox]').change(this.checkPublicHandler);
   $('input[type=checkbox]').change();
 };
@@ -74,6 +75,8 @@ APP.EditWorkScreen.prototype.workFormSubmitHandler = function (event) {
     if (value.name === 'nsfw' || value.name === 'public')
       value.value = (value.value === 'on');
   });
+
+  console.log(data);
 
   var url = DataApp.currentUser.url + '/work/update';
   this.requestHandler(url, data, this.workUpdatedComplete);

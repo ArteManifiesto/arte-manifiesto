@@ -174,8 +174,9 @@ exports.createReview = function (req, res) {
 exports.update = function (req, res) {
   var promises = [];
   var tags = req.body.tags.split(',');
+
   if (!req.body.public) req.body.public = false;
-  if (!req.body.nswf) req.body.nswf = false;
+  if (!req.body.nsfw) req.body.nsfw = false;
 
   for (var i = 0; i < tags.length; i++)
     promises.push(global.db.Tag.findOrCreate({where: {name: tags[i]}}));
