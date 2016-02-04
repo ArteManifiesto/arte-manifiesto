@@ -1,6 +1,8 @@
 {% set templates = ['post'] %}
 {% set pageTitle = "Blog" %}
 
+{% extends '../partials/base.html' %}
+
 {% block head %}
 	<meta property="og:site_name" content="Arte Manifiesto" />
 	<meta property="og:site" content="artemanifiesto.com" />
@@ -16,8 +18,6 @@
 	<meta name='twitter:title' content='Unete a la primera red social de artistas emergentes y almas independientes en Latinoamérica' />
 {% endblock %}
 
-
-{% extends '../partials/base.html' %}
 
 {% block elements %}
   <!-- ********************************************************************
