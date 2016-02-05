@@ -2,10 +2,10 @@
     <div class="blog-article-container">
       <article class="blog-article">
         <% if (viewer && viewer.isAdmin) { %>
-          <div class="featured <% if (!featured) { %>disabled<% } %>">AM</div>
+          <div class="featured <% if (!featured) { %>disabled<% } %>">RECOMENDADO</div>
         <% } else { %>
           <% if (featured) { %>
-            <div class="featured">AM</div>
+            <div class="featured">RECOMENDADO</div>
           <% } %>
         <% } %>
         <a href="/blog/post/<%=nameSlugify%>">

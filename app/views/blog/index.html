@@ -57,7 +57,7 @@
       <section class="slider blog">
         <div class="slider-items">
           <div class="slider-item js-slide" style="background-image: url('{{featureds[0].photo|addFilter('w_1600,c_limit')}}')">
-            <div class="featured {% if !featureds[0].featured %} disabled {% endif %}">AM</div>
+            <div class="featured {% if !featureds[0].featured %} disabled {% endif %}">DESTACADO</div>
             <span class="slider-item-tag uppercase">{{featureds[0].Category.name}}</span>
             <div class="slider-item-inner blog">
               <p class="title">{{featureds[0].name}}</p>
@@ -88,7 +88,7 @@
         <div class="blog-article-container large">
           <a href="/blog/post/{{featureds[i].nameSlugify}}">
             <article class="blog-article">
-              <div class="featured {% if !featureds[i].featured %} disabled {% endif %}">AM</div>
+              <div class="featured {% if !featureds[i].featured %} disabled {% endif %}">DESTACADO</div>
               <header class="header" style="background-image: url('{{featureds[i].photo|addFilter('w_600,h_400,q_80,c_limit')}}')">
                 <span class="tag">{{featureds[i].Category.name}}</span>
                 <div class="inner">
