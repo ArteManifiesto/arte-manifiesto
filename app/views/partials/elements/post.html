@@ -10,7 +10,20 @@
         <% } %>
         <a href="/blog/post/<%=nameSlugify%>">
           <header class="header" style="background-image: url('<%= addFilter(photo, 'w_380,h_260,c_fill') %>')">
-            <span class="tag uppercase"><%= Category.name %></span>
+            <% if(Category.nameSlugify === "entrevistas") { %>
+              <span class="tag uppercase purple"><%= Category.name %></span>
+            <% } else if(Category.nameSlugify === "lifestyle") { %>
+              <span class="tag uppercase orange"><%= Category.name %></span>
+            <% } else if(Category.nameSlugify === "tips") { %>
+              <span class="tag uppercase green"><%= Category.name %></span>
+            <% } else if(Category.nameSlugify === "noticias-am") { %>
+              <span class="tag uppercase blue"><%= Category.name %></span>
+            <% } else if(Category.nameSlugify === "eventos") { %>
+              <span class="tag uppercase blue"><%= Category.name %></span>
+            <% } else if(Category.nameSlugify === "inspiracion") { %>
+              <span class="tag uppercase orange"><%= Category.name %></span>
+            <% } %>
+
             <div class="inner">
               <p class="title"><%=name%></p>
               <div class="stats u-margin-top-15">

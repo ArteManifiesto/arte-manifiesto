@@ -74,7 +74,20 @@
         <div class="slider-items">
           <div class="slider-item js-slide" style="background-image: url('{{featureds[0].photo|addFilter('w_1600,c_limit')}}')">
             <div class="featured {% if !featureds[0].featured %} disabled {% endif %}">DESTACADO</div>
-            <span class="slider-item-tag uppercase">{{featureds[0].Category.name}}</span>
+						{% if featureds[0].Category.nameSlugify === "entrevistas" %}
+							<span class="slider-item-tag uppercase purple">{{featureds[0].Category.name}}</span>
+						{% elseif featureds[0].Category.nameSlugify === "lifestyle" %}
+							<span class="slider-item-tag uppercase green">{{featureds[0].Category.name}}</span>
+						{% elseif featureds[0].Category.nameSlugify === "tips" %}
+							<span class="slider-item-tag uppercase orange">{{featureds[0].Category.name}}</span>
+						{% elseif featureds[0].Category.nameSlugify === "noticias-am" %}
+							<span class="slider-item-tag uppercase blue">{{featureds[0].Category.name}}</span>
+						{% elseif featureds[0].Category.nameSlugify === "eventos" %}
+							<span class="slider-item-tag uppercase green">{{featureds[0].Category.name}}</span>
+						{% elseif featureds[0].Category.nameSlugify === "inspiracion" %}
+							<span class="slider-item-tag uppercase purple">{{featureds[0].Category.name}}</span>
+						{% endif %}
+
             <div class="slider-item-inner blog">
               <p class="title">{{featureds[0].name}}</p>
               <div class="author u-margin-top-30">
@@ -106,7 +119,20 @@
             <article class="blog-article">
               <div class="featured {% if !featureds[i].featured %} disabled {% endif %}">DESTACADO</div>
               <header class="header" style="background-image: url('{{featureds[i].photo|addFilter('w_600,h_400,q_80,c_limit')}}')">
-                <span class="tag">{{featureds[i].Category.name}}</span>
+
+								{% if featureds[i].Category.nameSlugify === "entrevistas" %}
+									<span class="tag uppercase purple">{{featureds[i].Category.name}}</span>
+								{% elseif featureds[i].Category.nameSlugify === "lifestyle" %}
+									<span class="tag uppercase green">{{featureds[i].Category.name}}</span>
+								{% elseif featureds[i].Category.nameSlugify === "tips" %}
+									<span class="tag uppercase orange">{{featureds[i].Category.name}}</span>
+								{% elseif featureds[i].Category.nameSlugify === "noticias-am" %}
+									<span class="tag uppercase blue">{{featureds[i].Category.name}}</span>
+								{% elseif featureds[i].Category.nameSlugify === "eventos" %}
+									<span class="tag uppercase green">{{featureds[i].Category.name}}</span>
+								{% elseif featureds[i].Category.nameSlugify === "inspiracion" %}
+									<span class="tag uppercase purple">{{featureds[i].Category.name}}</span>
+								{% endif %}
                 <div class="inner">
                   <p class="title">{{featureds[i].name}}</p>
                   <div class="stats u-margin-top-15">
