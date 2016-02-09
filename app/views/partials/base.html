@@ -192,6 +192,14 @@
 		</script>
 	{% endif %}
 
+	<script>
+		$('.js-navigation').click(function  () {
+			console.log('click!')
+			$('.am-NavigationMenu').slideToggle()
+		})
+			
+	</script>
+
 	{% block scripts %} {% endblock %}
 </body>
 </html>

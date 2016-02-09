@@ -2,99 +2,136 @@
 	<!-- ********************************************************************
 		$ HEADER
 	********************************************************************* -->
- <div class="custon-desktop-header">
-	<div class="grid-container u-padding-top-15 u-padding-bottom-15" {% if user %} style="padding-top: 10px; padding-bottom: 10px;" {% endif %}>
-		<div class="grid-100">
-			<header class="am-Header-new">
+	 <div class="custon-desktop-header">
+		<div class="grid-container u-padding-top-15 u-padding-bottom-15" {% if user %} style="padding-top: 10px; padding-bottom: 10px;" {% endif %}>
+			<div class="grid-100">
+				<header class="am-Header-new">
 
-				<div class="am-Header-new-left">
-					<a href="/">
-						<img class="logo" src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065551/general/logo.png">
-					</a>
-					<div class="search">
-            <form class="search-box">
-  						<div class="am-Search-input2">
-  							<input type="text" class='search-box-value general-search' placeholder="Buscar"/>
-  							<i class="bi_interface-search search-btn search-general-btn"></i>
-  						</div>
-  						<ul class="search-options hide general-search-options">
-  							<li class="search-option"><a>Buscar en obras <strong class="works-option"></strong></a></li>
-  							<li class="search-option"><a>Buscar en artistas <strong class="users-option"></strong></a></li>
-                <li class="search-option"><a>Buscar en colecciones <strong class="collections-option"></strong></a></li>
-  						</ul>
-            </form>
-					</div>
-				</div>
-
-				<div class="am-Header-new-right">
-						<ul class="options">
-              {% if user %}
-                <a href="/feed" class="feed-menu">ART FEED<span></span></a>
-              {% endif %}
-							<a href="/works/category/all/page-1/?order=newest&featured=1" class="works-menu">OBRAS<span></span></a>
-							<a href="/users/specialty/all/page-1" class="users-menu">ARTISTAS<span></span></a>
-              <a href="/blog">BLOG<span></span></a>
-						</ul>
-					{% if user %}
-						<ul class="socials">
-							<a href="/user/{{user.username}}/work/add" class="upload">SUBIR</a>
-							<a href="/user/{{user.username}}/notifications" class="am-Header-icon">
-								<i class="fa fa-bell-o"></i><span>{{numOfNotifications}}</span> &nbsp;
-							</a>
-							<!-- <a href="#" class="notif"></a> -->
-							<!-- <a href="#" class="cart"></a> -->
-						</ul>
-						<div class="avatar">
-							<img src="{{user.photo}}">
-							<i class="fa fa-caret-down"></i>
-							<div class="user-menu" style="top: -8px;">
-								<a href="/user/{{user.username}}" class="user-menu-item">MI PORTAFOLIO</a>
-								<div class="u-separator"></div>
-								<a href="/user/{{user.username}}/work/add" class="user-menu-item">SUBIR OBRA</a>
-								<div class="u-separator"></div>
-								<a href="/user/{{user.username}}/account" class="user-menu-item">ADMINISTRAR CUENTA</a>
-								<div class="u-separator"></div>
-								<a href="/auth/logout" class="user-menu-item">SALIR</a>
-							</div>
-						</div>
-					{% else %}
-						<a class="am-Signin-button">
-							<i class="bi_user-single-a"></i> INGRESAR
+					<div class="am-Header-new-left">
+						<a href="/">
+							<img class="logo" src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065551/general/logo.png">
 						</a>
-					{% endif %}
-				</div>
+						<div class="search">
+	            <form class="search-box">
+	  						<div class="am-Search-input2">
+	  							<input type="text" class='search-box-value general-search' placeholder="Buscar"/>
+	  							<i class="bi_interface-search search-btn search-general-btn"></i>
+	  						</div>
+	  						<ul class="search-options hide general-search-options">
+	  							<li class="search-option"><a>Buscar en obras <strong class="works-option"></strong></a></li>
+	  							<li class="search-option"><a>Buscar en artistas <strong class="users-option"></strong></a></li>
+	                <li class="search-option"><a>Buscar en colecciones <strong class="collections-option"></strong></a></li>
+	  						</ul>
+	            </form>
+						</div>
+					</div>
 
-			</header>
+					<div class="am-Header-new-right">
+							<ul class="options">
+	              {% if user %}
+	                <a href="/feed" class="feed-menu">ART FEED<span></span></a>
+	              {% endif %}
+								<a class="works-menu js-navigation">DESCUBRE<span></span></a>
+								<a href="/works/category/all/page-1/?order=newest&featured=1" class="works-menu">OBRAS<span></span></a>
+								<a href="/users/specialty/all/page-1" class="users-menu">ARTISTAS<span></span></a>
+	              <a href="/blog">BLOG<span></span></a>
+							</ul>
+						{% if user %}
+							<ul class="socials">
+								<a href="/user/{{user.username}}/work/add" class="upload">SUBIR</a>
+								<a href="/user/{{user.username}}/notifications" class="am-Header-icon">
+									<i class="fa fa-bell-o"></i><span>{{numOfNotifications}}</span> &nbsp;
+								</a>
+								<!-- <a href="#" class="notif"></a> -->
+								<!-- <a href="#" class="cart"></a> -->
+							</ul>
+							<div class="avatar">
+								<img src="{{user.photo}}">
+								<i class="fa fa-caret-down"></i>
+								<div class="user-menu" style="top: -8px;">
+									<a href="/user/{{user.username}}" class="user-menu-item">MI PORTAFOLIO</a>
+									<div class="u-separator"></div>
+									<a href="/user/{{user.username}}/work/add" class="user-menu-item">SUBIR OBRA</a>
+									<div class="u-separator"></div>
+									<a href="/user/{{user.username}}/account" class="user-menu-item">ADMINISTRAR CUENTA</a>
+									<div class="u-separator"></div>
+									<a href="/auth/logout" class="user-menu-item">SALIR</a>
+								</div>
+							</div>
+						{% else %}
+							<a class="am-Signin-button">
+								<i class="bi_user-single-a"></i> INGRESAR
+							</a>
+						{% endif %}
+					</div>
+
+				</header>
+			</div>
+		</div>
+		<div class="u-separator"></div>
+	 </div>
+
+	<div class="costom-mobile-header">
+		<header class="am-header-mobile">
+			<div class="am-header-mobile-left">
+				<div class="bars">
+					<i class="fa fa-bars"></i>
+				</div>
+				<a href="/">
+					<img class="logo" src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065552/general/logo-small.png">
+					<img class="logo desktop" src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065551/general/logo.png">
+				</a>
+			</div>
+
+			<div class="am-header-mobile-left">
+
+				{% if user %}
+					<div class="avatar">
+						<img src="{{user.photo}}">
+						<i class="fa fa-caret-down"></i>
+					</div>
+				{% else %}
+					<a class="am-Signin-button" style="margin-right: 20px">
+						<i class="bi_user-single-a"></i> INGRESAR
+					</a>
+				{% endif %}
+
+			</div>
+		</header>
+	</div>
+
+
+	<!-- ********************************************************************
+		$ NAVIGATION-MENU
+	********************************************************************* -->
+	<div class="am-NavigationMenu u-padding-bottom-30">
+		<div class="grid-container">
+			<div class="grid-33 grid-parent am-NavigationMenu-section">
+				<div class="grid-50 mobile-grid-50">
+					<figure class="am-NavigationMenu-section-image" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1455045619/general/navigation-image1.jpg'); background-position: 50% 30%;"></figure>
+				</div>
+				<div class="grid-50 mobile-grid-50">
+					<p class="am-NavigationMenu-title-text u-padding-bottom-15">Obras y Creaciones</p>
+					<p class="am-NavigationMenu-description-text">Conoce los productos que debes tener para este verano 2015</p>
+				</div>
+			</div>
+			<div class="grid-33 grid-parent am-NavigationMenu-section">
+				<div class="grid-50 mobile-grid-50">
+					<figure class="am-NavigationMenu-section-image" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1455045668/general/navigation-image2.jpg'); background-position: 50% 75%;"></figure>
+				</div>
+				<div class="grid-50 mobile-grid-50">
+					<p class="am-NavigationMenu-title-text u-padding-bottom-15">Artistas Creadores</p>
+					<p class="am-NavigationMenu-description-text">Conoce los productos que debes tener para este verano 2015</p>
+				</div>
+			</div>
+			<div class="grid-33 grid-parent am-NavigationMenu-section">
+				<div class="grid-50 mobile-grid-50">
+					<figure class="am-NavigationMenu-section-image" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1455045789/general/navigation-image3.png'); background-position: 50% 35%;"></figure>
+				</div>
+				<div class="grid-50 mobile-grid-50">
+					<p class="am-NavigationMenu-title-text u-padding-bottom-15">Colecciones</p>
+					<p class="am-NavigationMenu-description-text">Conoce los productos que debes tener para este verano 2015</p>
+				</div>
+			</div>
 		</div>
 	</div>
-	<div class="u-separator"></div>
- </div>
-
-<div class="costom-mobile-header">
-	<header class="am-header-mobile">
-		<div class="am-header-mobile-left">
-			<div class="bars">
-				<i class="fa fa-bars"></i>
-			</div>
-			<a href="/">
-				<img class="logo" src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065552/general/logo-small.png">
-				<img class="logo desktop" src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065551/general/logo.png">
-			</a>
-		</div>
-
-		<div class="am-header-mobile-left">
-
-			{% if user %}
-				<div class="avatar">
-					<img src="{{user.photo}}">
-					<i class="fa fa-caret-down"></i>
-				</div>
-			{% else %}
-				<a class="am-Signin-button" style="margin-right: 20px">
-					<i class="bi_user-single-a"></i> INGRESAR
-				</a>
-			{% endif %}
-
-		</div>
-	</header>
-</div>
