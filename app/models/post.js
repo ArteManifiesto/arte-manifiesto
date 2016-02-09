@@ -42,12 +42,20 @@ module.exports = function (sequelize, DataTypes) {
             return likes.length > 0;
           });
         },
+        view: function () {
+          this.views += 1;
+          this.popularity += 1;
+          return this.save();
+        },
         like: function (user) {
           var scope = this;
-          this.popularity += 3;
-          var promises = [user.addPostLike(this), this.save()];
-          return global.db.Sequelize.Promise.all(promises).then(function () {
-            return scope.numOfLikes();
+          return user.addPostLike(this).then(function () {
+            return scope.numOfLikes().then(function (likes) {
+              scope.popularity = scope.views + (likes * 50);
+              return scope.save().then(function () {
+                return likes;
+              });
+            });
           });
         },
         numOfLikes: function () {

@@ -25,12 +25,11 @@ exports.post = function (req, res) {
     order: [global.getOrder('popularity')]
   };
 
-  req.post.views++;
   var promises = [
     req.post.getCategory(),
     req.post.getReviews({include: [global.db.User]}),
     global.db.Post.findAll(popularPostsQuery),
-    req.post.save()
+    req.post.view()
   ];
   global.db.Sequelize.Promise.all(promises).then(function (result) {
     req.post.setDataValue('Category', result[0]);

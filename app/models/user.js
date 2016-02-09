@@ -102,7 +102,7 @@ module.exports = function (sequelize, DataTypes) {
           return user.addFollower(this).then(function () {
             return user.numOfFollowers().then(function (followers) {
               user.popularity = user.views + (followers * 50);
-              user.save().then(function () {
+              return user.save().then(function () {
                 return followers;
               });
             });
@@ -113,7 +113,7 @@ module.exports = function (sequelize, DataTypes) {
           return user.removeFollower(this).then(function () {
             return user.numOfFollowers().then(function (followers) {
               user.popularity = user.views + (followers * 50);
-              user.save().then(function () {
+              return user.save().then(function () {
                 return followers;
               });
             });

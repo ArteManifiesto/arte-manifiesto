@@ -57,7 +57,7 @@ module.exports = function (app, passport) {
    * Setup express middlewares
    * ====================================================
    */
-  app.use(compression());
+  // app.use(compression());
   app.use(morgan('dev'));
   app.use(cookieParser('luelennuckyinleDfOfkugGEsErLQQDcS'));
 

@@ -42,7 +42,7 @@ module.exports = function (sequelize, DataTypes) {
           return user.addWorkLike(this).then(function () {
             return scope.numOfLikes().then(function (likes) {
               scope.popularity = scope.views + (likes * 50);
-              scope.save().then(function () {
+              return scope.save().then(function () {
                 return likes;
               });
             });
