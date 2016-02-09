@@ -41,7 +41,7 @@ var searchPosts = function (req, options, query) {
 var getFeaturedTopPosts = function () {
   return global.db.Post.findAll({
     where: {featured: true, published: true},
-    order: [global.getOrder('newest')],
+    order: [global.getOrder('popularity')],
     addUser: true,
     build: true,
     limit: 3,
