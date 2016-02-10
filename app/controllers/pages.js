@@ -80,6 +80,7 @@ exports.feedPage = function (req, res) {
   ];
 
   return global.db.sequelize.Promise.all(promises).then(function (result) {
+    return res.json(result[3]);
     return res.render(basePath + 'feed', {
       numbers: global._.slice(result, 0, 3),
       data: result[3]

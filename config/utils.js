@@ -293,7 +293,7 @@ global.getPaginationEntity = function (options, query, empty) {
   var promises = [];
   if (!options.association) {
     promises = [global.db[options.entity].findAll(query)]
-    query = _.omit(query, 'build', 'offset', 'limit', 'addUser');
+    query = _.omit(query, 'build', 'offset', 'limit', 'addUser', 'group');
     promises.push(global.db[options.entity].count(query));
   }
   else {
@@ -308,6 +308,7 @@ global.getPaginationEntity = function (options, query, empty) {
   }
 
   return global.db.Sequelize.Promise.all(promises).then(function (data) {
+    console.log(data[1]);
     var total, result = {items: data[0]};
     if (!options.association)
       total = data[1];
