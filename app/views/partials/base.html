@@ -193,9 +193,17 @@
 	{% endif %}
 
 	<script>
-		$('.js-navigation').click(function  () {
-			console.log('click!')
+
+		var openDiscoverMenu = false
+
+		$('.js-menu-discover').click(function  () {
+
 			$('.am-NavigationMenu').slideToggle()
+
+			if(!openDiscoverMenu) $('.js-menu-discover').addClass('open')
+			else $('.js-menu-discover').removeClass('open')
+
+			openDiscoverMenu = !openDiscoverMenu
 		})
 			
 	</script>
