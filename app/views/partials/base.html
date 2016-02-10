@@ -102,10 +102,6 @@
 					<td></td>
 					<td><a href="/blog">BLOG</a></td>
 				</tr>
-				<tr>
-					<td></td>
-					<td><a href="/blog">BLOG</a></td>
-				</tr>
 			{% if user %}
 				<tr>
 					<td><i class="bi_interface-plus"></i></td>
@@ -206,6 +202,42 @@
 			openDiscoverMenu = !openDiscoverMenu
 		})
 			
+
+		var device = new Device({
+			toDesktop : function  () {
+				console.log('toDesktop!!')
+			},
+			toMobile : function  () {
+				console.log('toMobile!!')
+				$('.am-NavigationMenu').css('display', 'none')
+				$('.js-menu-discover').removeClass('open')
+				openDiscoverMenu = false
+			}
+		})
+
+		function Device (options) {
+
+			var val = window.innerWidth < 1135 ? 'mobile' : 'desktop',
+			toDesktop = options.toDesktop,
+			toMobile = options.toMobile;
+
+			window.addEventListener('resize', function(){
+
+				var temp = val;
+
+				val = window.innerWidth < 1135 ? 'mobile' : 'desktop';
+
+				if(temp == 'mobile' && val == 'desktop') toDesktop();
+				if(temp == 'desktop' && val == 'mobile') toMobile();
+			});
+
+			function getVal () { return val; }
+
+			return {
+				getVal: getVal  
+			};
+		}
+
 	</script>
 
 	{% block scripts %} {% endblock %}
