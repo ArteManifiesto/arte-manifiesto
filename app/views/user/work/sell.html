@@ -1,0 +1,227 @@
+{% extends '../../partials/base.html' %}
+
+{% block elements %}
+<!--
+	<div class="grid-container">
+		<div class="grid-100">
+
+			<p class="sales-title u-margin-top-30">DATOS DE LA OBRA DEL PORTAFOLIO</p>
+
+			<div class="sales">
+				<div class="sales-left">
+					<div class="sales-image-card">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_700,h_800,q_80,c_limit/v1454928729/chlvcbesfnspyczfictg.png">
+						<div class="content">
+							<a href="#" class="title">OUR LEGACY SPLASH MID SLEEVE AND I WILL NOT SLEEP</a>
+							<a href="#" class="author">Sergio Gonzales Mucho</a>
+						</div>
+					</div>
+				</div>
+				<div class="sales-right">
+
+					<a class="sales-button white">REEMPLAZAR IMAGEN</a>
+					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
+
+					<p class="title">Título de la obra</p>
+					<input class="input" value="Medidas cm"></input> <br>
+					<p class="title">Categoría de la obra</p>
+					<select class="select">
+						<option>Selecciona la categoría</option>
+						<option>Arte urbano</option>
+						<option>Ilustracion</option>
+						<option>Tenica mixta</option>
+					</select> <br>
+					<p class="title">Descripción</p>
+					<textarea class="textarea">Escribe una descripción de tu obra</textarea>
+					<p class="title">Tags de la obra</p>
+					<textarea class="textarea">Escribe tags separados por comas ó enter. A más tags  con más contexto, más fácil será encontrar tu trabajo.</textarea>
+
+					<table class="switchs">
+						<tr>
+							<td><p class="title">Visible sólo por mí</p></td>
+							<td><p class="switch-label">off</p></td>
+							<td>
+								<input type="checkbox" name="input-visible" id="input-visible"/>
+								<label for="input-visible">
+								  <div class="am-Switch-button">
+								  	<i class="fa fa-bars"></i>
+								  </div>
+								</label>
+							</td>
+						</tr>
+						<tr>
+							<td><p class="title">Contenido +18 - NSFW</p></td>
+							<td><p class="switch-label">off</p></td>
+							<td>
+								<input type="checkbox" name="input-nsfw" id="input-nsfw"/>
+								<label for="input-nsfw">
+								  <div class="am-Switch-button">
+								  	<i class="fa fa-bars"></i>
+								  </div>
+								</label>
+							</td>
+						</tr>
+					</table>
+
+					<a class="sales-button u-margin-top-30 u-margin-bottom-30">ACTUALIZAR</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="grid-container">
+		<div class="grid-100">
+
+			<p class="sales-title u-margin-top-30">VENTA DE OBRA ORIGINAL</p>
+
+			<div class="sales">
+				<div class="sales-left">
+					<div class="sales-image-card">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_700,h_800,q_80,c_limit/v1454928729/chlvcbesfnspyczfictg.png">
+						<div class="content">
+							<a href="#" class="title">OUR LEGACY SPLASH MID SLEEVE AND I WILL NOT SLEEP</a>
+							<a href="#" class="author">Sergio Gonzales Mucho</a>
+						</div>
+					</div>
+				</div>
+				<div class="sales-right">
+
+					<a class="sales-button white">REEMPLAZAR IMAGEN</a>
+					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
+
+					<p class="title">Detalles del Paquete</p>
+					<p class="subtitle">Los siguientes datos son muy importantes porque afectarán el costo de envío.
+					<br> <br>
+					Asegúrate de leer nuestro tutorial de ¿Cómo empacar mi obra?</p>
+
+					<p class="title">Tipo de empaque</p>
+
+					<input class="check" type="checkbox" name="package-type"></input>
+					<label class="label-check">Empaque en tubo</label>
+
+					<input class="check" type="checkbox" name="package-type"></input>
+					<label class="label-check">Empaque en caja</label>
+
+					<div class="sizes">
+						<p class="title">Largo</p>
+						<input class="input" value="Medidas cm"></input> <br>
+
+						<p class="title">Ancho</p>
+						<input class="input" value="Medidas cm"></input> <br>
+
+						<p class="title">Altura</p>
+						<input class="input" value="Medidas cm"></input> <br>
+
+						<p class="title">Peso del paquete</p>
+						<input class="input" value="Peso en kg del paquete"></input> <br>
+					</div>
+
+					<a class="sales-button u-margin-top-30 u-margin-bottom-30">ACTUALIZAR</a>
+				</div>
+			</div>
+		</div>
+	</div> -->
+
+
+	<div class="grid-container">
+		<div class="grid-100">
+			<p class="sales-title u-margin-bottom-30 u-margin-top-60">OBRA EN VENTA</p>
+		</div>
+	</div>
+
+	<div class="grid-container">
+		<div class="grid-100">
+			<div class="sales-image-card">
+				<img src="{{work.photo|addFilter('w_300,c_limit')}}"/>
+				<div class="content">
+					<a href="#" class="title">{{work.name}}</a>
+					<a href="#" class="author">
+					{% if work.User.typeName === 1 %}
+						{{work.User.fullname}}
+					{% else %}
+						{{work.User.pseudonimo}}
+					{% endif %}</a>
+				</div>
+			</div>
+
+			<div class="sales-option-button">
+					<a class="sales-button white">ACTUALIZAR IMAGEN</a>
+					<a class="sales-button white">EDITAR DATOS</a>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="grid-container">
+		<div class="grid-100">
+			<p class="sales-title u-margin-bottom-30">CREADOR DE PRODUCTOS</p>
+		</div>
+	</div>
+
+
+	<div class="grid-container">
+		<div class="grid-100 grid-parent">
+
+
+			<div class="products-creator">
+				<div class="product-creator">
+					<div class="image">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
+					</div>
+					<p class="title">OBRA ORIGINAL</p>
+					<p class="description">0/1 activados</p>
+					<div class="buttons">
+						<a class="sales-button white" href="#">EDITAR</a>
+						<a class="sales-button blue" href="#">ACTIVAR</a>
+					</div>
+				</div>
+				<div class="product-creator">
+					<div class="image">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
+					</div>
+					<p class="title">OBRA ORIGINAL</p>
+					<p class="description">0/1 activados</p>
+					<div class="buttons">
+						<a class="sales-button white" href="#">EDITAR</a>
+						<a class="sales-button blue" href="#">ACTIVAR</a>
+					</div>
+				</div>
+				<div class="product-creator">
+					<div class="image">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
+					</div>
+					<p class="title">OBRA ORIGINAL</p>
+					<p class="description">0/1 activados</p>
+					<div class="buttons">
+						<a class="sales-button white" href="#">EDITAR</a>
+						<a class="sales-button blue" href="#">ACTIVAR</a>
+					</div>
+				</div>
+				<div class="product-creator">
+					<div class="image">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
+					</div>
+					<p class="title">OBRA ORIGINAL</p>
+					<p class="description">0/1 activados</p>
+					<div class="buttons">
+						<a class="sales-button white" href="#">EDITAR</a>
+						<a class="sales-button blue" href="#">ACTIVAR</a>
+					</div>
+				</div>
+				<div class="product-creator">
+					<div class="image">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
+					</div>
+					<p class="title">OBRA ORIGINAL</p>
+					<p class="description">0/1 activados</p>
+					<div class="buttons">
+						<a class="sales-button white" href="#">EDITAR</a>
+						<a class="sales-button blue" href="#">ACTIVAR</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}

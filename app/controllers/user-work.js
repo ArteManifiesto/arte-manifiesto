@@ -138,6 +138,14 @@ exports.edit = function (req, res) {
   });
 };
 
+exports.sell = function (req, res) {
+  return res.render(basePath + 'sell', {
+    work: req.work,
+    cloudinary: global.cl,
+    cloudinayCors: global.cl_cors
+  });
+};
+
 /**
  * create a review
  */
