@@ -621,7 +621,7 @@ white = #fff
 			&.js-menu-discover
 				cursor pointer
 			// &.selected
-			// 	text-decoration underline 
+			// 	text-decoration underline
 	.socials
 		margin-left 20px
 		.upload
@@ -4050,7 +4050,7 @@ white = #fff
 			&.selected
 				span
 					display block
-					
+
 	.socials
 		display flex
 		align-items center
@@ -4114,6 +4114,7 @@ white = #fff
 			padding 3px 5px
 			letter-spacing 1px
 			border-radius 3px
+			z-index 1
 			&.orange
 				background #d8a252
 			&.green
@@ -4127,7 +4128,7 @@ white = #fff
 			padding 20px
 			width 100%
 			position relative
-			z-index 10
+			// z-index 10
 			.title
 				font-family: 'Montserrat',sans-serif;
 				font-weight bold
@@ -4485,7 +4486,7 @@ white = #fff
 		.button
 			margin-left: 20px;
 			margin-top: 0;
-			
+
 
 .blog-single-popular
 	background #27282a
@@ -4895,41 +4896,74 @@ white = #fff
 			margin-right 20px
 
 
+
+/*------------------------------------*
+	$ SALES
+*------------------------------------*/
+.sales-image-card
+	max-width 220px
+	margin auto
+	.content
+		border solid 1px #ddd
+		padding 10px
+	.title
+		font-family: 'Montserrat', sans-serif;
+		font-weight bold
+		font-size 11px
+		color #393d3f
+		text-transform uppercase
+		padding-bottom 5px
+		display inline-block
+		line-height 1.15
+	.author
+		display inline-block
+		font-family: 'PT Serif', serif;
+		font-size 12px
+		color #838c8c
+		font-style italic
+
 .sales-title
 	font-family: 'Montserrat', sans-serif;
 	font-size 24px
 	color #393d3f
 	text-align center
 
+.sales-button
+	background-color #3bd64a
+	font-family: 'Montserrat',sans-serif;
+	font-weight bold
+	font-size 10px
+	color white
+	border-radius 3px
+	padding 10px 8px 8px 8px
+	min-width 220px
+	box-sizing border-box
+	text-align center
+	cursor pointer
+	margin-left auto
+	margin-right auto
+	display table
+	border solid 1px #333
+	letter-spacing 2px
+	&.white
+		background-color white
+		color #61565a
+
+.sales-option-button
+	margin 20px 0 80px 0
+	.sales-button
+		margin-top 10px
+		margin-bottom 10px
+
 .sales
 	display flex
 	border solid 1px #ddd
 	margin 20px 0
-	
+
 	&-left
 		flex 2
 		display flex
-		.image-card
-			max-width 220px
-			margin auto
-			.content
-				border solid 1px #ddd
-				padding 10px
-			.title
-				font-family: 'Montserrat', sans-serif;
-				font-weight bold
-				font-size 11px
-				color #393d3f
-				text-transform uppercase
-				padding-bottom 5px
-				display inline-block
-				line-height 1.15
-			.author
-				display inline-block
-				font-family: 'PT Serif', serif;
-				font-size 12px
-				color #838c8c
-				font-style italic
+
 	&-right
 		flex 1
 		padding 10px 20px
@@ -4950,7 +4984,7 @@ white = #fff
 			max-width 200px
 		.textarea
 			min-height 75px
-			
+
 		.title
 			font-family: 'Montserrat',sans-serif;
 			font-size 14px
@@ -4961,27 +4995,7 @@ white = #fff
 			font-size 14px
 			color warm-grey
 			margin-bottom 25px
-		.button
-			background-color #3bd64a
-			font-family: 'Montserrat',sans-serif;
-			font-weight bold
-			font-size 10px
-			color white
-			border-radius 3px
-			padding 10px 8px 8px 8px
-			min-width 220px
-			box-sizing border-box
-			text-align center
-			cursor pointer
-			margin-left auto
-			margin-right auto
-			display table
-			border solid 1px #333
-			letter-spacing 2px
-			&.white
-				background-color white
-				color #61565a
-		
+
 		.switchs
 			width 100%
 			.switch-label
@@ -4990,17 +5004,55 @@ white = #fff
 				color #777
 			.am-Switch-button
 				margin-bottom 5px
-			
+
 			input[type="checkbox"]
 				display none
 
 			input[type="checkbox"]:checked+label .am-Switch-button
 				justify-content: flex-end;
 				background: #88d68f;
-				
+
 		.sizes
 			max-width 200px
 			margin auto
+
+
+.products-creator
+	display flex
+	flex-wrap wrap
+
+.product-creator
+	// max-width 380px
+	// flex 1
+	padding 10px
+	box-sizing border-box
+	width 33.333%
+	.image
+		// width 380px
+		border: solid 1px #979797;
+		img
+			width 100%
+	.title
+		font-size: 18px;
+		font-family: 'Montserrat',sans-serif;
+		font-weight bold
+		color: #393d3f;
+		text-align center
+		padding-top 15px
+	.description
+		font-size: 18px;
+		text-align center
+		font-size: 14px;
+		font-family: 'PT Serif', serif;
+		font-style italic
+		color: #838c8c;
+		padding-top 5px
+	.buttons
+		display flex
+		padding-top 30px
+		padding-bottom 30px
+	.sales-button
+		min-width 150px
 
 
 @keyframes load
