@@ -11,6 +11,9 @@ router.post('/users/:page', controller.search.bind(this, 'User'));
 router.get('/works/:page', controller.works);
 router.post('/works/:page', controller.search.bind(this, 'Work'));
 
+router.get('/blog/:page', controller.blog);
+router.post('/blog/:page', controller.search.bind(this, 'Post'));
+
 router.get('/banners/edit/:idBanner', controller.editBanner);
 router.post('/banners/update', controller.updateBanner);
 

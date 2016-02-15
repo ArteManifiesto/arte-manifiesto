@@ -12,13 +12,19 @@ var searchData = function (req, entity) {
     where: {}
   };
 
-  if (entity === 'Work') {
+  if (entity === 'Work' || entity === 'Post') {
     query.addUser = true;
+  }
+
+  if(entity === 'Post') {
+    query.attributes = ['id', 'name', 'nameSlugify', 'photo', 'description', 'published', 'featured',
+    'views', 'popularity', 'createdAt', 'updatedAt'];
   }
 
   if (req.query.term && req.query.termValue) {
     var term = req.query.term;
-    if (term === 'isArtist' || term === 'verified' || term === 'filled' || term === 'featured') {
+    if (term === 'isArtist' || term === 'verified' || term === 'filled' ||
+     term === 'featured' || term === 'published') {
       query.where[req.query.term] = parseInt(req.query.termValue, 10) === 1 ? true : false;
     } else {
       query.where[req.query.term] = req.query.termValue;
@@ -58,6 +64,17 @@ exports.works = function (req, res) {
 
   searchData(req, 'Work').then(function (data) {
     return res.render(basePath + 'works', {
+      data: data
+    });
+  });
+};
+
+exports.blog = function (req, res) {
+  if (req.params.page !== 'page-1')
+    return res.redirect(req.url.replace(req.params.page, 'page-1'));
+
+  searchData(req, 'Post').then(function (data) {
+    return res.render(basePath + 'blog', {
       data: data
     });
   });
