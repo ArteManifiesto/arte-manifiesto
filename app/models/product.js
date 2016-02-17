@@ -12,6 +12,7 @@ module.exports = function (sequelize, DataTypes) {
             finalPrice: DataTypes.STRING,
             photo: DataTypes.STRING,
             description: DataTypes.TEXT,
+            applying: {type: DataTypes.BOOLEAN, defaultValue: true},
             published: {type: DataTypes.BOOLEAN, defaultValue: false},
             featured: {type: DataTypes.BOOLEAN, defaultValue: false},
             views: {type: DataTypes.INTEGER, defaultValue: 0},

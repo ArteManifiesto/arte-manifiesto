@@ -28,6 +28,7 @@ APP.BaseScreen.prototype.requestHandler = function (url, payload, next, error, f
 };
 
 APP.BaseScreen.prototype.requestComplete = function (next, error, response) {
+  console.log('response ===>' , response);
   if (response.status !== 200) {
     var errors = response.data.errors || ['Algo sucedió mal'];
     error && error.bind(this)();

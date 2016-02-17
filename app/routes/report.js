@@ -11,9 +11,6 @@ router.post('/users/:page', controller.search.bind(this, 'User'));
 router.get('/works/:page', controller.works);
 router.post('/works/:page', controller.search.bind(this, 'Work'));
 
-router.get('/products/:page', controller.products);
-router.post('/products/:page', controller.search.bind(this, 'Product'));
-
 router.get('/blog/:page', controller.blog);
 router.post('/blog/:page', controller.search.bind(this, 'Post'));
 
@@ -22,6 +19,13 @@ router.post('/banners/update', controller.updateBanner);
 
 router.get('/general', controller.general);
 router.get('/banners', controller.banners);
+
+router.get('/products_applying/product/:idProduct', controller.productRevision);
+router.post('/products/update', controller.updateProduct);
+
+
+router.get('/products/:page', controller.products);
+router.post('/products/:page', controller.search.bind(this, 'Product'));
 
 router.get('/products_applying/:page', controller.productsApplying);
 router.post('/products_applying/:page', controller.search.bind(this, 'Product'));

@@ -19,7 +19,8 @@ module.exports = function (sequelize, DataTypes) {
                 });
               },
               getElement:function(options) {
-                if(this.verb === 'like-work' || this.verb === 'create-work' || this.verb === 'request-work' || this.verb === 'review-work') {
+                if(this.verb === 'like-work' || this.verb === 'create-work'
+                || this.verb === 'request-work' || this.verb === 'review-work') {
                   return global.db.Work.find({where:{id:this.ObjectId},
                     build:true, viewer: options.viewer}).then(function(work){
                       return work.getUser({build:true, viewer: options.viewer}).then(function(user){
@@ -33,6 +34,12 @@ module.exports = function (sequelize, DataTypes) {
                     return global.db.User.find({where:{id:this.ObjectId}});
                   }
                   return global.db.User.find({where:{id:this.ObjectId}, build:true, viewer: options.viewer});
+                }
+
+                if(this.verb === 'accepted-product' || this.verb === 'denied-product') {
+                  if(options.reverse) {
+                    return global.db.Product.find({where:{id:this.ObjectId}, addUser: true});
+                  }
                 }
               }
             },

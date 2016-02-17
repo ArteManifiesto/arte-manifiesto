@@ -125,6 +125,13 @@ APP.Viewer.prototype.addItems = function(items) {
       if(items[i].verb === 'request-work') {
         item = new APP.NotificationRequest(items[i], this.options);
       }
+      if(items[i].verb === 'denied-product') {
+        item = new APP.NotificationDeniedProduct(items[i], this.options);
+      }
+      if(items[i].verb === 'accepted-product') {
+        item = new APP.NotificationAcceptedProduct(items[i], this.options);
+      }
+
     }
      else {
       item = new APP[Utils.capitalize(this.id)](items[i], this.options);

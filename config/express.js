@@ -92,7 +92,11 @@ module.exports = function (app, passport) {
 
     if (!req.user) return next();
 
-    var verbs = ['like-work', 'follow-user', 'review-work', 'request-work'];
+    var verbs = [
+      'like-work', 'follow-user', 'review-work', 'request-work',
+      'denied-product', 'accepted-product'
+    ];
+    
     var query = {
       where: {
         UserId: {$not: [req.user.id]},

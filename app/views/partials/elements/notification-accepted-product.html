@@ -1,0 +1,16 @@
+<script type="text/template" id="template-notification-accepted-product">
+  <div class="notification">
+    <div></div>
+    <div class="content">
+      <header class="notification-header">
+        <a href="/user/<%=element.User.username%>/product/<%= element.nameSlugify %>">
+          <img src="<%= addFilter(element.photo, 'w_60,h_60,c_fill') %>">
+        </a>
+        <div class="info">
+          <a class="name">Tu producto a sido aceptado</a>
+        </div>
+        <div class="time"><i class="bi_interface-clock"></i> <span><%=formatDate(createdAt)%></span></div>
+      </header>
+    </div>
+  </div>
+</script>

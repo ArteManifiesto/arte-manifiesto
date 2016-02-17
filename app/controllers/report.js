@@ -1,7 +1,6 @@
 var basePath = 'report/';
 var moment = require('moment');
 
-
 exports.index = function (req, res) {
   return res.redirect(basePath + 'users/page-1');
 };
@@ -42,7 +41,7 @@ var searchData = function (req, entity) {
 
   if(entity === 'ProductApplying') {
     entity = 'Product';
-    query.where.published = false;
+    query.where.applying = true;
   }
 
 
@@ -163,12 +162,69 @@ exports.editBanner = function (req, res) {
   });
 };
 
+exports.productRevision = function (req, res) {
+  var query = {
+    where: {id: req.params.idProduct},
+    addUser: true
+  };
+  global.db.Product.find(query).then(function (product) {
+    if(!product || !product.applying) {
+      return res.status(404).render('errors/404');
+    }
+
+    return res.render(basePath + 'product-revision', {
+      product:product
+    });
+  });
+};
+
 exports.updateBanner = function (req, res) {
   global.db.Banner.findById(req.body.idBanner).then(function(banner) {
     banner.updateAttributes(req.body).then(function() {
       return res.ok({banner: banner}, 'Banner updated')
     });
   })
+};
+
+exports.updateProduct = function (req, res) {
+  var query = {
+    where: {id: req.body.idProduct},
+    addUser: true
+  };
+  global.db.Product.find(query).then(function(product) {
+    product.applying = false;
+    product.published = req.body.published;
+    var actionQuery = {
+      where: {
+        UserId: req.user.id,
+        ObjectId: product.id,
+        OwnerId: product.User.id
+      }
+    };
+
+    if(!product.published) {
+      actionQuery.where.verb = 'denied-product';
+    }else {
+      actionQuery.where.verb = 'accepted-product';
+    }
+    var promises = [
+      product.save(),
+      global.db.Action.findOrCreate(actionQuery)
+    ];
+    global.db.Sequelize.Promise.all(promises).then(function (result) {
+      var action = result[1][0], isNew = result[1][1];
+      var data = JSON.stringify({
+        reason:req.body.reason,
+        message: req.body.message
+      });
+      var query = 'UPDATE Actions SET createdAt=NOW(), seen=?, data =? WHERE id=?';
+      global.db.sequelize.query(query, {
+        replacements: [false, data, action.id]
+      }).then(function() {
+        return res.ok({product: result}, 'product');
+      });
+    });
+  });
 };
 
 exports.search = function (entity, req, res) {

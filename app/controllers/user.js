@@ -62,15 +62,19 @@ exports.followings = function (req, res) {
 };
 
 var searchNotifications = function (req) {
-  var verbs = ['like-work', 'follow-user', 'review-work', 'request-work'];
+  var verbs = [
+    'like-work', 'follow-user', 'review-work', 'request-work',
+    'denied-product', 'accepted-product'
+  ];
+
   var query = {
     where: {
       UserId: {$not: [req.user.id]},
       OwnerId: req.user.id,
       verb: {$in: [verbs]}
     },
-    order: [global.getOrder('newest')],
     group: ['verb', 'ObjectId', 'OwnerId', 'UserId'],
+    order: [global.getOrder('newest')],
     include: [global.db.User],
     build: true, viewer: req.viewer, reverse: true
   };
