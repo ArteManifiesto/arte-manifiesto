@@ -11,7 +11,6 @@ var searchData = function (req, entity) {
     order: [global.getOrder('newest')],
     where: {}
   };
-
   if (entity === 'Work' || entity === 'Post') {
     query.addUser = true;
   }
@@ -35,6 +34,11 @@ var searchData = function (req, entity) {
     query.where.createdAt = {
       $between: [moment(req.query.start, 'M-D-YYYY').toDate(), moment(req.query.end, 'M-D-YYYY').toDate()]
     };
+  }
+
+  if(entity === 'UserSeller') {
+    query.where.applying = true;
+    entity = 'User';
   }
 
   var page = req.params.page ? req.params.page : 'page-1';
@@ -75,6 +79,17 @@ exports.blog = function (req, res) {
 
   searchData(req, 'Post').then(function (data) {
     return res.render(basePath + 'blog', {
+      data: data
+    });
+  });
+};
+
+exports.sellersApplying = function (req, res) {
+  if (req.params.page !== 'page-1')
+    return res.redirect(req.url.replace(req.params.page, 'page-1'));
+
+  searchData(req, 'UserSeller').then(function (data) {
+    return res.render(basePath + 'sellers_applying', {
       data: data
     });
   });

@@ -1,4 +1,4 @@
-<script type="text/template" id="template-table-user">
+<script type="text/template" id="template-table-seller-applying">
   <tr>
     <td><img src='<%=photo%>' width="35"></td>
     <td><a href="/user/<%=username%>"><%=username%></a></td>
@@ -6,8 +6,6 @@
     <td><%=city%></td>
     <td><%=country%></td>
     <td><% if(isArtist) { %> si <% } else { %> no <% } %></td>
-    <td><% if(verified) { %> si <% } else { %> no <% } %></td>
-    <td><% if(filled) { %> si <% } else { %> no <% } %></td>
     <td><%
         var d = new Date(createdAt),
             fragments = [
@@ -16,12 +14,9 @@
                 d.getFullYear()
             ];
             print(fragments.join('-'));
-        %></td>
-    <td><a target='_blank' href="/user/<%=username%>/account" class="btn btn-success">editar</a></td>
-    <% if(featured) { %>
-      <td><a class="btn featured-btn btn-primary">AM</a></td>
-    <% } else { %>
-      <td><a class="btn featured-btn btn-default">AM</a></td>
-    <% } %>
+        %>
+    </td>
+    <td><a target='_blank' href="/user/<%=username%>/account/seller" class="btn btn-success">ver</a></td>
+    <td><a class="btn featured-btn btn-primary">Aceptar</a></td>
   </tr>
 </script>

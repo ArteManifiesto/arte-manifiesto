@@ -6,10 +6,6 @@ module.exports = {
       type: Sequelize.BOOLEAN,
       defaultValue: false
     });
-    queryInterface.addColumn('Users', 'applying', {
-      type: Sequelize.BOOLEAN,
-      defaultValue: false
-    });
 
     queryInterface.addColumn('Users', 'province', {type: Sequelize.STRING});
     queryInterface.addColumn('Users', 'zipcode', {type: Sequelize.STRING});
@@ -21,7 +17,6 @@ module.exports = {
   },
   down: function (queryInterface, Sequelize) {
     queryInterface.removeColumn('Users', 'isSeller');
-    queryInterface.removeColumn('Users', 'applying');
     queryInterface.removeColumn('Users', 'province');
     queryInterface.removeColumn('Users', 'zipcode');
     queryInterface.removeColumn('Users', 'direction');

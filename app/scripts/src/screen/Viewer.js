@@ -9,7 +9,8 @@ APP.Viewer = function (id, container, navigation, data , options) {
   this.options = options;
 
   if (id === 'carrouselItem' || id === 'action' || id === 'notificationItem'
-  || id === 'tableUser' || id === 'tableWork' || id === 'post' || id === 'postMinimal') {
+  || id === 'tableUser' || id === 'tableWork' || id === 'post' || id === 'postMinimal'
+  || id === 'tableSellerApplying') {
   }else {
     this.setupMasonry();
   }
@@ -156,7 +157,7 @@ APP.Viewer.prototype.addItems = function(items) {
     }
     else {
         if(this.id === 'carrouselItem' || this.id === 'action' || this.id === 'notificationItem'  || this.id === 'post'
-        || this.id === 'postMinimal' || this.id === 'tableUser' || this.id === 'tableWork') {
+        || this.id === 'postMinimal' || this.id === 'tableUser' || this.id === 'tableWork' || this.id === 'tableSellerApplying') {
         this.container.append(item.view);
       }else{
         this.container.append(item.view).masonry('appended', item.view);
@@ -177,7 +178,7 @@ APP.Viewer.prototype.reset = function() {
 
 APP.Viewer.prototype.clean = function() {
   if(this.id === 'carrouselItem' || this.id === 'action' || this.id === 'notificationItem'  || this.id === 'post'
-  || this.id === 'postMinimal' || this.id === 'tableUser' || this.id === 'tableWork') {
+  || this.id === 'postMinimal' || this.id === 'tableUser' || this.id === 'tableWork' || this.id === 'tableSellerApplying') {
   this.container.empty();
 }else{
   this.container.masonry('remove', this.container.find('.grid-item')).masonry();

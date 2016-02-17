@@ -20,4 +20,7 @@ router.post('/banners/update', controller.updateBanner);
 router.get('/general', controller.general);
 router.get('/banners', controller.banners);
 
+router.get('/sellers_applying/:page', controller.sellersApplying);
+router.post('/sellers_applying/:page', controller.search.bind(this, 'UserSeller'));
+
 module.exports = router;
