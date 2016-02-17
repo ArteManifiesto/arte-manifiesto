@@ -4,14 +4,14 @@
  */
 var APP = APP || {};
 
-APP.AdminSellersApplyingScreen = function () {
-  APP.BaseScreen.call(this, 'adminSellersApplying');
+APP.AdminProductsApplyingScreen = function () {
+  APP.BaseScreen.call(this, 'adminProductsApplying');
 };
 
-APP.AdminSellersApplyingScreen.constructor = APP.AdminSellersApplyingScreen;
-APP.AdminSellersApplyingScreen.prototype = Object.create(APP.BaseScreen.prototype);
+APP.AdminProductsApplyingScreen.constructor = APP.AdminProductsApplyingScreen;
+APP.AdminProductsApplyingScreen.prototype = Object.create(APP.BaseScreen.prototype);
 
-APP.AdminSellersApplyingScreen.prototype.setupUI = function () {
+APP.AdminProductsApplyingScreen.prototype.setupUI = function () {
   this.searchBtn = $('.search-btn');
   this.start = $('.start');
   this.end = $('.end');
@@ -31,7 +31,7 @@ APP.AdminSellersApplyingScreen.prototype.setupUI = function () {
     this.end.find('input').val(endParam.replace(/-/gi, '/'));
   }
 
-  this.viewer = new APP.Viewer('tableSellerApplying', $('.container-items'), 'infinite', data, {
+  this.viewer = new APP.Viewer('tableProductApplying', $('.container-items'), 'infinite', data, {
     getTotal: function (total) {
       $('.total').text('(' + total + ')');
     }
@@ -40,7 +40,7 @@ APP.AdminSellersApplyingScreen.prototype.setupUI = function () {
   this.searchBox = $('.search-box');
 };
 
-APP.AdminSellersApplyingScreen.prototype.listeners = function () {
+APP.AdminProductsApplyingScreen.prototype.listeners = function () {
   APP.BaseScreen.prototype.listeners.call(this);
 
   this.start.datepicker().on('changeDate', this.startDateChange.bind(this));
@@ -48,15 +48,15 @@ APP.AdminSellersApplyingScreen.prototype.listeners = function () {
   this.searchBtn.click(this.searchHander.bind(this));
 };
 
-APP.AdminSellersApplyingScreen.prototype.startDateChange = function (event) {
+APP.AdminProductsApplyingScreen.prototype.startDateChange = function (event) {
   this.startValue = event.date;
 };
 
-APP.AdminSellersApplyingScreen.prototype.endDateChange = function (event) {
+APP.AdminProductsApplyingScreen.prototype.endDateChange = function (event) {
   this.endValue = event.date;
 };
 
-APP.AdminSellersApplyingScreen.prototype.searchHander = function () {
+APP.AdminProductsApplyingScreen.prototype.searchHander = function () {
   if (this.startValue) {
     if (!this.endValue)
       return this.showFlash('error', ['Ingresa una fecha de fin']);

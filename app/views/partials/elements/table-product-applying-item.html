@@ -1,0 +1,18 @@
+<script type="text/template" id="template-table-product-applying">
+  <tr>
+    <td><img src="<%= addFilter(photo, 'w_35') %>"></td>
+    <td><a href="/user/<%=User.username%>/product/<%=nameSlugify%>"><%=name%></a></td>
+    <td><%= finalPrice %></td>
+    <td><a href="/user/<%=User.username%>"><%=User.username%></a></td>
+    <td><%
+        var d = new Date(createdAt),
+            fragments = [
+                d.getMonth() + 1,
+                d.getDate(),
+                d.getFullYear()
+            ];
+            print(fragments.join('-'));
+        %></td>
+    <td><a class="btn featured-btn btn-primary">Aceptar</a></td>
+  </tr>
+</script>

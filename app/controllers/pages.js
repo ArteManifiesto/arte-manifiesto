@@ -128,7 +128,12 @@ var discover = function (req, res, entity) {
     return res.redirect(req.url.replace(req.params.page, 'page-1'));
 
   var promises = [searchDiscover(entity, req)];
-  entity !== 'collections' && promises.push(global.db.Category.findAll({where: {meta: 0}}));
+  if(entity === 'works' || entity === 'users') {
+    promises.push(global.db.Category.findAll({where: {meta: 0}}));
+  }
+  else if(entity === 'products') {
+    promises.push(global.db.Category.findAll({where: {meta: 2}}));
+  }
 
   return global.db.Sequelize.Promise.all(promises).then(function (data) {
     var order = global.config.search.orders[entity];
@@ -178,6 +183,12 @@ exports.users = function (req, res) {
 exports.collections = function (req, res) {
   discover(req, res, 'collections').then(function (data) {
     return res.render(basePath + 'collections', data);
+  });
+};
+
+exports.products = function (req, res) {
+  discover(req, res, 'products').then(function (data) {
+    return res.render(basePath + 'products', data);
   });
 };
 

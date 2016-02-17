@@ -17,6 +17,7 @@ router.get('/notifications', isLoggedAndOwner, controller.notificationsPage);
 router.post('/notifications/:page', isLoggedAndOwner, controller.notifications);
 
 router.use('/work', require(global.cf.routes + "/user-work"));
+router.use('/product', require(global.cf.routes + "/user-product"));
 router.use('/collection', require(global.cf.routes + "/user-collection"));
 router.use('/account', isLoggedAdminOrOwner, require(global.cf.routes + "/user-account"));
 

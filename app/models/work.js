@@ -120,7 +120,7 @@ module.exports = function (sequelize, DataTypes) {
             global.db.User.findById(viewer).then(function (user) {
               return user.getFollowings(queryFollowings);
             })
-          ]
+          ];
           return global.db.Sequelize.Promise.all(promises).then(function (result) {
             var likes = result[0], followings = result[1];
 

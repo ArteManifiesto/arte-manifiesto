@@ -14,6 +14,7 @@ module.exports = function (sequelize, DataTypes) {
       classMethods: {
         associate: function (models) {
           Collection.belongsToMany(models.Work, {through: 'CollectionWork'});
+          Collection.belongsToMany(models.Product, {through: 'CollectionProduct'});
           Collection.belongsTo(models.User, {onDelete: 'cascade'});
         }
       },

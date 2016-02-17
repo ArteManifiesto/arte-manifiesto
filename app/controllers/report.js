@@ -11,7 +11,7 @@ var searchData = function (req, entity) {
     order: [global.getOrder('newest')],
     where: {}
   };
-  if (entity === 'Work' || entity === 'Post') {
+  if (entity === 'Work' || entity === 'Post' || entity === 'Product' || entity === 'ProductApplying') {
     query.addUser = true;
   }
 
@@ -36,10 +36,15 @@ var searchData = function (req, entity) {
     };
   }
 
-  if(entity === 'UserSeller') {
-    query.where.applying = true;
-    entity = 'User';
+  if(entity === 'Product') {
+    query.where.published = true;
   }
+
+  if(entity === 'ProductApplying') {
+    entity = 'Product';
+    query.where.published = false;
+  }
+
 
   var page = req.params.page ? req.params.page : 'page-1';
   var options = {
@@ -73,6 +78,17 @@ exports.works = function (req, res) {
   });
 };
 
+exports.products = function (req, res) {
+  if (req.params.page !== 'page-1')
+    return res.redirect(req.url.replace(req.params.page, 'page-1'));
+
+  searchData(req, 'Product').then(function (data) {
+    return res.render(basePath + 'products', {
+      data: data
+    });
+  });
+};
+
 exports.blog = function (req, res) {
   if (req.params.page !== 'page-1')
     return res.redirect(req.url.replace(req.params.page, 'page-1'));
@@ -84,12 +100,12 @@ exports.blog = function (req, res) {
   });
 };
 
-exports.sellersApplying = function (req, res) {
+exports.productsApplying = function (req, res) {
   if (req.params.page !== 'page-1')
     return res.redirect(req.url.replace(req.params.page, 'page-1'));
 
-  searchData(req, 'UserSeller').then(function (data) {
-    return res.render(basePath + 'sellers_applying', {
+  searchData(req, 'ProductApplying').then(function (data) {
+    return res.render(basePath + 'products_applying', {
       data: data
     });
   });

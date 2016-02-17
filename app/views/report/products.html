@@ -1,10 +1,11 @@
-{% set templates = ['table-seller-applying-item']%}
-{% set path = "users" %}
+{% set templates = ['table-product-item']%}
+{% set pageTitle = 'Reporte Productos' %}
+{% set path = 'products' %}
 
 {% extends '../partials/report.html' %}
 
 {% block content %}
-<h2 class="sub-header">Aplicantes a vendedor <span class="total">({{data.pagination.total}})</span></h2>
+<h2 class="sub-header">Productos <span class="total">({{data.pagination.total}})</span></h2>
 
 <div class="row">
   <div class="col-lg-2">
@@ -23,6 +24,19 @@
         </div>
     </div>
   </div>
+  <div class="col-lg-6">
+    <div class="input-group">
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-drop btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="property">Propiedad</span> <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a class="name">nombre</a></li>
+          <li><a class="featured-term">recomendado</a></li>
+        </ul>
+      </div>
+      <input type="text" class="form-control search-box" aria-label="...">
+    </div>
+  </div>
+
   <div class="col-lg-1">
     <button type="submit" class="btn search-btn btn-default">Buscar</button>
   </div>
@@ -34,18 +48,15 @@
     <thead>
       <tr>
         <th>imagen</th>
-        <th>username</th>
-        <th>correo</th>
-        <th>ciudad</th>
-        <th>pais</th>
-        <th>artista</th>
+        <th>nombre</th>
+        <th>popularidad</th>
+        <th>vistas</th>
         <th>creado</th>
-        <th>ver</th>
+        <th></th>
         <th></th>
       </tr>
     </thead>
     <tbody class="container-items">
-
     </tbody>
   </table>
 </div>
@@ -55,8 +66,7 @@
 <script>
   var data = {{data|json|safe}};
   $(function() {
-    new APP.AdminSellersApplyingScreen();
+    new APP.AdminProductsScreen();
   });
-
 </script>
 {% endblock %}

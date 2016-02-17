@@ -141,7 +141,7 @@ var beforePagination = function (req, discover) {
   var tempEntity = discover.options.entity;
   discover.options.tempEntity = tempEntity;
   var query = {where: {nameSlugify: req.params.value}};
-  var tempModel = tempEntity === 'Product' ? 'ProductType' : 'Category';
+  var tempModel = 'Category';
   if (req.query.term && req.query.term.substring(0, 1) === '#') {
     tempEntity = 'Work';
     query = {where: {name: req.query.term.substring(1, req.query.term.length)}};
@@ -204,7 +204,7 @@ global.searchCollections = function (req) {
 
 global.searchProducts = function (req) {
   var discover = discoverGenerator('Product', req);
-  discover.query.where.public = true;
+  discover.query.where.published = true;
   discover.query.addUser = true;
   discover.query.order.push([global.db.sequelize.col('id')]);
   return beforePagination(req, discover);

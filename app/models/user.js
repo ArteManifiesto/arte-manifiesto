@@ -76,10 +76,15 @@ module.exports = function (sequelize, DataTypes) {
           User.belongsToMany(models.Work, {as: 'WorkLikes', through: 'WorkLikes'});
           User.belongsToMany(models.Work, {as: 'WorkRequests', through: 'WorkRequests'});
 
+          User.belongsToMany(models.Product, {as: 'ProductViews', through: 'ProductViews'});
+          User.belongsToMany(models.Product, {as: 'ProductLikes', through: 'ProductLikes'});
+          User.belongsToMany(models.Product, {as: 'ProductBuyers', through: 'ProductBuyers'});
+
           User.belongsToMany(models.Post, {as: 'PostLikes', through: 'PostLikes'});
 
           User.hasMany(models.Post);
           User.hasMany(models.Collection);
+          User.hasMany(models.Product, {onDelete: 'cascade'});
           User.hasMany(models.Work, {onDelete: 'cascade'});
           User.hasMany(models.Review, {onDelete: 'cascade'});
           User.hasMany(models.Action);

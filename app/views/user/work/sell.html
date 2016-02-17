@@ -122,6 +122,7 @@
 		</div>
 	</div> -->
 
+	<a class="sales-button white create-btn">CREAR</a>
 
 	<div class="grid-container">
 		<div class="grid-100">
@@ -143,6 +144,7 @@
 					{% endif %}</a>
 				</div>
 			</div>
+
 
 			<div class="sales-option-button">
 					<a class="sales-button white">ACTUALIZAR IMAGEN</a>
@@ -224,4 +226,14 @@
 	</div>
 
 
+{% endblock %}
+
+{% block scripts %}
+<script>
+var work = {{work|json|safe}};
+$(function() {
+	$.cloudinary.config({{cloudinary.config()|json|safe}});
+	new APP.SellScreen();
+});
+</script>
 {% endblock %}
