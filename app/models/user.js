@@ -42,6 +42,7 @@ module.exports = function (sequelize, DataTypes) {
       salt: DataTypes.STRING,
 
       isAdmin: {type: DataTypes.BOOLEAN, defaultValue: false},
+
       typeName: {type: DataTypes.INTEGER, defaultValue: 1},
       verified: {type: DataTypes.BOOLEAN, defaultValue: false},
       filled: {type: DataTypes.BOOLEAN, defaultValue: false},
