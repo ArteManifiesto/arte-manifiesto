@@ -63,6 +63,19 @@ exports.passwordUpdate = function (req, res) {
   });
 };
 
+exports.apply = function (req, res) {
+  return res.render(basePath + 'apply');
+};
+
+exports.applyUpdate = function (req, res) {
+  if(req.user.isSeller || req.user.applying)
+    return res.badRequest(null, 'El usuario ya aplico o es vendedor');
+
+  req.user.updateAttributes(req.body).then(function() {
+    return res.ok({user:user}, 'Usuario esta aplicando a vendedor');
+  });
+};
+
 
 exports.updateCover = function (req, res) {
   req.profile.updateAttributes(req.body).then(function () {

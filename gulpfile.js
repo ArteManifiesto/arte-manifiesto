@@ -26,6 +26,7 @@ var paths = {
       './app/scripts/vendor/photoswipe-ui-default.js',
       './app/scripts/vendor/photoswipe.js',
       './app/scripts/vendor/jquery.ui.widget.js',
+      './app/scripts/vendor/jquery.geocomplete.js',
       './app/scripts/vendor/jquery.tagsinput.js',
       './app/scripts/vendor/jquery.maskedinput.js',
       './app/scripts/vendor/jquery.leanModal.js',

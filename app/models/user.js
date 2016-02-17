@@ -43,6 +43,16 @@ module.exports = function (sequelize, DataTypes) {
 
       isAdmin: {type: DataTypes.BOOLEAN, defaultValue: false},
 
+      isSeller: {type: DataTypes.BOOLEAN, defaultValue: false},
+      applying: {type: DataTypes.BOOLEAN, defaultValue: false},
+      province: DataTypes.STRING,
+      zipcode: DataTypes.STRING,
+      direction: DataTypes.STRING,
+      phone: DataTypes.STRING,
+      document: DataTypes.STRING,
+      documentValue: DataTypes.STRING,
+      businessName: DataTypes.STRING
+
       typeName: {type: DataTypes.INTEGER, defaultValue: 1},
       verified: {type: DataTypes.BOOLEAN, defaultValue: false},
       filled: {type: DataTypes.BOOLEAN, defaultValue: false},
