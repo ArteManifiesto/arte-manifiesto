@@ -1,7 +1,11 @@
 var basePath = 'user/product/';
 
 exports.index = function (req, res) {
-  return res.json(req.product);
+    return res.render(basePath + 'index', {
+        profile: req.profile,
+        product: req.product
+    });
+
     // req.product.views += 1;
     // var promises = [
     //     req.product.save(),
@@ -17,7 +21,6 @@ exports.index = function (req, res) {
     //     });
     // });
 };
-
 
 exports.create = function (req, res) {
   req.body.UserId = req.user.id;

@@ -29,7 +29,7 @@ module.exports = function (sequelize, DataTypes) {
                     Product.belongsTo(models.Work, {onDelete: 'cascade'});
                     Product.belongsTo(models.User, {onDelete: 'cascade'});
                     Product.belongsTo(models.Category);
-                    // Product.hasMany(models.Review, {onDelete: 'cascade'});
+                    Product.hasMany(models.Review, {onDelete: 'cascade'});
                 }
             },
             instanceMethods: {
