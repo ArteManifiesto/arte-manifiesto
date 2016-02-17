@@ -1,7 +1,7 @@
 {% extends '../../partials/base.html' %}
 
 {% block elements %}
-<!--
+<!-- 
 	<div class="grid-container">
 		<div class="grid-100">
 
@@ -68,6 +68,84 @@
 			</div>
 		</div>
 	</div>
+ -->
+
+
+	<div class="grid-container">
+		<div class="grid-100">
+			<p class="sales-title u-margin-bottom-30 u-margin-top-60">OBRA EN VENTA</p>
+		</div>
+	</div>
+
+	<div class="grid-container">
+		<div class="grid-100">
+			<div class="sales-image-card">
+				<img src="{{work.photo|addFilter('w_300,c_limit')}}"/>
+				<div class="content">
+					<a href="#" class="title">{{work.name}}</a>
+					<a href="#" class="author">
+					{% if work.User.typeName === 1 %}
+						{{work.User.fullname}}
+					{% else %}
+						{{work.User.pseudonimo}}
+					{% endif %}</a>
+				</div>
+			</div>
+
+			<div class="sales-option-button">
+					<a class="sales-button white">ACTUALIZAR IMAGEN</a>
+					<a class="sales-button white">EDITAR DATOS</a>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="grid-container">
+		<div class="grid-100">
+			<p class="sales-title u-margin-bottom-30">CREADOR DE PRODUCTOS</p>
+		</div>
+	</div>
+
+	<div class="grid-container">
+		<div class="grid-100 grid-parent">
+
+			<div class="products-creator">
+				<div class="product-creator">
+					<div class="image">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
+					</div>
+					<p class="title">OBRA ORIGINAL</p>
+					<p class="description">0/1 activados</p>
+					<div class="buttons">
+						<a class="sales-button white" href="#">EDITAR</a>
+						<a class="sales-button blue" href="#">ACTIVAR</a>
+					</div>
+				</div>
+				<div class="product-creator">
+					<div class="image">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
+					</div>
+					<p class="title">OBRA ORIGINAL</p>
+					<p class="description">0/1 activados</p>
+					<div class="buttons">
+						<a class="sales-button white" href="#">EDITAR</a>
+						<a class="sales-button blue" href="#">ACTIVAR</a>
+					</div>
+				</div>
+				<div class="product-creator">
+					<div class="image">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
+					</div>
+					<p class="title">OBRA ORIGINAL</p>
+					<p class="description">0/1 activados</p>
+					<div class="buttons">
+						<a class="sales-button white" href="#">EDITAR</a>
+						<a class="sales-button blue" href="#">ACTIVAR</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<div class="grid-container">
 		<div class="grid-100">
@@ -120,72 +198,12 @@
 				</div>
 			</div>
 		</div>
-	</div> -->
-
-
-	<div class="grid-container">
-		<div class="grid-100">
-			<p class="sales-title u-margin-bottom-30 u-margin-top-60">OBRA EN VENTA</p>
-		</div>
 	</div>
-
-	<div class="grid-container">
-		<div class="grid-100">
-			<div class="sales-image-card">
-				<img src="{{work.photo|addFilter('w_300,c_limit')}}"/>
-				<div class="content">
-					<a href="#" class="title">{{work.name}}</a>
-					<a href="#" class="author">
-					{% if work.User.typeName === 1 %}
-						{{work.User.fullname}}
-					{% else %}
-						{{work.User.pseudonimo}}
-					{% endif %}</a>
-				</div>
-			</div>
-
-			<div class="sales-option-button">
-					<a class="sales-button white">ACTUALIZAR IMAGEN</a>
-					<a class="sales-button white">EDITAR DATOS</a>
-			</div>
-		</div>
-	</div>
-
-
-	<div class="grid-container">
-		<div class="grid-100">
-			<p class="sales-title u-margin-bottom-30">CREADOR DE PRODUCTOS</p>
-		</div>
-	</div>
-
-
+	
 	<div class="grid-container">
 		<div class="grid-100 grid-parent">
 
-
 			<div class="products-creator">
-				<div class="product-creator">
-					<div class="image">
-						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
-					</div>
-					<p class="title">OBRA ORIGINAL</p>
-					<p class="description">0/1 activados</p>
-					<div class="buttons">
-						<a class="sales-button white" href="#">EDITAR</a>
-						<a class="sales-button blue" href="#">ACTIVAR</a>
-					</div>
-				</div>
-				<div class="product-creator">
-					<div class="image">
-						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
-					</div>
-					<p class="title">OBRA ORIGINAL</p>
-					<p class="description">0/1 activados</p>
-					<div class="buttons">
-						<a class="sales-button white" href="#">EDITAR</a>
-						<a class="sales-button blue" href="#">ACTIVAR</a>
-					</div>
-				</div>
 				<div class="product-creator">
 					<div class="image">
 						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
