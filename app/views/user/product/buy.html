@@ -106,7 +106,7 @@
 							</div>
 							<div class="grid-100">
 								<div class="buttons-container">
-									<form method="post" action="/user/{{product.User.username}}/product/buy">
+									<form method="post" name='buy-form' action="/user/{{product.User.username}}/product/buy">
 										<input type="hidden" value="{{product.id}}" name="idProduct">
 										<button type="submit" class="button btn-pay" data-color="blue">PAGAR CON PAYPAL</button>
 									</form>
@@ -125,7 +125,7 @@
 	<script>
 		var product = {{product|json|safe}};
 		$(function() {
-			// new APP.BuyScreen();
+			new APP.BuyScreen();
 		});
 
 	</script>

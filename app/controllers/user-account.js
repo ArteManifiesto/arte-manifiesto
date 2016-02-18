@@ -18,6 +18,33 @@ exports.index = function (req, res) {
   });
 };
 
+
+exports.requests = function(req, res) {
+  global.db.Order.findAll({where: {
+    SellerId: req.user.id,
+  }, include: [
+    {model: global.db.User},
+    {model: global.db.Product}
+  ]}).then(function(requests) {
+    return res.render(basePath + 'requests', {
+      requests: requests
+    });
+  });
+};
+
+exports.orders = function(req, res) {
+  global.db.Order.findAll({where: {
+    UserId: req.user.id,
+  }, include: [
+    {model: global.db.User, as : 'Seller'},
+    {model: global.db.Product}
+  ]}).then(function(orders) {
+    return res.render(basePath + 'orders', {
+      orders: orders
+    });
+  });
+};
+
 exports.update = function (req, res) {
   req.body.fullname = req.body.firstname + ' ' + req.body.lastname;
     req.body.isArtist = parseInt(req.body.isArtist, 10);

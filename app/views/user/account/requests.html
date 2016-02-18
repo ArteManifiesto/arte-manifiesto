@@ -1,0 +1,23 @@
+{% extends '../../partials/base.html' %}
+{% set pageTitle = 'Pedidos' %}
+
+{% block elements %}
+  <ul>
+   {% for request in requests %}
+      <li>estado : {{request.status}}   </br> product : {{request.Product.name}}</li>
+   {% endfor %}
+  </ul>
+{% endblock %}
+
+{% block scripts %}
+	<script>
+		var profile = {{profile|json|safe}};
+
+		$(function() {
+			new APP.AccountPasswordScreen();
+			$('.account-title').click(function () {
+				$('.am-Filter.account.mobile').toggleClass('visible')
+			});
+		});
+	</script>
+{% endblock %}

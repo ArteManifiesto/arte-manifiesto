@@ -1,0 +1,17 @@
+{% extends '../../partials/base.html' %}
+
+{% block elements %}
+<p>
+  Success
+</p>
+{% endblock %}
+
+{% block scripts %}
+	<script>
+		var product = {{product|json|safe}};
+		$(function() {
+			// new APP.BuyScreen();
+		});
+
+	</script>
+{% endblock %}

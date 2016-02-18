@@ -17,5 +17,4 @@ APP.BuyScreen.prototype.setupUI = function () {
 
 APP.BuyScreen.prototype.listeners = function () {
   APP.BaseScreen.prototype.listeners.call(this);
-  // this.payBtn.click(this.payHandler.bind(this));
 };

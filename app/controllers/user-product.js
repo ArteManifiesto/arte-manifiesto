@@ -54,16 +54,32 @@ exports.buyPage = function (req, res) {
   });
 };
 
+exports.successPage = function (req, res) {
+  global.db.Order.create({
+    ProductId: req.product.id,
+    UserId: req.user.id,
+    SellerId: req.product.User.id,
+    status: 'recibido'
+  }).then(function(order) {
+    return res.render(basePath + 'success', {
+      product: req.product
+    });
+  });
+};
+
+exports.canceledPage = function (req, res) {
+  return res.render(basePath + 'canceled', {
+    product: req.product
+  });
+};
+
 exports.buy = function (req, res) {
   var payment = {
     "intent": "sale",
     "payer": {
       "payment_method": "paypal"
     },
-    "redirect_urls": {
-      "return_url": req.protocol + '://' + req.get('host') + "/success",
-      "cancel_url": req.protocol + '://' + req.get('host') + "/failed",
-    },
+    "redirect_urls": {},
     "transactions": [{
       "amount": {
         "total": parseInt(req.product.finalPrice),
@@ -72,23 +88,32 @@ exports.buy = function (req, res) {
       "description": req.product.description
     }]
   };
-  paypal.payment.create(payment, function (error, payment) {
-    if (error) {
-      console.log(error);
-    } else {
-      if(payment.payer.payment_method === 'paypal') {
-        req.paymentId = payment.id;
-        var redirectUrl;
-        console.log(payment);
-        for(var i=0; i < payment.links.length; i++) {
-          var link = payment.links[i];
-          if (link.method === 'REDIRECT') {
-            redirectUrl = link.href;
+
+  req.product.getUser().then(function(user) {
+    var baseUrl = req.protocol + '://' + req.get('host') + '/user/' +
+        user.username + '/product/' + req.product.nameSlugify;
+
+    payment.redirect_urls.return_url = baseUrl + '/success';
+    payment.redirect_urls.cancel_url = baseUrl + '/canceled';
+
+    paypal.payment.create(payment, function (error, payment) {
+      if (error) {
+        console.log(error);
+      } else {
+        if(payment.payer.payment_method === 'paypal') {
+          req.paymentId = payment.id;
+          var redirectUrl;
+          console.log(payment);
+          for(var i=0; i < payment.links.length; i++) {
+            var link = payment.links[i];
+            if (link.method === 'REDIRECT') {
+              redirectUrl = link.href;
+            }
           }
+          res.redirect(redirectUrl);
         }
-        res.redirect(redirectUrl);
       }
-    }
+    });
   });
 };
 

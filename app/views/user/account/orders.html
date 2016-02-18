@@ -1,0 +1,23 @@
+{% extends '../../partials/base.html' %}
+{% set pageTitle = 'Ordenes' %}
+
+{% block elements %}
+  <ul>
+   {% for order in orders %}
+      <li>estado : {{order.status}}   </br> product : {{order.Product.name}}</li>
+   {% endfor %}
+  </ul>
+{% endblock %}
+
+{% block scripts %}
+	<script>
+		var profile = {{profile|json|safe}};
+
+		$(function() {
+			new APP.AccountPasswordScreen();
+			$('.account-title').click(function () {
+				$('.am-Filter.account.mobile').toggleClass('visible')
+			});
+		});
+	</script>
+{% endblock %}

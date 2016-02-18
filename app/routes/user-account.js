@@ -8,6 +8,9 @@ router.get('/', controller.index);
 router.get('/photo', controller.photo);
 router.get('/password', controller.password);
 
+router.get('/orders', controller.orders);
+router.get('/requests', controller.requests);
+
 router.get('/seller', controller.seller);
 router.post('/seller', controller.sellerUpdate);
 
