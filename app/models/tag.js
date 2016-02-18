@@ -5,6 +5,7 @@ module.exports = function (sequelize, DataTypes) {
             classMethods: {
                 associate: function (models) {
                     Tag.belongsToMany(models.Work , {through: 'WorkTags'});
+                    Tag.belongsToMany(models.Product , {through: 'ProductTags'});
                 }
             }
         }

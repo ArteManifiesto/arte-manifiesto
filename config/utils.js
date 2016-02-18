@@ -143,7 +143,6 @@ var beforePagination = function (req, discover) {
   var query = {where: {nameSlugify: req.params.value}};
   var tempModel = 'Category';
   if (req.query.term && req.query.term.substring(0, 1) === '#') {
-    tempEntity = 'Work';
     query = {where: {name: req.query.term.substring(1, req.query.term.length)}};
     tempModel = 'Tag';
   } else {
