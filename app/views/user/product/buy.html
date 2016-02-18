@@ -1,0 +1,132 @@
+{% extends '../../partials/base.html' %}
+
+{% block elements %}
+
+	<div class="am-welcome am-checkout">
+		<div class="grid-container">
+			<div class="grid-100">
+				<div class="checkout-box">
+					<div class="checkout-content">
+						<div class="grid-container">
+							<div class="grid-70">
+								<p class="title">Datos de envío</p>
+							</div>
+							<div class="grid-70">
+								<div class="checkout-info">
+									<div class="addresses">
+										<div class="address">
+											<input type="radio" name="address">
+											<div>
+												<p class="address-title">Luis Eduardo Augusto</p>
+												<p class="address-subtitle">460 Lizardo Montero - apt 304</p>
+												<p class="address-subtitle">Lima, Lima 018</p>
+												<p class="address-subtitle">Perú</p>
+												<p class="address-subtitle">Tel:+51944426766</p>
+											</div>
+										</div>
+										<div class="address">
+											<input type="radio" name="address">
+											<p class="address-title">Agregar nueva dirección de envío</p>
+										</div>
+										<div class="address" style="padding-bottom: 20px;">
+											<div class="grid-container grid-parent" style="width: 100%;">
+												<div class="grid-50">
+													<p class="address-label">Nombres</p>
+													<input class="address-input" placeholder="Ingresa tu Nombre">
+												</div>
+												<div class="grid-50">
+													<p class="address-label">Apellidos</p>
+													<input class="address-input" placeholder="Tus apellidos">
+												</div>
+												<div class="grid-66">
+													<p class="address-label">Dirección de Envío</p>
+													<input class="address-input" placeholder="Dirección Línea 1">
+												</div>
+												<div class="grid-33">
+													<p class="address-label">Int/Apartamento</p>
+													<input class="address-input" placeholder="Nro">
+												</div>
+												<div class="grid-33">
+													<p class="address-label">Ciudad</p>
+													<input class="address-input" placeholder="Ingresa tu ciudad">
+												</div>
+												<div class="grid-33">
+													<p class="address-label">Estado/Provincia</p>
+													<input class="address-input" placeholder="Estado o provincia">
+												</div>
+												<div class="grid-33">
+													<p class="address-label">Código Postal</p>
+													<input class="address-input" placeholder="Nro">
+												</div>
+												<div class="grid-33 suffix-66">
+													<p class="address-label">País</p>
+													<select class="address-input">
+														<option>Seleccionar País</option>
+													</select>
+												</div>
+												<div class="grid-33">
+													<p class="address-label">Teléfono móvil</p>
+													<input class="address-input" placeholder="Ingresa tu número">
+												</div>
+												<div class="grid-66">
+													<p class="address-label">Correo electrónico</p>
+													<input class="address-input" placeholder="Ingresa tu e-mail">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="grid-30">
+								<div class="checkout-resume">
+									<div class="resume-box u-padding-bottom-10">
+										<header>RESUMEN DE LA ORDEN</header>
+										<section>
+											<table>
+												<tr>
+													<td><p class="label">subtotal</p></td>
+													<td><p class="price">S/.1300.00</p></td>
+												</tr>
+												<tr>
+													<td><p class="label">transporte</p></td>
+													<td><p class="price">S/.1300.00</p></td>
+												</tr>
+												<tr>
+													<td><p class="label">igv</p></td>
+													<td><p class="price">S/.1300.00</p></td>
+												</tr>
+												<tr>
+													<td><p class="label" style="font-size: 18px;">total</p></td>
+													<td><p class="price">S/. <span style="font-size: 18px;">1300.00</span></p></td>
+												</tr>
+											</table>
+										</section>
+									</div>
+								</div>
+							</div>
+							<div class="grid-100">
+								<div class="buttons-container">
+									<form method="post" action="/user/{{product.User.username}}/product/buy">
+										<input type="hidden" value="{{product.id}}" name="idProduct">
+										<button type="submit" class="button btn-pay" data-color="blue">PAGAR CON PAYPAL</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block scripts %}
+	<script>
+		var product = {{product|json|safe}};
+		$(function() {
+			// new APP.BuyScreen();
+		});
+
+	</script>
+{% endblock %}

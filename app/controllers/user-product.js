@@ -1,11 +1,11 @@
 var basePath = 'user/product/';
+var paypal = require('paypal-rest-sdk');
 
 exports.index = function (req, res) {
     return res.render(basePath + 'index', {
         profile: req.profile,
         product: req.product
     });
-
     // req.product.views += 1;
     // var promises = [
     //     req.product.save(),
@@ -46,6 +46,50 @@ exports.like = function (req, res) {
     req.product.like(req.user).then(function (likes) {
         return res.ok({product: req.product, likes: likes}, 'Product liked');
     });
+};
+
+exports.buyPage = function (req, res) {
+  return res.render(basePath + 'buy', {
+    product: req.product
+  });
+};
+
+exports.buy = function (req, res) {
+  var payment = {
+    "intent": "sale",
+    "payer": {
+      "payment_method": "paypal"
+    },
+    "redirect_urls": {
+      "return_url": req.protocol + '://' + req.get('host') + "/success",
+      "cancel_url": req.protocol + '://' + req.get('host') + "/failed",
+    },
+    "transactions": [{
+      "amount": {
+        "total": parseInt(req.product.finalPrice),
+        "currency":  'USD'
+      },
+      "description": req.product.description
+    }]
+  };
+  paypal.payment.create(payment, function (error, payment) {
+    if (error) {
+      console.log(error);
+    } else {
+      if(payment.payer.payment_method === 'paypal') {
+        req.paymentId = payment.id;
+        var redirectUrl;
+        console.log(payment);
+        for(var i=0; i < payment.links.length; i++) {
+          var link = payment.links[i];
+          if (link.method === 'REDIRECT') {
+            redirectUrl = link.href;
+          }
+        }
+        res.redirect(redirectUrl);
+      }
+    }
+  });
 };
 
 exports.unLike = function (req, res) {

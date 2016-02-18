@@ -75,9 +75,7 @@ APP.EditWorkScreen.prototype.workFormSubmitHandler = function (event) {
     if (value.name === 'nsfw' || value.name === 'public')
       value.value = (value.value === 'on');
   });
-
-  console.log(data);
-
+  
   var url = DataApp.currentUser.url + '/work/update';
   this.requestHandler(url, data, this.workUpdatedComplete);
 };

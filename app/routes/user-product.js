@@ -9,8 +9,11 @@ var entity = 'Product';
 router.use(global.md.entity(entity));
 
 router.get('/:nameSlugify', global.md.nameSlugify(entity), controller.index);
+router.get('/:nameSlugify/buy', global.md.nameSlugify(entity), controller.buyPage);
 
 router.post('/create', isLoggedAndOwner, controller.create);
+router.post('/buy', isLoggedAndOwner, controller.buy);
+
 // router.post('/delete', isLoggedAndOwner, controller.delete);
 // router.post('/update', isLoggedAndOwner, controller.update);
 

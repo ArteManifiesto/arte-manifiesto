@@ -12,6 +12,7 @@ var swig = require('swig');
 var compression = require('compression');
 var moment = require('moment');
 var minify = require('html-minifier').minify;
+var paypal = require('paypal-rest-sdk');
 
 module.exports = function (app, passport) {
   /**
@@ -96,7 +97,7 @@ module.exports = function (app, passport) {
       'like-work', 'follow-user', 'review-work', 'request-work',
       'denied-product', 'accepted-product'
     ];
-    
+
     var query = {
       where: {
         UserId: {$not: [req.user.id]},
@@ -111,5 +112,11 @@ module.exports = function (app, passport) {
     });
   });
 
+  var mode = process.env.NODE_ENV === 'development' ? 'sandbox' : 'live';
+  paypal.configure({
+    'mode': mode,
+    'client_id': process.env.PAYPAL_CLIENT_ID,
+    'client_secret': process.env.PAYPAL_CLIENT_SECRET
+  });
   app.use(global.md.check);
 };

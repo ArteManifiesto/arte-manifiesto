@@ -196,6 +196,16 @@ exports.landing = function (req, res) {
   return res.render(basePath + 'landing');
 };
 
+exports.success = function (req, res) {
+  return res.json({status: 'success'});
+  return res.render(basePath + 'success');
+};
+
+exports.failed = function (req, res) {
+  return res.json({status: 'failed'});
+  return res.render(basePath + 'failed');
+};
+
 exports.search = function (entity, req, res) {
   return searchDiscover(entity, req).then(function (data) {
     return res.json(data);
