@@ -1,0 +1,77 @@
+{% extends '../../partials/base.html' %}
+{% set pageTitle = 'Cambiar contraseña' %}
+
+{% block elements %}
+	<div class="am-profile" style="padding-left: 0; padding-right: 0;">
+
+		<div class="grid-container u-margin-top-20">
+			<div class="grid-100">
+				<p class="account-title"><i class="fa fa-caret-down"></i>Quiero abrir mi tienda</p>
+			</div>
+		</div>
+
+		<div class="grid-container">
+			<div class="grid-100">
+				<div class="am-Filter account mobile u-margin-top-10">
+					<div class="am-Filter-item">
+						<header class="am-Filter-header">
+							<i class="bi_user-single-a"></i><p>Mi cuenta</p>
+						</header>
+					</div>
+					<div class="am-Filter-item">
+						<ul class="am-Filter-subOptions">
+							<a href="/user/{{profile.username}}/account/">Mis datos de perfil</a>
+							<a href="#">Mis compras</a>
+							<a href="#">Mis direcciones de envío</a>
+							<a href="#">Métodos de pago</a>
+							<a href="#">Configuracion cuenta</a>
+							<a href="/user/{{profile.username}}/account/password">Cambiar contraseña</a>
+							<a href="/user/{{profile.username}}/account/seller"  class="selected">Editar datos de vendedor</a>
+							<a href="#">Gestor de pedidos</a>
+						</ul>
+					</div>
+					<!-- <div class="am-Filter-item">
+						<header class="am-Filter-header">
+							<i class="fa fa-bars"></i><p>Tienda en línea</p>
+						</header>
+					</div>
+					<div class="am-Filter-item">
+						<ul class="am-Filter-subOptions">
+							<a href="#">Quiero abrir mi tienda</a>
+						</ul>
+					</div> -->
+				</div>
+
+				<div class="am-profile-box grid-container u-margin-top-20">
+					<form class="password-form">
+						<div class="grid-100" style="clear: inherit;">
+							<p class="title" style="padding-top: 0;">Direccion</p>
+							<input class="input" type="text" name='direction' required placeholder="Dirección"/>
+						</div>
+
+						<div class="grid-100 save mobile-grid-100">
+							<button class="button u-margin-top-30" data-color="green">GUARDAR CAMBIOS</button>
+						</div>
+
+						<div class="grid-100 save-loading hide mobile-grid-100">
+							<button class="button u-margin-top-30" data-color="green"><i class="load fa fa-spinner"></i></button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+	</div>
+{% endblock %}
+
+{% block scripts %}
+  <script src='//maps.googleapis.com/maps/api/js?libraries=places'></script>
+	<script>
+		$(function() {
+			new APP.AccountApplyScreen();
+			$('.account-title').click(function () {
+				$('.am-Filter.account.mobile').toggleClass('visible')
+			});
+		});
+	</script>
+{% endblock %}
