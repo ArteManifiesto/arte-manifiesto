@@ -20,9 +20,14 @@
 					</div>
 					<div class="am-Filter-item">
 						<ul class="am-Filter-subOptions">
-							<a href="/user/{{user.username}}/account/">Mis datos de perfil</a>
-							<a href="/user/{{user.username}}/account/password" class="selected">Cambiar contraseña</a>
-							<!-- <a href="#">Administración de cuenta</a> -->
+							<a href="/user/{{profile.username}}/account/">Mis datos de perfil</a>
+							<a href="#">Mis compras</a>
+							<a href="#">Mis direcciones de envío</a>
+							<a href="#">Métodos de pago</a>
+							<a href="#">Configuracion cuenta</a>
+							<a href="/user/{{profile.username}}/account/password">Cambiar contraseña</a>
+							<a href="/user/{{profile.username}}/account/seller"  class="selected">Editar datos de vendedor</a>
+							<a href="#">Gestor de pedidos</a>
 						</ul>
 					</div>
 					<!-- <div class="am-Filter-item">
