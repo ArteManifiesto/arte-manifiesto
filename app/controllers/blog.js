@@ -89,7 +89,7 @@ exports.index = function (req, res) {
 
 /**
  * get posts exluding the first three feature posts, because
- * their are in top =]
+ * their are on top =]
  */
 exports.posts = function (req, res) {
   getFeaturedTopPosts().then(function (topPosts) {

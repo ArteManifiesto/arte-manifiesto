@@ -8,7 +8,7 @@ var entity = 'Post';
 router.get('/', controller.index);
 router.post('/:page', controller.posts);
 
-router.get('/creator', global.md.isAdmin, controller.creator);
+router.get('/creator', global.md.isLogged, controller.creator);
 router.get('/category/:category', controller.category);
 router.get('/draft', global.md.isAdmin, controller.draft);
 
