@@ -18,27 +18,27 @@ module.exports = function (app, passport) {
    * View engine setup
    * ====================================================
    */
-  if (process.env.NODE_ENV === 'production') {
-    app.engine('html', function (pathName, locals, cb) {
-      function cb_(err, result) {
-        var html;
-        if (!err) {
-          html = minify(result, {
-            minifyJS: true,
-            minifyCSS: true,
-            removeComments: true,
-            collapseWhitespace: true
-          });
-        }
-        return cb(err, html);
-      }
+  // if (process.env.NODE_ENV === 'production') {
+  //   app.engine('html', function (pathName, locals, cb) {
+  //     function cb_(err, result) {
+  //       var html;
+  //       if (!err) {
+  //         html = minify(result, {
+  //           minifyJS: true,
+  //           minifyCSS: true,
+  //           removeComments: true,
+  //           collapseWhitespace: true
+  //         });
+  //       }
+  //       return cb(err, html);
+  //     }
+  //
+  //     return swig.renderFile(pathName, locals, cb_);
+  //   });
 
-      return swig.renderFile(pathName, locals, cb_);
-    });
-
-  } else {
+  // } else {
     app.engine('html', swig.renderFile);
-  }
+  // }
 
   app.set('views', global.cf.views);
   app.set('view engine', 'html');
