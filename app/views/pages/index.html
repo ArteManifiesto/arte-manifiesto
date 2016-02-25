@@ -112,7 +112,7 @@
 			<div class="categories">
 				{% for category in categories %}
 				<div class="categorie-container">
-					<a href="/works/category/{{category.nameSlugify}}/page-1/" class="categorie" style="background-image: url('{{category.photo}}');">
+					<a href="/works/category/{{category.nameSlugify}}/page-1/?order=newest&featured=1" class="categorie" style="background-image: url('{{category.photo}}');">
 						<div class="cover"></div>
 						<p>{{category.name}}</p>
 					</a>
@@ -124,7 +124,7 @@
 
 	<div class="grid-container u-margin-top-10">
 		<div class="grid-100">
-			<a href="/works/category/all/page-1/" class="home-more-link">VER TODAS LAS OBRAS ></a>
+			<a href="/works/category/all/page-1/?order=newest&featured=1" class="home-more-link">VER TODAS LAS OBRAS ></a>
 		</div>
 	</div>
 
