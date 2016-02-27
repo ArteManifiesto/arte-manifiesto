@@ -910,16 +910,20 @@ white = #fff
 	border solid 1px #ddd
 	position relative
 	&-info
-		display flex
-		align-items center
-		padding 10px
+		// display flex
+		// align-items center
+		padding 15px 10px
+		// padding 10px
 		>div
-			flex 1
+			padding-left: 60px;
+		// 	flex 1
 		img
 			height 50px
 			width 50px
 			border-radius 50%
 			margin-right 10px
+			position absolute
+			top 10px
 		p
 			font-family 'Montserrat', sans-serif
 			font-size 10px
@@ -5150,3 +5154,22 @@ white = #fff
 		transform translateX(0%)
 	100%
 		transform translateX(-100%)
+
+
+#back-to-top
+	position: fixed;
+	bottom: 40px;
+	right: 40px;
+	z-index: 1;
+	width: 42px;
+	height: 42px;
+	text-align: center;
+	line-height: 40px;
+	background rgba(232, 98, 86, 0.8)
+	color white
+	cursor: pointer;
+	transition: opacity 0.2s ease-out;
+	opacity: 0;
+
+#back-to-top.show
+	opacity: 1;
