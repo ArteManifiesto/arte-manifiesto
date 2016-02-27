@@ -14,25 +14,9 @@
 
 		<div class="grid-container">
 			<div class="grid-100">
-				<div class="am-Filter account mobile u-margin-top-10">
-					<div class="am-Filter-item">
-						<header class="am-Filter-header">
-							<i class="bi_user-single-a"></i><p>Mi cuenta</p>
-						</header>
-					</div>
-					<div class="am-Filter-item">
-						<ul class="am-Filter-subOptions">
-							<a href="/user/{{profile.username}}/account/">Mis datos de perfil</a>
-							<a href="#">Mis compras</a>
-							<a href="#">Mis direcciones de envío</a>
-							<a href="#">Métodos de pago</a>
-							<a href="#">Configuracion cuenta</a>
-							<a href="/user/{{profile.username}}/account/password">Cambiar contraseña</a>
-							<a href="/user/{{profile.username}}/account/seller" class="selected">Editar datos de vendedor</a>
-							<a href="#">Gestor de pedidos</a>
-						</ul>
-					</div>
-				</div>
+				
+				{% include '../../partials/account-menu.html' %}
+
 
 				<div class="am-profile-box grid-container u-margin-top-20">
 					<form class="complete-form">
@@ -113,10 +97,10 @@
 
 								<p class="subtitle">Cuando se vende una obra o producto en la plataforma, la venta ocurre entre tú y el comprador final. Arte Manifiesto funciona como tu agente. Para hacer esto, tienes que darnos permisos explícitos</p>
 
-								<table>
+								<table class="u-margin-top-20">
 									<tr>
 										<td><input type="checkbox" name="" value=""></td>
-										<td class="check-title">Acepto los términos y condiciones para vendedores en la plataforma.</td>
+										<td class="check-title">Acepto los <a href="#">términos y condiciones para vendedores</a> en la plataforma.</td>
 									</tr>
 								</table>
 
@@ -124,7 +108,11 @@
 							
 						</div>
 						<div class="grid-100 mobile-grid-100">
-							<button class="button save u-margin-top-40" data-color="green">GUARDAR CAMBIOS</button>
+							<button class="button upload green u-margin-top-40" data-color="green">GUARDAR CAMBIOS</button>
+						</div>
+
+						<div class="grid-100 mobile-grid-100">
+							<button class="button upload red u-margin-top-40" data-color="green">ELIMINAR TIENDA</button>
 						</div>
 
 						<div class="grid-100 save-loading hide mobile-grid-100">
