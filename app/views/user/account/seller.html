@@ -124,6 +124,48 @@
 		</div>
 
 	</div>
+
+	<a id="go-share-modal" href="#share-modal">HOLI!</a>
+
+	<div id="share-modal" style="display: none;">
+		<i class="closed-modal fa fa-times"></i>
+		
+		<div class="am-profile" style="padding: 0;">
+
+			<div class="grid-container" style="padding: 0;">
+				<div class="grid-100 grid-parent">
+
+					<div class="am-profile-box grid-container">
+						<form class="complete-form">
+
+							<div class="separator main u-margin-top-30">
+								<span class="line" style="height: 2px;"></span><span class="text">APERTURA<br>DE TIENDA</span><span class="line" style="height: 2px;"></span>
+							</div>
+
+							<div class="grid-100 mobile-grid-100">
+								<p class="title comfirm">Ya estas listo para vender tu trabajo al mundo
+									<br><br>
+									Anda a tu portafolio y edita que obras quieres vender.
+									<br><br>
+										Asegúrate de revistar nuestras guía para vendedor
+									<br><br><br>
+									<a href="#">
+										Guía para vendedores
+									</a>
+								</p>
+							</div>
+								
+							<div class="grid-100 mobile-grid-100">
+								<button class="button upload green u-margin-top-40" data-color="green">IR A PORTAFOLIO</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
 {% endblock %}
 {% block scripts %}
 	<script>
@@ -137,6 +179,10 @@
 		$('.account-title').click(function () {
 			$('.am-Filter.account.mobile').toggleClass('visible')
 		})
+
+	  $('#go-collection-modal').leanModal();
+	  $('#go-share-modal').leanModal();
+
 	});
 	</script>
 {% endblock %}
