@@ -82,7 +82,7 @@
 			<div class="sales-image-card">
 				<img src="{{work.photo|addFilter('w_300,c_limit')}}"/>
 				<div class="content">
-					<a href="#" class="title">{{work.name}}</a>
+					<a href="#" class="title">{{work.name}}</a><br>
 					<a href="#" class="author">
 					{% if work.User.typeName === 1 %}
 						{{work.User.fullname}}
@@ -150,7 +150,7 @@
 	<div class="grid-container">
 		<div class="grid-100">
 
-			<p class="sales-title u-margin-top-30">VENTA DE OBRA ORIGINAL</p>
+			<!-- <p class="sales-title u-margin-top-30">VENTA DE OBRA ORIGINAL</p> -->
 
 			<div class="sales">
 				<div class="sales-left">
@@ -175,11 +175,13 @@
 
 					<p class="title">Tipo de empaque</p>
 
-					<input class="check" type="checkbox" name="package-type"></input>
-					<label class="label-check">Empaque en tubo</label>
+					<div class="checks">
+						<input class="check" type="checkbox" name="package-type"></input>
+						<label class="label-check">Empaque en tubo</label>
 
-					<input class="check" type="checkbox" name="package-type"></input>
-					<label class="label-check">Empaque en caja</label>
+						<input class="check" type="checkbox" name="package-type"></input>
+						<label class="label-check">Empaque en caja</label>
+					</div>
 
 					<div class="sizes">
 						<p class="title">Largo</p>
