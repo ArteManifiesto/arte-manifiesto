@@ -1,73 +1,6 @@
 {% extends '../../partials/base.html' %}
 
 {% block elements %}
-<!-- 
-	<div class="grid-container">
-		<div class="grid-100">
-
-			<p class="sales-title u-margin-top-30">DATOS DE LA OBRA DEL PORTAFOLIO</p>
-
-			<div class="sales">
-				<div class="sales-left">
-					<div class="sales-image-card">
-						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_700,h_800,q_80,c_limit/v1454928729/chlvcbesfnspyczfictg.png">
-						<div class="content">
-							<a href="#" class="title">OUR LEGACY SPLASH MID SLEEVE AND I WILL NOT SLEEP</a>
-							<a href="#" class="author">Sergio Gonzales Mucho</a>
-						</div>
-					</div>
-				</div>
-				<div class="sales-right">
-
-					<a class="sales-button white">REEMPLAZAR IMAGEN</a>
-					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
-
-					<p class="title">Título de la obra</p>
-					<input class="input" value="Medidas cm"></input> <br>
-					<p class="title">Categoría de la obra</p>
-					<select class="select">
-						<option>Selecciona la categoría</option>
-						<option>Arte urbano</option>
-						<option>Ilustracion</option>
-						<option>Tenica mixta</option>
-					</select> <br>
-					<p class="title">Descripción</p>
-					<textarea class="textarea">Escribe una descripción de tu obra</textarea>
-					<p class="title">Tags de la obra</p>
-					<textarea class="textarea">Escribe tags separados por comas ó enter. A más tags  con más contexto, más fácil será encontrar tu trabajo.</textarea>
-
-					<table class="switchs">
-						<tr>
-							<td><p class="title">Visible sólo por mí</p></td>
-							<td><p class="switch-label">off</p></td>
-							<td>
-								<input type="checkbox" name="input-visible" id="input-visible"/>
-								<label for="input-visible">
-								  <div class="am-Switch-button">
-								  	<i class="fa fa-bars"></i>
-								  </div>
-								</label>
-							</td>
-						</tr>
-						<tr>
-							<td><p class="title">Contenido +18 - NSFW</p></td>
-							<td><p class="switch-label">off</p></td>
-							<td>
-								<input type="checkbox" name="input-nsfw" id="input-nsfw"/>
-								<label for="input-nsfw">
-								  <div class="am-Switch-button">
-								  	<i class="fa fa-bars"></i>
-								  </div>
-								</label>
-							</td>
-						</tr>
-					</table>
-
-					<a class="sales-button u-margin-top-30 u-margin-bottom-30">ACTUALIZAR</a>
-				</div>
-			</div>
-		</div>
-	</div> -->
 
 	<a class="sales-button white create-btn">CREAR</a>
 
@@ -98,7 +31,6 @@
 			</div>
 		</div>
 	</div>
-
 
 	<div class="grid-container">
 		<div class="grid-100">
@@ -147,11 +79,9 @@
 		</div>
 	</div>
 
+	<!-- SALES 1 -->
 	<div class="grid-container">
 		<div class="grid-100">
-
-			<!-- <p class="sales-title u-margin-top-30">VENTA DE OBRA ORIGINAL</p> -->
-
 			<div class="sales">
 				<div class="sales-left">
 					<div class="sales-image-card">
@@ -203,6 +133,126 @@
 		</div>
 	</div>
 	
+	<!-- SALES 2 -->
+	<div class="grid-container">
+		<div class="grid-100">
+			<div class="sales">
+				<div class="sales-left">
+					<div class="sales-image-card">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_700,h_800,q_80,c_limit/v1454928729/chlvcbesfnspyczfictg.png">
+						<div class="content">
+							<a href="#" class="title">OUR LEGACY SPLASH MID SLEEVE AND I WILL NOT SLEEP</a>
+							<a href="#" class="author">Sergio Gonzales Mucho</a>
+						</div>
+					</div>
+				</div>
+				<div class="sales-right">
+
+					<p class="title u-margin-top-10" style="text-align: center;">PRINTS: CONDICIONES DE VENTA</p>
+					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
+
+					<p class="title">Condiciones</p>
+					<p class="subtitle">
+						AM te cobra por la fabricación del producto, no por la venta. Sugerimos que tu margen sea +20%, pero puedes incrementarlo si conoces tu mercado.
+					</p>
+					
+					<table class="prints u-margin-top-20 u-margin-bottom-40" style="display: inline-block;">
+						<tr>
+							<td><p class="title">TIPO DE PRINT</p></td>
+							<td><p class="title">MARGEN</p></td>
+						</tr>
+						<tr>
+							<td>
+								<div class="type">
+									<input type="checkbox"></input>
+									<div>
+										<p>POSTERS</p>
+										<p>$10.23 - $24.32</p>
+									</div>
+								</div>
+							</td>
+							<td>
+								<div class="data">
+									<input type="text"></input>
+									<div>
+										<p>PARA TÍ</p>
+										<p>$10.23 - $24.32</p>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="type">
+									<input type="checkbox"></input>
+									<div>
+										<p>PHOTO PRINTS</p>
+										<p>$10.23 - $24.32</p>
+									</div>
+								</div>
+							</td>
+							<td>
+								<div class="data">
+									<input type="text"></input>
+									<div>
+										<p>PARA TÍ</p>
+										<p>$10.23 - $24.32</p>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="type">
+									<input type="checkbox"></input>
+									<div>
+										<p>FINE ART PRINTS</p>
+										<p>$10.23 - $24.32</p>
+									</div>
+								</div>
+							</td>
+							<td>
+								<div class="data">
+									<input type="text"></input>
+									<div>
+										<p>PARA TÍ</p>
+										<p>$10.23 - $24.32</p>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="type">
+									<input type="checkbox"></input>
+									<div>
+										<p>CANVAS PRINTS</p>
+										<p>$10.23 - $24.32</p>
+									</div>
+								</div>
+							</td>
+							<td>
+								<div class="data">
+									<input type="text"></input>
+									<div>
+										<p>PARA TÍ</p>
+										<p>$10.23 - $24.32</p>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+
+					<p class="subtitle-mall u-margin-top-50">* El precio de lista no incluye impuestos en cada país, ni el costo de envío.</p>
+
+					<a class="sales-button u-margin-top-30 u-margin-bottom-10">APLICAR CAMBIOS</a>
+
+					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="grid-container">
 		<div class="grid-100 grid-parent">
 
@@ -244,9 +294,9 @@
 		</div>
 	</div>
 
+	<!-- SALES 3-->
 	<div class="grid-container">
 		<div class="grid-100">
-
 			<div class="sales">
 				<div class="sales-left">
 					<div class="sales-image-card">
@@ -259,7 +309,7 @@
 				</div>
 				<div class="sales-right">
 
-					<p class="title u-margin-top-10" style="text-align: center;">CONDICIONES DE VENTA</p>
+					<p class="title u-margin-top-10" style="text-align: center;">OBRA ORIGINAL: CONDICIONES DE VENTA</p>
 					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
 
 					<p class="title">Calculadora de precios</p>
@@ -273,41 +323,48 @@
 						</a>
 					</p>
 
-					<p class="title">Tipo de empaque</p>
+					<p class="title">Cálculo de ganancias</p>
 
-					<div class="checks">
+					<!-- <div class="checks">
 						<input class="check" type="checkbox" name="package-type"></input>
 						<label class="label-check">Empaque en tubo</label>
 
 						<input class="check" type="checkbox" name="package-type"></input>
 						<label class="label-check">Empaque en caja</label>
-					</div>
+					</div> -->
 
 					
 					<table class="prices u-margin-top-20">
 						<tr>
-							<td><input class="input" type="text" placeholder="¿Cuanto quieres ganar?"></input></td>
 							<td><p class="text">Precio base (ganancia del artista)</p></td>
+							<td><input class="input" type="text" placeholder="¿Cuanto quieres ganar?"></input></td>
+							<td><p class="currency">USD</p></td>
 						</tr>
 						<tr>
+							<td></td>
 							<td><p class="plus">+</p></td>
 						</tr>
 						<tr>
-							<td><input class="input" type="text" placeholder="0:00"></input></td>
 							<td><p class="text">Comisión AM (30%)</p></td>
+							<td><input class="input" type="text" placeholder="0:00"></input></td>
+							<td><p class="currency">USD</p></td>
 						</tr>
 						<tr>
+							<td></td>
 							<td><div class="u-separator u-margin-top-20 u-margin-bottom-20" style="background: #979797;"></div></td>
 						</tr>
 						<tr>
-							<td><input class="input" type="text" placeholder="Precio final"></input></td>
 							<td><p class="text">Precio de lista (*)</p></td>
+							<td><input class="input" type="text" placeholder="Precio final"></input></td>
+							<td><p class="currency">USD</p></td>
 						</tr>
 					</table>
 
 					<p class="subtitle-mall">* El precio de lista no incluye impuestos en cada país, ni el costo de envío.</p>
 
-					<a class="sales-button u-margin-top-30 u-margin-bottom-30">APLICAR CAMBIOS</a>
+					<a class="sales-button u-margin-top-30 u-margin-bottom-10">APLICAR CAMBIOS</a>
+
+					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
 				</div>
 			</div>
 		</div>
@@ -324,7 +381,6 @@
 			</div>
 		</div>
 	</div>
-
 
 {% endblock %}
 

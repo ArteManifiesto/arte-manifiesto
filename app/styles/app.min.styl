@@ -5039,13 +5039,52 @@ white = #fff
 				font-size: 24px;
 				font-weight: 500;
 			.text
-				padding-left 20px
+				// padding-left 20px
+				min-width: 100px;
+			.currency
+				padding-left 10px
 			.input
 				margin-bottom 0
 				padding: 13px 10px;
 				min-width 200px
 				text-align center
-			
+		
+		.prints
+			.type
+				display flex
+				align-items center
+				padding: 10px 0;
+				input
+					margin-right 10px
+				p:first-child
+					font-family: 'Montserrat',sans-serif;
+					font-size 12px
+					color #333
+				p:last-child
+					font-family: 'PT Serif', serif;
+					font-size 10px
+					color #9b9b9b
+					padding-top 3px
+					// padding-bottom 7px
+			.data
+				display flex
+				align-items center
+				input
+					border solid 1px #979797
+					border-radius 3px
+					width 40px
+					margin 0 10px
+				p:first-child
+					font-family: 'Montserrat',sans-serif;
+					font-size 12px
+					color #9b9b9b
+				p:last-child
+					font-family: 'PT Serif', serif;
+					font-size 10px
+					color #9b9b9b
+					padding-top 3px
+					// padding-bottom 7px
+								
 		.title
 			font-family: 'Montserrat',sans-serif;
 			font-size 14px
@@ -5085,6 +5124,18 @@ white = #fff
 		.sizes
 			max-width 200px
 			margin 30px auto 0 auto
+			
+		.help-button
+			font-family: 'PT Serif', serif;
+			font-size 12px
+			color #333
+			border-radius 40px
+			border solid 1px #979797
+			display table
+			margin-left auto
+			margin-right auto
+			padding 5px 10px
+			cursor pointer
 
 
 .products-creator
