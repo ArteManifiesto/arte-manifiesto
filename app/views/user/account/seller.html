@@ -14,7 +14,7 @@
 
 		<div class="grid-container">
 			<div class="grid-100">
-				
+
 				{% include '../../partials/account-menu.html' %}
 
 
@@ -27,7 +27,7 @@
 
 						<div class="grid-50 mobile-grid-100">
 							<p class="title">País</p>
-							<select class="input select" name='gender'>
+							<select class="input select" name='country'>
 								<option disabled checked>Seleccionar País</option>
 								<option>Argentina</option>
 								<option>Bolivia</option>
@@ -46,32 +46,29 @@
 						</div>
 						<div class="grid-50 mobile-grid-100">
 							<p class="title">Ciudad</p>
-							<select class="input select" name='gender'>
-								<option disabled checked>Seleccionar ciudad</option>
-								<option>Ciudad 1</option>
-								<option>Ciudad 2</option>
-							</select>
+							<input class="input" name='city' value="" type="text" placeholder="Seleccionar Ciudad"/>
 						</div>
 
 						<div class="grid-50 mobile-grid-100">
 							<p class="title">Estado o provincia</p>
-							<input class="input" name='' value="" type="text" placeholder="Seleccionar Estado"/>
+							<input class="input" name='province' value="" type="text" placeholder="Seleccionar Estado"/>
 						</div>
 						<div class="grid-50 mobile-grid-100">
 							<p class="title">Código postal</p>
-							<input class="input" name='' value="" type="text" placeholder="Ingresa código postal"/>
+							<input class="input" name='zipcode' value="" type="text" placeholder="Ingresa código postal"/>
 						</div>
 
 						<div class="grid-100">
 							<p class="title">Dirección de Envío</p>
-							<input class="input" type="text" value="" name='' placeholder="Dirección Línea 1"/>
+							<input class="input" type="text" value="" name='direction' placeholder="Dirección Línea 1"/>
 							<p class="title">Teléfono móvil</p>
-							<input class="input" type="text" value="" name='' placeholder="Ingresa el número de whatsapp"/>
+							<input class="input" type="text" value="" name='phone' placeholder="Ingresa el número de whatsapp"/>
 							<p class="title">Usuario Paypal</p>
-							<input class="input" type="text" value="" name='' placeholder="Ingresa el email de tu cuenta en paypal"/>
+							<input class="input" type="text" value="" name='paypal' placeholder="Ingresa el email de tu cuenta en paypal"/>
 						</div>
 
-						<div class="artist-data {% if !user.isArtist %} hide {%endif%}">
+
+						<div class="artist-data">
 							<div class="separator u-margin-top-40">
 								<span class="line"></span><span class="text">VENDEDORES EN PERÚ </span><span class="line"></span>
 							</div>
@@ -81,7 +78,7 @@
 							</div>
 
 							<div class="grid-50 mobile-grid-100">
-								<select class="input select" name=''>
+								<select class="input select" name='document'>
 									<option value='1' checked>Seleccionar tipo</option>
 									<option value='2' >Nombre de artista</option>
 								</select>
@@ -89,9 +86,9 @@
 
 							<div class="grid-100 mobile-grid-100">
 								<p class="title">Nro de Documento</p>
-								<input class="input" type="text" value="" name='' placeholder="Ingresa un documento válido"/>
+								<input class="input" type="text" value="" name='documentValue' placeholder="Ingresa un documento válido"/>
 								<p class="title">Nombre completo/razón social</p>
-								<input class="input" type="text" value="" name='' placeholder="Ingresa un documento válido"/>
+								<input class="input" type="text" value="" name='businessName' placeholder="Ingresa un documento válido"/>
 
 								<p class="title">Acuerdos con el usuario</p>
 
@@ -105,14 +102,14 @@
 								</table>
 
 							</div>
-							
+
 						</div>
 						<div class="grid-100 mobile-grid-100">
-							<button class="button upload green u-margin-top-40" data-color="green">GUARDAR CAMBIOS</button>
+							<button class="button upload green u-margin-top-40 save-seller" data-color="green">GUARDAR CAMBIOS</button>
 						</div>
 
 						<div class="grid-100 mobile-grid-100">
-							<button class="button upload red u-margin-top-40" data-color="green">ELIMINAR TIENDA</button>
+							<button class="button upload red u-margin-top-40 delete-seller" data-color="green">ELIMINAR TIENDA</button>
 						</div>
 
 						<div class="grid-100 save-loading hide mobile-grid-100">
@@ -129,7 +126,7 @@
 
 	<div id="share-modal" style="display: none;">
 		<i class="closed-modal fa fa-times"></i>
-		
+
 		<div class="am-profile" style="padding: 0;">
 
 			<div class="grid-container" style="padding: 0;">
@@ -154,7 +151,7 @@
 									</a>
 								</p>
 							</div>
-								
+
 							<div class="grid-100 mobile-grid-100">
 								<button class="button upload green u-margin-top-40" data-color="green">IR A PORTAFOLIO</button>
 							</div>
@@ -168,13 +165,10 @@
 
 {% endblock %}
 {% block scripts %}
+	<script src='//maps.googleapis.com/maps/api/js?libraries=places'></script>
 	<script>
-	var profile = {{profile|json|safe}};
-	var context = {{context|json|safe}};
-	var interests = {{interests|json|safe}};
 	$(function() {
-		$.cloudinary.config({{cloudinary.config()|json|safe}});
-		new APP.AccountIndexScreen();
+		new APP.AccountSellerScreen();
 
 		$('.account-title').click(function () {
 			$('.am-Filter.account.mobile').toggleClass('visible')
