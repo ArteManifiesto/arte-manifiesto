@@ -39,6 +39,10 @@ exports.landing = function (req, res) {
   return res.render(basePath + 'landing');
 };
 
+exports.landing = function (req, res) {
+  return res.render(basePath + 'landing');
+};
+
 exports.editor = function(req, res) {
   return res.render(basePath + 'editor');
 };
@@ -183,6 +187,10 @@ exports.collections = function (req, res) {
 
 exports.landing = function (req, res) {
   return res.render(basePath + 'landing');
+};
+
+exports.pp = function (req, res) {
+  return res.render(basePath + 'pp');
 };
 
 exports.search = function (entity, req, res) {
