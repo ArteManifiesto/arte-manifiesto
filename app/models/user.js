@@ -218,14 +218,17 @@ module.exports = function (sequelize, DataTypes) {
       },
       hooks: {
         afterCreate: function (user, options) {
-          options.password = options.password || '123';
           user.username = 'am' + moment().format('DDMMYYhhmmss') + user.id;
           if(!user.photo)
             user.photo = 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_150,h_150,q_70/am_avatar.jpg';
           user.cover = 'http://res.cloudinary.com/arte-manifiesto/image/upload/c_limit,w_1600/general/am-cover.jpg';
-          user.salt = user.makeSalt();
-          user.hashedPassword = user.encryptPassword(options.password, user.salt);
-          user.tokenVerifyEmail = uuid.v4();
+
+          if(options.password) {
+            user.salt = user.makeSalt();
+            user.hashedPassword = user.encryptPassword(options.password, user.salt);
+            user.tokenVerifyEmail = uuid.v4();
+          }
+
           user.fullname = user.firstname + ' ' + user.lastname;
 
           var query = {where:{username: 'artemanifiesto'}};

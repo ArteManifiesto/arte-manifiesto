@@ -46,7 +46,15 @@ module.exports = function (app, passport) {
 
   swig.setDefaults({cache: false});
   swig.setFilter('addFilter', function (url, filter) {
-    return url.replace('upload/', 'upload/' + filter + '/');
+    if(url.indexOf('upload') > -1)
+      return url.replace('upload/', 'upload/' + filter + '/');
+
+    var privateIndex = url.indexOf('private');
+    if(privateIndex > -1) {
+      var str = url.substring(privateIndex, url.length);
+      var version = str.split('/')[1];
+      return url.replace(version, filter);
+    }
   });
 
   swig.setFilter('formatDate', function (date) {
@@ -86,6 +94,7 @@ module.exports = function (app, passport) {
     res.locals = {
       user: req.user,
       env: process.env.NODE_ENV,
+      cl_preset: process.env.CLOUDINARY_PRESET,
       successMessage: req.flash('successMessage'),
       errorMessage: req.flash('errorMessage')
     };

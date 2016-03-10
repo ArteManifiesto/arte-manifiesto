@@ -17,7 +17,7 @@ APP.UploaderImage.constructor = APP.UploaderImage;
 
 APP.UploaderImage.prototype.listeners = function () {
   var scope = this;
-  this.uploader.fileupload({
+  this.uploader.cloudinary_fileupload({
     start: function (e) {
       scope.$view.find('.upload').hide();
       $(this).hide();
@@ -28,17 +28,21 @@ APP.UploaderImage.prototype.listeners = function () {
       scope.$view.find('.upload').show();
       $(this).show();
       scope.$view.find('.preload').hide();
-    }
+    },
+    formData: {
+      upload_preset: window.cl_preset
+    },
   })
   .off('cloudinarydone').on('cloudinarydone', function (e, data) {
+    console.log(data);
     scope.$view.find('.preload').hide();
     scope.$view.find('.preview').html('');
     scope.photo = data.result.url;
     if(!scope.onComplete) {
-      var filters =  {format: data.result.format, width: 200, height: 200, crop: "thumb"};
-      $.cloudinary.image(data.result.public_id, filters).appendTo(scope.$view.find('.preview'));
+      var src = Utils.addImageFilter(result.url, 'w_200,h_200,c_thumb');
+      this.$view.find('.preview').append($('<img>', {src: src}));
     }else {
-      scope.onComplete(data.result.public_id);
+      scope.onComplete(data.result);
     }
   });
 };

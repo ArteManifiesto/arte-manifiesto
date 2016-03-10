@@ -29,6 +29,8 @@ exports.signup = function (req, res) {
         return res.badRequest({errors: errors}, 'Error');
 
       var options = {password: req.body.password};
+
+      if(req.body.photo) req.body.verified = true;
       global.db.User.create(req.body, options).then(function (user) {
         global.emails.verify(req, {to: user}).then(function () {
           loginUser(req, res, user);
@@ -77,10 +79,23 @@ exports.facebookCallback = function (req, res) {
   passport.authenticate('facebook', function (err, user, profile) {
     if (user)
       return loginUser(req, res, user);
-
-      res.cookie('profile', JSON.parse(profile._raw), {maxAge: 900000, httpOnly: true});
-
-    return res.redirect('/auth/signup');
+      
+    var profile = JSON.parse(profile._raw);
+    var options = {};
+    options.email = profile.email;
+    if(profile.first_name) options.firstname = profile.first_name;
+    if(profile.middle_name) options.firstname += ' ' + profile.middle_name;
+    if(profile.last_name) options.lastname = ' ' + profile.last_name;
+    if(profile.gender) options.gender = (profile.gender === 'male' ? 'Masculino' : 'Femenino');
+    if(profile.photo) 'http://res.cloudinary.com/hackdudes/image/facebook/w_150,h_150,q_70/' + options.id + '.jpg';
+    if(profile.birthday) options.birthday = profile.birthday;
+    if(profile.bio) options.biography = profile.bio;
+    options.verified = true;
+    global.db.User.create(options).then(function(user) {
+      loginUser(req, null, user, function() {
+        return res.redirect('/');
+      });
+    });
   })(req, res);
 };
 
@@ -96,9 +111,9 @@ exports.logout = function (req, res) {
 /**
  * Login manually after signup or when the user exists
  */
-var loginUser = function (req, res, user) {
+var loginUser = function (req, res, user, callback) {
   return req.login(user, function (err) {
-    if (err)
+    if (res && err)
       return res.internalServerError('No se pudo iniciar sesion');
 
     var returnTo = req.cookies.return_to || '/';
@@ -106,12 +121,16 @@ var loginUser = function (req, res, user) {
     if(returnTo.indexOf('compra-y-vende-arte-en-internet-latinoamerica') > -1)
       returnTo = '/';
 
-    res.cookie('return_to', returnTo, {maxAge: 3600000, domain: '.' + global.cf.app.domain});
+    if(res) {
+      res.cookie('return_to', returnTo, {maxAge: 3600000, domain: '.' + global.cf.app.domain});
 
-    if (!req.xhr)
-      return res.redirect(returnTo);
+      if (!req.xhr)
+        return res.redirect(returnTo);
 
-    return res.ok({returnTo: returnTo}, 'Sesion iniciada');
+      return res.ok({returnTo: returnTo}, 'Sesion iniciada');
+    } else {
+      callback();
+    }
   });
 };
 

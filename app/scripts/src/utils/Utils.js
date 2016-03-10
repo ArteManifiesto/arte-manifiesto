@@ -82,7 +82,15 @@ Utils = {
     }
   },
   addImageFilter: function (url, filter) {
-    return url.replace('upload/', 'upload/' + filter + '/');
+    if(url.indexOf('upload') > -1)
+      return url.replace('upload/', 'upload/' + filter + '/');
+
+    var privateIndex = url.indexOf('private');
+    if(privateIndex > -1) {
+      var str = url.substring(privateIndex, url.length);
+      var version = str.split('/')[1];
+      return url.replace(version, filter);
+    }
   },
   checkAuthentication: function () {
     if (!DataApp.currentUser) {
