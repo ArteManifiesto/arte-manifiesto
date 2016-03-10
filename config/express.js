@@ -1,3 +1,4 @@
+
 /**
  * Load dependencies
  * ====================================================
@@ -48,13 +49,6 @@ module.exports = function (app, passport) {
   swig.setFilter('addFilter', function (url, filter) {
     if(url.indexOf('upload') > -1)
       return url.replace('upload/', 'upload/' + filter + '/');
-
-    var privateIndex = url.indexOf('private');
-    if(privateIndex > -1) {
-      var str = url.substring(privateIndex, url.length);
-      var version = str.split('/')[1];
-      return url.replace(version, filter);
-    }
   });
 
   swig.setFilter('formatDate', function (date) {

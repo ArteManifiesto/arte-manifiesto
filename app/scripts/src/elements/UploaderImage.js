@@ -28,10 +28,7 @@ APP.UploaderImage.prototype.listeners = function () {
       scope.$view.find('.upload').show();
       $(this).show();
       scope.$view.find('.preload').hide();
-    },
-    formData: {
-      upload_preset: window.cl_preset
-    },
+    }
   })
   .off('cloudinarydone').on('cloudinarydone', function (e, data) {
     console.log(data);
