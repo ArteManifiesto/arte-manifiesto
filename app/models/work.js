@@ -8,7 +8,6 @@ module.exports = function (sequelize, DataTypes) {
       },
       nameSlugify: DataTypes.STRING,
       photo: DataTypes.STRING,
-      oldPhoto: DataTypes.STRING,
       description: DataTypes.TEXT,
       public: {type: DataTypes.BOOLEAN, defaultValue: true},
       featured: {type: DataTypes.BOOLEAN, defaultValue: false},
@@ -16,10 +15,7 @@ module.exports = function (sequelize, DataTypes) {
       manifest: DataTypes.TEXT,
       onSale: {type: DataTypes.BOOLEAN, defaultValue: false},
       views: {type: DataTypes.INTEGER, defaultValue: 0},
-      popularity: {type: DataTypes.INTEGER, defaultValue: 0},
-      backed: {type: DataTypes.BOOLEAN, defaultValue: true},
-      width: {type: DataTypes.INTEGER},
-      height: {type: DataTypes.INTEGER}
+      popularity: {type: DataTypes.INTEGER, defaultValue: 0}
     }, {
       classMethods: {
         associate: function (models) {
