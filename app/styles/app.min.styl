@@ -2431,6 +2431,7 @@ white = #fff
 					color charcoal-grey
 			
 			.information-center
+				line-height 1.25
 				font-family 'Montserrat', sans-serif
 				font-size 10px
 				color charcoal-grey
@@ -2439,6 +2440,8 @@ white = #fff
 				a
 					text-decoration underline
 					color #333
+				strong
+					font-weight 600
 			.information-right
 				font-family 'Montserrat', sans-serif
 				font-size 10px
@@ -2454,13 +2457,28 @@ white = #fff
 						color #417505
 					.bold
 						font-weight bold
+					&.type2
+						.left
+							text-align left
+						.right
+							font-family: 'PT Serif', serif;
+							
 				a
 					color #333
 					text-decoration underline
 					display table
 					margin auto
+				p
+					margin-bottom 5px
+					
+			&.type2
+				.information-left
+					padding-left 20px
+					flex 1
+				.information-center
+					margin 0 40px
 
-
+				
 @media (min-width: 630px)
 	.am-profile-box
 		padding 60px 60px !important
