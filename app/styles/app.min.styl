@@ -1065,6 +1065,8 @@ white = #fff
 	position relative
 	max-width: 250px;
 	margin: auto;
+	&.type2
+		border none
 	&-image
 		background-size cover
 		background-position center center
@@ -1099,7 +1101,16 @@ white = #fff
 			color #1e1f1e
 			i
 				font-size 1.25em
-
+	&-price
+		position absolute
+		right 0
+		bottom 0
+		background rgba(white, .9)
+		font-family 'Montserrat', sans-serif
+		color #1e1f1e
+		font-size 12px
+		padding 10px
+		border-radius 2px
 .featured
 	z-index: 1;
 	position absolute
