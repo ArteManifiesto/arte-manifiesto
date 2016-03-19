@@ -1,0 +1,111 @@
+{% set templates = ['work', 'user']%}
+{% set pageTitle = 'Arte Manifiesto, la primera red social de artistas visuales y creadores de latinoamerica' %}
+
+{% extends '../partials/base.html' %}
+
+{% block elements %}
+
+	<!-- ********************************************************************
+		$ SLIDER
+	********************************************************************* -->
+	<div class="grid-container u-margin-top-20">
+		<div class="grid-100">
+			<section class="slider">
+				<div class="slider-items">
+					<a href="/compra-y-vende-arte-en-internet-latinoamerica">
+					<div class="slider-item js-slide" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065553/general/home-slider-1.jpg')">
+						<div class="slider-item-inner type2">
+							<p class="title">Tentacles Abound in Our Best Jellyfish Pictures</p>
+							<br>
+							<p class="subtitle u-padding-top-10">James Gurney picks the most interesting pieces from the luxury watch fair</p>
+						</div>
+					</div>
+					<a href="https://kuestionario.typeform.com/to/VNsGbl">
+					<div class="slider-item js-slide" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065551/general/home-slider-2.jpg')">
+						<div class="slider-item-inner">
+							<p class="title">Participa y gana una exposicion en Casa Pausa</p>
+						</div>
+					</div>
+				</a>
+				</div>
+				<div class="slider-nav">
+					<i class="slider-nav-item js-slideNavItem active fa fa-circle"></i>
+					<i class="slider-nav-item js-slideNavItem fa fa-circle"></i>
+					<!-- <i class="slider-nav-item js-slideNavItem fa fa-circle"></i> -->
+				</div>
+			</section>
+		</div>
+	</div>
+
+	<!-- ********************************************************************
+		$ MARKET MENU
+	********************************************************************* -->
+	<div class="grid-container">
+		<div class="grid-100">
+			<div class="market-sub-menu">
+				<a href="#">TODO</a>
+				<a href="#">ARTE ORIGINAL</a>
+				<a href="#">PRINTS</a>
+				<a href="#">TAZAS</a>
+				<a href="#">PHONE CASES</a>
+				<a href="#">TABLET CASES</a>
+				<a href="#">ALMOHADAS</a>
+			</div>
+		</div>
+	</div>
+
+	<!-- ********************************************************************
+		$ MARKET GRID
+	********************************************************************* -->
+	<div class="market-grid">
+		<div class="grid-container">
+			<div class="grid-70">
+				<div class="market-grid-element"></div>
+			</div>
+			<div class="grid-30">
+				<div class="market-grid-element"></div>
+			</div>
+		</div>
+	</div>
+	<div class="market-grid">
+		<div class="grid-container">
+			<div class="grid-30">
+				<div class="market-grid-element"></div>
+			</div>
+			<div class="grid-70">
+				<div class="market-grid-element"></div>
+			</div>
+		</div>
+	</div>
+	<div class="market-grid">
+		<div class="grid-container">
+			<div class="grid-100">
+				<div class="market-grid-element"></div>
+			</div>
+		</div>
+	</div>
+	<div class="market-grid">
+		<div class="grid-container">
+			<div class="grid-33">
+				<div class="market-grid-element"></div>
+			</div>
+			<div class="grid-33">
+				<div class="market-grid-element"></div>
+			</div>
+			<div class="grid-33">
+				<div class="market-grid-element"></div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block scripts %}
+	<script>
+	var users = {{users|json|safe}};
+	var works = {{works|json|safe}};
+		$(function() {
+			new APP.HomeScreen();
+		});
+	</script>
+{% endblock %}
