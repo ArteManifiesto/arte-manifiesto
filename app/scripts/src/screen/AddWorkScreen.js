@@ -128,11 +128,12 @@ APP.AddWorkScreen.prototype.deleteCancel = function (response) {
   this.workDeleteConfirm.hide();
 };
 
-APP.AddWorkScreen.prototype.imgComplete = function (result) {
+APP.AddWorkScreen.prototype.imgComplete = function (idImage) {
   this.$view.find('.upload').show();
-  console.log(result);
-  console.log(result.url);
-  var src = Utils.addImageFilter(result.url, 'w_300,c_limit');
-  this.$view.find('.preview').append($('<img>', {src: src}));
+
+  var filters = {format: 'jpg', width: 300, crop: "limit"};
+  img = $.cloudinary.image(idImage, filters).appendTo(this.$view.find('.preview'));
+  this.photo = img.attr('src');
+
   $('.cloudinary-fileupload').show();
 };

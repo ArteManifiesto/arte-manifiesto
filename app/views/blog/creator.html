@@ -113,13 +113,13 @@
     <script src="http://linkesch.com/medium-editor-insert-plugin/bower_components/handlebars/handlebars.runtime.min.js"></script>
     <script src="http://linkesch.com/medium-editor-insert-plugin/bower_components/jquery-sortable/source/js/jquery-sortable-min.js"></script>
     <script>
+      $.cloudinary.config({{cloudinary.config()|json|safe}});
       var post = null;
       var edit = {{edit|json|safe}};
       if(edit) {
         post = {{post|json|safe}}
       }
       $(function () {
-          $.cloudinary.config({{cloudinary.config()|json|safe}});
           new APP.CreatorPostScreen();
       });
     </script>
