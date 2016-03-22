@@ -133,7 +133,7 @@ APP.AddWorkScreen.prototype.imgComplete = function (idImage) {
 
   var filters = {format: 'jpg', width: 300, crop: "limit"};
   img = $.cloudinary.image(idImage, filters).appendTo(this.$view.find('.preview'));
-  this.photo = img.attr('src');
+  // this.photo = img.attr('src');
 
   $('.cloudinary-fileupload').show();
 };
