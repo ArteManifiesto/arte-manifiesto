@@ -15,6 +15,7 @@ exports.signupPage = function (req, res) {
  * User signup
  */
 exports.signup = function (req, res) {
+  console.log(req.body);
   req.body.isArtist = req.body.isArtist === 'on';
   global.db.User.find({where:{email: req.body.email}}).then(function(user) {
     var errors = [];
@@ -22,6 +23,7 @@ exports.signup = function (req, res) {
     var ip = req.ip, response = req.body['g-recaptcha-response'];
 
     simple_recaptcha(global.cf.recaptcha.privateKey, ip, response, function (error) {
+      console.log(error);
       if (error)
         errors.push('Recaptcha invalido');
 
@@ -79,7 +81,7 @@ exports.facebookCallback = function (req, res) {
   passport.authenticate('facebook', function (err, user, profile) {
     if (user)
       return loginUser(req, res, user);
-      
+
     var profile = JSON.parse(profile._raw);
     var options = {};
     options.email = profile.email;

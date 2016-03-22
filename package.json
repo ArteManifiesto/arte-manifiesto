@@ -42,7 +42,7 @@
     "passport-local": "^1.0.0",
     "sequelize": "3.11.0",
     "sequelize-cli": "^1.9.2",
-    "simple-recaptcha-new": "^1.0.0",
+    "simple-recaptcha-new": "1.0.0",
     "swig": "^1.4.2"
   },
   "devDependencies": {
