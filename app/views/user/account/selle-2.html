@@ -1,0 +1,291 @@
+{% extends '../../partials/base.html' %}
+{% set pageTitle = 'Administrar cuenta' %}
+
+{% block elements %}
+	<div class="am-profile" style="padding-left: 0; padding-right: 0;">
+
+		<div class="grid-container u-margin-top-20">
+			<div class="grid-100">
+				<p class="account-title"><i class="fa fa-caret-down"></i>Mi cuenta > Mis compras</p>
+			</div>
+		</div>
+
+		<div class="grid-container">
+			<div class="grid-100">
+				{% if !context %}
+					{% include '../../partials/account-menu.html' %}
+				{% endif %}
+
+				<div class="am-profile-box grid-container u-margin-top-20" style="float: right; max-width: 880px !important;">
+					<form class="complete-form">
+
+						<p class="open-seller-main-title">Pedidos abiertos</p>
+
+						<p class="u-separator u-margin-bottom-20" style="background: #979797;"></p>
+
+						<div class="open-seller-item type2">
+							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065543/general/admin-option-2.jpg">
+							<div class="information-left">
+								<p class="information-left-description">
+									PRODUCTO: <br>
+									Los Pajaritos ya no cantan como antes <br>
+									Sergio Gonzales <br>
+									ID # OO.23232.2123 <br>
+									<br>
+									VENTA DE OBRA ORIGINAL <br>
+									Obra original empacada en caja <br>
+									<br>
+									FECHA PEDIDO: <br>
+									13/05/2016
+								</p>
+							</div>
+							<div class="information-center">
+								MEDIDAS DEL PAQUETE <br>
+								2.5 kg / 50 cm x 40 cm x 10 cm <br>
+								<br>
+								Pagado con <strong>Paypal</strong> <br>
+								<br>
+								ORIGEN: <br>
+								Miraflores, LIma, Perú <br>
+								<br>
+								DESTINO: <br>
+								Chiclayo, Chiclayo, Perú
+							</div>
+							<div class="information-right">
+								<p>RESUMEN DE LA ORDEN</p>
+								<div class="table type2">
+									<div class="left">
+										<p>subtotal:</p>
+										<p>shipping:</p>
+										<p>impuestos:</p>
+										<p class="bold">total:</p>
+									</div>
+									<div class="right">
+										<p>USD 100.00</p>
+										<p>USD 25.00</p>
+										<p>USD 25.00</p>
+										<p class="bold">USD 150.00</p>
+									</div>
+								</div>
+								<br>
+								<p>STATUS ORDEN:</p>
+
+								<div class="table type2">
+									<div class="left">
+										<p class="green">1. En camino</p>
+									</div>
+								</div>
+								<br>
+								<a href="">Detalle Invoice</a>
+							</div>
+						</div>
+
+						<p class="open-seller-secondary-title">Acción a realizar:</p>
+
+						<div class="open-seller-box">
+							<span class="number">1</span>
+							<p>¿Llego la obra de arte a tu hogar?</p>
+							<span class="icon"><i class="fa fa-info"></i></span>
+							<a href="#" class="seller-button small green">SI</a>
+							<a href="#" class="seller-button small red">NO</a>
+						</div>
+
+						<p class="u-separator u-margin-top-30 u-margin-bottom-20" style="background: #979797;"></p>
+
+						<div class="open-seller-item type2">
+							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065543/general/admin-option-2.jpg">
+							<div class="information-left">
+								<p class="information-left-description">
+									PRODUCTO: <br>
+									Los Pajaritos ya no cantan como antes <br>
+									Sergio Gonzales <br>
+									ID # OO.23232.2123 <br>
+									<br>
+									VENTA DE OBRA ORIGINAL <br>
+									Obra original empacada en caja <br>
+									<br>
+									FECHA PEDIDO: <br>
+									13/05/2016
+								</p>
+							</div>
+							<div class="information-center">
+								MEDIDAS DEL PAQUETE <br>
+								2.5 kg / 50 cm x 40 cm x 10 cm <br>
+								<br>
+								Pagado con <strong>Paypal</strong> <br>
+								<br>
+								ORIGEN: <br>
+								Miraflores, LIma, Perú <br>
+								<br>
+								DESTINO: <br>
+								Chiclayo, Chiclayo, Perú
+							</div>
+							<div class="information-right">
+								<p>RESUMEN DE LA ORDEN</p>
+								<div class="table type2">
+									<div class="left">
+										<p>subtotal:</p>
+										<p>shipping:</p>
+										<p>impuestos:</p>
+										<p class="bold">total:</p>
+									</div>
+									<div class="right">
+										<p>USD 100.00</p>
+										<p>USD 25.00</p>
+										<p>USD 25.00</p>
+										<p class="bold">USD 150.00</p>
+									</div>
+								</div>
+								<br>
+								<p>STATUS ORDEN:</p>
+
+								<div class="table type2">
+									<div class="left">
+										<p class="green">1. En camino</p>
+									</div>
+								</div>
+								<br>
+								<a href="">Detalle Invoice</a>
+							</div>
+						</div>
+
+						<p class="open-seller-secondary-title">Acción a realizar:</p>
+
+						<div class="open-seller-box">
+							<span class="number">2</span>
+							<p>¿Llego la obra de arte a tu hogar?</p>
+							<span class="icon"><i class="fa fa-info"></i></span>
+							<a href="#" class="seller-button small green">SI</a>
+							<a href="#" class="seller-button small red">NO</a>
+						</div>
+
+						<p class="open-seller-main-title u-margin-top-30">Historial de compras</p>
+
+						<p class="u-separator u-margin-bottom-20" style="background: #979797;"></p>
+
+						<div class="open-seller-item type2">
+							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065543/general/admin-option-2.jpg">
+							<div class="information-left">
+								<p class="information-left-description">
+									PRODUCTO: <br>
+									Los Pajaritos ya no cantan como antes <br>
+									Sergio Gonzales <br>
+									ID # OO.23232.2123 <br>
+									<br>
+									VENTA DE OBRA ORIGINAL <br>
+									Obra original empacada en caja <br>
+									<br>
+									FECHA PEDIDO: <br>
+									13/05/2016
+								</p>
+							</div>
+							<div class="information-center">
+								MEDIDAS DEL PAQUETE <br>
+								2.5 kg / 50 cm x 40 cm x 10 cm <br>
+								<br>
+								Pagado con <strong>Paypal</strong> <br>
+								<br>
+								ORIGEN: <br>
+								Miraflores, LIma, Perú <br>
+								<br>
+								DESTINO: <br>
+								Chiclayo, Chiclayo, Perú
+							</div>
+							<div class="information-right">
+								<p>RESUMEN DE LA ORDEN</p>
+								<div class="table type2">
+									<div class="left">
+										<p>subtotal:</p>
+										<p>shipping:</p>
+										<p>impuestos:</p>
+										<p class="bold">total:</p>
+									</div>
+									<div class="right">
+										<p>USD 100.00</p>
+										<p>USD 25.00</p>
+										<p>USD 25.00</p>
+										<p class="bold">USD 150.00</p>
+									</div>
+								</div>
+								<br>
+								<p>STATUS ORDEN:</p>
+
+								<div class="table type2">
+									<div class="left">
+										<p class="green">1. En camino</p>
+									</div>
+								</div>
+								<br>
+								<a href="">Detalle Invoice</a>
+							</div>
+						</div>
+
+						<p class="u-separator u-margin-top-30 u-margin-bottom-20" style="background: #979797;"></p>
+
+						<div class="open-seller-item type2">
+							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065543/general/admin-option-2.jpg">
+							<div class="information-left">
+								<p class="information-left-description">
+									PRODUCTO: <br>
+									Los Pajaritos ya no cantan como antes <br>
+									Sergio Gonzales <br>
+									ID # OO.23232.2123 <br>
+									<br>
+									VENTA DE OBRA ORIGINAL <br>
+									Obra original empacada en caja <br>
+									<br>
+									FECHA PEDIDO: <br>
+									13/05/2016
+								</p>
+							</div>
+							<div class="information-center">
+								MEDIDAS DEL PAQUETE <br>
+								2.5 kg / 50 cm x 40 cm x 10 cm <br>
+								<br>
+								Pagado con <strong>Paypal</strong> <br>
+								<br>
+								ORIGEN: <br>
+								Miraflores, LIma, Perú <br>
+								<br>
+								DESTINO: <br>
+								Chiclayo, Chiclayo, Perú
+							</div>
+							<div class="information-right">
+								<p>RESUMEN DE LA ORDEN</p>
+								<div class="table type2">
+									<div class="left">
+										<p>subtotal:</p>
+										<p>shipping:</p>
+										<p>impuestos:</p>
+										<p class="bold">total:</p>
+									</div>
+									<div class="right">
+										<p>USD 100.00</p>
+										<p>USD 25.00</p>
+										<p>USD 25.00</p>
+										<p class="bold">USD 150.00</p>
+									</div>
+								</div>
+								<br>
+								<p>STATUS ORDEN:</p>
+
+								<div class="table type2">
+									<div class="left">
+										<p class="green">1. En camino</p>
+									</div>
+								</div>
+								<br>
+								<a href="">Detalle Invoice</a>
+							</div>
+						</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+
+	</div>
+{% endblock %}
+{% block scripts %}
+
+{% endblock %}

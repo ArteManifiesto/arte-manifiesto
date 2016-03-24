@@ -4,8 +4,6 @@
 {% block elements %}
 	<div class="am-profile" style="padding-left: 0; padding-right: 0;">
 
-
-
 		<div class="grid-container u-margin-top-20">
 			<div class="grid-100">
 				<p class="account-title"><i class="fa fa-caret-down"></i>Quiero abrir mi tienda</p>
@@ -17,18 +15,17 @@
 				
 				{% include '../../partials/account-menu.html' %}
 
-
 				<div class="am-profile-box grid-container u-margin-top-20">
 					<form class="complete-form">
 
-						<div class="separator main u-margin-top-30">
+						<div class="separator main">
 							<span class="line"></span><span class="text">VALIDACIÓN<br>DE VENDEDOR</span><span class="line"></span>
 						</div>
 
 						<div class="grid-50 mobile-grid-100">
 							<p class="title">País</p>
 							<select class="input select" name='gender'>
-								<option disabled checked>Seleccionar País</option>
+								<option disabled selected>Seleccionar País</option>
 								<option>Argentina</option>
 								<option>Bolivia</option>
 								<option>Brasil</option>
@@ -47,7 +44,7 @@
 						<div class="grid-50 mobile-grid-100">
 							<p class="title">Ciudad</p>
 							<select class="input select" name='gender'>
-								<option disabled checked>Seleccionar ciudad</option>
+								<option disabled selected>Seleccionar ciudad</option>
 								<option>Ciudad 1</option>
 								<option>Ciudad 2</option>
 							</select>
