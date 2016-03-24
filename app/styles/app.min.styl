@@ -5132,6 +5132,9 @@ white = #fff
 	margin auto
 	background white
 	position relative
+	&.white-mark
+		border solid 5px white
+		box-shadow 1px 1px 1px 1px rgba(black, .5)
 	.content
 		border solid 1px #ddd
 		padding 10px
@@ -5222,6 +5225,8 @@ white = #fff
 			i
 				display block
 				padding 20px 15px
+				border-left solid 1px #dddddd
+				border-bottom solid 1px #dddddd
 				&.selected
 					border-left: solid 3px #0000ff;
 
@@ -5284,6 +5289,11 @@ white = #fff
 			select
 				border solid 1px #979797
 				border-radius 4px
+				padding 5px 10px
+				font-family: 'Montserrat',sans-serif;
+				color #333
+				font-size 14px
+				
 		.size-work
 			display flex
 			align-items center
