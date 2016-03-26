@@ -1,61 +1,347 @@
 {% extends '../../partials/base.html' %}
-{% set pageTitle = 'Cambiar contraseña' %}
+{% set pageTitle = 'Administrar cuenta' %}
 
 {% block elements %}
 	<div class="am-profile" style="padding-left: 0; padding-right: 0;">
 
 		<div class="grid-container u-margin-top-20">
 			<div class="grid-100">
-				<p class="account-title"><i class="fa fa-caret-down"></i>Quiero abrir mi tienda</p>
+				<p class="account-title"><i class="fa fa-caret-down"></i>Pedidos Abiertos</p>
 			</div>
 		</div>
 
 		<div class="grid-container">
 			<div class="grid-100">
-				<div class="am-Filter account mobile u-margin-top-10">
-					<div class="am-Filter-item">
-						<header class="am-Filter-header">
-							<i class="bi_user-single-a"></i><p>Mi cuenta</p>
-						</header>
-					</div>
-					<div class="am-Filter-item">
-						<ul class="am-Filter-subOptions">
-							<a href="/user/{{profile.username}}/account/">Mis datos de perfil</a>
-							<a href="#">Mis compras</a>
-							<a href="#">Mis direcciones de envío</a>
-							<a href="#">Métodos de pago</a>
-							<a href="#">Configuracion cuenta</a>
-							<a href="/user/{{profile.username}}/account/password">Cambiar contraseña</a>
-							<a href="/user/{{profile.username}}/account/seller"  class="selected">Editar datos de vendedor</a>
-							<a href="#">Gestor de pedidos</a>
-						</ul>
-					</div>
-					<!-- <div class="am-Filter-item">
-						<header class="am-Filter-header">
-							<i class="fa fa-bars"></i><p>Tienda en línea</p>
-						</header>
-					</div>
-					<div class="am-Filter-item">
-						<ul class="am-Filter-subOptions">
-							<a href="#">Quiero abrir mi tienda</a>
-						</ul>
-					</div> -->
-				</div>
+				{% if !context %}
+					{% include '../../partials/account-menu.html' %}
+				{% endif %}
 
-				<div class="am-profile-box grid-container u-margin-top-20">
-					<form class="password-form">
-						<div class="grid-100" style="clear: inherit;">
-							<p class="title" style="padding-top: 0;">Direccion</p>
-							<input class="input" type="text" name='direction' required placeholder="Dirección"/>
+				<div class="am-profile-box grid-container u-margin-top-20" style="float: right; max-width: 880px !important;">
+					<form class="complete-form">
+
+						<p class="open-seller-main-title">Envíos abiertos</p>
+
+						<p class="u-separator u-margin-bottom-20" style="background: #979797;"></p>
+
+						<div class="open-seller-item">
+							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065543/general/admin-option-2.jpg">
+							<div class="information-left">
+								<p class="information-left-title">Los pajaritos ya no cantan como antes cantaban</p>
+								<p class="information-left-subtitle">Por Sergio Gonzales</p>
+								<p class="information-left-title">ID: # 105-4353550-5844247</p>
+								<br>
+								<p class="information-left-description">
+									VENTA DE OBRA ORIGINAL <br>
+									Obra original empacada en caja
+									<br><br>
+									ORIGEN: <br>
+									Miraflores, LIma, Perú
+								</p>
+							</div>
+							<div class="information-center">
+								<p>
+									CANTIDAD: <br>
+									X 1
+								</p>
+								<br><br>
+								<p>
+									MEDIDAS DEL PAQUETE <br>
+									2.5 kg / 50 cm x 40 cm x 10 cm
+									<br><br>
+									DESTINO: <br>
+									Chiclayo, Chiclayo, Perú
+								</p>
+								<br>
+								<p> <a href="#">Ficha de envío</a> </p>
+							</div>
+							<div class="information-right">
+								<div class="table">
+									<div class="left">
+										<p class="green">tu ganancia:</p>
+										<p>comisión am</p>
+										<p class="bold">subtotal:</p>
+										<p>shipping:</p>
+										<p>impuestos:</p>
+										<p class="bold">total:</p>
+									</div>
+									<div class="right">
+										<p class="green">USD 70.00</p>
+										<p>USD 30.00</p>
+										<p class="bold">USD 100.00</p>
+										<p>USD 25.00</p>
+										<p>USD 25.00</p>
+										<p class="bold">USD 150.00</p>
+									</div>
+								</div>
+								<br>
+								<a href="">Detalle Invoice</a>
+							</div>
 						</div>
 
-						<div class="grid-100 save mobile-grid-100">
-							<button class="button u-margin-top-30" data-color="green">GUARDAR CAMBIOS</button>
+						<p class="open-seller-secondary-title">Acción a realizar:</p>
+
+						<div class="open-seller-box">
+							<span class="number">1</span>
+							<p>¿Tienes a la mano tu obra ó puedes conseguirla?</p>
+							<span class="icon"><i class="fa fa-info"></i></span>
+							<a href="#" class="seller-button small green">SI</a>
+							<a href="#" class="seller-button small red">NO</a>
 						</div>
 
-						<div class="grid-100 save-loading hide mobile-grid-100">
-							<button class="button u-margin-top-30" data-color="green"><i class="load fa fa-spinner"></i></button>
+						<p class="u-separator u-margin-top-30 u-margin-bottom-20" style="background: #979797;"></p>
+
+						<div class="open-seller-item">
+							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065543/general/admin-option-2.jpg">
+							<div class="information-left">
+								<p class="information-left-title">Los pajaritos ya no cantan como antes cantaban</p>
+								<p class="information-left-subtitle">Por Sergio Gonzales</p>
+								<p class="information-left-title">ID: # 105-4353550-5844247</p>
+								<br>
+								<p class="information-left-description">
+									VENTA DE OBRA ORIGINAL <br>
+									Obra original empacada en caja
+									<br><br>
+									ORIGEN: <br>
+									Miraflores, LIma, Perú
+								</p>
+							</div>
+							<div class="information-center">
+								<p>
+									CANTIDAD: <br>
+									X 1
+								</p>
+								<br><br>
+								<p>
+									MEDIDAS DEL PAQUETE <br>
+									2.5 kg / 50 cm x 40 cm x 10 cm
+									<br><br>
+									DESTINO: <br>
+									Chiclayo, Chiclayo, Perú
+								</p>
+								<br>
+								<p> <a href="#">Ficha de envío</a> </p>
+							</div>
+							<div class="information-right">
+								<div class="table">
+									<div class="left">
+										<p class="green">tu ganancia:</p>
+										<p>comisión am</p>
+										<p class="bold">subtotal:</p>
+										<p>shipping:</p>
+										<p>impuestos:</p>
+										<p class="bold">total:</p>
+									</div>
+									<div class="right">
+										<p class="green">USD 70.00</p>
+										<p>USD 30.00</p>
+										<p class="bold">USD 100.00</p>
+										<p>USD 25.00</p>
+										<p>USD 25.00</p>
+										<p class="bold">USD 150.00</p>
+									</div>
+								</div>
+								<br>
+								<a href="">Detalle Invoice</a>
+							</div>
 						</div>
+
+						<div class="open-seller-box">
+							<span class="number">2</span>
+							<p>Empaca bien tu arte y confirma, <a href="">mira nuestra guía de empaque</a></p>
+							<span class="icon"><i class="fa fa-info"></i></span>
+							<a href="#" class="seller-button">LISTO</a>
+						</div>
+
+						<p class="u-separator u-margin-top-30 u-margin-bottom-20" style="background: #979797;"></p>
+
+						<div class="open-seller-item">
+							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065543/general/admin-option-2.jpg">
+							<div class="information-left">
+								<p class="information-left-title">Los pajaritos ya no cantan como antes cantaban</p>
+								<p class="information-left-subtitle">Por Sergio Gonzales</p>
+								<p class="information-left-title">ID: # 105-4353550-5844247</p>
+								<br>
+								<p class="information-left-description">
+									VENTA DE OBRA ORIGINAL <br>
+									Obra original empacada en caja
+									<br><br>
+									ORIGEN: <br>
+									Miraflores, LIma, Perú
+								</p>
+							</div>
+							<div class="information-center">
+								<p>
+									CANTIDAD: <br>
+									X 1
+								</p>
+								<br><br>
+								<p>
+									MEDIDAS DEL PAQUETE <br>
+									2.5 kg / 50 cm x 40 cm x 10 cm
+									<br><br>
+									DESTINO: <br>
+									Chiclayo, Chiclayo, Perú
+								</p>
+								<br>
+								<p> <a href="#">Ficha de envío</a> </p>
+							</div>
+							<div class="information-right">
+								<div class="table">
+									<div class="left">
+										<p class="green">tu ganancia:</p>
+										<p>comisión am</p>
+										<p class="bold">subtotal:</p>
+										<p>shipping:</p>
+										<p>impuestos:</p>
+										<p class="bold">total:</p>
+									</div>
+									<div class="right">
+										<p class="green">USD 70.00</p>
+										<p>USD 30.00</p>
+										<p class="bold">USD 100.00</p>
+										<p>USD 25.00</p>
+										<p>USD 25.00</p>
+										<p class="bold">USD 150.00</p>
+									</div>
+								</div>
+								<br>
+								<a href="">Detalle Invoice</a>
+							</div>
+						</div>
+
+						<div class="open-seller-box">
+							<span class="number">3</span>
+							<p>Imprime la <a href="#">ficha de envío</a> y pégala al empaque</p>
+							<span class="icon"><i class="fa fa-info"></i></span>
+							<a href="#" class="seller-button">LISTO</a>
+						</div>
+
+						<p class="u-separator u-margin-top-30 u-margin-bottom-20" style="background: #979797;"></p>
+
+						<div class="open-seller-item">
+							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065543/general/admin-option-2.jpg">
+							<div class="information-left">
+								<p class="information-left-title">Los pajaritos ya no cantan como antes cantaban</p>
+								<p class="information-left-subtitle">Por Sergio Gonzales</p>
+								<p class="information-left-title">ID: # 105-4353550-5844247</p>
+								<br>
+								<p class="information-left-description">
+									VENTA DE OBRA ORIGINAL <br>
+									Obra original empacada en caja
+									<br><br>
+									ORIGEN: <br>
+									Miraflores, LIma, Perú
+								</p>
+							</div>
+							<div class="information-center">
+								<p>
+									CANTIDAD: <br>
+									X 1
+								</p>
+								<br><br>
+								<p>
+									MEDIDAS DEL PAQUETE <br>
+									2.5 kg / 50 cm x 40 cm x 10 cm
+									<br><br>
+									DESTINO: <br>
+									Chiclayo, Chiclayo, Perú
+								</p>
+								<br>
+								<p> <a href="#">Ficha de envío</a> </p>
+							</div>
+							<div class="information-right">
+								<div class="table">
+									<div class="left">
+										<p class="green">tu ganancia:</p>
+										<p>comisión am</p>
+										<p class="bold">subtotal:</p>
+										<p>shipping:</p>
+										<p>impuestos:</p>
+										<p class="bold">total:</p>
+									</div>
+									<div class="right">
+										<p class="green">USD 70.00</p>
+										<p>USD 30.00</p>
+										<p class="bold">USD 100.00</p>
+										<p>USD 25.00</p>
+										<p>USD 25.00</p>
+										<p class="bold">USD 150.00</p>
+									</div>
+								</div>
+								<br>
+								<a href="">Detalle Invoice</a>
+							</div>
+						</div>
+
+						<div class="open-seller-box">
+							<span class="number">4</span>
+							<p>Lleva el paquete al courrier, paga el envío(luego te lo devolvermos) y confirma</p>
+							<span class="icon"><i class="fa fa-info"></i></span>
+							<a href="#" class="seller-button">SUBIR VOUCHER</a>
+						</div>
+
+						<p class="u-separator u-margin-top-30 u-margin-bottom-20" style="background: #979797;"></p>
+
+						<div class="open-seller-item">
+							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065543/general/admin-option-2.jpg">
+							<div class="information-left">
+								<p class="information-left-title">Los pajaritos ya no cantan como antes cantaban</p>
+								<p class="information-left-subtitle">Por Sergio Gonzales</p>
+								<p class="information-left-title">ID: # 105-4353550-5844247</p>
+								<br>
+								<p class="information-left-description">
+									VENTA DE OBRA ORIGINAL <br>
+									Obra original empacada en caja
+									<br><br>
+									ORIGEN: <br>
+									Miraflores, LIma, Perú
+								</p>
+							</div>
+							<div class="information-center">
+								<p>
+									CANTIDAD: <br>
+									X 1
+								</p>
+								<br><br>
+								<p>
+									MEDIDAS DEL PAQUETE <br>
+									2.5 kg / 50 cm x 40 cm x 10 cm
+									<br><br>
+									DESTINO: <br>
+									Chiclayo, Chiclayo, Perú
+								</p>
+								<br>
+								<p> <a href="#">Ficha de envío</a> </p>
+							</div>
+							<div class="information-right">
+								<div class="table">
+									<div class="left">
+										<p class="green">tu ganancia:</p>
+										<p>comisión am</p>
+										<p class="bold">subtotal:</p>
+										<p>shipping:</p>
+										<p>impuestos:</p>
+										<p class="bold">total:</p>
+									</div>
+									<div class="right">
+										<p class="green">USD 70.00</p>
+										<p>USD 30.00</p>
+										<p class="bold">USD 100.00</p>
+										<p>USD 25.00</p>
+										<p>USD 25.00</p>
+										<p class="bold">USD 150.00</p>
+									</div>
+								</div>
+								<br>
+								<a href="">Detalle Invoice</a>
+							</div>
+						</div>
+
+						<div class="open-seller-box">
+							<span class="number check"><i class="fa fa-check"></i></span>
+							<p>Listo! La obra debe estar por llegar a su destino, te avisaremos cuando </p>
+						</div>
+
 					</form>
 				</div>
 			</div>
@@ -63,15 +349,6 @@
 
 	</div>
 {% endblock %}
-
 {% block scripts %}
-  <script src='//maps.googleapis.com/maps/api/js?libraries=places'></script>
-	<script>
-		$(function() {
-			new APP.AccountApplyScreen();
-			$('.account-title').click(function () {
-				$('.am-Filter.account.mobile').toggleClass('visible')
-			});
-		});
-	</script>
+
 {% endblock %}
