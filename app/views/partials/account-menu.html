@@ -6,12 +6,10 @@
 					</div>
 					<div class="am-Filter-item">
 						<ul class="am-Filter-subOptions">
-							<a href="/user/{{profile.username}}/account/">Mis datos de perfil</a>
-							<a href="#">Mis compras</a>
-							<a href="#">Mis direcciones de envío</a>
-							<a href="#">Métodos de pago</a>
-							<a href="#">Configuracion cuenta</a>
-							<a href="/user/{{profile.username}}/account/password">Cambiar contraseña</a>
+							<a href="/user/{{user.username}}/account/" class="profile">Mis datos de perfil</a>
+							<a href="/user/{{user.username}}/account/orders" class="orders">Mis compras</a>
+							<a href="#" class="directions">Mis direcciones de envío</a>
+							<a href="/user/{{user.username}}/account/password" class="password">Cambiar contraseña</a>
 						</ul>
 					</div>
 					<div class="am-Filter-item">
@@ -21,8 +19,8 @@
 					</div>
 					<div class="am-Filter-item">
 						<ul class="am-Filter-subOptions">
-							<a href="/user/{{profile.username}}/account/seller" class="selected">Editar datos de vendedor</a>
-							<a href="#">Gestor de pedidos</a>
+							<a href="/user/{{user.username}}/account/seller" class="seller">Editar datos de vendedor</a>
+							<a href="/user/{{user.username}}/account/requests" class="requests">Gestor de pedidos</a>
 						</ul>
 					</div>
 				</div>

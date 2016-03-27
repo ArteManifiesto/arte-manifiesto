@@ -1,23 +1,55 @@
+{% set templates = ['request-item'] %}
+
 {% extends '../../partials/base.html' %}
 {% set pageTitle = 'Pedidos' %}
 
 {% block elements %}
-  <ul>
-   {% for request in requests %}
-      <li>estado : {{request.status}}   </br> product : {{request.Product.name}}</li>
-   {% endfor %}
-  </ul>
-{% endblock %}
+	<div class="am-profile" style="padding-left: 0; padding-right: 0;">
 
+		<div class="grid-container u-margin-top-20">
+			<div class="grid-100">
+				<p class="account-title"><i class="fa fa-caret-down"></i>Pedidos Abiertos</p>
+			</div>
+		</div>
+
+		<div class="grid-container">
+			<div class="grid-100">
+				{% if !context %}
+					{% include '../../partials/account-menu.html' %}
+				{% endif %}
+
+				<div class="am-profile-box grid-container u-margin-top-20" style="float: right; max-width: 880px !important;">
+					<form class="complete-form">
+
+						<p class="open-seller-main-title">Envíos abiertos</p>
+
+						<p class="u-separator u-margin-bottom-20" style="background: #979797;"></p>
+
+						<div class="requests-container">
+
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+	</div>
+{% endblock %}
 {% block scripts %}
 	<script>
 		var profile = {{profile|json|safe}};
 
+		var requests = {{requests|json|safe}};
+		console.log(requests);
 		$(function() {
-			new APP.AccountPasswordScreen();
-			$('.account-title').click(function () {
-				$('.am-Filter.account.mobile').toggleClass('visible')
-			});
+			for (var i = 0; i < requests.length; i++) {
+				$('.requests-container').append(new APP.RequestItem(requests[0]).view);
+			}
+			// $('.requests').addClass('selected');
+			// new APP.AccountPasswordScreen();
+			// $('.account-title').click(function () {
+			// 	$('.am-Filter.account.mobile').toggleClass('visible')
+			// });
 		});
 	</script>
 {% endblock %}

@@ -246,6 +246,8 @@
 	var context = {{context|json|safe}};
 	var interests = {{interests|json|safe}};
 	$(function() {
+		$('.profile').addClass('selected');
+
 		$.cloudinary.config({{cloudinary.config()|json|safe}});
 		new APP.AccountIndexScreen();
 
