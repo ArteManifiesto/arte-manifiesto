@@ -1,0 +1,43 @@
+{% extends '../../partials/base.html' %}
+{% set pageTitle = 'Administrar cuenta' %}
+
+{% block elements %}
+	<div class="am-profile" style="padding-left: 0; padding-right: 0;">
+
+		<div class="grid-container u-margin-top-20">
+			<div class="grid-100">
+				<p class="account-title"><i class="fa fa-caret-down"></i>Abre tu tienda en línea</p>
+			</div>
+		</div>
+
+		<div class="grid-container">
+			<div class="grid-100">
+				{% if !context %}
+					{% include '../../partials/account-menu.html' %}
+				{% endif %}
+
+				<div class="am-profile-box grid-container u-margin-top-20" style="float: right; max-width: 880px !important; width: 100%;">
+					<form class="complete-form">
+
+						<div class="invitation-cover" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1458957539/general/vende_en_internet.png');">
+
+						</div>
+
+						<p class="invitation-title">Crea tu tienda en línea en 3 pasos</p>
+
+						<p class="invitation-subTitle">Ahora hacemos muy fácil el que puedas vender tu arte por internet</p>
+
+						<a class="invitation-button" href="">CREAR TIENDA</a>
+
+						<p class="invitation-subTitle underline">¿Cómo funciona la tienda?</p>
+
+					</form>
+				</div>
+			</div>
+		</div>
+
+	</div>
+{% endblock %}
+{% block scripts %}
+
+{% endblock %}
