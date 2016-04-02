@@ -6,7 +6,7 @@ exports.index = function (req, res) {
 };
 
 var searchData = function (req, entity) {
-  var query = {
+    var query = {
     order: [global.getOrder('newest')],
     where: {}
   };

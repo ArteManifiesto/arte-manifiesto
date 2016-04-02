@@ -1,0 +1,39 @@
+{% extends '../../partials/base.html' %}
+{% set pageTitle = 'Configuración' %}
+
+{% block elements %}
+	<div class="am-profile" style="padding-left: 0; padding-right: 0;">
+
+		<div class="grid-container u-margin-top-20">
+			<div class="grid-100">
+				<p class="account-title"><i class="fa fa-caret-down"></i>Desactivar cuenta</p>
+			</div>
+		</div>
+
+		<div class="grid-container">
+			<div class="grid-100">
+				{% if !context %}
+					{% include '../../partials/account-menu.html' %}
+				{% endif %}
+        <div class="am-profile-box grid-container u-margin-top-20" style="max-height:50px !important;">
+          <button class="button upload red u-margin-top-40 delete" data-color="green">DESACTIVAR</button>
+        </div>
+			</div>
+		</div>
+
+	</div>
+{% endblock %}
+
+{% block scripts %}
+	<script>
+		var profile = {{profile|json|safe}};
+
+		$(function() {
+			$('.configuration').addClass('selected');
+			new APP.AccountConfigurationScreen();
+			$('.account-title').click(function () {
+				$('.am-Filter.account.mobile').toggleClass('visible')
+			});
+		});
+	</script>
+{% endblock %}

@@ -23,5 +23,5 @@ exports.init = function (app) {
   app.use('/report', global.md.isAdmin, reportRouter);
   app.use('/blog', blogRouter);
   app.use('/auth', authRouter);
-  app.use('/user/:username', userRouter);
+  app.use('/user/:username',  userRouter);
 };

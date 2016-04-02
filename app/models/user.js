@@ -48,6 +48,7 @@ module.exports = function (sequelize, DataTypes) {
       zipcode: DataTypes.STRING,
       direction: DataTypes.STRING,
       phone: DataTypes.STRING,
+      paypal: DataTypes.STRING,
       document: DataTypes.STRING,
       documentValue: DataTypes.STRING,
       businessName: DataTypes.STRING,
@@ -58,7 +59,8 @@ module.exports = function (sequelize, DataTypes) {
 
       tokenVerifyEmail: DataTypes.STRING,
       tokenResetPassword: DataTypes.STRING,
-      tokenResetPasswordExpires: DataTypes.DATE
+      tokenResetPasswordExpires: DataTypes.DATE,
+      isActive: {type: DataTypes.BOOLEAN, defaultValue: true}
     },
     {
       classMethods: {

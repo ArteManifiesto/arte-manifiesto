@@ -11,8 +11,7 @@ module.exports = {
       }
     );
   },
-
   down: function (queryInterface, Sequelize) {
     queryInterface.removeIndex('Users', 'UsersFullText');
-  }
+    }
 };

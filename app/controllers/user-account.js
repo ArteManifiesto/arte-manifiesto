@@ -18,6 +18,9 @@ exports.index = function (req, res) {
   });
 };
 
+exports.configuration = function(req, res) {
+  return res.render(basePath + 'configuration');
+};
 
 exports.requests = function(req, res) {
   global.db.Order.findAll({where: {
@@ -41,6 +44,14 @@ exports.orders = function(req, res) {
   ]}).then(function(orders) {
     return res.render(basePath + 'orders', {
       orders: orders
+    });
+  });
+};
+
+exports.deactivate = function (req, res) {
+  req.user.destroy().then(function() {
+    req.session.destroy(function (err) {
+      return res.ok({user: req.user}, 'User deactivated');
     });
   });
 };
@@ -97,7 +108,15 @@ exports.seller = function (req, res) {
 exports.sellerUpdate = function (req, res) {
   req.body.isSeller = true;
   req.user.updateAttributes(req.body).then(function() {
-    return res.ok({user:user}, 'Se actualizo los datos de vendedor');
+    return res.ok({user:req.user}, 'Se actualizo los datos de vendedor');
+  });
+};
+
+exports.unSeller = function (req, res) {
+  req.user.updateAttributes({
+    isSeller: false
+  }).then(function() {
+    return res.ok({user:req.user}, 'Se desactivo el vendedor');
   });
 };
 
