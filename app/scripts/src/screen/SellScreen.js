@@ -13,10 +13,39 @@ APP.SellScreen.prototype = Object.create(APP.BaseScreen.prototype);
 
 APP.SellScreen.prototype.setupUI = function() {
   this.createBtn = $('.create-btn');
+
+
+  this.product1 = new APP.CreatorProductItem({view: $('.grid-1')});
+  this.product2 = new APP.CreatorProductItem({view: $('.grid-2')});
+  this.product3 = new APP.CreatorProductItem({view: $('.grid-3')});
+  this.product4 = new APP.CreatorProductItem({view: $('.grid-4')});
+  this.product5 = new APP.CreatorProductItem({view: $('.grid-5')});
+  this.product6 = new APP.CreatorProductItem({view: $('.grid-6')});
+
+  this.oldIndex = null;
+  this.currentIndex = 0;
 };
 
 APP.SellScreen.prototype.listeners = function() {
   this.createBtn.click(this.createHandler.bind(this));
+
+  var scope = this;
+  $('.product-creator').click(function(e) {
+    e.preventDefault();
+
+    scope.currentIndex = parseInt($(this).data('prod'), 10);
+
+    // if(scope.currentIndex === scope.oldIndex)) {
+    //   return scope['product' + scope.oldIndex].close();
+    // }
+
+    if(scope.oldIndex)
+      scope['product' + scope.oldIndex].close();
+
+    scope['product' + scope.currentIndex].open();
+
+    scope.oldIndex = scope.currentIndex;
+  });
 };
 
 APP.SellScreen.prototype.createHandler = function(e) {

@@ -27,7 +27,7 @@
 
 			<div class="sales-option-button">
 					<a class="sales-button white">ACTUALIZAR IMAGEN</a>
-					<a class="sales-button white">EDITAR DATOS</a>
+					<a target='_blank' href="/user/{{user.username}}/work/{{work.nameSlugify}}/edit" class="sales-button white">EDITAR DATOS</a>
 			</div>
 		</div>
 	</div>
@@ -42,7 +42,7 @@
 		<div class="grid-100 grid-parent">
 
 			<div class="products-creator">
-				<div class="product-creator">
+				<div class="product-creator" data-prod='1'>
 					<div class="image">
 						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
 					</div>
@@ -53,7 +53,7 @@
 						<a class="sales-button blue" href="#">ACTIVAR</a>
 					</div>
 				</div>
-				<div class="product-creator">
+				<div class="product-creator" data-prod='2'>
 					<div class="image">
 						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
 					</div>
@@ -64,7 +64,7 @@
 						<a class="sales-button blue" href="#">ACTIVAR</a>
 					</div>
 				</div>
-				<div class="product-creator">
+				<div class="product-creator" data-prod='3'>
 					<div class="image">
 						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
 					</div>
@@ -80,7 +80,7 @@
 	</div>
 
 	<!-- SALES 1 -->
-	<div class="grid-container grid-1 hide">
+	<div class="grid-container grid-1 hide product-container">
 		<div class="grid-100">
 			<div class="sales">
 				<div class="sales-left" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1458849903/general/fondo_prints_galeri%CC%81a.png');">
@@ -90,7 +90,8 @@
 					</div>
 					<div class="sales-image-card">
 						<div class="original-work"><i class="fa fa-cog"></i>&nbsp;OBRA ORIGINAL</div>
-						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_700,h_800,q_80,c_limit/v1454928729/chlvcbesfnspyczfictg.png">
+						<canvas id="product1" width="500" height="400">
+						</canvas>
 					</div>
 				</div>
 				<div class="sales-right">
@@ -132,8 +133,7 @@
 		</div>
 	</div>
 
-	<!-- SALES 2 -->
-	<!-- <div class="grid-container">
+	<div class="grid-container grid-2 hide product-container">
 		<div class="grid-100">
 			<div class="sales">
 				<div class="sales-left" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1458855146/general/fondo_prints_2.png');">
@@ -250,10 +250,9 @@
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div>
 
-	<!-- SALES 3 -->
-	<!-- <div class="grid-container">
+	<div class="grid-container grid-3 hide product-container">
 		<div class="grid-100">
 			<div class="sales">
 				<div class="sales-left">
@@ -310,13 +309,13 @@
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div>
 
 	<div class="grid-container">
 		<div class="grid-100 grid-parent">
 
 			<div class="products-creator">
-				<div class="product-creator">
+				<div class="product-creator" data-prod='4'>
 					<div class="image">
 						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
 					</div>
@@ -327,7 +326,7 @@
 						<a class="sales-button blue" href="#">ACTIVAR</a>
 					</div>
 				</div>
-				<div class="product-creator">
+				<div class="product-creator" data-prod='5'>
 					<div class="image">
 						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
 					</div>
@@ -338,7 +337,7 @@
 						<a class="sales-button blue" href="#">ACTIVAR</a>
 					</div>
 				</div>
-				<div class="product-creator">
+				<div class="product-creator" data-prod='6'>
 					<div class="image">
 						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
 					</div>
@@ -353,8 +352,7 @@
 		</div>
 	</div>
 
-	<!-- SALES 4 -->
-	<!-- <div class="grid-container">
+	<div class="grid-container grid-4 hide product-container">
 		<div class="grid-100">
 			<div class="sales">
 				<div class="sales-left" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1458855146/general/fondo_prints_2.png');">
@@ -404,10 +402,10 @@
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div>
 
 	<!-- SALES 5 -->
-	<!-- <div class="grid-container">
+	<div class="grid-container grid-5 hide product-container">
 		<div class="grid-100">
 			<div class="sales">
 				<div class="sales-left">
@@ -468,10 +466,10 @@
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div>
 
 	<!-- SALES 6 -->
-	<!-- <div class="grid-container">
+	<div class="grid-container grid-6 hide product-container">
 		<div class="grid-100">
 			<div class="sales">
 				<div class="sales-left" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1458849903/general/fondo_prints_galeri%CC%81a.png');">
@@ -545,7 +543,7 @@
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div>
 
 	<!-- PHONE CASES: EDICIÓN -->
 	<!-- <div class="grid-container">
@@ -984,12 +982,8 @@
 var work = {{work|json|safe}};
 $(function() {
 	$.cloudinary.config({{cloudinary.config()|json|safe}});
-	new APP.SellScreen();
 
-	$('.edit-btn').click(function(e){
-		e.preventDefault();
-		$('.grid-1').removeClass('hide');  
-	});
+	new APP.SellScreen();
 
 	$('#go-collection-modal').leanModal();
 	$('#go-share-modal').leanModal();
