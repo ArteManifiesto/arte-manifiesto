@@ -6,7 +6,7 @@
 
 		<div class="grid-container u-margin-top-20">
 			<div class="grid-100">
-				<p class="account-title"><i class="fa fa-caret-down"></i>Desactivar cuenta</p>
+				<p class="account-title"><i class="fa fa-caret-down"></i>Configuracion de cuenta</p>
 			</div>
 		</div>
 
@@ -15,9 +15,24 @@
 				{% if !context %}
 					{% include '../../partials/account-menu.html' %}
 				{% endif %}
-        <div class="am-profile-box grid-container u-margin-top-20" style="max-height:50px !important;">
-          <button class="button upload red u-margin-top-40 delete" data-color="green">DESACTIVAR</button>
-        </div>
+
+				<div class="am-profile-box grid-container u-margin-top-20">
+					<form class="complete-form">
+
+						<div class="grid-100">
+							<p class="title">Desactivar cuenta</p>
+
+							<button class="button upload red u-margin-top-40" data-color="green">DESACTIVAR</button>
+
+							<div class="edit-options work-delete-confirm hide" style="display: block;">
+  					DESACTIVAR CUENTA? &nbsp;
+  					<i class="bi_interface-box-tick work-delete-force save-icon" style="display: inline;"></i>
+  					<i class="bi_interface-box-cross work-delete-cancel cancel-icon" style="display: inline;"></i>
+  				</div>
+						</div>
+
+					</form>
+				</div>
 			</div>
 		</div>
 
