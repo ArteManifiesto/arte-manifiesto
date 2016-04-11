@@ -37,6 +37,8 @@ APP.AccountSellerScreen.prototype.setupUI = function() {
   this.direction.geocomplete();
 
   this.deleteStoreBtn = $('.delete-store');
+
+  this.createStoreBtn = $('.create-store-btn');
 };
 
 APP.AccountSellerScreen.prototype.listeners = function () {
@@ -44,6 +46,23 @@ APP.AccountSellerScreen.prototype.listeners = function () {
 
   this.form.submit(this.submitHandler.bind(this));
   this.deleteStoreBtn.click(this.deleteStoreBtnHandler.bind(this));
+  this.createStoreBtn.click(this.createStoreBtnHandler.bind(this));
+  this.country.change(this.countryChangeHandler.bind(this));
+};
+
+APP.AccountSellerScreen.prototype.countryChangeHandler = function (e) {
+  if(this.country.val() === 'Peru') {
+    $('.country-container').show();
+  }else {
+    $('.country-container').hide();
+  }
+};
+
+APP.AccountSellerScreen.prototype.createStoreBtnHandler = function (e) {
+  e.preventDefault();
+
+  $('#seller-invitation').hide();
+  $('#seller-validation').show();
 };
 
 APP.AccountSellerScreen.prototype.deleteStoreBtnHandler = function (e) {
@@ -74,7 +93,7 @@ APP.AccountSellerScreen.prototype.submitHandler = function (e) {
 
   if(!Validations.email(this.paypal.val())) errors.push('Ingrese su cuenta de paypal válida');
 
-  if(user.country === 'Peru') {
+  if(this.country.val() === 'Peru') {
     if(Validations.notBlank(this.document.val())) errors.push('Seleccione un documento');
     if(Validations.notBlank(this.documentValue.val())) errors.push('Ingrese el nro del documento');
     if(Validations.notBlank(this.businessName.val())) errors.push('Ingrese el nombre de la razón social');

@@ -10,7 +10,7 @@ APP.CreatorProductItem = function (data) {
     this.canvas = new fabric.Canvas('product1');
   }
   this.setup();
-
+  
   this.listeners();
 };
 
@@ -25,7 +25,6 @@ APP.CreatorProductItem.prototype.setup = function() {
   var scope = this;
 
   if(this.canvas) {
-
     fabric.Image.fromURL(work.photo, function (image) {
         scope.canvas.add(image);
         scope.canvas.calcOffset();
