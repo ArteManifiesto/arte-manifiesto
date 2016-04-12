@@ -51,11 +51,7 @@ APP.AccountSellerScreen.prototype.listeners = function () {
 };
 
 APP.AccountSellerScreen.prototype.countryChangeHandler = function (e) {
-  if(this.country.val() === 'Peru') {
-    $('.country-container').show();
-  }else {
-    $('.country-container').hide();
-  }
+  this.country.val() === 'Peru' ? $('.country-container').show() : $('.country-container').hide();
 };
 
 APP.AccountSellerScreen.prototype.createStoreBtnHandler = function (e) {
