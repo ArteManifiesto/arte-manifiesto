@@ -14,13 +14,13 @@ APP.SellScreen.prototype = Object.create(APP.BaseScreen.prototype);
 APP.SellScreen.prototype.setupUI = function() {
   this.createBtn = $('.create-btn');
 
+  this.product1 = new APP.CreatorProductItem(1);
+  this.product2 = new APP.CreatorProductItem(2);
+  this.product3 = new APP.CreatorProductItem(3);
+  this.product4 = new APP.CreatorProductItem(4);
+  this.product5 = new APP.CreatorProductItem(5);
+  this.product6 = new APP.CreatorProductItem(6);
 
-  this.product1 = new APP.CreatorProductItem({view: $('.grid-1')});
-  this.product2 = new APP.CreatorProductItem({view: $('.grid-2')});
-  this.product3 = new APP.CreatorProductItem({view: $('.grid-3')});
-  this.product4 = new APP.CreatorProductItem({view: $('.grid-4')});
-  this.product5 = new APP.CreatorProductItem({view: $('.grid-5')});
-  this.product6 = new APP.CreatorProductItem({view: $('.grid-6')});
 
   this.oldIndex = null;
   this.currentIndex = 0;

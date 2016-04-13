@@ -19,6 +19,10 @@ module.exports = function (sequelize, DataTypes) {
                     Category.belongsToMany(models.User, {as: 'Interests', through: 'Interests'});
                     Category.hasMany(models.Work, {onDelete: 'cascade'});
                     Category.hasMany(models.Post, {onDelete: 'cascade'});
+
+                    Category.belongsTo(models.Category, {as :'ParentCategory'});
+
+                    // Category.hasMany(models.Category, {onDelete:})
                 }
             },
             instanceMethods: {

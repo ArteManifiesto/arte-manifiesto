@@ -16,7 +16,10 @@ module.exports = function (sequelize, DataTypes) {
             published: {type: DataTypes.BOOLEAN, defaultValue: false},
             featured: {type: DataTypes.BOOLEAN, defaultValue: false},
             views: {type: DataTypes.INTEGER, defaultValue: 0},
-            popularity: {type: DataTypes.INTEGER, defaultValue: 0}
+            popularity: {type: DataTypes.INTEGER, defaultValue: 0},
+            config: DataTypes.TEXT,
+            canvas: DataTypes.TEXT,
+            isActive: {type: DataTypes.BOOLEAN, defaultValue: false}
         }, {
             classMethods: {
                 associate: function (models) {

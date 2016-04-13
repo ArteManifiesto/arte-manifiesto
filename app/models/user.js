@@ -59,8 +59,7 @@ module.exports = function (sequelize, DataTypes) {
 
       tokenVerifyEmail: DataTypes.STRING,
       tokenResetPassword: DataTypes.STRING,
-      tokenResetPasswordExpires: DataTypes.DATE,
-      isActive: {type: DataTypes.BOOLEAN, defaultValue: true}
+      tokenResetPasswordExpires: DataTypes.DATE
     },
     {
       classMethods: {
