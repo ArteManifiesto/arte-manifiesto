@@ -5444,16 +5444,27 @@ white = #fff
 	flex-wrap wrap
 
 .product-creator
-	// max-width 380px
-	// flex 1
 	padding 10px
 	box-sizing border-box
 	width 33.333%
 	.image
-		// width 380px
+		position relative
+		height 300px
 		border: solid 1px #979797;
+		display flex
 		img
+			margin auto
+			max-height: 100%;
+			width: auto;
+		.background
+			position absolute
 			width 100%
+			height 100%
+			display flex
+			// img
+			// 	margin auto
+			// 	max-height: 100%;
+			// 	width: auto;
 	.title
 		font-size: 18px;
 		font-family: 'Montserrat',sans-serif;
