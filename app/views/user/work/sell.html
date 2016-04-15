@@ -115,25 +115,25 @@
 					<p class="title">Tipo de empaque</p>
 
 					<div class="checks">
-						<input class="check" type="checkbox" name="package-type"></input>
-						<label class="label-check">Empaque en tubo</label>
+						<input class="check" type="radio" name="package-type" id="package-type-1"></input>
+						<label class="label-check" for="package-type-1">Empaque en tubo</label>
 
-						<input class="check" type="checkbox" name="package-type"></input>
-						<label class="label-check">Empaque en caja</label>
+						<input class="check" type="radio" name="package-type" id="package-type-2"></input>
+						<label class="label-check" for="package-type-2">Empaque en caja</label>
 					</div>
 
 					<div class="sizes">
 						<p class="title">Largo</p>
-						<input class="input" value="Medidas cm"></input> <br>
+						<input class="input" value="" placeholder="Medidas cm"></input> <br>
 
 						<p class="title">Ancho</p>
-						<input class="input" value="Medidas cm"></input> <br>
+						<input class="input" value="" placeholder="Medidas cm"></input> <br>
 
 						<p class="title">Altura</p>
-						<input class="input" value="Medidas cm"></input> <br>
+						<input class="input" value="" placeholder="Medidas cm"></input> <br>
 
 						<p class="title">Peso del paquete</p>
-						<input class="input" value="Peso en kg del paquete"></input> <br>
+						<input class="input" value="" placeholder="Peso en kg del paquete"></input> <br>
 					</div>
 
 					<a class="sales-button u-margin-top-30 u-margin-bottom-30">ACTUALIZAR</a>
@@ -154,7 +154,7 @@
 						</a>
 					</p>
 
-					<p class="title">Cálculo de ganancias</p>
+					<!-- <p class="title">Cálculo de ganancias</p>
 
 					<div class="checks">
 						<input class="check" type="checkbox" name="package-type"></input>
@@ -162,7 +162,7 @@
 
 						<input class="check" type="checkbox" name="package-type"></input>
 						<label class="label-check">Empaque en caja</label>
-					</div>
+					</div> -->
 
 
 					<table class="prices u-margin-top-20">
@@ -207,8 +207,8 @@
 			<div class="sales">
 				<div class="sales-left" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1458855146/general/fondo_prints_2.png');">
 					<div class="controls">
-						<i class="fa fa-check-square-o part-btn-1"></i>
-						<i class="selected fa fa-check-square-o part-btn-2"></i>
+						<i class="selected fa fa-check-square-o part-btn-1"></i>
+						<i class="fa fa-check-square-o part-btn-2"></i>
 					</div>
 					<div class="sales-image-card white-mark">
 						<canvas id="canvas-product2" width="500" height="400">
@@ -216,6 +216,42 @@
 					</div>
 				</div>
 				<div class="sales-right sales-right-1">
+
+					<p class="title u-margin-top-10" style="text-align: center;">PRINTS: EDICIÓN</p>
+					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
+
+					<p class="title">Hacer prints nunca fué tan fácil</p>
+					<p class="subtitle">
+						Al subir la imagen el tamaño mínimo es 1600x1600 pixeles para crear prints.
+						<br><br>
+						Puedes elegir entre:
+						<br>
+						Poster print / Photo Luster Print / Fine Art Print (100% algodón) / Canvas Print
+					</p>
+
+					<a href="" class="sales-button white">REEMPLAZAR IMAGEN</a>
+
+					<div class="back-color">
+						<p class="subtitle">Color de fondo:</p>
+						<select>
+							<option></option>
+							<option></option>
+							<option></option>
+						</select>
+					</div>
+
+					<p class="subtitle" style="margin-bottom: 0;">Centrar diseño:</p>
+
+					<div class="aligns">
+						<a href="" class="sales-button white">VERTICAL</a>
+						<a href="" class="sales-button white">HORIZONTAL</a>
+					</div>
+
+					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR CAMBIOS</a>
+
+					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
+				</div>
+				<div class="sales-right sales-right-2" style="display: none;">
 					<p class="title u-margin-top-10" style="text-align: center;">PRINTS: CONDICIONES DE VENTA</p>
 					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
 
@@ -317,42 +353,6 @@
 
 					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
 				</div>
-				<div class="sales-right sales-right-2" style="display: none;">
-
-					<p class="title u-margin-top-10" style="text-align: center;">PRINTS: EDICIÓN</p>
-					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
-
-					<p class="title">Hacer prints nunca fué tan fácil</p>
-					<p class="subtitle">
-						Al subir la imagen el tamaño mínimo es 1600x1600 pixeles para crear prints.
-						<br><br>
-						Puedes elegir entre:
-						<br>
-						Poster print / Photo Luster Print / Fine Art Print (100% algodón) / Canvas Print
-					</p>
-
-					<a href="" class="sales-button white">REEMPLAZAR IMAGEN</a>
-
-					<div class="back-color">
-						<p class="subtitle">Color de fondo:</p>
-						<select>
-							<option></option>
-							<option></option>
-							<option></option>
-						</select>
-					</div>
-
-					<p class="subtitle" style="margin-bottom: 0;">Centrar diseño:</p>
-
-					<div class="aligns">
-						<a href="" class="sales-button white">VERTICAL</a>
-						<a href="" class="sales-button white">HORIZONTAL</a>
-					</div>
-
-					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR CAMBIOS</a>
-
-					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -371,6 +371,53 @@
 					</div>
 				</div>
 				<div class="sales-right sales-right-1">
+
+					<p class="title u-margin-top-10" style="text-align: center;">TAZAS: EDICIÓN</p>
+					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
+
+					<p class="title">Crea tazas geniales con solo un click</p>
+					<p class="subtitle">
+						Acomoda la imagen de tu obra sobre la taza. Para un resultado óptimo crea una imagen de 2700x1624 píxeles que se acomode al formato.
+					</p>
+
+					<a href="" class="sales-button white">REEMPLAZAR IMAGEN</a>
+
+					<div class="back-color">
+						<p class="subtitle">Color de fondo:</p>
+						<select>
+							<option></option>
+							<option></option>
+							<option></option>
+						</select>
+					</div>
+
+					<p class="subtitle u-margin-top-30" style="margin-bottom: 0;">Tamaño obra en el producto:</p>
+
+					<div class="size-work">
+						<input type="range" name="" min="0" max="10">
+						<!-- <p>50%</p> -->
+					</div>
+
+					<p class="subtitle u-margin-top-20" style="margin-bottom: 0;">Centrar diseño:</p>
+
+					<div class="aligns" style="margin-bottom: 0;">
+						<a href="" class="sales-button white">VERTICAL</a>
+						<a href="" class="sales-button white">HORIZONTAL</a>
+					</div>
+
+					<p class="subtitle u-margin-top-20" style="margin-bottom: 0;">Vista por defecto:</p>
+
+					<div class="views">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065546/general/discover-banner-works.jpg">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065546/general/discover-banner-works.jpg">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065546/general/discover-banner-works.jpg">
+					</div>
+
+					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR CAMBIOS</a>
+
+					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
+				</div>
+				<div class="sales-right sales-right-2" style="display: none;">
 
 					<p class="title u-margin-top-10" style="text-align: center;">TAZAS: CONDICIONES DE VENTA</p>
 					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
@@ -410,53 +457,6 @@
 					<p class="subtitle-mall u-margin-top-50">* El precio de lista no incluye impuestos en cada país, ni el costo de envío.</p>
 
 					<a class="sales-button u-margin-top-30 u-margin-bottom-10">APLICAR CAMBIOS</a>
-
-					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
-				</div>
-				<div class="sales-right sales-right-2" style="display: none;">
-
-					<p class="title u-margin-top-10" style="text-align: center;">TAZAS: EDICIÓN</p>
-					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
-
-					<p class="title">Crea tazas geniales con solo un click</p>
-					<p class="subtitle">
-						Acomoda la imagen de tu obra sobre la taza. Para un resultado óptimo crea una imagen de 2700x1624 píxeles que se acomode al formato.
-					</p>
-
-					<a href="" class="sales-button white">REEMPLAZAR IMAGEN</a>
-
-					<div class="back-color">
-						<p class="subtitle">Color de fondo:</p>
-						<select>
-							<option></option>
-							<option></option>
-							<option></option>
-						</select>
-					</div>
-
-					<p class="subtitle u-margin-top-30" style="margin-bottom: 0;">Tamaño obra en el producto:</p>
-
-					<div class="size-work">
-						<input type="range" name="" min="0" max="10">
-						<p>50%</p>
-					</div>
-
-					<p class="subtitle u-margin-top-20" style="margin-bottom: 0;">Centrar diseño:</p>
-
-					<div class="aligns" style="margin-bottom: 0;">
-						<a href="" class="sales-button white">VERTICAL</a>
-						<a href="" class="sales-button white">HORIZONTAL</a>
-					</div>
-
-					<p class="subtitle u-margin-top-20" style="margin-bottom: 0;">Vista por defecto:</p>
-
-					<div class="views">
-						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065546/general/discover-banner-works.jpg">
-						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065546/general/discover-banner-works.jpg">
-						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065546/general/discover-banner-works.jpg">
-					</div>
-
-					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR CAMBIOS</a>
 
 					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
 				</div>
@@ -548,7 +548,7 @@
 
 					<div class="size-work">
 						<input type="range" name="" min="0" max="10">
-						<p>50%</p>
+						<!-- <p>50%</p> -->
 					</div>
 
 					<p class="subtitle u-margin-top-20" style="margin-bottom: 0;">Centrar diseño:</p>
@@ -643,7 +643,7 @@
 						</canvas>
 					</div>
 				</div>
-				<div class="sales-right">
+				<div class="sales-right sales-right-1">
 
 					<p class="title u-margin-top-10" style="text-align: center;">TABLET CASE: EDICIÓN</p>
 					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
@@ -668,7 +668,7 @@
 
 					<div class="size-work">
 						<input type="range" name="" min="0" max="10">
-						<p>50%</p>
+						<!-- <p>50%</p> -->
 					</div>
 
 					<p class="subtitle u-margin-top-20" style="margin-bottom: 0;">Centrar diseño:</p>
@@ -682,9 +682,9 @@
 
 					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
 				</div>
-				<div class="sales-right" style="display: none;">
+				<div class="sales-right sales-right-2" style="display: none;">
 
-					<p class="title u-margin-top-10" style="text-align: center;">TABLET CASE: CONDICIONES</p>
+					<p class="title u-margin-top-10" style="text-align: center;">ALMOHADAS: CONDICIONES</p>
 					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
 
 					<p class="title">Condiciones</p>
@@ -702,7 +702,7 @@
 								<div class="type">
 									<input type="checkbox"></input>
 									<div>
-										<p>IPAD CASE</p>
+										<p>ALMOHADA</p>
 										<p>$10.23 - $24.32</p>
 									</div>
 								</div>
@@ -720,9 +720,7 @@
 					</table>
 
 					<p class="subtitle-mall u-margin-top-50">* El precio de lista no incluye impuestos en cada país, ni el costo de envío.</p>
-
 					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR CAMBIOS</a>
-
 					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
 				</div>
 			</div>
