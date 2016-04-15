@@ -1,0 +1,153 @@
+{% set templates = ['collection-item', 'carrousel-item', 'review']%}
+{% set pageTitle = product.name %}
+
+{% extends '../../partials/base.html' %}
+
+{% block head %}
+	<meta property="og:site_name" content="Arte Manifiesto" />
+	<meta property="og:site" content="artemanifiesto.com" />
+	<meta property="og:title" content="{{product.name}}" />
+	<meta property="og:description" content="{{product.description}}" />
+	<meta property="og:image" content="{{product.photo|addFilter('w_1200,h_630,q_60,c_crop')}}" />
+	<meta property="og:url" content="http://artemanifiesto.com/user/{{product.User.username}}/product/{{product.nameSlugify}}" />
+	<meta property="og:type" content="article" />
+	<meta name='twitter:card' content='summary_large_image' />
+	<meta name='twitter:image:src' content="{{product.photo|addFilter('w_1200,h_630,q_60,c_crop')}}" />
+	<meta name='twitter:site' content='@artemanifiesto' />
+	<meta name='twitter:url' content='http://artemanifiesto.com/user/{{product.User.username}}/product/{{product.nameSlugify}}' />
+	<meta name='twitter:description' content='{{product.description}}' />
+	<meta name='twitter:title' content='{{product.name}}' />
+{% endblock %}
+
+{% block styles %}
+	<link rel="stylesheet" href="/css/photoswipe.css">
+	<link rel="stylesheet" href="/css/default-skin/default-skin.css">
+{% endblock %}
+
+{% block elements %}
+
+	<!-- ********************************************************************
+		$ SINGLE INFO
+	********************************************************************* -->
+	<div class="grid-container u-margin-top-30">
+		<div class="grid-100">
+			<div class="single-info">
+				<div class="single-image">
+					<div class="single-image-inner">
+              <img src="{{product.photo|addFilter('w_700,h_800,q_80,c_limit')}}" class="work-photo" id="work-image">
+              <div class="actions u-padding-top-20 u-padding-bottom-20">
+							<div class="action active">
+								<i class="icon fa fa-diamond valuation"></i>
+								<p class="text">VALORAR</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="single-data u-padding-bottom-40">
+					<div class="FollowArtist u-padding-bottom-10">
+						<div>
+							<p class="u-padding-bottom-7 big"><strong>SEBASTIÁN SUAREZ</strong></p>
+							<button class="am-Follow-button">+ SEGUIR</button>
+						</div>
+					</div>
+					<div class="u-separator"></div>
+					<p class="am-Single-title-text u-margin-top-15">Los pajaritos ya no cantan como antes, cómo antes cantaban, 2014</p>
+					<p class="am-Single-text u-margin-top-10">Serie: <strong>Los noctámbulos y otros demonios.</strong></p>
+					<p class="am-Single-text u-margin-top-10">Estado: <strong>Disponible original y productos</strong></p>
+					<p class="am-Single-text u-margin-top-20">Categoría:</p>
+					<span class="am-Category-box u-margin-top-7">TÉCNICA MIXTA</span>
+					<p class="am-Single-text u-margin-top-10">Categoría producto:</p>
+					<span class="am-Category-box u-margin-top-7">ART PRINT</span>
+					<div class="info-box u-margin-top-25">
+						<div class="header">
+							<p>ORIGINAL</p>
+							<p class="selected">PRODUCTOS</p>
+						</div>
+						<div class="body">
+							<p class="text">Producto:</p>
+							<div class="u-center">
+								<a href="/user/{{product.User.username}}/product/{{product.nameSlugify}}/buy" class="am-View-button expand u-margin-top-20 buy">COMPRAR</a>
+							</div>
+						</div>
+					</div>
+					<div class="info-box u-margin-top-25">
+						<div class="header" style="padding: 10px 0;">
+							<p style="color: #333; font-size: 10px;">COMPRAR</p>
+						</div>
+						<div class="body">
+							<p class="title">Arte original</p>
+							<p class="text">Obras originales de nuestros artistas de valor único.</p>
+
+							<p class="text u-margin-top-10">Tamaño:</p>
+							<p class="text u-margin-top-10">2.5 kg / 50 cm x 40 cm x 10 cm</p>
+							<br>
+							<div class="type2">
+								<p class="text">Precio por unidad:</p>
+								<p class="price u-text-center">S/.<strong>42.99</strong> PEN</p>
+							</div>
+							<div class="type2">
+								<p class="text">Cantidad:</p>
+								<div class="u-center">
+									<div class="u-margin-top-7">
+										<span class="text">X</span>
+										<select>
+											<option>1</option>
+											<option>2</option>
+											<option>3</option>
+											<option>4</option>
+										</select>
+										<span class="text">&nbsp;&nbsp;Unidades</span>
+									</div>
+								</div>
+							</div>
+							<div class="u-center">
+								<button class="am-View-button expand u-margin-top-20">COMPRAR</button>
+							</div>
+						</div>
+					</div>
+					<div class="info-box u-margin-top-25">
+						<div class="header" style="padding: 10px 0;">
+							<p style="color: #333; font-size: 10px;">COMPRAR</p>
+						</div>
+						<div class="body">
+							<p class="title">Mate photo print</p>
+							<p class="text">180 gsm / Calidad archivo hecho en Lima / Elaborado por arte manifiesto lab.</p>
+
+							<p class="text u-margin-top-10">Tamaño:</p>
+							<select class="expand">
+								<option>Elige el tamaño</option>
+								<option>Holi</option>
+								<option>Boli</option>
+								<option>Crayoli</option>
+							</select>
+							<br><br>
+							<div class="type2">
+								<p class="text">Precio por unidad:</p>
+								<p class="price u-text-center">S/.<strong>42.99</strong> PEN</p>
+							</div>
+							<div class="type2">
+								<p class="text">Cantidad:</p>
+								<div class="u-center">
+									<div class="u-margin-top-7">
+										<span class="text">X</span>
+										<select>
+											<option>1</option>
+											<option>2</option>
+											<option>3</option>
+											<option>4</option>
+										</select>
+										<span class="text">&nbsp;&nbsp;Unidades</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="u-center">
+								<button class="am-View-button expand u-margin-top-20">COMPRAR</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

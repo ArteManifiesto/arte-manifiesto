@@ -26,128 +26,489 @@
 
 {% block elements %}
 
-	<!-- ********************************************************************
-		$ SINGLE INFO
-	********************************************************************* -->
-	<div class="grid-container u-margin-top-30">
+	<div class="grid-container u-margin-top-15 u-margin-bottom-15">
+		<div class="grid-100">
+			<div class="works-nav">
+				<div style="min-width: 100px;">
+					{% if neighbors.length > 1 %}
+						{% if neighbors[1] %}
+							<a href='/user/{{neighbors[1].User.username}}/work/{{neighbors[1].nameSlugify}}' class="nav next-btn" style="float: right;">
+								<i class="bi_interface-left"></i>
+								<p>ANTERIOR&nbsp;&nbsp;</p>
+							</a>
+						{% endif %}
+					{% endif %}
+				</div>
+				<a href="/user/{{work.User.username}}" class="nav">
+					<i class="bi_media-image-b"></i>
+					<p>&nbsp;&nbsp;IR AL PORTAFOLIO</p>
+				</a>
+				<div style="min-width: 100px;">
+					{% if neighbors.length > 1 %}
+						{% if neighbors[0] %}
+							<a href='/user/{{neighbors[0].User.username}}/work/{{neighbors[0].nameSlugify}}' class="nav prev-btn" style="float: left;">
+								<p>&nbsp;&nbsp;SIGUIENTE</p>
+								<i class="bi_interface-right"></i>
+							</a>
+						{% endif %}
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="u-separator" style="background: #eee;"></div>
+
+	<div class="grid-container u-margin-top-20">
 		<div class="grid-100">
 			<div class="single-info">
 				<div class="single-image">
 					<div class="single-image-inner">
-              <img src="{{product.photo|addFilter('w_700,h_800,q_80,c_limit')}}" class="work-photo" id="work-image">
-              <div class="actions u-padding-top-20 u-padding-bottom-20">
-							<div class="action active">
-								<i class="icon fa fa-diamond valuation"></i>
-								<p class="text">VALORAR</p>
+						<div class="work-photo-container">
+							<img src="{{product.photo|addFilter('w_700,h_800,q_80,c_limit')}}" class="work-photo" id="work-image">
+						</div>
+							<div class="actions u-padding-top-10">
+								<a class="action {% if work.liked %} active {% endif %}">
+									<div class="like-btn">
+										<i class="icon bi_ecommerce-diamon  valuation"></i>
+										<p class="text">VALORAR</p>
+									</div>
+								</a>
+								<a id="go-share-modal" href="#share-modal" class="action">
+									<i class="icon bi_web-share share"></i>
+									<p class="text">COMPARTIR</p>
+								</a>
+								{% if owner || (user && user.isAdmin)%}
+									<a id="go-share-modal" href="/user/{{work.User.username}}/work/{{work.nameSlugify}}/edit" class="action">
+										<i class="icon bi_editorial-compose"></i>
+										<p class="text">EDITAR</p>
+									</a>
+								{% endif %}
+							</div>
+						<div class="actions-box after-like {% if !work.liked %} hide {% endif %}">
+
+							<i class="bi_interface-top arrow" {% if owner %} style="left: 32px;" {% endif %}></i>
+
+							<a id="go-collection-modal" href="#collection-modal" >
+								<button class="color-blue bg-gray">AÑADIR A LA COLECCIÓN</button>
+							</a>
+							{% if !owner %}
+							<button class="u-margin-top-10 am-Follow-button">+SEGUIR</button>
+							{% endif %}
+							<div class="hide">
+								<button class="u-margin-top-10 follow-loading">
+									<i class="load fa fa-spinner"></i>
+								</button>
+							</div>
+							<div class="hide">
+								<button class="following u-margin-top-10">
+									<i class="fa fa-check-circle"></i>&nbsp;SIGUIENDO
+								</button>
 							</div>
 						</div>
+						<div class="u-margin-top-10">&nbsp;</div>
 					</div>
 				</div>
 				<div class="single-data u-padding-bottom-40">
 					<div class="FollowArtist u-padding-bottom-10">
-						<div>
-							<p class="u-padding-bottom-7 big"><strong>SEBASTIÁN SUAREZ</strong></p>
-							<button class="am-Follow-button">+ SEGUIR</button>
+						<div style="width: 100%;">
+							<a href="/user/{{work.User.username}}">
+								<p class="u-padding-bottom-7 big uppercase"><strong>
+									{% if work.User.typeName === 1 %}
+										{{work.User.fullname}}
+									{% else %}
+										{{work.User.pseudonimo}}
+									{% endif %}
+								</strong></p>
+							</a>
+							<div class="button-container">
+								{% if !owner %}
+									<button class="am-Follow-button">+ SEGUIR</button>
+								{% endif %}
+								{% if owner %}
+								{% endif %}
+							</div>
 						</div>
 					</div>
 					<div class="u-separator"></div>
-					<p class="am-Single-title-text u-margin-top-15">Los pajaritos ya no cantan como antes, cómo antes cantaban, 2014</p>
-					<p class="am-Single-text u-margin-top-10">Serie: <strong>Los noctámbulos y otros demonios.</strong></p>
-					<p class="am-Single-text u-margin-top-10">Estado: <strong>Disponible original y productos</strong></p>
+					<p class="am-Single-title-text u-margin-top-15 work-name" style="font-size: 15px;">{{work.name}}</p>
+					<p class="am-collection-desc u-margin-top-10 work-description">
+						{{work.description}}
+					</p>
 					<p class="am-Single-text u-margin-top-20">Categoría:</p>
-					<span class="am-Category-box u-margin-top-7">TÉCNICA MIXTA</span>
-					<p class="am-Single-text u-margin-top-10">Categoría producto:</p>
-					<span class="am-Category-box u-margin-top-7">ART PRINT</span>
+					<div class='work-category'>
+						<a href='/works/category/{{product.Category.nameSlugify}}/page-1/'>
+							<span class="am-Category-box u-margin-top-7 uppercase">{{work.Category.name}}</span>
+						</a>
+					</div>
 					<div class="info-box u-margin-top-25">
 						<div class="header">
-							<p>ORIGINAL</p>
+							<p class="selected">COMPRAR</p>
+						</div>
+						<div class="body u-text-center">
+							<div class="ask-requester {% if work.requested %} hide {% endif %}">
+								<p class="title large">Puedes preguntar al artista la disponibilidad</p>
+									<button class="am-View-button expand u-margin-top-20 ask-availability">PREGUNTAR</button>
+									<p class="msg u-padding-top-15 u-padding-bottom-4">Muy pronto la tienda en línea</p>
+							</div>
+							<div class="thanks-requester {% if !work.requested %} hide {% endif %}">
+								<p class="title large">Gracias por preguntar la disponibilidad</p>
+								<p class="msg u-padding-top-15 u-padding-bottom-4">te avisaremos cuando el artista ponga en venta esta obra</p>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="info-box u-margin-top-25">
+						<div class="header">
 							<p class="selected">PRODUCTOS</p>
 						</div>
 						<div class="body">
-							<p class="text">Producto:</p>
+							<p class="text u-margin-top-10">Precio por unidad:</p>
+							<p class="price u-text-center">S/.<strong>{{element.finalPrice}}</strong> PEN</p>
+
+							<p class="text u-margin-top-10">Cantidad:</p>
 							<div class="u-center">
-								<a href="/user/{{product.User.username}}/product/{{product.nameSlugify}}/buy" class="am-View-button expand u-margin-top-20 buy">COMPRAR</a>
+								<div class="u-margin-top-7">
+									<span class="text">X</span>
+									<select>
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+										<option>4</option>
+									</select>
+									<span class="text">&nbsp;&nbsp;Unidades</span>
+								</div>
+							</div>
+							<div class="u-center">
+								<button class="am-View-button expand u-margin-top-20 buy">COMPRAR</button>
 							</div>
 						</div>
 					</div>
 					<div class="info-box u-margin-top-25">
-						<div class="header" style="padding: 10px 0;">
-							<p style="color: #333; font-size: 10px;">COMPRAR</p>
+						<div class="header">
+							<p class="selected">ORIGINAL</p>
+							<p>PRODUCTOS</p>
 						</div>
-						<div class="body">
-							<p class="title">Arte original</p>
-							<p class="text">Obras originales de nuestros artistas de valor único.</p>
-
-							<p class="text u-margin-top-10">Tamaño:</p>
-							<p class="text u-margin-top-10">2.5 kg / 50 cm x 40 cm x 10 cm</p>
-							<br>
-							<div class="type2">
-								<p class="text">Precio por unidad:</p>
-								<p class="price u-text-center">S/.<strong>42.99</strong> PEN</p>
-							</div>
-							<div class="type2">
-								<p class="text">Cantidad:</p>
-								<div class="u-center">
-									<div class="u-margin-top-7">
-										<span class="text">X</span>
-										<select>
-											<option>1</option>
-											<option>2</option>
-											<option>3</option>
-											<option>4</option>
-										</select>
-										<span class="text">&nbsp;&nbsp;Unidades</span>
-									</div>
-								</div>
-							</div>
-							<div class="u-center">
-								<button class="am-View-button expand u-margin-top-20">COMPRAR</button>
-							</div>
+						<div class="body u-text-center">
+							<p class="title large">Precio Obra Original</p>
+							<p class="price u-padding-top-10">S/. <strong class="large">1500</strong></p>
+							<button class="am-View-button expand u-margin-top-20">COMPRAR</button>
+							<p class="msg u-padding-top-15 u-padding-bottom-4">7 días para devolver cualquier obra</p>
 						</div>
-					</div>
-					<div class="info-box u-margin-top-25">
-						<div class="header" style="padding: 10px 0;">
-							<p style="color: #333; font-size: 10px;">COMPRAR</p>
-						</div>
-						<div class="body">
-							<p class="title">Mate photo print</p>
-							<p class="text">180 gsm / Calidad archivo hecho en Lima / Elaborado por arte manifiesto lab.</p>
-
-							<p class="text u-margin-top-10">Tamaño:</p>
-							<select class="expand">
-								<option>Elige el tamaño</option>
-								<option>Holi</option>
-								<option>Boli</option>
-								<option>Crayoli</option>
-							</select>
-							<br><br>
-							<div class="type2">
-								<p class="text">Precio por unidad:</p>
-								<p class="price u-text-center">S/.<strong>42.99</strong> PEN</p>
-							</div>
-							<div class="type2">
-								<p class="text">Cantidad:</p>
-								<div class="u-center">
-									<div class="u-margin-top-7">
-										<span class="text">X</span>
-										<select>
-											<option>1</option>
-											<option>2</option>
-											<option>3</option>
-											<option>4</option>
-										</select>
-										<span class="text">&nbsp;&nbsp;Unidades</span>
-									</div>
-								</div>
-							</div>
-
-							<div class="u-center">
-								<button class="am-View-button expand u-margin-top-20">COMPRAR</button>
-							</div>
-						</div>
+					</div> -->
+					<p class="am-stats-text u-margin-top-40">ESTADÍSTICAS</p>
+					<div class="u-separator"></div>
+					<div class="u-center">
+						<table class="am-Single-stats u-margin-top-10">
+						  <tr>
+						    <td><i class="bi_interface-view"></i></td>
+						    <td><p>VISTAS</p></td>
+						    <td><span>{{work.views}}</span></td>
+						  </tr>
+						  <tr>
+						    <td><i class="bi_ecommerce-diamon"></i></td>
+						    <td><p>VALORACIONES</p></td>
+						    <td><span class="likes">{{work.likes || 0}}</span></td>
+						  </tr>
+						</table>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<div class="am-SingleMenu u-margin-top-20">
+	  <div class="grid-container">
+	    <div class="grid-100">
+	      <div class="single-menu">
+	        <div class="artist">
+	          <div class="FollowArtist">
+	            <a href="/user/{{product.User.username}}">
+	              <img src="{{product.User.photo}}">
+	            </a>
+	            <div>
+								<a href="/user/{{product.User.username}}">
+		              <p class="u-padding-bottom-4 uppercase" style="font-weight: bold;">
+										{% if product.User.typeName === 1 %}
+											{{product.User.fullname}}
+										{% else %}
+											{{product.User.pseudonimo}}
+										{% endif %}
+									</p>
+		              <p class="u-padding-bottom-7"> <strong></strong> {{product.User.city}}, {{product.User.country}}</p>
+	            	</a>
+	              {% if !owner %}
+	              <button class="am-Follow-button">+ SEGUIR</button>
+	              {% endif %}
+	            </div>
+	          </div>
+	        </div>
+	        <div class="menu">
+	          <div class="carousel">
+	            <div class="single-tabs">
+	              <div class="single-tab menu-item" data-name='index'>
+					<p>+ OBRAS</p>
+	                <i class="bi_misc-cube"></i>
+	              </div>
+	              <div class="single-tab menu-item" data-name='reviews'>
+	                <p>COMENTARIOS</p>
+	                <span>{{reviews.length}}</span>
+	              </div>
+	              <div class="single-tab menu-item" data-name='tags'>
+	                <p>TAGS</p>
+	                <i class="bi_editorial-left-align"></i>
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<!--=========================== WORKS-PRODUCTS'S RELATED AND SIMILAR ===========================-->
+	<div class="index-container {% if currentPath !== 'index' %}  {% endif %}">
+	  <div class="grid-container u-margin-top-60">
+	    <div class="grid-100">
+				<p class="am-more-text u-text-center u-padding-bottom-10">Otras obras del artista</p>
+	      <div class="u-separator-center"></div>
+	    </div>
+	  </div>
+
+	  <div class="grid-container">
+	    <div class="grid-100">
+	    	<div class="more-carousel js-more-carousel">
+					<p class="empty-profile-text empty-message bare-message hide u-margin-top-30">El artista no tiene mas obras<br><br>
+						<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
+					</p>
+
+					<button class="nextButton"><i class="bi_interface-right"></i></button>
+					<button class="prevButton"><i class="bi_interface-left"></i></button>
+
+	        <div class="more-images more">
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+
+		<div class="u-separator u-margin-top-60"></div>
+
+	  <div class="grid-container u-margin-top-60">
+	    <div class="grid-100">
+				<p class="am-more-text u-text-center u-padding-bottom-10">Obras relacionadas</p>
+	      <div class="u-separator-center"></div>
+	    </div>
+	  </div>
+	  <div class="grid-container">
+	    <div class="grid-100">
+	      <div class="more-carousel js-similar-carousel">
+					<p class="empty-profile-text empty-message bare-message hide u-margin-top-30">No existen obras relacionadas<br><br>
+						<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
+					</p>
+
+					<button class="nextButton"><i class="bi_interface-right"></i></button>
+					<button class="prevButton"><i class="bi_interface-left"></i></button>
+
+	        <div class="more-images similar"></div>
+
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!--=================================================================================
+			=================================================================================
+			=================================================================================-->
+
+	<!--=========================== WORK'S REVIEWS  ===========================-->
+	<div class="grid-container reviews-container {% if currentPath !== 'reviews' %} hide {% endif %}">
+	  <div class="grid-100">
+	    <div class="reviews">
+	      <p class="title" style="margin-top: 30px;">Comentarios &nbsp;&nbsp;<span>{{reviews.length}}</span></p>
+	      <div class="u-separator"></div>
+	      <div class='reviews-items-container'>
+	      </div>
+
+        {% if user %}
+	      	<div class="review">
+	          <div class="avatar"><img src="{{user.photo}}"></div>
+	          <form class="content review-form">
+	            <input type="hidden" name='id{{entity|capitalize}}' value="{{work.id}}"/>
+	            <textarea class='value-input' name="value"></textarea>
+	            <button>AGREGAR REVIEW</button>
+	          </form>
+	      	</div>
+        {% else %}
+        	<p class="empty-profile-text  empty-message bare-message u-margin-top-30" style="display: block;">
+        		<a class="login-review">Logeate, para agregar comentario</a>
+        	</p>
+        {% endif %}
+	    </div>
+	  </div>
+	</div>
+	<!--=================================================================================
+			=================================================================================
+			=================================================================================-->
+
+	<!--=========================== WORK-PRODUCT'S TAGS ===========================-->
+  <div class="grid-container tags-container {% if currentPath !== 'tags' %} hide {% endif %}">
+    <div class="grid-100">
+      <div class="tags-container">
+        <p class="title" style="margin-top: 30px;">Tags&nbsp;&nbsp;<span class="tags-number">{{tags.length}}</span></p>
+        <div class="u-separator"></div>
+				{% if tags.length > 0 %}
+					<div class="tags work-tags">
+	          {% for tag in tags %}
+	          {% set url = "#" + tag.name %}
+							<div class="tag uppercase"><a href='/works/category/all/page-1/?term={{url|url_encode}}'>{{tag.name}}</a></div>
+	          {% endfor %}
+	        </div>
+				{% else %}
+					<p class="empty-profile-text  empty-message bare-message hide u-margin-top-30" style="display: block;">Esta obra aun no tiene tags<br><br>
+						<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
+					</p>
+				{% endif %}
+      </div>
+    </div>
+  </div>
+	<!--=================================================================================
+			=================================================================================
+			=================================================================================-->
+
+	{% include '../../partials/inform.html' %}
+
+	<div id="collection-modal" style="display:none;">
+		<i class="closed-modal fa fa-times"></i>
+
+		<div class="actions-box add-collection">
+			<p class="title">Añadir a las colecciones</p>
+			<div class="u-separator u-margin-top-7"></div>
+
+			<form class="add-collection-form">
+				<input class="u-margin-top-10" type="text" name='name' required placeholder="Crear una colección nueva">
+				<button class="u-margin-top-10 color-black bg-gray wd-auto">AÑADIR</button>
+			</form>
+			<ul class="collections u-margin-top-20">
+			</ul>
+			<div class="u-separator u-margin-top-20"></div>
+			<div class="buttons u-margin-top-20">
+				<button class="wd-auto bg-blue color-white save-collections">GUARDAR</button>
+				<div class="hide save-collections-loading">
+					<button class="wd-auto bg-blue color-white">
+						<i class="load fa fa-spinner"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="share-modal" style="display:none;">
+		<i class="closed-modal fa fa-times"></i>
+
+		<div class="actions-box social-share">
+			<p class="title">Compartir obras</p>
+			<div class="u-separator u-margin-top-7"></div>
+			<div class="share share-fb">
+				<i class="fa fa-facebook"></i>Compartir en facebook
+			</div>
+			<div class="share share-tw">
+				<i class="fa fa-twitter"></i>Compartir en twitter
+			</div>
+			<div class="share copy">
+				Copiar link
+			</div>
+		</div>
+	</div>
+
+	<a id="go-preload-modal" href="#preload-modal"></a>
+	<div id="preload-modal" style="display:none;">
+		<div class="loader small"></div>
+	</div>
+
+	<div id="fb-root"></div>
+
+	<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+	    <div class="pswp__bg"></div>
+
+	    <div class="pswp__scroll-wrap">
+
+	        <div class="pswp__container">
+	            <div class="pswp__item"></div>
+	            <div class="pswp__item"></div>
+	            <div class="pswp__item"></div>
+	        </div>
+
+	        <div class="pswp__ui pswp__ui--hidden">
+
+	            <div class="pswp__top-bar">
+
+
+	                <div class="pswp__counter"></div>
+
+	                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+	                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+	                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+	                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+	                <div class="pswp__preloader">
+	                    <div class="pswp__preloader__icn">
+	                      <div class="pswp__preloader__cut">
+	                        <div class="pswp__preloader__donut"></div>
+	                      </div>
+	                    </div>
+	                </div>
+	            </div>
+
+	            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+	                <div class="pswp__share-tooltip"></div>
+	            </div>
+
+	            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+	            </button>
+
+	            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+	            </button>
+
+	            <div class="pswp__caption">
+	                <div class="pswp__caption__center"></div>
+	            </div>
+
+	          </div>
+
+	        </div>
+
+	</div>
+
+{% endblock %}
+
+{% block scripts %}
+	<script>
+		// var owner = {{owner|json|safe}};
+		// var entity = {{entity|json|safe}};
+		// var work = {{work|json|safe}};
+		// var currentPath = {{currentPath|json|safe}};
+		// var reviews = {{reviews|json|safe}};
+		// var more = {{more|json|safe}};
+		// var similar = {{similar|json|safe}};
+		// (function (d, s, id) {
+		// 	var js;
+		// 	var fjs = d.getElementsByTagName(s)[0];
+		// 	if (d.getElementById(id)) return;
+		// 	js = d.createElement(s);
+		// 	js.id = id;
+		// 	js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=" + DataApp.fbAppID;
+		// 	fjs.parentNode.insertBefore(js, fjs);
+		// }(document, 'script', 'facebook-jssdk'));
+		// $(function() {
+		// 	$("#go-collection-modal").leanModal();
+		// 	$("#go-share-modal").leanModal();
+		// 	$("#go-preload-modal").leanModal();
+		// 	new APP.WorkScreen();
+		// });
+
+		var product = {{product|json|safe}};
+		console.log('product: ', product)
+
+	</script>
 {% endblock %}
