@@ -56,7 +56,7 @@ APP.CreatorProductItem.prototype.setup = function() {
       options.target.hasBorders = options.target.hasControls = false;
       scope.canvas.renderAll();
 
-      scope.header.find('img').attr('src', scope.canvas.toDataURL());
+      scope.header.find('.image-preview').attr('src', scope.canvas.toDataURL());
 
       options.target.hasBorders = options.target.hasControls = true;
       scope.canvas.renderAll();
