@@ -19,7 +19,7 @@ APP.SellScreen.prototype.setupUI = function() {
   this.product3 = new APP.CreatorProductItem(3);
   this.product4 = new APP.CreatorProductItem(4);
   this.product5 = new APP.CreatorProductItem(5);
-  this.product6 = new APP.CreatorProductItem(6);
+  // this.product6 = new APP.CreatorProductItem(6);
 
 
   this.oldIndex = null;

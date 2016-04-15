@@ -9,6 +9,9 @@ APP.CreatorProductItem = function (index) {
   this.view = $('.grid-product-' + index);
   this.header = $('div[data-prod=' + index + ']');
   this.canvas = new fabric.Canvas('canvas-product' + index);
+
+
+
   this.setup();
 
   this.listeners();
@@ -18,16 +21,28 @@ APP.CreatorProductItem.constructor = APP.CreatorProductItem;
 
 APP.CreatorProductItem.prototype.listeners = function() {
   var scope = this;
+
+  this.view.find('.part-btn-1').click(this.partBtn1Handler.bind(this));
+  this.view.find('.part-btn-2').click(this.partBtn2Handler.bind(this));
+};
+
+APP.CreatorProductItem.prototype.partBtn1Handler = function(e) {
+  this.view.find('.part-btn-1').addClass('selected');
+  this.view.find('.part-btn-2').removeClass('selected');
+  this.view.find('.sales-right-1').show();
+  this.view.find('.sales-right-2').hide();
+};
+
+APP.CreatorProductItem.prototype.partBtn2Handler = function(e) {
+  this.view.find('.part-btn-1').removeClass('selected');
+  this.view.find('.part-btn-2').addClass('selected');
+  this.view.find('.sales-right-1').hide();
+  this.view.find('.sales-right-2').show();
 };
 
 APP.CreatorProductItem.prototype.setup = function() {
-  // var data = {"objects":[{"type":"image","originX":"left","originY":"top","left":13.4,"top":18.06,"width":720,"height":1080,"fill":"rgb(0,0,0)","stroke":null,"strokeWidth":1,"strokeDashArray":null,"strokeLineCap":"butt","strokeLineJoin":"miter","strokeMiterLimit":10,"scaleX":0.42,"scaleY":0.42,"angle":0.27,"flipX":false,"flipY":false,"opacity":1,"shadow":null,"visible":true,"clipTo":null,"backgroundColor":"","fillRule":"nonzero","globalCompositeOperation":"source-over","transformMatrix":null,"src":"http://fabricjs.com/assets/pug.jpg","filters":[],"crossOrigin":"","alignX":"none","alignY":"none","meetOrSlice":"meet"}],"background":""};
   var scope = this;
-
   var url = Utils.addImageFilter(work.photo, 'w_0.5,h_0.5');
-  // console.log(work.photo);
-  // console.log(url);
-  // work.photo =
   var imageTemp;
 
     fabric.Image.fromURL(url, function (image) {
@@ -35,7 +50,6 @@ APP.CreatorProductItem.prototype.setup = function() {
       var ratio = image.width / image.height;
       if(image.width > 560) image.width = 560; image.height = 560 / ratio;
 
-      console.log(image.width);
       scope.canvas.add(image);
       scope.canvas.calcOffset();
       scope.canvas.sendToBack(image);
@@ -55,7 +69,6 @@ APP.CreatorProductItem.prototype.setup = function() {
     this.canvas.on('mouse:up', function(options) {
       options.target.hasBorders = options.target.hasControls = false;
       scope.canvas.renderAll();
-
       scope.header.find('.image-preview').attr('src', scope.canvas.toDataURL());
 
       options.target.hasBorders = options.target.hasControls = true;
