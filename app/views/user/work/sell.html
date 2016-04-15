@@ -1,6 +1,7 @@
 {% extends '../../partials/base.html' %}
 
 {% block elements %}
+	<link rel='stylesheet' href='/spectrum/spectrum.css' />
 
 	<a class="sales-button white create-btn">CREAR</a>
 
@@ -233,11 +234,12 @@
 
 					<div class="back-color">
 						<p class="subtitle">Color de fondo:</p>
-						<select>
+						<!-- <select>
 							<option></option>
 							<option></option>
 							<option></option>
-						</select>
+						</select> -->
+						<input type='text' id="colorPicker-Prints"/>
 					</div>
 
 					<p class="subtitle" style="margin-bottom: 0;">Centrar diseño:</p>
@@ -384,11 +386,12 @@
 
 					<div class="back-color">
 						<p class="subtitle">Color de fondo:</p>
-						<select>
+						<!-- <select>
 							<option></option>
 							<option></option>
 							<option></option>
-						</select>
+						</select> -->
+						<input type='text' id="colorPicker-Tazas"/>
 					</div>
 
 					<p class="subtitle u-margin-top-30" style="margin-bottom: 0;">Tamaño obra en el producto:</p>
@@ -537,11 +540,12 @@
 
 					<div class="back-color">
 						<p class="subtitle">Color de fondo:</p>
-						<select>
+						<!-- <select>
 							<option></option>
 							<option></option>
 							<option></option>
-						</select>
+						</select> -->
+						<input type='text' id="colorPicker-Phone"/>
 					</div>
 
 					<p class="subtitle u-margin-top-30" style="margin-bottom: 0;">Tamaño obra en el producto:</p>
@@ -574,7 +578,7 @@
 
 					<table class="prints u-margin-top-20 u-margin-bottom-40" style="width: 100%;">
 						<tr>
-							<td><p class="title">TIPO DE PRINT</p></td>
+							<td><p class="title">TIPO DE CASE</p></td>
 							<td><p class="title">&nbsp;&nbsp;MARGEN</p></td>
 						</tr>
 						<tr>
@@ -657,11 +661,12 @@
 
 					<div class="back-color">
 						<p class="subtitle">Color de fondo:</p>
-						<select>
+						<!-- <select>
 							<option></option>
 							<option></option>
 							<option></option>
-						</select>
+						</select> -->
+						<input type='text' id="colorPicker-Tablet"/>
 					</div>
 
 					<p class="subtitle u-margin-top-30" style="margin-bottom: 0;">Tamaño obra en el producto:</p>
@@ -1450,6 +1455,9 @@
 
 
 {% block scripts %}
+
+	<script src='/spectrum/spectrum.js'></script>
+
 <script>
 var work = {{work|json|safe}};
 $(function() {
@@ -1459,6 +1467,23 @@ $(function() {
 
 	$('#go-collection-modal').leanModal();
 	$('#go-share-modal').leanModal();
+
+	var colorsConf = {
+	    showPaletteOnly: true,
+	    showPalette:true,
+	    color: 'blanchedalmond',
+	    palette: [
+	        ['black', 'white', 'blanchedalmond',
+	        'rgb(255, 128, 0);', 'hsv 100 70 50'],
+	        ['red', 'yellow', 'green', 'blue', 'violet']
+	    ]
+	}
+
+	$("#colorPicker-Prints").spectrum(colorsConf);
+	$("#colorPicker-Tazas").spectrum(colorsConf);
+	$("#colorPicker-Phone").spectrum(colorsConf);
+	$("#colorPicker-Tablet").spectrum(colorsConf);
+
 });
 </script>
 {% endblock %}
