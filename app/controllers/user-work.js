@@ -139,10 +139,15 @@ exports.edit = function (req, res) {
 };
 
 exports.sell = function (req, res) {
-  return res.render(basePath + 'sell', {
-    work: req.work,
-    cloudinary: global.cl,
-    cloudinayCors: global.cl_cors
+  global.db.Category.findAll({
+    where: {ParentCategoryId: 20, meta: 4}
+  }).then(function(categories) {
+    return res.render(basePath + 'sell', {
+      categories: categories,
+      work: req.work,
+      cloudinary: global.cl,
+      cloudinayCors: global.cl_cors
+    });
   });
 };
 

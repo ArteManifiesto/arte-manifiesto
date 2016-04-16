@@ -581,13 +581,18 @@
 							<td><p class="title">TIPO DE CASE</p></td>
 							<td><p class="title">&nbsp;&nbsp;MARGEN</p></td>
 						</tr>
+						{% for category in categories %}
 						<tr>
 							<td>
 								<div class="type">
 									<input type="checkbox"></input>
 									<div>
-										<p>IPHONE CASE</p>
-										<p>$10.23 - $24.32</p>
+										<div>
+											<p>
+												{{category.name}}
+											</p>
+											<p>$10.23 - $24.32</p>
+										</div>
 									</div>
 								</div>
 							</td>
@@ -601,26 +606,7 @@
 								</div>
 							</td>
 						</tr>
-						<tr>
-							<td>
-								<div class="type">
-									<input type="checkbox"></input>
-									<div>
-										<p>GALAXY CASE</p>
-										<p>$10.23 - $24.32</p>
-									</div>
-								</div>
-							</td>
-							<td>
-								<div class="data">
-									<input type="text"></input>
-									<div>
-										<p>PARA TÍ</p>
-										<p>$10.23 - $24.32</p>
-									</div>
-								</div>
-							</td>
-						</tr>
+						{%endfor%}
 					</table>
 
 					<p class="subtitle-mall u-margin-top-50">* El precio de lista no incluye impuestos en cada país, ni el costo de envío.</p>
@@ -1460,6 +1446,7 @@
 
 <script>
 var work = {{work|json|safe}};
+var categories = {{categories|json|safe}};
 $(function() {
 	$.cloudinary.config({{cloudinary.config()|json|safe}});
 
