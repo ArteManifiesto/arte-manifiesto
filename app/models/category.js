@@ -11,7 +11,8 @@ module.exports = function (sequelize, DataTypes) {
             },
             nameSlugify: DataTypes.STRING,
             photo: DataTypes.STRING,
-            meta: {type: DataTypes.INTEGER, defaultValue: 0}
+            meta: {type: DataTypes.INTEGER, defaultValue: 0},
+            data: DataTypes.STRING
         }, {
             classMethods: {
                 associate: function (models) {

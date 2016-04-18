@@ -2,9 +2,6 @@
 
 {% block elements %}
 	<link rel='stylesheet' href='/spectrum/spectrum.css' />
-
-	<a class="sales-button white create-btn">CREAR</a>
-
 	<div class="grid-container">
 		<div class="grid-100">
 			<p class="sales-title u-margin-bottom-30 u-margin-top-60">OBRA EN VENTA</p>
@@ -48,7 +45,7 @@
 						<div class="background">
 							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1460699344/general/pruduct-creator-background.png">
 						</div>
-						<img class="image-preview" src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
+						<img class="image-preview"  src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
 					</div>
 					<p class="title">OBRA ORIGINAL</p>
 					<p class="description">0/1 activados</p>
@@ -62,7 +59,7 @@
 						<div class="background">
 							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1460699344/general/pruduct-creator-background.png">
 						</div>
-						<img class="image-preview" src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
+						<img class="image-preview"  src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
 					</div>
 					<p class="title">PRINTS</p>
 					<p class="description">0/1 activados</p>
@@ -76,7 +73,7 @@
 						<div class="background">
 							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1460699344/general/pruduct-creator-background.png">
 						</div>
-						<img class="image-preview" src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
+						<img class="image-preview"  src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
 					</div>
 					<p class="title">TAZAS</p>
 					<p class="description">0/1 activados</p>
@@ -229,7 +226,9 @@
 						<br>
 						Poster print / Photo Luster Print / Fine Art Print (100% algodón) / Canvas Print
 					</p>
-
+					<div class="image-uploader" style="position:relative; left: calc(50% - 115px);">
+						{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:230px;height:35px;top:0px;left: 0px;" } })}}
+					</div>
 					<a href="" class="sales-button white">REEMPLAZAR IMAGEN</a>
 
 					<div class="back-color">
@@ -239,17 +238,17 @@
 							<option></option>
 							<option></option>
 						</select> -->
-						<input type='text' id="colorPicker-Prints"/>
+						<input type='text' id="colorPicker"/>
 					</div>
 
 					<p class="subtitle" style="margin-bottom: 0;">Centrar diseño:</p>
 
 					<div class="aligns">
-						<a href="" class="sales-button white">VERTICAL</a>
-						<a href="" class="sales-button white">HORIZONTAL</a>
+						<a href="" class="sales-button white vertical-align">VERTICAL</a>
+						<a href="" class="sales-button white horizontal-align">HORIZONTAL</a>
 					</div>
 
-					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR CAMBIOS</a>
+					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR</a>
 
 					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
 				</div>
@@ -267,86 +266,34 @@
 							<td><p class="title">TIPO DE PRINT</p></td>
 							<td><p class="title">&nbsp;&nbsp;MARGEN</p></td>
 						</tr>
-						<tr>
-							<td>
-								<div class="type">
-									<input type="checkbox"></input>
-									<div>
-										<p>POSTERS</p>
-										<p>$10.23 - $24.32</p>
+						{% set currentCategory = categories[0] %}
+						{% for subCategory in currentCategory.subCategories %}
+						{% set subCategoryData = JSON.parse(subCategory.data) %}
+							<tr>
+								<td>
+									<div class="type">
+										<input type="checkbox" data-index={{loop.index0}}></input>
+										<div>
+											<div>
+												<p>
+													{{subCategory.name}}
+												</p>
+												<p>S/.{{subCategoryData.basePrice}}</p>
+											</div>
+										</div>
 									</div>
-								</div>
-							</td>
-							<td>
-								<div class="data">
-									<input type="text"></input>
-									<div>
-										<p>PARA TÍ</p>
-										<p>$10.23 - $24.32</p>
+								</td>
+								<td>
+									<div class="data">
+										<input type="number" class="margen-input" data-index={{loop.index0}} data-baseprice={{subCategoryData.basePrice}} value="{{subCategoryData.baseMargen}}"></input>
+										<div>
+											<p>PARA TÍ</p>
+											<p>--</p>
+										</div>
 									</div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<div class="type">
-									<input type="checkbox"></input>
-									<div>
-										<p>PHOTO PRINTS</p>
-										<p>$10.23 - $24.32</p>
-									</div>
-								</div>
-							</td>
-							<td>
-								<div class="data">
-									<input type="text"></input>
-									<div>
-										<p>PARA TÍ</p>
-										<p>$10.23 - $24.32</p>
-									</div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<div class="type">
-									<input type="checkbox"></input>
-									<div>
-										<p>FINE ART PRINTS</p>
-										<p>$10.23 - $24.32</p>
-									</div>
-								</div>
-							</td>
-							<td>
-								<div class="data">
-									<input type="text"></input>
-									<div>
-										<p>PARA TÍ</p>
-										<p>$10.23 - $24.32</p>
-									</div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<div class="type">
-									<input type="checkbox"></input>
-									<div>
-										<p>CANVAS PRINTS</p>
-										<p>$10.23 - $24.32</p>
-									</div>
-								</div>
-							</td>
-							<td>
-								<div class="data">
-									<input type="text"></input>
-									<div>
-										<p>PARA TÍ</p>
-										<p>$10.23 - $24.32</p>
-									</div>
-								</div>
-							</td>
-						</tr>
+								</td>
+							</tr>
+						{%endfor%}
 					</table>
 
 					<p class="subtitle-mall u-margin-top-50">* El precio de lista no incluye impuestos en cada país, ni el costo de envío.</p>
@@ -381,7 +328,9 @@
 					<p class="subtitle">
 						Acomoda la imagen de tu obra sobre la taza. Para un resultado óptimo crea una imagen de 2700x1624 píxeles que se acomode al formato.
 					</p>
-
+					<div class="image-uploader" style="position:relative; left: calc(50% - 115px);">
+						{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:230px;height:35px;top:0px;left: 0px;" } })}}
+					</div>
 					<a href="" class="sales-button white">REEMPLAZAR IMAGEN</a>
 
 					<div class="back-color">
@@ -391,21 +340,20 @@
 							<option></option>
 							<option></option>
 						</select> -->
-						<input type='text' id="colorPicker-Tazas"/>
+						<input type='text' id="colorPicker"/>
 					</div>
 
 					<p class="subtitle u-margin-top-30" style="margin-bottom: 0;">Tamaño obra en el producto:</p>
 
 					<div class="size-work">
-						<input type="range" name="" min="0" max="10">
-						<!-- <p>50%</p> -->
+						<input type="range" name="" min="30" max="100" step="1" value="100">
 					</div>
 
 					<p class="subtitle u-margin-top-20" style="margin-bottom: 0;">Centrar diseño:</p>
 
 					<div class="aligns" style="margin-bottom: 0;">
-						<a href="" class="sales-button white">VERTICAL</a>
-						<a href="" class="sales-button white">HORIZONTAL</a>
+						<a href="" class="sales-button white vertical-align">VERTICAL</a>
+						<a href="" class="sales-button white horizontal-align">HORIZONTAL</a>
 					</div>
 
 					<p class="subtitle u-margin-top-20" style="margin-bottom: 0;">Vista por defecto:</p>
@@ -416,7 +364,7 @@
 						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065546/general/discover-banner-works.jpg">
 					</div>
 
-					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR CAMBIOS</a>
+					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR</a>
 
 					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
 				</div>
@@ -435,26 +383,34 @@
 							<td><p class="title">TIPO DE PRINT</p></td>
 							<td><p class="title">&nbsp;&nbsp;MARGEN</p></td>
 						</tr>
-						<tr>
-							<td>
-								<div class="type">
-									<input type="checkbox"></input>
-									<div>
-										<p>TAZA 11 OZ</p>
-										<p>$10.23 - $24.32</p>
+						{% set currentCategory = categories[1] %}
+						{% for subCategory in currentCategory.subCategories %}
+						{% set subCategoryData = JSON.parse(subCategory.data) %}
+							<tr>
+								<td>
+									<div class="type">
+										<input type="checkbox" data-index={{loop.index0}}></input>
+										<div>
+											<div>
+												<p>
+													{{subCategory.name}}
+												</p>
+												<p>S/.{{subCategoryData.basePrice}}</p>
+											</div>
+										</div>
 									</div>
-								</div>
-							</td>
-							<td>
-								<div class="data">
-									<input type="text"></input>
-									<div>
-										<p>PARA TÍ</p>
-										<p>$10.23 - $24.32</p>
+								</td>
+								<td>
+									<div class="data">
+										<input type="number" class="margen-input" data-index={{loop.index0}} data-baseprice={{subCategoryData.basePrice}} value="{{subCategoryData.baseMargen}}"></input>
+										<div>
+											<p>PARA TÍ</p>
+											<p>--</p>
+										</div>
 									</div>
-								</div>
-							</td>
-						</tr>
+								</td>
+							</tr>
+						{%endfor%}
 					</table>
 
 					<p class="subtitle-mall u-margin-top-50">* El precio de lista no incluye impuestos en cada país, ni el costo de envío.</p>
@@ -476,7 +432,7 @@
 						<div class="background">
 							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1460699344/general/pruduct-creator-background.png">
 						</div>
-						<img class="image-preview" src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
+						<img class="image-preview"  src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
 					</div>
 					<p class="title">CASES TELÉFONOS</p>
 					<p class="description">0/1 activados</p>
@@ -490,7 +446,7 @@
 						<div class="background">
 							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1460699344/general/pruduct-creator-background.png">
 						</div>
-						<img class="image-preview" src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
+						<img class="image-preview"  src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
 					</div>
 					<p class="title">CASES TABLETS</p>
 					<p class="description">0/1 activados</p>
@@ -513,7 +469,7 @@
 						<i class="fa fa-check-square-o part-btn-2"></i>
 					</div>
 					<div class="sales-image-card">
-						<canvas id="canvas-product4" width="620" height="280">
+						<canvas id="canvas-product4" width="100" height="100">
 						</canvas>
 					</div>
 				</div>
@@ -526,17 +482,10 @@
 					<p class="subtitle">
 						Acomoda la imagen de tu obra sobre el case. Para un resultado óptimo crea una imagen de 1187x1852 píxeles que se acomode al formato.
 					</p>
-
-					<a href="" class="sales-button white">REEMPLAZAR IMAGEN</a>
-
-					<div class="back-color">
-						<p class="subtitle">Estilo:</p>
-						<select>
-							<option>Iphone 6 case</option>
-							<option>Iphone 6 case</option>
-							<option>Iphone 6 case</option>
-						</select>
+					<div class="image-uploader" style="position:relative; left: calc(50% - 115px);">
+						{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:230px;height:35px;top:0px;left: 0px;" } })}}
 					</div>
+					<a href="" class="sales-button white">REEMPLAZAR IMAGEN</a>
 
 					<div class="back-color">
 						<p class="subtitle">Color de fondo:</p>
@@ -545,24 +494,24 @@
 							<option></option>
 							<option></option>
 						</select> -->
-						<input type='text' id="colorPicker-Phone"/>
+						<input type='text' id="colorPicker"/>
 					</div>
 
 					<p class="subtitle u-margin-top-30" style="margin-bottom: 0;">Tamaño obra en el producto:</p>
 
 					<div class="size-work">
-						<input type="range" name="" min="0" max="10">
+						<input type="range" name="" min="30" max="100" step="1" value="100">
 						<!-- <p>50%</p> -->
 					</div>
 
 					<p class="subtitle u-margin-top-20" style="margin-bottom: 0;">Centrar diseño:</p>
 
 					<div class="aligns" style="margin-bottom: 0;">
-						<a href="" class="sales-button white">VERTICAL</a>
-						<a href="" class="sales-button white">HORIZONTAL</a>
+						<a href="" class="sales-button white vertical-align">VERTICAL</a>
+						<a href="" class="sales-button white horizontal-align">HORIZONTAL</a>
 					</div>
 
-					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR CAMBIOS</a>
+					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR</a>
 
 					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
 				</div>
@@ -581,37 +530,41 @@
 							<td><p class="title">TIPO DE CASE</p></td>
 							<td><p class="title">&nbsp;&nbsp;MARGEN</p></td>
 						</tr>
-						{% for category in categories %}
-						<tr>
-							<td>
-								<div class="type">
-									<input type="checkbox"></input>
-									<div>
+
+						{% set currentCategory = categories[2] %}
+						{% for subCategory in currentCategory.subCategories %}
+						{% set subCategoryData = JSON.parse(subCategory.data) %}
+
+							<tr>
+								<td>
+									<div class="type">
+										<input type="checkbox" data-index={{loop.index0}}></input>
 										<div>
-											<p>
-												{{category.name}}
-											</p>
-											<p>$10.23 - $24.32</p>
+											<div>
+												<p>
+													{{subCategory.name}}
+												</p>
+												<p>S/.{{subCategoryData.basePrice}}</p>
+											</div>
 										</div>
 									</div>
-								</div>
-							</td>
-							<td>
-								<div class="data">
-									<input type="text"></input>
-									<div>
-										<p>PARA TÍ</p>
-										<p>$10.23 - $24.32</p>
+								</td>
+								<td>
+									<div class="data">
+										<input type="number" class="margen-input" data-index={{loop.index0}} data-baseprice={{subCategoryData.basePrice}} value="{{subCategoryData.baseMargen}}"></input>
+										<div>
+											<p>PARA TÍ</p>
+											<p>--</p>
+										</div>
 									</div>
-								</div>
-							</td>
-						</tr>
+								</td>
+							</tr>
 						{%endfor%}
 					</table>
 
 					<p class="subtitle-mall u-margin-top-50">* El precio de lista no incluye impuestos en cada país, ni el costo de envío.</p>
 
-					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR CAMBIOS</a>
+					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR</a>
 
 					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
 				</div>
@@ -643,6 +596,9 @@
 						Acomoda la imagen de tu obra sobre el case. Para un resultado óptimo crea una imagen de 1187x1852 píxeles que se acomode al formato.
 					</p>
 
+					<div class="image-uploader" style="position:relative; left: calc(50% - 115px);">
+						{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:230px;height:35px;top:0px;left: 0px;" } })}}
+					</div>
 					<a href="" class="sales-button white">REEMPLAZAR IMAGEN</a>
 
 					<div class="back-color">
@@ -652,24 +608,24 @@
 							<option></option>
 							<option></option>
 						</select> -->
-						<input type='text' id="colorPicker-Tablet"/>
+						<input type='text' id="colorPicker"/>
 					</div>
 
 					<p class="subtitle u-margin-top-30" style="margin-bottom: 0;">Tamaño obra en el producto:</p>
 
 					<div class="size-work">
-						<input type="range" name="" min="0" max="10">
+						<input type="range" name="" min="30" max="100" step="1" value="100">
 						<!-- <p>50%</p> -->
 					</div>
 
 					<p class="subtitle u-margin-top-20" style="margin-bottom: 0;">Centrar diseño:</p>
 
 					<div class="aligns" style="margin-bottom: 0;">
-						<a href="" class="sales-button white">VERTICAL</a>
-						<a href="" class="sales-button white">HORIZONTAL</a>
+						<a href="" class="sales-button white vertical-align">VERTICAL</a>
+						<a href="" class="sales-button white horizontal-align">HORIZONTAL</a>
 					</div>
 
-					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR CAMBIOS</a>
+					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR</a>
 
 					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
 				</div>
@@ -688,699 +644,43 @@
 							<td><p class="title">TIPO DE CASE</p></td>
 							<td><p class="title">&nbsp;&nbsp;MARGEN</p></td>
 						</tr>
-						<tr>
-							<td>
-								<div class="type">
-									<input type="checkbox"></input>
-									<div>
-										<p>ALMOHADA</p>
-										<p>$10.23 - $24.32</p>
+						{% set currentCategory = categories[3] %}
+						{% for subCategory in currentCategory.subCategories %}
+						{% set subCategoryData = JSON.parse(subCategory.data) %}
+							<tr>
+								<td>
+									<div class="type">
+										<input type="checkbox" data-index={{loop.index0}}></input>
+										<div>
+											<div>
+												<p>
+													{{subCategory.name}}
+												</p>
+												<p>S/.{{subCategoryData.basePrice}}</p>
+											</div>
+										</div>
 									</div>
-								</div>
-							</td>
-							<td>
-								<div class="data">
-									<input type="text"></input>
-									<div>
-										<p>PARA TÍ</p>
-										<p>$10.23 - $24.32</p>
+								</td>
+								<td>
+									<div class="data">
+										<input type="number" class="margen-input" data-index={{loop.index0}} data-baseprice={{subCategoryData.basePrice}} value="{{subCategoryData.baseMargen}}"></input>
+										<div>
+											<p>PARA TÍ</p>
+											<p>--</p>
+										</div>
 									</div>
-								</div>
-							</td>
-						</tr>
+								</td>
+							</tr>
+						{%endfor%}
 					</table>
 
 					<p class="subtitle-mall u-margin-top-50">* El precio de lista no incluye impuestos en cada país, ni el costo de envío.</p>
-					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR CAMBIOS</a>
+					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR</a>
 					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
 				</div>
 			</div>
 		</div>
 	</div>
-
-	<!-- ALMOHADAS -->
-	<!-- <div class="grid-container grid-product-6 hide product-container">
-		<div class="grid-100">
-			<div class="sales">
-				<div class="sales-left">
-					<div class="controls">
-						<i class="selected fa fa-check-square-o"></i>
-						<i class="fa fa-check-square-o"></i>
-					</div>
-					<div class="sales-image-card">
-						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_700,h_800,q_80,c_limit/v1454928729/chlvcbesfnspyczfictg.png">
-					</div>
-				</div>
-				<div class="sales-right">
-
-					<p class="title u-margin-top-10" style="text-align: center;">ALMOHADAS: EDICIÓN</p>
-					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
-
-					<p class="title">Crea cases con solo un click</p>
-					<p class="subtitle">
-						Acomoda la imagen de tu obra sobre el case. Para un resultado óptimo crea una imagen de 1187x1852 píxeles que se acomode al formato.
-					</p>
-
-					<a href="" class="sales-button white">REEMPLAZAR IMAGEN</a>
-
-					<div class="back-color">
-						<p class="subtitle">Color de fondo:</p>
-						<select>
-							<option></option>
-							<option></option>
-							<option></option>
-						</select>
-					</div>
-
-					<p class="subtitle u-margin-top-30" style="margin-bottom: 0;">Tamaño obra en el producto:</p>
-
-					<div class="size-work">
-						<input type="range" name="" min="0" max="10">
-						<p>50%</p>
-					</div>
-
-					<p class="subtitle u-margin-top-20" style="margin-bottom: 0;">Centrar diseño:</p>
-
-					<div class="aligns" style="margin-bottom: 0;">
-						<a href="" class="sales-button white">VERTICAL</a>
-						<a href="" class="sales-button white">HORIZONTAL</a>
-					</div>
-
-					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR CAMBIOS</a>
-
-					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
-				</div>
-				<div class="sales-right" style="display: none;">
-
-					<p class="title u-margin-top-10" style="text-align: center;">ALMOHADAS: CONDICIONES</p>
-					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
-
-					<p class="title">Condiciones</p>
-					<p class="subtitle">
-						AM te cobra por la fabricación del producto, no por la venta. Sugerimos que tu margen sea +20%, pero puedes incrementarlo si conoces tu mercado.
-					</p>
-
-					<table class="prints u-margin-top-20 u-margin-bottom-40" style="width: 100%;">
-						<tr>
-							<td><p class="title">TIPO DE CASE</p></td>
-							<td><p class="title">&nbsp;&nbsp;MARGEN</p></td>
-						</tr>
-						<tr>
-							<td>
-								<div class="type">
-									<input type="checkbox"></input>
-									<div>
-										<p>ALMOHADA</p>
-										<p>$10.23 - $24.32</p>
-									</div>
-								</div>
-							</td>
-							<td>
-								<div class="data">
-									<input type="text"></input>
-									<div>
-										<p>PARA TÍ</p>
-										<p>$10.23 - $24.32</p>
-									</div>
-								</div>
-							</td>
-						</tr>
-					</table>
-
-					<p class="subtitle-mall u-margin-top-50">* El precio de lista no incluye impuestos en cada país, ni el costo de envío.</p>
-
-					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR CAMBIOS</a>
-
-					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
-				</div>
-			</div>
-		</div>
-	</div> -->
-
-	<!-- <div class="grid-container grid-product-4 hide product-container">
-		<div class="grid-100">
-			<div class="sales">
-				<div class="sales-left" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1458855146/general/fondo_prints_2.png');">
-					<div class="controls">
-						<i class="selected fa fa-check-square-o"></i>
-						<i class="fa fa-check-square-o"></i>
-					</div>
-					<div class="sales-image-card white-mark">
-						<canvas id="canvas-product4" width="500" height="400">
-					</div>
-				</div>
-				<div class="sales-right">
-
-					<p class="title u-margin-top-10" style="text-align: center;">PRINTS: EDICIÓN</p>
-					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
-
-					<p class="title">Hacer prints nunca fué tan fácil</p>
-					<p class="subtitle">
-						Al subir la imagen el tamaño mínimo es 1600x1600 pixeles para crear prints.
-						<br><br>
-						Puedes elegir entre:
-						<br>
-						Poster print / Photo Luster Print / Fine Art Print (100% algodón) / Canvas Print
-					</p>
-
-					<a href="" class="sales-button white">REEMPLAZAR IMAGEN</a>
-
-					<div class="back-color">
-						<p class="subtitle">Color de fondo:</p>
-						<select>
-							<option></option>
-							<option></option>
-							<option></option>
-						</select>
-					</div>
-
-					<p class="subtitle" style="margin-bottom: 0;">Centrar diseño:</p>
-
-					<div class="aligns">
-						<a href="" class="sales-button white">VERTICAL</a>
-						<a href="" class="sales-button white">HORIZONTAL</a>
-					</div>
-
-					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR CAMBIOS</a>
-
-					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
-				</div>
-			</div>
-		</div>
-	</div> -->
-
-	<!-- SALES 5 -->
-	<!-- <div class="grid-container grid-product-5 hide product-container">
-		<div class="grid-100">
-			<div class="sales">
-				<div class="sales-left">
-					<div class="controls">
-						<i class="selected fa fa-check-square-o"></i>
-						<i class="fa fa-check-square-o"></i>
-					</div>
-					<div class="sales-image-card">
-						<canvas id="canvas-product5" width="500" height="400">
-					</div>
-				</div>
-				<div class="sales-right">
-
-					<p class="title u-margin-top-10" style="text-align: center;">TAZAS: EDICIÓN</p>
-					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
-
-					<p class="title">Crea tazas geniales con solo un click</p>
-					<p class="subtitle">
-						Acomoda la imagen de tu obra sobre la taza. Para un resultado óptimo crea una imagen de 2700x1624 píxeles que se acomode al formato.
-					</p>
-
-					<a href="" class="sales-button white">REEMPLAZAR IMAGEN</a>
-
-					<div class="back-color">
-						<p class="subtitle">Color de fondo:</p>
-						<select>
-							<option></option>
-							<option></option>
-							<option></option>
-						</select>
-					</div>
-
-					<p class="subtitle u-margin-top-30" style="margin-bottom: 0;">Tamaño obra en el producto:</p>
-
-					<div class="size-work">
-						<input type="range" name="" min="0" max="10">
-						<p>50%</p>
-					</div>
-
-					<p class="subtitle u-margin-top-20" style="margin-bottom: 0;">Centrar diseño:</p>
-
-					<div class="aligns" style="margin-bottom: 0;">
-						<a href="" class="sales-button white">VERTICAL</a>
-						<a href="" class="sales-button white">HORIZONTAL</a>
-					</div>
-
-					<p class="subtitle u-margin-top-20" style="margin-bottom: 0;">Vista por defecto:</p>
-
-					<div class="views">
-						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065546/general/discover-banner-works.jpg">
-						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065546/general/discover-banner-works.jpg">
-						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065546/general/discover-banner-works.jpg">
-					</div>
-
-					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR CAMBIOS</a>
-
-					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
-				</div>
-			</div>
-		</div>
-	</div> -->
-
-	<!-- SALES 6 -->
-	<!-- <div class="grid-container grid-product-6 hide product-container">
-		<div class="grid-100">
-			<div class="sales">
-				<div class="sales-left" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1458849903/general/fondo_prints_galeri%CC%81a.png');">
-					<div class="controls">
-						<i class="fa fa-check-square-o"></i>
-						<i class="selected fa fa-check-square-o"></i>
-					</div>
-					<div class="sales-image-card">
-						<div class="original-work"><i class="fa fa-cog"></i>&nbsp;OBRA ORIGINAL</div>
-						<canvas id="canvas-product6" width="500" height="400">
-					</div>
-				</div>
-				<div class="sales-right">
-
-					<p class="title u-margin-top-10" style="text-align: center;">OBRA ORIGINAL: CONDICIONES DE VENTA</p>
-					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
-
-					<p class="title">Calculadora de precios</p>
-					<p class="subtitle">AM cobra una comisión de 30% en la venta de obras y creaciones originales.
-						<br><br>
-						Asegúrate de leer los términos y condiciones sobre nuestro servicio aquí.
-						<br><br>
-						<a href="#">
-							Términos y condiciones del servicio
-							Guía del vendedor en AM
-						</a>
-					</p>
-
-					<p class="title">Cálculo de ganancias</p>
-
-					<div class="checks">
-						<input class="check" type="checkbox" name="package-type"></input>
-						<label class="label-check">Empaque en tubo</label>
-
-						<input class="check" type="checkbox" name="package-type"></input>
-						<label class="label-check">Empaque en caja</label>
-					</div>
-
-
-					<table class="prices u-margin-top-20">
-						<tr>
-							<td><p class="text">Precio base (ganancia del artista)</p></td>
-							<td><input class="input" type="text" placeholder="¿Cuanto quieres ganar?"></input></td>
-							<td><p class="currency">USD</p></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td><p class="plus">+</p></td>
-						</tr>
-						<tr>
-							<td><p class="text">Comisión AM (30%)</p></td>
-							<td><input class="input" type="text" placeholder="0:00"></input></td>
-							<td><p class="currency">USD</p></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td><div class="u-separator u-margin-top-20 u-margin-bottom-20" style="background: #979797;"></div></td>
-						</tr>
-						<tr>
-							<td><p class="text">Precio de lista (*)</p></td>
-							<td><input class="input" type="text" placeholder="Precio final"></input></td>
-							<td><p class="currency">USD</p></td>
-						</tr>
-					</table>
-
-					<p class="subtitle-mall">* El precio de lista no incluye impuestos en cada país, ni el costo de envío.</p>
-
-					<a class="sales-button u-margin-top-30 u-margin-bottom-10">APLICAR CAMBIOS</a>
-
-					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
-				</div>
-			</div>
-		</div>
-	</div> -->
-
-	<!-- PHONE CASES: EDICIÓN -->
-	<!-- <div class="grid-container">
-		<div class="grid-100">
-			<div class="sales">
-				<div class="sales-left">
-					<div class="controls">
-						<i class="selected fa fa-check-square-o"></i>
-						<i class="fa fa-check-square-o"></i>
-					</div>
-					<div class="sales-image-card">
-						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_700,h_800,q_80,c_limit/v1454928729/chlvcbesfnspyczfictg.png">
-					</div>
-				</div>
-				<div class="sales-right">
-
-					<p class="title u-margin-top-10" style="text-align: center;">PHONE CASES: EDICIÓN</p>
-					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
-
-					<p class="title">Crea cases con solo un click</p>
-					<p class="subtitle">
-						Acomoda la imagen de tu obra sobre el case. Para un resultado óptimo crea una imagen de 1187x1852 píxeles que se acomode al formato.
-					</p>
-
-					<a href="" class="sales-button white">REEMPLAZAR IMAGEN</a>
-
-					<div class="back-color">
-						<p class="subtitle">Estilo:</p>
-						<select>
-							<option>Iphone 6 case</option>
-							<option>Iphone 6 case</option>
-							<option>Iphone 6 case</option>
-						</select>
-					</div>
-
-					<div class="back-color">
-						<p class="subtitle">Color de fondo:</p>
-						<select>
-							<option></option>
-							<option></option>
-							<option></option>
-						</select>
-					</div>
-
-					<p class="subtitle u-margin-top-30" style="margin-bottom: 0;">Tamaño obra en el producto:</p>
-
-					<div class="size-work">
-						<input type="range" name="" min="0" max="10">
-						<p>50%</p>
-					</div>
-
-					<p class="subtitle u-margin-top-20" style="margin-bottom: 0;">Centrar diseño:</p>
-
-					<div class="aligns" style="margin-bottom: 0;">
-						<a href="" class="sales-button white">VERTICAL</a>
-						<a href="" class="sales-button white">HORIZONTAL</a>
-					</div>
-
-					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR CAMBIOS</a>
-
-					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
-				</div>
-			</div>
-		</div>
-	</div> -->
-	<!-- PHONE CASES: CONDICIONES -->
-	<!-- <div class="grid-container">
-		<div class="grid-100">
-			<div class="sales">
-				<div class="sales-left">
-					<div class="controls">
-						<i class="selected fa fa-check-square-o"></i>
-						<i class="fa fa-check-square-o"></i>
-					</div>
-					<div class="sales-image-card">
-						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_700,h_800,q_80,c_limit/v1454928729/chlvcbesfnspyczfictg.png">
-					</div>
-				</div>
-				<div class="sales-right">
-
-					<p class="title u-margin-top-10" style="text-align: center;">PHONE CASES: CONDICIONES</p>
-					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
-
-					<p class="title">Condiciones</p>
-					<p class="subtitle">
-						AM te cobra por la fabricación del producto, no por la venta. Sugerimos que tu margen sea +20%, pero puedes incrementarlo si conoces tu mercado.
-					</p>
-
-					<table class="prints u-margin-top-20 u-margin-bottom-40" style="width: 100%;">
-						<tr>
-							<td><p class="title">TIPO DE PRINT</p></td>
-							<td><p class="title">&nbsp;&nbsp;MARGEN</p></td>
-						</tr>
-						<tr>
-							<td>
-								<div class="type">
-									<input type="checkbox"></input>
-									<div>
-										<p>IPHONE CASE</p>
-										<p>$10.23 - $24.32</p>
-									</div>
-								</div>
-							</td>
-							<td>
-								<div class="data">
-									<input type="text"></input>
-									<div>
-										<p>PARA TÍ</p>
-										<p>$10.23 - $24.32</p>
-									</div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<div class="type">
-									<input type="checkbox"></input>
-									<div>
-										<p>GALAXY CASE</p>
-										<p>$10.23 - $24.32</p>
-									</div>
-								</div>
-							</td>
-							<td>
-								<div class="data">
-									<input type="text"></input>
-									<div>
-										<p>PARA TÍ</p>
-										<p>$10.23 - $24.32</p>
-									</div>
-								</div>
-							</td>
-						</tr>
-					</table>
-
-					<p class="subtitle-mall u-margin-top-50">* El precio de lista no incluye impuestos en cada país, ni el costo de envío.</p>
-
-					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR CAMBIOS</a>
-
-					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
-				</div>
-			</div>
-		</div>
-	</div> -->
-
-	<!-- TABLET CASE: EDICIÓN -->
-	<!-- <div class="grid-container">
-		<div class="grid-100">
-			<div class="sales">
-				<div class="sales-left">
-					<div class="controls">
-						<i class="selected fa fa-check-square-o"></i>
-						<i class="fa fa-check-square-o"></i>
-					</div>
-					<div class="sales-image-card">
-						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_700,h_800,q_80,c_limit/v1454928729/chlvcbesfnspyczfictg.png">
-					</div>
-				</div>
-				<div class="sales-right">
-
-					<p class="title u-margin-top-10" style="text-align: center;">TABLET CASE: EDICIÓN</p>
-					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
-
-					<p class="title">Crea cases con solo un click</p>
-					<p class="subtitle">
-						Acomoda la imagen de tu obra sobre el case. Para un resultado óptimo crea una imagen de 1187x1852 píxeles que se acomode al formato.
-					</p>
-
-					<a href="" class="sales-button white">REEMPLAZAR IMAGEN</a>
-
-					<div class="back-color">
-						<p class="subtitle">Color de fondo:</p>
-						<select>
-							<option></option>
-							<option></option>
-							<option></option>
-						</select>
-					</div>
-
-					<p class="subtitle u-margin-top-30" style="margin-bottom: 0;">Tamaño obra en el producto:</p>
-
-					<div class="size-work">
-						<input type="range" name="" min="0" max="10">
-						<p>50%</p>
-					</div>
-
-					<p class="subtitle u-margin-top-20" style="margin-bottom: 0;">Centrar diseño:</p>
-
-					<div class="aligns" style="margin-bottom: 0;">
-						<a href="" class="sales-button white">VERTICAL</a>
-						<a href="" class="sales-button white">HORIZONTAL</a>
-					</div>
-
-					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR CAMBIOS</a>
-
-					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
-				</div>
-			</div>
-		</div>
-	</div> -->
-	<!-- TABLET CASE: CONDICIONES -->
-	<!-- <div class="grid-container">
-		<div class="grid-100">
-			<div class="sales">
-				<div class="sales-left">
-					<div class="controls">
-						<i class="fa fa-check-square-o"></i>
-						<i class="selected fa fa-check-square-o"></i>
-					</div>
-					<div class="sales-image-card">
-						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_700,h_800,q_80,c_limit/v1454928729/chlvcbesfnspyczfictg.png">
-					</div>
-				</div>
-				<div class="sales-right">
-
-					<p class="title u-margin-top-10" style="text-align: center;">TABLET CASE: CONDICIONES</p>
-					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
-
-					<p class="title">Condiciones</p>
-					<p class="subtitle">
-						AM te cobra por la fabricación del producto, no por la venta. Sugerimos que tu margen sea +20%, pero puedes incrementarlo si conoces tu mercado.
-					</p>
-
-					<table class="prints u-margin-top-20 u-margin-bottom-40" style="width: 100%;">
-						<tr>
-							<td><p class="title">TIPO DE CASE</p></td>
-							<td><p class="title">&nbsp;&nbsp;MARGEN</p></td>
-						</tr>
-						<tr>
-							<td>
-								<div class="type">
-									<input type="checkbox"></input>
-									<div>
-										<p>IPAD CASE</p>
-										<p>$10.23 - $24.32</p>
-									</div>
-								</div>
-							</td>
-							<td>
-								<div class="data">
-									<input type="text"></input>
-									<div>
-										<p>PARA TÍ</p>
-										<p>$10.23 - $24.32</p>
-									</div>
-								</div>
-							</td>
-						</tr>
-					</table>
-
-					<p class="subtitle-mall u-margin-top-50">* El precio de lista no incluye impuestos en cada país, ni el costo de envío.</p>
-
-					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR CAMBIOS</a>
-
-					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
-				</div>
-			</div>
-		</div>
-	</div> -->
-
-	<!-- ALMOHADAS: EDICIÓN -->
-	<!-- <div class="grid-container">
-		<div class="grid-100">
-			<div class="sales">
-				<div class="sales-left">
-					<div class="controls">
-						<i class="selected fa fa-check-square-o"></i>
-						<i class="fa fa-check-square-o"></i>
-					</div>
-					<div class="sales-image-card">
-						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_700,h_800,q_80,c_limit/v1454928729/chlvcbesfnspyczfictg.png">
-					</div>
-				</div>
-				<div class="sales-right">
-
-					<p class="title u-margin-top-10" style="text-align: center;">ALMOHADAS: EDICIÓN</p>
-					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
-
-					<p class="title">Crea cases con solo un click</p>
-					<p class="subtitle">
-						Acomoda la imagen de tu obra sobre el case. Para un resultado óptimo crea una imagen de 1187x1852 píxeles que se acomode al formato.
-					</p>
-
-					<a href="" class="sales-button white">REEMPLAZAR IMAGEN</a>
-
-					<div class="back-color">
-						<p class="subtitle">Color de fondo:</p>
-						<select>
-							<option></option>
-							<option></option>
-							<option></option>
-						</select>
-					</div>
-
-					<p class="subtitle u-margin-top-30" style="margin-bottom: 0;">Tamaño obra en el producto:</p>
-
-					<div class="size-work">
-						<input type="range" name="" min="0" max="10">
-						<p>50%</p>
-					</div>
-
-					<p class="subtitle u-margin-top-20" style="margin-bottom: 0;">Centrar diseño:</p>
-
-					<div class="aligns" style="margin-bottom: 0;">
-						<a href="" class="sales-button white">VERTICAL</a>
-						<a href="" class="sales-button white">HORIZONTAL</a>
-					</div>
-
-					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR CAMBIOS</a>
-
-					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
-				</div>
-			</div>
-		</div>
-	</div> -->
-	<!-- ALMOHADAS: CONDICIONES -->
-	<!-- <div class="grid-container">
-		<div class="grid-100">
-			<div class="sales">
-				<div class="sales-left">
-					<div class="controls">
-						<i class="fa fa-check-square-o"></i>
-						<i class="selected fa fa-check-square-o"></i>
-					</div>
-					<div class="sales-image-card">
-						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_700,h_800,q_80,c_limit/v1454928729/chlvcbesfnspyczfictg.png">
-					</div>
-				</div>
-				<div class="sales-right">
-
-					<p class="title u-margin-top-10" style="text-align: center;">ALMOHADAS: CONDICIONES</p>
-					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
-
-					<p class="title">Condiciones</p>
-					<p class="subtitle">
-						AM te cobra por la fabricación del producto, no por la venta. Sugerimos que tu margen sea +20%, pero puedes incrementarlo si conoces tu mercado.
-					</p>
-
-					<table class="prints u-margin-top-20 u-margin-bottom-40" style="width: 100%;">
-						<tr>
-							<td><p class="title">TIPO DE CASE</p></td>
-							<td><p class="title">&nbsp;&nbsp;MARGEN</p></td>
-						</tr>
-						<tr>
-							<td>
-								<div class="type">
-									<input type="checkbox"></input>
-									<div>
-										<p>ALMOHADA</p>
-										<p>$10.23 - $24.32</p>
-									</div>
-								</div>
-							</td>
-							<td>
-								<div class="data">
-									<input type="text"></input>
-									<div>
-										<p>PARA TÍ</p>
-										<p>$10.23 - $24.32</p>
-									</div>
-								</div>
-							</td>
-						</tr>
-					</table>
-
-					<p class="subtitle-mall u-margin-top-50">* El precio de lista no incluye impuestos en cada país, ni el costo de envío.</p>
-					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR CAMBIOS</a>
-					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
-				</div>
-			</div>
-		</div>
-	</div> -->
 
 	<div class="grid-container">
 		<div class="grid-100">
@@ -1388,7 +688,7 @@
 				<p class="title">¿Confirmar productos?</p>
 				<div class="options">
 					<a class="sales-button white">CANCELAR</a>
-					<a class="sales-button">PONER EN VENTA</a>
+					<a class="sales-button create-btn">PONER EN VENTA</a>
 				</div>
 			</div>
 		</div>
@@ -1442,35 +742,17 @@
 
 {% block scripts %}
 
-	<script src='/spectrum/spectrum.js'></script>
-
+<script src='/spectrum/spectrum.js'></script>
 <script>
-var work = {{work|json|safe}};
-var categories = {{categories|json|safe}};
-$(function() {
-	$.cloudinary.config({{cloudinary.config()|json|safe}});
+	var work = {{work|json|safe}};
+	var categories = {{categories|json|safe}};
+	$(function() {
+		$.cloudinary.config({{cloudinary.config()|json|safe}});
 
-	new APP.SellScreen();
+		new APP.SellScreen();
 
-	$('#go-collection-modal').leanModal();
-	$('#go-share-modal').leanModal();
-
-	var colorsConf = {
-	    showPaletteOnly: true,
-	    showPalette:true,
-	    color: 'blanchedalmond',
-	    palette: [
-	        ['black', 'white', 'blanchedalmond',
-	        'rgb(255, 128, 0);', 'hsv 100 70 50'],
-	        ['red', 'yellow', 'green', 'blue', 'violet']
-	    ]
-	}
-
-	$("#colorPicker-Prints").spectrum(colorsConf);
-	$("#colorPicker-Tazas").spectrum(colorsConf);
-	$("#colorPicker-Phone").spectrum(colorsConf);
-	$("#colorPicker-Tablet").spectrum(colorsConf);
-
-});
+		$('#go-collection-modal').leanModal();
+		$('#go-share-modal').leanModal();
+	});
 </script>
 {% endblock %}

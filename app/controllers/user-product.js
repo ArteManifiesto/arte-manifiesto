@@ -6,6 +6,7 @@ exports.index = function (req, res) {
         profile: req.profile,
         product: req.product
     });
+
     // req.product.views += 1;
     // var promises = [
     //     req.product.save(),
@@ -24,8 +25,21 @@ exports.index = function (req, res) {
 
 exports.create = function (req, res) {
   req.body.UserId = req.user.id;
-  global.db.Product.create(req.body).then(function(product) {
-    return res.ok({product: product}, 'Producto creado');
+  var products = JSON.parse(req.body.products);
+
+  var promises = [], product;
+
+  for (var i = 0; i < products.length; i++) {
+    product = products[i];
+    product.UserId = req.user.id;
+    // console.log(product);
+    promises.push(global.db.Product.create(product));
+  }
+
+  // return res.ok({products: 'elle'}, 'Producto creado');
+
+  global.db.Sequelize.Promise.all(promises).then(function (result) {
+    return res.ok({products: result}, 'Producto creado');
   });
 };
 

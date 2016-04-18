@@ -15,7 +15,7 @@
 
         <a href="/user/<%=User.username%>/product/<%=nameSlugify%>">
           <div class="product-card-image" style="background-image: url('<%= addFilter(photo, 'w_300,h_300,c_fill') %>')"></div>
-          <div class="product-card-price">$ 90.45</div>
+          <div class="product-card-price"><%= finalPrice %></div>
           <div class="product-card-zoom" style="background-image: url('<%= addFilter(photo, 'w_300,h_300,c_fill') %>')"></div>
         </a>
 

@@ -139,14 +139,27 @@ exports.edit = function (req, res) {
 };
 
 exports.sell = function (req, res) {
-  global.db.Category.findAll({
-    where: {ParentCategoryId: 20, meta: 4}
-  }).then(function(categories) {
-    return res.render(basePath + 'sell', {
-      categories: categories,
-      work: req.work,
-      cloudinary: global.cl,
-      cloudinayCors: global.cl_cors
+  var query = {where: {meta: 3}};
+  global.db.Category.findAll(query).then(function(categories) {
+    var i, category, promises = [];
+    for (i = 0; i < categories.length; i++) {
+      category = categories[i];
+      query = {where: {ParentCategoryId: category.id}};
+      promises.push(global.db.Category.findAll(query));
+    }
+    global.db.Sequelize.Promise.all(promises).then(function (result) {
+      var cats = [];
+      for (i = 0; i < categories.length; i++) {
+        categories[i].setDataValue('subCategories', result[i]);
+        cats.push(categories[i].toJSON());
+      }
+      return res.render(basePath + 'sell', {
+        categories: cats,
+        work: req.work,
+        cloudinary: global.cl,
+        cloudinayCors: global.cl_cors
+      });
+      return res.json(categories);
     });
   });
 };
