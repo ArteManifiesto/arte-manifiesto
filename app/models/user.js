@@ -52,6 +52,8 @@ module.exports = function (sequelize, DataTypes) {
       document: DataTypes.STRING,
       documentValue: DataTypes.STRING,
       businessName: DataTypes.STRING,
+      bank: DataTypes.STRING,
+      cci: DataTypes.STRING,
 
       typeName: {type: DataTypes.INTEGER, defaultValue: 1},
       verified: {type: DataTypes.BOOLEAN, defaultValue: false},
@@ -179,6 +181,14 @@ module.exports = function (sequelize, DataTypes) {
           query = global._.assign(query, options);
           return this.getWorks(query).then(function (result) {
             return result[0].getDataValue('numOfWorks');
+          });
+        },
+        numOfProducts: function (options) {
+          options = options || {};
+          var query = {attributes: [[global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'numOfProducts']]};
+          query = global._.assign(query, options);
+          return this.getProducts(query).then(function (result) {
+            return result[0].getDataValue('numOfProducts');
           });
         },
         numOfCollections: function (options) {

@@ -61,7 +61,7 @@ APP.BaseScreen.prototype.getTemplate = function (path) {
   var temp = '';
   if (['followings', 'followers'].indexOf(path) !== -1) temp = 'user';
   if ('portfolio' === path) temp = 'work';
-  if ('store' === path) temp = 'product';
+  if ('products' === path) temp = 'product';
   if ('collections' === path) temp = 'collection';
   return temp;
 };

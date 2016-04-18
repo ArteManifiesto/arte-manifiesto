@@ -102,6 +102,7 @@ exports.passwordUpdate = function (req, res) {
 };
 
 exports.seller = function (req, res) {
+  if(req.user.country !== 'Peru') return res.redirect('/user/' + req.user.username + '/account');
   return res.render(basePath + 'seller');
 };
 

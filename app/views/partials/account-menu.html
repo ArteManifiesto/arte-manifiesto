@@ -13,15 +13,22 @@
 							<a href="/user/{{user.username}}/account/password" class="password">Cambiar contraseña</a>
 						</ul>
 					</div>
-					<div class="am-Filter-item">
-						<header class="am-Filter-header">
-							<i class="bi_user-single-a"></i><p>Tienda en línea</p>
-						</header>
-					</div>
-					<div class="am-Filter-item">
-						<ul class="am-Filter-subOptions">
-							<a href="/user/{{user.username}}/account/seller" class="seller">Editar datos de vendedor</a>
-							<a href="/user/{{user.username}}/account/requests" class="requests">Gestor de pedidos</a>
-						</ul>
-					</div>
+
+					{% if user.country === 'Peru'%}
+						<div class="am-Filter-item">
+							<header class="am-Filter-header">
+								<i class="bi_user-single-a"></i><p>Tienda en línea</p>
+							</header>
+						</div>
+						<div class="am-Filter-item">
+							<ul class="am-Filter-subOptions">
+								{%if user.isSeller %}
+								<a href="/user/{{user.username}}/account/seller" class="seller">Editar datos de vendedor</a>
+								<a href="/user/{{user.username}}/account/requests" class="requests">Gestor de pedidos</a>
+								{%else%}
+								<a href="/user/{{user.username}}/account/seller" class="seller">Quiero abrir mi tienda</a>
+								{%endif%}
+							</ul>
+						</div>
+					{% endif %}
 				</div>

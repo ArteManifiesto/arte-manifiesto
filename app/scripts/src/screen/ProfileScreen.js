@@ -45,6 +45,7 @@ APP.ProfileScreen.prototype.followClickHandler = function () {
 APP.ProfileScreen.prototype.menuItemClickHandler = function (event) {
   this.currentItem = $(event.currentTarget);
   var path = this.currentItem.data('name');
+
   var url = '/user/' + profile.username + '/' + (path === 'portfolio' ? '' : path)
   Utils.changeUrl(DataApp.baseTitle + Utils.capitalize(path), url);
 
@@ -56,6 +57,7 @@ APP.ProfileScreen.prototype.menuItemClickHandler = function (event) {
 
   this.currentItem.addClass('selected');
   this.currentSection.show();
+
   if (this.paths.indexOf(path) === -1) {
     var template = this.getTemplate(path), section = $('.' + path + '-container');
     this.currentViewer = new APP.Viewer(template, section, 'infinite', null);
@@ -66,6 +68,7 @@ APP.ProfileScreen.prototype.menuItemClickHandler = function (event) {
     this.currentViewer = this.viewers[this.paths.indexOf(path)]
     this.currentViewer.restart();
   }
+
   this.oldItem = this.currentItem;
   this.oldViewer = this.currentViewer;
   this.oldSection = this.currentSection;

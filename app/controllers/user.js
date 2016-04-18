@@ -5,6 +5,7 @@ exports.profile = function (currentPath, req, res) {
 
   var promises = [
     req.profile.numOfWorks(query),
+    req.profile.numOfProducts({where: {published: true}}),
     req.profile.numOfCollections(query),
     req.profile.numOfFollowings(),
     req.profile.numOfFollowers(),
@@ -44,6 +45,13 @@ exports.portfolio = function (req, res) {
   query.order = [global.getOrder('newest')];
   return getData(req, res, {method: 'getWorks', name: 'works'}, query);
 };
+
+exports.products = function (req, res) {
+  var query = req.owner ? {addUser: true} : {addUser: true, where: {published: true}};
+  query.order = [global.getOrder('newest')];
+  return getData(req, res, {method: 'getProducts', name: 'products'}, {addUser: true});
+};
+
 
 exports.collections = function (req, res) {
   var query = req.owner ? {addUser: true} : {addUser: true, where: {public: true}};

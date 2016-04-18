@@ -25,6 +25,8 @@ APP.AccountSellerScreen.prototype.setupUI = function() {
   this.document = $('select[name=document]');
   this.documentValue = $('input[name=documentValue]');
   this.businessName = $('input[name=businessName]');
+  this.bank = $('input[name=bank]');
+  this.cci = $('input[name=cci]');
 
   this.form = $('.complete-form');
 
@@ -87,12 +89,12 @@ APP.AccountSellerScreen.prototype.submitHandler = function (e) {
   if(Validations.notBlank(this.direction.val())) errors.push('Ingrese su dirección');
   if(Validations.notBlank(this.phone.val())) errors.push('Ingrese su teléfono');
 
-  if(!Validations.email(this.paypal.val())) errors.push('Ingrese su cuenta de paypal válida');
-
   if(this.country.val() === 'Peru') {
     if(Validations.notBlank(this.document.val())) errors.push('Seleccione un documento');
     if(Validations.notBlank(this.documentValue.val())) errors.push('Ingrese el nro del documento');
     if(Validations.notBlank(this.businessName.val())) errors.push('Ingrese el nombre de la razón social');
+    if(Validations.notBlank(this.bank.val())) errors.push('Ingrese el nombre de tú banco');
+    if(Validations.notBlank(this.cci.val())) errors.push('Ingrese tu número de cuenta');
   }
 
   if(!user.isSeller)
