@@ -4,7 +4,7 @@
  */
 var APP = APP || {};
 
-APP.NotificationDeniedProduct = function (data, options) {
+APP.NotificationDeniedProduct = function(data, options) {
   data.data = JSON.parse(data.data);
   APP.BaseElement.call(this, data, 'notification-denied-product', options);
 };

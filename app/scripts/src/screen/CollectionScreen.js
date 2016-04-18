@@ -4,15 +4,17 @@
  */
 var APP = APP || {};
 
-APP.CollectionScreen = function () {
+APP.CollectionScreen = function() {
   APP.BaseScreen.call(this, 'collection');
 };
 
 APP.CollectionScreen.constructor = APP.CollectionScreen;
 APP.CollectionScreen.prototype = Object.create(APP.BaseScreen.prototype);
 
-APP.CollectionScreen.prototype.setupUI = function () {
-  this.viewer = new APP.Viewer('work', $('.grid'), null, works, {context: 'single-collection'});
+APP.CollectionScreen.prototype.setupUI = function() {
+  this.viewer = new APP.Viewer('work', $('.grid'), null, works, {
+    context: 'single-collection'
+  });
 
   this.workDelete = $('.work-delete');
   this.workDeleteConfirm = $('.work-delete-confirm');
@@ -27,7 +29,7 @@ APP.CollectionScreen.prototype.setupUI = function () {
   $('#go-collection-modal').leanModal();
 };
 
-APP.CollectionScreen.prototype.listeners = function () {
+APP.CollectionScreen.prototype.listeners = function() {
   APP.BaseScreen.prototype.listeners.call(this);
 
   this.workDelete.click(this.workDeleteHandler.bind(this));
@@ -39,15 +41,15 @@ APP.CollectionScreen.prototype.listeners = function () {
   this.public.change();
 };
 
-APP.CollectionScreen.prototype.saveHandler = function () {
+APP.CollectionScreen.prototype.saveHandler = function() {
   this.collectionForm.submit();
 };
 
-APP.CollectionScreen.prototype.publicChangeHandler = function () {
+APP.CollectionScreen.prototype.publicChangeHandler = function() {
   $(this).parent().find('.value').text((this.checked ? 'On' : 'Off'));
 }
 
-APP.CollectionScreen.prototype.collectionFormHandler = function (event) {
+APP.CollectionScreen.prototype.collectionFormHandler = function(event) {
   event.preventDefault();
   this.save.hide();
   this.saveLoading.show();
@@ -62,7 +64,7 @@ APP.CollectionScreen.prototype.collectionFormHandler = function (event) {
   this.requestHandler(url, payload, this.collectionUpdateComplete);
 };
 
-APP.CollectionScreen.prototype.collectionUpdateComplete = function (response) {
+APP.CollectionScreen.prototype.collectionUpdateComplete = function(response) {
   this.save.show();
   this.saveLoading.hide();
 
@@ -75,25 +77,27 @@ APP.CollectionScreen.prototype.collectionUpdateComplete = function (response) {
   Utils.changeUrl(collection.name, newUrl);
 }
 
-APP.CollectionScreen.prototype.workDeleteCancelHandler = function () {
+APP.CollectionScreen.prototype.workDeleteCancelHandler = function() {
   this.workDelete.show();
   this.workDeleteConfirm.hide();
 };
 
-APP.CollectionScreen.prototype.workDeleteHandler = function () {
+APP.CollectionScreen.prototype.workDeleteHandler = function() {
   this.workDelete.hide();
   this.workDeleteConfirm.show();
 };
 
-APP.CollectionScreen.prototype.workDeleteForceHandler = function () {
+APP.CollectionScreen.prototype.workDeleteForceHandler = function() {
   var url = DataApp.currentUser.url + '/collection/delete';
-  this.requestHandler(url, {idCollection: collection.id}, this.collectionDeleteComplete);
+  this.requestHandler(url, {
+    idCollection: collection.id
+  }, this.collectionDeleteComplete);
 };
 
-APP.CollectionScreen.prototype.collectionDeleteComplete = function () {
+APP.CollectionScreen.prototype.collectionDeleteComplete = function() {
   $('#lean_overlay').trigger('click');
   this.showFlash('succes', 'Se elimino tu coleccion');
-  setTimeout(function () {
+  setTimeout(function() {
     window.location.href = '/user/' + collection.User.username + '/collections';
   }, 1000);
 }

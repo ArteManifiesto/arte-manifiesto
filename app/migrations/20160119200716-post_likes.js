@@ -1,10 +1,9 @@
 'use strict';
 
 module.exports = {
-  up: function (queryInterface, Sequelize) {
+  up: function(queryInterface, Sequelize) {
     queryInterface.createTable(
-      'PostLikes',
-      {
+      'PostLikes', {
         createdAt: {
           type: Sequelize.DATE
         },
@@ -29,7 +28,7 @@ module.exports = {
     )
   },
 
-  down: function (queryInterface, Sequelize) {
+  down: function(queryInterface, Sequelize) {
     queryInterface.dropTable('PostLikes');
   }
 };

@@ -4,28 +4,29 @@
  */
 Utils = {
   isMobile: {
-    Android: function () {
+    Android: function() {
       return navigator.userAgent.match(/Android/i);
     },
-    BlackBerry: function () {
+    BlackBerry: function() {
       return navigator.userAgent.match(/BlackBerry/i);
     },
-    iOS: function () {
+    iOS: function() {
       return navigator.userAgent.match(/iPhone|iPad|iPod/i);
     },
-    Opera: function () {
+    Opera: function() {
       return navigator.userAgent.match(/Opera Mini/i);
     },
-    Windows: function () {
+    Windows: function() {
       return navigator.userAgent.match(/IEMobile/i);
     },
-    any: function () {
+    any: function() {
       return (Utils.isMobile.Android() || Utils.isMobile.BlackBerry() ||
-      Utils.isMobile.iOS() || Utils.isMobile.Opera() || Utils.isMobile.Windows());
+        Utils.isMobile.iOS() || Utils.isMobile.Opera() || Utils.isMobile.Windows());
     }
   },
-  paginationButtons: function (currentPage, totalPages, maxButtons) {
-    var i, result = [1], middle = Math.floor(maxButtons / 2);
+  paginationButtons: function(currentPage, totalPages, maxButtons) {
+    var i, result = [1],
+      middle = Math.floor(maxButtons / 2);
 
     if (currentPage > totalPages)
       return null;
@@ -49,14 +50,14 @@ Utils = {
     }
 
     if (currentPage >= maxLimit && currentPage <= totalPages) {
-      for (i = (totalPages - (maxButtons - 2) ); i < totalPages; i++)
+      for (i = (totalPages - (maxButtons - 2)); i < totalPages; i++)
         result.push(i);
     }
 
     result.push(totalPages);
     return result;
   },
-  getUrlParameter: function (sParam) {
+  getUrlParameter: function(sParam) {
     var sPageURL = window.location.search.substring(1)
     var sURLVariables = sPageURL.split('&')
     for (var i = 0; i < sURLVariables.length; i++) {
@@ -65,40 +66,46 @@ Utils = {
         return sParameterName[1]
     }
   },
-  capitalize: function (text) {
+  capitalize: function(text) {
     return text.charAt(0).toUpperCase() + text.substring(1);
   },
-  getData: function (params) {
+  getData: function(params) {
     return APP.RestClientManager.instance.execute(params);
   },
-  changeUrl: function (page, url) {
+  changeUrl: function(page, url) {
     DataApp.currentUrl = url;
-    if (typeof (history.pushState) != 'undefined') {
-      var tempUrl = {page: page, url: url};
+    if (typeof(history.pushState) != 'undefined') {
+      var tempUrl = {
+        page: page,
+        url: url
+      };
       // history.pushState(tempUrl, tempUrl.page, tempUrl.url);
       history.replaceState(tempUrl, tempUrl.page, tempUrl.url);
     } else {
       window.location.href = "/";
     }
   },
-  addImageFilter: function (url, filter) {
+  addImageFilter: function(url, filter) {
     return url.replace('upload/', 'upload/' + filter + '/');
   },
-  checkAuthentication: function () {
+  checkAuthentication: function() {
     if (!DataApp.currentUser) {
       if (window.location.href.indexOf('auth') === -1)
-        Cookies.set('return_to', window.location.href, {maxAge: 3600000, domain: '.' + document.domain});
+        Cookies.set('return_to', window.location.href, {
+          maxAge: 3600000,
+          domain: '.' + document.domain
+        });
 
       window.location.href = DataApp.loginUrl;
     }
   },
   share: {
-    facebook: function (options, complete) {
+    facebook: function(options, complete) {
       options.method = 'feed';
       window.FB && FB.ui(options, complete);
     }
   },
-  shareFBWork: function (work) {
+  shareFBWork: function(work) {
     $('#lean_overlay').trigger("click");
     Utils.share.facebook({
       link: DataApp.baseUrl + 'user/' + work.User.username + '/work/' + work.nameSlugify,
@@ -108,14 +115,14 @@ Utils = {
       description: work.description
     });
   },
-  shareTWWork: function (work) {
+  shareTWWork: function(work) {
     var link = DataApp.baseUrl + 'user/' + work.User.username + '/work/' + work.nameSlugify;
     var text = encodeURIComponent(work.name + ' vía (@artemanifiesto)');
     var url = "https://twitter.com/intent/tweet?text=" + text;
     url += "&url=" + encodeURIComponent(link);
     window.open(url, "_blank", "height=300,width=550,resizable=1");
   },
-  shareFBPost: function (post) {
+  shareFBPost: function(post) {
     Utils.share.facebook({
       link: DataApp.baseUrl + 'blog/post/' + post.nameSlugify,
       picture: Utils.addImageFilter(post.photo, 'w_1200,h_630,q_60,c_crop'),
@@ -124,14 +131,14 @@ Utils = {
       description: post.description
     });
   },
-  shareTWPost: function (post) {
+  shareTWPost: function(post) {
     var link = DataApp.baseUrl + 'blog/post/' + post.nameSlugify;
     var text = encodeURIComponent(post.name + ' vía (@artemanifiesto)');
     var url = "https://twitter.com/intent/tweet?text=" + text;
     url += "&url=" + encodeURIComponent(link);
     window.open(url, "_blank", "height=300,width=550,resizable=1");
   },
-  removeURLParameter: function (url, parameter) {
+  removeURLParameter: function(url, parameter) {
     var urlparts = url.split('?');
     if (urlparts.length >= 2) {
       var prefix = encodeURIComponent(parameter) + '=';
@@ -149,13 +156,12 @@ Utils = {
       return url;
     }
   },
-  updateQueryStringParameter: function (uri, key, value) {
+  updateQueryStringParameter: function(uri, key, value) {
     var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
     var separator = uri.indexOf('?') !== -1 ? "&" : "?";
     if (uri.match(re)) {
       return uri.replace(re, '$1' + key + "=" + value + '$2');
-    }
-    else {
+    } else {
       return uri + separator + key + "=" + value;
     }
   }

@@ -4,7 +4,7 @@
  */
 var APP = APP || {};
 
-APP.AccountPasswordScreen = function () {
+APP.AccountPasswordScreen = function() {
   APP.BaseScreen.call(this, 'accountPassword');
 
   this.timeout = null;
@@ -29,7 +29,7 @@ APP.AccountPasswordScreen.prototype.setupUI = function() {
 
 APP.AccountPasswordScreen.prototype.formHandler = function(event) {
   event.preventDefault();
-  if(this.password.val() !== this.rePassword.val())
+  if (this.password.val() !== this.rePassword.val())
     return this.showFlash('error', 'Las contraseñas no coinciden');
 
   var url = '/user/' + profile.username + '/account/password';

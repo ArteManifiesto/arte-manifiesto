@@ -4,14 +4,14 @@
  */
 var APP = APP || {};
 
-APP.AdminUsersScreen = function () {
+APP.AdminUsersScreen = function() {
   APP.BaseScreen.call(this, 'adminUsers');
 };
 
 APP.AdminUsersScreen.constructor = APP.AdminUsersScreen;
 APP.AdminUsersScreen.prototype = Object.create(APP.BaseScreen.prototype);
 
-APP.AdminUsersScreen.prototype.setupUI = function () {
+APP.AdminUsersScreen.prototype.setupUI = function() {
   this.searchBtn = $('.search-btn');
   this.start = $('.start');
   this.end = $('.end');
@@ -34,7 +34,7 @@ APP.AdminUsersScreen.prototype.setupUI = function () {
   }
 
   this.viewer = new APP.Viewer('tableUser', $('.container-items'), 'infinite', data, {
-    getTotal: function (total) {
+    getTotal: function(total) {
       $('.total').text('(' + total + ')');
     }
   });
@@ -42,7 +42,7 @@ APP.AdminUsersScreen.prototype.setupUI = function () {
   this.searchBox = $('.search-box');
 };
 
-APP.AdminUsersScreen.prototype.listeners = function () {
+APP.AdminUsersScreen.prototype.listeners = function() {
   APP.BaseScreen.prototype.listeners.call(this);
 
   this.start.datepicker().on('changeDate', this.startDateChange.bind(this));
@@ -61,15 +61,15 @@ APP.AdminUsersScreen.prototype.listeners = function () {
   }
 };
 
-APP.AdminUsersScreen.prototype.startDateChange = function (event) {
+APP.AdminUsersScreen.prototype.startDateChange = function(event) {
   this.startValue = event.date;
 };
 
-APP.AdminUsersScreen.prototype.endDateChange = function (event) {
+APP.AdminUsersScreen.prototype.endDateChange = function(event) {
   this.endValue = event.date;
 };
 
-APP.AdminUsersScreen.prototype.dropdownChange = function (event) {
+APP.AdminUsersScreen.prototype.dropdownChange = function(event) {
   var text = $(event.target).text();
 
   $(".btn-drop .property").text(text);
@@ -102,7 +102,7 @@ APP.AdminUsersScreen.prototype.dropdownChange = function (event) {
       break;
   }
 };
-APP.AdminUsersScreen.prototype.searchHander = function () {
+APP.AdminUsersScreen.prototype.searchHander = function() {
   var termValue = this.searchBox.val().trim();
 
   if (this.term && this.term.trim().length > 0) {
@@ -132,7 +132,7 @@ APP.AdminUsersScreen.prototype.searchHander = function () {
     if (!this.endValue)
       return this.showFlash('error', ['Ingresa una fecha de fin']);
 
-    var startStr = (this.startValue.getMonth() + 1 ) + "-" +
+    var startStr = (this.startValue.getMonth() + 1) + "-" +
       this.startValue.getDate() + "-" +
       this.startValue.getFullYear();
 

@@ -4,7 +4,7 @@
  * see https://github.com/cloudinary/cloudinary_js
  */
 
-(function (factory) {
+(function(factory) {
   'use strict';
   if (typeof define === 'function' && define.amd) {
     // Register as an anonymous AMD module:
@@ -19,19 +19,19 @@
     var $ = window.jQuery;
     factory($);
     $(function() {
-      if($.fn.cloudinary_fileupload !== undefined) {
+      if ($.fn.cloudinary_fileupload !== undefined) {
         $("input.cloudinary-fileupload[type=file]").cloudinary_fileupload();
       }
     });
   }
-}(function ($) {
+}(function($) {
   'use strict';
   var CF_SHARED_CDN = "d3jpl91pxevbkh.cloudfront.net";
   var OLD_AKAMAI_SHARED_CDN = "cloudinary-a.akamaihd.net";
   var AKAMAI_SHARED_CDN = "res.cloudinary.com";
   var SHARED_CDN = AKAMAI_SHARED_CDN;
-  
-  function utf8_encode (argString) {
+
+  function utf8_encode(argString) {
     // http://kevin.vanzonneveld.net
     // +   original by: Webtoolkit.info (http://www.webtoolkit.info/)
     // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
@@ -52,7 +52,7 @@
 
     var string = (argString + ''); // .replace(/\r\n/g, "\n").replace(/\r/g, "\n");
     var utftext = '',
-        start, end, stringl = 0;
+      start, end, stringl = 0;
 
     start = end = 0;
     stringl = string.length;
@@ -82,8 +82,8 @@
 
     return utftext;
   }
-  
-  function crc32 (str) {
+
+  function crc32(str) {
     // http://kevin.vanzonneveld.net
     // +   original by: Webtoolkit.info (http://www.webtoolkit.info/)
     // +   improved by: T0bsn
@@ -107,7 +107,9 @@
 
     crc = crc ^ (-1);
     //convert to unsigned 32-bit int if needed
-    if (crc < 0) {crc += 4294967296;}
+    if (crc < 0) {
+      crc += 4294967296;
+    }
     return crc;
   }
 
@@ -122,7 +124,7 @@
       return [];
     } else if ($.isArray(arg)) {
       return arg;
-    } else { 
+    } else {
       return [arg];
     }
   }
@@ -141,7 +143,7 @@
       return [];
     }
     delete options.transformation;
-    var base_transformations = []; 
+    var base_transformations = [];
     for (var i = 0; i < transformations.length; i++) {
       var transformation = transformations[i];
       if (typeof(transformation) == 'string') {
@@ -159,12 +161,13 @@
       var split_size = size.split("x");
       options.width = split_size[0];
       options.height = split_size[1];
-    }    
+    }
   }
 
   function process_html_dimensions(options) {
-    var width = options.width, height = options.height;
-    var has_layer = options.overlay || options.underlay;     
+    var width = options.width,
+      height = options.height;
+    var has_layer = options.overlay || options.underlay;
     var crop = options.crop;
     var use_as_html_dimensions = !has_layer && !options.angle && crop != "fit" && crop != "limit" && crop != "lfill";
     if (use_as_html_dimensions) {
@@ -174,7 +177,7 @@
     if (!crop && !has_layer) {
       delete options.width;
       delete options.height;
-    }    
+    }
   }
 
   var TRANSFORMATION_PARAM_NAME_MAPPING = {
@@ -207,17 +210,23 @@
   };
 
   var TRANSFORMATION_PARAM_VALUE_MAPPING = {
-    angle: function(angle){ return build_array(angle).join("."); },
-    background: function(background) { return background.replace(/^#/, 'rgb:');},
+    angle: function(angle) {
+      return build_array(angle).join(".");
+    },
+    background: function(background) {
+      return background.replace(/^#/, 'rgb:');
+    },
     border: function(border) {
-      if ($.isPlainObject(border)) { 
+      if ($.isPlainObject(border)) {
         var border_width = "" + (border.width || 2);
         var border_color = (border.color || "black").replace(/^#/, 'rgb:');
         border = border_width + "px_solid_" + border_color;
       }
-      return border;        
+      return border;
     },
-    color: function(color) { return color.replace(/^#/, 'rgb:');},
+    color: function(color) {
+      return color.replace(/^#/, 'rgb:');
+    },
     dpr: function(dpr) {
       dpr = dpr.toString();
       if (dpr === "auto") {
@@ -228,21 +237,27 @@
         return dpr;
       }
     },
-    effect: function(effect) { return build_array(effect).join(":");},
-    flags: function(flags) { return build_array(flags).join(".")},
-    transformation: function(transformation) { return build_array(transformation).join(".")}
+    effect: function(effect) {
+      return build_array(effect).join(":");
+    },
+    flags: function(flags) {
+      return build_array(flags).join(".")
+    },
+    transformation: function(transformation) {
+      return build_array(transformation).join(".")
+    }
   };
 
   function generate_transformation_string(options) {
     var base_transformations = process_base_transformations(options);
     process_size(options);
     process_html_dimensions(options);
-    
+
     var params = [];
     for (var param in TRANSFORMATION_PARAM_NAME_MAPPING) {
       var value = option_consume(options, param);
       if (!present(value)) continue;
-      if (TRANSFORMATION_PARAM_VALUE_MAPPING[param]) {        
+      if (TRANSFORMATION_PARAM_VALUE_MAPPING[param]) {
         value = TRANSFORMATION_PARAM_VALUE_MAPPING[param](value);
       }
       if (!present(value)) continue;
@@ -264,13 +279,13 @@
         prefix += document.location.pathname;
       } else if (url[0] != '/') {
         prefix += document.location.pathname.replace(/\/[^\/]*$/, '/');
-      }        
+      }
       url = prefix + url;
     }
     return url;
   }
 
-  function cloudinary_url(public_id, options) { 
+  function cloudinary_url(public_id, options) {
     options = options || {};
     var type = option_consume(options, 'type', 'upload');
     if (type == 'fetch') {
@@ -282,25 +297,25 @@
     var format = option_consume(options, 'format');
     var cloud_name = option_consume(options, 'cloud_name', $.cloudinary.config().cloud_name);
     if (!cloud_name) throw "Unknown cloud_name";
-    var private_cdn = option_consume(options, 'private_cdn', $.cloudinary.config().private_cdn);    
-    var secure_distribution = option_consume(options, 'secure_distribution', $.cloudinary.config().secure_distribution);    
+    var private_cdn = option_consume(options, 'private_cdn', $.cloudinary.config().private_cdn);
+    var secure_distribution = option_consume(options, 'secure_distribution', $.cloudinary.config().secure_distribution);
     var cname = option_consume(options, 'cname', $.cloudinary.config().cname);
     var cdn_subdomain = option_consume(options, 'cdn_subdomain', $.cloudinary.config().cdn_subdomain);
     var shorten = option_consume(options, 'shorten', $.cloudinary.config().shorten);
     var secure = option_consume(options, 'secure', window.location.protocol == 'https:');
     var protocol = option_consume(options, 'protocol', $.cloudinary.config().protocol);
-    var trust_public_id = option_consume(options, 'trust_public_id'); 
+    var trust_public_id = option_consume(options, 'trust_public_id');
 
     if (type == 'fetch') {
-      public_id = absolutize(public_id); 
+      public_id = absolutize(public_id);
     }
-    
+
     if (public_id.match(/^https?:/)) {
       if (type == "upload" || type == "asset") return public_id;
-      public_id = encodeURIComponent(public_id).replace(/%3A/g, ":").replace(/%2F/g, "/"); 
+      public_id = encodeURIComponent(public_id).replace(/%3A/g, ":").replace(/%2F/g, "/");
     } else {
       // Make sure public_id is URI encoded.
-      public_id = encodeURIComponent(decodeURIComponent(public_id)).replace(/%3A/g, ":").replace(/%2F/g, "/");      
+      public_id = encodeURIComponent(decodeURIComponent(public_id)).replace(/%3A/g, ":").replace(/%2F/g, "/");
       if (format) {
         if (!trust_public_id) public_id = public_id.replace(/\.(jpg|png|gif|webp)$/, '');
         public_id = public_id + "." + format;
@@ -313,7 +328,7 @@
       prefix = "/res" + cloud_name;
     } else {
       var shared_domain = !private_cdn;
-      if (secure) {        
+      if (secure) {
         if (!secure_distribution || secure_distribution == OLD_AKAMAI_SHARED_CDN) {
           secure_distribution = private_cdn ? cloud_name + "-res.cloudinary.com" : SHARED_CDN;
         }
@@ -321,7 +336,7 @@
         prefix += secure_distribution;
       } else {
         var subdomain = cdn_subdomain ? "a" + ((crc32(public_id) % 5) + 1) + "." : "";
-        var host = cname || (private_cdn ? cloud_name + "-res.cloudinary.com" : "res.cloudinary.com" );
+        var host = cname || (private_cdn ? cloud_name + "-res.cloudinary.com" : "res.cloudinary.com");
         prefix += subdomain + host;
       }
       if (shared_domain) prefix += "/" + cloud_name;
@@ -335,7 +350,8 @@
     }
 
     var url = [prefix, resource_type, type, transformation, version ? "v" + version : "",
-               public_id].join("/").replace(/([^:])\/+/g, '$1/');
+      public_id
+    ].join("/").replace(/([^:])\/+/g, '$1/');
     return url;
   }
 
@@ -351,7 +367,7 @@
     var width = option_consume(options, 'html_width');
     var height = option_consume(options, 'html_height');
     if (width) options.width = width;
-    if (height) options.height = height;    
+    if (height) options.height = height;
     return url;
   }
 
@@ -367,10 +383,10 @@
   var device_pixel_ratio_cache = {};
 
   $.cloudinary = {
-    CF_SHARED_CDN: CF_SHARED_CDN,  
+    CF_SHARED_CDN: CF_SHARED_CDN,
     OLD_AKAMAI_SHARED_CDN: OLD_AKAMAI_SHARED_CDN,
     AKAMAI_SHARED_CDN: AKAMAI_SHARED_CDN,
-    SHARED_CDN: SHARED_CDN,    
+    SHARED_CDN: SHARED_CDN,
     config: function(new_config, new_value) {
       if (!cloudinary_config) {
         cloudinary_config = {};
@@ -389,8 +405,8 @@
     },
     url: function(public_id, options) {
       options = $.extend({}, options);
-      return cloudinary_url(public_id, options);    
-    },    
+      return cloudinary_url(public_id, options);
+    },
     url_internal: cloudinary_url,
     transformation_string: function(options) {
       options = $.extend({}, options);
@@ -403,22 +419,34 @@
       return img;
     },
     facebook_profile_image: function(public_id, options) {
-      return $.cloudinary.image(public_id, $.extend({type: 'facebook'}, options));
+      return $.cloudinary.image(public_id, $.extend({
+        type: 'facebook'
+      }, options));
     },
     twitter_profile_image: function(public_id, options) {
-      return $.cloudinary.image(public_id, $.extend({type: 'twitter'}, options));
+      return $.cloudinary.image(public_id, $.extend({
+        type: 'twitter'
+      }, options));
     },
     twitter_name_profile_image: function(public_id, options) {
-      return $.cloudinary.image(public_id, $.extend({type: 'twitter_name'}, options));
+      return $.cloudinary.image(public_id, $.extend({
+        type: 'twitter_name'
+      }, options));
     },
     gravatar_image: function(public_id, options) {
-      return $.cloudinary.image(public_id, $.extend({type: 'gravatar'}, options));
+      return $.cloudinary.image(public_id, $.extend({
+        type: 'gravatar'
+      }, options));
     },
     fetch_image: function(public_id, options) {
-      return $.cloudinary.image(public_id, $.extend({type: 'fetch'}, options));
+      return $.cloudinary.image(public_id, $.extend({
+        type: 'fetch'
+      }, options));
     },
     sprite_css: function(public_id, options) {
-      options = $.extend({type: 'sprite'}, options);
+      options = $.extend({
+        type: 'sprite'
+      }, options);
       if (!public_id.match(/.css$/)) options.format = 'css';
       return $.cloudinary.url(public_id, options);
     },
@@ -446,18 +474,24 @@
         var timeout = null;
         $(window).on('resize', function() {
           var debounce = get_config('responsive_debounce', responsive_config, 100);
+
           function reset() {
             if (timeout) {
-              clearTimeout(timeout); 
+              clearTimeout(timeout);
               timeout = null;
             }
           }
+
           function run() {
-            $('img.cld-responsive').cloudinary_update(responsive_config);  
+            $('img.cld-responsive').cloudinary_update(responsive_config);
           }
+
           function wait() {
             reset();
-            setTimeout(function() { reset(); run(); }, debounce);
+            setTimeout(function() {
+              reset();
+              run();
+            }, debounce);
           }
           if (debounce) {
             wait();
@@ -466,7 +500,7 @@
           }
         });
       }
-    },    
+    },
     /**
      * Compute the stoppoint for the given element and width.
      * By default the stoppoint will be the smallest multiple of 10 larger than the width.
@@ -476,23 +510,25 @@
      * - a comma separated ordered list of stoppoints
      * - a function that returns the stoppoint given the wanted width.
      */
-    calc_stoppoint: function (element, width) {
+    calc_stoppoint: function(element, width) {
       var stoppoints = $(element).data('stoppoints') || $.cloudinary.config().stoppoints || default_stoppoints;
       if (typeof(stoppoints) === 'function') {
         return stoppoints(width);
       }
       if (typeof(stoppoints) === 'string') {
-        stoppoints = $.map(stoppoints.split(","), function(val){ return parseInt(val); });
+        stoppoints = $.map(stoppoints.split(","), function(val) {
+          return parseInt(val);
+        });
       }
       var i = stoppoints.length - 2;
       while (i >= 0 && stoppoints[i] >= width) {
         i--;
       }
-      return stoppoints[i+1];
+      return stoppoints[i + 1];
     },
-    device_pixel_ratio: function() {    
+    device_pixel_ratio: function() {
       var dpr = window.devicePixelRatio || 1;
-      var dpr_string = device_pixel_ratio_cache[dpr];      
+      var dpr_string = device_pixel_ratio_cache[dpr];
       if (!dpr_string) {
         dpr_string = dpr.toString();
         if (dpr_string.match(/^\d+$/)) dpr_string += ".0";
@@ -504,11 +540,17 @@
 
   $.fn.cloudinary = function(options) {
     this.filter('img').each(function() {
-      var img_options = $.extend({width: $(this).attr('width'), height: $(this).attr('height'),
-                                  src: $(this).attr('src')}, $(this).data(), options);
-      var public_id = option_consume(img_options, 'source', option_consume(img_options, 'src')); 
+      var img_options = $.extend({
+        width: $(this).attr('width'),
+        height: $(this).attr('height'),
+        src: $(this).attr('src')
+      }, $(this).data(), options);
+      var public_id = option_consume(img_options, 'source', option_consume(img_options, 'src'));
       var url = prepare_html_url(public_id, img_options);
-      $(this).data('src-cache', url).attr({width: img_options.width, height: img_options.height});
+      $(this).data('src-cache', url).attr({
+        width: img_options.width,
+        height: img_options.height
+      });
     }).cloudinary_update(options);
     return this;
   };
@@ -544,11 +586,11 @@
         var containerWidth = container ? container.clientWidth : 0;
         if (containerWidth == 0) {
           // container doesn't know the size yet. Usually because the image is hidden or outside the DOM.
-          return; 
+          return;
         }
-        
-        var requestedWidth = exact ? containerWidth : $.cloudinary.calc_stoppoint(this, containerWidth);          
-        var currentWidth = $(this).data('width') || 0; 
+
+        var requestedWidth = exact ? containerWidth : $.cloudinary.calc_stoppoint(this, containerWidth);
+        var currentWidth = $(this).data('width') || 0;
         if (requestedWidth > currentWidth) {
           // requested width is larger, fetch new image
           $(this).data('width', requestedWidth);
@@ -573,7 +615,7 @@
     var that = this;
     options = options || {};
     webp_options = webp_options || options;
-    if (!webp) { 
+    if (!webp) {
       webp = $.Deferred();
       var webp_canary = new Image();
       webp_canary.onerror = webp.reject;
@@ -582,7 +624,9 @@
     }
     $(function() {
       webp.done(function() {
-        $(that).cloudinary($.extend({}, webp_options, {format: 'webp'}));
+        $(that).cloudinary($.extend({}, webp_options, {
+          format: 'webp'
+        }));
       }).fail(function() {
         $(that).cloudinary(options);
       });
@@ -590,7 +634,9 @@
     return this;
   };
   $.fn.fetchify = function(options) {
-    return this.cloudinary($.extend(options, {'type': 'fetch'}));
+    return this.cloudinary($.extend(options, {
+      'type': 'fetch'
+    }));
   };
   if (!$.fn.fileupload) {
     return;
@@ -606,8 +652,12 @@
     return $.ajax({
       url: url,
       method: "POST",
-      data: {token: delete_token},
-      headers: {"X-Requested-With": "XMLHttpRequest"},
+      data: {
+        token: delete_token
+      },
+      headers: {
+        "X-Requested-With": "XMLHttpRequest"
+      },
       dataType: dataType
     });
   };
@@ -618,27 +668,33 @@
       options = $.extend({
         maxFileSize: 20000000,
         dataType: 'json',
-        headers: {"X-Requested-With": "XMLHttpRequest"}
+        headers: {
+          "X-Requested-With": "XMLHttpRequest"
+        }
       }, options);
     }
     this.fileupload(options);
-    
+
     if (initializing) {
       this.bind("fileuploaddone", function(e, data) {
-        if (data.result.error) return;      
-        data.result.path = ["v", data.result.version, "/", data.result.public_id, 
-                            data.result.format ? "." + data.result.format : ""].join("");
-    
+        if (data.result.error) return;
+        data.result.path = ["v", data.result.version, "/", data.result.public_id,
+          data.result.format ? "." + data.result.format : ""
+        ].join("");
+
         if (data.cloudinaryField && data.form.length > 0) {
-          var upload_info = [data.result.resource_type, data.result.type, data.result.path].join("/") + "#" + data.result.signature;  
+          var upload_info = [data.result.resource_type, data.result.type, data.result.path].join("/") + "#" + data.result.signature;
           var multiple = $(e.target).prop("multiple");
           var add_field = function() {
-            $('<input></input>').attr({type: "hidden", name: data.cloudinaryField}).val(upload_info).appendTo(data.form);
+            $('<input></input>').attr({
+              type: "hidden",
+              name: data.cloudinaryField
+            }).val(upload_info).appendTo(data.form);
           };
-          
+
           if (multiple) {
             add_field();
-          } else {          
+          } else {
             var field = $(data.form).find('input[name="' + data.cloudinaryField + '"]');
             if (field.length > 0) {
               field.val(upload_info);
@@ -649,24 +705,24 @@
         }
         $(e.target).trigger('cloudinarydone', data);
       });
-      
-      this.bind("fileuploadstart", function(e){
+
+      this.bind("fileuploadstart", function(e) {
         $(e.target).trigger('cloudinarystart');
       });
-      this.bind("fileuploadstop", function(e){
+      this.bind("fileuploadstop", function(e) {
         $(e.target).trigger('cloudinarystop');
       });
-      this.bind("fileuploadprogress", function(e,data){
-        $(e.target).trigger('cloudinaryprogress',data);
+      this.bind("fileuploadprogress", function(e, data) {
+        $(e.target).trigger('cloudinaryprogress', data);
       });
-      this.bind("fileuploadprogressall", function(e,data){
-        $(e.target).trigger('cloudinaryprogressall',data);
+      this.bind("fileuploadprogressall", function(e, data) {
+        $(e.target).trigger('cloudinaryprogressall', data);
       });
-      this.bind("fileuploadfail", function(e,data){
-        $(e.target).trigger('cloudinaryfail',data);
+      this.bind("fileuploadfail", function(e, data) {
+        $(e.target).trigger('cloudinaryfail', data);
       });
-      this.bind("fileuploadalways", function(e,data){
-        $(e.target).trigger('cloudinaryalways',data);
+      this.bind("fileuploadalways", function(e, data) {
+        $(e.target).trigger('cloudinaryalways', data);
       });
 
       if (!this.fileupload('option').url) {
@@ -677,13 +733,15 @@
     }
     return this;
   };
-  
+
   $.fn.cloudinary_upload_url = function(remote_url) {
-    this.fileupload('option', 'formData').file = remote_url; 
-    this.fileupload('add', { files: [ remote_url ] }); 
-    delete(this.fileupload('option', 'formData').file);    
+    this.fileupload('option', 'formData').file = remote_url;
+    this.fileupload('add', {
+      files: [remote_url]
+    });
+    delete(this.fileupload('option', 'formData').file);
   };
-    
+
   $.fn.unsigned_cloudinary_upload = function(upload_preset, upload_params, options) {
     options = options || {};
     upload_params = $.extend({}, upload_params) || {};
@@ -697,12 +755,16 @@
     for (var key in upload_params) {
       var value = upload_params[key];
       if ($.isPlainObject(value)) {
-        upload_params[key] = $.map(value, function(v, k){return k + "=" + v;}).join("|");      
+        upload_params[key] = $.map(value, function(v, k) {
+          return k + "=" + v;
+        }).join("|");
       } else if ($.isArray(value)) {
         if (value.length > 0 && $.isArray(value[0])) {
-          upload_params[key] = $.map(value, function(array_value){return array_value.join(",");}).join("|");                
+          upload_params[key] = $.map(value, function(array_value) {
+            return array_value.join(",");
+          }).join("|");
         } else {
-          upload_params[key] = value.join(",");  
+          upload_params[key] = value.join(",");
         }
       }
     }
@@ -717,15 +779,18 @@
       options.cloudinaryField = options.cloudinary_field;
       delete options.cloudinary_field;
     }
-        
+
     var html_options = options.html || {};
     html_options["class"] = "cloudinary_fileupload " + (html_options["class"] || "");
     if (options.multiple) html_options.multiple = true;
     this.attr(html_options).cloudinary_fileupload(options);
     return this;
   };
-  
+
   $.cloudinary.unsigned_upload_tag = function(upload_preset, upload_params, options) {
-    return $('<input/>').attr({type: "file", name: "file"}).unsigned_cloudinary_upload(upload_preset, upload_params, options);
+    return $('<input/>').attr({
+      type: "file",
+      name: "file"
+    }).unsigned_cloudinary_upload(upload_preset, upload_params, options);
   };
 }));

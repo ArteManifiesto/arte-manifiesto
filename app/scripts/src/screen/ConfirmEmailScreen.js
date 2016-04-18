@@ -4,7 +4,7 @@
  */
 var APP = APP || {};
 
-APP.ConfirmEmailScreen = function () {
+APP.ConfirmEmailScreen = function() {
   APP.BaseScreen.call(this, 'confirmEmail');
 };
 

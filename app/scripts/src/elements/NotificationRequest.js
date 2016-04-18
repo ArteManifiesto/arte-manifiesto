@@ -4,7 +4,7 @@
  */
 var APP = APP || {};
 
-APP.NotificationRequest = function (data, options) {  
+APP.NotificationRequest = function(data, options) {
   APP.BaseElement.call(this, data, 'notification-request', options);
 };
 

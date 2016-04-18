@@ -1,18 +1,16 @@
 'use strict';
 
 module.exports = {
-  up: function (queryInterface, Sequelize) {
+  up: function(queryInterface, Sequelize) {
     queryInterface.addIndex(
-      'Collections',
-      ['name', 'description'],
-      {
+      'Collections', ['name', 'description'], {
         indexName: 'CollectionsFullText',
         indicesType: 'FULLTEXT'
       }
     );
   },
 
-  down: function (queryInterface, Sequelize) {
+  down: function(queryInterface, Sequelize) {
     queryInterface.removeIndex('Collections', 'CollectionsFullText');
   }
 };

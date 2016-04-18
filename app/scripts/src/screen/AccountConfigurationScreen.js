@@ -4,7 +4,7 @@
  */
 var APP = APP || {};
 
-APP.AccountConfigurationScreen = function () {
+APP.AccountConfigurationScreen = function() {
   APP.BaseScreen.call(this, 'accountConfiguration');
 };
 
@@ -18,30 +18,30 @@ APP.AccountConfigurationScreen.prototype.setupUI = function() {
   $('.work-delete-confirm').hide();
 };
 
-APP.AccountConfigurationScreen.prototype.listeners = function () {
+APP.AccountConfigurationScreen.prototype.listeners = function() {
   this.delete.click(this.deleteStoreBtnHandler.bind(this));
   this.deleteForce.click(this.deleteForceHandler.bind(this));
   this.cancel.click(this.cancelBtnHandler.bind(this));
 };
 
-APP.AccountConfigurationScreen.prototype.cancelBtnHandler  = function (e) {
+APP.AccountConfigurationScreen.prototype.cancelBtnHandler = function(e) {
   e.preventDefault();
   $('.work-delete-confirm').hide();
   this.delete.show();
 };
 
-APP.AccountConfigurationScreen.prototype.deleteForceHandler  = function (e) {
+APP.AccountConfigurationScreen.prototype.deleteForceHandler = function(e) {
   e.preventDefault();
   var url = '/user/' + user.username + '/account/deactivate';
   this.requestHandler(url, {}, this.afterUnSeller);
 };
 
-APP.AccountConfigurationScreen.prototype.deleteStoreBtnHandler = function (e) {
+APP.AccountConfigurationScreen.prototype.deleteStoreBtnHandler = function(e) {
   e.preventDefault();
   this.delete.hide();
   $('.work-delete-confirm').show();
 };
-APP.AccountConfigurationScreen.prototype.afterUnSeller = function (e) {
+APP.AccountConfigurationScreen.prototype.afterUnSeller = function(e) {
   this.showFlash('succes', 'Se ha desactivado tu cuenta');
   var timeout = setTimeout(function() {
     clearTimeout(timeout);

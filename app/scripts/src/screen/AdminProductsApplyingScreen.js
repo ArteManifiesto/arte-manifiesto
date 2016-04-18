@@ -4,14 +4,14 @@
  */
 var APP = APP || {};
 
-APP.AdminProductsApplyingScreen = function () {
+APP.AdminProductsApplyingScreen = function() {
   APP.BaseScreen.call(this, 'adminProductsApplying');
 };
 
 APP.AdminProductsApplyingScreen.constructor = APP.AdminProductsApplyingScreen;
 APP.AdminProductsApplyingScreen.prototype = Object.create(APP.BaseScreen.prototype);
 
-APP.AdminProductsApplyingScreen.prototype.setupUI = function () {
+APP.AdminProductsApplyingScreen.prototype.setupUI = function() {
   this.searchBtn = $('.search-btn');
   this.start = $('.start');
   this.end = $('.end');
@@ -32,7 +32,7 @@ APP.AdminProductsApplyingScreen.prototype.setupUI = function () {
   }
 
   this.viewer = new APP.Viewer('tableProductApplying', $('.container-items'), 'infinite', data, {
-    getTotal: function (total) {
+    getTotal: function(total) {
       $('.total').text('(' + total + ')');
     }
   });
@@ -40,7 +40,7 @@ APP.AdminProductsApplyingScreen.prototype.setupUI = function () {
   this.searchBox = $('.search-box');
 };
 
-APP.AdminProductsApplyingScreen.prototype.listeners = function () {
+APP.AdminProductsApplyingScreen.prototype.listeners = function() {
   APP.BaseScreen.prototype.listeners.call(this);
 
   this.start.datepicker().on('changeDate', this.startDateChange.bind(this));
@@ -48,20 +48,20 @@ APP.AdminProductsApplyingScreen.prototype.listeners = function () {
   this.searchBtn.click(this.searchHander.bind(this));
 };
 
-APP.AdminProductsApplyingScreen.prototype.startDateChange = function (event) {
+APP.AdminProductsApplyingScreen.prototype.startDateChange = function(event) {
   this.startValue = event.date;
 };
 
-APP.AdminProductsApplyingScreen.prototype.endDateChange = function (event) {
+APP.AdminProductsApplyingScreen.prototype.endDateChange = function(event) {
   this.endValue = event.date;
 };
 
-APP.AdminProductsApplyingScreen.prototype.searchHander = function () {
+APP.AdminProductsApplyingScreen.prototype.searchHander = function() {
   if (this.startValue) {
     if (!this.endValue)
       return this.showFlash('error', ['Ingresa una fecha de fin']);
 
-    var startStr = (this.startValue.getMonth() + 1 ) + "-" +
+    var startStr = (this.startValue.getMonth() + 1) + "-" +
       this.startValue.getDate() + "-" +
       this.startValue.getFullYear();
 

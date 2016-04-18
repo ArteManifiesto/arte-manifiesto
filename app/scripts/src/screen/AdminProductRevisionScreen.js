@@ -4,14 +4,14 @@
  */
 var APP = APP || {};
 
-APP.AdminProductRevisionScreen = function () {
+APP.AdminProductRevisionScreen = function() {
   APP.BaseScreen.call(this, 'adminEditBanner');
 };
 
 APP.AdminProductRevisionScreen.constructor = APP.AdminProductRevisionScreen;
 APP.AdminProductRevisionScreen.prototype = Object.create(APP.BaseScreen.prototype);
 
-APP.AdminProductRevisionScreen.prototype.setupUI = function () {
+APP.AdminProductRevisionScreen.prototype.setupUI = function() {
   this.deniedBtn = $('.btn-denied');
   this.acceptedBtn = $('.btn-accepted');
 
@@ -21,7 +21,7 @@ APP.AdminProductRevisionScreen.prototype.setupUI = function () {
   this.deniedForm = $('.denied-form');
 };
 
-APP.AdminProductRevisionScreen.prototype.listeners = function () {
+APP.AdminProductRevisionScreen.prototype.listeners = function() {
   APP.BaseScreen.prototype.listeners.call(this);
 
   this.deniedBtn.click(this.deniedHandler.bind(this));
@@ -29,10 +29,11 @@ APP.AdminProductRevisionScreen.prototype.listeners = function () {
   this.deniedForm.submit(this.deniedFormSubmit.bind(this));
 };
 
-APP.AdminProductRevisionScreen.prototype.deniedFormSubmit = function (e) {
+APP.AdminProductRevisionScreen.prototype.deniedFormSubmit = function(e) {
   e.preventDefault();
 
-  var errors = [], scope = this;
+  var errors = [],
+    scope = this;
   if (Validations.notBlank(this.reason.val())) errors.push('Ingrese un motivo');
   if (Validations.notBlank(this.message.val())) errors.push('Ingrese un mensaje');
   if (errors.length > 0) return this.showFlash('error', errors);
@@ -47,7 +48,7 @@ APP.AdminProductRevisionScreen.prototype.deniedFormSubmit = function (e) {
   this.requestHandler(url, data, this.productUpdateComplete);
 };
 
-APP.AdminProductRevisionScreen.prototype.productUpdateComplete = function (response) {
+APP.AdminProductRevisionScreen.prototype.productUpdateComplete = function(response) {
   console.log(response);
   // this.showFlash('succes', 'Se respondio la solicitud del producto');
   // setTimeout(function () {
@@ -55,12 +56,12 @@ APP.AdminProductRevisionScreen.prototype.productUpdateComplete = function (respo
   // }, 1000);
 };
 
-APP.AdminProductRevisionScreen.prototype.deniedHandler = function (e) {
+APP.AdminProductRevisionScreen.prototype.deniedHandler = function(e) {
   e.preventDefault();
   $('.form-container').removeClass('hide');
 };
 
-APP.AdminProductRevisionScreen.prototype.acceptedHandler = function (e) {
+APP.AdminProductRevisionScreen.prototype.acceptedHandler = function(e) {
   e.preventDefault();
   var data = {
     idProduct: product.id,

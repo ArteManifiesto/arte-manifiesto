@@ -3,7 +3,7 @@
  *Email : juliocanares@gmail.com
  */
 var APP = APP || {};
-APP.AM = function () {
+APP.AM = function() {
   this.setupData();
   this.setupUI();
   this.listeners();
@@ -11,7 +11,7 @@ APP.AM = function () {
 
 APP.AM.constructor = APP.AM;
 
-APP.AM.prototype.setupData = function () {
+APP.AM.prototype.setupData = function() {
   new APP.RestClientManager();
   new APP.TemplateManager();
 
@@ -31,7 +31,7 @@ APP.AM.prototype.setupData = function () {
   }
 };
 
-APP.AM.prototype.setupUI = function () {
+APP.AM.prototype.setupUI = function() {
   this.signInBtn = $('.am-Signin-button');
   this.closeFlashBtn = $('.close-flash');
   this.flashMessage = $('.flash-message');
@@ -56,7 +56,7 @@ APP.AM.prototype.setupUI = function () {
   this.emailSubscription = this.subscriptionForm.find('input[name=email]');
 };
 
-APP.AM.prototype.listeners = function () {
+APP.AM.prototype.listeners = function() {
   this.generalSearch.focus(this.searchFocusHandler.bind(this));
   this.generalSearch.blur(this.searchBlurHandler.bind(this));
   this.generalSearch.keyup(this.searchKeyUpHandler.bind(this));
@@ -78,85 +78,88 @@ APP.AM.prototype.listeners = function () {
   $(document).keyup(this.escapeHandler.bind(this));
 };
 
-APP.AM.prototype.headerCoverHandler = function (event) {
+APP.AM.prototype.headerCoverHandler = function(event) {
   this.body.removeClass('open-right');
   this.body.removeClass('open-left');
 };
-APP.AM.prototype.headerAvatarHandler = function (event) {
+APP.AM.prototype.headerAvatarHandler = function(event) {
   event.preventDefault();
   this.body.removeClass('open-left');
   this.body.toggleClass('open-right');
 };
-APP.AM.prototype.headerBarsHandler = function (event) {
+APP.AM.prototype.headerBarsHandler = function(event) {
   event.preventDefault();
   this.body.removeClass('open-right');
   this.body.toggleClass('open-left');
 };
-APP.AM.prototype.searchBoxHandler = function (event) {
+APP.AM.prototype.searchBoxHandler = function(event) {
   event.preventDefault();
   window.location.href = DataApp.discoverWorks + '?term=' + $('.search-box-value').val();
 };
 
-APP.AM.prototype.escapeHandler = function (event) {
+APP.AM.prototype.escapeHandler = function(event) {
   if (event.keyCode == 27)
     this.closeModal();
 };
 
-APP.AM.prototype.closeModal = function () {
+APP.AM.prototype.closeModal = function() {
   $('#lean_overlay').trigger("click");
 };
 
-APP.AM.prototype.signInHandler = function (event) {
+APP.AM.prototype.signInHandler = function(event) {
   event.preventDefault();
   Utils.checkAuthentication();
 };
 
-APP.AM.prototype.closeFlashHandler = function (event) {
+APP.AM.prototype.closeFlashHandler = function(event) {
   event.preventDefault();
   this.flashMessage.css('visibility', 'hidden');
 };
 
-APP.AM.prototype.subscriptionHandler = function (event) {
+APP.AM.prototype.subscriptionHandler = function(event) {
   event.preventDefault();
   this.subscriptionForm.submit();
 };
 
-APP.AM.prototype.subscriptionFormHandler = function (event) {
+APP.AM.prototype.subscriptionFormHandler = function(event) {
   event.preventDefault();
 
-  var errors = [], emailValue = this.emailSubscription.val();
+  var errors = [],
+    emailValue = this.emailSubscription.val();
   if (Validations.notBlank(emailValue)) errors.push('Ingrese un correo');
   if (!Validations.email(emailValue)) errors.push('Formato de correo no valido');
   if (errors.length > 0) return APP.BaseScreen.prototype.showFlash.call(this, 'error', errors);
 
-  $.post('/subscribe', {email: emailValue}).then(this.subscriptionComplete.bind(this));
+  $.post('/subscribe', {
+    email: emailValue
+  }).then(this.subscriptionComplete.bind(this));
 };
 
-APP.AM.prototype.subscriptionComplete = function (response) {
+APP.AM.prototype.subscriptionComplete = function(response) {
   if (response.data.created)
     APP.BaseScreen.prototype.showFlash.call(this, 'succes', 'Suscripcion exitosa');
   else
     APP.BaseScreen.prototype.showFlash.call(this, 'error', ['Ya estas Suscrito']);
 };
 
-APP.AM.prototype.searchFocusHandler = function (event) {
+APP.AM.prototype.searchFocusHandler = function(event) {
   this.generalSearchOptions.show();
 };
 
-APP.AM.prototype.searchBlurHandler = function (event) {
+APP.AM.prototype.searchBlurHandler = function(event) {
   var scope = this;
-  var timeout = setTimeout(function () {
+  var timeout = setTimeout(function() {
     clearTimeout(timeout);
     scope.generalSearchOptions.hide();
   }, 200);
 };
 
-APP.AM.prototype.generalSearchBtnClickHandler = function (event) {
+APP.AM.prototype.generalSearchBtnClickHandler = function(event) {
   var baseUrl = this.getBaseUrl();
   window.location.href = '/works/category' + baseUrl;
 };
 
-APP.AM.prototype.searchKeyUpHandler = function (event) {
+APP.AM.prototype.searchKeyUpHandler = function(event) {
   var currentValue = this.generalSearch.val();
   this.generalSearchOptions.show();
 
@@ -171,7 +174,7 @@ APP.AM.prototype.searchKeyUpHandler = function (event) {
   this.collectionsOption.parent().attr('href', '/collections/category' + baseUrl);
 };
 
-APP.AM.prototype.getBaseUrl = function () {
+APP.AM.prototype.getBaseUrl = function() {
   var baseUrl = '/all/page-1';
   var value = this.generalSearch.val();
   if (value.length > 0)

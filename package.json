@@ -50,6 +50,7 @@
     "flightplan": "^0.6.6",
     "gulp": "*",
     "gulp-concat": "*",
+    "gulp-jsbeautifier": "^2.0.3",
     "gulp-strip-debug": "^1.0.2",
     "gulp-stylus": "*",
     "gulp-uglify": "*",

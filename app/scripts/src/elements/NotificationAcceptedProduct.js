@@ -4,7 +4,7 @@
  */
 var APP = APP || {};
 
-APP.NotificationAcceptedProduct = function (data, options) {
+APP.NotificationAcceptedProduct = function(data, options) {
   APP.BaseElement.call(this, data, 'notification-accepted-product', options);
 };
 

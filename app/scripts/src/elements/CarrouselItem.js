@@ -4,8 +4,8 @@
  */
 var APP = APP || {};
 
-APP.CarrouselItem = function (data, options) {
-      APP.BaseElement.call(this, data, 'carrousel-item', options);
+APP.CarrouselItem = function(data, options) {
+  APP.BaseElement.call(this, data, 'carrousel-item', options);
 };
 
 APP.CarrouselItem.prototype = Object.create(APP.BaseElement.prototype);

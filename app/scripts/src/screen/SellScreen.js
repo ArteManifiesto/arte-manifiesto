@@ -4,7 +4,7 @@
  */
 var APP = APP || {};
 
-APP.SellScreen = function () {
+APP.SellScreen = function() {
   APP.BaseScreen.call(this, 'sell');
 };
 
@@ -39,7 +39,7 @@ APP.SellScreen.prototype.listeners = function() {
     //   return scope['product' + scope.oldIndex].close();
     // }
 
-    if(scope.oldIndex)
+    if (scope.oldIndex)
       scope['product' + scope.oldIndex].close();
 
     scope['product' + scope.currentIndex].open();
@@ -53,19 +53,21 @@ APP.SellScreen.prototype.createHandler = function(e) {
   var url = DataApp.currentUser.url + '/product/create';
 
   var i, payload = [];
-  for(i = 0; i < this.products.length; i++) {
+  for (i = 0; i < this.products.length; i++) {
     payload = _.union(payload, this.products[i].getPayload());
   }
-  this.requestHandler(url, {products: JSON.stringify(payload)}, this.productCreatedComplete);
+  this.requestHandler(url, {
+    products: JSON.stringify(payload)
+  }, this.productCreatedComplete);
 };
 
 
-APP.SellScreen.prototype.productCreatedComplete = function (response) {
+APP.SellScreen.prototype.productCreatedComplete = function(response) {
   this.showFlash('succes', 'Su producto se envió a revisión')
-  // var product = response.data.product;
-  // var url = DataApp.currentUser.url + '/product/' + product.nameSlugify;
-  // var timeout = setTimeout(function () {
-  //   clearTimeout(timeout);
-  //   window.location.href = url;
-  // }, 1000);
+    // var product = response.data.product;
+    // var url = DataApp.currentUser.url + '/product/' + product.nameSlugify;
+    // var timeout = setTimeout(function () {
+    //   clearTimeout(timeout);
+    //   window.location.href = url;
+    // }, 1000);
 };

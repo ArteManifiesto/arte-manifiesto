@@ -4,7 +4,7 @@
  */
 var APP = APP || {};
 
-APP.BaseScreen = function (id) {
+APP.BaseScreen = function(id) {
   this.id = id;
 
   this.setupUI();
@@ -18,17 +18,17 @@ APP.BaseScreen.prototype.setupUI = function() {
 
 };
 
-APP.BaseScreen.prototype.listeners = function () {
+APP.BaseScreen.prototype.listeners = function() {
 
 };
 
-APP.BaseScreen.prototype.requestHandler = function (url, payload, next, error, free) {
+APP.BaseScreen.prototype.requestHandler = function(url, payload, next, error, free) {
   !free && Utils.checkAuthentication();
   $.post(url, payload).then(this.requestComplete.bind(this, next, error));
 };
 
-APP.BaseScreen.prototype.requestComplete = function (next, error, response) {
-  console.log('response ===>' , response);
+APP.BaseScreen.prototype.requestComplete = function(next, error, response) {
+  console.log('response ===>', response);
   if (response.status !== 200) {
     var errors = response.data.errors || ['Algo sucedió mal'];
     error && error.bind(this)();
@@ -37,7 +37,7 @@ APP.BaseScreen.prototype.requestComplete = function (next, error, response) {
   next.bind(this)(response);
 };
 
-APP.BaseScreen.prototype.showFlash = function (meta, data) {
+APP.BaseScreen.prototype.showFlash = function(meta, data) {
   var element = $('.' + meta);
   $('.flash-message').css('visibility', 'hidden');
   var container = element.find('.content-text');
@@ -51,13 +51,13 @@ APP.BaseScreen.prototype.showFlash = function (meta, data) {
   }
   element.css('visibility', 'visible');
   element.removeClass('fadeIn');
-  var timeout = setTimeout(function () {
+  var timeout = setTimeout(function() {
     clearTimeout(timeout);
     element.addClass('fadeIn');
   }, 100);
 };
 
-APP.BaseScreen.prototype.getTemplate = function (path) {
+APP.BaseScreen.prototype.getTemplate = function(path) {
   var temp = '';
   if (['followings', 'followers'].indexOf(path) !== -1) temp = 'user';
   if ('portfolio' === path) temp = 'work';
@@ -66,6 +66,6 @@ APP.BaseScreen.prototype.getTemplate = function (path) {
   return temp;
 };
 
-APP.BaseScreen.prototype.clean = function () {
+APP.BaseScreen.prototype.clean = function() {
 
 };

@@ -4,7 +4,9 @@ var passport = require('passport');
 
 var controller = require(global.cf.controllers + "/auth");
 
-var fbOptions = {scope: global.fbPermissions};
+var fbOptions = {
+  scope: global.fbPermissions
+};
 
 router.get('/login', controller.loginPage);
 router.get('/signup', controller.signupPage);

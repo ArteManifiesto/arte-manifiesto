@@ -4,7 +4,7 @@
  */
 var APP = APP || {};
 
-APP.Filters = function (filters) {
+APP.Filters = function(filters) {
   this.filters = filters;
 
   this.oldCategory = this.filters.currentCategory;
@@ -23,24 +23,24 @@ APP.Filters = function (filters) {
 APP.Filters.constructor = APP.Filters;
 
 
-APP.Filters.prototype.setupUI = function () {
+APP.Filters.prototype.setupUI = function() {
   var filterRight = $('.filter.right');
   var rightSelect = $('.filter.right .am-Select')
 
   var rightFilterItems
 
-  setTimeout(function  () {
+  setTimeout(function() {
     rightFilterItems = $('.filter.right .am-Filter-item')
-    $(rightFilterItems).click(function () {
-      setTimeout(function  () {
-        $(rightSelect).trigger( "click" )
+    $(rightFilterItems).click(function() {
+      setTimeout(function() {
+        $(rightSelect).trigger("click")
       }, 300)
     })
   }, 500)
 
-  $(rightSelect).click(function () {
+  $(rightSelect).click(function() {
     var state = filterRight.attr('data-state')
-    if(state == 'closed') filterRight.attr('data-state', 'open')
+    if (state == 'closed') filterRight.attr('data-state', 'open')
     else filterRight.attr('data-state', 'closed')
   })
 
@@ -48,59 +48,63 @@ APP.Filters.prototype.setupUI = function () {
   var leftSelect = $('.filter.left .am-Select')
   var discoverContent = $('.discover-content')
 
-  $(leftSelect).click(function () {
+  $(leftSelect).click(function() {
     var state = filterLeft.attr('data-state')
-    if(state == 'closed') {
+    if (state == 'closed') {
       filterLeft.attr('data-state', 'open')
       discoverContent.attr('data-state', 'expand').trigger('resetLayout')
-    }
-    else{
+    } else {
       filterLeft.attr('data-state', 'closed')
       discoverContent.attr('data-state', 'reduce').trigger('resetLayout')
     }
   })
 
   var device = new Device({
-                    toDesktop: function () {
-                      console.log('toDesktop!')
-                    },
-                    toMobile: function () {
-                      console.log('toMobile!')
-                      $('.filter.left .left-menu').css('display', 'block')
-                    }
-                  })
+    toDesktop: function() {
+      console.log('toDesktop!')
+    },
+    toMobile: function() {
+      console.log('toMobile!')
+      $('.filter.left .left-menu').css('display', 'block')
+    }
+  })
 
-  if(device.getVal() == "mobile") {
-    $(leftSelect).trigger( "click" )
+  if (device.getVal() == "mobile") {
+    $(leftSelect).trigger("click")
     $('.filter.left .left-menu').css('display', 'block')
   }
 
 
-  function Device (options) {
+  function Device(options) {
 
     var val = window.innerWidth < 1000 ? 'mobile' : 'desktop',
-        toDesktop = options.toDesktop,
-        toMobile = options.toMobile;
+      toDesktop = options.toDesktop,
+      toMobile = options.toMobile;
 
 
-    window.addEventListener('resize', function(){
+    window.addEventListener('resize', function() {
 
       var temp = val;
 
       val = window.innerWidth < 1000 ? 'mobile' : 'desktop';
 
-      if(temp == 'mobile' && val == 'desktop') toDesktop();
-      if(temp == 'desktop' && val == 'mobile') toMobile();
+      if (temp == 'mobile' && val == 'desktop') toDesktop();
+      if (temp == 'desktop' && val == 'mobile') toMobile();
     });
 
-    function getVal () { return val; }
+    function getVal() {
+      return val;
+    }
 
     return {
-        getVal: getVal
+      getVal: getVal
     };
   }
 
-  this.filters.categories.unshift({name: 'Todo', nameSlugify: 'all'});
+  this.filters.categories.unshift({
+    name: 'Todo',
+    nameSlugify: 'all'
+  });
 
   this.itemFilterRenderer(this.filters.categories, 'category');
   this.itemFilterRenderer(this.filters.order, 'order');
@@ -122,15 +126,15 @@ APP.Filters.prototype.setupUI = function () {
   this.needsToClose = false;
 };
 
-APP.Filters.prototype.itemFilterRenderer = function (data, meta) {
+APP.Filters.prototype.itemFilterRenderer = function(data, meta) {
   var item = APP.TemplateManager.instance.getFromDoc('filter-item');
-  $.each(data, function (index, value) {
+  $.each(data, function(index, value) {
     value.meta = meta;
     $('.filter-' + meta).append(item(value));
   });
 };
 
-APP.Filters.prototype.listeners = function () {
+APP.Filters.prototype.listeners = function() {
   this.categories.on('click', this.filterItemHandler.bind(this, 'category'));
   this.orders.on('click', this.filterItemHandler.bind(this, 'order'));
   this.featuredBtn.on('click', this.featuredHandler.bind(this));
@@ -153,17 +157,17 @@ APP.Filters.prototype.searchKeyUpHandler = function(event) {
   this.searchInput.val().length > 0 ? this.closeBtn.show() : this.closeBtn.hide();
 };
 
-APP.Filters.prototype.closeClickHandler = function (event) {
+APP.Filters.prototype.closeClickHandler = function(event) {
   this.searchInput.val('');
   this.closeBtn.hide();
   this.needsToClose = true;
   this.searchBtn.click();
 };
 
-APP.Filters.prototype.navigationClickHandler = function (event) {
+APP.Filters.prototype.navigationClickHandler = function(event) {
   var obj = $(event.target);
   var currentIndex, url = DataApp.currentUrl;
-  this.navigation.each(function (index, value) {
+  this.navigation.each(function(index, value) {
     var idValue = $(value).attr('id');
     if ($(value).hasClass('link')) {
       if (obj.attr('id') === idValue) currentIndex = index;
@@ -175,7 +179,7 @@ APP.Filters.prototype.navigationClickHandler = function (event) {
   window.location.href = url;
 };
 
-APP.Filters.prototype.searchKeyPressHandler = function (event) {
+APP.Filters.prototype.searchKeyPressHandler = function(event) {
   if (event.which !== 13) return;
   var value = encodeURIComponent($(event.target).val());
   if (value.length > 0) {
@@ -194,18 +198,22 @@ APP.Filters.prototype.searchKeyPressHandler = function (event) {
     }
     this.term = undefined;
   }
-  if(this.needsToClose)
+  if (this.needsToClose)
     return window.location.href = DataApp.currentUrl;
 
   Broadcaster.dispatchEvent(Events.FILTER_CHANGED);
 };
 
-APP.Filters.prototype.searchHandler = function (event) {
+APP.Filters.prototype.searchHandler = function(event) {
   event.preventDefault();
-  this.searchInput.trigger({type: 'keypress', which: 13, keyCode: 13});
+  this.searchInput.trigger({
+    type: 'keypress',
+    which: 13,
+    keyCode: 13
+  });
 }
 
-APP.Filters.prototype.featuredHandler = function () {
+APP.Filters.prototype.featuredHandler = function() {
   if (this.isFeatured)
     DataApp.currentUrl = DataApp.currentUrl.replace('&featured=1', '');
   else
@@ -214,14 +222,14 @@ APP.Filters.prototype.featuredHandler = function () {
   Broadcaster.dispatchEvent(Events.FILTER_CHANGED);
 };
 
-APP.Filters.prototype.start = function () {
+APP.Filters.prototype.start = function() {
   $('[data-value=' + this.oldCategory + ']').click();
   $('[data-value=' + this.oldOrder + ']').click();
 
   this.isInitialized = true;
 };
 
-APP.Filters.prototype.filterItemHandler = function (meta, event) {
+APP.Filters.prototype.filterItemHandler = function(meta, event) {
   var filterCapitalized = Utils.capitalize(meta);
   var oldFilter = 'old' + filterCapitalized;
   var currentFilter = 'current' + filterCapitalized;
@@ -236,5 +244,8 @@ APP.Filters.prototype.filterItemHandler = function (meta, event) {
   this[oldFilter] = this[currentFilter];
   var newValue = $(event.target).attr('data-name');
 
-  Broadcaster.dispatchEvent(Events.FILTER_CHANGED, {meta: meta, newValue: newValue});
+  Broadcaster.dispatchEvent(Events.FILTER_CHANGED, {
+    meta: meta,
+    newValue: newValue
+  });
 };

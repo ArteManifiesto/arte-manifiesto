@@ -1,13 +1,13 @@
 'use strict';
 
 module.exports = {
-  up: function (queryInterface, Sequelize) {
+  up: function(queryInterface, Sequelize) {
     queryInterface.addColumn('Products', 'applying', {
       type: Sequelize.BOOLEAN,
       defaultValue: true
     });
   },
-  down: function (queryInterface, Sequelize) {
+  down: function(queryInterface, Sequelize) {
     queryInterface.removeColumn('Products', 'applying');
   }
 };

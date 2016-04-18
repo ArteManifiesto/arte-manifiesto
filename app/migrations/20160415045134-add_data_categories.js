@@ -1,10 +1,12 @@
 'use strict';
 
 module.exports = {
-  up: function (queryInterface, Sequelize) {
-    queryInterface.addColumn('Categories', 'data', {type: Sequelize.TEXT});
+  up: function(queryInterface, Sequelize) {
+    queryInterface.addColumn('Categories', 'data', {
+      type: Sequelize.TEXT
+    });
   },
-  down: function (queryInterface, Sequelize) {
+  down: function(queryInterface, Sequelize) {
     queryInterface.removeColumn('Categories', 'data');
   }
 };

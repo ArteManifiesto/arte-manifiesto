@@ -7,6 +7,7 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var stylus = require('gulp-stylus');
 var nib = require('nib');
+var prettify = require('gulp-jsbeautifier');
 
 var paths = {
     jsDir: './app/scripts/src/**/*.js',
@@ -56,6 +57,19 @@ gulp.task('watch', function () {
   gulp.watch(paths.vendorDir, ['vendor']);
   gulp.watch(paths.stylesDir, ['styles']);
 });
+
+gulp.task('prettify', function() {
+  var dynamicPath = [
+    './app/**/*.js',
+    '!' + paths.vendorDir
+  ];
+  gulp.src(dynamicPath, {
+      base: './'
+    })
+    .pipe(prettify())
+    .pipe(gulp.dest('./'));
+});
+
 
 gulp.task('vendor', function () {
     return gulp.src(paths.vendorDir)

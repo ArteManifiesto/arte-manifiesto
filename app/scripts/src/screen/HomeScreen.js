@@ -4,7 +4,7 @@
  */
 var APP = APP || {};
 
-APP.HomeScreen = function () {
+APP.HomeScreen = function() {
   APP.BaseScreen.call(this, 'home');
 
   this.usersViewer = new APP.Viewer('user', $('.grid'), null, users);

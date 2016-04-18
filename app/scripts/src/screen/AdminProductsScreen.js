@@ -4,14 +4,14 @@
  */
 var APP = APP || {};
 
-APP.AdminProductsScreen = function () {
+APP.AdminProductsScreen = function() {
   APP.BaseScreen.call(this, 'adminProducts');
 };
 
 APP.AdminProductsScreen.constructor = APP.AdminProductsScreen;
 APP.AdminProductsScreen.prototype = Object.create(APP.BaseScreen.prototype);
 
-APP.AdminProductsScreen.prototype.setupUI = function () {
+APP.AdminProductsScreen.prototype.setupUI = function() {
   this.searchBtn = $('.search-btn');
   this.start = $('.start');
   this.end = $('.end');
@@ -34,7 +34,7 @@ APP.AdminProductsScreen.prototype.setupUI = function () {
   }
 
   this.viewer = new APP.Viewer('tableProduct', $('.container-items'), 'infinite', data, {
-    getTotal: function (total) {
+    getTotal: function(total) {
       $('.total').text('(' + total + ')');
     }
   });
@@ -42,7 +42,7 @@ APP.AdminProductsScreen.prototype.setupUI = function () {
   this.searchBox = $('.search-box');
 };
 
-APP.AdminProductsScreen.prototype.listeners = function () {
+APP.AdminProductsScreen.prototype.listeners = function() {
   APP.BaseScreen.prototype.listeners.call(this);
 
   this.start.datepicker().on('changeDate', this.startDateChange.bind(this));
@@ -61,15 +61,15 @@ APP.AdminProductsScreen.prototype.listeners = function () {
   }
 };
 
-APP.AdminProductsScreen.prototype.startDateChange = function (event) {
+APP.AdminProductsScreen.prototype.startDateChange = function(event) {
   this.startValue = event.date;
 };
 
-APP.AdminProductsScreen.prototype.endDateChange = function (event) {
+APP.AdminProductsScreen.prototype.endDateChange = function(event) {
   this.endValue = event.date;
 };
 
-APP.AdminProductsScreen.prototype.dropdownChange = function (event) {
+APP.AdminProductsScreen.prototype.dropdownChange = function(event) {
   var text = $(event.target).text();
 
   $(".btn-drop .property").text(text);
@@ -84,7 +84,7 @@ APP.AdminProductsScreen.prototype.dropdownChange = function (event) {
       break;
   }
 };
-APP.AdminProductsScreen.prototype.searchHander = function () {
+APP.AdminProductsScreen.prototype.searchHander = function() {
   var termValue = this.searchBox.val().trim();
 
   if (this.term && this.term.trim().length > 0) {
@@ -114,7 +114,7 @@ APP.AdminProductsScreen.prototype.searchHander = function () {
     if (!this.endValue)
       return this.showFlash('error', ['Ingresa una fecha de fin']);
 
-    var startStr = (this.startValue.getMonth() + 1 ) + "-" +
+    var startStr = (this.startValue.getMonth() + 1) + "-" +
       this.startValue.getDate() + "-" +
       this.startValue.getFullYear();
 

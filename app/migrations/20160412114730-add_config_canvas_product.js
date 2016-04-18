@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  up: function (queryInterface, Sequelize) {
+  up: function(queryInterface, Sequelize) {
     queryInterface.addColumn('Products', 'config', {
       type: Sequelize.STRING
     });
@@ -13,7 +13,7 @@ module.exports = {
       defaultValue: false
     });
   },
-  down: function (queryInterface, Sequelize) {
+  down: function(queryInterface, Sequelize) {
     queryInterface.removeColumn('Products', 'config');
     queryInterface.removeColumn('Products', 'canvas');
     queryInterface.removeColumn('Products', 'isActive');

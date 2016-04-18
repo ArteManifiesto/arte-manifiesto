@@ -4,8 +4,8 @@
  */
 var APP = APP || {};
 
-APP.WorkScreen = function() {
-  APP.BaseScreen.call(this, 'work');
+APP.ProductScreen = function() {
+  APP.BaseScreen.call(this, 'product');
 
   this.currentItem = this.oldItem;
   this.currentSection, this.oldSection;
@@ -15,11 +15,11 @@ APP.WorkScreen = function() {
   this.following = false;
 };
 
-APP.WorkScreen.constructor = APP.WorkScreen;
-APP.WorkScreen.prototype = Object.create(APP.BaseScreen.prototype);
+APP.ProductScreen.constructor = APP.ProductScreen;
+APP.ProductScreen.prototype = Object.create(APP.BaseScreen.prototype);
 
-APP.WorkScreen.prototype.setupUI = function() {
-  new APP.Viewer('carrouselItem', $('.more'), null, more);
+APP.ProductScreen.prototype.setupUI = function() {
+  new APP.Viewer('carrouselItem', $('.more'), null, works);
   new APP.Viewer('carrouselItem', $('.similar'), null, similar);
 
   new APP.Carrousel($('.js-more-carousel'), $('.more'));
@@ -54,7 +54,7 @@ APP.WorkScreen.prototype.setupUI = function() {
   });
 }
 
-APP.WorkScreen.prototype.listeners = function() {
+APP.ProductScreen.prototype.listeners = function() {
   APP.BaseScreen.prototype.listeners.call(this);
   this.shareFb.click(this.shareFBHandler.bind(this));
 
@@ -86,7 +86,7 @@ APP.WorkScreen.prototype.listeners = function() {
   $(document).bind('keyup', this.documentKeyupHandler.bind(this));
 };
 
-APP.WorkScreen.prototype.documentKeyupHandler = function(event) {
+APP.ProductScreen.prototype.documentKeyupHandler = function(event) {
   if (event.keyCode === 39 && this.prevBtn.length > 0)
     window.location.href = this.prevBtn.attr('href');
 
@@ -94,25 +94,25 @@ APP.WorkScreen.prototype.documentKeyupHandler = function(event) {
     window.location.href = this.nextBtn.attr('href');
 };
 
-APP.WorkScreen.prototype.copyHandler = function(trigger) {
+APP.ProductScreen.prototype.copyHandler = function(trigger) {
   $('#lean_overlay').trigger("click");
   this.showFlash('succes', 'Link Copiado');
   return window.location.href;
 };
 
-APP.WorkScreen.prototype.reviewFormHandler = function(event) {
+APP.ProductScreen.prototype.reviewFormHandler = function(event) {
   event.preventDefault();
   var url = DataApp.currentUser.url + '/work/review/create';
   this.requestHandler(url, $(event.target).serialize(), this.reviewComplete);
 };
 
-APP.WorkScreen.prototype.reviewComplete = function(response) {
+APP.ProductScreen.prototype.reviewComplete = function(response) {
   $('.value-input').val('');
   this.reviewContainer.append(new APP.Review(response.data.review).view);
 }
 
 
-APP.WorkScreen.prototype.followHandler = function() {
+APP.ProductScreen.prototype.followHandler = function() {
   Utils.checkAuthentication();
   var url = DataApp.currentUser.url + (this.isFollowing ? '/unfollow/' : '/follow/');
   this.requestHandler(url, {
@@ -120,7 +120,7 @@ APP.WorkScreen.prototype.followHandler = function() {
   }, this.followComplete);
 };
 
-APP.WorkScreen.prototype.followComplete = function(response) {
+APP.ProductScreen.prototype.followComplete = function(response) {
   console.log(response);
   if (this.isFollowing) {
     this.followBtn.removeClass('following').text('+ SEGUIR');
@@ -131,12 +131,12 @@ APP.WorkScreen.prototype.followComplete = function(response) {
   this.isFollowing = !this.isFollowing;
 }
 
-APP.WorkScreen.prototype.isFollowingComplete = function(response) {
+APP.ProductScreen.prototype.isFollowingComplete = function(response) {
   this.isFollowing = response.data.following;
   this.isFollowing && this.followBtn.addClass('following').text('Siguiendo');
 }
 
-APP.WorkScreen.prototype.saveClickHandler = function() {
+APP.ProductScreen.prototype.saveClickHandler = function() {
   this.saveBtn.hide();
   this.saveBtnLoading.show();
 
@@ -148,7 +148,7 @@ APP.WorkScreen.prototype.saveClickHandler = function() {
   this.requestHandler(url, payload, this.saveRequestComplete);
 };
 
-APP.WorkScreen.prototype.saveRequestComplete = function() {
+APP.ProductScreen.prototype.saveRequestComplete = function() {
   this.saveBtn.show();
   this.saveBtnLoading.hide();
   this.showFlash('succes', 'Su actualizo tus colecciones');
@@ -157,13 +157,13 @@ APP.WorkScreen.prototype.saveRequestComplete = function() {
 };
 
 
-APP.WorkScreen.prototype.collectionFormHandler = function(event) {
+APP.ProductScreen.prototype.collectionFormHandler = function(event) {
   event.preventDefault();
   var url = DataApp.currentUser.url + '/collection/create';
   this.requestHandler(url, $(event.target).serialize(), this.collectionFormComplete);
 };
 
-APP.WorkScreen.prototype.collectionFormComplete = function(response) {
+APP.ProductScreen.prototype.collectionFormComplete = function(response) {
   var item = new APP.CollectionItem(response.data.collection);
   item.addEventListener(Events.COLLECTION_ITEM_SELECTED, this.collectionItemSelected.bind(this));
   this.collections.push(item);
@@ -171,7 +171,7 @@ APP.WorkScreen.prototype.collectionFormComplete = function(response) {
 };
 
 
-APP.WorkScreen.prototype.likeBtnHandler = function() {
+APP.ProductScreen.prototype.likeBtnHandler = function() {
   Utils.checkAuthentication();
   if (!work.liked) {
     var url = DataApp.currentUser.url + '/work/like';
@@ -181,7 +181,7 @@ APP.WorkScreen.prototype.likeBtnHandler = function() {
   }
 };
 
-APP.WorkScreen.prototype.likeComplete = function(response) {
+APP.ProductScreen.prototype.likeComplete = function(response) {
   console.log(response);
   work.liked = !work.liked;
   $('.likes').text(response.data.likes);
@@ -189,7 +189,7 @@ APP.WorkScreen.prototype.likeComplete = function(response) {
   this.afterLike.show();
 };
 
-APP.WorkScreen.prototype.collectionsHandlerComplete = function(response) {
+APP.ProductScreen.prototype.collectionsHandlerComplete = function(response) {
   var collections = response.data.collections;
   var i, item;
   for (i = 0; i < collections.length; i++) {
@@ -205,7 +205,7 @@ APP.WorkScreen.prototype.collectionsHandlerComplete = function(response) {
   }, this.insideCollectionHandler);
 };
 
-APP.WorkScreen.prototype.insideCollectionHandler = function(response) {
+APP.ProductScreen.prototype.insideCollectionHandler = function(response) {
   var collections = response.data.collections;
   var i, j;
   for (i = 0; i < this.collections.length; i++)
@@ -222,7 +222,7 @@ APP.WorkScreen.prototype.insideCollectionHandler = function(response) {
   }
 };
 
-APP.WorkScreen.prototype.collectionItemSelected = function(event) {
+APP.ProductScreen.prototype.collectionItemSelected = function(event) {
   var item = event.target;
   var index = this.idCollections.indexOf(item.data.id);
   if (index === -1)
@@ -231,7 +231,7 @@ APP.WorkScreen.prototype.collectionItemSelected = function(event) {
     this.idCollections.splice(index, 1);
 };
 
-APP.WorkScreen.prototype.askAvailabilityHandler = function(event) {
+APP.ProductScreen.prototype.askAvailabilityHandler = function(event) {
   Utils.checkAuthentication();
   var url = DataApp.currentUser.url + '/work/availability';
   this.requestHandler(url, {
@@ -239,21 +239,21 @@ APP.WorkScreen.prototype.askAvailabilityHandler = function(event) {
   }, this.askAvailabilityComplete);
 };
 
-APP.WorkScreen.prototype.loginReviewHandler = function() {
+APP.ProductScreen.prototype.loginReviewHandler = function() {
   Utils.checkAuthentication();
 };
 
-APP.WorkScreen.prototype.askAvailabilityComplete = function(response) {
+APP.ProductScreen.prototype.askAvailabilityComplete = function(response) {
   this.askRequester.hide();
   this.thanksRequester.show();
 };
 
-APP.WorkScreen.prototype.menuItemHandler = function(event) {
+APP.ProductScreen.prototype.menuItemHandler = function(event) {
   this.currentItem = $(event.currentTarget);
   var path = this.currentItem.data('name');
   this.currentSection = $('.' + path + '-container');
   this.currentSection.show();
-  var url = '/user/' + work.User.username + '/work/' + work.nameSlugify +
+  var url = '/user/' + product.User.username + '/product/' + product.nameSlugify +
     '/' + (path === 'index' ? '' : path);
 
   $('.menu-item').removeClass('selected');
@@ -264,6 +264,6 @@ APP.WorkScreen.prototype.menuItemHandler = function(event) {
   Utils.changeUrl(DataApp.baseTitle + Utils.capitalize(path), url);
 };
 
-APP.WorkScreen.prototype.shareFBHandler = function() {
+APP.ProductScreen.prototype.shareFBHandler = function() {
   Utils.shareFBWork(work);
 };
