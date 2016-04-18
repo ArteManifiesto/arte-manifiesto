@@ -128,12 +128,13 @@ module.exports = function(sequelize, DataTypes) {
               id: prev
             },
             addUser: true
-          })) !global._.isNaN(next) && promises.push(global.db.Work.find({
+          }));
+          !global._.isNaN(next) && promises.push(global.db.Work.find({
             where: {
               id: next
             },
             addUser: true
-          }))
+          }));
           if (promises.length < 1) return [];
           return global.db.Sequelize.Promise.all(promises).then(function(result) {
             if (result.length > 1)

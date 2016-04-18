@@ -8,6 +8,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     nameSlugify: DataTypes.STRING,
     description: DataTypes.TEXT,
+    meta: DataTypes.STRING,
     public: {
       type: DataTypes.BOOLEAN,
       defaultValue: true

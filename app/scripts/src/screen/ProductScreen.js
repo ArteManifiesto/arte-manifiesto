@@ -19,11 +19,28 @@ APP.ProductScreen.constructor = APP.ProductScreen;
 APP.ProductScreen.prototype = Object.create(APP.BaseScreen.prototype);
 
 APP.ProductScreen.prototype.setupUI = function() {
-  new APP.Viewer('carrouselItem', $('.more'), null, works);
+
+  for (var i = 0; i < categories.length; i++) {
+    var category = categories[i], products = [];
+    for (var j = 0; j < category.subCategories.length; j++) {
+      var subCategory = category.subCategories[j];
+      for (var k = 0; k < subCategory.innerCategories.length; k++) {
+        var innerCategory = subCategory.innerCategories[k];
+        for (var l = 0; l < innerCategory.Products.length; l++) {
+          products.push(innerCategory.Products[l]);
+        }
+      }
+    }
+    new APP.Viewer('carrouselItem', $('.' + category.nameSlugify), null, products);
+  }
+
+  new APP.Viewer('carrouselItem', $('.more'), null, more);
   new APP.Viewer('carrouselItem', $('.similar'), null, similar);
 
   new APP.Carrousel($('.js-more-carousel'), $('.more'));
   new APP.Carrousel($('.js-similar-carousel'), $('.similar'));
+
+
 
   new APP.PhotoSwipe();
 
@@ -61,7 +78,6 @@ APP.ProductScreen.prototype.listeners = function() {
   $('.menu-item').click(this.menuItemHandler.bind(this));
   $('.menu-item[data-name=' + currentPath + ']').click();
 
-  this.askBtn.click(this.askAvailabilityHandler.bind(this));
   this.loginReview.click(this.loginReviewHandler.bind(this));
   this.saveBtn.click(this.saveClickHandler.bind(this));
 
@@ -72,7 +88,7 @@ APP.ProductScreen.prototype.listeners = function() {
     if (!owner) {
       var followingUrl = DataApp.currentUser.url + '/isFollowing';
       this.requestHandler(followingUrl, {
-        idUser: work.User.id
+        idUser: product.User.id
       }, this.isFollowingComplete);
     }
   }
@@ -102,7 +118,7 @@ APP.ProductScreen.prototype.copyHandler = function(trigger) {
 
 APP.ProductScreen.prototype.reviewFormHandler = function(event) {
   event.preventDefault();
-  var url = DataApp.currentUser.url + '/work/review/create';
+  var url = DataApp.currentUser.url + '/product/review/create';
   this.requestHandler(url, $(event.target).serialize(), this.reviewComplete);
 };
 
@@ -116,7 +132,7 @@ APP.ProductScreen.prototype.followHandler = function() {
   Utils.checkAuthentication();
   var url = DataApp.currentUser.url + (this.isFollowing ? '/unfollow/' : '/follow/');
   this.requestHandler(url, {
-    idUser: work.User.id
+    idUser: product.User.id
   }, this.followComplete);
 };
 
@@ -140,10 +156,10 @@ APP.ProductScreen.prototype.saveClickHandler = function() {
   this.saveBtn.hide();
   this.saveBtnLoading.show();
 
-  var url = DataApp.currentUser.url + '/work/add_to_collection';
+  var url = DataApp.currentUser.url + '/product/add_to_collection';
   var payload = {
     collections: JSON.stringify(this.idCollections),
-    idWork: work.id
+    idProduct: product.id
   };
   this.requestHandler(url, payload, this.saveRequestComplete);
 };
@@ -173,17 +189,16 @@ APP.ProductScreen.prototype.collectionFormComplete = function(response) {
 
 APP.ProductScreen.prototype.likeBtnHandler = function() {
   Utils.checkAuthentication();
-  if (!work.liked) {
-    var url = DataApp.currentUser.url + '/work/like';
+  if (!product.liked) {
+    var url = DataApp.currentUser.url + '/product/like';
     this.requestHandler(url, {
-      idWork: work.id
+      idProduct: product.id
     }, this.likeComplete);
   }
 };
 
 APP.ProductScreen.prototype.likeComplete = function(response) {
-  console.log(response);
-  work.liked = !work.liked;
+  product.liked = !product.liked;
   $('.likes').text(response.data.likes);
   this.likeBtn.parent().addClass('active');
   this.afterLike.show();
@@ -199,9 +214,9 @@ APP.ProductScreen.prototype.collectionsHandlerComplete = function(response) {
     this.collectionsContainer.append(item.view);
   }
 
-  var url = DataApp.currentUser.url + '/work/inside_collection';
+  var url = DataApp.currentUser.url + '/product/inside_collection';
   this.requestHandler(url, {
-    idWork: work.id
+    idProduct: product.id
   }, this.insideCollectionHandler);
 };
 
@@ -231,21 +246,8 @@ APP.ProductScreen.prototype.collectionItemSelected = function(event) {
     this.idCollections.splice(index, 1);
 };
 
-APP.ProductScreen.prototype.askAvailabilityHandler = function(event) {
-  Utils.checkAuthentication();
-  var url = DataApp.currentUser.url + '/work/availability';
-  this.requestHandler(url, {
-    idWork: work.id
-  }, this.askAvailabilityComplete);
-};
-
 APP.ProductScreen.prototype.loginReviewHandler = function() {
   Utils.checkAuthentication();
-};
-
-APP.ProductScreen.prototype.askAvailabilityComplete = function(response) {
-  this.askRequester.hide();
-  this.thanksRequester.show();
 };
 
 APP.ProductScreen.prototype.menuItemHandler = function(event) {
@@ -265,5 +267,5 @@ APP.ProductScreen.prototype.menuItemHandler = function(event) {
 };
 
 APP.ProductScreen.prototype.shareFBHandler = function() {
-  Utils.shareFBWork(work);
+  Utils.shareFBWork(product);
 };

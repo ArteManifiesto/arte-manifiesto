@@ -1,62 +1,39 @@
 var basePath = 'user/product/';
 var paypal = require('paypal-rest-sdk');
 
-exports.index = function(req, res) {
-  req.product.getUser().then(function(user) {
-    req.product.getMoreProducts().then(function(categories) {
-      return res.json(categories);
+exports.index = function(currentPath, req, res) {
+  req.product.getWork().then(function(work) {
+    var promises = [
+      work.more(),
+      work.similar(req.viewer),
+      work.getTags(),
+      req.product.getReviews({include: [global.db.User]}),
+      req.product.getMoreProducts()
+    ];
+    global.db.Sequelize.Promise.all(promises).then(function (result) {
+      var query = {
+        where: {id: req.product.id},
+        include: [global.db.Category],
+        viewer: req.viewer,
+        build: true,
+        addUser: true
+      };
+      global.db.Product.find(query).then(function (product) {
+        var data = {
+          currentPath: currentPath,
+          entity: 'product',
+          owner: req.owner,
+          product: product,
+          more: result[0],
+          similar: result[1],
+          tags: result[2],
+          reviews: result[3],
+          categories: result[4]
+        };
+        return res.render(basePath + 'index', data);
+      });
     });
   });
-
-  // var promises = [
-  //   req.product.more(),
-  //   req.product.similar(req.viewer),
-  //   req.product.getTags(),
-  //   req.product.getReviews({include: [global.db.User]}),
-  //   req.product.getUserArtworks()
-  // ];
-  // global.db.Sequelize.Promise.all(promises).then(function (result) {
-  //   var query = {
-  //     where: {id: req.product.id},
-  //     include: [global.db.Category],
-  //     viewer: req.viewer,
-  //     build: true,
-  //     addUser: true
-  //   };
-  //   global.db.Product.find(query).then(function (product) {
-  //     var data = {
-  //       entity: 'product',
-  //       owner: req.owner,
-  //       product: product,
-  //       more: result[0],
-  //       similar: result[1],
-  //       tags: result[2],
-  //       reviews: result[3],
-  //       works: result[4]
-  //     };
-  //     return res.render(basePath + 'index', data);
-  //
-  //     // product.view().then(function () {
-  //     // });
-  //   });
-  // });
-  // });
-  //
-  // var promises = [
-  //     req.product.more(),
-  //     req.product.similar(req.viewer)
-  // ];
-  // global.db.Sequelize.Promise.all(promises).then(function (result) {
-  //   req.product.getCategory().then(function(category) {
-  //     req.product.setDataValue('Category', category);
-  //     req.product = req.product.toJSON();
-  //     return res.render(basePath + 'index', {
-  //       profile: req.profile,
-  //       product: req.product,
-  //       more: result[0], similar: result[1]
-  //     });
-  //   });
-  // });
 };
 
 exports.create = function(req, res) {
@@ -104,11 +81,23 @@ exports.unFeatured = function(req, res) {
 };
 
 exports.like = function(req, res) {
-  req.product.like(req.user).then(function(likes) {
-    return res.ok({
-      product: req.product,
-      likes: likes
-    }, 'Product liked');
+  req.product.getUser().then(function(user) {
+    var actionQuery = {
+      where: {
+        UserId: req.user.id,
+        verb: 'like-product',
+        ObjectId: req.product.id,
+        OwnerId: user.id
+      }
+    };
+    global.db.Action.findOrCreate(actionQuery).then(function() {
+      req.product.like(req.user).then(function(likes) {
+        return res.ok({
+          work: req.product,
+          likes: likes
+        }, 'Product liked');
+      });
+    });
   });
 };
 
@@ -177,6 +166,40 @@ exports.buy = function(req, res) {
           res.redirect(redirectUrl);
         }
       }
+    });
+  });
+};
+
+/**
+ * create a review
+ */
+exports.createReview = function(req, res) {
+  req.body.ProductId = parseInt(req.body.idProduct, 10);
+  req.body.UserId = parseInt(req.viewer, 10);
+
+  global.db.Review.create(req.body).then(function(review) {
+    var query = {
+      where: {
+        id: review.id
+      },
+      include: [global.db.User]
+    };
+    var promises = [
+      global.db.Review.find(query),
+      req.product.getUser()
+    ];
+    global.db.Sequelize.Promise.all(promises).then(function(result) {
+      var actionQuery = {
+        UserId: req.user.id,
+        verb: 'review-product',
+        ObjectId: req.product.id,
+        OwnerId: result[1].id
+      };
+      global.db.Action.create(actionQuery).then(function() {
+        return res.ok({
+          review: result[0]
+        }, 'Review creado');
+      });
     });
   });
 };

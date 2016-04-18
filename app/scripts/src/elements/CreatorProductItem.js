@@ -243,6 +243,7 @@ APP.CreatorProductItem.prototype.getPayload = function() {
       name: work.name,
       photo: work.photo,
       finalPrice: subcategory.finalPrice.toString(),
+      description: work.description,
       config: JSON.stringify({
         margen: subcategory.margen,
         range: this.view.find('input[type=range]').val(),

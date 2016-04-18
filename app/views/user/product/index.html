@@ -233,81 +233,29 @@
 			$ PRODUCTS
 		********************************************************************* -->
 
-		
-		<div class="grid-container u-margin-top-20">
-			<div class="grid-100">
-				<p class="am-Products-title">Arte de pared</p>
-				<div class="u-separator"></div>
-			</div>
-		</div>
-
-		<div class="grid-container">
-			<div class="grid-100">
-			  <div class="more-carousel js-more-carousel">
-
-				<p class="empty-profile-text empty-message bare-message hide u-margin-top-30">El artista no tiene mas obras<br><br>
-					<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
-				</p>
-
-				<button class="nextButton"><i class="bi_interface-right"></i></button>
-				<button class="prevButton"><i class="bi_interface-left"></i></button>
-
-				<div class="more-images more">
+		<div class="index-container {% if currentPath !== 'index' %} hide {% endif %}">
+			{% for cat in categories %}
+				<div class="grid-container u-margin-top-20">
+					<div class="grid-100">
+						<p class="am-Products-title">{{cat.name}}</p>
+						<div class="u-separator"></div>
+					</div>
 				</div>
-			  </div>
-			</div>
-		</div>
 
-
-		<!--=========================== WORKS-PRODUCTS'S RELATED AND SIMILAR ===========================-->
-		<div class="index-container {% if currentPath !== 'index' %}  {% endif %}">
-		  <div class="grid-container u-margin-top-60">
-		    <div class="grid-100">
-					<p class="am-more-text u-text-center u-padding-bottom-10">Otras obras del artista</p>
-		      <div class="u-separator-center"></div>
-		    </div>
-		  </div>
-
-		  <div class="grid-container">
-		    <div class="grid-100">
-		    	<div class="more-carousel js-more-carousel">
-						<p class="empty-profile-text empty-message bare-message hide u-margin-top-30">El artista no tiene mas obras<br><br>
+				<div class="grid-container">
+					<div class="grid-100">
+					  <div class="more-carousel js-more-carousel">
+						<p class="empty-profile-text empty-message bare-message hide u-margin-top-30">No hay ningún producto de {{cat.name}}<br><br>
 							<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
 						</p>
-
-						<button class="nextButton"><i class="bi_interface-right"></i></button>
-						<button class="prevButton"><i class="bi_interface-left"></i></button>
-
-		        <div class="more-images more">
-		        </div>
-		      </div>
-		    </div>
-		  </div>
-
-			<div class="u-separator u-margin-top-60"></div>
-
-		  <div class="grid-container u-margin-top-60">
-		    <div class="grid-100">
-					<p class="am-more-text u-text-center u-padding-bottom-10">Obras relacionadas</p>
-		      <div class="u-separator-center"></div>
-		    </div>
-		  </div>
-		  <div class="grid-container">
-		    <div class="grid-100">
-		      <div class="more-carousel js-similar-carousel">
-						<p class="empty-profile-text empty-message bare-message hide u-margin-top-30">No existen obras relacionadas<br><br>
-							<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
-						</p>
-
-						<button class="nextButton"><i class="bi_interface-right"></i></button>
-						<button class="prevButton"><i class="bi_interface-left"></i></button>
-
-		        <div class="more-images similar"></div>
-
-		      </div>
-		    </div>
-		  </div>
+						<div class="more-images {{cat.nameSlugify}}">
+						</div>
+					  </div>
+					</div>
+				</div>
+			{%endfor%}
 		</div>
+
 		<!--=================================================================================
 				=================================================================================
 				=================================================================================-->
@@ -325,7 +273,7 @@
 	      	<div class="review">
 	          <div class="avatar"><img src="{{user.photo}}"></div>
 	          <form class="content review-form">
-	            <input type="hidden" name='id{{entity|capitalize}}' value="{{work.id}}"/>
+	            <input type="hidden" name='id{{entity|capitalize}}' value="{{product.id}}"/>
 	            <textarea class='value-input' name="value"></textarea>
 	            <button>AGREGAR REVIEW</button>
 	          </form>
@@ -363,6 +311,57 @@
       </div>
     </div>
   </div>
+
+
+			<!--=========================== WORKS-PRODUCTS'S RELATED AND SIMILAR ===========================-->
+			<div>
+			  <div class="grid-container u-margin-top-60">
+			    <div class="grid-100">
+						<p class="am-more-text u-text-center u-padding-bottom-10">Otras obras del artista</p>
+			      <div class="u-separator-center"></div>
+			    </div>
+			  </div>
+
+			  <div class="grid-container">
+			    <div class="grid-100">
+			    	<div class="more-carousel js-more-carousel">
+							<p class="empty-profile-text empty-message bare-message hide u-margin-top-30">El artista no tiene mas obras<br><br>
+								<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
+							</p>
+
+							<button class="nextButton"><i class="bi_interface-right"></i></button>
+							<button class="prevButton"><i class="bi_interface-left"></i></button>
+
+			        <div class="more-images more">
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+
+				<div class="u-separator u-margin-top-60"></div>
+
+			  <div class="grid-container u-margin-top-60">
+			    <div class="grid-100">
+						<p class="am-more-text u-text-center u-padding-bottom-10">Obras relacionadas</p>
+			      <div class="u-separator-center"></div>
+			    </div>
+			  </div>
+			  <div class="grid-container">
+			    <div class="grid-100">
+			      <div class="more-carousel js-similar-carousel">
+							<p class="empty-profile-text empty-message bare-message hide u-margin-top-30">No existen obras relacionadas<br><br>
+								<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
+							</p>
+
+							<button class="nextButton"><i class="bi_interface-right"></i></button>
+							<button class="prevButton"><i class="bi_interface-left"></i></button>
+
+			        <div class="more-images similar"></div>
+
+			      </div>
+			    </div>
+			  </div>
+			</div>
 	<!--=================================================================================
 			=================================================================================
 			=================================================================================-->
@@ -479,13 +478,14 @@
 
 {% block scripts %}
 	<script>
+		var categories = {{categories|json|safe}};
 		var owner = {{owner|json|safe}};
 		var entity = {{entity|json|safe}};
 		var product = {{product|json|safe}};
 		var currentPath = {{currentPath|json|safe}};
 		var reviews = {{reviews|json|safe}};
 		var more = {{more|json|safe}};
-		var works = {{works|json|safe}};
+		var products = {{products|json|safe}};
 		var similar = {{similar|json|safe}};
 
 		(function (d, s, id) {

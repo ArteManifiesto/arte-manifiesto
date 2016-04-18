@@ -83,6 +83,7 @@ module.exports = function(sequelize, DataTypes) {
       },
       like: function(user) {
         var scope = this;
+        var scope = this;
         return user.addProductLike(this).then(function() {
           return scope.numOfLikes().then(function(likes) {
             scope.popularity = scope.views + (likes * 50);
@@ -95,7 +96,7 @@ module.exports = function(sequelize, DataTypes) {
       buildParts: function(options) {
         var scope = this;
         return global.db.Sequelize.Promise.all([
-          scope.likes(),
+          scope.numOfLikes(),
           scope.liked(options.viewer),
           scope.friends(options.viewer)
         ]).then(function(result) {
@@ -104,7 +105,7 @@ module.exports = function(sequelize, DataTypes) {
           scope.setDataValue('friends', result[2]);
         });
       },
-      likes: function() {
+      numOfLikes: function() {
         var scope = this,
           query = {
             attributes: [
@@ -185,79 +186,60 @@ module.exports = function(sequelize, DataTypes) {
           return category.getProducts(query);
         });
       },
-      more: function() {
-        var query = {
-          where: {
-            id: {
-              $not: [this.id]
-            }
-          },
-          order: [global.db.sequelize.fn('RAND')],
-          limit: 6,
-          addUser: true
-        };
-        return this.getUser().then(function(user) {
-          return user.getProducts(query);
-        });
-      },
-      getUserArtworks: function() {
-        return this.getUser().then(function(user) {
+      getMoreProducts: function() {
+        var scope = this;
+        return this.getWork().then(function(work) {
           var query = {
             where: {
-              public: true
-            },
-            order: [global.db.sequelize.fn('RAND')],
-            limit: 6,
-            addUser: true
-          };
-          return user.getWorks(query);
-        });
-      },
-      getMoreProducts: function() {
-        var query = {
-          where: {
-            meta: 5
-          }
-        };
-        return global.db.Category.findAll(query).then(function(categories) {
-          query = {
-            where: {
-              ParentCategoryId: {
-                $in: global._.pluck(categories, 'id')
-              }
+              meta: 5
             }
           };
-          return global.db.Category.findAll(query).then(function(subCategories) {
-            query = {
-              where: {
-                ParentCategoryId: {
-                  $in: global._.pluck(subCategories, 'id')
-                }
-              }
-            };
-            return global.db.Category.findAll(query).then(function(innerCategories) {
-              for (var i = 0; i < categories.length; i++) {
-                categories[i].setDataValue('subCategories', []);
-                for (var j = 0; j < subCategories.length; j++) {
-                  if (subCategories[j].ParentCategoryId === categories[i].id) {
-                    categories[i].getDataValue('subCategories').push(subCategories[j]);
+          return global.db.Category.findAll(query)
+            .then(function(categories) {
+              query = {
+                where: {
+                  ParentCategoryId: {
+                    $in: global._.pluck(categories, 'id')
                   }
-                  subCategories[j].setDataValue('innerCategories', []);
-                  for (var k = 0; k < innerCategories.length; k++) {
-                    global.db.Product.find({
-                      where: {
-                        WorkId:
+                }
+              };
+              return global.db.Category.findAll(query)
+                .then(function(subCategories) {
+                  query = {
+                    where: {
+                      ParentCategoryId: {
+                        $in: global._.pluck(subCategories, 'id')
                       }
-                    })
-                    if (innerCategories[k].ParentCategoryId === subCategories[j].id) {
-                      subCategories[j].getDataValue('innerCategories').push(innerCategories[k]);
-                    }
-                  }
-                }
-              }
-              return categories;
+                    },
+                    include: [{
+                      model: global.db.Product,
+                      where: {
+                        id: {$not: [scope.id]},
+                        WorkId: work.id
+                      },
+                      include: [global.db.User]
+                    }]
+                  };
+                  return global.db.Category.findAll(query)
+                    .then(function(innerCategories) {
+                      for (var i = 0; i < categories.length; i++) {
+                        categories[i].setDataValue('subCategories', []);
+                        for (var j = 0; j < subCategories.length; j++) {
+                          if (subCategories[j].ParentCategoryId === categories[i].id) {
+                            categories[i].getDataValue('subCategories').push(subCategories[j]);
+                          }
+                          subCategories[j].setDataValue('innerCategories', []);
+                          for (var k = 0; k < innerCategories.length; k++) {
+                            if (innerCategories[k].ParentCategoryId === subCategories[j].id) {
+                              subCategories[j].getDataValue('innerCategories').push(innerCategories[k]);
+                            }
+                          }
+                        }
+                      }
+                      return categories;
+                    });
+                });
             });
-          });
         });
       }
     },

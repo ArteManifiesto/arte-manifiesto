@@ -10,7 +10,10 @@ var entity = 'Product';
 
 router.use(global.md.entity(entity));
 
-router.get('/:nameSlugify', global.md.nameSlugify(entity), controller.index);
+router.get('/:nameSlugify', global.md.nameSlugify(entity), controller.index.bind(this, 'index'));
+router.get('/:nameSlugify/reviews', global.md.nameSlugify(entity), controller.index.bind(this, 'reviews'));
+router.get('/:nameSlugify/tags', global.md.nameSlugify(entity), controller.index.bind(this, 'tags'));
+
 
 router.get('/:nameSlugify/buy', global.md.isLogged, global.md.nameSlugify(entity), controller.buyPage);
 
@@ -22,6 +25,8 @@ router.post('/buy', isLoggedAndOwner, controller.buy);
 
 // router.post('/delete', isLoggedAndOwner, controller.delete);
 // router.post('/update', isLoggedAndOwner, controller.update);
+
+router.post('/review/create', isLoggedAndOwner, controller.createReview);
 
 router.post('/like', isLoggedAndOwner, controller.like);
 router.post('/unlike', isLoggedAndOwner, controller.unLike);
