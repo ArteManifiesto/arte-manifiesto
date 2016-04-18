@@ -161,7 +161,7 @@
 		</div>
 	</div>
 
-	<a id="go-share-modal" href="#share-modal">HOLI!</a>
+	<a id="go-share-modal" href="#share-modal"></a>
 
 	<div id="share-modal" style="display: none;">
 		<i class="closed-modal fa fa-times"></i>
@@ -192,7 +192,7 @@
 							</div>
 
 							<div class="grid-100 mobile-grid-100">
-								<button class="button upload green u-margin-top-40" data-color="green">IR A PORTAFOLIO</button>
+								<a href="/user/{{user.username}}/" class="button upload green u-margin-top-40" data-color="green">IR A PORTAFOLIO</a>
 							</div>
 						</form>
 					</div>
@@ -208,10 +208,7 @@
 $(function() {
 	$('.seller').addClass('selected');
 	new APP.AccountSellerScreen();
-
-	
-		$('#go-collection-modal').leanModal();
-		$('#go-share-modal').leanModal();
+	$('#go-share-modal').leanModal();
 });
 </script>
 	<!-- $('.') -->

@@ -109,8 +109,12 @@ APP.AccountSellerScreen.prototype.submitHandler = function (e) {
 
 APP.AccountSellerScreen.prototype.afterSaveHandler = function(response) {
   this.showFlash('succes', 'Se actualizo tu información');
+
   var timeout = setTimeout(function() {
     clearTimeout(timeout);
-    window.location.href = '/user/' + user.username + '/account/seller';
-  }, 1000);
+    if(!user.isSeller) {
+      $('#go-share-modal').click();
+    }
+    // window.location.href = '/user/' + user.username + '/account/seller';
+  }, 300);
 }
