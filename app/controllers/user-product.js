@@ -214,18 +214,30 @@ exports.unLike = function(req, res) {
 };
 
 exports.addToCollection = function(req, res) {
-  var collections = req.body.collections;
+  var collections = JSON.parse(req.body.collections);
   var query = {
     viewer: req.viewer,
     collections: collections
   };
-  req.product.addToCollection(query).then(function(data) {
+  req.product.addToCollection(query).then(function() {
     return res.ok({
-      collection: collections
+      collections: collections
     }, 'Product added to collections , this is a magic mdf :]');
   });
 }
 
+exports.insideCollection = function(req, res) {
+  var insideQuery = {
+    where: {
+      UserId: req.user.id
+    }
+  };
+  req.product.getCollections(insideQuery).then(function(collections) {
+    return res.ok({
+      collections: collections
+    }, 'Collections');
+  });
+};
 
 exports.removeFromCart = function(req, res) {
 

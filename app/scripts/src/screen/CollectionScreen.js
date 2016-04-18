@@ -12,9 +12,16 @@ APP.CollectionScreen.constructor = APP.CollectionScreen;
 APP.CollectionScreen.prototype = Object.create(APP.BaseScreen.prototype);
 
 APP.CollectionScreen.prototype.setupUI = function() {
-  this.viewer = new APP.Viewer('work', $('.grid'), null, works, {
-    context: 'single-collection'
-  });
+  this.viewer = null;
+  if(collection.meta === 'works') {
+    this.viewer = new APP.Viewer('work', $('.grid'), null, items, {
+      context: 'single-collection'
+    });
+  } else {
+    this.viewer = new APP.Viewer('product', $('.grid'), null, items, {
+      context: 'single-collection'
+    });
+  }
 
   this.workDelete = $('.work-delete');
   this.workDeleteConfirm = $('.work-delete-confirm');

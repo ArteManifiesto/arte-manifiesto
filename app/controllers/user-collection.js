@@ -4,27 +4,36 @@ exports.index = function(req, res) {
   var query = {
     build: true,
     viewer: req.viewer,
-    addUser: true,
-    order: [
-      [global.db.sequelize.col('CollectionWork.createdAt'), 'DESC']
-    ]
+    addUser: true
   };
-  req.collection.getWorks(query).then(function(works) {
+
+  var afterGet = function(items) {
     return res.render(basePath + 'index', {
       collection: req.collection,
-      works: works,
+      items: items,
       owner: req.owner
     });
-  });
+  }
+  if(req.collection.meta === 'works') {
+    query.order = [
+      [global.db.sequelize.col('CollectionWork.createdAt'), 'DESC']
+    ];
+    req.collection.getWorks(query).then(afterGet);
+  } else {
+    query.order = [
+      [global.db.sequelize.col('CollectionProduct.createdAt'), 'DESC']
+    ];
+    req.collection.getProducts(query).then(afterGet);
+  }
 }
 
 exports.all = function(req, res) {
-  var query;
-  if (req.body.idProduct)
-    query = {
-      idProduct: req.body.idProduct,
-      productInside: true
-    };
+  var query = {where:{meta:req.body.meta}};
+  // if (req.body.idProduct)
+  //   query = {
+  //     idProduct: req.body.idProduct,
+  //     productInside: true
+  //   };
   req.user.getCollections(query).then(function(collections) {
     return res.ok({
       collections: collections

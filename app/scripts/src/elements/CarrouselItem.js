@@ -5,6 +5,9 @@
 var APP = APP || {};
 
 APP.CarrouselItem = function(data, options) {
+  options = options || {};
+  if(!options.worked) options.worked = false;
+  
   APP.BaseElement.call(this, data, 'carrousel-item', options);
 };
 

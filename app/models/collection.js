@@ -35,44 +35,58 @@ module.exports = function(sequelize, DataTypes) {
       buildParts: function(options) {
         var scope = this;
         return global.db.Sequelize.Promise.all([
-          scope.numOfWorks(),
-          scope.works()
+          scope.numOfItems(),
+          scope.items()
         ]).then(function(result) {
-          scope.setDataValue('numOfWorks', result[0]);
-          scope.setDataValue('works', result[1]);
+          scope.setDataValue('numOfItems', result[0]);
+          scope.setDataValue('items', result[1]);
         });
       },
-      numOfWorks: function() {
+      numOfItems: function() {
         var query = {
           attributes: [
             [global.db.sequelize.fn('COUNT',
               global.db.sequelize.col('id')), 'total']
           ]
         };
-        return this.getWorks(query).then(function(result) {
+        var afterGet = function(result) {
           return result[0].getDataValue('total');
-        });
+        }
+        if(this.meta === 'works') {
+          return this.getWorks(query).then(afterGet);
+        }else {
+          return this.getProducts(query).then(afterGet);
+        }
       },
-      works: function() {
+      items: function() {
         var query = {
           include: [{
             model: global.db.User
           }],
           limit: 3,
-          where: {
-            public: true
-          },
-          order: [
-            [global.db.sequelize.col('CollectionWork.createdAt'), 'DESC']
-          ]
+          where: {}
         };
-        return this.getWorks(query);
+        if(this.meta === 'works') {
+          query.where.public = true;
+          query.order = [
+            [global.db.sequelize.col('CollectionWork.createdAt'), 'DESC']
+          ];
+          return this.getWorks(query);
+        }else {
+          query.where.isActive = true;
+          query.order = [
+            [global.db.sequelize.col('CollectionProduct.createdAt'), 'DESC']
+          ];
+          return this.getProducts(query);
+        }
       }
     },
     hooks: {
       beforeDestroy: function(collection, options, fn) {
         collection.setWorks(null).then(function() {
-          fn(null, collection);
+          collection.setProducts(null).then(function() {
+            fn(null, collection);
+          });
         });
       },
       beforeFind: global.beforeFind,

@@ -3,7 +3,8 @@
  *Email : juliocanares@gmail.com
  */
 var APP = APP || {};
-APP.PhotoSwipe = function() {
+APP.PhotoSwipe = function(tag) {
+  this.tag = tag;
   this.filter = 'w_1500,h_800,c_limit,q_80';
 
   this.isLoading = false;
@@ -32,8 +33,12 @@ APP.PhotoSwipe.prototype.imageHandler = function() {
     this.modal.click();
 
     this.isLoading = true;
-
-    var src = Utils.addImageFilter(work.photo, this.filter);
+    var src;
+    if(this.tag === 'work') {
+      src = Utils.addImageFilter(work.photo, this.filter);
+    }else {
+      src = Utils.addImageFilter(product.photo, this.filter);
+    }
 
     var scope = this;
     $('<img>').load(function() {
@@ -62,8 +67,14 @@ APP.PhotoSwipe.prototype.imageLoadHandler = function(image) {
 };
 
 APP.PhotoSwipe.prototype.openPhotoSwipeHandler = function() {
+  var src;
+  if(this.tag === 'work') {
+    src = Utils.addImageFilter(work.photo, this.filter);
+  }else {
+    src= Utils.addImageFilter(product.photo, this.filter);
+  }
   var items = [{
-    src: Utils.addImageFilter(work.photo, this.filter),
+    src: src,
     w: this.meta.width,
     h: this.meta.height
   }];

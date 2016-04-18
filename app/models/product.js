@@ -127,6 +127,53 @@ module.exports = function(sequelize, DataTypes) {
           return likes.length > 0;
         });
       },
+      addToCollection: function(options) {
+        var scope = this,
+          promises = [];
+        return this.removeLegacy(options).then(function(newCollectionsIds) {
+          if (newCollectionsIds.length < 1) return;
+          var query = {
+            where: {
+              id: {
+                $in: newCollectionsIds
+              }
+            }
+          };
+          return global.db.Collection.findAll(query).then(function(collections) {
+            for (i = 0; i < collections.length; i++) {
+              collection = collections[i];
+              promises.push(collection.addProduct(scope));
+            }
+            return global.db.Sequelize.Promise.all(promises);
+          });
+        });
+      },
+      removeLegacy: function(options) {
+        var scope = this,
+          query = {
+            where: {
+              UserId: options.viewer
+            }
+          };
+
+        return this.getCollections(query).then(function(collections) {
+          var currentIds = global._.pluck(collections, 'id');
+          currentIds = currentIds || [];
+          var newIds = options.collections;
+          var oldCollectionsIds = global._.difference(currentIds, newIds);
+          var newCollectionsIds = global._.difference(newIds, currentIds);
+          var i, collection, promises = [];
+          for (i = 0; i < oldCollectionsIds.length; i++) {
+            collection = global._.where(collections, {
+              id: oldCollectionsIds[i]
+            })[0];
+            promises.push(collection.removeProduct(scope));
+          }
+          return global.db.Sequelize.Promise.all(promises).then(function(result) {
+            return newCollectionsIds;
+          });
+        });
+      },
       friends: function(viewer) {
         if (viewer < 0)
           return [];

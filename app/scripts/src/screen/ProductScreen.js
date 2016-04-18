@@ -33,16 +33,14 @@ APP.ProductScreen.prototype.setupUI = function() {
     }
     new APP.Viewer('carrouselItem', $('.' + category.nameSlugify), null, products);
   }
-
-  new APP.Viewer('carrouselItem', $('.more'), null, more);
-  new APP.Viewer('carrouselItem', $('.similar'), null, similar);
+  
+  new APP.Viewer('carrouselItem', $('.more'), null, more, {worked: true});
+  new APP.Viewer('carrouselItem', $('.similar'), null, similar, {worked: true});
 
   new APP.Carrousel($('.js-more-carousel'), $('.more'));
   new APP.Carrousel($('.js-similar-carousel'), $('.similar'));
 
-
-
-  new APP.PhotoSwipe();
+  new APP.PhotoSwipe('product');
 
   this.reviewsContainer = $('.reviews-items-container');
   for (var i = 0; i < reviews.length; i++)
@@ -83,7 +81,7 @@ APP.ProductScreen.prototype.listeners = function() {
 
   if (DataApp.currentUser) {
     var collectionsUrl = DataApp.currentUser.url + '/collection/all';
-    this.requestHandler(collectionsUrl, {}, this.collectionsHandlerComplete);
+    this.requestHandler(collectionsUrl, {meta: 'products'}, this.collectionsHandlerComplete);
 
     if (!owner) {
       var followingUrl = DataApp.currentUser.url + '/isFollowing';

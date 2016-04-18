@@ -33,6 +33,7 @@ router.post('/unlike', isLoggedAndOwner, controller.unLike);
 router.post('/featured', isLoggedAndOwner, controller.featured);
 router.post('/unfeatured', isLoggedAndOwner, controller.unFeatured);
 
-router.post('/add_to_collection', controller.addToCollection);
+router.post('/add_to_collection', isLoggedAndOwner, controller.addToCollection);
+router.post('/inside_collection', isLoggedAndOwner, controller.insideCollection);
 
 module.exports = router;

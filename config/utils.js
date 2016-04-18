@@ -194,6 +194,7 @@ global.searchUsers = function (req) {
 global.searchCollections = function (req) {
   var discover = discoverGenerator('Collection', req);
   discover.query.where.public = true;
+  discover.query.where.meta = 'works';
   discover.query.addUser = true;
   discover.query.order.push([global.db.sequelize.col('id')]);
   console.log('order ===>');

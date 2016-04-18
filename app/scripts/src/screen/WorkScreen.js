@@ -25,7 +25,7 @@ APP.WorkScreen.prototype.setupUI = function() {
   new APP.Carrousel($('.js-more-carousel'), $('.more'));
   new APP.Carrousel($('.js-similar-carousel'), $('.similar'));
 
-  new APP.PhotoSwipe();
+  new APP.PhotoSwipe('work');
 
   this.reviewsContainer = $('.reviews-items-container');
   for (var i = 0; i < reviews.length; i++)
@@ -67,8 +67,7 @@ APP.WorkScreen.prototype.listeners = function() {
 
   if (DataApp.currentUser) {
     var collectionsUrl = DataApp.currentUser.url + '/collection/all';
-    this.requestHandler(collectionsUrl, {}, this.collectionsHandlerComplete);
-
+    this.requestHandler(collectionsUrl, {meta: 'works'}, this.collectionsHandlerComplete);
     if (!owner) {
       var followingUrl = DataApp.currentUser.url + '/isFollowing';
       this.requestHandler(followingUrl, {
