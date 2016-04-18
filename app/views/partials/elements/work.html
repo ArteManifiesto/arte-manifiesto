@@ -12,9 +12,22 @@
           <div class="featured">DESTACADO</div>
         <% } %>
       <% } %>
+      
+      <div class="work-card-options">
+        <i class="fa fa-cog"></i>
+        <div class="menu">
+          <a href="#">Ver</a>
+          <div class="u-separator"></div>
+          <a href="#">Editar</a>
+          <div class="u-separator"></div>
+          <a href="#">Vender</a>
+          <div class="u-separator"></div>
+          <a href="#">Borrar</a>
+        </div>
+      </div>
 
       <% if (viewer && viewer.isAdmin) { %>
-        <div class="delete"><i class="bi_editorial-trash-a-l"></i></div>
+        {#<div class="delete"><i class="bi_editorial-trash-a-l"></i></div>#}
 
         <div class="confirm delete-confirm hide">
           <% if (context && context === 'single-collection') { %>
