@@ -53,15 +53,15 @@ exports.create = function(req, res) {
       });
     }
     product = products[currentProduct];
+    console.log(product);
     product.UserId = req.user.id;
-    console.log(product.photo);
-    global.cl.uploader.upload(product.photo, function(lel) {
-      console.log(lel);
-
-      // product.photo = result.url;
-      // promises.push(global.db.Product.create(product));
-      // currentProduct++;
-      // createProduct();
+    global.cl.uploader.upload(product.photo).then(function(result) {
+      console.log(product.photo);
+      product.photo = result.url;
+      console.log(product.photo);
+      promises.push(global.db.Product.create(product));
+      currentProduct++;
+      createProduct();
     });
   };
   createProduct();
