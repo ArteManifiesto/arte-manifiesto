@@ -16,9 +16,12 @@ APP.CreatorProductItem = function(index, data) {
     $('#canvas-product' + index).attr('height', this.config.heightView);
   }
 
+  this.canvasColor = '#FFFFFF';
   this.canvas = new fabric.Canvas('canvas-product' + index, {
-    backgroundColor: 'white'
+    backgroundColor: this.canvasColor
   });
+
+  this.currentPhoto;
 
   this.setup();
   this.listeners();
@@ -55,7 +58,6 @@ APP.CreatorProductItem.prototype.listeners = function() {
   var scope = this;
   this.view.find('.margen-input').keyup(function() {
     var index = $(this).data('index');
-    console.log(index);
     var baseprice = $(this).data('baseprice');
     var currentValue = $(this).val();
     var percentage = (currentValue / 100) * baseprice;
@@ -112,8 +114,8 @@ APP.CreatorProductItem.prototype.partBtn2Handler = function(e) {
 };
 
 APP.CreatorProductItem.prototype.colorChangeHandler = function(color) {
-  color = color.toHexString();
-  this.canvas.backgroundColor = color;
+  this.canvasColor = color.toHexString();
+  this.canvas.backgroundColor = this.canvasColor;
   this.canvas.renderAll();
   this.renderCanvas();
 };
@@ -132,7 +134,6 @@ APP.CreatorProductItem.prototype.setup = function() {
     change: this.colorChangeHandler.bind(this)
   }
   this.view.find("#colorPicker").spectrum(colorsConf);
-
 
 
   var scope = this;
@@ -164,20 +165,18 @@ APP.CreatorProductItem.prototype.setup = function() {
 
     scope.renderCanvas();
 
-    // if(scope.index === 4) {
-    //   fabric.Image.fromURL('http://am.local:3000/4s.svg', function (img) {
-    //     img.evented = img.selectable = false;
-    //     scope.canvas.add(img);
-    //
-    //     scope.canvas.centerObject(image);
-    //     img.setCoords();
-    //     scope.canvas.renderAll();
-    //   });
-    // }
+    fabric.Image.fromURL('http://am.local:3000/4s.svg', function (img) {
+      img.evented = img.selectable = false;
+      scope.canvas.add(img);
+      console.log('width =>', img.width);
+
+      scope.canvas.centerObject(image);
+      img.setCoords();
+      scope.canvas.renderAll();
+    });
   }, {
     crossOrigin: 'Anonymous'
   });
-
 
   // this.canvas.loadFromJSON(data,  this.canvas.renderAll.bind(this.canvas), function(o, object) {
   //   fabric.log(o, object);
@@ -185,45 +184,56 @@ APP.CreatorProductItem.prototype.setup = function() {
 
   this.canvas.on('mouse:up', function(options) {
     scope.renderCanvas(options);
-
-    //
-    // var baseName = url.replace(/^.*\/|\.[^.]*$/g, '')
-    //
-    // var imageW = Math.round(imageTemp.getWidth() * 2);
-    // var imageH = Math.round(imageTemp.getHeight() * 2);
-    //
-    //
-    // var factor = 2;
-    // var a = imageTemp.getBoundingRect();
-    // var x = Math.round(a.left * factor);
-    // var y = (Math.round(a.top * factor));
-    //
-    //
-    // var filters =
-    // 'w_' + 1240 + ',' +
-    // 'h_' + 560 + ',e_colorize,co_rgb:' + 'ff0000' + '/' +
-    // 'l_' + baseName + ',b_rgb:' + 'ff0000' + ',' +
-    // 'w_' + imageW + ',' +
-    // 'h_' + imageH + ',' +
-    // 'x_' + x + ',' +
-    // 'y_' + y + ',g_north_west/' +
-    // 'x_' + (x < 0 ? (x * -1) : 0) + ',' +
-    // 'y_' + (y < 0 ? (y * -1) : 0) + ',' +
-    // 'w_' + 1240 + ',' +
-    // 'h_' + 560 + ',c_crop,g_north_west';
-    //
-    // var original = Utils.addImageFilter(work.photo, filters);
-    // console.log(original);
   });
 };
 
 APP.CreatorProductItem.prototype.renderCanvas = function() {
-  this.canvas.item(0).hasBorders = this.canvas.item(0).hasControls = false;
+  var image = this.canvas.item(0);
+  image.hasBorders = image.hasControls = false;
+  if(this.canvas.item(1)) {
+    this.canvas.item(1).opacity = 0;
+  }
 
   this.canvas.renderAll();
-  this.header.find('.image-preview').attr('src', this.canvas.toDataURL());
+  this.header.find('.image-preview').attr('src', this.canvas.toDataURL({
+    left: 41,
+    top: 41,
+    width: 230,
+    height: 459
+  }));
 
-  this.canvas.item(0).hasBorders = this.canvas.item(0).hasControls = true;
+  var urlImage = work.photo;
+  var baseName = urlImage.replace(/^.*\/|\.[^.]*$/g, '')
+
+  var boundaries = image.getBoundingRect();
+  var x = Math.round(boundaries.left * this.config.scaleFactor);
+  var y = Math.round(boundaries.top * this.config.scaleFactor);
+  var stageW = Math.round(this.config.widthView * this.config.scaleFactor);
+  var stageH = Math.round(this.config.heightView * this.config.scaleFactor);
+  var imageW = Math.round(image.getWidth() * this.config.scaleFactor);
+  var imageH = Math.round(image.getHeight() * this.config.scaleFactor);
+  var rgbColor = this.canvasColor.replace('#','');
+  var filters =
+    'w_' + stageW + ',' +
+    'h_' + stageH + ',e_colorize,co_rgb:' + rgbColor + '/' +
+    'l_' + baseName + ',b_rgb:' + rgbColor + ',' +
+    'w_' + imageW + ',' +
+    'h_' + imageH + ',' +
+    'x_' + x + ',' +
+    'y_' + y + ',g_north_west/' +
+    'x_' + (x < 0 ? (x * -1) : 0) + ',' +
+    'y_' + (y < 0 ? (y * -1) : 0) + ',' +
+    'w_' + stageW + ',' +
+    'h_' + stageH + ',c_crop,g_north_west';
+
+  this.currentPhoto = Utils.addImageFilter(urlImage, filters);
+
+  this.header.find('.image-preview').attr('width', 125);
+
+  image.hasBorders = image.hasControls = true;
+  if(this.canvas.item(1)) {
+    this.canvas.item(1).opacity = 1;
+  }
   this.canvas.renderAll();
 };
 
@@ -241,7 +251,7 @@ APP.CreatorProductItem.prototype.getPayload = function() {
       WorkId: work.id,
       CategoryId: this.data.subCategories[index].id,
       name: work.name,
-      photo: work.photo,
+      photo: this.currentPhoto,
       finalPrice: subcategory.finalPrice.toString(),
       description: work.description,
       config: JSON.stringify({

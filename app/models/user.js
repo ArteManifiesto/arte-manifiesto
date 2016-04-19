@@ -72,6 +72,7 @@ module.exports = function(sequelize, DataTypes) {
     businessName: DataTypes.STRING,
     bank: DataTypes.STRING,
     cci: DataTypes.STRING,
+    departament: DataTypes.STRING,
 
     typeName: {
       type: DataTypes.INTEGER,

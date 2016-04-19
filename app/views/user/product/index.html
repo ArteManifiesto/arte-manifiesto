@@ -108,59 +108,25 @@
 						</a>
 					</div>
 					<div class="info-box u-margin-top-25">
-						<div class="header">
-							<p class="selected">COMPRAR</p>
-						</div>
-						<div class="body u-text-center">
-							<div class="ask-requester {% if work.requested %} hide {% endif %}">
-								<p class="title large">Puedes preguntar al artista la disponibilidad</p>
-									<button class="am-View-button expand u-margin-top-20 ask-availability">PREGUNTAR</button>
-									<p class="msg u-padding-top-15 u-padding-bottom-4">Muy pronto la tienda en línea</p>
-							</div>
-							<div class="thanks-requester {% if !work.requested %} hide {% endif %}">
-								<p class="title large">Gracias por preguntar la disponibilidad</p>
-								<p class="msg u-padding-top-15 u-padding-bottom-4">te avisaremos cuando el artista ponga en venta esta obra</p>
-							</div>
-						</div>
-					</div>
-					<!-- <div class="info-box u-margin-top-25">
-						<div class="header">
-							<p class="selected">PRODUCTOS</p>
+						<div class="header" style="padding: 10px 0;">
+							<p style="color: #333; font-size: 10px;">COMPRAR</p>
 						</div>
 						<div class="body">
-							<p class="text u-margin-top-10">Precio por unidad:</p>
-							<p class="price u-text-center">S/.<strong>{{element.finalPrice}}</strong> PEN</p>
-
-							<p class="text u-margin-top-10">Cantidad:</p>
-							<div class="u-center">
-								<div class="u-margin-top-7">
-									<span class="text">X</span>
-									<select>
-										<option>1</option>
-										<option>2</option>
-										<option>3</option>
-										<option>4</option>
-									</select>
-									<span class="text">&nbsp;&nbsp;Unidades</span>
-								</div>
+							<p class="title">{{product.Category.name}}</p>
+							<p class="text">Obras originales de nuestros artistas de valor único.</p>
+							<p class="text u-margin-top-10">Tamaño:</p>
+							{% set productConfig = JSON.parse(product.config) %}
+							<p class="text u-margin-top-10">{{productConfig.bgCanvas}}</p>
+							<br>
+							<div class="type2">
+								<p class="text">Precio por unidad:</p>
+								<p class="price u-text-center">S/.<strong>{{product.finalPrice}}</strong> PEN</p>
 							</div>
 							<div class="u-center">
-								<button class="am-View-button expand u-margin-top-20 buy">COMPRAR</button>
+								<a href="/user/{{product.User.username}}/product/{{product.nameSlugify}}/buy" class="am-View-button expand u-margin-top-20">COMPRAR</a>
 							</div>
 						</div>
 					</div>
-					<div class="info-box u-margin-top-25">
-						<div class="header">
-							<p class="selected">ORIGINAL</p>
-							<p>PRODUCTOS</p>
-						</div>
-						<div class="body u-text-center">
-							<p class="title large">Precio Obra Original</p>
-							<p class="price u-padding-top-10">S/. <strong class="large">1500</strong></p>
-							<button class="am-View-button expand u-margin-top-20">COMPRAR</button>
-							<p class="msg u-padding-top-15 u-padding-bottom-4">7 días para devolver cualquier obra</p>
-						</div>
-					</div> -->
 					<p class="am-stats-text u-margin-top-40">ESTADÍSTICAS</p>
 					<div class="u-separator"></div>
 					<div class="u-center">

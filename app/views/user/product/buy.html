@@ -14,64 +14,52 @@
 							<div class="grid-70">
 								<div class="checkout-info">
 									<div class="addresses">
-										<!-- <div class="address">
-											<input type="radio" name="address">
-											<div>
-												<p class="address-title">Luis Eduardo Augusto</p>
-												<p class="address-subtitle">460 Lizardo Montero - apt 304</p>
-												<p class="address-subtitle">Lima, Lima 018</p>
-												<p class="address-subtitle">Perú</p>
-												<p class="address-subtitle">Tel:+51944426766</p>
-											</div>
-										</div> -->
 										<div class="address">
-											<!-- <input type="radio" name="address"> -->
-											<!-- <p class="address-title">Agregar nueva dirección de envío</p> -->
 											<p class="address-title">Ingresa datos de envío</p>
 										</div>
 										<div class="address" style="padding-bottom: 20px;">
 											<div class="grid-container grid-parent" style="width: 100%;">
 												<div class="grid-50">
 													<p class="address-label">Nombres</p>
-													<input class="address-input" placeholder="Ingresa tu Nombre">
+													<input class="address-input" placeholder="Ingresa tu Nombre" value={{user.firstname}}>
 												</div>
 												<div class="grid-50">
 													<p class="address-label">Apellidos</p>
-													<input class="address-input" placeholder="Tus apellidos">
+													<input class="address-input" placeholder="Tus apellidos" value={{user.lastname}}>
 												</div>
 												<div class="grid-66">
 													<p class="address-label">Dirección de Envío</p>
-													<input class="address-input" placeholder="Dirección Línea 1">
+													<input class="address-input" placeholder="Tus apellidos" value={{user.direction}}>
 												</div>
 												<div class="grid-33">
 													<p class="address-label">Int/Apartamento</p>
-													<input class="address-input" placeholder="Nro">
+													<input class="address-input" name="departament" placeholder="Nro">
 												</div>
 												<div class="grid-33">
 													<p class="address-label">Ciudad</p>
-													<input class="address-input" placeholder="Ingresa tu ciudad">
+													<input class="address-input" placeholder="Ingresa tu ciudad" value="{{user.city}}">
 												</div>
 												<div class="grid-33">
 													<p class="address-label">Estado/Provincia</p>
-													<input class="address-input" placeholder="Estado o provincia">
+													<input class="address-input" placeholder="Estado o provincia" value="{{user.province}}">
 												</div>
 												<div class="grid-33">
 													<p class="address-label">Código Postal</p>
-													<input class="address-input" placeholder="Nro">
+													<input class="address-input" placeholder="Nro" value="{{user.zipcode}}">
 												</div>
 												<div class="grid-33 suffix-66">
 													<p class="address-label">País</p>
 													<select class="address-input">
-														<option>Seleccionar País</option>
+														<option>Perú</option>
 													</select>
 												</div>
 												<div class="grid-33">
 													<p class="address-label">Teléfono móvil</p>
-													<input class="address-input" placeholder="Ingresa tu número">
+													<input class="address-input" placeholder="Ingresa tu número" value="{{user.phone}}">
 												</div>
 												<div class="grid-66">
 													<p class="address-label">Correo electrónico</p>
-													<input class="address-input" placeholder="Ingresa tu e-mail">
+													<input class="address-input" placeholder="Ingresa tu e-mail" value="{{user.email}}">
 												</div>
 											</div>
 										</div>

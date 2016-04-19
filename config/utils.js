@@ -206,7 +206,11 @@ global.searchProducts = function (req) {
   var discover = discoverGenerator('Product', req);
   discover.query.where.published = true;
   discover.query.addUser = true;
+  console.log(discover.query);
+  // discover.query.include = discover.query.include || [];
+  // discover.query.include.push([{model:global.db.Work}]);
   discover.query.order.push([global.db.sequelize.col('id')]);
+
   return beforePagination(req, discover);
 };
 
@@ -292,6 +296,9 @@ global.getPaginationEntity = function (options, query, empty) {
 
   var promises = [];
   if (!options.association) {
+    console.log('query====>');
+    console.log(query);
+
     promises = [global.db[options.entity].findAll(query)]
     query = _.omit(query, 'build', 'offset', 'limit', 'addUser', 'group');
     promises.push(global.db[options.entity].count(query));

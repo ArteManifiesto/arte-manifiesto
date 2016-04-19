@@ -15,12 +15,12 @@ APP.SellScreen.prototype.setupUI = function() {
   this.createBtn = $('.create-btn');
 
   // this.product1 = new APP.CreatorProductItem(1);
-  this.product2 = new APP.CreatorProductItem(2);
+  // this.product2 = new APP.CreatorProductItem(2);
   this.product3 = new APP.CreatorProductItem(3, categories[1]);
   this.product4 = new APP.CreatorProductItem(4, categories[2]);
   this.product5 = new APP.CreatorProductItem(5, categories[3]);
 
-  this.products = [this.product2, this.product3, this.product4, this.product5];
+  this.products = [this.product3, this.product4, this.product5];
 
   this.oldIndex = null;
   this.currentIndex = 0;

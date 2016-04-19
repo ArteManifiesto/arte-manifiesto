@@ -43,20 +43,28 @@ exports.create = function(req, res) {
   var promises = [],
     product;
 
-  for (var i = 0; i < products.length; i++) {
-    product = products[i];
+  var currentProduct = 0;
+  var createProduct = function() {
+    if(currentProduct === products.length) {
+      global.db.Sequelize.Promise.all(promises).then(function(result) {
+        return res.ok({
+          products: result
+        }, 'Producto creado');
+      });
+    }
+    product = products[currentProduct];
     product.UserId = req.user.id;
-    // console.log(product);
-    promises.push(global.db.Product.create(product));
-  }
+    console.log(product.photo);
+    global.cl.uploader.upload(product.photo, function(lel) {
+      console.log(lel);
 
-  // return res.ok({products: 'elle'}, 'Producto creado');
-
-  global.db.Sequelize.Promise.all(promises).then(function(result) {
-    return res.ok({
-      products: result
-    }, 'Producto creado');
-  });
+      // product.photo = result.url;
+      // promises.push(global.db.Product.create(product));
+      // currentProduct++;
+      // createProduct();
+    });
+  };
+  createProduct();
 };
 
 
