@@ -2,15 +2,24 @@
 
 {% block elements %}
 
-	<div class="error-404" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065563/general/error-404.jpg')">
-		<div class="inner">
-			<p class="title">Error 404</p>
-			<p class="title">Lo sentimos página no encontrada</p>
 
-			<p class="desc">Pero existen cientos de obras aún por descubrir</p>
-			<a href="/works/category/all/page-1/">DESCRUBRIR OBRAS</a>
+	<div class="private-view">
+		<div class="empty-box" style="max-width: 1000px;">
+			<div class="empty-box-column padlock" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065550/general/error-nsfw.jpg')">
+			</div>
+			<div class="empty-box-column right">
+
+				<p class="nsfw">ADIOS</p>
+
+				<p class="title u-margin-top-20">Sentimos mucho que te vayas, siempre puedes comenzar de nuevo</p>
+				<p class="subtitle u-margin-top-20">Por favor cuéntanos por qué te vas en el siguiente cuestionario, te lo agradeceremos</p>
+
+				<a class="am-Signin-button" style="margin-top: 30px; margin-bottom: 50px; text-decoration: none;">
+					LLENAR ENCUESTA
+				</a>
+
+			</div>
 		</div>
 	</div>
-
 
 {% endblock %}
