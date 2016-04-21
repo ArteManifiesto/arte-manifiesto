@@ -57,9 +57,9 @@
 				<div class="product-creator" data-prod='2'>
 					<div class="image">
 						<div class="background">
-							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1460699344/general/pruduct-creator-background.png">
+							<img height="298" width="298">
 						</div>
-						<img class="image-preview"  src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
+						<img class="image-preview" style="height: 230px !important;">
 					</div>
 					<p class="title">PRINTS</p>
 					<p class="description">0/1 activados</p>
@@ -71,9 +71,9 @@
 				<div class="product-creator" data-prod='3'>
 					<div class="image">
 						<div class="background">
-							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1460699344/general/pruduct-creator-background.png">
+							<img height="60px">
 						</div>
-						<img class="image-preview"  src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
+						<img class="image-preview" style="height: 200px !important;">
 					</div>
 					<p class="title">TAZAS</p>
 					<p class="description">0/1 activados</p>
@@ -241,7 +241,12 @@
 						<input type='text' id="colorPicker"/>
 					</div>
 
-					<p class="subtitle" style="margin-bottom: 0;">Centrar diseño:</p>
+					<p class="subtitle u-margin-top-30" style="margin-bottom: 0;">Tamaño obra en el producto:</p>
+					<div class="size-work">
+						<input type="range" name="" min="30" max="100" step="1" value="100">
+					</div>
+
+					<p class="subtitle u-margin-top-20" style="margin-bottom: 0;">Centrar diseño:</p>
 
 					<div class="aligns">
 						<a href="" class="sales-button white vertical-align">VERTICAL</a>
@@ -356,14 +361,6 @@
 						<a href="" class="sales-button white horizontal-align">HORIZONTAL</a>
 					</div>
 
-					<p class="subtitle u-margin-top-20" style="margin-bottom: 0;">Vista por defecto:</p>
-
-					<div class="views">
-						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065546/general/discover-banner-works.jpg">
-						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065546/general/discover-banner-works.jpg">
-						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065546/general/discover-banner-works.jpg">
-					</div>
-
 					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR</a>
 
 					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
@@ -389,7 +386,7 @@
 							<tr>
 								<td>
 									<div class="type">
-										<input type="checkbox" data-index={{loop.index0}}></input>
+										<input type="checkbox" checked data-index={{loop.index0}}></input>
 										<div>
 											<div>
 												<p>
@@ -430,25 +427,11 @@
 				<div class="product-creator" data-prod='4'>
 					<div class="image">
 						<div class="background">
-							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1460699344/general/pruduct-creator-background.png">
+							<img width="285" height="252">
 						</div>
-						<img class="image-preview"  src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
+						<img class="image-preview" style="width: 125px !important;">
 					</div>
 					<p class="title">CASES TELÉFONOS</p>
-					<p class="description">0/1 activados</p>
-					<div class="buttons">
-						<a class="sales-button white edit-btn" href="#">EDITAR</a>
-						<a class="sales-button blue" href="#">ACTIVAR</a>
-					</div>
-				</div>
-				<div class="product-creator" data-prod='5'>
-					<div class="image">
-						<div class="background">
-							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1460699344/general/pruduct-creator-background.png">
-						</div>
-						<img class="image-preview"  src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
-					</div>
-					<p class="title">CASES TABLETS</p>
 					<p class="description">0/1 activados</p>
 					<div class="buttons">
 						<a class="sales-button white edit-btn" href="#">EDITAR</a>
@@ -534,11 +517,10 @@
 						{% set currentCategory = categories[2] %}
 						{% for subCategory in currentCategory.subCategories %}
 						{% set subCategoryData = JSON.parse(subCategory.data) %}
-
 							<tr>
 								<td>
 									<div class="type">
-										<input type="checkbox" data-index={{loop.index0}}></input>
+										<input type="checkbox" checked data-index={{loop.index0}}></input>
 										<div>
 											<div>
 												<p>
@@ -689,7 +671,7 @@
 				<div class="options">
 					<a class="sales-button white">CANCELAR</a>
 					<a class="sales-button create-btn">PONER EN VENTA</a>
-					<a class="sales-button create-btn"><i class="fa fa-spinner"></i></a>
+					<a class="sales-button create-btn-loading hide"><i class="fa fa-spinner"></i></a>
 				</div>
 			</div>
 		</div>

@@ -1,34 +1,13 @@
 var basePath = 'pages/';
 
 exports.index = function(req, res) {
-  if (!req.isAuthenticated())
-    return res.redirect('/compra-y-vende-arte-en-internet-latinoamerica');
-
-  var basicQuery = {
-    where: {
-      featured: true
-    },
-    addUser: true,
-    build: true,
-    viewer: req.viewer
-  };
-
   var promises = [];
-
-  basicQuery.limit = global.limits.usersHome;
-  promises.push(global.db.User.findAll(basicQuery));
-
-  basicQuery.limit = global.limits.worksHome;
-  promises.push(global.db.Work.findAll(basicQuery));
-
   var query = {
-    limit: global.limits.categoriesHome,
     where: {
-      meta: 0
+      meta: 3
     }
   };
   promises.push(global.db.Category.findAll(query));
-
   var bannersQuery = {
     order: [
       ['name', 'ASC']
@@ -37,11 +16,9 @@ exports.index = function(req, res) {
   promises.push(global.db.Banner.findAll(bannersQuery));
 
   global.db.Sequelize.Promise.all(promises).then(function(result) {
-    return res.render(basePath + 'index', {
-      users: result[0],
-      works: result[1],
-      categories: result[2],
-      banners: result[3]
+    return res.render(basePath + 'new-landing', {
+      categories: result[0],
+      banners: result[1]
     });
   });
 };
@@ -154,7 +131,7 @@ var discover = function(req, res, entity) {
   } else if (entity === 'products') {
     promises.push(global.db.Category.findAll({
       where: {
-        meta: 2
+        meta: 3
       }
     }));
   }

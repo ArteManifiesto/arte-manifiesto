@@ -1,5 +1,6 @@
 var basePath = 'user/product/';
 var paypal = require('paypal-rest-sdk');
+var request = require('request');
 
 exports.index = function(currentPath, req, res) {
   req.product.getWork().then(function(work) {
@@ -7,18 +8,22 @@ exports.index = function(currentPath, req, res) {
       work.more(),
       work.similar(req.viewer),
       work.getTags(),
-      req.product.getReviews({include: [global.db.User]}),
+      req.product.getReviews({
+        include: [global.db.User]
+      }),
       req.product.getMoreProducts()
     ];
-    global.db.Sequelize.Promise.all(promises).then(function (result) {
+    global.db.Sequelize.Promise.all(promises).then(function(result) {
       var query = {
-        where: {id: req.product.id},
+        where: {
+          id: req.product.id
+        },
         include: [global.db.Category],
         viewer: req.viewer,
         build: true,
         addUser: true
       };
-      global.db.Product.find(query).then(function (product) {
+      global.db.Product.find(query).then(function(product) {
         var data = {
           currentPath: currentPath,
           entity: 'product',
@@ -45,7 +50,7 @@ exports.create = function(req, res) {
 
   var currentProduct = 0;
   var createProduct = function() {
-    if(currentProduct === products.length) {
+    if (currentProduct === products.length) {
       global.db.Sequelize.Promise.all(promises).then(function(result) {
         return res.ok({
           products: result
@@ -53,7 +58,7 @@ exports.create = function(req, res) {
       });
     }
     product = products[currentProduct];
-    console.log(product);
+    product.isActive = true;
     product.UserId = req.user.id;
     global.cl.uploader.upload(product.photo).then(function(result) {
       console.log(product.photo);
@@ -111,7 +116,8 @@ exports.like = function(req, res) {
 
 exports.buyPage = function(req, res) {
   return res.render(basePath + 'buy', {
-    product: req.product
+    product: req.product,
+    cities: global.cities
   });
 };
 
@@ -135,6 +141,21 @@ exports.canceledPage = function(req, res) {
 };
 
 exports.buy = function(req, res) {
+
+  var url = 'http://www.olvacourier.com/calculadora/calcular.php';
+
+  var config = JSON.parse(req.body.config);
+  request.post(
+    url, {
+      form: config
+    },
+    function(error, response, body) {
+      return res.ok({
+        data: JSON.parse(body)
+      }, 'shipping');
+    }
+  );
+
   var payment = {
     "intent": "sale",
     "payer": {
@@ -143,7 +164,7 @@ exports.buy = function(req, res) {
     "redirect_urls": {},
     "transactions": [{
       "amount": {
-        "total": parseInt(req.product.finalPrice),
+        "total": Number(req.body.price),
         "currency": 'USD'
       },
       "description": req.product.description
@@ -245,6 +266,22 @@ exports.insideCollection = function(req, res) {
       collections: collections
     }, 'Collections');
   });
+};
+
+exports.shipping = function(req, res) {
+  var url = 'http://www.olvacourier.com/calculadora/calcular.php';
+
+  var config = JSON.parse(req.body.config);
+  request.post(
+    url, {
+      form: config
+    },
+    function(error, response, body) {
+      return res.ok({
+        data: JSON.parse(body)
+      }, 'shipping');
+    }
+  );
 };
 
 exports.removeFromCart = function(req, res) {

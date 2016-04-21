@@ -164,5 +164,5 @@ Utils = {
     } else {
       return uri + separator + key + "=" + value;
     }
-  }
+  }  
 };

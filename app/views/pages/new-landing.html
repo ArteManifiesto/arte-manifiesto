@@ -4,7 +4,6 @@
 {% extends '../partials/base.html' %}
 
 {% block elements %}
-
 	<!-- ********************************************************************
 		$ SLIDER
 	********************************************************************* -->
@@ -14,11 +13,15 @@
 				<div class="slider-items">
 					<a href="/compra-y-vende-arte-en-internet-latinoamerica">
 					<div class="slider-item js-slide" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065553/general/home-slider-1.jpg')">
-						<div class="slider-item-inner type2">
-							<p class="title">Tentacles Abound in Our Best Jellyfish Pictures</p>
-							<br>
-							<p class="subtitle u-padding-top-10">James Gurney picks the most interesting pieces from the luxury watch fair</p>
+						<div class="slider-item-inner">
+							<p class="title">La primera red social de artistas visuales y creadores de latinoamerica</p>
+							<!-- <p class="subtitle u-padding-top-10">James Gurney picks the most interesting pieces from the luxury watch fair</p> -->
 						</div>
+					<!-- <img src="/img/banners/banner-1.jpg">
+						<div class="slider-item-inner">
+							<p class="title">Tentacles Abound in Our Best Jellyfish Pictures</p>
+							<p class="subtitle u-padding-top-10">James Gurney picks the most interesting pieces from the luxury watch fair</p>
+						</div>-->
 					</div>
 					<a href="https://kuestionario.typeform.com/to/VNsGbl">
 					<div class="slider-item js-slide" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065551/general/home-slider-2.jpg')">
@@ -43,13 +46,10 @@
 	<div class="grid-container">
 		<div class="grid-100">
 			<div class="market-sub-menu">
-				<a href="#">TODO</a>
-				<a href="#">ARTE ORIGINAL</a>
-				<a href="#">PRINTS</a>
-				<a href="#">TAZAS</a>
-				<a href="#">PHONE CASES</a>
-				<a href="#">TABLET CASES</a>
-				<a href="#">ALMOHADAS</a>
+				<a href="/products/category/all/page-1">TODO</a>
+				{% for category in categories %}
+				<a href="/products/category/{{category.nameSlugify}}/page-1" class="uppercase">{{category.name}}</a>
+				{% endfor %}
 			</div>
 		</div>
 	</div>
@@ -102,10 +102,10 @@
 
 {% block scripts %}
 	<script>
-	var users = {{users|json|safe}};
-	var works = {{works|json|safe}};
-		$(function() {
-			new APP.HomeScreen();
-		});
+	console.log('lele')
+	var slider = new Slider(document.querySelector('.slider'), {
+		slideClass: 'js-slide',
+		sliderNavItemClass: 'js-slideNavItem'
+	});
 	</script>
 {% endblock %}

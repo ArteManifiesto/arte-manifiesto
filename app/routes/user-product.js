@@ -28,6 +28,7 @@ router.post('/buy', isLoggedAndOwner, controller.buy);
 
 router.post('/review/create', isLoggedAndOwner, controller.createReview);
 
+router.post('/shipping', isLoggedAndOwner, controller.shipping);
 router.post('/like', isLoggedAndOwner, controller.like);
 router.post('/unlike', isLoggedAndOwner, controller.unLike);
 router.post('/featured', isLoggedAndOwner, controller.featured);

@@ -33,11 +33,15 @@
 												</div>
 												<div class="grid-33">
 													<p class="address-label">Int/Apartamento</p>
-													<input class="address-input" name="departament" placeholder="Nro">
+													<input class="address-input" name="departament" placeholder="Nro" value="{{user.departament}}">
 												</div>
-												<div class="grid-33">
+												<div class="grid-33 suffix-66">
 													<p class="address-label">Ciudad</p>
-													<input class="address-input" placeholder="Ingresa tu ciudad" value="{{user.city}}">
+													<select class="address-input" name="city">
+														{%for city in cities %}
+															<option>{{city}}</option>
+														{%endfor%}
+													</select>
 												</div>
 												<div class="grid-33">
 													<p class="address-label">Estado/Provincia</p>
@@ -74,19 +78,19 @@
 											<table>
 												<tr>
 													<td><p class="label">subtotal</p></td>
-													<td><p class="price">S/.1300.00</p></td>
+													<td><p class="price subtotal">---</p></td>
 												</tr>
 												<tr>
 													<td><p class="label">transporte</p></td>
-													<td><p class="price">S/.1300.00</p></td>
+													<td><p class="price baseprice">--</p></td>
 												</tr>
 												<tr>
 													<td><p class="label">igv</p></td>
-													<td><p class="price">S/.1300.00</p></td>
+													<td><p class="price igv">--</p></td>
 												</tr>
 												<tr>
 													<td><p class="label" style="font-size: 18px;">total</p></td>
-													<td><p class="price">S/. <span style="font-size: 18px;">1300.00</span></p></td>
+													<td><p class="price">S/. <span style="font-size: 18px;" class="totallity">--</span></p></td>
 												</tr>
 											</table>
 										</section>

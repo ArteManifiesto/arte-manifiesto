@@ -15,10 +15,11 @@ APP.SellScreen.prototype.setupUI = function() {
   this.createBtn = $('.create-btn');
 
   // this.product1 = new APP.CreatorProductItem(1);
-  // this.product2 = new APP.CreatorProductItem(2);
-  this.product3 = new APP.CreatorProductItem(3, categories[1]);
-  this.product4 = new APP.CreatorProductItem(4, categories[2]);
-  this.product5 = new APP.CreatorProductItem(5, categories[3]);
+  
+  this.product2 = new APP.CreatorProductItem(2, categories[1]);
+  this.product3 = new APP.CreatorProductItem(3, categories[2]);
+  this.product4 = new APP.CreatorProductItem(4, categories[3]);
+  // this.product5 = new APP.CreatorProductItem(5, categories[3]);
 
   this.products = [this.product3, this.product4, this.product5];
 
@@ -50,6 +51,10 @@ APP.SellScreen.prototype.listeners = function() {
 
 APP.SellScreen.prototype.createHandler = function(e) {
   e.preventDefault();
+
+  $('.create-btn').addClass('hide');
+  $('.create-btn-loading').removeClass('hide');
+
   var url = DataApp.currentUser.url + '/product/create';
 
   var i, payload = [];
@@ -64,6 +69,7 @@ APP.SellScreen.prototype.createHandler = function(e) {
 
 APP.SellScreen.prototype.productCreatedComplete = function(response) {
   this.showFlash('succes', 'Su producto se envió a revisión')
+
     // var product = response.data.product;
     // var url = DataApp.currentUser.url + '/product/' + product.nameSlugify;
     // var timeout = setTimeout(function () {

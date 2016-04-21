@@ -4,7 +4,6 @@
  */
 var subdomain = require('express-subdomain');
 
-
 var pagesRouter = require(global.cf.routes + '/pages');
 var authRouter = require(global.cf.routes + '/auth');
 var reportRouter = require(global.cf.routes + '/report');

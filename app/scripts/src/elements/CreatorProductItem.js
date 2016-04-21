@@ -23,6 +23,8 @@ APP.CreatorProductItem = function(index, data) {
 
   this.currentPhoto;
 
+  this.header.find('.background').find('img').attr('src', this.config.renderImage);
+
   this.setup();
   this.listeners();
 };
@@ -46,7 +48,15 @@ APP.CreatorProductItem.prototype.listeners = function() {
     })
     .off('cloudinarydone').on('cloudinarydone', function(e, data) {
       var image = scope.canvas.item(0);
-      image.setSrc(data.result.url, function() {
+      work.photo = data.result.url;
+      var scale = scope.config.scaleFactor / 10, url;
+      if (this.data) {
+        url = Utils.addImageFilter(work.photo, 'w_' + scale + ',h_' + scale);
+      } else {
+        url = Utils.addImageFilter(work.photo, 'w_0.5,h_0.5');
+      }
+
+      image.setSrc(url, function() {
         image.setCoords();
         scope.canvas.renderAll();
         scope.renderCanvas();
@@ -165,14 +175,22 @@ APP.CreatorProductItem.prototype.setup = function() {
 
     scope.renderCanvas();
 
-    fabric.Image.fromURL('http://am.local:3000/4s.svg', function (img) {
+    fabric.Image.fromURL(scope.config.guideImage, function (img) {
+      console.log(scope.canvas.width);
+      console.log('width =>');
+      console.log(img.width);
+      console.log('height =>');
+      console.log(img.height);
       img.evented = img.selectable = false;
+      img.left = img.top = -1;
       scope.canvas.add(img);
       console.log('width =>', img.width);
 
-      scope.canvas.centerObject(image);
+      // scope.canvas.centerObject(image);
       img.setCoords();
       scope.canvas.renderAll();
+    }, {
+      crossOrigin: 'Anonymous'
     });
   }, {
     crossOrigin: 'Anonymous'
@@ -190,17 +208,22 @@ APP.CreatorProductItem.prototype.setup = function() {
 APP.CreatorProductItem.prototype.renderCanvas = function() {
   var image = this.canvas.item(0);
   image.hasBorders = image.hasControls = false;
+
   if(this.canvas.item(1)) {
     this.canvas.item(1).opacity = 0;
   }
 
   this.canvas.renderAll();
-  this.header.find('.image-preview').attr('src', this.canvas.toDataURL({
-    left: 41,
-    top: 41,
-    width: 230,
-    height: 459
-  }));
+  var url  = this.canvas.toDataURL({
+    left: this.config.offsetX,
+    top: this.config.offsetY,
+    width: this.config.widthRender,
+    height: this.config.heightRender
+  });
+
+  this.header.find('.image-preview').attr('src', url);
+
+  // .css('width', 'auto').css('height', this.config.heightRender /2);
 
   var urlImage = work.photo;
   var baseName = urlImage.replace(/^.*\/|\.[^.]*$/g, '')
@@ -214,21 +237,52 @@ APP.CreatorProductItem.prototype.renderCanvas = function() {
   var imageH = Math.round(image.getHeight() * this.config.scaleFactor);
   var rgbColor = this.canvasColor.replace('#','');
   var filters =
-    'w_' + stageW + ',' +
-    'h_' + stageH + ',e_colorize,co_rgb:' + rgbColor + '/' +
-    'l_' + baseName + ',b_rgb:' + rgbColor + ',' +
-    'w_' + imageW + ',' +
-    'h_' + imageH + ',' +
-    'x_' + x + ',' +
-    'y_' + y + ',g_north_west/' +
-    'x_' + (x < 0 ? (x * -1) : 0) + ',' +
-    'y_' + (y < 0 ? (y * -1) : 0) + ',' +
-    'w_' + stageW + ',' +
-    'h_' + stageH + ',c_crop,g_north_west';
+  'w_' + stageW + ',' +
+  'h_' + stageH + ',e_colorize,co_rgb:' + rgbColor + '/' +
+  'l_' + baseName + ',b_rgb:' + rgbColor + ',' +
+  'w_' + imageW + ',' +
+  'h_' + imageH + ',' +
+  'x_' + x + ',' +
+  'y_' + y + ',g_north_west/' +
+  'x_' + (x < 0 ? (x * -1) : 0) + ',' +
+  'y_' + (y < 0 ? (y * -1) : 0) + ',' +
+  'w_' + stageW + ',' +
+  'h_' + stageH + ',c_crop,g_north_west';
 
-  this.currentPhoto = Utils.addImageFilter(urlImage, filters);
+  x = (Math.round(boundaries.left * this.config.scaleFactor) - (this.config.offsetX * this.config.scaleFactor));
+  y = (Math.round(boundaries.top * this.config.scaleFactor) - (this.config.offsetY * this.config.scaleFactor));
 
-  this.header.find('.image-preview').attr('width', 125);
+    filters =
+      'w_' + stageW + ',' +
+      'h_' + stageH + ',e_colorize,co_rgb:' + rgbColor + '/' +
+      'l_' + baseName + ',b_rgb:' + rgbColor + ',' +
+      'w_' + imageW + ',' +
+      'h_' + imageH + ',' +
+      'x_' + x + ',' +
+      'y_' + y + ',g_north_west/' +
+      'x_' + ((x < 0 ? (x * -1) : 0)) + ',' +
+      'y_' + (y < 0 ? (y * -1) : 0) + ',' +
+      'w_' + (this.config.widthRender * this.config.scaleFactor) + ',' +
+      'h_' + (this.config.heightRender * this.config.scaleFactor) + ',c_crop,g_north_west/' +
+      'w_' + (this.config.widthRender) + ',h_' + (this.config.heightRender) + '/l_phone_fmpg26';
+
+    filters =
+      'w_' + stageW + ',' +
+      'h_' + stageH + ',e_colorize,co_rgb:' + rgbColor + '/' +
+      'l_' + baseName + ',b_rgb:' + rgbColor + ',' +
+      'w_' + imageW + ',' +
+      'h_' + imageH + ',' +
+      'x_' + x + ',' +
+      'y_' + y + ',g_north_west/' +
+      'x_' + ((x < 0 ? (x * -1) : 0)) + ',' +
+      'y_' + (y < 0 ? (y * -1) : 0) + ',' +
+      'w_' + (this.config.widthRender * this.config.scaleFactor) + ',' +
+      'h_' + (this.config.heightRender * this.config.scaleFactor) + ',c_crop,g_north_west/' +
+      // 'w_230/e_distort:0:60:230:45:225:340:0:340/c_pad,h_2,w_1.0/l_radial,e_displace,y_-10/e_trim/u_mug'
+      'w_230/e_distort:-15:90:220:60:215:360:-15:382/c_pad,h_2,w_1.0/l_radial,e_displace,y_-20/e_trim/l_new_mug/';
+      console.log('gg => ', Utils.addImageFilter(urlImage, filters));
+
+  this.currentPhoto =  Utils.addImageFilter(urlImage, filters);
 
   image.hasBorders = image.hasControls = true;
   if(this.canvas.item(1)) {
@@ -254,7 +308,9 @@ APP.CreatorProductItem.prototype.getPayload = function() {
       photo: this.currentPhoto,
       finalPrice: subcategory.finalPrice.toString(),
       description: work.description,
+      canvas: JSON.stringify(this.canvas.toJSON()),
       config: JSON.stringify({
+        data: JSON.parse(this.data.subCategories[index].data),
         margen: subcategory.margen,
         range: this.view.find('input[type=range]').val(),
         bgCanvas: this.canvas.backgroundColor

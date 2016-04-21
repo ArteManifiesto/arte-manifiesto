@@ -49,11 +49,10 @@ APP.AdminProductRevisionScreen.prototype.deniedFormSubmit = function(e) {
 };
 
 APP.AdminProductRevisionScreen.prototype.productUpdateComplete = function(response) {
-  console.log(response);
-  // this.showFlash('succes', 'Se respondio la solicitud del producto');
-  // setTimeout(function () {
-  //   window.location.href = '/report/products_applying';
-  // }, 1000);
+  this.showFlash('succes', 'Se respondio la solicitud del producto');
+  setTimeout(function () {
+    window.location.href = '/report/products_applying/page-1';
+  }, 1000);
 };
 
 APP.AdminProductRevisionScreen.prototype.deniedHandler = function(e) {
