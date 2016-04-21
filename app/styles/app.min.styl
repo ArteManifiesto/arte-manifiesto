@@ -2335,6 +2335,8 @@ white = #fff
 			background #225b99
 		&[data-color="green"]
 			background #3bd64a
+		&[data-color="red"]
+			background #ff6666
 		&.upload
 			color #3a3d3f
 			background white
@@ -3272,7 +3274,9 @@ white = #fff
 			color #333
 		i
 			font-size 1.25em
-
+		&:hover
+			background: white;
+			transition: background-color 0.3s ease-out;
 
 
 .actions
@@ -5588,17 +5592,65 @@ white = #fff
 .market-sub-menu
 	display flex
 	justify-content center
+	flex-wrap wrap
+	margin 20px 0
 	a
 		font-family: 'Montserrat',sans-serif;
 		color charcoal-grey
 		font-size 14px
-		padding 30px 25px
+		padding 10px 0
+		// width 100%
+		width 50%
+		text-align center
+		&:hover
+			background #F8F8F8
+
+@media (min-width: 600px)
+	.market-sub-menu
+		a
+			padding 30px 25px
+			width auto
+
 
 .market-grid
 	&-element
 		background #d8d8d8
 		margin 10px 0
-		height 300px
+		background-size cover
+		background-position center center
+		&.background
+			padding 60px 20px
+		.inner
+			color white
+			margin auto
+			max-width 700px
+			text-align center
+		.title
+			font-family: 'Montserrat',sans-serif;
+			font-size 24px
+			font-weight bold
+			&.dark
+				color #333
+		.subtitle
+			font-family: 'PT Serif', serif;
+			font-size 22px
+			line-height 1.15
+			&.dark
+				color #3f3f3f
+				line-height 1.35
+		.am-View-button
+			font-size 12px
+			padding 10px 50px
+					
+.market-grid-desktop
+	display none
+
+@media (min-width: 768px) 
+	.market-grid-desktop
+		display block
+	.market-grid-mobile
+		display none
+
 
 .contact-form-inner
 	display flex
@@ -5726,3 +5778,25 @@ white = #fff
 		a
 			text-decoration underline
 			color charcoal-grey
+
+.detele-link
+	font-family: 'Montserrat',sans-serif;
+	font-size 14px
+	color #899598
+	text-decoration underline
+	text-align center
+	margin auto
+	padding-top 20px
+	display table
+
+.delete-account-form
+	.title
+		color #0c0c0c
+	.delete-buttons
+		margin-top 30px
+		display flex
+		flex-wrap wrap
+		justify-content space-around
+		.button
+			max-width 170px
+			text-align center
