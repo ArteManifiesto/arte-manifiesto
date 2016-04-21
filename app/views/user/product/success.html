@@ -1,17 +1,36 @@
 {% extends '../../partials/base.html' %}
 
 {% block elements %}
-<p>
-  Success
-</p>
+	<div class="private-view">
+		<div class="empty-box" style="max-width: 1000px;">
+			<div class="empty-box-column padlock" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1461217524/general/thankyou.png')">
+			</div>
+			<div class="empty-box-column right">
+
+				<p class="nsfw" style="font-size: .8em;">GRACIAS</p>
+
+				<p class="title u-margin-top-20">¡Muchas Gracias!</p>
+				<p class="subtitle u-margin-top-20">Recurda que cada vez que compras en artemanifiesto.com, le estas pagando a un artista por su talento</p>
+
+				{#
+				<a class="am-Signin-button" href="http://am.local:3000/products/category/all/page-1" style="margin-top: 30px; margin-bottom: 50px; text-decoration: none;">
+					SEGUIR COMPRANDO
+				</a> #}
+
+				<a href="/products/category/all/page-1" style="margin-top: 30px; margin-bottom: 50px; text-decoration: none;">
+					SEGUIR COMPRANDO
+				</a>
+
+
+			</div>
+		</div>
+	</div>
+
 {% endblock %}
 
 {% block scripts %}
 	<script>
 		var product = {{product|json|safe}};
-		$(function() {
-			// new APP.BuyScreen();
-		});
-
+		console.log(product);
 	</script>
 {% endblock %}

@@ -1,6 +1,7 @@
 var basePath = 'user/product/';
 var paypal = require('paypal-rest-sdk');
 var request = require('request');
+var cheerio = require('cheerio');
 
 exports.index = function(currentPath, req, res) {
   req.product.getWork().then(function(work) {
@@ -141,60 +142,54 @@ exports.canceledPage = function(req, res) {
 };
 
 exports.buy = function(req, res) {
+  var url = 'http://themoneyconverter.com/ES/PEN/USD.aspx';
+  return request.get(url, function(error, response, body) {
+    $ = cheerio.load(body);
 
-  var url = 'http://www.olvacourier.com/calculadora/calcular.php';
+    var rate = Number($('.switch-table').find('b').text().replace(',', '.'));
+    var price = Number(req.body.price) * rate;
 
-  var config = JSON.parse(req.body.config);
-  request.post(
-    url, {
-      form: config
-    },
-    function(error, response, body) {
-      return res.ok({
-        data: JSON.parse(body)
-      }, 'shipping');
-    }
-  );
-
-  var payment = {
-    "intent": "sale",
-    "payer": {
-      "payment_method": "paypal"
-    },
-    "redirect_urls": {},
-    "transactions": [{
-      "amount": {
-        "total": Number(req.body.price),
-        "currency": 'USD'
+    var payment = {
+      "intent": "sale",
+      "payer": {
+        "payment_method": "paypal"
       },
-      "description": req.product.description
-    }]
-  };
+      "redirect_urls": {},
+      "transactions": [{
+        "amount": {
+          "total": Number(price.toString().match(/^\d+(?:\.\d{0,2})?/)),
+          "currency": 'USD'
+        },
+        "description": req.product.description
+      }]
+    };
+    console.log(req.body);
 
-  req.product.getUser().then(function(user) {
-    var baseUrl = req.protocol + '://' + req.get('host') + '/user/' +
-      user.username + '/product/' + req.product.nameSlugify;
+    req.product.getUser().then(function(user) {
+      var baseUrl = req.protocol + '://' + req.get('host') + '/user/' +
+        user.username + '/product/' + req.product.nameSlugify;
 
-    payment.redirect_urls.return_url = baseUrl + '/success';
-    payment.redirect_urls.cancel_url = baseUrl + '/canceled';
+      payment.redirect_urls.return_url = baseUrl + '/success';
+      payment.redirect_urls.cancel_url = baseUrl + '/canceled';
 
-    paypal.payment.create(payment, function(error, payment) {
-      if (error) {
-        console.log(error);
-      } else {
-        if (payment.payer.payment_method === 'paypal') {
-          req.paymentId = payment.id;
-          var redirectUrl;
-          console.log(payment);
-          for (var i = 0; i < payment.links.length; i++) {
-            var link = payment.links[i];
-            if (link.method === 'REDIRECT') {
-              redirectUrl = link.href;
+      paypal.payment.create(payment, function(error, payment) {
+        if (error) {
+          console.log(error);
+        } else {
+          if (payment.payer.payment_method === 'paypal') {
+            req.paymentId = payment.id;
+            var redirectUrl;
+            console.log(payment);
+            for (var i = 0; i < payment.links.length; i++) {
+              var link = payment.links[i];
+              if (link.method === 'REDIRECT') {
+                redirectUrl = link.href;
+              }
             }
+            res.redirect(redirectUrl);
           }
-          res.redirect(redirectUrl);
         }
-      }
+      });
     });
   });
 };
