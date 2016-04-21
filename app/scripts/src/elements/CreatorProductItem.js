@@ -25,7 +25,7 @@ APP.CreatorProductItem = function(index, data) {
     this.header.find('.background').find('img').attr('src', this.config.renderImage);
   }
 
-  if(this.data) {
+  if (this.data) {
     this.setup();
   }
   this.listeners();
@@ -53,7 +53,8 @@ APP.CreatorProductItem.prototype.listeners = function() {
     .off('cloudinarydone').on('cloudinarydone', function(e, data) {
       var image = scope.canvas.item(0);
       work.photo = data.result.url;
-      var scale = scope.config.scaleFactor / 10, url;
+      var scale = scope.config.scaleFactor / 10,
+        url;
       if (this.data) {
         url = Utils.addImageFilter(work.photo, 'w_' + scale + ',h_' + scale);
       } else {
@@ -186,7 +187,7 @@ APP.CreatorProductItem.prototype.setup = function() {
 
     scope.renderCanvas();
 
-    fabric.Image.fromURL(scope.config.guideImage, function (img) {
+    fabric.Image.fromURL(scope.config.guideImage, function(img) {
       console.log(scope.canvas.width);
       console.log('width =>');
       console.log(img.width);
@@ -219,12 +220,12 @@ APP.CreatorProductItem.prototype.renderCanvas = function() {
   var image = this.canvas.item(0);
   image.hasBorders = image.hasControls = false;
 
-  if(this.canvas.item(1)) {
+  if (this.canvas.item(1)) {
     this.canvas.item(1).opacity = 0;
   }
 
   this.canvas.renderAll();
-  var url  = this.canvas.toDataURL({
+  var url = this.canvas.toDataURL({
     left: this.config.offsetX,
     top: this.config.offsetY,
     width: this.config.widthRender,
@@ -245,59 +246,59 @@ APP.CreatorProductItem.prototype.renderCanvas = function() {
   var stageH = Math.round(this.config.heightView * this.config.scaleFactor);
   var imageW = Math.round(image.getWidth() * this.config.scaleFactor);
   var imageH = Math.round(image.getHeight() * this.config.scaleFactor);
-  var rgbColor = this.canvasColor.replace('#','');
+  var rgbColor = this.canvasColor.replace('#', '');
   var filters =
-  'w_' + stageW + ',' +
-  'h_' + stageH + ',e_colorize,co_rgb:' + rgbColor + '/' +
-  'l_' + baseName + ',b_rgb:' + rgbColor + ',' +
-  'w_' + imageW + ',' +
-  'h_' + imageH + ',' +
-  'x_' + x + ',' +
-  'y_' + y + ',g_north_west/' +
-  'x_' + (x < 0 ? (x * -1) : 0) + ',' +
-  'y_' + (y < 0 ? (y * -1) : 0) + ',' +
-  'w_' + stageW + ',' +
-  'h_' + stageH + ',c_crop,g_north_west';
+    'w_' + stageW + ',' +
+    'h_' + stageH + ',e_colorize,co_rgb:' + rgbColor + '/' +
+    'l_' + baseName + ',b_rgb:' + rgbColor + ',' +
+    'w_' + imageW + ',' +
+    'h_' + imageH + ',' +
+    'x_' + x + ',' +
+    'y_' + y + ',g_north_west/' +
+    'x_' + (x < 0 ? (x * -1) : 0) + ',' +
+    'y_' + (y < 0 ? (y * -1) : 0) + ',' +
+    'w_' + stageW + ',' +
+    'h_' + stageH + ',c_crop,g_north_west';
 
-   console.log(Utils.addImageFilter(urlImage, filters));
+  console.log(Utils.addImageFilter(urlImage, filters));
 
   x = (Math.round(boundaries.left * this.config.scaleFactor) - (this.config.offsetX * this.config.scaleFactor));
   y = (Math.round(boundaries.top * this.config.scaleFactor) - (this.config.offsetY * this.config.scaleFactor));
 
-    filters =
-      'w_' + stageW + ',' +
-      'h_' + stageH + ',e_colorize,co_rgb:' + rgbColor + '/' +
-      'l_' + baseName + ',b_rgb:' + rgbColor + ',' +
-      'w_' + imageW + ',' +
-      'h_' + imageH + ',' +
-      'x_' + x + ',' +
-      'y_' + y + ',g_north_west/' +
-      'x_' + ((x < 0 ? (x * -1) : 0)) + ',' +
-      'y_' + (y < 0 ? (y * -1) : 0) + ',' +
-      'w_' + (this.config.widthRender * this.config.scaleFactor) + ',' +
-      'h_' + (this.config.heightRender * this.config.scaleFactor) + ',c_crop,g_north_west/' +
-      'w_' + (this.config.widthRender) + ',h_' + (this.config.heightRender) + '/l_phone_fmpg26';
+  filters =
+    'w_' + stageW + ',' +
+    'h_' + stageH + ',e_colorize,co_rgb:' + rgbColor + '/' +
+    'l_' + baseName + ',b_rgb:' + rgbColor + ',' +
+    'w_' + imageW + ',' +
+    'h_' + imageH + ',' +
+    'x_' + x + ',' +
+    'y_' + y + ',g_north_west/' +
+    'x_' + ((x < 0 ? (x * -1) : 0)) + ',' +
+    'y_' + (y < 0 ? (y * -1) : 0) + ',' +
+    'w_' + (this.config.widthRender * this.config.scaleFactor) + ',' +
+    'h_' + (this.config.heightRender * this.config.scaleFactor) + ',c_crop,g_north_west/' +
+    'w_' + (this.config.widthRender) + ',h_' + (this.config.heightRender) + '/l_phone_fmpg26';
 
-    filters =
-      'w_' + stageW + ',' +
-      'h_' + stageH + ',e_colorize,co_rgb:' + rgbColor + '/' +
-      'l_' + baseName + ',b_rgb:' + rgbColor + ',' +
-      'w_' + imageW + ',' +
-      'h_' + imageH + ',' +
-      'x_' + x + ',' +
-      'y_' + y + ',g_north_west/' +
-      'x_' + ((x < 0 ? (x * -1) : 0)) + ',' +
-      'y_' + (y < 0 ? (y * -1) : 0) + ',' +
-      'w_' + (this.config.widthRender * this.config.scaleFactor) + ',' +
-      'h_' + (this.config.heightRender * this.config.scaleFactor) + ',c_crop,g_north_west/' +
-      // 'w_230/e_distort:0:60:230:45:225:340:0:340/c_pad,h_2,w_1.0/l_radial,e_displace,y_-10/e_trim/u_mug'
-      'w_230/e_distort:-15:90:220:60:215:360:-15:382/c_pad,h_2,w_1.0/l_radial,e_displace,y_-20/e_trim/l_new_mug/';
-      // console.log('gg => ', Utils.addImageFilter(urlImage, filters));
+  filters =
+    'w_' + stageW + ',' +
+    'h_' + stageH + ',e_colorize,co_rgb:' + rgbColor + '/' +
+    'l_' + baseName + ',b_rgb:' + rgbColor + ',' +
+    'w_' + imageW + ',' +
+    'h_' + imageH + ',' +
+    'x_' + x + ',' +
+    'y_' + y + ',g_north_west/' +
+    'x_' + ((x < 0 ? (x * -1) : 0)) + ',' +
+    'y_' + (y < 0 ? (y * -1) : 0) + ',' +
+    'w_' + (this.config.widthRender * this.config.scaleFactor) + ',' +
+    'h_' + (this.config.heightRender * this.config.scaleFactor) + ',c_crop,g_north_west/' +
+    // 'w_230/e_distort:0:60:230:45:225:340:0:340/c_pad,h_2,w_1.0/l_radial,e_displace,y_-10/e_trim/u_mug'
+    'w_230/e_distort:-15:90:220:60:215:360:-15:382/c_pad,h_2,w_1.0/l_radial,e_displace,y_-20/e_trim/l_new_mug/';
+  // console.log('gg => ', Utils.addImageFilter(urlImage, filters));
 
-  this.currentPhoto =  Utils.addImageFilter(urlImage, filters);
+  this.currentPhoto = Utils.addImageFilter(urlImage, filters);
 
   image.hasBorders = image.hasControls = true;
-  if(this.canvas.item(1)) {
+  if (this.canvas.item(1)) {
     this.canvas.item(1).opacity = 1;
   }
   this.canvas.renderAll();

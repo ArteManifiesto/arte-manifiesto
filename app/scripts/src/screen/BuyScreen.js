@@ -6,22 +6,22 @@ var APP = APP || {};
 
 var normal = (function() {
   var from = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç",
-      to   = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc",
-      mapping = {};
+    to = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc",
+    mapping = {};
 
-  for(var i = 0, j = from.length; i < j; i++ )
-      mapping[ from.charAt( i ) ] = to.charAt( i );
+  for (var i = 0, j = from.length; i < j; i++)
+    mapping[from.charAt(i)] = to.charAt(i);
 
-  return function( str ) {
-      var ret = [];
-      for( var i = 0, j = str.length; i < j; i++ ) {
-          var c = str.charAt( i );
-          if( mapping.hasOwnProperty( str.charAt( i ) ) )
-              ret.push( mapping[ c ] );
-          else
-              ret.push( c );
-      }
-      return ret.join( '' );
+  return function(str) {
+    var ret = [];
+    for (var i = 0, j = str.length; i < j; i++) {
+      var c = str.charAt(i);
+      if (mapping.hasOwnProperty(str.charAt(i)))
+        ret.push(mapping[c]);
+      else
+        ret.push(c);
+    }
+    return ret.join('');
   }
 })();
 
@@ -50,21 +50,21 @@ APP.BuyScreen.prototype.listeners = function() {
 };
 
 APP.BuyScreen.prototype.submitHandler = function() {
-  $('<input type="hidden" name="shipping" value='+ this.currentShipping +'>')
+  $('<input type="hidden" name="shipping" value=' + this.currentShipping + '>')
     .appendTo(this.form);
 
-  $('<input type="hidden" name="igv" value='+ this.currentIgv +'>')
+  $('<input type="hidden" name="igv" value=' + this.currentIgv + '>')
     .appendTo(this.form);
 
-  $('<input type="hidden" name="price" value='+ this.totalPrice +'>')
+  $('<input type="hidden" name="price" value=' + this.totalPrice + '>')
     .appendTo(this.form);
 };
 
 APP.BuyScreen.prototype.cityChangeHandler = function() {
   var name = normal($('select[name=city]').val());
-  var url = '/user/'+ product.User.username + '/product/shipping';
-  if(name === 'Pucallpa') name = 'PUCALLPA (CALLERIA)';
-  if(name === 'Chincha') name = 'CHINCHA ALTA';
+  var url = '/user/' + product.User.username + '/product/shipping';
+  if (name === 'Pucallpa') name = 'PUCALLPA (CALLERIA)';
+  if (name === 'Chincha') name = 'CHINCHA ALTA';
 
   var payload = {
     "nom_destino": name.toUpperCase(),
@@ -79,7 +79,9 @@ APP.BuyScreen.prototype.cityChangeHandler = function() {
     "m_ancho": "cms",
     "m_alto": "cms"
   }
-  this.requestHandler(url, {config: JSON.stringify(payload)}, this.shippingHandler);
+  this.requestHandler(url, {
+    config: JSON.stringify(payload)
+  }, this.shippingHandler);
 };
 
 APP.BuyScreen.prototype.shippingHandler = function(response) {

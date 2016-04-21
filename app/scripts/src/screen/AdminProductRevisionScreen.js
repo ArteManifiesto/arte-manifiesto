@@ -50,7 +50,7 @@ APP.AdminProductRevisionScreen.prototype.deniedFormSubmit = function(e) {
 
 APP.AdminProductRevisionScreen.prototype.productUpdateComplete = function(response) {
   this.showFlash('succes', 'Se respondio la solicitud del producto');
-  setTimeout(function () {
+  setTimeout(function() {
     window.location.href = '/report/products_applying/page-1';
   }, 1000);
 };

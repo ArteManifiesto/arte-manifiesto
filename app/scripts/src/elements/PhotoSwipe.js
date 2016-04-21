@@ -34,9 +34,9 @@ APP.PhotoSwipe.prototype.imageHandler = function() {
 
     this.isLoading = true;
     var src;
-    if(this.tag === 'work') {
+    if (this.tag === 'work') {
       src = Utils.addImageFilter(work.photo, this.filter);
-    }else {
+    } else {
       src = Utils.addImageFilter(product.photo, this.filter);
     }
 
@@ -68,10 +68,10 @@ APP.PhotoSwipe.prototype.imageLoadHandler = function(image) {
 
 APP.PhotoSwipe.prototype.openPhotoSwipeHandler = function() {
   var src;
-  if(this.tag === 'work') {
+  if (this.tag === 'work') {
     src = Utils.addImageFilter(work.photo, this.filter);
-  }else {
-    src= Utils.addImageFilter(product.photo, this.filter);
+  } else {
+    src = Utils.addImageFilter(product.photo, this.filter);
   }
   var items = [{
     src: src,

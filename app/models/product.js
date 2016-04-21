@@ -262,7 +262,9 @@ module.exports = function(sequelize, DataTypes) {
                     include: [{
                       model: global.db.Product,
                       where: {
-                        id: {$not: [scope.id]},
+                        id: {
+                          $not: [scope.id]
+                        },
                         WorkId: work.id
                       },
                       include: [global.db.User]

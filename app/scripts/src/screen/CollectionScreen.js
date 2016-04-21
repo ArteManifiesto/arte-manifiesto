@@ -13,7 +13,7 @@ APP.CollectionScreen.prototype = Object.create(APP.BaseScreen.prototype);
 
 APP.CollectionScreen.prototype.setupUI = function() {
   this.viewer = null;
-  if(collection.meta === 'works') {
+  if (collection.meta === 'works') {
     this.viewer = new APP.Viewer('work', $('.grid'), null, items, {
       context: 'single-collection'
     });

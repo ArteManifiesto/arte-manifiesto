@@ -14,7 +14,7 @@ exports.index = function(req, res) {
       owner: req.owner
     });
   }
-  if(req.collection.meta === 'works') {
+  if (req.collection.meta === 'works') {
     query.order = [
       [global.db.sequelize.col('CollectionWork.createdAt'), 'DESC']
     ];
@@ -28,7 +28,11 @@ exports.index = function(req, res) {
 }
 
 exports.all = function(req, res) {
-  var query = {where:{meta:req.body.meta}};
+  var query = {
+    where: {
+      meta: req.body.meta
+    }
+  };
   // if (req.body.idProduct)
   //   query = {
   //     idProduct: req.body.idProduct,

@@ -68,10 +68,10 @@ APP.SellScreen.prototype.createHandler = function(e) {
 APP.SellScreen.prototype.productCreatedComplete = function(response) {
   this.showFlash('succes', 'Su producto se envió a revisión')
 
-    // var product = response.data.product;
-    // var url = DataApp.currentUser.url + '/product/' + product.nameSlugify;
-    // var timeout = setTimeout(function () {
-    //   clearTimeout(timeout);
-    //   window.location.href = url;
-    // }, 1000);
+  // var product = response.data.product;
+  // var url = DataApp.currentUser.url + '/product/' + product.nameSlugify;
+  // var timeout = setTimeout(function () {
+  //   clearTimeout(timeout);
+  //   window.location.href = url;
+  // }, 1000);
 };

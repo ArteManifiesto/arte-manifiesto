@@ -21,7 +21,8 @@ APP.ProductScreen.prototype = Object.create(APP.BaseScreen.prototype);
 APP.ProductScreen.prototype.setupUI = function() {
 
   for (var i = 0; i < categories.length; i++) {
-    var category = categories[i], products = [];
+    var category = categories[i],
+      products = [];
     for (var j = 0; j < category.subCategories.length; j++) {
       var subCategory = category.subCategories[j];
       for (var k = 0; k < subCategory.innerCategories.length; k++) {
@@ -33,9 +34,13 @@ APP.ProductScreen.prototype.setupUI = function() {
     }
     new APP.Viewer('carrouselItem', $('.' + category.nameSlugify), null, products);
   }
-  
-  new APP.Viewer('carrouselItem', $('.more'), null, more, {worked: true});
-  new APP.Viewer('carrouselItem', $('.similar'), null, similar, {worked: true});
+
+  new APP.Viewer('carrouselItem', $('.more'), null, more, {
+    worked: true
+  });
+  new APP.Viewer('carrouselItem', $('.similar'), null, similar, {
+    worked: true
+  });
 
   new APP.Carrousel($('.js-more-carousel'), $('.more'));
   new APP.Carrousel($('.js-similar-carousel'), $('.similar'));
@@ -81,7 +86,9 @@ APP.ProductScreen.prototype.listeners = function() {
 
   if (DataApp.currentUser) {
     var collectionsUrl = DataApp.currentUser.url + '/collection/all';
-    this.requestHandler(collectionsUrl, {meta: 'products'}, this.collectionsHandlerComplete);
+    this.requestHandler(collectionsUrl, {
+      meta: 'products'
+    }, this.collectionsHandlerComplete);
 
     if (!owner) {
       var followingUrl = DataApp.currentUser.url + '/isFollowing';

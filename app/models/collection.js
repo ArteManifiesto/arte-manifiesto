@@ -52,9 +52,9 @@ module.exports = function(sequelize, DataTypes) {
         var afterGet = function(result) {
           return result[0].getDataValue('total');
         }
-        if(this.meta === 'works') {
+        if (this.meta === 'works') {
           return this.getWorks(query).then(afterGet);
-        }else {
+        } else {
           return this.getProducts(query).then(afterGet);
         }
       },
@@ -66,13 +66,13 @@ module.exports = function(sequelize, DataTypes) {
           limit: 3,
           where: {}
         };
-        if(this.meta === 'works') {
+        if (this.meta === 'works') {
           query.where.public = true;
           query.order = [
             [global.db.sequelize.col('CollectionWork.createdAt'), 'DESC']
           ];
           return this.getWorks(query);
-        }else {
+        } else {
           query.where.isActive = true;
           query.order = [
             [global.db.sequelize.col('CollectionProduct.createdAt'), 'DESC']

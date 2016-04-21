@@ -67,7 +67,9 @@ APP.WorkScreen.prototype.listeners = function() {
 
   if (DataApp.currentUser) {
     var collectionsUrl = DataApp.currentUser.url + '/collection/all';
-    this.requestHandler(collectionsUrl, {meta: 'works'}, this.collectionsHandlerComplete);
+    this.requestHandler(collectionsUrl, {
+      meta: 'works'
+    }, this.collectionsHandlerComplete);
     if (!owner) {
       var followingUrl = DataApp.currentUser.url + '/isFollowing';
       this.requestHandler(followingUrl, {
