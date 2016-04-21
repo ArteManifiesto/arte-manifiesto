@@ -100,7 +100,7 @@
 					<div class="u-separator"></div>
 					<p class="am-Single-title-text u-margin-top-15 work-name" style="font-size: 15px;">{{work.name}}</p>
 					<p class="am-collection-desc u-margin-top-10 work-description">
-						{{work.description}}
+						{{product.description}}
 					</p>
 					<div class='work-category'>
 						<a href='/products/category/{{product.Category.nameSlugify}}/page-1/'>
@@ -116,7 +116,7 @@
 							<p class="text">Obras originales de nuestros artistas de valor único.</p>
 							<p class="text u-margin-top-10">Tamaño:</p>
 							{% set productConfig = JSON.parse(product.config) %}
-							<p class="text u-margin-top-10">{{productConfig.bgCanvas}}</p>
+							<p class="text u-margin-top-10">{{productConfig.data.largeCM}} cm</p>
 							<br>
 							<div class="type2">
 								<p class="text">Precio por unidad:</p>
