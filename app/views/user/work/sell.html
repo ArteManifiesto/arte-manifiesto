@@ -24,7 +24,6 @@
 			</div>
 
 			<div class="sales-option-button">
-					<a class="sales-button white">ACTUALIZAR IMAGEN</a>
 					<a target='_blank' href="/user/{{user.username}}/work/{{work.nameSlugify}}/edit" class="sales-button white">EDITAR DATOS</a>
 			</div>
 		</div>
@@ -42,13 +41,10 @@
 			<div class="products-creator">
 				<div class="product-creator" data-prod='1'>
 					<div class="image">
-						<div class="background">
-							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1460699344/general/pruduct-creator-background.png">
-						</div>
-						<img class="image-preview"  src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
+						<img class="image-preview"  src="{{work.photo|addFilter('w_380,h_300,c_limit')}}">
 					</div>
 					<p class="title">OBRA ORIGINAL</p>
-					<p class="description">0/1 activados</p>
+					<!-- <p class="description">0/1 activados</p> -->
 					<div class="buttons">
 						<a class="sales-button white edit-btn" href="#">EDITAR</a>
 						<a class="sales-button blue" href="#">ACTIVAR</a>
@@ -62,7 +58,7 @@
 						<img class="image-preview" style="height: 230px !important;">
 					</div>
 					<p class="title">PRINTS</p>
-					<p class="description">0/1 activados</p>
+					<!-- <p class="description">0/1 activados</p> -->
 					<div class="buttons">
 						<a class="sales-button white edit-btn" href="#">EDITAR</a>
 						<a class="sales-button blue" href="#">ACTIVAR</a>
@@ -76,7 +72,7 @@
 						<img class="image-preview" style="height: 200px !important;">
 					</div>
 					<p class="title">TAZAS</p>
-					<p class="description">0/1 activados</p>
+					<!-- <p class="description">0/1 activados</p> -->
 					<div class="buttons">
 						<a class="sales-button white edit-btn" href="#">EDITAR</a>
 						<a class="sales-button blue" href="#">ACTIVAR</a>
@@ -97,8 +93,7 @@
 					</div>
 					<div class="sales-image-card">
 						<div class="original-work"><i class="fa fa-cog"></i>&nbsp;OBRA ORIGINAL</div>
-						<canvas id="canvas-product1" width="620" height="280">
-						</canvas>
+						<img src="{{work.photo|addFilter('h_450,c_limit')}}">
 					</div>
 				</div>
 				<div class="sales-right sales-right-1">
@@ -167,16 +162,16 @@
 						<tr>
 							<td><p class="text">Precio base (ganancia del artista)</p></td>
 							<td><input class="input" type="text" placeholder="¿Cuanto quieres ganar?"></input></td>
-							<td><p class="currency">USD</p></td>
+							<td><p class="currency">SOLES</p></td>
 						</tr>
 						<tr>
 							<td></td>
 							<td><p class="plus">+</p></td>
 						</tr>
 						<tr>
-							<td><p class="text">Comisión AM (30%)</p></td>
-							<td><input class="input" type="text" placeholder="0:00"></input></td>
-							<td><p class="currency">USD</p></td>
+							<td><p class="text">Comisión AM</p></td>
+							<td><input class="input" type="text" disabled value="30"></input></td>
+							<td><p class="currency">%</p></td>
 						</tr>
 						<tr>
 							<td></td>
@@ -185,7 +180,7 @@
 						<tr>
 							<td><p class="text">Precio de lista (*)</p></td>
 							<td><input class="input" type="text" placeholder="Precio final"></input></td>
-							<td><p class="currency">USD</p></td>
+							<td><p class="currency">SOLES</p></td>
 						</tr>
 					</table>
 
@@ -253,7 +248,7 @@
 						<a href="" class="sales-button white horizontal-align">HORIZONTAL</a>
 					</div>
 
-					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR</a>
+					<a class="sales-button save-btn-kek u-margin-top-30 u-margin-bottom-10">GUARDAR</a>
 
 					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
 				</div>
@@ -271,13 +266,13 @@
 							<td><p class="title">TIPO DE PRINT</p></td>
 							<td><p class="title">&nbsp;&nbsp;MARGEN</p></td>
 						</tr>
-						{% set currentCategory = categories[0] %}
+						{% set currentCategory = categories[1] %}
 						{% for subCategory in currentCategory.subCategories %}
 						{% set subCategoryData = JSON.parse(subCategory.data) %}
 							<tr>
 								<td>
 									<div class="type">
-										<input type="checkbox" data-index={{loop.index0}}></input>
+										<input type="checkbox" checked data-index={{loop.index0}}></input>
 										<div>
 											<div>
 												<p>
@@ -361,7 +356,7 @@
 						<a href="" class="sales-button white horizontal-align">HORIZONTAL</a>
 					</div>
 
-					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR</a>
+					<a class="sales-button save-btn-kek u-margin-top-30 u-margin-bottom-10">GUARDAR</a>
 
 					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
 				</div>
@@ -377,10 +372,10 @@
 
 					<table class="prints u-margin-top-20 u-margin-bottom-40" style="width: 100%;">
 						<tr>
-							<td><p class="title">TIPO DE PRINT</p></td>
+							<td><p class="title">TIPO DE TAZA</p></td>
 							<td><p class="title">&nbsp;&nbsp;MARGEN</p></td>
 						</tr>
-						{% set currentCategory = categories[1] %}
+						{% set currentCategory = categories[2] %}
 						{% for subCategory in currentCategory.subCategories %}
 						{% set subCategoryData = JSON.parse(subCategory.data) %}
 							<tr>
@@ -432,7 +427,7 @@
 						<img class="image-preview" style="width: 125px !important;">
 					</div>
 					<p class="title">CASES TELÉFONOS</p>
-					<p class="description">0/1 activados</p>
+					<!-- <p class="description">0/1 activados</p> -->
 					<div class="buttons">
 						<a class="sales-button white edit-btn" href="#">EDITAR</a>
 						<a class="sales-button blue" href="#">ACTIVAR</a>
@@ -494,7 +489,7 @@
 						<a href="" class="sales-button white horizontal-align">HORIZONTAL</a>
 					</div>
 
-					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR</a>
+					<a class="sales-button save-btn-kek u-margin-top-30 u-margin-bottom-10">GUARDAR</a>
 
 					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
 				</div>
@@ -514,7 +509,7 @@
 							<td><p class="title">&nbsp;&nbsp;MARGEN</p></td>
 						</tr>
 
-						{% set currentCategory = categories[2] %}
+						{% set currentCategory = categories[3] %}
 						{% for subCategory in currentCategory.subCategories %}
 						{% set subCategoryData = JSON.parse(subCategory.data) %}
 							<tr>
@@ -546,7 +541,7 @@
 
 					<p class="subtitle-mall u-margin-top-50">* El precio de lista no incluye impuestos en cada país, ni el costo de envío.</p>
 
-					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR</a>
+					<a class="sales-button save-btn-kek u-margin-top-30 u-margin-bottom-10">GUARDAR</a>
 
 					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
 				</div>
@@ -607,7 +602,7 @@
 						<a href="" class="sales-button white horizontal-align">HORIZONTAL</a>
 					</div>
 
-					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR</a>
+					<a class="sales-button save-btn-kek u-margin-top-30 u-margin-bottom-10">GUARDAR</a>
 
 					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
 				</div>
@@ -657,8 +652,8 @@
 					</table>
 
 					<p class="subtitle-mall u-margin-top-50">* El precio de lista no incluye impuestos en cada país, ni el costo de envío.</p>
-					<a class="sales-button u-margin-top-30 u-margin-bottom-10">GUARDAR</a>
-					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
+					<a class="sales-button save-btn-kek u-margin-top-30 u-margin-bottom-10">GUARDAR</a>
+<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
 				</div>
 			</div>
 		</div>

@@ -10,22 +10,24 @@ APP.CreatorProductItem = function(index, data) {
   this.header = $('div[data-prod=' + index + ']');
 
   this.data = data;
+  this.currentPhoto;
+
   if (this.data) {
     this.config = JSON.parse(this.data.subCategories[0].data);
     $('#canvas-product' + index).attr('width', this.config.widthView);
     $('#canvas-product' + index).attr('height', this.config.heightView);
+
+    this.canvasColor = '#FFFFFF';
+    this.canvas = new fabric.Canvas('canvas-product' + index, {
+      backgroundColor: this.canvasColor
+    });
+
+    this.header.find('.background').find('img').attr('src', this.config.renderImage);
   }
 
-  this.canvasColor = '#FFFFFF';
-  this.canvas = new fabric.Canvas('canvas-product' + index, {
-    backgroundColor: this.canvasColor
-  });
-
-  this.currentPhoto;
-
-  this.header.find('.background').find('img').attr('src', this.config.renderImage);
-
-  this.setup();
+  if(this.data) {
+    this.setup();
+  }
   this.listeners();
 };
 
@@ -41,6 +43,8 @@ APP.CreatorProductItem.prototype.listeners = function() {
   this.view.find('.horizontal-align').click(this.horizontalAlign.bind(this));
   this.view.find('input[type=range]').change(this.productScaleHandler.bind(this));
 
+  this.view.find('.save-btn-kek').click(this.saveBtnHandler.bind(this));
+
   var scope = this;
   this.view.find('.cloudinary-fileupload').fileupload({
       start: function(e) {},
@@ -55,7 +59,6 @@ APP.CreatorProductItem.prototype.listeners = function() {
       } else {
         url = Utils.addImageFilter(work.photo, 'w_0.5,h_0.5');
       }
-
       image.setSrc(url, function() {
         image.setCoords();
         scope.canvas.renderAll();
@@ -79,6 +82,11 @@ APP.CreatorProductItem.prototype.listeners = function() {
     $($(this).parent().find('p')[1]).text('S/.' + finalprice);
   });
   this.view.find('.margen-input').keyup();
+};
+
+APP.CreatorProductItem.prototype.saveBtnHandler = function(e) {
+  e.preventDefault();
+  this.view.addClass('hide');
 };
 
 APP.CreatorProductItem.prototype.productScaleHandler = function(e) {
@@ -149,11 +157,14 @@ APP.CreatorProductItem.prototype.setup = function() {
   var scope = this;
   var url;
   if (this.data) {
-    var scale = this.config.scaleFactor / 10;
+    var scale = 1 / this.config.scaleFactor;
     url = Utils.addImageFilter(work.photo, 'w_' + scale + ',h_' + scale);
   } else {
     url = Utils.addImageFilter(work.photo, 'w_0.5,h_0.5');
   }
+
+  console.log(url);
+
   var imageTemp;
 
 
@@ -199,7 +210,6 @@ APP.CreatorProductItem.prototype.setup = function() {
   // this.canvas.loadFromJSON(data,  this.canvas.renderAll.bind(this.canvas), function(o, object) {
   //   fabric.log(o, object);
   // });
-
   this.canvas.on('mouse:up', function(options) {
     scope.renderCanvas(options);
   });
@@ -249,6 +259,8 @@ APP.CreatorProductItem.prototype.renderCanvas = function() {
   'w_' + stageW + ',' +
   'h_' + stageH + ',c_crop,g_north_west';
 
+   console.log(Utils.addImageFilter(urlImage, filters));
+
   x = (Math.round(boundaries.left * this.config.scaleFactor) - (this.config.offsetX * this.config.scaleFactor));
   y = (Math.round(boundaries.top * this.config.scaleFactor) - (this.config.offsetY * this.config.scaleFactor));
 
@@ -280,7 +292,7 @@ APP.CreatorProductItem.prototype.renderCanvas = function() {
       'h_' + (this.config.heightRender * this.config.scaleFactor) + ',c_crop,g_north_west/' +
       // 'w_230/e_distort:0:60:230:45:225:340:0:340/c_pad,h_2,w_1.0/l_radial,e_displace,y_-10/e_trim/u_mug'
       'w_230/e_distort:-15:90:220:60:215:360:-15:382/c_pad,h_2,w_1.0/l_radial,e_displace,y_-20/e_trim/l_new_mug/';
-      console.log('gg => ', Utils.addImageFilter(urlImage, filters));
+      // console.log('gg => ', Utils.addImageFilter(urlImage, filters));
 
   this.currentPhoto =  Utils.addImageFilter(urlImage, filters);
 

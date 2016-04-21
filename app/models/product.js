@@ -11,6 +11,7 @@ module.exports = function(sequelize, DataTypes) {
     price: DataTypes.STRING,
     finalPrice: DataTypes.STRING,
     photo: DataTypes.STRING,
+    printPhoto: DataTypes.STRING,
     description: DataTypes.TEXT,
     applying: {
       type: DataTypes.BOOLEAN,
