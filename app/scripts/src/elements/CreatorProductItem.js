@@ -11,6 +11,8 @@ APP.CreatorProductItem = function(index, data) {
 
   this.data = data;
   this.currentPhoto;
+  this.currentRenderPhoto;
+  this.currentPrintPhoto;
 
   if (this.data) {
     this.config = JSON.parse(this.data.subCategories[0].data);
@@ -260,24 +262,13 @@ APP.CreatorProductItem.prototype.renderCanvas = function() {
     'w_' + stageW + ',' +
     'h_' + stageH + ',c_crop,g_north_west';
 
-  console.log(Utils.addImageFilter(urlImage, filters));
+  this.currentPrintPhoto = Utils.addImageFilter(urlImage, filters);
+  console.log('print : ', this.currentPrintPhoto);
 
-  x = (Math.round(boundaries.left * this.config.scaleFactor) - (this.config.offsetX * this.config.scaleFactor));
-  y = (Math.round(boundaries.top * this.config.scaleFactor) - (this.config.offsetY * this.config.scaleFactor));
+  x = Math.round((boundaries.left * this.config.scaleFactor) - (this.config.offsetX * this.config.scaleFactor));
+  y = Math.round((boundaries.top * this.config.scaleFactor) - (this.config.offsetY * this.config.scaleFactor));
 
-  filters =
-    'w_' + stageW + ',' +
-    'h_' + stageH + ',e_colorize,co_rgb:' + rgbColor + '/' +
-    'l_' + baseName + ',b_rgb:' + rgbColor + ',' +
-    'w_' + imageW + ',' +
-    'h_' + imageH + ',' +
-    'x_' + x + ',' +
-    'y_' + y + ',g_north_west/' +
-    'x_' + ((x < 0 ? (x * -1) : 0)) + ',' +
-    'y_' + (y < 0 ? (y * -1) : 0) + ',' +
-    'w_' + (this.config.widthRender * this.config.scaleFactor) + ',' +
-    'h_' + (this.config.heightRender * this.config.scaleFactor) + ',c_crop,g_north_west/' +
-    'w_' + (this.config.widthRender) + ',h_' + (this.config.heightRender) + '/l_phone_fmpg26';
+  var renderName = this.config.renderImage.replace(/^.*\/|\.[^.]*$/g, '')
 
   filters =
     'w_' + stageW + ',' +
@@ -289,13 +280,28 @@ APP.CreatorProductItem.prototype.renderCanvas = function() {
     'y_' + y + ',g_north_west/' +
     'x_' + ((x < 0 ? (x * -1) : 0)) + ',' +
     'y_' + (y < 0 ? (y * -1) : 0) + ',' +
-    'w_' + (this.config.widthRender * this.config.scaleFactor) + ',' +
-    'h_' + (this.config.heightRender * this.config.scaleFactor) + ',c_crop,g_north_west/' +
-    // 'w_230/e_distort:0:60:230:45:225:340:0:340/c_pad,h_2,w_1.0/l_radial,e_displace,y_-10/e_trim/u_mug'
-    'w_230/e_distort:-15:90:220:60:215:360:-15:382/c_pad,h_2,w_1.0/l_radial,e_displace,y_-20/e_trim/l_new_mug/';
-  // console.log('gg => ', Utils.addImageFilter(urlImage, filters));
+    'w_' + Math.round(this.config.widthRender * this.config.scaleFactor) + ',' +
+    'h_' + Math.round(this.config.heightRender * this.config.scaleFactor) +
+    ',c_crop,g_north_west/';
 
-  this.currentPhoto = Utils.addImageFilter(urlImage, filters);
+  if (this.index === 2) {
+    filters += 'w_' + Math.round(this.config.widthRender) + ',h_' +
+      Math.round(this.config.heightRender) + '/l_' + renderName;
+  }
+
+  if (this.index === 3) {
+    filters += 'w_230/e_distort:-15:90:220:60:215:360:-15:382/c_pad,h_2,w_1.0/' +
+      'l_radial,e_displace,y_-20/e_trim/' + '/l_' + renderName + '/c_crop,x_90,y_10,w_500,h_500';
+  }
+
+  if (this.index === 4) {
+    filters += 'w_' + Math.round(this.config.widthRender) + ',h_' +
+      Math.round(this.config.heightRender) + '/l_' + renderName;
+  }
+
+  this.currentRenderPhoto = Utils.addImageFilter(urlImage, filters);
+  console.log('render', this.currentRenderPhoto);
+
 
   image.hasBorders = image.hasControls = true;
   if (this.canvas.item(1)) {
@@ -309,6 +315,10 @@ APP.CreatorProductItem.prototype.open = function() {
 };
 
 APP.CreatorProductItem.prototype.getPayload = function() {
+  if(this.index === 0) {
+    return [];
+  }
+
   var checked = this.view.find('input[type=checkbox]:checked');
   var result = [];
   for (var i = 0; i < checked.length; i++) {
@@ -318,7 +328,8 @@ APP.CreatorProductItem.prototype.getPayload = function() {
       WorkId: work.id,
       CategoryId: this.data.subCategories[index].id,
       name: work.name,
-      photo: this.currentPhoto,
+      photo: this.currentRenderPhoto,
+      printPhoto: this.currentPrintPhoto,
       finalPrice: subcategory.finalPrice.toString(),
       description: work.description,
       canvas: JSON.stringify(this.canvas.toJSON()),
