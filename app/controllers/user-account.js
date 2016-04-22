@@ -38,6 +38,8 @@ exports.requests = function(req, res) {
     }]
   }).then(function(requests) {
     return res.render(basePath + 'requests', {
+      cloudinary: global.cl,
+      cloudinayCors: global.cl_cors,
       requests: requests
     });
   });
@@ -157,5 +159,31 @@ exports.updateCover = function(req, res) {
     return res.ok({
       user: req.profile
     }, 'Cover actualizado');
+  });
+};
+
+exports.nextStep = function(req, res) {
+  global.db.Order.findById(req.body.idOrder).then(function(order) {
+    if(req.body.currentStatus === 'declined') {
+      order.destroy().then(function() {
+        res.ok({order: order}, 'order destroyed');
+      });
+    }
+
+    if(req.body.currentStatus === 'recibido') {
+      order.status = 'paso2';
+    }
+    if(req.body.currentStatus === 'paso2') {
+      order.status = 'paso3';
+    }
+    if(req.body.currentStatus === 'paso3') {
+      order.status = 'paso4';
+    }
+    if(req.body.currentStatus === 'paso4') {
+      order.status = 'paso5';
+    }
+    return order.save(function() {
+      res.ok({order: order}, 'next status');
+    });
   });
 };

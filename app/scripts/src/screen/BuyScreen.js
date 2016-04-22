@@ -28,7 +28,7 @@ var normal = (function() {
 APP.BuyScreen = function() {
   this.productConfig = JSON.parse(product.config);
   APP.BaseScreen.call(this, 'buy');
-  this.currentShipping;
+  this.totalShipping;
   this.currentIgv;
   this.totalPrice;
 };
@@ -47,17 +47,65 @@ APP.BuyScreen.prototype.listeners = function() {
   $('select[name=city]').change(this.cityChangeHandler.bind(this));
   $('select[name=city]').change();
   this.form.submit(this.submitHandler.bind(this));
+
+  $('input[name=direction]').geocomplete();
 };
 
-APP.BuyScreen.prototype.submitHandler = function() {
-  $('<input type="hidden" name="shipping" value=' + this.currentShipping + '>')
+APP.BuyScreen.prototype.submitHandler = function(e) {
+  var firstname = $('input[name=firstname]').val();
+  var lastname = $('input[name=lastname]').val();
+  var direction = $('input[name=direction]').val();
+  var departament = $('input[name=departament]').val();
+  var city = $('select[name=city]').val();
+  var province = $('input[name=province]').val();
+  var zipcode = $('input[name=zipcode]').val();
+  var country = $('select[name=country]').val();
+  var phone = $('input[name=phone]').val();
+  var email = $('input[name=email]').val();
+
+  var errors = [];
+
+  if (Validations.notBlank(firstname)) errors.push('Ingrese un nombre');
+  if (Validations.notBlank(lastname)) errors.push('Ingrese tus apellidos');
+  if (Validations.notBlank(direction)) errors.push('Ingrese una dirección');
+
+  if (Validations.notBlank(city)) errors.push('Ingrese tú ciudad');
+  if (Validations.notBlank(province)) errors.push('Ingrese tú provincia');
+  if (Validations.notBlank(zipcode)) errors.push('Ingrese el código postal');
+  if (Validations.notBlank(phone)) errors.push('Ingrese tú telefono');
+  if (Validations.notBlank(email)) errors.push('Ingrese tú correo');
+
+  if (errors.length > 0) return this.showFlash('error', errors);
+
+  var data = {
+    firstname: firstname,
+    lastname: lastname,
+    direction: direction,
+    departament: departament,
+    city: city,
+    province: province,
+    zipcode: zipcode,
+    country: country,
+    phone: phone,
+    email: email,
+  }
+
+  $('<input type="hidden" name="data" value=' + JSON.stringify(data) + '>')
     .appendTo(this.form);
 
-  $('<input type="hidden" name="igv" value=' + this.currentIgv + '>')
+  $('<input type="hidden" name="shipping" value=' + this.totalShipping + '>')
     .appendTo(this.form);
 
   $('<input type="hidden" name="price" value=' + this.totalPrice + '>')
     .appendTo(this.form);
+
+    data.shipping = this.totalShipping;
+    data.price = this.price;
+
+    Cookies.set('order_data', JSON.stringify(data), {
+      maxAge: 3600000,
+      domain: '.' + document.domain
+    });
 };
 
 APP.BuyScreen.prototype.cityChangeHandler = function() {
@@ -68,12 +116,12 @@ APP.BuyScreen.prototype.cityChangeHandler = function() {
 
   var payload = {
     "nom_destino": name.toUpperCase(),
-    "peso": this.productConfig.weightKG,
+    "peso": this.productConfig.pkgWeight,
     "servicio": "Atencion en Oficina",
     "options2": "Kilos",
-    "largo": this.productConfig.largeCM,
-    "ancho": this.productConfig.widthCM,
-    "alto": this.productConfig.heightCM,
+    "largo": this.productConfig.pkgLarge,
+    "ancho": this.productConfig.pkgWidth,
+    "alto": this.productConfig.pkgHeight,
     "cantidad": 1,
     "m_largo": "cms",
     "m_ancho": "cms",
@@ -86,13 +134,11 @@ APP.BuyScreen.prototype.cityChangeHandler = function() {
 
 APP.BuyScreen.prototype.shippingHandler = function(response) {
   var data = response.data.data;
-  this.currentShipping = data.monto_base;
-  this.currentIgv = data.monto_igv;
-  this.totalPrice = Number(product.finalPrice) + Number(data.monto_base) + Number(data.monto_igv);
+
+  this.totalShipping = Number(data.monto_total) + (6 / 100 * Number(data.monto_total));
+  this.totalPrice = Number(product.finalPrice) + this.totalShipping;
 
   $('.subtotal').text(product.finalPrice);
-  $('.baseprice').text(this.currentShipping);
-  $('.igv').text(this.currentIgv);
-
+  $('.baseprice').text(this.totalShipping);
   $('.totallity').text(this.totalPrice);
 };

@@ -23,4 +23,7 @@ router.post('/photo', controller.photoUpdate);
 router.post('/password', controller.passwordUpdate);
 router.post('/update_cover', controller.updateCover);
 
+
+router.post('/next_step', controller.nextStep);
+
 module.exports = router;

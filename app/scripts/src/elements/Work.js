@@ -15,14 +15,24 @@ APP.Work.constructor = APP.Work;
 
 APP.Work.prototype.listeners = function() {
   APP.BaseElement.prototype.listeners.call(this);
-  this.view.find('.delete').click(this.deleteHandler.bind(this));
+  this.view.find('.delete-new').click(this.deleteHandler.bind(this));
   this.view.find('.delete-force').click(this.deleteForceHandler.bind(this));
   this.view.find('.cancel').click(this.cancelHandler.bind(this));
   this.view.find('.edit').click(this.editHandler.bind(this));
+  this.view.find('.settings-btn').click(this.settingsHandler.bind(this));
 };
 
-APP.Work.prototype.deleteHandler = function() {
-  this.view.find('.delete').hide();
+APP.Work.prototype.settingsHandler = function() {
+  if(this.view.find('.menu-settings').hasClass('hide')) {
+    this.view.find('.menu-settings').removeClass('hide');
+  }else {
+    this.view.find('.menu-settings').addClass('hide');
+  }
+};
+
+APP.Work.prototype.deleteHandler = function(e) {
+  e.preventDefault();
+  this.view.find('.menu-settings').addClass('hide');
   this.view.find('.delete-confirm').show();
 };
 
@@ -50,7 +60,6 @@ APP.Work.prototype.deleteForceHandler = function() {
 };
 
 APP.Work.prototype.cancelHandler = function() {
-  this.view.find('.delete').show();
   this.view.find('.delete-confirm').hide();
 };
 

@@ -12,33 +12,29 @@
           <div class="featured">DESTACADO</div>
         <% } %>
       <% } %>
-      
+
       <div class="work-card-options">
-        <i class="fa fa-cog"></i>
-        <div class="menu">
-          <a href="#">Ver</a>
+        <i class="fa fa-cog settings-btn"></i>
+        <div class="menu menu-settings hide">
+          <a href="/user/<%=User.username%>/work/<%=nameSlugify%>">Ver</a>
           <div class="u-separator"></div>
-          <a href="#">Editar</a>
+          <a href="/user/<%=User.username%>/work/<%=nameSlugify%>/edit">Editar</a>
           <div class="u-separator"></div>
-          <a href="#">Vender</a>
+          <a href="/user/<%=User.username%>/work/<%=nameSlugify%>/sell">Vender</a>
           <div class="u-separator"></div>
-          <a href="#">Borrar</a>
+          <a class="delete-new" href="#">Borrar</a>
         </div>
       </div>
 
-      <% if (viewer && viewer.isAdmin) { %>
-        {#<div class="delete"><i class="bi_editorial-trash-a-l"></i></div>#}
-
-        <div class="confirm delete-confirm hide">
-          <% if (context && context === 'single-collection') { %>
-            <span>borrar de coleccion?</span>
-          <% } else { %>
-            <span>borrar?</span>
-          <% } %>
-          <i class="bi_interface-box-tick delete-force" style="display: inline;"></i>
-          <i class="bi_interface-box-cross cancel" style="display: inline;"></i>
-        </div>
-      <% } %>
+      <div class="confirm delete-confirm hide">
+        <% if (context && context === 'single-collection') { %>
+          <span>borrar de coleccion?</span>
+        <% } else { %>
+          <span>borrar?</span>
+        <% } %>
+        <i class="bi_interface-box-tick delete-force" style="display: inline;"></i>
+        <i class="bi_interface-box-cross cancel" style="display: inline;"></i>
+      </div>
 
       <% if (owner) { %>
         {# <div class="edit"><i class="bi_editorial-compose"></i></div> #}

@@ -31,6 +31,6 @@
 {% block scripts %}
 	<script>
 		var product = {{product|json|safe}};
-		console.log(product);
+		Cookies.remove('order_data');
 	</script>
 {% endblock %}

@@ -1,20 +1,30 @@
 <script type="text/template" id="template-request-item">
   <div>
     <div class="open-seller-item">
-      <img src="<%= addFilter(Product.photo, 'w_140,h_140,c_fill') %>">
+      <img src="<%= addFilter(Product.photo, 'h_140,c_limit') %>" style="width: auto !important; height: auto !important;">
       <div class="information-left">
         <p class="information-left-title"><%= Product.name %></p>
-        <p class="information-left-subtitle">Por Sergio Gonzales</p>
+
+        <% if (from && (from === 'orders')) { %>
+          <p class="information-left-subtitle">Vendedor <%= Seller.firstname %></p>
+        <% } else { %>
+          <p class="information-left-subtitle">Comprador <%= User.firstname %></p>
+        <% } %>
+
         <p class="information-left-title">ID: <%= id %></p>
         <br>
-        <p class="information-left-description">
-          VENTA DE OBRA ORIGINAL <br>
-          Obra original empacada en caja
-          <br><br>
-          ORIGEN: <br>
-          Miraflores, LIma, Perú
-        </p>
+        <% if (from && (from === 'orders')) { %>
+        <% } else { %>
+          <p class="information-left-description">
+            <br><br>
+            ORIGEN: <br>
+            <%= viewer.direction %>
+          </p>
+        <% } %>
       </div>
+
+      <% if (from && (from === 'orders')) { %>
+      <% } else { %>
       <div class="information-center">
         <p>
           CANTIDAD: <br>
@@ -23,13 +33,13 @@
         <br><br>
         <p>
           MEDIDAS DEL PAQUETE <br>
-          2.5 kg / 50 cm x 40 cm x 10 cm
+          <%= Product.config.data.pkgWeight %> kg / <%= Product.config.data.pkgWidth%> cm x <%= Product.config.data.pkgHeight%> cm x <%= Product.config.data.pkgLarge%> cm
           <br><br>
           DESTINO: <br>
-          Chiclayo, Chiclayo, Perú
+          <%= data.direction %>
         </p>
         <br>
-        <p> <a href="#">Ficha de envío</a> </p>
+        <!-- <p> <a href="#">Ficha de envío</a> </p> -->
       </div>
       <div class="information-right">
         <div class="table">
@@ -38,32 +48,40 @@
             <p>comisión am</p>
             <p class="bold">subtotal:</p>
             <p>shipping:</p>
-            <p>impuestos:</p>
             <p class="bold">total:</p>
           </div>
           <div class="right">
-            <p class="green">USD 70.00</p>
-            <p>USD 30.00</p>
-            <p class="bold">USD 100.00</p>
-            <p>USD 25.00</p>
-            <p>USD 25.00</p>
-            <p class="bold">USD 150.00</p>
+            <p class="green"><%= artistRevenue %> Soles</p>
+            <p class="green"><%= amRevenue %> Soles</p>
+            <p class="bold"><%= subtotal %> Soles</p>
+            <p class="green"><%= shipping %> Soles</p>
+            <p class="bold"><%= total %> Soles</p>
           </div>
         </div>
         <br>
-        <a href="">Detalle Invoice</a>
+        <!-- <a href="">Detalle Invoice</a> -->
       </div>
+      <% } %>
     </div>
 
-    <p class="open-seller-secondary-title">Acción a realizar:</p>
+    <% if (from && (from === 'orders')) { %>
+      <p class="open-seller-secondary-title">Estado de tú producto</p>
+    <% } else { %>
+      <p class="open-seller-secondary-title">Acción a realizar:</p>
+    <% } %>
 
     <div class="step-1 hide">
       <div class="open-seller-box">
-        <span class="number">1</span>
-        <p>¿Tienes a la mano tu obra ó puedes conseguirla?</p>
-        <span class="icon"><i class="fa fa-info"></i></span>
-        <a href="#" class="seller-button small green yes">SI</a>
-        <a href="#" class="seller-button small red no">NO</a>
+        <% if (from && (from === 'orders')) { %>
+          <span class="number">1</span>
+          <p>En coordinación</p>
+        <% } else { %>
+          <span class="number">1</span>
+          <p>¿Tienes a la mano tu obra ó puedes conseguirla?</p>
+          <span class="icon"><i class="fa fa-info"></i></span>
+          <a href="#" class="seller-button small green yes">SI</a>
+          <a href="#" class="seller-button small red no">NO</a>
+        <% } %>
       </div>
 
       <p class="u-separator u-margin-top-30 u-margin-bottom-20" style="background: #979797;"></p>
@@ -71,10 +89,15 @@
 
     <div class="step-2 hide">
       <div class="open-seller-box">
-        <span class="number">2</span>
-        <p>Empaca bien tu arte y confirma, <a href="">mira nuestra guía de empaque</a></p>
-        <span class="icon"><i class="fa fa-info"></i></span>
-        <a href="#" class="seller-button done">LISTO</a>
+        <% if (from && (from === 'orders')) { %>
+          <span class="number">1</span>
+          <p>En despacho</p>
+        <% } else { %>
+          <span class="number">2</span>
+          <p>Empaca bien tu arte y confirma, <a href="">mira nuestra guía de empaque</a></p>
+          <span class="icon"><i class="fa fa-info"></i></span>
+          <a href="#" class="seller-button done">LISTO</a>
+        <% } %>
       </div>
 
       <p class="u-separator u-margin-top-30 u-margin-bottom-20" style="background: #979797;"></p>
@@ -82,10 +105,15 @@
 
     <div class="step-3 hide">
       <div class="open-seller-box">
+        <% if (from && (from === 'orders')) { %>
+          <span class="number">1</span>
+          <p>En despacho</p>
+        <% } else { %>
         <span class="number">3</span>
         <p>Imprime la <a href="#">ficha de envío</a> y pégala al empaque</p>
         <span class="icon"><i class="fa fa-info"></i></span>
         <a href="#" class="seller-button done">LISTO</a>
+        <% } %>
       </div>
 
       <p class="u-separator u-margin-top-30 u-margin-bottom-20" style="background: #979797;"></p>
@@ -93,10 +121,15 @@
 
     <div class="step-4 hide">
       <div class="open-seller-box">
-        <span class="number">4</span>
-        <p>Lleva el paquete al courrier, paga el envío(luego te lo devolvermos) y confirma</p>
-        <span class="icon"><i class="fa fa-info"></i></span>
-        <a href="#" class="seller-button upload">SUBIR VOUCHER</a>
+        <% if (from && (from === 'orders')) { %>
+          <span class="number">1</span>
+          <p>En tránsito</p>
+        <% } else { %>
+          <span class="number">4</span>
+          <p>Lleva el paquete al courrier, paga el envío(luego te lo devolvermos) y confirma</p>
+          <span class="icon"><i class="fa fa-info"></i></span>
+          <a href="#" class="seller-button upload">SUBIR VOUCHER</a>
+        <% } %>
       </div>
 
       <p class="u-separator u-margin-top-30 u-margin-bottom-20" style="background: #979797;"></p>
@@ -104,8 +137,13 @@
 
     <div class="step-5 hide">
       <div class="open-seller-box">
-        <span class="number check"><i class="fa fa-check"></i></span>
-        <p>Listo! La obra debe estar por llegar a su destino, te avisaremos cuando </p>
+        <% if (from && (from === 'orders')) { %>
+          <span class="number">1</span>
+          <p>Tú producto está por llegar a tú destino</p>
+        <% } else { %>
+          <span class="number check"><i class="fa fa-check"></i></span>
+          <p>Listo! La obra debe estar por llegar a su destino, te avisaremos cuando se realize. </p>
+        <% } %>
       </div>
     </div>
   </div>

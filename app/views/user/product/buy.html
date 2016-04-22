@@ -21,19 +21,19 @@
 											<div class="grid-container grid-parent" style="width: 100%;">
 												<div class="grid-50">
 													<p class="address-label">Nombres</p>
-													<input class="address-input" placeholder="Ingresa tu Nombre" value={{user.firstname}}>
+													<input class="address-input" placeholder="Ingresa tu Nombre" value={{user.firstname}} name="firstname">
 												</div>
 												<div class="grid-50">
 													<p class="address-label">Apellidos</p>
-													<input class="address-input" placeholder="Tus apellidos" value={{user.lastname}}>
+													<input class="address-input" placeholder="Tus apellidos" value={{user.lastname}} name="lastname">
 												</div>
 												<div class="grid-66">
 													<p class="address-label">Dirección de Envío</p>
-													<input class="address-input" placeholder="Direccion de envio" value="{{user.direction}}">
+													<input class="address-input" placeholder="Direccion de envio" value="{{user.direction}}" name="direction">
 												</div>
 												<div class="grid-33">
 													<p class="address-label">Int/Apartamento</p>
-													<input class="address-input" name="departament" placeholder="Nro" value="{{user.departament}}">
+													<input class="address-input" name="departament" placeholder="Nro" value="{{user.departament}}" name="departament">
 												</div>
 												<div class="grid-33 suffix-66">
 													<p class="address-label">Ciudad</p>
@@ -45,25 +45,25 @@
 												</div>
 												<div class="grid-33">
 													<p class="address-label">Estado/Provincia</p>
-													<input class="address-input" placeholder="Estado o provincia" value="{{user.province}}">
+													<input class="address-input" placeholder="Estado o provincia" value="{{user.province}}" name="province">
 												</div>
 												<div class="grid-33">
 													<p class="address-label">Código Postal</p>
-													<input class="address-input" placeholder="Nro" value="{{user.zipcode}}">
+													<input class="address-input" placeholder="Nro" value="{{user.zipcode}}" name="zipcode">
 												</div>
 												<div class="grid-33 suffix-66">
 													<p class="address-label">País</p>
-													<select class="address-input">
+													<select class="address-input" name="country">
 														<option>Perú</option>
 													</select>
 												</div>
 												<div class="grid-33">
 													<p class="address-label">Teléfono móvil</p>
-													<input class="address-input" placeholder="Ingresa tu número" value="{{user.phone}}">
+													<input class="address-input" placeholder="Ingresa tu número" value="{{user.phone}}" name="phone">
 												</div>
 												<div class="grid-66">
 													<p class="address-label">Correo electrónico</p>
-													<input class="address-input" placeholder="Ingresa tu e-mail" value="{{user.email}}">
+													<input class="address-input" placeholder="Ingresa tu e-mail" value="{{user.email}}" name="email">
 												</div>
 											</div>
 										</div>
@@ -83,10 +83,6 @@
 												<tr>
 													<td><p class="label">transporte</p></td>
 													<td><p class="price baseprice">--</p></td>
-												</tr>
-												<tr>
-													<td><p class="label">igv</p></td>
-													<td><p class="price igv">--</p></td>
 												</tr>
 												<tr>
 													<td><p class="label" style="font-size: 18px;">total</p></td>
@@ -115,6 +111,7 @@
 {% endblock %}
 
 {% block scripts %}
+	<script src='//maps.googleapis.com/maps/api/js?sensor=false&libraries=places'></script>
 	<script>
 		var product = {{product|json|safe}};
 		$(function() {

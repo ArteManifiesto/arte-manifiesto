@@ -123,11 +123,17 @@ exports.buyPage = function(req, res) {
 };
 
 exports.successPage = function(req, res) {
+  var orderData = req.cookies.order_data;
+  res.clearCookie('order_data', {domain: '.' + global.cf.app.domain});
+
+  if(!orderData) return res.redirect('/');
+
   global.db.Order.create({
     ProductId: req.product.id,
     UserId: req.user.id,
     SellerId: req.product.User.id,
-    status: 'recibido'
+    status: 'recibido',
+    data: orderData
   }).then(function(order) {
     return res.render(basePath + 'success', {
       product: req.product
@@ -163,7 +169,6 @@ exports.buy = function(req, res) {
         "description": req.product.description
       }]
     };
-    console.log(req.body);
 
     req.product.getUser().then(function(user) {
       var baseUrl = req.protocol + '://' + req.get('host') + '/user/' +

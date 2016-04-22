@@ -19,6 +19,9 @@ APP.BaseElement = function(data, id, options) {
   };
   _.extend(this.data, this.options);
   _.extend(this.data, viewHelpers);
+
+  console.log(this.data);
+  
   this.view = $(this.template(this.data));
   this.rawView = this.view[0];
   this.listeners();
