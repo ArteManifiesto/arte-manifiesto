@@ -1071,6 +1071,7 @@ white = #fff
 	max-width: 250px;
 	margin: auto;
 	padding 20px
+
 	&:hover
 		.product-card-zoom
 			display block
@@ -1080,6 +1081,9 @@ white = #fff
 		background-size cover
 		background-position center center
 		height 200px
+		display flex
+		img
+			margin auto
 	&-data
 		padding 8px 12px
 		border-top solid 1px #ddd
@@ -3496,13 +3500,17 @@ white = #fff
 		width 220px
 		height 220px
 		margin 10px 5px
-		background-size cover
-		background-position center center
 		position relative
 		// &.product
 		// 	height 250px
 		> div
+			background-size cover
+			background-position center center
 			height 100%
+		&-container
+			display flex
+		&-inner
+			margin auto
 		&:first-child
 			margin-left 0
 		.product-name
