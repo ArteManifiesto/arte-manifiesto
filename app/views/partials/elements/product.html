@@ -14,10 +14,12 @@
 
 
         <a href="/user/<%=User.username%>/product/<%=nameSlugify%>">
-          <img src="<%= addFilter(photo, 'w_300,h_300,c_limit') %>">
-          <!-- <div class="product-card-image" style="background-image: url('<%= addFilter(photo, 'w_300,h_300,c_limit') %>')"></div>
+          {# <img src="<%= addFilter(photo, 'w_300,h_300,c_limit') %>"> #}
+          <div class="product-card-image">
+            <img src="<%= addFilter(photo, 'w_300,h_300,c_limit') %>">
+          </div>
           <div class="product-card-price"><%= finalPrice %></div>
-          <div class="product-card-zoom" style="background-image: url('<%= addFilter(photo, 'w_300,h_300,c_limit') %>')"></div> -->
+          <div class="product-card-zoom" style="background-image: url('<%= addFilter(photo, 'w_300,h_300,c_limit') %>')"></div>
         </a>
 
       </div>

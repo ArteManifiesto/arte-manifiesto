@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       defaultValue: 0
     },
-    data: DataTypes.STRING
+    data: DataTypes.TEXT
   }, {
     classMethods: {
       associate: function(models) {

@@ -43,6 +43,7 @@
     "passport-facebook": "1.0.3",
     "passport-local": "^1.0.0",
     "paypal-rest-sdk": "^1.6.8",
+    "request": "^2.72.0",
     "sequelize": "3.11.0",
     "sequelize-cli": "^1.9.2",
     "simple-recaptcha-new": "^1.0.0",

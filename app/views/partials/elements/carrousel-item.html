@@ -1,11 +1,13 @@
 <script type="text/template" id="template-carrousel-item">
   <% if (worked) { %>
     <a class="am-MoreImages" href='/user/<%=User.username%>/work/<%=nameSlugify%>'>
-      <div class="" style="background-image: url(<%=addFilter(photo, 'w_230,h_230,c_fill')%>);"></div>
+      <div class="" style="background-image: url(<%=addFilter(photo, 'w_230,h_230,c_limit')%>);"></div>
     </a>
   <% } else { %>
     <a class="am-MoreImages" href='/user/<%=User.username%>/<%=entity%>/<%=nameSlugify%>'>
-      <div class="" style="background-image: url(<%=addFilter(photo, 'w_230,h_230,c_fill')%>);"></div>
+      <div class="am-MoreImages-container">
+      	<img class="am-MoreImages-inner" src="<%=addFilter(photo, 'w_230,h_230,c_limit')%>">
+      </div>
     </a>
   <% } %>
 
