@@ -4,7 +4,7 @@
  */
 var APP = APP || {};
 
-APP.WorkScreen = function () {
+APP.WorkScreen = function() {
   APP.BaseScreen.call(this, 'work');
 
   this.currentItem = this.oldItem;
@@ -18,14 +18,14 @@ APP.WorkScreen = function () {
 APP.WorkScreen.constructor = APP.WorkScreen;
 APP.WorkScreen.prototype = Object.create(APP.BaseScreen.prototype);
 
-APP.WorkScreen.prototype.setupUI = function () {
+APP.WorkScreen.prototype.setupUI = function() {
   new APP.Viewer('carrouselItem', $('.more'), null, more);
   new APP.Viewer('carrouselItem', $('.similar'), null, similar);
 
   new APP.Carrousel($('.js-more-carousel'), $('.more'));
   new APP.Carrousel($('.js-similar-carousel'), $('.similar'));
 
-  new APP.PhotoSwipe();
+  new APP.PhotoSwipe('work');
 
   this.reviewsContainer = $('.reviews-items-container');
   for (var i = 0; i < reviews.length; i++)
@@ -54,7 +54,7 @@ APP.WorkScreen.prototype.setupUI = function () {
   });
 }
 
-APP.WorkScreen.prototype.listeners = function () {
+APP.WorkScreen.prototype.listeners = function() {
   APP.BaseScreen.prototype.listeners.call(this);
   this.shareFb.click(this.shareFBHandler.bind(this));
 
@@ -67,11 +67,14 @@ APP.WorkScreen.prototype.listeners = function () {
 
   if (DataApp.currentUser) {
     var collectionsUrl = DataApp.currentUser.url + '/collection/all';
-    this.requestHandler(collectionsUrl, {}, this.collectionsHandlerComplete);
-
+    this.requestHandler(collectionsUrl, {
+      meta: 'works'
+    }, this.collectionsHandlerComplete);
     if (!owner) {
       var followingUrl = DataApp.currentUser.url + '/isFollowing';
-      this.requestHandler(followingUrl, {idUser: work.User.id}, this.isFollowingComplete);
+      this.requestHandler(followingUrl, {
+        idUser: work.User.id
+      }, this.isFollowingComplete);
     }
   }
 
@@ -84,7 +87,7 @@ APP.WorkScreen.prototype.listeners = function () {
   $(document).bind('keyup', this.documentKeyupHandler.bind(this));
 };
 
-APP.WorkScreen.prototype.documentKeyupHandler = function (event) {
+APP.WorkScreen.prototype.documentKeyupHandler = function(event) {
   if (event.keyCode === 39 && this.prevBtn.length > 0)
     window.location.href = this.prevBtn.attr('href');
 
@@ -92,31 +95,33 @@ APP.WorkScreen.prototype.documentKeyupHandler = function (event) {
     window.location.href = this.nextBtn.attr('href');
 };
 
-APP.WorkScreen.prototype.copyHandler = function (trigger) {
+APP.WorkScreen.prototype.copyHandler = function(trigger) {
   $('#lean_overlay').trigger("click");
   this.showFlash('succes', 'Link Copiado');
   return window.location.href;
 };
 
-APP.WorkScreen.prototype.reviewFormHandler = function (event) {
+APP.WorkScreen.prototype.reviewFormHandler = function(event) {
   event.preventDefault();
   var url = DataApp.currentUser.url + '/work/review/create';
   this.requestHandler(url, $(event.target).serialize(), this.reviewComplete);
 };
 
-APP.WorkScreen.prototype.reviewComplete = function (response) {
+APP.WorkScreen.prototype.reviewComplete = function(response) {
   $('.value-input').val('');
   this.reviewContainer.append(new APP.Review(response.data.review).view);
 }
 
 
-APP.WorkScreen.prototype.followHandler = function () {
+APP.WorkScreen.prototype.followHandler = function() {
   Utils.checkAuthentication();
   var url = DataApp.currentUser.url + (this.isFollowing ? '/unfollow/' : '/follow/');
-  this.requestHandler(url, {idUser: work.User.id}, this.followComplete);
+  this.requestHandler(url, {
+    idUser: work.User.id
+  }, this.followComplete);
 };
 
-APP.WorkScreen.prototype.followComplete = function (response) {
+APP.WorkScreen.prototype.followComplete = function(response) {
   console.log(response);
   if (this.isFollowing) {
     this.followBtn.removeClass('following').text('+ SEGUIR');
@@ -127,21 +132,24 @@ APP.WorkScreen.prototype.followComplete = function (response) {
   this.isFollowing = !this.isFollowing;
 }
 
-APP.WorkScreen.prototype.isFollowingComplete = function (response) {
+APP.WorkScreen.prototype.isFollowingComplete = function(response) {
   this.isFollowing = response.data.following;
   this.isFollowing && this.followBtn.addClass('following').text('Siguiendo');
 }
 
-APP.WorkScreen.prototype.saveClickHandler = function () {
+APP.WorkScreen.prototype.saveClickHandler = function() {
   this.saveBtn.hide();
   this.saveBtnLoading.show();
 
   var url = DataApp.currentUser.url + '/work/add_to_collection';
-  var payload = {collections: JSON.stringify(this.idCollections), idWork: work.id};
+  var payload = {
+    collections: JSON.stringify(this.idCollections),
+    idWork: work.id
+  };
   this.requestHandler(url, payload, this.saveRequestComplete);
 };
 
-APP.WorkScreen.prototype.saveRequestComplete = function () {
+APP.WorkScreen.prototype.saveRequestComplete = function() {
   this.saveBtn.show();
   this.saveBtnLoading.hide();
   this.showFlash('succes', 'Su actualizo tus colecciones');
@@ -150,13 +158,13 @@ APP.WorkScreen.prototype.saveRequestComplete = function () {
 };
 
 
-APP.WorkScreen.prototype.collectionFormHandler = function (event) {
+APP.WorkScreen.prototype.collectionFormHandler = function(event) {
   event.preventDefault();
   var url = DataApp.currentUser.url + '/collection/create';
   this.requestHandler(url, $(event.target).serialize(), this.collectionFormComplete);
 };
 
-APP.WorkScreen.prototype.collectionFormComplete = function (response) {
+APP.WorkScreen.prototype.collectionFormComplete = function(response) {
   var item = new APP.CollectionItem(response.data.collection);
   item.addEventListener(Events.COLLECTION_ITEM_SELECTED, this.collectionItemSelected.bind(this));
   this.collections.push(item);
@@ -164,15 +172,17 @@ APP.WorkScreen.prototype.collectionFormComplete = function (response) {
 };
 
 
-APP.WorkScreen.prototype.likeBtnHandler = function () {
+APP.WorkScreen.prototype.likeBtnHandler = function() {
   Utils.checkAuthentication();
   if (!work.liked) {
     var url = DataApp.currentUser.url + '/work/like';
-    this.requestHandler(url, {idWork: work.id}, this.likeComplete);
+    this.requestHandler(url, {
+      idWork: work.id
+    }, this.likeComplete);
   }
 };
 
-APP.WorkScreen.prototype.likeComplete = function (response) {
+APP.WorkScreen.prototype.likeComplete = function(response) {
   console.log(response);
   work.liked = !work.liked;
   $('.likes').text(response.data.likes);
@@ -180,7 +190,7 @@ APP.WorkScreen.prototype.likeComplete = function (response) {
   this.afterLike.show();
 };
 
-APP.WorkScreen.prototype.collectionsHandlerComplete = function (response) {
+APP.WorkScreen.prototype.collectionsHandlerComplete = function(response) {
   var collections = response.data.collections;
   var i, item;
   for (i = 0; i < collections.length; i++) {
@@ -191,10 +201,12 @@ APP.WorkScreen.prototype.collectionsHandlerComplete = function (response) {
   }
 
   var url = DataApp.currentUser.url + '/work/inside_collection';
-  this.requestHandler(url, {idWork: work.id}, this.insideCollectionHandler);
+  this.requestHandler(url, {
+    idWork: work.id
+  }, this.insideCollectionHandler);
 };
 
-APP.WorkScreen.prototype.insideCollectionHandler = function (response) {
+APP.WorkScreen.prototype.insideCollectionHandler = function(response) {
   var collections = response.data.collections;
   var i, j;
   for (i = 0; i < this.collections.length; i++)
@@ -211,7 +223,7 @@ APP.WorkScreen.prototype.insideCollectionHandler = function (response) {
   }
 };
 
-APP.WorkScreen.prototype.collectionItemSelected = function (event) {
+APP.WorkScreen.prototype.collectionItemSelected = function(event) {
   var item = event.target;
   var index = this.idCollections.indexOf(item.data.id);
   if (index === -1)
@@ -220,22 +232,24 @@ APP.WorkScreen.prototype.collectionItemSelected = function (event) {
     this.idCollections.splice(index, 1);
 };
 
-APP.WorkScreen.prototype.askAvailabilityHandler = function (event) {
+APP.WorkScreen.prototype.askAvailabilityHandler = function(event) {
   Utils.checkAuthentication();
   var url = DataApp.currentUser.url + '/work/availability';
-  this.requestHandler(url, {idWork: work.id}, this.askAvailabilityComplete);
+  this.requestHandler(url, {
+    idWork: work.id
+  }, this.askAvailabilityComplete);
 };
 
-APP.WorkScreen.prototype.loginReviewHandler = function () {
+APP.WorkScreen.prototype.loginReviewHandler = function() {
   Utils.checkAuthentication();
 };
 
-APP.WorkScreen.prototype.askAvailabilityComplete = function (response) {
+APP.WorkScreen.prototype.askAvailabilityComplete = function(response) {
   this.askRequester.hide();
   this.thanksRequester.show();
 };
 
-APP.WorkScreen.prototype.menuItemHandler = function (event) {
+APP.WorkScreen.prototype.menuItemHandler = function(event) {
   this.currentItem = $(event.currentTarget);
   var path = this.currentItem.data('name');
   this.currentSection = $('.' + path + '-container');
@@ -251,6 +265,6 @@ APP.WorkScreen.prototype.menuItemHandler = function (event) {
   Utils.changeUrl(DataApp.baseTitle + Utils.capitalize(path), url);
 };
 
-APP.WorkScreen.prototype.shareFBHandler = function () {
+APP.WorkScreen.prototype.shareFBHandler = function() {
   Utils.shareFBWork(work);
 };

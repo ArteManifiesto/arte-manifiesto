@@ -4,14 +4,14 @@
  */
 var APP = APP || {};
 
-APP.AdminBlogScreen = function () {
+APP.AdminBlogScreen = function() {
   APP.BaseScreen.call(this, 'adminBlog');
 };
 
 APP.AdminBlogScreen.constructor = APP.AdminBlogScreen;
 APP.AdminBlogScreen.prototype = Object.create(APP.BaseScreen.prototype);
 
-APP.AdminBlogScreen.prototype.setupUI = function () {
+APP.AdminBlogScreen.prototype.setupUI = function() {
   this.searchBtn = $('.search-btn');
   this.start = $('.start');
   this.end = $('.end');
@@ -34,7 +34,7 @@ APP.AdminBlogScreen.prototype.setupUI = function () {
   }
 
   this.viewer = new APP.Viewer('tableWork', $('.container-items'), 'infinite', data, {
-    getTotal: function (total) {
+    getTotal: function(total) {
       $('.total').text('(' + total + ')');
     }
   });
@@ -42,7 +42,7 @@ APP.AdminBlogScreen.prototype.setupUI = function () {
   this.searchBox = $('.search-box');
 };
 
-APP.AdminBlogScreen.prototype.listeners = function () {
+APP.AdminBlogScreen.prototype.listeners = function() {
   APP.BaseScreen.prototype.listeners.call(this);
 
   this.start.datepicker().on('changeDate', this.startDateChange.bind(this));
@@ -61,15 +61,15 @@ APP.AdminBlogScreen.prototype.listeners = function () {
   }
 };
 
-APP.AdminBlogScreen.prototype.startDateChange = function (event) {
+APP.AdminBlogScreen.prototype.startDateChange = function(event) {
   this.startValue = event.date;
 };
 
-APP.AdminBlogScreen.prototype.endDateChange = function (event) {
+APP.AdminBlogScreen.prototype.endDateChange = function(event) {
   this.endValue = event.date;
 };
 
-APP.AdminBlogScreen.prototype.dropdownChange = function (event) {
+APP.AdminBlogScreen.prototype.dropdownChange = function(event) {
   var text = $(event.target).text();
 
   $(".btn-drop .property").text(text);
@@ -81,7 +81,7 @@ APP.AdminBlogScreen.prototype.dropdownChange = function (event) {
       break;
   }
 };
-APP.AdminBlogScreen.prototype.searchHander = function () {
+APP.AdminBlogScreen.prototype.searchHander = function() {
   var termValue = this.searchBox.val().trim();
 
   if (this.term && this.term.trim().length > 0) {
@@ -111,7 +111,7 @@ APP.AdminBlogScreen.prototype.searchHander = function () {
     if (!this.endValue)
       return this.showFlash('error', ['Ingresa una fecha de fin']);
 
-    var startStr = (this.startValue.getMonth() + 1 ) + "-" +
+    var startStr = (this.startValue.getMonth() + 1) + "-" +
       this.startValue.getDate() + "-" +
       this.startValue.getFullYear();
 

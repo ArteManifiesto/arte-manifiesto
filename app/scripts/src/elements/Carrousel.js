@@ -3,7 +3,7 @@
  *Email : juliocanares@gmail.com
  */
 var APP = APP || {};
-APP.Carrousel = function (view, container) {
+APP.Carrousel = function(view, container) {
   this.view = view;
   this.container = container;
   this.nextBtn = this.view.find('.nextButton');
@@ -14,7 +14,7 @@ APP.Carrousel = function (view, container) {
 
 APP.Carrousel.constructor = APP.Carrousel;
 
-APP.Carrousel.prototype.checkArrows = function () {
+APP.Carrousel.prototype.checkArrows = function() {
   clearTimeout(this.timeout);
 
   if (this.container[0].scrollWidth > this.container.innerWidth()) {
@@ -28,30 +28,30 @@ APP.Carrousel.prototype.checkArrows = function () {
   this.animationComplete();
 };
 
-APP.Carrousel.prototype.setup = function () {
+APP.Carrousel.prototype.setup = function() {
   this.nextBtn.click(this.nextHandler.bind(this));
   this.prevBtn.click(this.prevHandler.bind(this));
 
   this.carrousel.scroll(this.animationComplete.bind(this));
 
   $(window).resize(this.checkArrows.bind(this));
-  
+
   this.timeout = setTimeout(this.checkArrows.bind(this), 1000);
 };
 
-APP.Carrousel.prototype.nextHandler = function () {
+APP.Carrousel.prototype.nextHandler = function() {
   this.carrousel.animate({
     scrollLeft: (this.carrousel.scrollLeft() + 230)
   }, 400, this.animationComplete.bind(this));
 };
 
-APP.Carrousel.prototype.prevHandler = function () {
+APP.Carrousel.prototype.prevHandler = function() {
   this.carrousel.animate({
     scrollLeft: (this.carrousel.scrollLeft() - 230)
   }, 400, this.animationComplete.bind(this));
 };
 
-APP.Carrousel.prototype.animationComplete = function () {
+APP.Carrousel.prototype.animationComplete = function() {
   if (this.carrousel.scrollLeft() <= 0)
     this.prevBtn.hide();
   else

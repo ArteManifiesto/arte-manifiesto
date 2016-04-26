@@ -19,6 +19,7 @@ plan.target('production', [
   {
     host: '159.203.120.86',
     username: username,
+    password: '7fBC6ELADmWoe*dFhY>p?gDHZZvRX=bth4hm3&xCf83N',
     agent: process.env.SSH_AUTH_SOCK
   },
 // {

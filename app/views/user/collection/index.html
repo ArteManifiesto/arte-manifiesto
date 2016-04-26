@@ -1,4 +1,4 @@
-{% set templates = ['work']%}
+{% set templates = ['work', 'product']%}
 {% set pageTitle = collection.name %}
 
 {% extends '../../partials/base.html' %}
@@ -128,7 +128,7 @@
 
 	{% block scripts %}
 	<script type="text/javascript">
-	var works = {{works|safe|json}};
+	var items = {{items|safe|json}};
 	var collection = {{collection|safe|json}};
 	$(function() {
 		new APP.CollectionScreen();

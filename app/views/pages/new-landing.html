@@ -1,0 +1,168 @@
+{% set templates = ['work', 'user']%}
+{% set pageTitle = 'Arte Manifiesto, la primera red social de artistas visuales y creadores de latinoamerica' %}
+
+{% extends '../partials/base.html' %}
+
+{% block elements %}
+	<!-- ********************************************************************
+		$ SLIDER
+	********************************************************************* -->
+	<div class="grid-container u-margin-top-20">
+		<div class="grid-100">
+			<section class="slider">
+				<div class="slider-items">
+					<a href="/compra-y-vende-arte-en-internet-latinoamerica">
+					<div class="slider-item js-slide" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065553/general/home-slider-1.jpg')">
+						<div class="slider-item-inner">
+							<p class="title">La primera red social de artistas visuales y creadores de latinoamerica</p>
+						</div>
+					</div>
+					<a href="https://kuestionario.typeform.com/to/VNsGbl">
+					<div class="slider-item js-slide" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065551/general/home-slider-2.jpg')">
+						<div class="slider-item-inner">
+							<p class="title">Participa y gana una exposicion en Casa Pausa</p>
+						</div>
+					</div>
+				</a>
+				</div>
+				<div class="slider-nav">
+					<i class="slider-nav-item js-slideNavItem active fa fa-circle"></i>
+					<i class="slider-nav-item js-slideNavItem fa fa-circle"></i>
+				</div>
+			</section>
+		</div>
+	</div>
+
+	<!-- ********************************************************************
+		$ MARKET MENU
+	********************************************************************* -->
+	<div class="grid-container">
+		<div class="grid-100">
+			<div class="market-sub-menu">
+				<a href="/products/category/all/page-1">TODO</a>
+				{% for category in categories %}
+				<a href="/products/category/{{category.nameSlugify}}/page-1" class="uppercase">{{category.name}}</a>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+		<!-- ********************************************************************
+			$ MARKET GRID
+		********************************************************************* -->
+		<div class="market-grid">
+			<div class="grid-container">
+				<div class="grid-66 mobile-grid-100">
+					<a href="/collections/category/all/page-1" class="market-grid-element">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1461249379/general/home-banner-1.png">
+					</a>
+				</div>
+				<div class="grid-33 mobile-grid-50 market-grid-desktop">
+					<a href="/products/category/phone-cases/page-1" class="market-grid-element">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1461249383/general/home-banner-2.png">
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="market-grid market-grid-mobile">
+			<div class="grid-container">
+				<div class="grid-50 mobile-grid-50">
+					<a href="/products/category/phone-cases/page-1" class="market-grid-element">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1461249383/general/home-banner-2.png">
+					</a>
+				</div>
+				<div class="grid-50 mobile-grid-50">
+					<a href="/products/category/tazas/page-1" class="market-grid-element">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1461249379/general/home-banner-3.png">
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="market-grid">
+			<div class="grid-container">
+				<div class="grid-33 mobile-grid-50 market-grid-desktop">
+					<a href="/products/category/tazas/page-1" class="market-grid-element">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1461249379/general/home-banner-3.png">
+					</a>
+				</div>
+				<div class="grid-66 mobile-grid-100">
+					<a href="/products/category/original/page-1" class="market-grid-element">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1461249379/general/home-banner-4.png">
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="market-grid">
+			<div class="grid-container">
+				<div class="grid-100">
+					<div class="market-grid-element background" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1461249379/general/home-banner-5.png');">
+						<div class="inner">
+							<p class="title">Regístrate y descubre arte recomendado a tu medida</p>
+							<br><br>
+							<p class="subtitle">Cuanto más interactues con tus obras y artistas favoritos, te recomendaremos el arte que más te gusta.
+							<br>
+							¿Qué esperas?</p>
+							<br><br><br>
+							<a href="/auth/signup" class="am-View-button green">REGÍSTRATE AHORA</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="market-grid">
+			<div class="grid-container">
+				<div class="grid-33 mobile-grid-50">
+					<a href="/works/category/all/page-1/?order=newest" class="market-grid-element">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1461282001/general/home-banner-6.png">
+					</a>
+				</div>
+				<div class="grid-33 mobile-grid-50">
+					<a href="/users/specialty/all/page-1?order=popularity&featured=1" class="market-grid-element">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1461249379/general/home-banner-7.png">
+					</a>
+				</div>
+				<div class="grid-33 mobile-grid-100">
+					<a href="/collections/category/all/page-1" class="market-grid-element">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1461249379/general/home-banner-8.png">
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="u-separator-center" style="margin: 50px auto;"></div>
+
+		<div class="market-grid">
+			<div class="grid-container">
+				<div class="grid-100">
+					<div class="market-grid-element background" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1461249379/general/home-banner-9.png');">
+						<div class="inner">
+							<p class="title dark">UNA NUEVA FORMA DE DESCUBRIR ARTE</p>
+							<br><br>
+							<p class="subtitle dark">2,000 artistas y 10,000 obras esperan ser descubiertas por tí
+							<br>
+							Artemanifiesto.com es mucho más que una galería en línea.
+							<br>
+							Nuestra misión, es democratizar el arte</p>
+							<br><br><br>
+							<a href="/works/category/all/page-1/" class="am-View-button">DESCUBRE AHORA</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+{% endblock %}
+
+{% block scripts %}
+	<script>
+	console.log('lele')
+	var slider = new Slider(document.querySelector('.slider'), {
+		slideClass: 'js-slide',
+		sliderNavItemClass: 'js-slideNavItem'
+	});
+	</script>
+{% endblock %}

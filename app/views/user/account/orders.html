@@ -1,0 +1,50 @@
+{% set templates = ['request-item'] %}
+
+{% extends '../../partials/base.html' %}
+{% set pageTitle = 'Pedidos' %}
+
+
+{% block elements %}
+	<div class="am-profile" style="padding-left: 0; padding-right: 0;">
+
+
+
+		<div class="grid-container u-margin-top-20">
+			<div class="grid-100">
+				<p class="account-title"><i class="fa fa-caret-down"></i>Mis compras</p>
+			</div>
+		</div>
+
+		<div class="grid-container">
+			<div class="grid-100">
+				{% if !context %}
+					{% include '../../partials/account-menu.html' %}
+				{% endif %}
+
+				<div class="am-profile-box grid-container u-margin-top-20" style="float: right; max-width: 880px !important;">
+					<form class="complete-form">
+
+						<p class="open-seller-main-title">Mis compras</p>
+
+						<div class="requests-container">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+	<script>
+		var profile = {{profile|json|safe}};
+
+		var orders = {{orders|json|safe}};
+		$(function() {
+			for (var i = 0; i < orders.length; i++) {
+				orders[0].from = 'orders';
+				$('.requests-container').append(new APP.RequestItem(orders[0]).view);
+			}
+		});
+	</script>
+{% endblock %}

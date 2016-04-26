@@ -4,14 +4,18 @@ var moment = require('moment');
 /**
  * post view, get reviews, popular posts and increment its popularity
  */
-exports.post = function (req, res) {
+exports.post = function(req, res) {
   var popularPostsQuery = {
     limit: global.limits.singlePost,
-    attributes: ['id', 'name', 'nameSlugify', 'photo', 'description', 'published', 'featured',
-    'views', 'popularity', 'createdAt', 'updatedAt'],
+    attributes: ['id', 'name', 'nameSlugify', 'photo', 'description',
+      'published', 'featured',
+      'views', 'popularity', 'createdAt', 'updatedAt'
+    ],
     where: {
       published: true,
-      id: {$not: [req.post.id]},
+      id: {
+        $not: [req.post.id]
+      },
       createdAt: {
         $between: [
           moment().startOf('month').toDate(),
@@ -27,11 +31,13 @@ exports.post = function (req, res) {
 
   var promises = [
     req.post.getCategory(),
-    req.post.getReviews({include: [global.db.User]}),
+    req.post.getReviews({
+      include: [global.db.User]
+    }),
     global.db.Post.findAll(popularPostsQuery),
     req.post.view()
   ];
-  global.db.Sequelize.Promise.all(promises).then(function (result) {
+  global.db.Sequelize.Promise.all(promises).then(function(result) {
     req.post.setDataValue('Category', result[0]);
     var post = req.post.toJSON();
     return res.render(basePath + 'post', {
@@ -46,18 +52,20 @@ exports.post = function (req, res) {
 /**
  * create a new post
  */
-exports.create = function (req, res) {
+exports.create = function(req, res) {
   req.body.UserId = req.user.id;
   req.body.CategoryId = req.body.category;
-  global.db.Post.create(req.body).then(function (post) {
+  global.db.Post.create(req.body).then(function(post) {
     var actionQuery = {
       UserId: req.user.id,
       verb: 'create-post',
       ObjectId: post.id,
       OwnerId: req.user.id
     };
-    global.db.Action.create(actionQuery).then(function () {
-      return res.ok({post: post}, 'post');
+    global.db.Action.create(actionQuery).then(function() {
+      return res.ok({
+        post: post
+      }, 'post');
     })
   });
 };
@@ -65,12 +73,16 @@ exports.create = function (req, res) {
 /**
  * edit post
  */
-exports.edit = function (req, res) {
+exports.edit = function(req, res) {
   var promises = [
-    global.db.Category.findAll({where: {meta: 1}}),
+    global.db.Category.findAll({
+      where: {
+        meta: 1
+      }
+    }),
     req.post.getCategory()
   ];
-  global.db.Sequelize.Promise.all(promises).then(function (result) {
+  global.db.Sequelize.Promise.all(promises).then(function(result) {
     req.post.setDataValue('Category', result[1]);
     var post = req.post.toJSON();
     return res.render(basePath + 'creator', {
@@ -87,37 +99,45 @@ exports.edit = function (req, res) {
 /**
  * update post
  */
-exports.update = function (req, res) {
+exports.update = function(req, res) {
   req.body.CategoryId = req.body.category;
-  req.post.updateAttributes(req.body).then(function (post) {
-    return res.ok({post: post}, 'post');
+  req.post.updateAttributes(req.body).then(function(post) {
+    return res.ok({
+      post: post
+    }, 'post');
   });
 };
 
 /**
  * delete post, unfortunately this action makes me cry, don't do it again. okay?
  */
-exports.delete = function (req, res) {
+exports.delete = function(req, res) {
   var promises = [
-    global.db.Action.destroy({where: {
-      ObjectId: req.post.id,
-      verb: {$in: ['create-post', 'like-post', 'review-post']}
-    }}),
+    global.db.Action.destroy({
+      where: {
+        ObjectId: req.post.id,
+        verb: {
+          $in: ['create-post', 'like-post', 'review-post']
+        }
+      }
+    }),
     req.post.destroy()
   ];
-  global.db.Sequelize.Promise.all(promises).then(function () {
-    return res.ok({post: req.post}, 'Post eliminado');
+  global.db.Sequelize.Promise.all(promises).then(function() {
+    return res.ok({
+      post: req.post
+    }, 'Post eliminado');
   });
 };
 
 /**
  * create review
  */
-exports.review = function (req, res) {
+exports.review = function(req, res) {
   req.body.PostId = parseInt(req.body.idPost, 10);
   req.body.UserId = parseInt(req.viewer, 10);
 
-  global.db.Review.create(req.body).then(function (review) {
+  global.db.Review.create(req.body).then(function(review) {
     var actionQuery = {
       UserId: req.user.id,
       verb: 'review-post',
@@ -125,15 +145,22 @@ exports.review = function (req, res) {
       OwnerId: req.user.id
     };
 
-    var query = {where: {id: review.id}, include: [global.db.User]};
+    var query = {
+      where: {
+        id: review.id
+      },
+      include: [global.db.User]
+    };
 
     var promises = [
       global.db.Review.find(query),
       global.db.Action.create(actionQuery)
     ];
 
-    global.db.Sequelize.Promise.all(promises).then(function (result) {
-      return res.ok({review: result[0]}, 'Review creado');
+    global.db.Sequelize.Promise.all(promises).then(function(result) {
+      return res.ok({
+        review: result[0]
+      }, 'Review creado');
     });
   });
 };
@@ -141,16 +168,19 @@ exports.review = function (req, res) {
 /**
  * like post
  */
-exports.like = function (req, res) {
-  req.post.like(req.user).then(function (likes) {
+exports.like = function(req, res) {
+  req.post.like(req.user).then(function(likes) {
     var actionQuery = {
       UserId: req.user.id,
       verb: 'like-post',
       ObjectId: req.post.id,
       OwnerId: req.user.id
     };
-    global.db.Action.create(actionQuery).then(function () {
-      return res.ok({post: req.post, likes: likes}, 'Post liked');
+    global.db.Action.create(actionQuery).then(function() {
+      return res.ok({
+        post: req.post,
+        likes: likes
+      }, 'Post liked');
     });
   });
 };
@@ -158,35 +188,51 @@ exports.like = function (req, res) {
 /**
  * featured post, this action is just available to the admin
  */
-exports.featured = function (req, res) {
-  req.post.updateAttributes({featured: true}).then(function () {
-    return res.ok({post: req.post}, 'Post featured');
+exports.featured = function(req, res) {
+  req.post.updateAttributes({
+    featured: true
+  }).then(function() {
+    return res.ok({
+      post: req.post
+    }, 'Post featured');
   });
 };
 
 /**
  * unfeature post, this action is just available to the admin
  */
-exports.unFeatured = function (req, res) {
-  req.post.updateAttributes({featured: false}).then(function () {
-    return res.ok({post: req.post}, 'Post unFeatured');
+exports.unFeatured = function(req, res) {
+  req.post.updateAttributes({
+    featured: false
+  }).then(function() {
+    return res.ok({
+      post: req.post
+    }, 'Post unFeatured');
   });
 };
 
 /**
  * publish post, this action makes public a post, so everyone can interact with it
  */
-exports.publish = function (req, res) {
-  req.post.updateAttributes({published: true}).then(function () {
-    return res.ok({post: req.post}, 'Post published');
+exports.publish = function(req, res) {
+  req.post.updateAttributes({
+    published: true
+  }).then(function() {
+    return res.ok({
+      post: req.post
+    }, 'Post published');
   });
 };
 
 /**
  * unpublish post, when a post is unpublished it goes to the draft section
  */
-exports.unPublish = function (req, res) {
-  req.post.updateAttributes({published: false}).then(function () {
-    return res.ok({post: req.post}, 'Post unPublished');
+exports.unPublish = function(req, res) {
+  req.post.updateAttributes({
+    published: false
+  }).then(function() {
+    return res.ok({
+      post: req.post
+    }, 'Post unPublished');
   });
 };

@@ -1,0 +1,49 @@
+{% set path = "users" %}
+
+{% extends '../partials/report.html' %}
+
+{% block content %}
+  <h2 class="sub-header">{{product.name}}</h2>
+  <div>
+    <img src="{{product.photo|addFilter('w_300,q_80,c_limit')}}">
+  </div>
+  <a class="btn btn-info" href="/user/{{product.User.username}}/product/{{product.nameSlugify}}">ver</a>
+  <button class="btn btn-danger btn-denied">rechazar</button>
+  <button class="btn btn-success btn-accepted">aceptar</button>
+  </br>
+  </br>
+  <div class="row hide form-container">
+    <form class="denied-form">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label>Motivo</label>
+          <div class="input-group">
+            <select name='reason'>
+              <option selected disabled>Selecciona un motivo</option>
+              <option>Cabraso</option>
+              <option>GG</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Mensaje</label>
+          <div class="input-group">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+            <textarea class="form-control" rows="3" name="message"></textarea>
+          </div>
+        </div>
+        <input type="submit" value="Aceptar" class="btn btn-danger send-btn">
+      </div>
+    </form>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    $.cloudinary.config({{cloudinary.config()|json|safe}});
+    var product = {{product|json|safe}};
+    $(function () {
+      new APP.AdminProductRevisionScreen();
+    });
+  </script>
+{% endblock %}

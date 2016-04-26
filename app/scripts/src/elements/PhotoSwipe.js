@@ -3,7 +3,8 @@
  *Email : juliocanares@gmail.com
  */
 var APP = APP || {};
-APP.PhotoSwipe = function () {
+APP.PhotoSwipe = function(tag) {
+  this.tag = tag;
   this.filter = 'w_1500,h_800,c_limit,q_80';
 
   this.isLoading = false;
@@ -16,27 +17,31 @@ APP.PhotoSwipe = function () {
 
 APP.PhotoSwipe.constructor = APP.PhotoSwipe;
 
-APP.PhotoSwipe.prototype.setupUI = function () {
+APP.PhotoSwipe.prototype.setupUI = function() {
   this.image = $('#work-image');
   this.pswp = $('.pswp')[0];
   this.modal = $('#go-preload-modal');
 };
 
 
-APP.PhotoSwipe.prototype.listeners = function () {
+APP.PhotoSwipe.prototype.listeners = function() {
   this.image.click(this.imageHandler.bind(this));
 };
 
-APP.PhotoSwipe.prototype.imageHandler = function () {
+APP.PhotoSwipe.prototype.imageHandler = function() {
   if (!this.zoom) {
     this.modal.click();
 
     this.isLoading = true;
-
-    var src = Utils.addImageFilter(work.photo, this.filter);
+    var src;
+    if (this.tag === 'work') {
+      src = Utils.addImageFilter(work.photo, this.filter);
+    } else {
+      src = Utils.addImageFilter(product.photo, this.filter);
+    }
 
     var scope = this;
-    $('<img>').load(function () {
+    $('<img>').load(function() {
       scope.imageLoadHandler(this);
     }).attr('src', src);
 
@@ -49,25 +54,34 @@ APP.PhotoSwipe.prototype.imageHandler = function () {
   }
 };
 
-APP.PhotoSwipe.prototype.imageLoadHandler = function (image) {
+APP.PhotoSwipe.prototype.imageLoadHandler = function(image) {
   $('#lean_overlay').click();
 
   this.isLoading = false;
-  this.meta = {width: image.width, height: image.height};
+  this.meta = {
+    width: image.width,
+    height: image.height
+  };
   this.image.click(this.openPhotoSwipeHandler.bind(this));
   this.image.click();
 };
 
-APP.PhotoSwipe.prototype.openPhotoSwipeHandler = function () {
+APP.PhotoSwipe.prototype.openPhotoSwipeHandler = function() {
+  var src;
+  if (this.tag === 'work') {
+    src = Utils.addImageFilter(work.photo, this.filter);
+  } else {
+    src = Utils.addImageFilter(product.photo, this.filter);
+  }
   var items = [{
-    src: Utils.addImageFilter(work.photo, this.filter),
+    src: src,
     w: this.meta.width,
     h: this.meta.height
   }];
 
   var scope = this;
   var options = {
-    getThumbBoundsFn: function () {
+    getThumbBoundsFn: function() {
       return {
         x: scope.image.offset.left,
         y: scope.image.offset.top + 50,

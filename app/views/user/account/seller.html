@@ -1,0 +1,215 @@
+{% extends '../../partials/base.html' %}
+{% set pageTitle = 'Administrar cuenta' %}
+
+{% block elements %}
+	<div id="seller-invitation" class="{%if user.isSeller%} hide {%endif%}">
+		<div class="am-profile" style="padding-left: 0; padding-right: 0;">
+
+			<div class="grid-container u-margin-top-20">
+				<div class="grid-100">
+					<p class="account-title"><i class="fa fa-caret-down"></i>Abre tu tienda en línea</p>
+				</div>
+			</div>
+
+			<div class="grid-container">
+				<div class="grid-100">
+					{% if !context %}
+						{% include '../../partials/account-menu.html' %}
+					{% endif %}
+
+					<div class="am-profile-box grid-container u-margin-top-20" style="float: right; max-width: 880px !important; width: 100%;">
+							<div class="invitation-cover" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1458957539/general/vende_en_internet.png');">
+							</div>
+
+							<p class="invitation-title">Crea tu tienda en línea en 3 pasos</p>
+
+							<p class="invitation-subTitle">Ahora hacemos muy fácil el que puedas vender tu arte por internet</p>
+
+							<a class="invitation-button create-store-btn" href="">CREAR TIENDA</a>
+
+							<p class="invitation-subTitle underline">¿Cómo funciona la tienda?</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="seller-validation" class="{%if !user.isSeller%} hide {%endif%}">
+		<div class="am-profile" style="padding-left: 0; padding-right: 0;">
+
+			<div class="grid-container u-margin-top-20">
+				<div class="grid-100">
+					<p class="account-title"><i class="fa fa-caret-down"></i>Quiero abrir mi tienda</p>
+				</div>
+			</div>
+
+			<div class="grid-container">
+				<div class="grid-100">
+
+					{% include '../../partials/account-menu.html' %}
+
+					<div class="am-profile-box grid-container u-margin-top-20">
+						<form class="complete-form">
+
+							<div class="separator main">
+								<span class="line"></span><span class="text">VALIDACIÓN<br>DE VENDEDOR</span><span class="line"></span>
+							</div>
+
+							<div class="grid-50 mobile-grid-100">
+								<p class="title">País</p>
+								<select class="input select" name='country'>
+									<option disabled selected>Seleccionar País</option>
+									<option>Argentina</option>
+									<option>Bolivia</option>
+									<option>Brasil</option>
+									<option>Chile</option>
+									<option>Colombia</option>
+									<option>Ecuador</option>
+									<option>España</option>
+									<option>Estados Unidos</option>
+									<option>Mexico</option>
+									<option>Paraguay</option>
+									<option>Peru</option>
+									<option>Uruguay</option>
+									<option>Venezuela</option>
+								</select>
+							</div>
+							<div class="grid-50 mobile-grid-100">
+								<p class="title">Ciudad</p>
+								<input class="input" name='city' value="" type="text" placeholder="Ingresa tu ciudad de residencia"/>
+							</div>
+
+							<div class="grid-50 mobile-grid-100">
+								<p class="title">Estado o provincia</p>
+								<input class="input" name='province' value="{{user.province}}" type="text" placeholder="Seleccionar Estado"/>
+							</div>
+							<div class="grid-50 mobile-grid-100">
+								<p class="title">Código postal</p>
+								<input class="input" name='zipcode' value="{{user.zipcode}}" type="text" placeholder="Ingresa código postal"/>
+							</div>
+
+							<div class="grid-100">
+								<p class="title">Dirección de Envío</p>
+								<input class="input" type="text" value="{{user.direction}}" name='direction' placeholder="Dirección Línea 1"/>
+								<p class="title">Teléfono móvil</p>
+								<div class="flex-input">
+									<input class="input" type="text" value="+ 51" name='' placeholder="" disabled/>
+									<input class="input" type="text" value="{{user.phone}}" name='phone' placeholder="Ingresa tu teléfono"/>
+								</div>
+								<!-- <p class="title">Usuario Paypal</p>
+								<input class="input" type="text" value="{{user.paypal}}" name='paypal' placeholder="Ingresa el email de tu cuenta en paypal"/> -->
+							</div>
+
+							<div class="artist-data country-container {% if user.country !== 'Peru' %}  {%endif%}">
+								<div class="separator u-margin-top-40">
+									<span class="line"></span><span class="text">VENDEDORES EN PERÚ </span><span class="line"></span>
+								</div>
+
+								<div class="grid-100 mobile-grid-100">
+									<p class="title">¿Que tipo de documento tienes?</p>
+								</div>
+
+								<div class="grid-50 mobile-grid-100">
+									<select class="input select" name='document'>
+										<option disabled selected>Seleccionar tipo</option>
+										<option>DNI</option>
+										<option>RUC</option>
+									</select>
+								</div>
+
+								<div class="grid-100 mobile-grid-100">
+									<p class="title">Nro de Documento</p>
+									<input class="input" type="text" value="{{user.documentValue}}" name='documentValue' placeholder="Ingresa un documento válido"/>
+									<p class="title">Nombre completo/razón social</p>
+									<input class="input" type="text" value="{{user.businessName}}" name='businessName' placeholder="Ingresa un documento válido"/>
+									<p class="title">Banco</p>
+									<input class="input" type="text" value="{{user.bank}}" name='bank' placeholder="Ingresa el nombre de tu banco"/>
+									<p class="title">Número de cuenta con código Interbancario CCI</p>
+									<input class="input" type="text" value="{{user.cci}}" name='cci' placeholder="Ingresa tu número de cuenta"/>
+								</div>
+							</div>
+							{% if !user.isSeller %}
+							<p class="title">Acuerdos con el usuario</p>
+
+							<!-- <p class="subtitle">Cuando se vende una obra o producto en la plataforma, la venta ocurre entre tú y el comprador final. Arte Manifiesto funciona como tu agente. Para hacer esto, tienes que darnos permisos explícitos</p> -->
+							<p class="subtitle">Asegúrate de leer los términos y condiciones</p>
+
+							<table class="u-margin-top-20">
+								<tr>
+									<td><input type="checkbox" name="terms" value=""></td>
+									<td class="check-title">Acepto los <a href="#">términos y condiciones para vendedores</a> en la plataforma.</td>
+								</tr>
+							</table>
+							{%endif%}
+							<div class="grid-100 mobile-grid-100">
+								<button class="button upload green u-margin-top-40" data-color="green">GUARDAR CAMBIOS</button>
+							</div>
+							{% if user.isSeller %}
+								<div class="grid-100 mobile-grid-100">
+									<a class="button upload red u-margin-top-40 delete-store" data-color="green">DESACTIVAR TIENDA</a>
+								</div>
+							{%endif%}
+
+							<div class="grid-100 save-loading hide mobile-grid-100">
+								<button class="button u-margin-top-40" data-color="green"><i class="load fa fa-spinner"></i></button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<a id="go-share-modal" href="#share-modal"></a>
+
+	<div id="share-modal" style="display: none;">
+		<i class="closed-modal fa fa-times"></i>
+
+		<div class="am-profile" style="padding: 0;">
+
+			<div class="grid-container" style="padding: 0;">
+				<div class="grid-100 grid-parent">
+
+					<div class="am-profile-box grid-container">
+						<form class="complete-form">
+
+							<div class="separator main u-margin-top-30">
+								<span class="line" style="height: 2px;"></span><span class="text">APERTURA<br>DE TIENDA</span><span class="line" style="height: 2px;"></span>
+							</div>
+
+							<div class="grid-100 mobile-grid-100">
+								<p class="title comfirm">Ya estas listo para vender tu trabajo al mundo
+									<br><br>
+									Anda a tu portafolio y edita que obras quieres vender.
+									<br><br>
+										Asegúrate de revistar nuestras guía para vendedor
+									<br><br><br>
+									<a href="#">
+										Guía para vendedores
+									</a>
+								</p>
+							</div>
+
+							<div class="grid-100 mobile-grid-100">
+								<a style="text-align: center;" href="/user/{{user.username}}/" class="button upload green u-margin-top-40" data-color="green">IR A PORTAFOLIO</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+{% endblock %}
+{% block scripts %}
+<script src='//maps.googleapis.com/maps/api/js?sensor=false&libraries=places'></script>
+<script>
+$(function() {
+	$('.seller').addClass('selected');
+	new APP.AccountSellerScreen();
+	$('#go-share-modal').leanModal();
+});
+</script>
+	<!-- $('.') -->
+{% endblock %}

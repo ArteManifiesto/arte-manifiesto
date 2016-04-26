@@ -1,0 +1,122 @@
+{% extends '../../partials/base.html' %}
+
+{% block elements %}
+
+	<div class="am-welcome am-checkout">
+		<div class="grid-container">
+			<div class="grid-100">
+				<div class="checkout-box">
+					<div class="checkout-content">
+						<div class="grid-container">
+							<div class="grid-70">
+								<p class="title">Datos de envío</p>
+							</div>
+							<div class="grid-70">
+								<div class="checkout-info">
+									<div class="addresses">
+										<div class="address">
+											<p class="address-title">Ingresa datos de envío</p>
+										</div>
+										<div class="address" style="padding-bottom: 20px;">
+											<div class="grid-container grid-parent" style="width: 100%;">
+												<div class="grid-50">
+													<p class="address-label">Nombres</p>
+													<input class="address-input" placeholder="Ingresa tu Nombre" value={{user.firstname}} name="firstname">
+												</div>
+												<div class="grid-50">
+													<p class="address-label">Apellidos</p>
+													<input class="address-input" placeholder="Tus apellidos" value={{user.lastname}} name="lastname">
+												</div>
+												<div class="grid-66">
+													<p class="address-label">Dirección de Envío</p>
+													<input class="address-input" placeholder="Direccion de envio" value="{{user.direction}}" name="direction">
+												</div>
+												<div class="grid-33">
+													<p class="address-label">Int/Apartamento</p>
+													<input class="address-input" name="departament" placeholder="Nro" value="{{user.departament}}" name="departament">
+												</div>
+												<div class="grid-33 suffix-66">
+													<p class="address-label">Ciudad</p>
+													<select class="address-input" name="city">
+														{%for city in cities %}
+															<option>{{city}}</option>
+														{%endfor%}
+													</select>
+												</div>
+												<div class="grid-33">
+													<p class="address-label">Estado/Provincia</p>
+													<input class="address-input" placeholder="Estado o provincia" value="{{user.province}}" name="province">
+												</div>
+												<div class="grid-33">
+													<p class="address-label">Código Postal</p>
+													<input class="address-input" placeholder="Nro" value="{{user.zipcode}}" name="zipcode">
+												</div>
+												<div class="grid-33 suffix-66">
+													<p class="address-label">País</p>
+													<select class="address-input" name="country">
+														<option>Perú</option>
+													</select>
+												</div>
+												<div class="grid-33">
+													<p class="address-label">Teléfono móvil</p>
+													<input class="address-input" placeholder="Ingresa tu número" value="{{user.phone}}" name="phone">
+												</div>
+												<div class="grid-66">
+													<p class="address-label">Correo electrónico</p>
+													<input class="address-input" placeholder="Ingresa tu e-mail" value="{{user.email}}" name="email">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="grid-30">
+								<div class="checkout-resume">
+									<div class="resume-box u-padding-bottom-10">
+										<header>RESUMEN DE LA ORDEN</header>
+										<section>
+											<table>
+												<tr>
+													<td><p class="label">subtotal</p></td>
+													<td><p class="price subtotal">---</p></td>
+												</tr>
+												<tr>
+													<td><p class="label">transporte</p></td>
+													<td><p class="price baseprice">--</p></td>
+												</tr>
+												<tr>
+													<td><p class="label" style="font-size: 18px;">total</p></td>
+													<td><p class="price">S/. <span style="font-size: 18px;" class="totallity">--</span></p></td>
+												</tr>
+											</table>
+										</section>
+									</div>
+								</div>
+							</div>
+							<div class="grid-100">
+								<div class="buttons-container">
+									<form method="post" name='buy-form' action="/user/{{product.User.username}}/product/buy">
+										<input type="hidden" value="{{product.id}}" name="idProduct">
+										<button type="submit" class="button btn-pay" data-color="blue">PAGAR CON PAYPAL</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block scripts %}
+	<script src='//maps.googleapis.com/maps/api/js?sensor=false&libraries=places'></script>
+	<script>
+		var product = {{product|json|safe}};
+		$(function() {
+			new APP.BuyScreen();
+		});
+
+	</script>
+{% endblock %}

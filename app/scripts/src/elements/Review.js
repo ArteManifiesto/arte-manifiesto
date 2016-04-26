@@ -4,8 +4,8 @@
  */
 var APP = APP || {};
 
-APP.Review = function (data, options) {
-    APP.BaseElement.call(this, data, 'review', options);
+APP.Review = function(data, options) {
+  APP.BaseElement.call(this, data, 'review', options);
 };
 
 APP.Review.prototype = Object.create(APP.BaseElement.prototype);

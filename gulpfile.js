@@ -7,6 +7,7 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var stylus = require('gulp-stylus');
 var nib = require('nib');
+var prettify = require('gulp-jsbeautifier');
 
 var paths = {
     jsDir: './app/scripts/src/**/*.js',
@@ -26,6 +27,7 @@ var paths = {
       './app/scripts/vendor/photoswipe-ui-default.js',
       './app/scripts/vendor/photoswipe.js',
       './app/scripts/vendor/jquery.ui.widget.js',
+      './app/scripts/vendor/jquery.geocomplete.js',
       './app/scripts/vendor/jquery.tagsinput.js',
       './app/scripts/vendor/jquery.maskedinput.js',
       './app/scripts/vendor/jquery.leanModal.js',
@@ -56,6 +58,19 @@ gulp.task('watch', function () {
   gulp.watch(paths.stylesDir, ['styles']);
 });
 
+gulp.task('prettify', function() {
+  var dynamicPath = [
+    './app/**/*.js',
+    '!' + paths.vendorDir
+  ];
+  gulp.src(dynamicPath, {
+      base: './'
+    })
+    .pipe(prettify())
+    .pipe(gulp.dest('./'));
+});
+
+
 gulp.task('vendor', function () {
     return gulp.src(paths.vendorDir)
         .pipe(uglify({compress: true}))
@@ -65,7 +80,7 @@ gulp.task('vendor', function () {
 
 gulp.task('scripts', function () {
     return gulp.src(paths.jsDir)
-        .pipe(uglify({compress: true}))
+        // .pipe(uglify({compress: true}))
         .pipe(concat('app.min.js'))
         .pipe(gulp.dest(paths.publicDir));
 });

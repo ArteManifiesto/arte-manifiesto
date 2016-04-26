@@ -1,16 +1,14 @@
 /**
-*Author : www.juliocanares.com/cv
-*Email : juliocanares@gmail.com
-*/
+ *Author : www.juliocanares.com/cv
+ *Email : juliocanares@gmail.com
+ */
 var APP = APP || {};
 
-APP.Viewer = function (id, container, navigation, data , options) {
+APP.Viewer = function(id, container, navigation, data, options) {
   this.container = container;
   this.options = options;
 
-  if (id === 'carrouselItem' || id === 'action' || id === 'notificationItem'
-  || id === 'tableUser' || id === 'tableWork' || id === 'post' || id === 'postMinimal') {
-  }else {
+  if (id === 'carrouselItem' || id === 'action' || id === 'notificationItem' || id === 'tableUser' || id === 'tableWork' || id === 'post' || id === 'postMinimal' || id === 'tableProductApplying') {} else {
     this.setupMasonry();
   }
 
@@ -18,28 +16,27 @@ APP.Viewer = function (id, container, navigation, data , options) {
   this.navigation = navigation;
   this.initialize = true;
   this.fromExternal = false;
-  if(this.navigation) {
+  if (this.navigation) {
     this.navigationManager = new APP.NavigationManager(navigation);
-    if(data) {
+    if (data) {
       this.navigationManager.navigator.currentPage = data.pagination.page;
       this.navigationManager.navigator.totalPages = data.pagination.pages;
-    }else {
+    } else {
       this.navigationManager.navigator.currentPage = 1;
       this.navigationManager.navigator.totalPages = 1;
     }
     this.navigationManager.navigator.start();
     this.listeners();
-    if(data) {
+    if (data) {
       this.addItems(data.items);
-    }
-    else{
+    } else {
       this.fromExternal = true;
       this.navigationManager.navigator.gotoPage(1, true);
     }
   } else {
-    if(data)
+    if (data)
       this.addItems(data);
-    else{
+    else {
       this.fromExternal = true;
       this.navigationManager.navigator.gotoPage(1, true);
     }
@@ -56,7 +53,7 @@ APP.Viewer.prototype.setupMasonry = function() {
     percentPosition: true
   });
 
-  $('.discover-content').on('resetLayout', function () {
+  $('.discover-content').on('resetLayout', function() {
     console.log('expand');
     scope.container.masonry();
   })
@@ -76,24 +73,24 @@ APP.Viewer.prototype.pageLoadStartHandler = function() {
 };
 
 APP.Viewer.prototype.pageLoadEndHandler = function(event) {
-  if(this.fromExternal) {
+  if (this.fromExternal) {
     this.initialize = true;
-  }else {
+  } else {
     this.initialize = false;
   }
   this.addItems(event.data.items);
-  if(this.options && this.options.getTotal) {
+  if (this.options && this.options.getTotal) {
     this.options.getTotal(event.data.pagination.total);
   }
 };
 
 APP.Viewer.prototype.addItems = function(items) {
   this.container.parent().find('.loading').show();
-  if(this.navigation === APP.NavigationManager.PAGINATION && !this.initialize) {
+  if (this.navigation === APP.NavigationManager.PAGINATION && !this.initialize) {
     this.clean();
   }
-  if(items.length < 1) {
-    if(this.container.parent().find('.bare-message').hasClass('hide')) {
+  if (items.length < 1) {
+    if (this.container.parent().find('.bare-message').hasClass('hide')) {
       this.container.parent().find('.bare-message').removeClass('hide');
     }
     var display = this.container.parent().find('.bare-message').show().css('display');
@@ -102,33 +99,41 @@ APP.Viewer.prototype.addItems = function(items) {
     this.container.parent().find('.loading').hide();
   }
   var scopetemp = this;
-  var i = 0, item , counter = 0, lel = [];
-  for(i; i< items.length; i++) {
+  var i = 0,
+    item, counter = 0,
+    lel = [];
+  for (i; i < items.length; i++) {
     if (this.id === 'action') {
-      if(items[i].verb === 'create-work' || items[i].verb === 'like-work') {
+      if (items[i].verb === 'create-work' || items[i].verb === 'like-work') {
         item = new APP.FeedWorkCreated(items[i], this.options);
       }
-      if(items[i].verb === 'follow-user') {
+      if (items[i].verb === 'follow-user') {
         item = new APP.FeedUserFollow(items[i], this.options);
       }
-    }else if (this.id === 'notificationItem') {
-      if(items[i].verb === 'review-work'){
+    } else if (this.id === 'notificationItem') {
+      if (items[i].verb === 'review-work') {
         item = new APP.NotificationReview(items[i], this.options);
       }
-      if(items[i].verb === 'follow-user') {
-          item = new APP.NotificationFollow(items[i], this.options);
+      if (items[i].verb === 'follow-user') {
+        item = new APP.NotificationFollow(items[i], this.options);
       }
-      if(items[i].verb === 'like-work') {
+      if (items[i].verb === 'like-work') {
         item = new APP.NotificationLike(items[i], this.options);
       }
-      if(items[i].verb === 'request-work') {
+      if (items[i].verb === 'request-work') {
         item = new APP.NotificationRequest(items[i], this.options);
       }
-    }
-     else {
+      if (items[i].verb === 'denied-product') {
+        item = new APP.NotificationDeniedProduct(items[i], this.options);
+      }
+      if (items[i].verb === 'accepted-product') {
+        item = new APP.NotificationAcceptedProduct(items[i], this.options);
+      }
+
+    } else {
       item = new APP[Utils.capitalize(this.id)](items[i], this.options);
     }
-    if(item.view.children().hasClass( "work-card" )) {
+    if (item.view.children().hasClass("work-card")) {
       var $items = item.view;
       $items.attr('id', item.data.id);
       $items.hide();
@@ -138,31 +143,29 @@ APP.Viewer.prototype.addItems = function(items) {
       $items.imagesLoaded().progress(function(imgLoad, image) {
         ++counter;
         $(image.img).parents('.grid-item');
-        if(counter === items.length) {
+        if (counter === items.length) {
           var timeout = setTimeout(function() {
             clearTimeout(timeout);
-            for(i = 0; i< lel.length; i++) {
+            for (i = 0; i < lel.length; i++) {
               var it = $('#' + lel[i]);
               it.show();
-              scope.masonry('appended',it);
+              scope.masonry('appended', it);
               scope.masonry();
-              if(scopetemp.navigationManager)
+              if (scopetemp.navigationManager)
                 scopetemp.navigationManager.navigator.restart();
               scope.parent().find('.loading').hide();
             }
           }, 1000);
         }
       });
-    }
-    else {
-        if(this.id === 'carrouselItem' || this.id === 'action' || this.id === 'notificationItem'  || this.id === 'post'
-        || this.id === 'postMinimal' || this.id === 'tableUser' || this.id === 'tableWork') {
+    } else {
+      if (this.id === 'carrouselItem' || this.id === 'action' || this.id === 'notificationItem' || this.id === 'post' || this.id === 'postMinimal' || this.id === 'tableUser' || this.id === 'tableWork' || this.id === 'tableProductApplying') {
         this.container.append(item.view);
-      }else{
+      } else {
         this.container.append(item.view).masonry('appended', item.view);
         this.container.masonry();
       }
-      if(scopetemp.navigationManager){
+      if (scopetemp.navigationManager) {
         scopetemp.navigationManager.navigator.restart();
       }
       this.container.parent().find('.loading').hide();
@@ -176,11 +179,10 @@ APP.Viewer.prototype.reset = function() {
 };
 
 APP.Viewer.prototype.clean = function() {
-  if(this.id === 'carrouselItem' || this.id === 'action' || this.id === 'notificationItem'  || this.id === 'post'
-  || this.id === 'postMinimal' || this.id === 'tableUser' || this.id === 'tableWork') {
-  this.container.empty();
-}else{
-  this.container.masonry('remove', this.container.find('.grid-item')).masonry();
+  if (this.id === 'carrouselItem' || this.id === 'action' || this.id === 'notificationItem' || this.id === 'post' || this.id === 'postMinimal' || this.id === 'tableUser' || this.id === 'tableWork' || this.id === 'tableProductApplying') {
+    this.container.empty();
+  } else {
+    this.container.masonry('remove', this.container.find('.grid-item')).masonry();
   }
   this.initialize = false;
 };

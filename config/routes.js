@@ -4,7 +4,6 @@
  */
 var subdomain = require('express-subdomain');
 
-
 var pagesRouter = require(global.cf.routes + '/pages');
 var authRouter = require(global.cf.routes + '/auth');
 var reportRouter = require(global.cf.routes + '/report');
@@ -23,5 +22,5 @@ exports.init = function (app) {
   app.use('/report', global.md.isAdmin, reportRouter);
   app.use('/blog', blogRouter);
   app.use('/auth', authRouter);
-  app.use('/user/:username', userRouter);
+  app.use('/user/:username',  userRouter);
 };

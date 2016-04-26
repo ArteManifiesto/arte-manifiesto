@@ -1,0 +1,476 @@
+{% set templates = ['collection-item', 'carrousel-item', 'review']%}
+{% set pageTitle = product.name %}
+
+{% extends '../../partials/base.html' %}
+
+{% block head %}
+	<meta property="og:site_name" content="Arte Manifiesto" />
+	<meta property="og:site" content="artemanifiesto.com" />
+	<meta property="og:title" content="{{work.name}}" />
+	<meta property="og:description" content="{{work.description}}" />
+	<meta property="og:image" content="{{work.photo|addFilter('w_1200,h_630,q_60,c_crop')}}" />
+	<meta property="og:url" content="http://artemanifiesto.com/user/{{work.User.username}}/work/{{work.nameSlugify}}" />
+	<meta property="og:type" content="article" />
+	<meta name='twitter:card' content='summary_large_image' />
+	<meta name='twitter:image:src' content="{{work.photo|addFilter('w_1200,h_630,q_60,c_crop')}}" />
+	<meta name='twitter:site' content='@artemanifiesto' />
+	<meta name='twitter:url' content='http://artemanifiesto.com/user/{{work.User.username}}/work/{{work.nameSlugify}}' />
+	<meta name='twitter:description' content='{{work.description}}' />
+	<meta name='twitter:title' content='{{work.name}}' />
+{% endblock %}
+
+{% block styles %}
+	<link rel="stylesheet" href="/css/photoswipe.css">
+	<link rel="stylesheet" href="/css/default-skin/default-skin.css">
+{% endblock %}
+
+{% block elements %}
+{% set product = product.toJSON() %}
+	<div class="grid-container u-margin-top-20">
+		<div class="grid-100">
+			<div class="single-info">
+				<div class="single-image">
+					<div class="single-image-inner">
+						<div class="work-photo-container">
+							<img src="{{product.photo|addFilter('w_700,h_800,q_80,c_limit')}}" class="work-photo" id="work-image">
+						</div>
+							<div class="actions u-padding-top-10">
+								<a class="action {% if product.liked %} active {% endif %}">
+									<div class="like-btn">
+										<i class="icon bi_ecommerce-diamon  valuation"></i>
+										<p class="text">VALORAR</p>
+									</div>
+								</a>
+								<a id="go-share-modal" href="#share-modal" class="action">
+									<i class="icon bi_web-share share"></i>
+									<p class="text">COMPARTIR</p>
+								</a>
+								{% if owner || (user && user.isAdmin)%}
+									<a id="go-share-modal" href="/user/{{product.User.username}}/product/{{product.nameSlugify}}/edit" class="action">
+										<i class="icon bi_editorial-compose"></i>
+										<p class="text">EDITAR</p>
+									</a>
+								{% endif %}
+							</div>
+						<div class="actions-box after-like {% if !product.liked %} hide {% endif %}">
+
+							<i class="bi_interface-top arrow" {% if owner %} style="left: 32px;" {% endif %}></i>
+
+							<a id="go-collection-modal" href="#collection-modal" >
+								<button class="color-blue bg-gray">AÑADIR A LA COLECCIÓN</button>
+							</a>
+							{% if !owner %}
+							<button class="u-margin-top-10 am-Follow-button">+SEGUIR</button>
+							{% endif %}
+							<div class="hide">
+								<button class="u-margin-top-10 follow-loading">
+									<i class="load fa fa-spinner"></i>
+								</button>
+							</div>
+							<div class="hide">
+								<button class="following u-margin-top-10">
+									<i class="fa fa-check-circle"></i>&nbsp;SIGUIENDO
+								</button>
+							</div>
+						</div>
+						<div class="u-margin-top-10">&nbsp;</div>
+					</div>
+				</div>
+				<div class="single-data u-padding-bottom-40">
+					<div class="FollowArtist u-padding-bottom-10">
+						<div style="width: 100%;">
+							<a href="/user/{{product.User.username}}">
+								<p class="u-padding-bottom-7 big uppercase"><strong>
+									{% if product.User.typeName === 1 %}
+										{{product.User.fullname}}
+									{% else %}
+										{{product.User.pseudonimo}}
+									{% endif %}
+								</strong></p>
+							</a>
+							<div class="button-container">
+								{% if !owner %}
+									<button class="am-Follow-button">+ SEGUIR</button>
+								{% endif %}
+								{% if owner %}
+								{% endif %}
+							</div>
+						</div>
+					</div>
+					<div class="u-separator"></div>
+					<p class="am-Single-title-text u-margin-top-15 work-name" style="font-size: 15px;">{{work.name}}</p>
+					<p class="am-collection-desc u-margin-top-10 work-description">
+						{{product.description}}
+					</p>
+					<div class='work-category'>
+						<a href='/products/category/{{product.Category.nameSlugify}}/page-1/'>
+							<span class="am-Category-box u-margin-top-7 uppercase">{{product.Category.name}}</span>
+						</a>
+					</div>
+					<div class="info-box u-margin-top-25">
+						<div class="header" style="padding: 10px 0;">
+							<p style="color: #333; font-size: 10px;">COMPRAR</p>
+						</div>
+						<div class="body">
+							<p class="title">{{product.Category.name}}</p>
+							<p class="text">Obras originales de nuestros artistas de valor único.</p>
+							<p class="text u-margin-top-10">Tamaño:</p>
+							{% set productConfig = JSON.parse(product.config) %}
+							<p class="text u-margin-top-10">{{productConfig.data.largeCM}} cm</p>
+							<br>
+							<div class="type2">
+								<p class="text">Precio por unidad:</p>
+								<p class="price u-text-center">S/.<strong>{{product.finalPrice}}</strong> PEN</p>
+							</div>
+							<div class="u-center">
+								<a href="/user/{{product.User.username}}/product/{{product.nameSlugify}}/buy" class="am-View-button expand u-margin-top-20">COMPRAR</a>
+							</div>
+						</div>
+					</div>
+					<p class="am-stats-text u-margin-top-40">ESTADÍSTICAS</p>
+					<div class="u-separator"></div>
+					<div class="u-center">
+						<table class="am-Single-stats u-margin-top-10">
+						  <tr>
+						    <td><i class="bi_interface-view"></i></td>
+						    <td><p>VISTAS</p></td>
+						    <td><span>{{product.views}}</span></td>
+						  </tr>
+						  <tr>
+						    <td><i class="bi_ecommerce-diamon"></i></td>
+						    <td><p>VALORACIONES</p></td>
+						    <td><span class="likes">{{product.likes || 0}}</span></td>
+						  </tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="am-SingleMenu u-margin-top-20">
+	  <div class="grid-container">
+	    <div class="grid-100">
+	      <div class="single-menu">
+	        <div class="artist">
+	          <div class="FollowArtist">
+	            <a href="/user/{{product.User.username}}">
+	              <img src="{{product.User.photo}}">
+	            </a>
+	            <div>
+								<a href="/user/{{product.User.username}}">
+		              <p class="u-padding-bottom-4 uppercase" style="font-weight: bold;">
+										{% if product.User.typeName === 1 %}
+											{{product.User.fullname}}
+										{% else %}
+											{{product.User.pseudonimo}}
+										{% endif %}
+									</p>
+		              <p class="u-padding-bottom-7"> <strong></strong> {{product.User.city}}, {{product.User.country}}</p>
+	            	</a>
+	              {% if !owner %}
+	              <button class="am-Follow-button">+ SEGUIR</button>
+	              {% endif %}
+	            </div>
+	          </div>
+	        </div>
+	        <div class="menu">
+	          <div class="carousel">
+	            <div class="single-tabs">
+	              <div class="single-tab menu-item" data-name='index'>
+									<p>+ PRODUCTOS</p>
+	                <i class="bi_misc-cube"></i>
+	              </div>
+	              <div class="single-tab menu-item" data-name='reviews'>
+	                <p>COMENTARIOS</p>
+	                <span>{{reviews.length}}</span>
+	              </div>
+	              <div class="single-tab menu-item" data-name='tags'>
+	                <p>TAGS</p>
+	                <i class="bi_editorial-left-align"></i>
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- ********************************************************************
+			$ PRODUCTS
+		********************************************************************* -->
+
+		<div class="index-container {% if currentPath !== 'index' %} hide {% endif %}">
+			{% for cat in categories %}
+				<div class="grid-container u-margin-top-20">
+					<div class="grid-100">
+						<p class="am-Products-title">{{cat.name}}</p>
+						<div class="u-separator"></div>
+					</div>
+				</div>
+				
+				<div class="grid-container">
+					<div class="grid-100">
+					  <div class="more-carousel js-more-carousel">
+						<p class="empty-profile-text empty-message bare-message hide u-margin-top-30">No hay ningún producto de {{cat.name}}<br><br>
+							<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
+						</p>
+						<div class="more-images {{cat.nameSlugify}}">
+						</div>
+					  </div>
+					</div>
+				</div>
+			{%endfor%}
+		</div>
+
+		<!--=================================================================================
+				=================================================================================
+				=================================================================================-->
+
+	<!--=========================== WORK'S REVIEWS  ===========================-->
+	<div class="grid-container reviews-container {% if currentPath !== 'reviews' %} hide {% endif %}">
+	  <div class="grid-100">
+	    <div class="reviews">
+	      <p class="title" style="margin-top: 30px;">Comentarios &nbsp;&nbsp;<span>{{reviews.length}}</span></p>
+	      <div class="u-separator"></div>
+	      <div class='reviews-items-container'>
+	      </div>
+
+        {% if user %}
+	      	<div class="review">
+	          <div class="avatar"><img src="{{user.photo}}"></div>
+	          <form class="content review-form">
+	            <input type="hidden" name='id{{entity|capitalize}}' value="{{product.id}}"/>
+	            <textarea class='value-input' name="value"></textarea>
+	            <button>AGREGAR REVIEW</button>
+	          </form>
+	      	</div>
+        {% else %}
+        	<p class="empty-profile-text  empty-message bare-message u-margin-top-30" style="display: block;">
+        		<a class="login-review">Logeate, para agregar comentario</a>
+        	</p>
+        {% endif %}
+	    </div>
+	  </div>
+	</div>
+	<!--=================================================================================
+			=================================================================================
+			=================================================================================-->
+
+	<!--=========================== WORK-PRODUCT'S TAGS ===========================-->
+  <div class="grid-container tags-container {% if currentPath !== 'tags' %} hide {% endif %}">
+    <div class="grid-100">
+      <div class="tags-container">
+        <p class="title" style="margin-top: 30px;">Tags&nbsp;&nbsp;<span class="tags-number">{{tags.length}}</span></p>
+        <div class="u-separator"></div>
+				{% if tags.length > 0 %}
+					<div class="tags work-tags">
+	          {% for tag in tags %}
+	          {% set url = "#" + tag.name %}
+							<div class="tag uppercase"><a href='/works/category/all/page-1/?term={{url|url_encode}}'>{{tag.name}}</a></div>
+	          {% endfor %}
+	        </div>
+				{% else %}
+					<p class="empty-profile-text  empty-message bare-message hide u-margin-top-30" style="display: block;">Esta obra aun no tiene tags<br><br>
+						<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
+					</p>
+				{% endif %}
+      </div>
+    </div>
+  </div>
+
+
+			<!--=========================== WORKS-PRODUCTS'S RELATED AND SIMILAR ===========================-->
+			<div>
+			  <div class="grid-container u-margin-top-60">
+			    <div class="grid-100">
+						<p class="am-more-text u-text-center u-padding-bottom-10">Otras obras del artista</p>
+			      <div class="u-separator-center"></div>
+			    </div>
+			  </div>
+
+			  <div class="grid-container">
+			    <div class="grid-100">
+			    	<div class="more-carousel js-more-carousel">
+							<p class="empty-profile-text empty-message bare-message hide u-margin-top-30">El artista no tiene mas obras<br><br>
+								<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
+							</p>
+
+							<button class="nextButton"><i class="bi_interface-right"></i></button>
+							<button class="prevButton"><i class="bi_interface-left"></i></button>
+
+			        <div class="more-images more">
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+
+				<div class="u-separator u-margin-top-60"></div>
+
+			  <div class="grid-container u-margin-top-60">
+			    <div class="grid-100">
+						<p class="am-more-text u-text-center u-padding-bottom-10">Obras relacionadas</p>
+			      <div class="u-separator-center"></div>
+			    </div>
+			  </div>
+			  <div class="grid-container">
+			    <div class="grid-100">
+			      <div class="more-carousel js-similar-carousel">
+							<p class="empty-profile-text empty-message bare-message hide u-margin-top-30">No existen obras relacionadas<br><br>
+								<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
+							</p>
+
+							<button class="nextButton"><i class="bi_interface-right"></i></button>
+							<button class="prevButton"><i class="bi_interface-left"></i></button>
+
+			        <div class="more-images similar"></div>
+
+			      </div>
+			    </div>
+			  </div>
+			</div>
+	<!--=================================================================================
+			=================================================================================
+			=================================================================================-->
+
+	{% include '../../partials/inform.html' %}
+
+	<div id="collection-modal" style="display:none; max-height: 400px; overflow-y: auto; overflow-x: hidden;">
+		<i class="closed-modal fa fa-times"></i>
+
+		<div class="actions-box add-collection">
+			<p class="title">Añadir a las colecciones</p>
+			<div class="u-separator u-margin-top-7"></div>
+
+			<form class="add-collection-form">
+				<input class="u-margin-top-10" type="text" name='name' required placeholder="Crear una colección nueva">
+				<input type="hidden" name='meta' value="products">
+				<button class="u-margin-top-10 color-black bg-gray wd-auto">AÑADIR</button>
+			</form>
+			<ul class="collections u-margin-top-20">
+			</ul>
+			<div class="u-separator u-margin-top-20"></div>
+			<div class="buttons u-margin-top-20">
+				<button class="wd-auto bg-blue color-white save-collections">GUARDAR</button>
+				<div class="hide save-collections-loading">
+					<button class="wd-auto bg-blue color-white">
+						<i class="load fa fa-spinner"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="share-modal" style="display:none;">
+		<i class="closed-modal fa fa-times"></i>
+
+		<div class="actions-box social-share">
+			<p class="title">Compartir obras</p>
+			<div class="u-separator u-margin-top-7"></div>
+			<div class="share share-fb">
+				<i class="fa fa-facebook"></i>Compartir en facebook
+			</div>
+			<div class="share share-tw">
+				<i class="fa fa-twitter"></i>Compartir en twitter
+			</div>
+			<div class="share copy">
+				Copiar link
+			</div>
+		</div>
+	</div>
+
+	<a id="go-preload-modal" href="#preload-modal"></a>
+	<div id="preload-modal" style="display:none;">
+		<div class="loader small"></div>
+	</div>
+
+	<div id="fb-root"></div>
+
+	<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+	    <div class="pswp__bg"></div>
+
+	    <div class="pswp__scroll-wrap">
+
+	        <div class="pswp__container">
+	            <div class="pswp__item"></div>
+	            <div class="pswp__item"></div>
+	            <div class="pswp__item"></div>
+	        </div>
+
+	        <div class="pswp__ui pswp__ui--hidden">
+
+	            <div class="pswp__top-bar">
+
+
+	                <div class="pswp__counter"></div>
+
+	                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+	                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+	                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+	                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+	                <div class="pswp__preloader">
+	                    <div class="pswp__preloader__icn">
+	                      <div class="pswp__preloader__cut">
+	                        <div class="pswp__preloader__donut"></div>
+	                      </div>
+	                    </div>
+	                </div>
+	            </div>
+
+	            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+	                <div class="pswp__share-tooltip"></div>
+	            </div>
+
+	            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+	            </button>
+
+	            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+	            </button>
+
+	            <div class="pswp__caption">
+	                <div class="pswp__caption__center"></div>
+	            </div>
+
+	          </div>
+
+	        </div>
+
+	</div>
+
+{% endblock %}
+
+{% block scripts %}
+	<script>
+		var categories = {{categories|json|safe}};
+		var owner = {{owner|json|safe}};
+		var entity = {{entity|json|safe}};
+		var product = {{product|json|safe}};
+		var currentPath = {{currentPath|json|safe}};
+		var reviews = {{reviews|json|safe}};
+		var more = {{more|json|safe}};
+		var products = {{products|json|safe}};
+		var similar = {{similar|json|safe}};
+
+		(function (d, s, id) {
+			var js;
+			var fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=" + DataApp.fbAppID;
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+		$(function() {
+			$("#go-collection-modal").leanModal();
+			$("#go-share-modal").leanModal();
+			$("#go-preload-modal").leanModal();
+
+			new APP.ProductScreen();
+		});
+
+	</script>
+{% endblock %}

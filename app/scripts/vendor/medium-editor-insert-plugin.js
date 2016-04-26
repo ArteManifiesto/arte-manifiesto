@@ -11,71 +11,71 @@ this["MediumInsert"] = this["MediumInsert"] || {};
 this["MediumInsert"]["Templates"] = this["MediumInsert"]["Templates"] || {};
 
 this["MediumInsert"]["Templates"]["src/js/templates/core-buttons.hbs"] = Handlebars.template({
-  "1": function (container, depth0, helpers, partials, data) {
-    var stack1, helper, alias1 = depth0 != null ? depth0 : {}, alias2 = helpers.helperMissing, alias3 = "function";
+  "1": function(container, depth0, helpers, partials, data) {
+    var stack1, helper, alias1 = depth0 != null ? depth0 : {},
+      alias2 = helpers.helperMissing,
+      alias3 = "function";
 
-    return "            <li><a data-addon=\""
-      + container.escapeExpression(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2), (typeof helper === alias3 ? helper.call(alias1, {
-        "name": "key",
-        "hash": {},
-        "data": data
-      }) : helper)))
-      + "\" data-action=\"add\" class=\"medium-insert-action\">"
-      + ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2), (typeof helper === alias3 ? helper.call(alias1, {
-        "name": "label",
-        "hash": {},
-        "data": data
-      }) : helper))) != null ? stack1 : "")
-      + "</a></li>\n";
-  }, "compiler": [7, ">= 4.0.0"], "main": function (container, depth0, helpers, partials, data) {
+    return "            <li><a data-addon=\"" + container.escapeExpression(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2), (typeof helper === alias3 ? helper.call(alias1, {
+      "name": "key",
+      "hash": {},
+      "data": data
+    }) : helper))) + "\" data-action=\"add\" class=\"medium-insert-action\">" + ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2), (typeof helper === alias3 ? helper.call(alias1, {
+      "name": "label",
+      "hash": {},
+      "data": data
+    }) : helper))) != null ? stack1 : "") + "</a></li>\n";
+  },
+  "compiler": [7, ">= 4.0.0"],
+  "main": function(container, depth0, helpers, partials, data) {
     var stack1;
 
-    return "<div class=\"medium-insert-buttons\" contenteditable=\"false\" style=\"display: none\">\n    <a class=\"medium-insert-buttons-show\">+</a>\n    <ul class=\"medium-insert-buttons-addons\" style=\"display: none\">\n"
-      + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {}, (depth0 != null ? depth0.addons : depth0), {
-        "name": "each",
-        "hash": {},
-        "fn": container.program(1, data, 0),
-        "inverse": container.noop,
-        "data": data
-      })) != null ? stack1 : "")
-      + "    </ul>\n</div>\n";
-  }, "useData": true
+    return "<div class=\"medium-insert-buttons\" contenteditable=\"false\" style=\"display: none\">\n    <a class=\"medium-insert-buttons-show\">+</a>\n    <ul class=\"medium-insert-buttons-addons\" style=\"display: none\">\n" + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {}, (depth0 != null ? depth0.addons : depth0), {
+      "name": "each",
+      "hash": {},
+      "fn": container.program(1, data, 0),
+      "inverse": container.noop,
+      "data": data
+    })) != null ? stack1 : "") + "    </ul>\n</div>\n";
+  },
+  "useData": true
 });
 
 this["MediumInsert"]["Templates"]["src/js/templates/core-caption.hbs"] = Handlebars.template({
-  "compiler": [7, ">= 4.0.0"], "main": function (container, depth0, helpers, partials, data) {
+  "compiler": [7, ">= 4.0.0"],
+  "main": function(container, depth0, helpers, partials, data) {
     var helper;
 
-    return "<figcaption contenteditable=\"true\" class=\"medium-insert-caption-placeholder\" data-placeholder=\""
-      + container.escapeExpression(((helper = (helper = helpers.placeholder || (depth0 != null ? depth0.placeholder : depth0)) != null ? helper : helpers.helperMissing), (typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {}, {
-        "name": "placeholder",
-        "hash": {},
-        "data": data
-      }) : helper)))
-      + "\"></figcaption>";
-  }, "useData": true
+    return "<figcaption contenteditable=\"true\" class=\"medium-insert-caption-placeholder\" data-placeholder=\"" + container.escapeExpression(((helper = (helper = helpers.placeholder || (depth0 != null ? depth0.placeholder : depth0)) != null ? helper : helpers.helperMissing), (typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {}, {
+      "name": "placeholder",
+      "hash": {},
+      "data": data
+    }) : helper))) + "\"></figcaption>";
+  },
+  "useData": true
 });
 
 this["MediumInsert"]["Templates"]["src/js/templates/core-empty-line.hbs"] = Handlebars.template({
-  "compiler": [7, ">= 4.0.0"], "main": function (container, depth0, helpers, partials, data) {
+  "compiler": [7, ">= 4.0.0"],
+  "main": function(container, depth0, helpers, partials, data) {
     return "<p><br></p>\n";
-  }, "useData": true
+  },
+  "useData": true
 });
 
 this["MediumInsert"]["Templates"]["src/js/templates/embeds-toolbar.hbs"] = Handlebars.template({
-  "1": function (container, depth0, helpers, partials, data) {
+  "1": function(container, depth0, helpers, partials, data) {
     var stack1;
 
-    return "    <div class=\"medium-insert-embeds-toolbar medium-editor-toolbar medium-toolbar-arrow-under medium-editor-toolbar-active\">\n        <ul class=\"medium-editor-toolbar-actions clearfix\">\n"
-      + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {}, (depth0 != null ? depth0.styles : depth0), {
-        "name": "each",
-        "hash": {},
-        "fn": container.program(2, data, 0),
-        "inverse": container.noop,
-        "data": data
-      })) != null ? stack1 : "")
-      + "        </ul>\n    </div>\n";
-  }, "2": function (container, depth0, helpers, partials, data) {
+    return "    <div class=\"medium-insert-embeds-toolbar medium-editor-toolbar medium-toolbar-arrow-under medium-editor-toolbar-active\">\n        <ul class=\"medium-editor-toolbar-actions clearfix\">\n" + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {}, (depth0 != null ? depth0.styles : depth0), {
+      "name": "each",
+      "hash": {},
+      "fn": container.program(2, data, 0),
+      "inverse": container.noop,
+      "data": data
+    })) != null ? stack1 : "") + "        </ul>\n    </div>\n";
+  },
+  "2": function(container, depth0, helpers, partials, data) {
     var stack1;
 
     return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : {}, (depth0 != null ? depth0.label : depth0), {
@@ -85,107 +85,109 @@ this["MediumInsert"]["Templates"]["src/js/templates/embeds-toolbar.hbs"] = Handl
       "inverse": container.noop,
       "data": data
     })) != null ? stack1 : "");
-  }, "3": function (container, depth0, helpers, partials, data) {
-    var stack1, helper, alias1 = depth0 != null ? depth0 : {}, alias2 = helpers.helperMissing, alias3 = "function";
+  },
+  "3": function(container, depth0, helpers, partials, data) {
+    var stack1, helper, alias1 = depth0 != null ? depth0 : {},
+      alias2 = helpers.helperMissing,
+      alias3 = "function";
 
-    return "                    <li>\n                        <button class=\"medium-editor-action\" data-action=\""
-      + container.escapeExpression(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2), (typeof helper === alias3 ? helper.call(alias1, {
-        "name": "key",
-        "hash": {},
-        "data": data
-      }) : helper)))
-      + "\">"
-      + ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2), (typeof helper === alias3 ? helper.call(alias1, {
-        "name": "label",
-        "hash": {},
-        "data": data
-      }) : helper))) != null ? stack1 : "")
-      + "</button>\n                    </li>\n";
-  }, "5": function (container, depth0, helpers, partials, data) {
+    return "                    <li>\n                        <button class=\"medium-editor-action\" data-action=\"" + container.escapeExpression(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2), (typeof helper === alias3 ? helper.call(alias1, {
+      "name": "key",
+      "hash": {},
+      "data": data
+    }) : helper))) + "\">" + ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2), (typeof helper === alias3 ? helper.call(alias1, {
+      "name": "label",
+      "hash": {},
+      "data": data
+    }) : helper))) != null ? stack1 : "") + "</button>\n                    </li>\n";
+  },
+  "5": function(container, depth0, helpers, partials, data) {
     var stack1;
 
-    return "    <div class=\"medium-insert-embeds-toolbar2 medium-editor-toolbar medium-editor-toolbar-active\">\n        <ul class=\"medium-editor-toolbar-actions clearfix\">\n"
-      + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {}, (depth0 != null ? depth0.actions : depth0), {
-        "name": "each",
-        "hash": {},
-        "fn": container.program(2, data, 0),
-        "inverse": container.noop,
-        "data": data
-      })) != null ? stack1 : "")
-      + "        </ul>\n    </div>\n";
-  }, "compiler": [7, ">= 4.0.0"], "main": function (container, depth0, helpers, partials, data) {
+    return "    <div class=\"medium-insert-embeds-toolbar2 medium-editor-toolbar medium-editor-toolbar-active\">\n        <ul class=\"medium-editor-toolbar-actions clearfix\">\n" + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {}, (depth0 != null ? depth0.actions : depth0), {
+      "name": "each",
+      "hash": {},
+      "fn": container.program(2, data, 0),
+      "inverse": container.noop,
+      "data": data
+    })) != null ? stack1 : "") + "        </ul>\n    </div>\n";
+  },
+  "compiler": [7, ">= 4.0.0"],
+  "main": function(container, depth0, helpers, partials, data) {
     var stack1, alias1 = depth0 != null ? depth0 : {};
 
     return ((stack1 = helpers["if"].call(alias1, (depth0 != null ? depth0.styles : depth0), {
-        "name": "if",
-        "hash": {},
-        "fn": container.program(1, data, 0),
-        "inverse": container.noop,
-        "data": data
-      })) != null ? stack1 : "")
-      + "\n"
-      + ((stack1 = helpers["if"].call(alias1, (depth0 != null ? depth0.actions : depth0), {
-        "name": "if",
-        "hash": {},
-        "fn": container.program(5, data, 0),
-        "inverse": container.noop,
-        "data": data
-      })) != null ? stack1 : "");
-  }, "useData": true
+      "name": "if",
+      "hash": {},
+      "fn": container.program(1, data, 0),
+      "inverse": container.noop,
+      "data": data
+    })) != null ? stack1 : "") + "\n" + ((stack1 = helpers["if"].call(alias1, (depth0 != null ? depth0.actions : depth0), {
+      "name": "if",
+      "hash": {},
+      "fn": container.program(5, data, 0),
+      "inverse": container.noop,
+      "data": data
+    })) != null ? stack1 : "");
+  },
+  "useData": true
 });
 
 this["MediumInsert"]["Templates"]["src/js/templates/embeds-wrapper.hbs"] = Handlebars.template({
-  "compiler": [7, ">= 4.0.0"], "main": function (container, depth0, helpers, partials, data) {
+  "compiler": [7, ">= 4.0.0"],
+  "main": function(container, depth0, helpers, partials, data) {
     var stack1, helper;
 
-    return "<div class=\"medium-insert-embeds\" contenteditable=\"false\">\n	<figure>\n		<div class=\"medium-insert-embed\">\n			"
-      + ((stack1 = ((helper = (helper = helpers.html || (depth0 != null ? depth0.html : depth0)) != null ? helper : helpers.helperMissing), (typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {}, {
-        "name": "html",
-        "hash": {},
-        "data": data
-      }) : helper))) != null ? stack1 : "")
-      + "\n		</div>\n	</figure>\n	<div class=\"medium-insert-embeds-overlay\"></div>\n</div>";
-  }, "useData": true
+    return "<div class=\"medium-insert-embeds\" contenteditable=\"false\">\n	<figure>\n		<div class=\"medium-insert-embed\">\n			" + ((stack1 = ((helper = (helper = helpers.html || (depth0 != null ? depth0.html : depth0)) != null ? helper : helpers.helperMissing), (typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {}, {
+      "name": "html",
+      "hash": {},
+      "data": data
+    }) : helper))) != null ? stack1 : "") + "\n		</div>\n	</figure>\n	<div class=\"medium-insert-embeds-overlay\"></div>\n</div>";
+  },
+  "useData": true
 });
 
 this["MediumInsert"]["Templates"]["src/js/templates/images-fileupload.hbs"] = Handlebars.template({
-  "compiler": [7, ">= 4.0.0"], "main": function (container, depth0, helpers, partials, data) {
+  "compiler": [7, ">= 4.0.0"],
+  "main": function(container, depth0, helpers, partials, data) {
     return "<input type=\"file\" multiple>";
-  }, "useData": true
+  },
+  "useData": true
 });
 
 this["MediumInsert"]["Templates"]["src/js/templates/images-image.hbs"] = Handlebars.template({
-  "1": function (container, depth0, helpers, partials, data) {
+  "1": function(container, depth0, helpers, partials, data) {
     return "        <div class=\"medium-insert-images-progress\"></div>\n";
-  }, "compiler": [7, ">= 4.0.0"], "main": function (container, depth0, helpers, partials, data) {
+  },
+  "compiler": [7, ">= 4.0.0"],
+  "main": function(container, depth0, helpers, partials, data) {
     var stack1, helper, alias1 = depth0 != null ? depth0 : {};
 
-    return "<figure contenteditable=\"false\">\n    <img src=\""
-      + container.escapeExpression(((helper = (helper = helpers.img || (depth0 != null ? depth0.img : depth0)) != null ? helper : helpers.helperMissing), (typeof helper === "function" ? helper.call(alias1, {
-        "name": "img",
-        "hash": {},
-        "data": data
-      }) : helper)))
-      + "\" alt=\"\">\n"
-      + ((stack1 = helpers["if"].call(alias1, (depth0 != null ? depth0.progress : depth0), {
-        "name": "if",
-        "hash": {},
-        "fn": container.program(1, data, 0),
-        "inverse": container.noop,
-        "data": data
-      })) != null ? stack1 : "")
-      + "</figure>";
-  }, "useData": true
+    return "<figure contenteditable=\"false\">\n    <img src=\"" + container.escapeExpression(((helper = (helper = helpers.img || (depth0 != null ? depth0.img : depth0)) != null ? helper : helpers.helperMissing), (typeof helper === "function" ? helper.call(alias1, {
+      "name": "img",
+      "hash": {},
+      "data": data
+    }) : helper))) + "\" alt=\"\">\n" + ((stack1 = helpers["if"].call(alias1, (depth0 != null ? depth0.progress : depth0), {
+      "name": "if",
+      "hash": {},
+      "fn": container.program(1, data, 0),
+      "inverse": container.noop,
+      "data": data
+    })) != null ? stack1 : "") + "</figure>";
+  },
+  "useData": true
 });
 
 this["MediumInsert"]["Templates"]["src/js/templates/images-progressbar.hbs"] = Handlebars.template({
-  "compiler": [7, ">= 4.0.0"], "main": function (container, depth0, helpers, partials, data) {
+  "compiler": [7, ">= 4.0.0"],
+  "main": function(container, depth0, helpers, partials, data) {
     return "<progress min=\"0\" max=\"100\" value=\"0\">0</progress>";
-  }, "useData": true
+  },
+  "useData": true
 });
 
 this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handlebars.template({
-  "1": function (container, depth0, helpers, partials, data) {
+  "1": function(container, depth0, helpers, partials, data) {
     var stack1;
 
     return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : {}, (depth0 != null ? depth0.label : depth0), {
@@ -195,35 +197,34 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
       "inverse": container.noop,
       "data": data
     })) != null ? stack1 : "");
-  }, "2": function (container, depth0, helpers, partials, data) {
-    var stack1, helper, alias1 = depth0 != null ? depth0 : {}, alias2 = helpers.helperMissing, alias3 = "function";
+  },
+  "2": function(container, depth0, helpers, partials, data) {
+    var stack1, helper, alias1 = depth0 != null ? depth0 : {},
+      alias2 = helpers.helperMissing,
+      alias3 = "function";
 
-    return "                <li>\n                    <button class=\"medium-editor-action\" data-action=\""
-      + container.escapeExpression(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2), (typeof helper === alias3 ? helper.call(alias1, {
-        "name": "key",
-        "hash": {},
-        "data": data
-      }) : helper)))
-      + "\">"
-      + ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2), (typeof helper === alias3 ? helper.call(alias1, {
-        "name": "label",
-        "hash": {},
-        "data": data
-      }) : helper))) != null ? stack1 : "")
-      + "</button>\n                </li>\n";
-  }, "4": function (container, depth0, helpers, partials, data) {
+    return "                <li>\n                    <button class=\"medium-editor-action\" data-action=\"" + container.escapeExpression(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2), (typeof helper === alias3 ? helper.call(alias1, {
+      "name": "key",
+      "hash": {},
+      "data": data
+    }) : helper))) + "\">" + ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2), (typeof helper === alias3 ? helper.call(alias1, {
+      "name": "label",
+      "hash": {},
+      "data": data
+    }) : helper))) != null ? stack1 : "") + "</button>\n                </li>\n";
+  },
+  "4": function(container, depth0, helpers, partials, data) {
     var stack1;
 
-    return "	<div class=\"medium-insert-images-toolbar2 medium-editor-toolbar medium-editor-toolbar-active\">\n		<ul class=\"medium-editor-toolbar-actions clearfix\">\n"
-      + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {}, (depth0 != null ? depth0.actions : depth0), {
-        "name": "each",
-        "hash": {},
-        "fn": container.program(5, data, 0),
-        "inverse": container.noop,
-        "data": data
-      })) != null ? stack1 : "")
-      + "    	</ul>\n    </div>\n";
-  }, "5": function (container, depth0, helpers, partials, data) {
+    return "	<div class=\"medium-insert-images-toolbar2 medium-editor-toolbar medium-editor-toolbar-active\">\n		<ul class=\"medium-editor-toolbar-actions clearfix\">\n" + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {}, (depth0 != null ? depth0.actions : depth0), {
+      "name": "each",
+      "hash": {},
+      "fn": container.program(5, data, 0),
+      "inverse": container.noop,
+      "data": data
+    })) != null ? stack1 : "") + "    	</ul>\n    </div>\n";
+  },
+  "5": function(container, depth0, helpers, partials, data) {
     var stack1;
 
     return ((stack1 = helpers["if"].call(depth0 != null ? depth0 : {}, (depth0 != null ? depth0.label : depth0), {
@@ -233,44 +234,43 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
       "inverse": container.noop,
       "data": data
     })) != null ? stack1 : "");
-  }, "6": function (container, depth0, helpers, partials, data) {
-    var stack1, helper, alias1 = depth0 != null ? depth0 : {}, alias2 = helpers.helperMissing, alias3 = "function";
+  },
+  "6": function(container, depth0, helpers, partials, data) {
+    var stack1, helper, alias1 = depth0 != null ? depth0 : {},
+      alias2 = helpers.helperMissing,
+      alias3 = "function";
 
-    return "        	        <li>\n        	            <button class=\"medium-editor-action\" data-action=\""
-      + container.escapeExpression(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2), (typeof helper === alias3 ? helper.call(alias1, {
-        "name": "key",
-        "hash": {},
-        "data": data
-      }) : helper)))
-      + "\">"
-      + ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2), (typeof helper === alias3 ? helper.call(alias1, {
-        "name": "label",
-        "hash": {},
-        "data": data
-      }) : helper))) != null ? stack1 : "")
-      + "</button>\n        	        </li>\n";
-  }, "compiler": [7, ">= 4.0.0"], "main": function (container, depth0, helpers, partials, data) {
+    return "        	        <li>\n        	            <button class=\"medium-editor-action\" data-action=\"" + container.escapeExpression(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2), (typeof helper === alias3 ? helper.call(alias1, {
+      "name": "key",
+      "hash": {},
+      "data": data
+    }) : helper))) + "\">" + ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2), (typeof helper === alias3 ? helper.call(alias1, {
+      "name": "label",
+      "hash": {},
+      "data": data
+    }) : helper))) != null ? stack1 : "") + "</button>\n        	        </li>\n";
+  },
+  "compiler": [7, ">= 4.0.0"],
+  "main": function(container, depth0, helpers, partials, data) {
     var stack1, alias1 = depth0 != null ? depth0 : {};
 
-    return "<div class=\"medium-insert-images-toolbar medium-editor-toolbar medium-toolbar-arrow-under medium-editor-toolbar-active\">\n    <ul class=\"medium-editor-toolbar-actions clearfix\">\n"
-      + ((stack1 = helpers.each.call(alias1, (depth0 != null ? depth0.styles : depth0), {
-        "name": "each",
-        "hash": {},
-        "fn": container.program(1, data, 0),
-        "inverse": container.noop,
-        "data": data
-      })) != null ? stack1 : "")
-      + "    </ul>\n</div>\n\n"
-      + ((stack1 = helpers["if"].call(alias1, (depth0 != null ? depth0.actions : depth0), {
-        "name": "if",
-        "hash": {},
-        "fn": container.program(4, data, 0),
-        "inverse": container.noop,
-        "data": data
-      })) != null ? stack1 : "");
-  }, "useData": true
-});
-;(function ($, window, document, undefined) {
+    return "<div class=\"medium-insert-images-toolbar medium-editor-toolbar medium-toolbar-arrow-under medium-editor-toolbar-active\">\n    <ul class=\"medium-editor-toolbar-actions clearfix\">\n" + ((stack1 = helpers.each.call(alias1, (depth0 != null ? depth0.styles : depth0), {
+      "name": "each",
+      "hash": {},
+      "fn": container.program(1, data, 0),
+      "inverse": container.noop,
+      "data": data
+    })) != null ? stack1 : "") + "    </ul>\n</div>\n\n" + ((stack1 = helpers["if"].call(alias1, (depth0 != null ? depth0.actions : depth0), {
+      "name": "if",
+      "hash": {},
+      "fn": container.program(4, data, 0),
+      "inverse": container.noop,
+      "data": data
+    })) != null ? stack1 : "");
+  },
+  "useData": true
+});;
+(function($, window, document, undefined) {
 
   'use strict';
 
@@ -348,7 +348,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Core.prototype.init = function () {
+  Core.prototype.init = function() {
     this.$el.addClass('medium-editor-insert-plugin');
 
     if (typeof this.options.addons !== 'object' || Object.keys(this.options.addons).length === 0) {
@@ -366,18 +366,18 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Core.prototype.events = function () {
+  Core.prototype.events = function() {
     var that = this;
 
     this.$el
-      .on('dragover drop', function (e) {
+      .on('dragover drop', function(e) {
         e.preventDefault();
       })
       .on('keyup click', $.proxy(this, 'toggleButtons'))
       .on('selectstart mousedown', '.medium-insert, .medium-insert-buttons', $.proxy(this, 'disableSelection'))
       .on('click', '.medium-insert-buttons-show', $.proxy(this, 'toggleAddons'))
       .on('click', '.medium-insert-action', $.proxy(this, 'addonAction'))
-      .on('paste', '.medium-insert-caption-placeholder', function (e) {
+      .on('paste', '.medium-insert-caption-placeholder', function(e) {
         $.proxy(that, 'removeCaptionPlaceholder')($(e.target));
       });
 
@@ -390,7 +390,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {object} MediumEditor
    */
 
-  Core.prototype.getEditor = function () {
+  Core.prototype.getEditor = function() {
     return this.options.editor;
   };
 
@@ -400,10 +400,10 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {object} Serialized data
    */
 
-  Core.prototype.editorSerialize = function () {
+  Core.prototype.editorSerialize = function() {
     var data = this._serialize();
 
-    $.each(data, function (key) {
+    $.each(data, function(key) {
       var $data = $('<div />').html(data[key].value);
 
       $data.find('.medium-insert-buttons').remove();
@@ -420,8 +420,8 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Core.prototype.editorDestroy = function () {
-    $.each(this.elements, function (key, el) {
+  Core.prototype.editorDestroy = function() {
+    $.each(this.elements, function(key, el) {
       $(el).data('plugin_' + pluginName).disable();
     });
 
@@ -434,10 +434,10 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Core.prototype.editorSetup = function () {
+  Core.prototype.editorSetup = function() {
     this._setup();
 
-    $.each(this.elements, function (key, el) {
+    $.each(this.elements, function(key, el) {
       $(el).data('plugin_' + pluginName).enable();
     });
   };
@@ -448,7 +448,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Core.prototype.editorUpdatePlaceholder = function (el) {
+  Core.prototype.editorUpdatePlaceholder = function(el) {
     var $clone = $(el).clone(),
       cloneHtml;
 
@@ -471,7 +471,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Core.prototype.triggerInput = function () {
+  Core.prototype.triggerInput = function() {
     if (this.getEditor()) {
       this.getEditor().trigger('editableInput', null, this.el);
     }
@@ -483,7 +483,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Core.prototype.deselect = function () {
+  Core.prototype.deselect = function() {
     document.getSelection().removeAllRanges();
   };
 
@@ -493,7 +493,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Core.prototype.disable = function () {
+  Core.prototype.disable = function() {
     this.options.enabled = false;
 
     this.$el.find('.medium-insert-buttons').addClass('hide');
@@ -505,7 +505,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Core.prototype.enable = function () {
+  Core.prototype.enable = function() {
     this.options.enabled = true;
 
     this.$el.find('.medium-insert-buttons').removeClass('hide');
@@ -517,7 +517,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Core.prototype.disableSelection = function (e) {
+  Core.prototype.disableSelection = function(e) {
     var $el = $(e.target);
 
     if ($el.is('img') === false || $el.hasClass('medium-insert-buttons-show')) {
@@ -531,14 +531,14 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Core.prototype.initAddons = function () {
+  Core.prototype.initAddons = function() {
     var that = this;
 
     if (!this.options.addons || this.options.addons.length === 0) {
       return;
     }
 
-    $.each(this.options.addons, function (addon, options) {
+    $.each(this.options.addons, function(addon, options) {
       var addonName = pluginName + ucfirst(addon);
 
       if (options === false) {
@@ -557,7 +557,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Core.prototype.clean = function () {
+  Core.prototype.clean = function() {
     var that = this,
       $buttons, $lastEl, $text;
 
@@ -577,11 +577,11 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
     // Wrap content text in <p></p> to avoid Firefox problems
     $text = this.$el
       .contents()
-      .filter(function () {
+      .filter(function() {
         return this.nodeName === '#text' && $.trim($(this).text()) !== '';
       });
 
-    $text.each(function () {
+    $text.each(function() {
       $(this).wrap('<p />');
 
       // Fix #145
@@ -604,7 +604,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {string} HTML template of buttons
    */
 
-  Core.prototype.getButtons = function () {
+  Core.prototype.getButtons = function() {
     if (this.options.enabled === false) {
       return;
     }
@@ -620,7 +620,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Core.prototype.addButtons = function () {
+  Core.prototype.addButtons = function() {
     if (this.$el.find('.medium-insert-buttons').length === 0) {
       this.$el.append(this.getButtons());
     }
@@ -632,7 +632,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Core.prototype.toggleButtons = function (e) {
+  Core.prototype.toggleButtons = function(e) {
     var $el = $(e.target),
       selection = window.getSelection(),
       that = this,
@@ -662,7 +662,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
 
       this.$el.find('.medium-insert-active').removeClass('medium-insert-active');
 
-      $.each(this.options.addons, function (addon) {
+      $.each(this.options.addons, function(addon) {
         if ($el.closest('.medium-insert-' + addon).length) {
           $current = $el;
         }
@@ -678,7 +678,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
         $p.addClass('medium-insert-active');
 
         // If buttons are displayed on addon paragraph, wait 100ms for possible captions to display
-        setTimeout(function () {
+        setTimeout(function() {
           that.positionButtons(activeAddon);
           that.showButtons(activeAddon);
         }, activeAddon ? 100 : 0);
@@ -695,7 +695,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @returns {void}
    */
 
-  Core.prototype.showButtons = function (activeAddon) {
+  Core.prototype.showButtons = function(activeAddon) {
     var $buttons = this.$el.find('.medium-insert-buttons');
 
     $buttons.show();
@@ -714,7 +714,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @returns {void}
    */
 
-  Core.prototype.hideButtons = function ($el) {
+  Core.prototype.hideButtons = function($el) {
     $el = $el || this.$el;
 
     $el.find('.medium-insert-buttons').hide();
@@ -729,7 +729,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Core.prototype.positionButtons = function (activeAddon) {
+  Core.prototype.positionButtons = function(activeAddon) {
     var $buttons = this.$el.find('.medium-insert-buttons'),
       $p = this.$el.find('.medium-insert-active'),
       $first = $p.find('figure:first').length ? $p.find('figure:first') : $p,
@@ -762,7 +762,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Core.prototype.toggleAddons = function () {
+  Core.prototype.toggleAddons = function() {
     this.$el.find('.medium-insert-buttons-addons').fadeToggle();
     this.$el.find('.medium-insert-buttons-show').toggleClass('medium-insert-buttons-rotate');
   };
@@ -773,7 +773,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Core.prototype.hideAddons = function () {
+  Core.prototype.hideAddons = function() {
     this.$el.find('.medium-insert-buttons-addons').hide();
     this.$el.find('.medium-insert-buttons-show').removeClass('medium-insert-buttons-rotate');
   };
@@ -785,7 +785,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Core.prototype.addonAction = function (e) {
+  Core.prototype.addonAction = function(e) {
     var $a = $(e.target).is('a') ? $(e.target) : $(e.target).closest('a'),
       addon = $a.data('addon'),
       action = $a.data('action');
@@ -802,7 +802,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Core.prototype.moveCaret = function ($el, position) {
+  Core.prototype.moveCaret = function($el, position) {
     var range, sel, el;
 
     position = position || 0;
@@ -829,7 +829,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Core.prototype.addCaption = function ($el, placeholder) {
+  Core.prototype.addCaption = function($el, placeholder) {
     var $caption = $el.find('figcaption');
 
     if ($caption.length === 0) {
@@ -846,14 +846,14 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Core.prototype.removeCaptions = function ($ignore) {
+  Core.prototype.removeCaptions = function($ignore) {
     var $captions = this.$el.find('figcaption');
 
     if ($ignore) {
       $captions = $captions.not($ignore);
     }
 
-    $captions.each(function () {
+    $captions.each(function() {
       if ($(this).hasClass('medium-insert-caption-placeholder') || $(this).text().trim() === '') {
         $(this).remove();
       }
@@ -867,7 +867,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Core.prototype.removeCaptionPlaceholder = function ($el) {
+  Core.prototype.removeCaptionPlaceholder = function($el) {
     var $caption = $el.is('figcaption') ? $el : $el.find('figcaption');
 
     if ($caption.length) {
@@ -879,8 +879,8 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
 
   /** Plugin initialization */
 
-  $.fn[pluginName] = function (options) {
-    return this.each(function () {
+  $.fn[pluginName] = function(options) {
+    return this.each(function() {
       var that = this,
         textareaId;
 
@@ -902,7 +902,8 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
 
 })(jQuery, window, document);
 
-;(function ($, window, document, undefined) {
+;
+(function($, window, document, undefined) {
 
   'use strict';
 
@@ -935,7 +936,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
       actions: {
         remove: {
           label: '<span class="fa fa-times"></span>',
-          clicked: function () {
+          clicked: function() {
             var $event = $.Event('keydown');
 
             $event.which = 8;
@@ -982,11 +983,11 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Embeds.prototype.init = function () {
+  Embeds.prototype.init = function() {
     var $embeds = this.$el.find('.medium-insert-embeds');
 
     $embeds.attr('contenteditable', false);
-    $embeds.each(function () {
+    $embeds.each(function() {
       if ($(this).find('.medium-insert-embeds-overlay').length === 0) {
         $(this).append($('<div />').addClass('medium-insert-embeds-overlay'));
       }
@@ -1002,7 +1003,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Embeds.prototype.events = function () {
+  Embeds.prototype.events = function() {
     $(document)
       .on('click', $.proxy(this, 'unselectEmbed'))
       .on('keydown', $.proxy(this, 'removeEmbed'))
@@ -1022,14 +1023,14 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Embeds.prototype.backwardsCompatibility = function () {
+  Embeds.prototype.backwardsCompatibility = function() {
     var that = this;
 
     this.$el.find('.mediumInsert-embeds')
       .removeClass('mediumInsert-embeds')
       .addClass('medium-insert-embeds');
 
-    this.$el.find('.medium-insert-embeds').each(function () {
+    this.$el.find('.medium-insert-embeds').each(function() {
       if ($(this).find('.medium-insert-embed').length === 0) {
         $(this).after(that.templates['src/js/templates/embeds-wrapper.hbs']({
           html: $(this).html()
@@ -1045,10 +1046,10 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {object} Serialized data
    */
 
-  Embeds.prototype.editorSerialize = function () {
+  Embeds.prototype.editorSerialize = function() {
     var data = this._serializePreEmbeds();
 
-    $.each(data, function (key) {
+    $.each(data, function(key) {
       var $data = $('<div />').html(data[key].value);
 
       $data.find('.medium-insert-embeds').removeAttr('contenteditable');
@@ -1066,7 +1067,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Embeds.prototype.add = function () {
+  Embeds.prototype.add = function() {
     var $place = this.$el.find('.medium-insert-active');
 
     // Fix #132
@@ -1083,7 +1084,9 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
 
     $place.addClass('medium-insert-embeds medium-insert-embeds-input medium-insert-embeds-active');
 
-    this.togglePlaceholder({target: $place.get(0)});
+    this.togglePlaceholder({
+      target: $place.get(0)
+    });
 
     $place.click();
     this.core.hideButtons();
@@ -1096,7 +1099,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Embeds.prototype.togglePlaceholder = function (e) {
+  Embeds.prototype.togglePlaceholder = function(e) {
     var $place = $(e.target),
       selection = window.getSelection(),
       range, $current, text;
@@ -1140,7 +1143,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Embeds.prototype.fixRightClickOnPlaceholder = function (e) {
+  Embeds.prototype.fixRightClickOnPlaceholder = function(e) {
     this.core.moveCaret($(e.target));
   };
 
@@ -1151,7 +1154,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Embeds.prototype.processLink = function (e) {
+  Embeds.prototype.processLink = function(e) {
     var $place = this.$el.find('.medium-insert-embeds-active'),
       url;
 
@@ -1186,7 +1189,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Embeds.prototype.oembed = function (url) {
+  Embeds.prototype.oembed = function(url) {
     var that = this;
 
     $.support.cors = true;
@@ -1199,7 +1202,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
       data: {
         url: url
       },
-      success: function (data) {
+      success: function(data) {
         var html = data && data.html;
 
         if (data && !data.html && data.type === 'photo' && data.url) {
@@ -1208,12 +1211,11 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
 
         $.proxy(that, 'embed', html)();
       },
-      error: function (jqXHR, textStatus, errorThrown) {
-        var responseJSON = (function () {
+      error: function(jqXHR, textStatus, errorThrown) {
+        var responseJSON = (function() {
           try {
             return JSON.parse(jqXHR.responseText);
-          } catch (e) {
-          }
+          } catch (e) {}
         })();
 
         if (typeof window.console !== 'undefined') {
@@ -1234,7 +1236,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Embeds.prototype.parseUrl = function (url) {
+  Embeds.prototype.parseUrl = function(url) {
     var html;
 
     if (!(new RegExp(['youtube', 'youtu.be', 'vimeo', 'instagram'].join('|')).test(url))) {
@@ -1260,7 +1262,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Embeds.prototype.embed = function (html) {
+  Embeds.prototype.embed = function(html) {
     var $place = this.$el.find('.medium-insert-embeds-active');
 
     if (!html) {
@@ -1276,7 +1278,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
 
       if (html.indexOf('facebook') !== -1) {
         if (typeof(FB) !== 'undefined') {
-          setTimeout(function () {
+          setTimeout(function() {
             FB.XFBML.parse();
           }, 2000);
         }
@@ -1292,7 +1294,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    *
    * @return {void}
    */
-  Embeds.prototype.convertBadEmbed = function (content) {
+  Embeds.prototype.convertBadEmbed = function(content) {
     var $place, $empty, $content,
       emptyTemplate = this.templates['src/js/templates/core-empty-line.hbs']().trim();
 
@@ -1320,14 +1322,14 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @returns {void}
    */
 
-  Embeds.prototype.selectEmbed = function (e) {
+  Embeds.prototype.selectEmbed = function(e) {
     if (this.core.options.enabled) {
       var $embed = $(e.target).hasClass('medium-insert-embeds') ? $(e.target) : $(e.target).closest('.medium-insert-embeds'),
         that = this;
 
       $embed.addClass('medium-insert-embeds-selected');
 
-      setTimeout(function () {
+      setTimeout(function() {
         that.addToolbar();
 
         if (that.options.captions) {
@@ -1344,7 +1346,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @returns {void}
    */
 
-  Embeds.prototype.unselectEmbed = function (e) {
+  Embeds.prototype.unselectEmbed = function(e) {
     var $el = $(e.target).hasClass('medium-insert-embeds') ? $(e.target) : $(e.target).closest('.medium-insert-embeds'),
       $embed = this.$el.find('.medium-insert-embeds-selected');
 
@@ -1377,7 +1379,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @returns {void}
    */
 
-  Embeds.prototype.removeEmbed = function (e) {
+  Embeds.prototype.removeEmbed = function(e) {
     var $embed, $empty;
 
     if (e.which === 8 || e.which === 46) {
@@ -1407,7 +1409,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @returns {void}
    */
 
-  Embeds.prototype.addToolbar = function () {
+  Embeds.prototype.addToolbar = function() {
     var $embed = this.$el.find('.medium-insert-embeds-selected'),
       active = false,
       $toolbar, $toolbar2, top;
@@ -1446,7 +1448,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
       })
       .show();
 
-    $toolbar.find('button').each(function () {
+    $toolbar.find('button').each(function() {
       if ($embed.hasClass('medium-insert-embeds-' + $(this).data('action'))) {
         $(this).addClass('medium-editor-button-active');
         active = true;
@@ -1465,7 +1467,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @returns {void}
    */
 
-  Embeds.prototype.toolbarAction = function (e) {
+  Embeds.prototype.toolbarAction = function(e) {
     var $button = $(e.target).is('button') ? $(e.target) : $(e.target).closest('button'),
       $li = $button.closest('li'),
       $ul = $li.closest('ul'),
@@ -1476,7 +1478,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
     $button.addClass('medium-editor-button-active');
     $li.siblings().find('.medium-editor-button-active').removeClass('medium-editor-button-active');
 
-    $lis.find('button').each(function () {
+    $lis.find('button').each(function() {
       var className = 'medium-insert-embeds-' + $(this).data('action');
 
       if ($(this).hasClass('medium-editor-button-active')) {
@@ -1504,7 +1506,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @returns {void}
    */
 
-  Embeds.prototype.toolbar2Action = function (e) {
+  Embeds.prototype.toolbar2Action = function(e) {
     var $button = $(e.target).is('button') ? $(e.target) : $(e.target).closest('button'),
       callback = this.options.actions[$button.data('action')].clicked;
 
@@ -1517,8 +1519,8 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
 
   /** Plugin initialization */
 
-  $.fn[pluginName + addonName] = function (options) {
-    return this.each(function () {
+  $.fn[pluginName + addonName] = function(options) {
+    return this.each(function() {
       if (!$.data(this, 'plugin_' + pluginName + addonName)) {
         $.data(this, 'plugin_' + pluginName + addonName, new Embeds(this, options));
       }
@@ -1529,7 +1531,8 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
 
 /*global MediumEditor*/
 
-;(function ($, window, document, Util, undefined) {
+;
+(function($, window, document, Util, undefined) {
 
   'use strict';
 
@@ -1573,7 +1576,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
       actions: {
         remove: {
           label: '<span class="fa fa-times"></span>',
-          clicked: function () {
+          clicked: function() {
             var $event = $.Event('keydown');
 
             $event.which = 8;
@@ -1581,7 +1584,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
           }
         }
       },
-      sorting: function () {
+      sorting: function() {
         var that = this;
 
         $('.medium-insert-images').sortable({
@@ -1592,7 +1595,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
           handle: 'img',
           nested: false,
           vertical: false,
-          afterMove: function () {
+          afterMove: function() {
             that.core.triggerInput();
           }
         });
@@ -1649,7 +1652,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Images.prototype.init = function () {
+  Images.prototype.init = function() {
     var $images = this.$el.find('.medium-insert-images');
 
     $images.find('figcaption').attr('contenteditable', true);
@@ -1666,7 +1669,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Images.prototype.events = function () {
+  Images.prototype.events = function() {
     $(document)
       .on('click', $.proxy(this, 'unselectImage'))
       .on('keydown', $.proxy(this, 'removeImage'))
@@ -1683,7 +1686,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Images.prototype.backwardsCompatibility = function () {
+  Images.prototype.backwardsCompatibility = function() {
     this.$el.find('.mediumInsert')
       .removeClass('mediumInsert')
       .addClass('medium-insert-images');
@@ -1699,10 +1702,10 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {object} Serialized data
    */
 
-  Images.prototype.editorSerialize = function () {
+  Images.prototype.editorSerialize = function() {
     var data = this._serializePreImages();
 
-    $.each(data, function (key) {
+    $.each(data, function(key) {
       var $data = $('<div />').html(data[key].value);
 
       $data.find('.medium-insert-images').find('figcaption, figure').removeAttr('contenteditable');
@@ -1719,16 +1722,16 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Images.prototype.add = function () {
+  Images.prototype.add = function() {
     var that = this,
       $file = $('.editor-photos'),
       fileUploadOptions = {
         dataType: 'json',
-        add: function (e, data) {
+        add: function(e, data) {
           Broadcaster.dispatchEvent('imageStarted');
           $.proxy(that, 'uploadAdd', e, data)();
         },
-        done: function (e, data) {
+        done: function(e, data) {
           $.proxy(that, 'uploadDone', e, data)();
         }
       };
@@ -1738,11 +1741,11 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
     // http://stackoverflow.com/questions/6767887/
     // what-is-the-best-way-to-check-for-xhr2-file-upload-support
     if (new XMLHttpRequest().upload) {
-      fileUploadOptions.progress = function (e, data) {
+      fileUploadOptions.progress = function(e, data) {
         $.proxy(that, 'uploadProgress', e, data)();
       };
 
-      fileUploadOptions.progressall = function (e, data) {
+      fileUploadOptions.progressall = function(e, data) {
         $.proxy(that, 'uploadProgressall', e, data)();
       };
     }
@@ -1761,7 +1764,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Images.prototype.uploadAdd = function (e, data) {
+  Images.prototype.uploadAdd = function(e, data) {
     var $place = this.$el.find('.medium-insert-active'),
       that = this,
       uploadErrors = [],
@@ -1796,15 +1799,20 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
     }
 
     if (data.autoUpload || (data.autoUpload !== false && $(e.target).fileupload('option', 'autoUpload'))) {
-      data.process().done(function () {
+      data.process().done(function() {
         // If preview is set to true, let the showImage handle the upload start
         if (that.options.preview) {
           reader = new FileReader();
-          reader.onload = function (e) {
+          reader.onload = function(e) {
             var arrayBuffer = reader.result;
-            var blob = new Blob([arrayBuffer], {type: data.files[0].type});
+            var blob = new Blob([arrayBuffer], {
+              type: data.files[0].type
+            });
             var url = URL.createObjectURL(blob);
-            that.jqXHR.push({data: data, url: url});
+            that.jqXHR.push({
+              data: data,
+              url: url
+            });
             $.proxy(that, 'showImage', url, data)();
           };
           reader.readAsArrayBuffer(data.files[0]);
@@ -1844,7 +1852,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Images.prototype.uploadProgressall = function (e, data) {
+  Images.prototype.uploadProgressall = function(e, data) {
     var progress, $progressbar;
 
 
@@ -1872,7 +1880,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Images.prototype.uploadProgress = function (e, data) {
+  Images.prototype.uploadProgress = function(e, data) {
     var progress, $progressbar;
 
     if (this.options.preview) {
@@ -1896,7 +1904,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @return {void}
    */
 
-  Images.prototype.uploadDone = function (e, data) {
+  Images.prototype.uploadDone = function(e, data) {
     var $el = $.proxy(this, 'showImage', data.result.url, data)();
 
     this.core.clean();
@@ -1914,7 +1922,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @returns {void}
    */
 
-  Images.prototype.showImage = function (img, data) {
+  Images.prototype.showImage = function(img, data) {
     var $place = this.$el.find('.medium-insert-active'),
       domImage,
       that;
@@ -1928,16 +1936,16 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
     if (this.options.preview && data.context) {
       domImage = this.getDOMImage();
 
-      domImage.onload = function () {
-        for(var i = 0; i < that.jqXHR.length; i++) {
-          if(that.jqXHR[i].url === data.context.find('img').attr('src'))
+      domImage.onload = function() {
+        for (var i = 0; i < that.jqXHR.length; i++) {
+          if (that.jqXHR[i].url === data.context.find('img').attr('src'))
             that.jqXHR.splice(i, 1);
         }
 
         data.context.find('img').attr('src', Utils.addImageFilter(domImage.src, 'w_1000,c_limit'));
         that.core.triggerInput();
 
-        if(that.jqXHR.length === 0) {
+        if (that.jqXHR.length === 0) {
           // console.log('everything was onloaded');
           Broadcaster.dispatchEvent('imageLoaded');
         }
@@ -1952,7 +1960,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
       $place.find('br').remove();
 
       if (this.options.autoGrid && $place.find('figure').length >= this.options.autoGrid) {
-        $.each(this.options.styles, function (style, options) {
+        $.each(this.options.styles, function(style, options) {
           var className = 'medium-insert-images-' + style;
 
           $place.removeClass(className);
@@ -1979,7 +1987,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
     return data.context;
   };
 
-  Images.prototype.getDOMImage = function () {
+  Images.prototype.getDOMImage = function() {
     return new window.Image();
   };
 
@@ -1990,7 +1998,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @returns {void}
    */
 
-  Images.prototype.selectImage = function (e) {
+  Images.prototype.selectImage = function(e) {
     if (this.core.options.enabled) {
       var $image = $(e.target),
         that = this;
@@ -2001,7 +2009,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
       $image.addClass('medium-insert-image-active');
       $image.closest('.medium-insert-images').addClass('medium-insert-active');
 
-      setTimeout(function () {
+      setTimeout(function() {
         that.addToolbar();
 
         if (that.options.captions) {
@@ -2018,7 +2026,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @returns {void}
    */
 
-  Images.prototype.unselectImage = function (e) {
+  Images.prototype.unselectImage = function(e) {
     var $el = $(e.target),
       $image = this.$el.find('.medium-insert-image-active');
 
@@ -2046,15 +2054,15 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @returns {void}
    */
 
-  Images.prototype.removeImage = function (e) {
+  Images.prototype.removeImage = function(e) {
     var $image, $parent, $empty;
 
     if (e.which === 8 || e.which === 46) {
       $image = this.$el.find('.medium-insert-image-active');
 
       if ($image.length) {
-        for(var i = 0; i < this.jqXHR.length; i++) {
-          if(this.jqXHR[i].url === $image[0].currentSrc) {
+        for (var i = 0; i < this.jqXHR.length; i++) {
+          if (this.jqXHR[i].url === $image[0].currentSrc) {
             // console.log('carga abortada ._.');
             this.jqXHR[i].data.abort();
             this.jqXHR.splice(i, 1);
@@ -2085,7 +2093,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
         }
 
 
-        if(this.jqXHR.length === 0) {
+        if (this.jqXHR.length === 0) {
           // console.log('because it was canceled');
           Broadcaster.dispatchEvent('imageLoaded');
         }
@@ -2101,7 +2109,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @returns {void}
    */
 
-  Images.prototype.addToolbar = function () {
+  Images.prototype.addToolbar = function() {
     var $image = this.$el.find('.medium-insert-image-active'),
       $p = $image.closest('.medium-insert-images'),
       active = false,
@@ -2137,7 +2145,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
       })
       .show();
 
-    $toolbar.find('button').each(function () {
+    $toolbar.find('button').each(function() {
       if ($p.hasClass('medium-insert-images-' + $(this).data('action'))) {
         $(this).addClass('medium-editor-button-active');
         active = true;
@@ -2156,7 +2164,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @returns {void}
    */
 
-  Images.prototype.toolbarAction = function (e) {
+  Images.prototype.toolbarAction = function(e) {
     var $button = $(e.target).is('button') ? $(e.target) : $(e.target).closest('button'),
       $li = $button.closest('li'),
       $ul = $li.closest('ul'),
@@ -2167,7 +2175,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
     $button.addClass('medium-editor-button-active');
     $li.siblings().find('.medium-editor-button-active').removeClass('medium-editor-button-active');
 
-    $lis.find('button').each(function () {
+    $lis.find('button').each(function() {
       var className = 'medium-insert-images-' + $(this).data('action');
 
       if ($(this).hasClass('medium-editor-button-active')) {
@@ -2197,7 +2205,7 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @returns {void}
    */
 
-  Images.prototype.toolbar2Action = function (e) {
+  Images.prototype.toolbar2Action = function(e) {
     var $button = $(e.target).is('button') ? $(e.target) : $(e.target).closest('button'),
       callback = this.options.actions[$button.data('action')].clicked;
 
@@ -2216,14 +2224,14 @@ this["MediumInsert"]["Templates"]["src/js/templates/images-toolbar.hbs"] = Handl
    * @returns {void}
    */
 
-  Images.prototype.sorting = function () {
+  Images.prototype.sorting = function() {
     $.proxy(this.options.sorting, this)();
   };
 
   /** Plugin initialization */
 
-  $.fn[pluginName + addonName] = function (options) {
-    return this.each(function () {
+  $.fn[pluginName + addonName] = function(options) {
+    return this.each(function() {
       if (!$.data(this, 'plugin_' + pluginName + addonName)) {
         $.data(this, 'plugin_' + pluginName + addonName, new Images(this, options));
       }

@@ -4,7 +4,7 @@
  */
 var APP = APP || {};
 
-APP.InfiniteNavigation = function () {
+APP.InfiniteNavigation = function() {
   APP.BaseNavigation.call(this);
   this.counter = 0;
 };
@@ -19,9 +19,9 @@ APP.InfiniteNavigation.prototype.listeners = function() {
 };
 
 APP.InfiniteNavigation.prototype.scrollHandler = function() {
-  if($(window).scrollTop() >= ($(document).height() - $(window).height() - $('.am-Footer').height())) {
+  if ($(window).scrollTop() >= ($(document).height() - $(window).height() - $('.am-Footer').height())) {
     ++this.counter;
-    if(this.counter === 1) {
+    if (this.counter === 1) {
       this.suspend();
       this.gotoPage(this.currentPage + 1);
     }

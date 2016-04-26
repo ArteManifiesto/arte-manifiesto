@@ -1,74 +1,7 @@
 {% extends '../../partials/base.html' %}
 
 {% block elements %}
-<!-- 
-	<div class="grid-container">
-		<div class="grid-100">
-
-			<p class="sales-title u-margin-top-30">DATOS DE LA OBRA DEL PORTAFOLIO</p>
-
-			<div class="sales">
-				<div class="sales-left">
-					<div class="sales-image-card">
-						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_700,h_800,q_80,c_limit/v1454928729/chlvcbesfnspyczfictg.png">
-						<div class="content">
-							<a href="#" class="title">OUR LEGACY SPLASH MID SLEEVE AND I WILL NOT SLEEP</a>
-							<a href="#" class="author">Sergio Gonzales Mucho</a>
-						</div>
-					</div>
-				</div>
-				<div class="sales-right">
-
-					<a class="sales-button white">REEMPLAZAR IMAGEN</a>
-					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
-
-					<p class="title">Título de la obra</p>
-					<input class="input" value="Medidas cm"></input> <br>
-					<p class="title">Categoría de la obra</p>
-					<select class="select">
-						<option>Selecciona la categoría</option>
-						<option>Arte urbano</option>
-						<option>Ilustracion</option>
-						<option>Tenica mixta</option>
-					</select> <br>
-					<p class="title">Descripción</p>
-					<textarea class="textarea">Escribe una descripción de tu obra</textarea>
-					<p class="title">Tags de la obra</p>
-					<textarea class="textarea">Escribe tags separados por comas ó enter. A más tags  con más contexto, más fácil será encontrar tu trabajo.</textarea>
-
-					<table class="switchs">
-						<tr>
-							<td><p class="title">Visible sólo por mí</p></td>
-							<td><p class="switch-label">off</p></td>
-							<td>
-								<input type="checkbox" name="input-visible" id="input-visible"/>
-								<label for="input-visible">
-								  <div class="am-Switch-button">
-								  	<i class="fa fa-bars"></i>
-								  </div>
-								</label>
-							</td>
-						</tr>
-						<tr>
-							<td><p class="title">Contenido +18 - NSFW</p></td>
-							<td><p class="switch-label">off</p></td>
-							<td>
-								<input type="checkbox" name="input-nsfw" id="input-nsfw"/>
-								<label for="input-nsfw">
-								  <div class="am-Switch-button">
-								  	<i class="fa fa-bars"></i>
-								  </div>
-								</label>
-							</td>
-						</tr>
-					</table>
-
-					<a class="sales-button u-margin-top-30 u-margin-bottom-30">ACTUALIZAR</a>
-				</div>
-			</div>
-		</div>
-	</div> -->
-
+	<link rel='stylesheet' href='/spectrum/spectrum.css' />
 	<div class="grid-container">
 		<div class="grid-100">
 			<p class="sales-title u-margin-bottom-30 u-margin-top-60">OBRA EN VENTA</p>
@@ -77,10 +10,10 @@
 
 	<div class="grid-container">
 		<div class="grid-100">
-			<div class="sales-image-card">
+			<div class="sales-image-card" style="display: table;">
 				<img src="{{work.photo|addFilter('w_300,c_limit')}}"/>
 				<div class="content">
-					<a href="#" class="title">{{work.name}}</a>
+					<a href="#" class="title">{{work.name}}</a><br>
 					<a href="#" class="author">
 					{% if work.User.typeName === 1 %}
 						{{work.User.fullname}}
@@ -91,12 +24,10 @@
 			</div>
 
 			<div class="sales-option-button">
-					<a class="sales-button white">ACTUALIZAR IMAGEN</a>
-					<a class="sales-button white">EDITAR DATOS</a>
+					<a target='_blank' href="/user/{{user.username}}/work/{{work.nameSlugify}}/edit" class="sales-button white">EDITAR DATOS</a>
 			</div>
 		</div>
 	</div>
-
 
 	<div class="grid-container">
 		<div class="grid-100">
@@ -108,36 +39,42 @@
 		<div class="grid-100 grid-parent">
 
 			<div class="products-creator">
-				<div class="product-creator">
+				<div class="product-creator" data-prod='1'>
 					<div class="image">
-						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
+						<img class="image-preview"  src="{{work.photo|addFilter('w_380,h_300,c_limit')}}">
 					</div>
 					<p class="title">OBRA ORIGINAL</p>
-					<p class="description">0/1 activados</p>
+					<!-- <p class="description">0/1 activados</p> -->
 					<div class="buttons">
-						<a class="sales-button white" href="#">EDITAR</a>
+						<a class="sales-button white edit-btn" href="#">EDITAR</a>
 						<a class="sales-button blue" href="#">ACTIVAR</a>
 					</div>
 				</div>
-				<div class="product-creator">
+				<div class="product-creator" data-prod='2'>
 					<div class="image">
-						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
+						<div class="background">
+							<img height="298" width="298">
+						</div>
+						<img class="image-preview" style="height: 230px !important;">
 					</div>
-					<p class="title">OBRA ORIGINAL</p>
-					<p class="description">0/1 activados</p>
+					<p class="title">PRINTS</p>
+					<!-- <p class="description">0/1 activados</p> -->
 					<div class="buttons">
-						<a class="sales-button white" href="#">EDITAR</a>
+						<a class="sales-button white edit-btn" href="#">EDITAR</a>
 						<a class="sales-button blue" href="#">ACTIVAR</a>
 					</div>
 				</div>
-				<div class="product-creator">
+				<div class="product-creator" data-prod='3'>
 					<div class="image">
-						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
+						<div class="background">
+							<img height="60px">
+						</div>
+						<img class="image-preview" style="height: 200px !important;">
 					</div>
-					<p class="title">OBRA ORIGINAL</p>
-					<p class="description">0/1 activados</p>
+					<p class="title">TAZAS</p>
+					<!-- <p class="description">0/1 activados</p> -->
 					<div class="buttons">
-						<a class="sales-button white" href="#">EDITAR</a>
+						<a class="sales-button white edit-btn" href="#">EDITAR</a>
 						<a class="sales-button blue" href="#">ACTIVAR</a>
 					</div>
 				</div>
@@ -145,24 +82,21 @@
 		</div>
 	</div>
 
-	<div class="grid-container">
+	<!-- OBRAS ORIGINALES -->
+	<div class="grid-container grid-product-1 hide product-container">
 		<div class="grid-100">
-
-			<p class="sales-title u-margin-top-30">VENTA DE OBRA ORIGINAL</p>
-
 			<div class="sales">
-				<div class="sales-left">
+				<div class="sales-left" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1458849903/general/fondo_prints_galeri%CC%81a.png');">
+					<div class="controls">
+						<i class="selected fa fa-check-square-o part-btn-1"></i>
+						<i class="fa fa-check-square-o part-btn-2"></i>
+					</div>
 					<div class="sales-image-card">
-						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_700,h_800,q_80,c_limit/v1454928729/chlvcbesfnspyczfictg.png">
-						<div class="content">
-							<a href="#" class="title">OUR LEGACY SPLASH MID SLEEVE AND I WILL NOT SLEEP</a>
-							<a href="#" class="author">Sergio Gonzales Mucho</a>
-						</div>
+						<div class="original-work"><i class="fa fa-cog"></i>&nbsp;OBRA ORIGINAL</div>
+						<img src="{{work.photo|addFilter('h_450,c_limit')}}">
 					</div>
 				</div>
-				<div class="sales-right">
-
-					<!-- <a class="sales-button white">REEMPLAZAR IMAGEN</a> -->
+				<div class="sales-right sales-right-1">
 					<p class="title u-margin-top-10" style="text-align: center;">DETALLES ENVÍO</p>
 					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
 
@@ -173,66 +107,329 @@
 
 					<p class="title">Tipo de empaque</p>
 
-					<input class="check" type="checkbox" name="package-type"></input>
-					<label class="label-check">Empaque en tubo</label>
+					<div class="checks">
+						<input class="check" type="radio" name="package-type" id="package-type-1"></input>
+						<label class="label-check" for="package-type-1">Empaque en tubo</label>
 
-					<input class="check" type="checkbox" name="package-type"></input>
-					<label class="label-check">Empaque en caja</label>
+						<input class="check" type="radio" name="package-type" id="package-type-2"></input>
+						<label class="label-check" for="package-type-2">Empaque en caja</label>
+					</div>
 
 					<div class="sizes">
 						<p class="title">Largo</p>
-						<input class="input" value="Medidas cm"></input> <br>
+						<input class="input" value="" placeholder="Medidas cm"></input> <br>
 
 						<p class="title">Ancho</p>
-						<input class="input" value="Medidas cm"></input> <br>
+						<input class="input" value="" placeholder="Medidas cm"></input> <br>
 
 						<p class="title">Altura</p>
-						<input class="input" value="Medidas cm"></input> <br>
+						<input class="input" value="" placeholder="Medidas cm"></input> <br>
 
 						<p class="title">Peso del paquete</p>
-						<input class="input" value="Peso en kg del paquete"></input> <br>
+						<input class="input" value="" placeholder="Peso en kg del paquete"></input> <br>
 					</div>
 
 					<a class="sales-button u-margin-top-30 u-margin-bottom-30">ACTUALIZAR</a>
 				</div>
+				<div class="sales-right sales-right-2" style="display: none;">
+
+					<p class="title u-margin-top-10" style="text-align: center;">OBRA ORIGINAL: CONDICIONES DE VENTA</p>
+					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
+
+					<p class="title">Calculadora de precios</p>
+					<p class="subtitle">AM cobra una comisión de 30% en la venta de obras y creaciones originales.
+						<br><br>
+						Asegúrate de leer los términos y condiciones sobre nuestro servicio aquí.
+						<br><br>
+						<a href="#">
+							Términos y condiciones del servicio
+							Guía del vendedor en AM
+						</a>
+					</p>
+
+					<!-- <p class="title">Cálculo de ganancias</p>
+
+					<div class="checks">
+						<input class="check" type="checkbox" name="package-type"></input>
+						<label class="label-check">Empaque en tubo</label>
+
+						<input class="check" type="checkbox" name="package-type"></input>
+						<label class="label-check">Empaque en caja</label>
+					</div> -->
+
+
+					<table class="prices u-margin-top-20">
+						<tr>
+							<td><p class="text">Precio base (ganancia del artista)</p></td>
+							<td><input class="input" type="text" placeholder="¿Cuanto quieres ganar?"></input></td>
+							<td><p class="currency">SOLES</p></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><p class="plus">+</p></td>
+						</tr>
+						<tr>
+							<td><p class="text">Comisión AM</p></td>
+							<td><input class="input" type="text" disabled value="30"></input></td>
+							<td><p class="currency">%</p></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><div class="u-separator u-margin-top-20 u-margin-bottom-20" style="background: #979797;"></div></td>
+						</tr>
+						<tr>
+							<td><p class="text">Precio de lista (*)</p></td>
+							<td><input class="input" type="text" placeholder="Precio final"></input></td>
+							<td><p class="currency">SOLES</p></td>
+						</tr>
+					</table>
+
+					<p class="subtitle-mall">* El precio de lista no incluye impuestos en cada país, ni el costo de envío.</p>
+
+					<a class="sales-button u-margin-top-30 u-margin-bottom-10">APLICAR CAMBIOS</a>
+
+					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
+				</div>
 			</div>
 		</div>
 	</div>
-	
+
+	<!-- PRINTS -->
+	<div class="grid-container grid-product-2 hide product-container">
+		<div class="grid-100">
+			<div class="sales">
+				<div class="sales-left" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1461272972/general/White-Brick-Wallpaper1.jpg');">
+					<div class="controls">
+						<i class="selected fa fa-check-square-o part-btn-1"></i>
+						<i class="fa fa-check-square-o part-btn-2"></i>
+					</div>
+					<div class="sales-image-card white-mark">
+						<canvas id="canvas-product2" width="500" height="400">
+						</canvas>
+					</div>
+				</div>
+				<div class="sales-right sales-right-1">
+
+					<p class="title u-margin-top-10" style="text-align: center;">PRINTS: EDICIÓN</p>
+					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
+
+					<p class="title">Hacer prints nunca fué tan fácil</p>
+					<p class="subtitle">
+						Al subir la imagen el tamaño mínimo es 1600x1600 pixeles para crear prints.
+						<br><br>
+						Puedes elegir entre:
+						<br>
+						Poster print / Photo Luster Print / Fine Art Print (100% algodón) / Canvas Print
+					</p>
+					<div class="image-uploader" style="position:relative; left: calc(50% - 115px);">
+						{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:230px;height:35px;top:0px;left: 0px;" } })}}
+					</div>
+					<a href="" class="sales-button white">REEMPLAZAR IMAGEN</a>
+
+					<div class="back-color">
+						<p class="subtitle">Color de fondo:</p>
+						<!-- <select>
+							<option></option>
+							<option></option>
+							<option></option>
+						</select> -->
+						<input type='text' id="colorPicker"/>
+					</div>
+
+					<p class="subtitle u-margin-top-30" style="margin-bottom: 0;">Tamaño obra en el producto:</p>
+					<div class="size-work">
+						<input type="range" name="" min="30" max="100" step="1" value="100">
+					</div>
+
+					<p class="subtitle u-margin-top-20" style="margin-bottom: 0;">Centrar diseño:</p>
+
+					<div class="aligns">
+						<a href="" class="sales-button white vertical-align">VERTICAL</a>
+						<a href="" class="sales-button white horizontal-align">HORIZONTAL</a>
+					</div>
+
+					<a class="sales-button save-btn-kek u-margin-top-30 u-margin-bottom-10">GUARDAR</a>
+
+					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
+				</div>
+				<div class="sales-right sales-right-2" style="display: none;">
+					<p class="title u-margin-top-10" style="text-align: center;">PRINTS: CONDICIONES DE VENTA</p>
+					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
+
+					<p class="title">Condiciones</p>
+					<p class="subtitle">
+						AM te cobra por la fabricación del producto, no por la venta. Sugerimos que tu margen sea +20%, pero puedes incrementarlo si conoces tu mercado.
+					</p>
+
+					<table class="prints u-margin-top-20 u-margin-bottom-40" style="width: 100%;">
+						<tr>
+							<td><p class="title">TIPO DE PRINT</p></td>
+							<td><p class="title">&nbsp;&nbsp;MARGEN</p></td>
+						</tr>
+						{% set currentCategory = categories[1] %}
+						{% for subCategory in currentCategory.subCategories %}
+						{% set subCategoryData = JSON.parse(subCategory.data) %}
+							<tr>
+								<td>
+									<div class="type">
+										<input type="checkbox" checked data-index={{loop.index0}}></input>
+										<div>
+											<div>
+												<p>
+													{{subCategory.name}}
+												</p>
+												<p>S/.{{subCategoryData.basePrice}}</p>
+											</div>
+										</div>
+									</div>
+								</td>
+								<td>
+									<div class="data">
+										<input type="number" class="margen-input" data-index={{loop.index0}} data-baseprice={{subCategoryData.basePrice}} value="{{subCategoryData.baseMargen}}"></input>
+										<div>
+											<p>PARA TÍ</p>
+											<p>--</p>
+										</div>
+									</div>
+								</td>
+							</tr>
+						{%endfor%}
+					</table>
+
+					<p class="subtitle-mall u-margin-top-50">* El precio de lista no incluye impuestos en cada país, ni el costo de envío.</p>
+
+					<a class="sales-button u-margin-top-30 u-margin-bottom-10">APLICAR CAMBIOS</a>
+
+					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- TAZAS -->
+	<div class="grid-container grid-product-3 hide product-container">
+		<div class="grid-100">
+			<div class="sales">
+				<div class="sales-left">
+					<div class="controls">
+						<i class="selected fa fa-check-square-o part-btn-1"></i>
+						<i class="fa fa-check-square-o part-btn-2"></i>
+					</div>
+					<div class="sales-image-card">
+						<canvas id="canvas-product3" width="500" height="400">
+					</div>
+				</div>
+				<div class="sales-right sales-right-1">
+
+					<p class="title u-margin-top-10" style="text-align: center;">TAZAS: EDICIÓN</p>
+					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
+
+					<p class="title">Crea tazas geniales con solo un click</p>
+					<p class="subtitle">
+						Acomoda la imagen de tu obra sobre la taza. Para un resultado óptimo crea una imagen de 2700x1624 píxeles que se acomode al formato.
+					</p>
+					<div class="image-uploader" style="position:relative; left: calc(50% - 115px);">
+						{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:230px;height:35px;top:0px;left: 0px;" } })}}
+					</div>
+					<a href="" class="sales-button white">REEMPLAZAR IMAGEN</a>
+
+					<div class="back-color">
+						<p class="subtitle">Color de fondo:</p>
+						<!-- <select>
+							<option></option>
+							<option></option>
+							<option></option>
+						</select> -->
+						<input type='text' id="colorPicker"/>
+					</div>
+
+					<p class="subtitle u-margin-top-30" style="margin-bottom: 0;">Tamaño obra en el producto:</p>
+
+					<div class="size-work">
+						<input type="range" name="" min="30" max="100" step="1" value="100">
+					</div>
+
+					<p class="subtitle u-margin-top-20" style="margin-bottom: 0;">Centrar diseño:</p>
+
+					<div class="aligns" style="margin-bottom: 0;">
+						<a href="" class="sales-button white vertical-align">VERTICAL</a>
+						<a href="" class="sales-button white horizontal-align">HORIZONTAL</a>
+					</div>
+
+					<a class="sales-button save-btn-kek u-margin-top-30 u-margin-bottom-10">GUARDAR</a>
+
+					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
+				</div>
+				<div class="sales-right sales-right-2" style="display: none;">
+
+					<p class="title u-margin-top-10" style="text-align: center;">TAZAS: CONDICIONES DE VENTA</p>
+					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
+
+					<p class="title">Condiciones</p>
+					<p class="subtitle">
+						AM te cobra por la fabricación del producto, no por la venta. Sugerimos que tu margen sea +20%, pero puedes incrementarlo si conoces tu mercado.
+					</p>
+
+					<table class="prints u-margin-top-20 u-margin-bottom-40" style="width: 100%;">
+						<tr>
+							<td><p class="title">TIPO DE TAZA</p></td>
+							<td><p class="title">&nbsp;&nbsp;MARGEN</p></td>
+						</tr>
+						{% set currentCategory = categories[2] %}
+						{% for subCategory in currentCategory.subCategories %}
+						{% set subCategoryData = JSON.parse(subCategory.data) %}
+							<tr>
+								<td>
+									<div class="type">
+										<input type="checkbox" checked data-index={{loop.index0}}></input>
+										<div>
+											<div>
+												<p>
+													{{subCategory.name}}
+												</p>
+												<p>S/.{{subCategoryData.basePrice}}</p>
+											</div>
+										</div>
+									</div>
+								</td>
+								<td>
+									<div class="data">
+										<input type="number" class="margen-input" data-index={{loop.index0}} data-baseprice={{subCategoryData.basePrice}} value="{{subCategoryData.baseMargen}}"></input>
+										<div>
+											<p>PARA TÍ</p>
+											<p>--</p>
+										</div>
+									</div>
+								</td>
+							</tr>
+						{%endfor%}
+					</table>
+
+					<p class="subtitle-mall u-margin-top-50">* El precio de lista no incluye impuestos en cada país, ni el costo de envío.</p>
+
+					<a class="sales-button u-margin-top-30 u-margin-bottom-10">APLICAR CAMBIOS</a>
+
+					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="grid-container">
 		<div class="grid-100 grid-parent">
 
 			<div class="products-creator">
-				<div class="product-creator">
+				<div class="product-creator" data-prod='4'>
 					<div class="image">
-						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
+						<div class="background">
+							<img width="285" height="252">
+						</div>
+						<img class="image-preview" style="width: 125px !important;">
 					</div>
-					<p class="title">OBRA ORIGINAL</p>
-					<p class="description">0/1 activados</p>
+					<p class="title">CASES TELÉFONOS</p>
+					<!-- <p class="description">0/1 activados</p> -->
 					<div class="buttons">
-						<a class="sales-button white" href="#">EDITAR</a>
-						<a class="sales-button blue" href="#">ACTIVAR</a>
-					</div>
-				</div>
-				<div class="product-creator">
-					<div class="image">
-						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
-					</div>
-					<p class="title">OBRA ORIGINAL</p>
-					<p class="description">0/1 activados</p>
-					<div class="buttons">
-						<a class="sales-button white" href="#">EDITAR</a>
-						<a class="sales-button blue" href="#">ACTIVAR</a>
-					</div>
-				</div>
-				<div class="product-creator">
-					<div class="image">
-						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload//w_380/v1455381925/general/product-test.jpg">
-					</div>
-					<p class="title">OBRA ORIGINAL</p>
-					<p class="description">0/1 activados</p>
-					<div class="buttons">
-						<a class="sales-button white" href="#">EDITAR</a>
+						<a class="sales-button white edit-btn" href="#">EDITAR</a>
 						<a class="sales-button blue" href="#">ACTIVAR</a>
 					</div>
 				</div>
@@ -240,5 +437,300 @@
 		</div>
 	</div>
 
+	<!-- PHONE CASES -->
+	<div class="grid-container grid-product-4 hide product-container">
+		<div class="grid-100">
+			<div class="sales">
+				<div class="sales-left">
+					<div class="controls">
+						<i class="selected fa fa-check-square-o part-btn-1"></i>
+						<i class="fa fa-check-square-o part-btn-2"></i>
+					</div>
+					<div class="sales-image-card">
+						<canvas id="canvas-product4" width="100" height="100">
+						</canvas>
+					</div>
+				</div>
+				<div class="sales-right sales-right-1">
 
+					<p class="title u-margin-top-10" style="text-align: center;">PHONE CASES: EDICIÓN</p>
+					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
+
+					<p class="title">Crea cases con solo un click</p>
+					<p class="subtitle">
+						Acomoda la imagen de tu obra sobre el case. Para un resultado óptimo crea una imagen de 1187x1852 píxeles que se acomode al formato.
+					</p>
+					<div class="image-uploader" style="position:relative; left: calc(50% - 115px);">
+						{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:230px;height:35px;top:0px;left: 0px;" } })}}
+					</div>
+					<a href="" class="sales-button white">REEMPLAZAR IMAGEN</a>
+
+					<div class="back-color">
+						<p class="subtitle">Color de fondo:</p>
+						<!-- <select>
+							<option></option>
+							<option></option>
+							<option></option>
+						</select> -->
+						<input type='text' id="colorPicker"/>
+					</div>
+
+					<p class="subtitle u-margin-top-30" style="margin-bottom: 0;">Tamaño obra en el producto:</p>
+
+					<div class="size-work">
+						<input type="range" name="" min="30" max="100" step="1" value="100">
+						<!-- <p>50%</p> -->
+					</div>
+
+					<p class="subtitle u-margin-top-20" style="margin-bottom: 0;">Centrar diseño:</p>
+
+					<div class="aligns" style="margin-bottom: 0;">
+						<a href="" class="sales-button white vertical-align">VERTICAL</a>
+						<a href="" class="sales-button white horizontal-align">HORIZONTAL</a>
+					</div>
+
+					<a class="sales-button save-btn-kek u-margin-top-30 u-margin-bottom-10">GUARDAR</a>
+
+					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
+				</div>
+				<div class="sales-right sales-right-2" style="display: none;">
+
+					<p class="title u-margin-top-10" style="text-align: center;">PHONE CASES: CONDICIONES</p>
+					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
+
+					<p class="title">Condiciones</p>
+					<p class="subtitle">
+						AM te cobra por la fabricación del producto, no por la venta. Sugerimos que tu margen sea +20%, pero puedes incrementarlo si conoces tu mercado.
+					</p>
+
+					<table class="prints u-margin-top-20 u-margin-bottom-40" style="width: 100%;">
+						<tr>
+							<td><p class="title">TIPO DE CASE</p></td>
+							<td><p class="title">&nbsp;&nbsp;MARGEN</p></td>
+						</tr>
+
+						{% set currentCategory = categories[3] %}
+						{% for subCategory in currentCategory.subCategories %}
+						{% set subCategoryData = JSON.parse(subCategory.data) %}
+							<tr>
+								<td>
+									<div class="type">
+										<input type="checkbox" checked data-index={{loop.index0}}></input>
+										<div>
+											<div>
+												<p>
+													{{subCategory.name}}
+												</p>
+												<p>S/.{{subCategoryData.basePrice}}</p>
+											</div>
+										</div>
+									</div>
+								</td>
+								<td>
+									<div class="data">
+										<input type="number" class="margen-input" data-index={{loop.index0}} data-baseprice={{subCategoryData.basePrice}} value="{{subCategoryData.baseMargen}}"></input>
+										<div>
+											<p>PARA TÍ</p>
+											<p>--</p>
+										</div>
+									</div>
+								</td>
+							</tr>
+						{%endfor%}
+					</table>
+
+					<p class="subtitle-mall u-margin-top-50">* El precio de lista no incluye impuestos en cada país, ni el costo de envío.</p>
+
+					<a class="sales-button save-btn-kek u-margin-top-30 u-margin-bottom-10">GUARDAR</a>
+
+					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- TABLET CASES -->
+	<div class="grid-container grid-product-5 hide product-container">
+		<div class="grid-100">
+			<div class="sales">
+				<div class="sales-left">
+					<div class="controls">
+						<i class="selected fa fa-check-square-o part-btn-1"></i>
+						<i class="fa fa-check-square-o part-btn-2"></i>
+					</div>
+					<div class="sales-image-card">
+						<canvas id="canvas-product5" width="620" height="280">
+						</canvas>
+					</div>
+				</div>
+				<div class="sales-right sales-right-1">
+
+					<p class="title u-margin-top-10" style="text-align: center;">TABLET CASE: EDICIÓN</p>
+					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
+
+					<p class="title">Crea cases con solo un click</p>
+					<p class="subtitle">
+						Acomoda la imagen de tu obra sobre el case. Para un resultado óptimo crea una imagen de 1187x1852 píxeles que se acomode al formato.
+					</p>
+
+					<div class="image-uploader" style="position:relative; left: calc(50% - 115px);">
+						{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:230px;height:35px;top:0px;left: 0px;" } })}}
+					</div>
+					<a href="" class="sales-button white">REEMPLAZAR IMAGEN</a>
+
+					<div class="back-color">
+						<p class="subtitle">Color de fondo:</p>
+						<!-- <select>
+							<option></option>
+							<option></option>
+							<option></option>
+						</select> -->
+						<input type='text' id="colorPicker"/>
+					</div>
+
+					<p class="subtitle u-margin-top-30" style="margin-bottom: 0;">Tamaño obra en el producto:</p>
+
+					<div class="size-work">
+						<input type="range" name="" min="30" max="100" step="1" value="100">
+						<!-- <p>50%</p> -->
+					</div>
+
+					<p class="subtitle u-margin-top-20" style="margin-bottom: 0;">Centrar diseño:</p>
+
+					<div class="aligns" style="margin-bottom: 0;">
+						<a href="" class="sales-button white vertical-align">VERTICAL</a>
+						<a href="" class="sales-button white horizontal-align">HORIZONTAL</a>
+					</div>
+
+					<a class="sales-button save-btn-kek u-margin-top-30 u-margin-bottom-10">GUARDAR</a>
+
+					<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
+				</div>
+				<div class="sales-right sales-right-2" style="display: none;">
+
+					<p class="title u-margin-top-10" style="text-align: center;">ALMOHADAS: CONDICIONES</p>
+					<div class="u-separator u-margin-top-10 u-margin-bottom-25"></div>
+
+					<p class="title">Condiciones</p>
+					<p class="subtitle">
+						AM te cobra por la fabricación del producto, no por la venta. Sugerimos que tu margen sea +20%, pero puedes incrementarlo si conoces tu mercado.
+					</p>
+
+					<table class="prints u-margin-top-20 u-margin-bottom-40" style="width: 100%;">
+						<tr>
+							<td><p class="title">TIPO DE CASE</p></td>
+							<td><p class="title">&nbsp;&nbsp;MARGEN</p></td>
+						</tr>
+						{% set currentCategory = categories[3] %}
+						{% for subCategory in currentCategory.subCategories %}
+						{% set subCategoryData = JSON.parse(subCategory.data) %}
+							<tr>
+								<td>
+									<div class="type">
+										<input type="checkbox" data-index={{loop.index0}}></input>
+										<div>
+											<div>
+												<p>
+													{{subCategory.name}}
+												</p>
+												<p>S/.{{subCategoryData.basePrice}}</p>
+											</div>
+										</div>
+									</div>
+								</td>
+								<td>
+									<div class="data">
+										<input type="number" class="margen-input" data-index={{loop.index0}} data-baseprice={{subCategoryData.basePrice}} value="{{subCategoryData.baseMargen}}"></input>
+										<div>
+											<p>PARA TÍ</p>
+											<p>--</p>
+										</div>
+									</div>
+								</td>
+							</tr>
+						{%endfor%}
+					</table>
+
+					<p class="subtitle-mall u-margin-top-50">* El precio de lista no incluye impuestos en cada país, ni el costo de envío.</p>
+					<a class="sales-button save-btn-kek u-margin-top-30 u-margin-bottom-10">GUARDAR</a>
+<a class="help-button u-margin-top-10 u-margin-bottom-10">Necesitas ayuda?</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="grid-container">
+		<div class="grid-100">
+			<div class="creator-confirm">
+				<p class="title">¿Confirmar productos?</p>
+				<div class="options">
+					<a class="sales-button white">CANCELAR</a>
+					<a class="sales-button create-btn">PONER EN VENTA</a>
+					<a class="sales-button create-btn-loading hide"><i class="fa fa-spinner"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!--
+	<a id="go-share-modal" href="#share-modal">HOLI!</a> -->
+
+	<div id="share-modal" style="display: none;">
+		<i class="closed-modal fa fa-times"></i>
+
+		<div class="am-profile" style="padding: 0;">
+
+			<div class="grid-container" style="padding: 0;">
+				<div class="grid-100 grid-parent">
+
+					<div class="am-profile-box grid-container">
+						<form class="complete-form">
+
+							<div class="separator main u-margin-top-30">
+								<span class="line" style="height: 2px;"></span><span class="text">OBRA ORIGINAL<br>EN VENTA</span><span class="line" style="height: 2px;"></span>
+							</div>
+
+							<div class="grid-100 mobile-grid-100">
+								<p class="title comfirm">
+									Tu obra está en proceso de aprobación
+									<br><br>
+									Te enviaremos un correo cuando tu obra haya sido aprobada en nuestra tienda.
+									<br><br>
+									Gracias por confiar en nosotros
+									<br><br><br>
+									<a href="#">
+										Guía para vendedores de obras originales
+									</a>
+								</p>
+							</div>
+
+							<div class="grid-100 mobile-grid-100">
+								<button class="button upload green u-margin-top-40" data-color="green">CREAR PRODUCTOS</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<script src='/spectrum/spectrum.js'></script>
+<script>
+	var work = {{work|json|safe}};
+	var categories = {{categories|json|safe}};
+	$(function() {
+		$.cloudinary.config({{cloudinary.config()|json|safe}});
+
+		new APP.SellScreen();
+
+		$('#go-collection-modal').leanModal();
+		$('#go-share-modal').leanModal();
+	});
+</script>
 {% endblock %}

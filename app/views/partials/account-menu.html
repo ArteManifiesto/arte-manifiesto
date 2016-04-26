@@ -1,0 +1,34 @@
+				<div class="am-Filter account mobile u-margin-top-10">
+					<div class="am-Filter-item">
+						<header class="am-Filter-header">
+							<i class="bi_user-single-a"></i><p>Mi cuenta</p>
+						</header>
+					</div>
+					<div class="am-Filter-item">
+						<ul class="am-Filter-subOptions">
+							<a href="/user/{{user.username}}/account/" class="profile">Mis datos de perfil</a>
+							<!-- <a href="/user/{{user.username}}/account/configuration/" class="configuration">Configuración</a> -->
+							<a href="/user/{{user.username}}/account/orders" class="orders">Mis compras</a>
+							<!-- <a href="#" class="directions">Mis direcciones de envío</a> -->
+							<a href="/user/{{user.username}}/account/password" class="password">Cambiar contraseña</a>
+						</ul>
+					</div>
+
+					{% if user.country === 'Peru'%}
+						<div class="am-Filter-item">
+							<header class="am-Filter-header">
+								<i class="bi_user-single-a"></i><p>Tienda en línea</p>
+							</header>
+						</div>
+						<div class="am-Filter-item">
+							<ul class="am-Filter-subOptions">
+								{%if user.isSeller %}
+								<a href="/user/{{user.username}}/account/seller" class="seller">Editar datos de vendedor</a>
+								<a href="/user/{{user.username}}/account/requests" class="requests">Gestor de pedidos</a>
+								{%else%}
+								<a href="/user/{{user.username}}/account/seller" class="seller">Quiero abrir mi tienda</a>
+								{%endif%}
+							</ul>
+						</div>
+					{% endif %}
+				</div>

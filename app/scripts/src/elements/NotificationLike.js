@@ -4,8 +4,8 @@
  */
 var APP = APP || {};
 
-APP.NotificationLike = function (data, options) {
-    APP.BaseElement.call(this, data, 'notification-like', options);
+APP.NotificationLike = function(data, options) {
+  APP.BaseElement.call(this, data, 'notification-like', options);
 };
 
 APP.NotificationLike.prototype = Object.create(APP.BaseElement.prototype);

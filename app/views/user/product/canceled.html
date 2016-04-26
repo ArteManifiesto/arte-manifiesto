@@ -1,0 +1,24 @@
+{% extends '../../partials/base.html' %}
+
+{% block elements %}
+	<div class="private-view">
+		<div class="empty-box" style="max-width: 1000px;">
+			<div class="empty-box-column padlock" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1461217528/general/payerror.png')">
+			</div>
+			<div class="empty-box-column right">
+
+				<p class="nsfw" style="font-size: .9em;">ERROR</p>
+
+				<p class="title u-margin-top-20">Ha ocurrido un error con el pago</p>
+				<p class="subtitle u-margin-top-20">No se ha realizado ningun cobro a tu tarjeta. <br> Por favor revisa tus datos e intenta nuevamente.
+				</p>
+
+				<a href="/user/{{product.User.username}}/product/{{product.nameSlugify}}/buy" style="margin-top: 30px; margin-bottom: 50px; text-decoration: none;">
+					INTENTAR DE NUEVO
+				</a>
+
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

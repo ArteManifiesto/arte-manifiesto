@@ -1,0 +1,52 @@
+{% set templates = ['work', 'user']%}
+{% set pageTitle = 'Arte Manifiesto, la primera red social de artistas visuales y creadores de latinoamerica' %}
+
+{% extends '../partials/base.html' %}
+
+{% block elements %}
+
+	<!-- ********************************************************************
+		$ SLIDER
+	********************************************************************* -->
+	
+	<div class="contact-form">
+		<div class="grid-container">
+			<div class="grid-100">
+				<div class="contact-form-inner">
+					<p class="title">Nos encantaría conversar contigo</p>
+					<p class="subtitle">Escríbenos y cuéntanos lo que podemos hacer por tí, una buena charla, sugerencias o un café siempre son bienvenidos</p>
+
+					<form>
+						<input type="text" placeholder="E-Mail"></input>
+						<textarea>Your message</textarea>
+						<button>SEND MESSAGE</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="contact-map">
+		<div class="cover"></div>
+		<div class="grid-container">
+			<div class="grid-100">
+				<div class="contact-map-inner">
+					<p class="title">O mejor aún, visítanos</p>
+					<p class="subtitle">Lizardo Montero 460 Int 304 <br> Miraflores, Lima, Perú</p>
+					<p class="subtitle">+51 944-426-766</p>
+					<p class="subtitle">contacto@artemanifiesto.com</p>
+					<div class="socials">
+						<a href="#"><i class="fa fa-facebook"></i></a>
+						<a href="#"><i class="fa fa-twitter"></i></a>
+						<a href="#"><i class="fa fa-instagram"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

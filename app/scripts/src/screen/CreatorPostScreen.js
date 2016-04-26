@@ -6,7 +6,7 @@ var APP = APP || {};
 var scope;
 var timeout;
 
-APP.CreatorPostScreen = function () {
+APP.CreatorPostScreen = function() {
   APP.BaseScreen.call(this, 'creatorPost');
   scope = this;
 };
@@ -14,7 +14,7 @@ APP.CreatorPostScreen = function () {
 APP.CreatorPostScreen.constructor = APP.CreatorPostScreen;
 APP.CreatorPostScreen.prototype = Object.create(APP.BaseScreen.prototype);
 
-APP.CreatorPostScreen.prototype.setupUI = function () {
+APP.CreatorPostScreen.prototype.setupUI = function() {
   this.category = $('select[name=category]');
   this.name = $('input[name=name]');
   this.status = $('.status');
@@ -65,7 +65,7 @@ APP.CreatorPostScreen.prototype.setupUI = function () {
   this.isUploading = false;
 };
 
-APP.CreatorPostScreen.prototype.listeners = function () {
+APP.CreatorPostScreen.prototype.listeners = function() {
   APP.BaseScreen.prototype.listeners.call(this);
   Broadcaster.addEventListener('imageStarted', this.imageStarted.bind(this));
   Broadcaster.addEventListener('imageProgressComplete', this.progressComplete.bind(this));
@@ -87,13 +87,15 @@ APP.CreatorPostScreen.prototype.listeners = function () {
   this.amBtn.click(this.featuredHandler.bind(this));
 };
 
-APP.CreatorPostScreen.prototype.publishHandler = function () {
+APP.CreatorPostScreen.prototype.publishHandler = function() {
   if (!post) return this.showFlash('error', ['Rellena todos los campos del post']);
   var url = '/blog/post/' + (post.published ? 'unpublish' : 'publish');
-  this.requestHandler(url, {idPost: post.id}, this.publishComplete);
+  this.requestHandler(url, {
+    idPost: post.id
+  }, this.publishComplete);
 };
 
-APP.CreatorPostScreen.prototype.publishComplete = function (response) {
+APP.CreatorPostScreen.prototype.publishComplete = function(response) {
   post = response.data.post;
   if (post.published)
     this.publishBtn.addClass('publish').text('PUBLICADO');
@@ -101,13 +103,15 @@ APP.CreatorPostScreen.prototype.publishComplete = function (response) {
     this.publishBtn.removeClass('publish').text('PUBLICAR');
 };
 
-APP.CreatorPostScreen.prototype.featuredHandler = function () {
+APP.CreatorPostScreen.prototype.featuredHandler = function() {
   if (!post) return this.showFlash('error', ['Rellena todos los campos del post']);
   var url = '/blog/post/' + (post.featured ? 'unfeatured' : 'featured');
-  this.requestHandler(url, {idPost: post.id}, this.featuredComplete);
+  this.requestHandler(url, {
+    idPost: post.id
+  }, this.featuredComplete);
 };
 
-APP.CreatorPostScreen.prototype.featuredComplete = function (response) {
+APP.CreatorPostScreen.prototype.featuredComplete = function(response) {
   post = response.data.post;
   if (post.featured)
     this.amBtn.addClass('am');
@@ -115,25 +119,26 @@ APP.CreatorPostScreen.prototype.featuredComplete = function (response) {
     this.amBtn.removeClass('am');
 };
 
-APP.CreatorPostScreen.prototype.imageStarted = function () {
+APP.CreatorPostScreen.prototype.imageStarted = function() {
   this.isUploading = true;
   this.status.text('Cargando imagenes....');
 };
 
-APP.CreatorPostScreen.prototype.progressComplete = function () {
+APP.CreatorPostScreen.prototype.progressComplete = function() {
   this.status.text('Procesando imagenes....');
 };
 
-APP.CreatorPostScreen.prototype.imageLoaded = function () {
+APP.CreatorPostScreen.prototype.imageLoaded = function() {
   this.isUploading = false;
   this.autoSave(null, this.editable);
   this.status.text('Imagenes cargadas');
 };
 
-APP.CreatorPostScreen.prototype.autoSave = function (event, editable) {
+APP.CreatorPostScreen.prototype.autoSave = function(event, editable) {
   if (this.isUploading) return this.showFlash('error', ['Las imágenes aún se estan cargando']);
   var errors = [];
-  var nameValue = this.name.val(), categoryValue = this.category.val();
+  var nameValue = this.name.val(),
+    categoryValue = this.category.val();
 
   this.editable = editable;
 
@@ -174,7 +179,7 @@ APP.CreatorPostScreen.prototype.autoSave = function (event, editable) {
 };
 
 
-APP.CreatorPostScreen.prototype.saveRequestComplete = function (response) {
+APP.CreatorPostScreen.prototype.saveRequestComplete = function(response) {
   post = response.data.post;
   var url = '/blog/post/' + post.nameSlugify;
   if (edit)
@@ -183,7 +188,7 @@ APP.CreatorPostScreen.prototype.saveRequestComplete = function (response) {
   this.status.text('✓ guardado');
 };
 
-APP.CreatorPostScreen.prototype.beforeUnLoad = function (event) {
+APP.CreatorPostScreen.prototype.beforeUnLoad = function(event) {
   if (this.isUploading) {
     var message = 'Aun no se han guardado tus cambios!';
     if (typeof event == 'undefined') {
@@ -196,11 +201,16 @@ APP.CreatorPostScreen.prototype.beforeUnLoad = function (event) {
   }
 };
 
-APP.CreatorPostScreen.prototype.coverComplete = function (idImage) {
+APP.CreatorPostScreen.prototype.coverComplete = function(idImage) {
   this.$view.find('.upload').show();
   $('.cloudinary-fileupload').show();
 
-  var filters = {format: 'jpg', width: 1600, crop: "limit", quality: 80};
+  var filters = {
+    format: 'jpg',
+    width: 1600,
+    crop: "limit",
+    quality: 80
+  };
   var img = $.cloudinary.image(idImage, filters);
   img.addClass('am-Profile-banner-img').appendTo(this.$view.find('.preview'));
   this.photo = img.attr('src');
@@ -208,18 +218,18 @@ APP.CreatorPostScreen.prototype.coverComplete = function (idImage) {
   scope.autoSave(null, scope.editable);
 };
 
-APP.CreatorPostScreen.prototype.inputChange = function () {
+APP.CreatorPostScreen.prototype.inputChange = function() {
   this.autoSave(null, this.editable);
 };
 
-APP.CreatorPostScreen.prototype.nameKeyUp = function () {
+APP.CreatorPostScreen.prototype.nameKeyUp = function() {
   clearTimeout(timeout);
-  timeout = setTimeout(function () {
+  timeout = setTimeout(function() {
     scope.autoSave(null, scope.editable);
   }, 1000);
 };
 
-APP.CreatorPostScreen.prototype.deleteHandler = function (event) {
+APP.CreatorPostScreen.prototype.deleteHandler = function(event) {
   event.preventDefault();
   this.delete.hide();
   this.previewBtn.hide();
@@ -228,7 +238,7 @@ APP.CreatorPostScreen.prototype.deleteHandler = function (event) {
   this.deleteConfirm.show();
 };
 
-APP.CreatorPostScreen.prototype.cancelHandler = function (event) {
+APP.CreatorPostScreen.prototype.cancelHandler = function(event) {
   event.preventDefault();
   this.delete.show();
   this.previewBtn.show();
@@ -237,15 +247,17 @@ APP.CreatorPostScreen.prototype.cancelHandler = function (event) {
   this.deleteConfirm.hide();
 };
 
-APP.CreatorPostScreen.prototype.deleteForceHandler = function (event) {
+APP.CreatorPostScreen.prototype.deleteForceHandler = function(event) {
   event.preventDefault();
   var url = '/blog/post/delete';
-  this.requestHandler(url, {idPost: post.id}, this.deleteForceComplete);
+  this.requestHandler(url, {
+    idPost: post.id
+  }, this.deleteForceComplete);
 };
 
-APP.CreatorPostScreen.prototype.deleteForceComplete = function () {
+APP.CreatorPostScreen.prototype.deleteForceComplete = function() {
   this.showFlash('succes', 'Se elimino tu post');
-  setTimeout(function () {
+  setTimeout(function() {
     window.location.href = '/blog';
   }, 1000);
 };

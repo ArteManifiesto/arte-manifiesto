@@ -4,14 +4,14 @@
  */
 var APP = APP || {};
 
-APP.AdminGeneralScreen = function () {
+APP.AdminGeneralScreen = function() {
   APP.BaseScreen.call(this, 'adminGeneral');
 };
 
 APP.AdminGeneralScreen.constructor = APP.AdminGeneralScreen;
 APP.AdminGeneralScreen.prototype = Object.create(APP.BaseScreen.prototype);
 
-APP.AdminGeneralScreen.prototype.setupUI = function () {
+APP.AdminGeneralScreen.prototype.setupUI = function() {
   this.searchBtn = $('.search-btn');
   this.start = $('.start');
   this.end = $('.end');
@@ -32,7 +32,7 @@ APP.AdminGeneralScreen.prototype.setupUI = function () {
   }
 };
 
-APP.AdminGeneralScreen.prototype.listeners = function () {
+APP.AdminGeneralScreen.prototype.listeners = function() {
   APP.BaseScreen.prototype.listeners.call(this);
 
   this.start.datepicker().on('changeDate', this.startDateChange.bind(this));
@@ -40,20 +40,20 @@ APP.AdminGeneralScreen.prototype.listeners = function () {
   this.searchBtn.click(this.searchHander.bind(this));
 };
 
-APP.AdminGeneralScreen.prototype.startDateChange = function (event) {
+APP.AdminGeneralScreen.prototype.startDateChange = function(event) {
   this.startValue = event.date;
 };
 
-APP.AdminGeneralScreen.prototype.endDateChange = function (event) {
+APP.AdminGeneralScreen.prototype.endDateChange = function(event) {
   this.endValue = event.date;
 };
 
-APP.AdminGeneralScreen.prototype.searchHander = function () {
+APP.AdminGeneralScreen.prototype.searchHander = function() {
   if (this.startValue) {
     if (!this.endValue)
       return this.showFlash('error', ['Ingresa una fecha de fin']);
 
-    var startStr = (this.startValue.getMonth() + 1 ) + "-" +
+    var startStr = (this.startValue.getMonth() + 1) + "-" +
       this.startValue.getDate() + "-" +
       this.startValue.getFullYear();
 

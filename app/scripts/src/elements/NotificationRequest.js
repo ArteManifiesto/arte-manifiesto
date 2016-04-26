@@ -4,8 +4,8 @@
  */
 var APP = APP || {};
 
-APP.NotificationRequest = function (data, options) {
-    APP.BaseElement.call(this, data, 'notification-request', options);
+APP.NotificationRequest = function(data, options) {
+  APP.BaseElement.call(this, data, 'notification-request', options);
 };
 
 APP.NotificationRequest.prototype = Object.create(APP.BaseElement.prototype);

@@ -5,6 +5,6 @@ module.exports = function (app) {
      */
     app.use(function (req, res, next) {
         res.status(404);
-        return res.render('errors/404', {url: req.url});
+        return res.render('errors/404');
     });
 };

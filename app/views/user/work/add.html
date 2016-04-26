@@ -135,7 +135,7 @@
 {% block scripts %}
 <script>
 $(function() {
-	$.cloudinary.config({{cloudinary.config()|json|safe}});	
+	$.cloudinary.config({{cloudinary.config()|json|safe}});
 	new APP.AddWorkScreen();
 });
 </script>

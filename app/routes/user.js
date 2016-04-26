@@ -12,11 +12,13 @@ router.get(['/', '/portfolio'], controller.profile.bind(this, 'portfolio'));
 router.get('/collections', controller.profile.bind(this, 'collections'));
 router.get('/followers', controller.profile.bind(this, 'followers'));
 router.get('/followings', controller.profile.bind(this, 'followings'));
+router.get('/products', controller.profile.bind(this, 'products'));
 
 router.get('/notifications', isLoggedAndOwner, controller.notificationsPage);
 router.post('/notifications/:page', isLoggedAndOwner, controller.notifications);
 
 router.use('/work', require(global.cf.routes + "/user-work"));
+router.use('/product', require(global.cf.routes + "/user-product"));
 router.use('/collection', require(global.cf.routes + "/user-collection"));
 router.use('/account', isLoggedAdminOrOwner, require(global.cf.routes + "/user-account"));
 
@@ -29,6 +31,7 @@ router.post('/featured', global.md.isAdmin, global.md.userTo, controller.feature
 router.post('/unfeatured', global.md.isAdmin, global.md.userTo, controller.unFeatured);
 
 router.post(['/:page', '/portfolio/:page'], controller.portfolio);
+router.post('/products/:page', controller.products);
 router.post('/collections/:page', controller.collections);
 router.post('/followers/:page', controller.followers);
 router.post('/followings/:page', controller.followings);

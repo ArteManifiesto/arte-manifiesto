@@ -30,8 +30,10 @@ Events.CREATOR_READY = 'creatorReady';
 
 var Validations = {
   notBlank: function(value) {
-    if(!value) {return true};
-    return '' === value.replace( /^\s+/g, '' ).replace( /\s+$/g, '')
+    if (!value) {
+      return true
+    };
+    return '' === value.replace(/^\s+/g, '').replace(/\s+$/g, '')
   },
   username: function(value) {
     var re = new RegExp(/^[a-zA-Z0-9]+$/);

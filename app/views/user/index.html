@@ -1,4 +1,4 @@
-{% set templates = ['work', 'collection', 'user'] %}
+{% set templates = ['work', 'collection', 'user', 'product'] %}
 {% set pageTitle = profile.fullname %}
 {% set path = 'profile' %}
 {% set profile = profile.toJSON()%}
@@ -79,17 +79,23 @@
 							<p>PORTAFOLIO</p>
 							<p>{{numbers[0]}}</p>
 						</div>
+						{% if user.isSeller %}
+							<div class="am-Profile-menu-item products" data-name='products'>
+								<p>PRODUCTOS</p>
+								<p>{{numbers[1]}}</p>
+							</div>
+						{%endif%}
 						<div class="am-Profile-menu-item collections" data-name='collections'>
 							<p>COLECCIONES</p>
-							<p>{{numbers[1]}}</p>
+							<p>{{numbers[2]}}</p>
 						</div>
 						<div class="am-Profile-menu-item followings" data-name='followings'>
 							<p>SIGUIENDO</p>
-							<p>{{numbers[2]}}</p>
+							<p>{{numbers[3]}}</p>
 						</div>
 						<div class="am-Profile-menu-item followers" data-name='followers'>
 							<p>SEGUIDORES</p>
-							<p>{{numbers[3]}}</p>
+							<p>{{numbers[4]}}</p>
 						</div>
 					</div>
 				</div>
@@ -171,23 +177,42 @@
 		</div>
 	</div>
 
-	<!-- <div class="discover-content store-wrapper grid-container u-padding-top-10 u-padding-bottom-70
-		{% if currentPath !== 'store' %} hide {% endif %}">
+	{% if user.isSeller %}
+
+	<div class="discover-content products-wrapper grid-container u-padding-top-10 u-padding-bottom-70
+		{% if currentPath !== 'products' %} hide {% endif %}">
 		<div class="grid-100 grid-parent">
 
 			{% if owner %}
-			<p class="empty-profile-text bare-message empty-message hide u-margin-top-30">Aún no tienes ningun producto <br><br>
-				<a href="/user/{{user.username}}/work/add">Sube tu primera obra para ponerla en venta</a>
+				<div class="empty-box bare-message hide">
+					<div class="empty-box-column right">
+						<i class=" bi_doc-documents"></i>
+						<p class="title u-margin-top-20">Pon en venta alguna de tus obras</p>
+						<a href="/" class="subtitle u-margin-top-20">Saber más sobre colecciones</a>
+					</div>
+				</div>
 			</p>
 			{% else %}
-			<p class="empty-profile-text bare-message empty-message hide u-margin-top-30">{{profile.fullname}} no esta vendiendo ningun product aún<br><br></p>
+				<div class="empty-box bare-message hide">
+					<div class="empty-box-column right">
+						<i class=" bi_doc-documents"></i>
+						<p class="title u-margin-top-20">Aun no hay ningún producto</p>
+						<p class="subtitle u-margin-top-20">Coleccionar es divertido y gratis! <br> Tu también puedes hacerlo.</p>
+						<a href="#" class="subtitle u-margin-top-20">Saber más sobre colecciones</a>
+						<br>
+						<a href="/works/category/all/page-1" class="u-margin-top-30 button"><i class=" bi_doc-documents"></i>&nbsp;&nbsp;DESCUBRIR OBRAS</a>
+					</div>
+				</div>
+
 			{% endif %}
-      <div class="grid store-container work-layout-discover">
+      <div class="grid products-container work-layout-discover">
 				<div class="grid-sizer"></div>
       </div>
-			<div class="am-More-preload loading hide"><i class="fa fa-spinner"></i></div>
+			<!-- <div class="am-More-preload loading hide"><i class="fa fa-spinner"></i></div> -->
+			<div class="loader extra-small gray loading hide" style="border-color: gree;"></div>
 		</div>
-	</div> -->
+	</div>
+	{%endif%}
 
 	<div class="discover-content collections-wrapper grid-container u-padding-top-10 u-padding-bottom-70
 		{% if currentPath !== 'collections' %} hide {% endif %}">

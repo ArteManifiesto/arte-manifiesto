@@ -4,16 +4,16 @@
  */
 var APP = APP || {};
 
-APP.NavigationManager = function (navigation) {
+APP.NavigationManager = function(navigation) {
   this.navigator;
-  switch(navigation) {
+  switch (navigation) {
     case APP.NavigationManager.PAGINATION:
       this.navigator = new APP.PaginationNavigation();
-    break;
+      break;
     case APP.NavigationManager.INFINITE:
     default:
       this.navigator = new APP.InfiniteNavigation();
-    break;
+      break;
   }
 };
 APP.NavigationManager.INFINITE = 'infinite';

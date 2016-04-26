@@ -112,10 +112,13 @@ var entityExists = function (entity, query, req, res, next, method) {
         return res.redirect('/user/' + req.params.username);
       }
 
-      if (entity !== 'Post') {
+      if(entity === 'Product' && !element.published) {
+        return res.status(401).render('errors/401', {url: req.url});
+      }
+
+      if (entity === 'Collection' || entity === 'Work') {
         if (!req.owner && !element.public) {
-          res.status(401);
-          return res.render('errors/401', {url: req.url});
+          return res.status(401).render('errors/401', {url: req.url});
         }
 
         if (entity === 'Work') {
@@ -124,7 +127,9 @@ var entityExists = function (entity, query, req, res, next, method) {
             return res.render('errors/nsfw');
           }
         }
-      } else {
+      }
+
+      if(entity === 'Post'){
         if(!element.published) {
           if (!req.user || !req.user.isAdmin ) {
             var returnTo = req.protocol + '://' + req.get('host') + req.originalUrl;
@@ -135,6 +140,8 @@ var entityExists = function (entity, query, req, res, next, method) {
           }
         }
       }
+
+      console.log('llooooll');
       req[entity.toLowerCase()] = element;
       next();
     }

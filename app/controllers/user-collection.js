@@ -1,26 +1,48 @@
 var basePath = 'user/collection/';
 
-exports.index = function (req, res) {
-    var query = {
-      build: true, viewer: req.viewer, addUser:true,
-      order: [[global.db.sequelize.col('CollectionWork.createdAt'), 'DESC']]
-    };
-    req.collection.getWorks(query).then(function (works) {
-        return res.render(basePath + 'index', {
-            collection: req.collection,
-            works: works,
-            owner: req.owner
-        });
+exports.index = function(req, res) {
+  var query = {
+    build: true,
+    viewer: req.viewer,
+    addUser: true
+  };
+
+  var afterGet = function(items) {
+    return res.render(basePath + 'index', {
+      collection: req.collection,
+      items: items,
+      owner: req.owner
     });
+  }
+  if (req.collection.meta === 'works') {
+    query.order = [
+      [global.db.sequelize.col('CollectionWork.createdAt'), 'DESC']
+    ];
+    req.collection.getWorks(query).then(afterGet);
+  } else {
+    query.order = [
+      [global.db.sequelize.col('CollectionProduct.createdAt'), 'DESC']
+    ];
+    req.collection.getProducts(query).then(afterGet);
+  }
 }
 
-exports.all = function (req, res) {
-    var query;
-    if (req.body.idProduct)
-        query = {idProduct: req.body.idProduct, productInside: true};
-    req.user.getCollections(query).then(function (collections) {
-        return res.ok({collections: collections}, 'Colecciones listadas');
-    });
+exports.all = function(req, res) {
+  var query = {
+    where: {
+      meta: req.body.meta
+    }
+  };
+  // if (req.body.idProduct)
+  //   query = {
+  //     idProduct: req.body.idProduct,
+  //     productInside: true
+  //   };
+  req.user.getCollections(query).then(function(collections) {
+    return res.ok({
+      collections: collections
+    }, 'Colecciones listadas');
+  });
 }
 
 /**
@@ -28,12 +50,14 @@ exports.all = function (req, res) {
  * ====================================================================
  * create a collection
  */
-exports.create = function (req, res) {
+exports.create = function(req, res) {
   req.body.UserId = req.user.id;
   req.body.description = 'Coleccion curada por ' + req.user.fullname;
-  global.db.Collection.create(req.body).then(function (collection) {
+  global.db.Collection.create(req.body).then(function(collection) {
     if (req.xhr)
-        return res.ok({collection: collection}, 'Coleccion creada');
+      return res.ok({
+        collection: collection
+      }, 'Coleccion creada');
   });
 };
 
@@ -42,10 +66,12 @@ exports.create = function (req, res) {
  * ====================================================================
  * update collection
  */
-exports.update = function (req, res) {
-    req.collection.updateAttributes(req.body).then(function () {
-        return res.ok({collection: req.collection}, 'Coleccion actualizada');
-    });
+exports.update = function(req, res) {
+  req.collection.updateAttributes(req.body).then(function() {
+    return res.ok({
+      collection: req.collection
+    }, 'Coleccion actualizada');
+  });
 };
 
 /**
@@ -53,32 +79,50 @@ exports.update = function (req, res) {
  * ====================================================================
  * remove a collection
  */
-exports.delete = function (req, res) {
-    req.collection.destroy().then(function () {
-      return res.ok({collection: req.collection}, 'Coleccion eliminada');
-    });
+exports.delete = function(req, res) {
+  req.collection.destroy().then(function() {
+    return res.ok({
+      collection: req.collection
+    }, 'Coleccion eliminada');
+  });
 };
 
-exports.featured = function (req, res) {
-    req.collection.updateAttributes({featured: true}).then(function () {
-        return res.ok({collection: req.collection}, 'Collection featured');
-    });
+exports.featured = function(req, res) {
+  req.collection.updateAttributes({
+    featured: true
+  }).then(function() {
+    return res.ok({
+      collection: req.collection
+    }, 'Collection featured');
+  });
 };
 
-exports.unFeatured = function (req, res) {
-    req.collection.updateAttributes({featured: false}).then(function () {
-        return res.ok({collection: req.collection}, 'Collection unFeatured');
-    });
+exports.unFeatured = function(req, res) {
+  req.collection.updateAttributes({
+    featured: false
+  }).then(function() {
+    return res.ok({
+      collection: req.collection
+    }, 'Collection unFeatured');
+  });
 };
 
-exports.public = function (req, res) {
-    req.collection.updateAttributes({public: true}).then(function () {
-        return res.ok({collection: req.collection}, 'Coleccion publica');
-    });
+exports.public = function(req, res) {
+  req.collection.updateAttributes({
+    public: true
+  }).then(function() {
+    return res.ok({
+      collection: req.collection
+    }, 'Coleccion publica');
+  });
 };
 
-exports.private = function (req, res) {
-    req.collection.updateAttributes({public: false}).then(function () {
-        return res.ok({collection: req.collection}, 'Coleccion privada');
-    });
+exports.private = function(req, res) {
+  req.collection.updateAttributes({
+    public: false
+  }).then(function() {
+    return res.ok({
+      collection: req.collection
+    }, 'Coleccion privada');
+  });
 };

@@ -11,6 +11,55 @@ global.limits = {
   singlePost: 3
 };
 
+global.cities = [
+    'Lima',
+    'Arequipa',
+    'Trujillo',
+    'Chiclayo',
+    'Iquitos',
+    'Piura',
+    'Cusco',
+    'Chimbote',
+    'Huancayo',
+    'Tacna',
+    'Juliaca',
+    'Ica',
+    'Cajamarca',
+    'Pucallpa',
+    'Sullana',
+    'Ayacucho',
+    'Chincha',
+    'Huánuco',
+    'Huacho',
+    'Tarapoto',
+    'Puno',
+    'Huaraz',
+    'Tumbes',
+    'Pisco',
+    'Huaral',
+    'Moyobamba',
+    'Puerto Maldonado',
+    'Moquegua',
+    'Cerro de Pasco',
+    'Barranca',
+    'Yurimaguas',
+    'Chancay',
+    'Andahuaylas',
+    'Ilo',
+    'Talara',
+    'Abancay',
+    'Lambayeque',
+    'Tingo María',
+    'Chulucanas',
+    'Sicuani',
+    'Mala',
+    'Huancavelica',
+    'Pacasmayo',
+    'Tarma',
+    'Sechura',
+    'Guadalupe',
+    'Bagua'
+  ];
 global.feedVerbs = ['like-work', 'follow-user', 'create-work'];
 
 global.fbPermissions = [
@@ -141,9 +190,8 @@ var beforePagination = function (req, discover) {
   var tempEntity = discover.options.entity;
   discover.options.tempEntity = tempEntity;
   var query = {where: {nameSlugify: req.params.value}};
-  var tempModel = tempEntity === 'Product' ? 'ProductType' : 'Category';
+  var tempModel = 'Category';
   if (req.query.term && req.query.term.substring(0, 1) === '#') {
-    tempEntity = 'Work';
     query = {where: {name: req.query.term.substring(1, req.query.term.length)}};
     tempModel = 'Tag';
   } else {
@@ -195,6 +243,7 @@ global.searchUsers = function (req) {
 global.searchCollections = function (req) {
   var discover = discoverGenerator('Collection', req);
   discover.query.where.public = true;
+  discover.query.where.meta = 'works';
   discover.query.addUser = true;
   discover.query.order.push([global.db.sequelize.col('id')]);
   console.log('order ===>');
@@ -204,9 +253,13 @@ global.searchCollections = function (req) {
 
 global.searchProducts = function (req) {
   var discover = discoverGenerator('Product', req);
-  discover.query.where.public = true;
+  discover.query.where.published = true;
   discover.query.addUser = true;
+  console.log(discover.query);
+  // discover.query.include = discover.query.include || [];
+  // discover.query.include.push([{model:global.db.Work}]);
   discover.query.order.push([global.db.sequelize.col('id')]);
+
   return beforePagination(req, discover);
 };
 
@@ -292,6 +345,9 @@ global.getPaginationEntity = function (options, query, empty) {
 
   var promises = [];
   if (!options.association) {
+    console.log('query====>');
+    console.log(query);
+
     promises = [global.db[options.entity].findAll(query)]
     query = _.omit(query, 'build', 'offset', 'limit', 'addUser', 'group');
     promises.push(global.db[options.entity].count(query));
