@@ -63,7 +63,7 @@ APP.AccountIndexScreen.prototype.deleteForceHandler = function(e) {
   this.requestHandler(url, {}, this.afterDeactivate);
 };
 
-APP.AccountConfigurationScreen.prototype.afterDeactivate = function(e) {
+APP.AccountIndexScreen.prototype.afterDeactivate = function(e) {
   this.showFlash('succes', 'Se ha desactivado tu cuenta');
   var timeout = setTimeout(function() {
     clearTimeout(timeout);
