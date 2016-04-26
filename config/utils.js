@@ -152,7 +152,7 @@ global.discoverGenerator = function (entity, req) {
     };
   }
   if (req.query.lo_p || req.query.hi_p)
-    query.where.price = {
+    query.where.finalPrice = {
       $between: [req.query.lo_p || 0, req.query.hi_p || 3000]
     };
 
@@ -323,10 +323,10 @@ global.getOrder = function (order) {
       order = [global.db.sequelize.col('createdAt'), 'DESC'];
       break;
     case 'price_asc':
-      order = [global.db.sequelize.col('price'), 'ASC'];
+      order = [global.db.sequelize.col('finalPrice'), 'ASC'];
       break;
     case 'price_desc':
-      order = [global.db.sequelize.col('price'), 'DESC'];
+      order = [global.db.sequelize.col('finalPrice'), 'DESC'];
       break;
   }
   return order;

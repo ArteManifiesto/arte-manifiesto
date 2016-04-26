@@ -51,6 +51,7 @@ APP.AM.prototype.setupUI = function() {
   this.headerCover = $('.body-inner .cover');
 
   this.worksOption = this.generalSearchOptions.find('.works-option');
+  this.productsOption = this.generalSearchOptions.find('.products-option');
   this.usersOption = this.generalSearchOptions.find('.users-option');
   this.collectionsOption = this.generalSearchOptions.find('.collections-option');
   this.emailSubscription = this.subscriptionForm.find('input[name=email]');
@@ -166,10 +167,12 @@ APP.AM.prototype.searchKeyUpHandler = function(event) {
   this.worksOption.text(currentValue);
   this.usersOption.text(currentValue);
   this.collectionsOption.text(currentValue);
+  this.productsOption.text(currentValue);
 
   var baseUrl = this.getBaseUrl();
 
   this.worksOption.parent().attr('href', '/works/category' + baseUrl);
+  this.productsOption.parent().attr('href', '/products/category' + baseUrl);
   this.usersOption.parent().attr('href', '/users/specialty' + baseUrl);
   this.collectionsOption.parent().attr('href', '/collections/category' + baseUrl);
 };

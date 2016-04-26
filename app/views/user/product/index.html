@@ -118,7 +118,11 @@
 							<p class="text">Obras originales de nuestros artistas de valor único.</p>
 							<p class="text u-margin-top-10">Tamaño:</p>
 							{% set productConfig = JSON.parse(product.config) %}
-							<p class="text u-margin-top-10">{{productConfig.data.largeCM}} cm</p>
+							<p class="text u-margin-top-10">{{productConfig.data.pkgLarge}} cm x
+							{{productConfig.data.pkgWidth}}cm x {{productConfig.data.pkgHeight}}cm</p>
+							<p class="text u-margin-top-10">Peso:</p>
+							{% set productConfig = JSON.parse(product.config) %}
+							<p class="text u-margin-top-10">{{productConfig.data.pkgWeight}} kg </p>
 							<br>
 							<div class="type2">
 								<p class="text">Precio por unidad:</p>
@@ -243,7 +247,7 @@
 	          <form class="content review-form">
 	            <input type="hidden" name='id{{entity|capitalize}}' value="{{product.id}}"/>
 	            <textarea class='value-input' name="value"></textarea>
-	            <button>AGREGAR REVIEW</button>
+	            <button>AGREGAR COMENTARIO</button>
 	          </form>
 	      	</div>
         {% else %}
