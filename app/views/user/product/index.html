@@ -45,12 +45,14 @@
 									<i class="icon bi_web-share share"></i>
 									<p class="text">COMPARTIR</p>
 								</a>
+								{#
 								{% if owner || (user && user.isAdmin)%}
 									<a id="go-share-modal" href="/user/{{product.User.username}}/product/{{product.nameSlugify}}/edit" class="action">
 										<i class="icon bi_editorial-compose"></i>
 										<p class="text">EDITAR</p>
 									</a>
 								{% endif %}
+								#}
 							</div>
 						<div class="actions-box after-like {% if !product.liked %} hide {% endif %}">
 
@@ -184,7 +186,7 @@
 	            <div class="single-tabs">
 	              <div class="single-tab menu-item" data-name='index'>
 									<p>+ PRODUCTOS</p>
-	                <i class="bi_misc-cube"></i>
+									<i class="bi_misc-cube"></i>
 	              </div>
 	              <div class="single-tab menu-item" data-name='reviews'>
 	                <p>COMENTARIOS</p>
