@@ -8,11 +8,11 @@
 	<meta property="og:site" content="artemanifiesto.com" />
 	<meta property="og:title" content="{{collection.name}}" />
 	<meta property="og:description" content="{{collection.description}}" />
-	<meta property="og:image" content="{{works[0].photo|addFilter('w_1200,h_630,q_60,c_crop')}}" />
+	<meta property="og:image" content="{{items[0].photo|addFilter('w_1200,h_630,q_60,c_crop')}}" />
 	<meta property="og:url" content="http://artemanifiesto.com/user/{{collection.User.username}}/collection/{{collection.nameSlugify}}" />
 	<meta property="og:type" content="article" />
 	<meta name='twitter:card' content='summary_large_image' />
-	<meta name='twitter:image:src' content="{{works[0].photo|addFilter('w_1200,h_630,q_60,c_crop')}}" />
+	<meta name='twitter:image:src' content="{{items[0].photo|addFilter('w_1200,h_630,q_60,c_crop')}}" />
 	<meta name='twitter:site' content='@artemanifiesto' />
 	<meta name='twitter:url' content="http://artemanifiesto.com/user/{{collection.User.username}}/collection/{{collection.nameSlugify}}" />
 	<meta name='twitter:description' content='{{collection.description}}' />
