@@ -275,6 +275,59 @@ module.exports = function(sequelize, DataTypes) {
           });
         });
       },
+      getMoreProducts: function() {
+      var scope = this;
+      var query = {
+        where: {
+          meta: 5
+        }
+      };
+      return global.db.Category.findAll(query)
+        .then(function(categories) {
+          query = {
+            where: {
+              ParentCategoryId: {
+                $in: global._.pluck(categories, 'id')
+              }
+            }
+          };
+          return global.db.Category.findAll(query)
+            .then(function(subCategories) {
+              query = {
+                where: {
+                  ParentCategoryId: {
+                    $in: global._.pluck(subCategories, 'id')
+                  }
+                },
+                include: [{
+                  model: global.db.Product,
+                  where: {
+                    WorkId: scope.id
+                  },
+                  include: [global.db.User]
+                }]
+              };
+              return global.db.Category.findAll(query)
+                .then(function(innerCategories) {
+                  for (var i = 0; i < categories.length; i++) {
+                    categories[i].setDataValue('subCategories', []);
+                    for (var j = 0; j < subCategories.length; j++) {
+                      if (subCategories[j].ParentCategoryId === categories[i].id) {
+                        categories[i].getDataValue('subCategories').push(subCategories[j]);
+                      }
+                      subCategories[j].setDataValue('innerCategories', []);
+                      for (var k = 0; k < innerCategories.length; k++) {
+                        if (innerCategories[k].ParentCategoryId === subCategories[j].id) {
+                          subCategories[j].getDataValue('innerCategories').push(innerCategories[k]);
+                        }
+                      }
+                    }
+                  }
+                  return categories;
+                });
+            });
+        });
+      },
       removeLegacy: function(options) {
         var scope = this,
           query = {

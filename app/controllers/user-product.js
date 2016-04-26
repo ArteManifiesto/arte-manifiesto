@@ -19,7 +19,7 @@ exports.index = function(currentPath, req, res) {
         where: {
           id: req.product.id
         },
-        include: [global.db.Category],
+        include: [{model: global.db.Category, include: [{model: global.db.Category, as: 'ParentCategory'}]}],
         viewer: req.viewer,
         build: true,
         addUser: true
@@ -124,9 +124,11 @@ exports.buyPage = function(req, res) {
 
 exports.successPage = function(req, res) {
   var orderData = req.cookies.order_data;
-  res.clearCookie('order_data', {domain: '.' + global.cf.app.domain});
+  res.clearCookie('order_data', {
+    domain: '.' + global.cf.app.domain
+  });
 
-  if(!orderData) return res.redirect('/');
+  if (!orderData) return res.redirect('/');
 
   global.db.Order.create({
     ProductId: req.product.id,

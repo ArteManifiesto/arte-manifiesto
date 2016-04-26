@@ -315,7 +315,7 @@ APP.CreatorProductItem.prototype.open = function() {
 };
 
 APP.CreatorProductItem.prototype.getPayload = function() {
-  if(this.index === 0) {
+  if (this.index === 0) {
     return [];
   }
 

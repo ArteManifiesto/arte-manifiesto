@@ -8,7 +8,7 @@ APP.RequestItem = function(data, options) {
   data.from = data.from || null;
   data.data = JSON.parse(data.data);
   data.Product.config = JSON.parse(data.Product.config);
-  data.artistRevenue = (Number(data.Product.config.margen) / 100 *  data.Product.finalPrice);
+  data.artistRevenue = (Number(data.Product.config.margen) / 100 * data.Product.finalPrice);
   data.amRevenue = data.Product.finalPrice - data.artistRevenue;
   data.subtotal = data.artistRevenue + data.amRevenue;
   data.shipping = data.data.shipping;
@@ -28,17 +28,17 @@ APP.RequestItem = function(data, options) {
   if (this.currentStep === 'recibido') {
     step1.removeClass('hide');
   }
-  if(this.currentStep === "paso2") {
+  if (this.currentStep === "paso2") {
     step2.removeClass('hide');
   }
-  if(this.currentStep === "paso3") {
+  if (this.currentStep === "paso3") {
     step3.removeClass('hide');
   }
-  if(this.currentStep === "paso4") {
+  if (this.currentStep === "paso4") {
     step4.removeClass('hide');
   }
 
-  if(this.currentStep === "paso5") {
+  if (this.currentStep === "paso5") {
     step5.removeClass('hide');
   }
 
@@ -47,7 +47,10 @@ APP.RequestItem = function(data, options) {
   step1.find('.yes').click(function(e) {
     e.preventDefault();
 
-    scope.nextStepCaller({idOrder: data.id, currentStatus: scope.currentStep});
+    scope.nextStepCaller({
+      idOrder: data.id,
+      currentStatus: scope.currentStep
+    });
 
     step1.addClass('hide');
     step2.removeClass('hide');
@@ -55,25 +58,37 @@ APP.RequestItem = function(data, options) {
 
   step1.find('.no').click(function(e) {
     e.preventDefault();
-    scope.nextStepCaller({idOrder: data.id, currentStatus: 'declined'});
+    scope.nextStepCaller({
+      idOrder: data.id,
+      currentStatus: 'declined'
+    });
   });
 
   step2.find('.done').click(function(e) {
     e.preventDefault();
-    scope.nextStepCaller({idOrder: data.id, currentStatus: scope.currentStep});
+    scope.nextStepCaller({
+      idOrder: data.id,
+      currentStatus: scope.currentStep
+    });
     step2.addClass('hide');
     step3.removeClass('hide');
   });
 
   step3.find('.done').click(function(e) {
     e.preventDefault();
-    scope.nextStepCaller({idOrder: data.id, currentStatus: scope.currentStep});
+    scope.nextStepCaller({
+      idOrder: data.id,
+      currentStatus: scope.currentStep
+    });
     step3.addClass('hide');
     step4.removeClass('hide');
   });
 
   step4.find('.upload').click(function() {
-    scope.nextStepCaller({idOrder: data.id, currentStatus: scope.currentStep});
+    scope.nextStepCaller({
+      idOrder: data.id,
+      currentStatus: scope.currentStep
+    });
     step4.addClass('hide');
     step5.removeClass('hide');
   });

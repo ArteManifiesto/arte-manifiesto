@@ -18,11 +18,7 @@ exports.index = function(currentPath, req, res) {
       req.work.neighbors({
         idUser: user.id
       }),
-      global.db.Category.findAll({
-        where: {
-          meta: 0
-        }
-      })
+      req.work.getMoreProducts()
     ];
     global.db.Sequelize.Promise.all(promises).then(function(result) {
       var query = {
@@ -158,6 +154,9 @@ exports.edit = function(req, res) {
 };
 
 exports.sell = function(req, res) {
+  if(!req.user.isSeller)
+    return res.redirect('/user/' + req.user.username + '/account/seller');
+
   var query = {
     where: {
       meta: 3

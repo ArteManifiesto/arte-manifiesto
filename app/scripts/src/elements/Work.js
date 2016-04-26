@@ -23,9 +23,9 @@ APP.Work.prototype.listeners = function() {
 };
 
 APP.Work.prototype.settingsHandler = function() {
-  if(this.view.find('.menu-settings').hasClass('hide')) {
+  if (this.view.find('.menu-settings').hasClass('hide')) {
     this.view.find('.menu-settings').removeClass('hide');
-  }else {
+  } else {
     this.view.find('.menu-settings').addClass('hide');
   }
 };

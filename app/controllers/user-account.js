@@ -164,26 +164,30 @@ exports.updateCover = function(req, res) {
 
 exports.nextStep = function(req, res) {
   global.db.Order.findById(req.body.idOrder).then(function(order) {
-    if(req.body.currentStatus === 'declined') {
+    if (req.body.currentStatus === 'declined') {
       order.destroy().then(function() {
-        res.ok({order: order}, 'order destroyed');
+        res.ok({
+          order: order
+        }, 'order destroyed');
       });
     }
 
-    if(req.body.currentStatus === 'recibido') {
+    if (req.body.currentStatus === 'recibido') {
       order.status = 'paso2';
     }
-    if(req.body.currentStatus === 'paso2') {
+    if (req.body.currentStatus === 'paso2') {
       order.status = 'paso3';
     }
-    if(req.body.currentStatus === 'paso3') {
+    if (req.body.currentStatus === 'paso3') {
       order.status = 'paso4';
     }
-    if(req.body.currentStatus === 'paso4') {
+    if (req.body.currentStatus === 'paso4') {
       order.status = 'paso5';
     }
     return order.save(function() {
-      res.ok({order: order}, 'next status');
+      res.ok({
+        order: order
+      }, 'next status');
     });
   });
 };

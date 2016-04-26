@@ -99,13 +99,13 @@ APP.BuyScreen.prototype.submitHandler = function(e) {
   $('<input type="hidden" name="price" value=' + this.totalPrice + '>')
     .appendTo(this.form);
 
-    data.shipping = this.totalShipping;
-    data.price = this.price;
+  data.shipping = this.totalShipping;
+  data.price = this.price;
 
-    Cookies.set('order_data', JSON.stringify(data), {
-      maxAge: 3600000,
-      domain: '.' + document.domain
-    });
+  Cookies.set('order_data', JSON.stringify(data), {
+    maxAge: 3600000,
+    domain: '.' + document.domain
+  });
 };
 
 APP.BuyScreen.prototype.cityChangeHandler = function() {

@@ -73,7 +73,7 @@ exports.portfolio = function(req, res) {
 
 exports.products = function(req, res) {
   var query = req.owner ? {
-    addUser: true
+    addUser: true,
   } : {
     addUser: true,
     where: {
@@ -81,12 +81,12 @@ exports.products = function(req, res) {
     }
   };
   query.order = [global.getOrder('newest')];
+  query.include = [{model: global.db.Work, attributes: ['photo']}];
   return getData(req, res, {
     method: 'getProducts',
-    name: 'products'
-  }, {
-    addUser: true
-  });
+    name: 'products',
+    tempEntity: 'Product'
+  }, query);
 };
 
 

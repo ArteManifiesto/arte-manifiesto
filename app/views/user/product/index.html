@@ -103,9 +103,11 @@
 						{{product.description}}
 					</p>
 					<div class='work-category'>
-						<a href='/products/category/{{product.Category.nameSlugify}}/page-1/'>
-							<span class="am-Category-box u-margin-top-7 uppercase">{{product.Category.name}}</span>
+
+						<a href='/products/category/{{product.Category.ParentCategory.nameSlugify}}/page-1/'>
+							<span class="am-Category-box u-margin-top-7 uppercase">{{product.Category.ParentCategory.name}}</span>
 						</a>
+
 					</div>
 					<div class="info-box u-margin-top-25">
 						<div class="header" style="padding: 10px 0;">
@@ -207,7 +209,7 @@
 						<div class="u-separator"></div>
 					</div>
 				</div>
-				
+
 				<div class="grid-container">
 					<div class="grid-100">
 					  <div class="more-carousel js-more-carousel">

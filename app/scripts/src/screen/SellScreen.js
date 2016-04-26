@@ -67,7 +67,7 @@ APP.SellScreen.prototype.createHandler = function(e) {
 
 APP.SellScreen.prototype.productCreatedComplete = function(response) {
   this.showFlash('succes', 'Su producto se envió a revisión');
-  var timeout = setTimeout(function () {
+  var timeout = setTimeout(function() {
     clearTimeout(timeout);
     window.location.href = DataApp.currentUser.url + '/products';
   }, 2000);

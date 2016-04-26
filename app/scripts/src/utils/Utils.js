@@ -85,8 +85,8 @@ Utils = {
       window.location.href = "/";
     }
   },
-  addImageFilter: function (url, filter) {
-    if(url.indexOf('upload') > -1)
+  addImageFilter: function(url, filter) {
+    if (url.indexOf('upload') > -1)
       return url.replace('upload/', 'upload/' + filter + '/');
   },
   checkAuthentication: function() {

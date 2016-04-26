@@ -19,8 +19,28 @@ APP.WorkScreen.constructor = APP.WorkScreen;
 APP.WorkScreen.prototype = Object.create(APP.BaseScreen.prototype);
 
 APP.WorkScreen.prototype.setupUI = function() {
-  new APP.Viewer('carrouselItem', $('.more'), null, more);
-  new APP.Viewer('carrouselItem', $('.similar'), null, similar);
+
+  for (var i = 0; i < categories.length; i++) {
+    var category = categories[i],
+      products = [];
+    for (var j = 0; j < category.subCategories.length; j++) {
+      var subCategory = category.subCategories[j];
+      for (var k = 0; k < subCategory.innerCategories.length; k++) {
+        var innerCategory = subCategory.innerCategories[k];
+        for (var l = 0; l < innerCategory.Products.length; l++) {
+          products.push(innerCategory.Products[l]);
+        }
+      }
+    }
+    new APP.Viewer('carrouselItem', $('.' + category.nameSlugify), null, products);
+  }
+
+  new APP.Viewer('carrouselItem', $('.more'), null, more,{
+    worked: true
+  });
+  new APP.Viewer('carrouselItem', $('.similar'), null, similar,{
+    worked: true
+  });
 
   new APP.Carrousel($('.js-more-carousel'), $('.more'));
   new APP.Carrousel($('.js-similar-carousel'), $('.similar'));

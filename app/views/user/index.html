@@ -79,7 +79,7 @@
 							<p>PORTAFOLIO</p>
 							<p>{{numbers[0]}}</p>
 						</div>
-						{% if user.isSeller %}
+						{% if profile.isSeller %}
 							<div class="am-Profile-menu-item products" data-name='products'>
 								<p>PRODUCTOS</p>
 								<p>{{numbers[1]}}</p>
@@ -177,7 +177,7 @@
 		</div>
 	</div>
 
-	{% if user.isSeller %}
+	{% if profile.isSeller %}
 
 	<div class="discover-content products-wrapper grid-container u-padding-top-10 u-padding-bottom-70
 		{% if currentPath !== 'products' %} hide {% endif %}">

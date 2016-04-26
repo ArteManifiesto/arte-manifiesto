@@ -160,7 +160,7 @@ global.discoverGenerator = function (entity, req) {
     if (entity === 'Work' || entity === 'Product') {
       if (req.query.term.substring(0, 1) !== '#') {
         query.where.$and = global.db.sequelize.literal(
-          "MATCH(name, description) AGAINST('" + req.query.term + "' IN BOOLEAN MODE)"
+          "MATCH(" + entity +".name, " + entity + ".description) AGAINST('" + req.query.term + "' IN BOOLEAN MODE)"
         );
       }
 
@@ -200,9 +200,28 @@ var beforePagination = function (req, discover) {
     }
   }
 
+  console.log('tempmodel:', tempModel, tempEntity);
   return global.db[tempModel].find(query).then(function (model) {
     if (!model)
       return global.getPaginationEntity(discover.options, discover.query, true)
+
+    if(tempModel === 'Category' && tempEntity === 'Product') {
+      return global.db.Category.findAll({where: {
+        ParentCategoryId: model.id
+      }}).then(function(categories) {
+        console.log('categories');
+        console.log(categories);
+        console.log(_.pluck(categories, 'id'));
+        // global.db.Product.findAll({where: {
+        //   CategoryId: {$in: _.pluck(categories, 'id')}
+        // }});
+        tempModel = 'Product';
+        discover.query.where.CategoryId = {$in: _.pluck(categories, 'id')};
+        return global.getPaginationEntity(discover.options, discover.query);
+      });
+      // global.db.Category.findAll({where: {P}})
+    }
+
 
     var method;
     switch (tempEntity) {
@@ -255,9 +274,8 @@ global.searchProducts = function (req) {
   var discover = discoverGenerator('Product', req);
   discover.query.where.published = true;
   discover.query.addUser = true;
-  console.log(discover.query);
-  // discover.query.include = discover.query.include || [];
-  // discover.query.include.push([{model:global.db.Work}]);
+  discover.query.include = discover.query.include || [];
+  discover.query.include.push(global.db.Work);
   discover.query.order.push([global.db.sequelize.col('id')]);
 
   return beforePagination(req, discover);
