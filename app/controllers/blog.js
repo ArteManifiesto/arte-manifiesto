@@ -49,7 +49,7 @@ var getFeaturedTopPosts = function() {
       featured: true,
       published: true
     },
-    order: [global.getOrder('popularity')],
+    order: [global.getOrder('newest'),global.getOrder('popularity')],
     addUser: true,
     build: true,
     limit: 3,
