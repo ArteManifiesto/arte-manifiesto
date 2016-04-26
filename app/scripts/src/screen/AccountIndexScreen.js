@@ -53,7 +53,24 @@ APP.AccountIndexScreen.prototype.listeners = function() {
   this.username.keyup(this.usernameKeyUpHandler.bind(this));
   this.completeForm.submit(this.completeFormHandler.bind(this));
   this.isArtist.change(this.isArtistHandler.bind(this));
+
+  $('.btn-delete-force').click(this.deleteForceHandler.bind(this));
 };
+
+APP.AccountIndexScreen.prototype.deleteForceHandler = function(e) {
+  e.preventDefault();
+  var url = '/user/' + user.username + '/account/deactivate';
+  this.requestHandler(url, {}, this.afterDeactivate);
+};
+
+APP.AccountConfigurationScreen.prototype.afterDeactivate = function(e) {
+  this.showFlash('succes', 'Se ha desactivado tu cuenta');
+  var timeout = setTimeout(function() {
+    clearTimeout(timeout);
+    window.location.href = '/';
+  }, 1000);
+};
+
 
 APP.AccountIndexScreen.prototype.isArtistHandler = function(event) {
   var value = parseInt($(event.target).val(), 10);
