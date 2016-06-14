@@ -13,7 +13,7 @@ router.use(global.md.entity(entity));
 
 router.get('/add', isLoggedAndOwner, controller.add);
 
-router.get('/:nameSlugify', global.md.nameSlugify(entity), controller.index.bind(this, 'index'));
+router.get('/:nameSlugify', global.md.nameSlugify(entity), controller.index.bind(this, 'works'));
 router.get('/:nameSlugify/works', global.md.nameSlugify(entity), controller.index.bind(this, 'works'));
 router.get('/:nameSlugify/reviews', global.md.nameSlugify(entity), controller.index.bind(this, 'reviews'));
 router.get('/:nameSlugify/tags', global.md.nameSlugify(entity), controller.index.bind(this, 'tags'));
