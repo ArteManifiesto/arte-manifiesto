@@ -33,8 +33,7 @@
         </p>
         <p class="city u-margin-top-7"><%=element.city%>, <%=element.country%></p>
         <p class="stats u-margin-top-10">
-          <i class="bi_interface-view"></i>&nbsp;<span>200</span>&nbsp;&nbsp;
-          <i class="bi_ecommerce-diamon"></i>&nbsp;<span class="likes">300</span>
+          <i class="bi_user-single-a-plus"></i>&nbsp;<span><%= element.numOfFollowers %></span>
         </p>
       </div>
     </a>
@@ -65,7 +64,7 @@
     <footer class="feed-card-footer">
       <% _.each([0,1,2], function(i) { %>
         <% if(element.friends[i] && element.friends[i].photo) { %>
-          <a href="#" target="_blank">
+          <a href="/user/<%= element.friends[i] && element.friends[i].username %>" target="_blank">
             <img src="<%= element.friends[i].photo %>"></img>
           </a>
         <% } %>
