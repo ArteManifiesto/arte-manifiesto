@@ -10,7 +10,6 @@ Actualmente Artemanifiesto corre sobre node.js 4.4.5
 [descargar node.js](https://nodejs.org/en/)
 
 
-
 **2. Instalar gulp (opcional)**
 
 Gulp nos servirá para ejectuar las tareas del proyecto tales como minificar, concatenar, optimizar archivos estáticos.
@@ -29,7 +28,6 @@ Artemanifiesto usa mysql 5.7 para el uso de fulltext search, ir a la siguiente d
 
 [descargar mysql](https://dev.mysql.com/downloads/mysql/)
 
-
 **3. Clonar el proyecto**
 
 Unas ves que tengamos instalado todas estas herramientas se necsita clonar el repositorio ejecutando el siguiente comando.
@@ -43,7 +41,7 @@ configuración de la base de datos, nombre de dominio local, etc.
 
 **5. Configurar archivo hosts**
 
-el archivo hosts se encuentra ubicado en :
+el archivo hosts se encuentra ubicado en:
 
 Windows: \System32\Drivers\Etc 
 
@@ -53,20 +51,29 @@ necesitamos ejecutarlo como administrador para poder editarlo y agregar lo sigui
 
 `127.0.0.1 am.local`
 
+**6. Crear base de datos**
 
-**6. Ejecutar el servidor**
+Ingresar a la base de datos através de algún manejador mysql como(phpmyadmin, sequelpro, mysql workbench, etc) y crearla usando la siguiente configuración
 
-corriendo el siguiente comando estaremos listos.
+![mysql config](http://image.prntscr.com/image/89edf97316e74da3b922dda05096da52.png)
+
+**7. Ejecutar el servidor**
+
+corriendo el siguiente comando instalamos las dependencias:
+
+`npm install`
+
+esperamos a que se instale todos las dependencias y ejecutamos:
 
 `node app`
 
-**7. Ejecutar tareas con gulp**
+**8. Ejecutar tareas con gulp**
 
 si no tienen instalado gulp globalmente ejecutar el siguiente comando :
 
 `node_modules/gulp/bin/gulp.js `
 
-de lo contrario solo :
+de lo contrario solo:
 
 `gulp`
 
