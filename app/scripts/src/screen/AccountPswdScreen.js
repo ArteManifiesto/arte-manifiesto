@@ -20,8 +20,8 @@ APP.AccountPasswordScreen.prototype.setupUI = function() {
 
   this.save = $('.save');
   this.saveLoading = $('.save-loading');
-  this.password = $('.password');
-  this.rePassword = $('.rePassword');
+  this.password = $('input[name=password]');
+  this.rePassword = $('input[name=rePassword]');
   this.form = $('.password-form');
 
   this.form.submit(this.formHandler.bind(this));
@@ -30,7 +30,7 @@ APP.AccountPasswordScreen.prototype.setupUI = function() {
 APP.AccountPasswordScreen.prototype.formHandler = function(event) {
   event.preventDefault();
   if (this.password.val() !== this.rePassword.val())
-    return this.showFlash('error', 'Las contraseñas no coinciden');
+    return this.showFlash('error', ['Las contraseñas no coinciden']);
 
   var url = '/user/' + profile.username + '/account/password';
   this.requestHandler(url, this.form.serialize(), this.changePasswordHandler);
