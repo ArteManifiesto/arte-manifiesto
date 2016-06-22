@@ -1,26 +1,28 @@
 var basePath = 'pages/';
 
 exports.index = function(req, res) {
-  var promises = [];
-  var query = {
-    where: {
-      meta: 3
-    }
-  };
-  promises.push(global.db.Category.findAll(query));
-  var bannersQuery = {
-    order: [
-      ['name', 'ASC']
-    ]
-  };
-  promises.push(global.db.Banner.findAll(bannersQuery));
+  return res.redirect('/compra-y-vende-arte-en-internet-latinoamerica');
+  // return res.redirect()
+  // var promises = [];
+  // var query = {
+  //   where: {
+  //     meta: 3
+  //   }
+  // };
+  // promises.push(global.db.Category.findAll(query));
+  // var bannersQuery = {
+  //   order: [
+  //     ['name', 'ASC']
+  //   ]
+  // };
+  // promises.push(global.db.Banner.findAll(bannersQuery));
 
-  global.db.Sequelize.Promise.all(promises).then(function(result) {
-    return res.render(basePath + 'new-landing', {
-      categories: result[0],
-      banners: result[1]
-    });
-  });
+  // global.db.Sequelize.Promise.all(promises).then(function(result) {
+  //   return res.render(basePath + 'new-landing', {
+  //     categories: result[0],
+  //     banners: result[1]
+  //   });
+  // });
 };
 
 exports.landing = function(req, res) {
