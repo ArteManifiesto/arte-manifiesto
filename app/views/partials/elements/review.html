@@ -1,15 +1,15 @@
 <script type="text/template" id="template-review">
   <div class="review">
-    <div class="avatar"><img src="<%=User.photo%>"></div>
+    <a href="/user/<%=User.username%>"><div class="avatar"><img src="<%=User.photo%>"></div></a>
     <div class="content">
       <div class="info">
-        <p class="name">
+        <a class="name" href="/user/<%=User.username%>">
           <% if(User.typeName === 1) { %>
             <%= User.fullname %>
           <% } else { %>
             <%= User.pseudonimo %>
           <% } %>
-        </p>&nbsp;&nbsp;&nbsp;
+        </a>&nbsp;&nbsp;&nbsp;
         <p class="date"><i class="bi_interface-clock"></i> <%=formatDate(createdAt)%></p>
       </div>
       <p class="text"><%=value%></p>
