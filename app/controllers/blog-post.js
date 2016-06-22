@@ -15,18 +15,12 @@ exports.post = function(req, res) {
       published: true,
       id: {
         $not: [req.post.id]
-      },
-      createdAt: {
-        $between: [
-          moment().startOf('month').toDate(),
-          moment().toDate()
-        ]
       }
     },
     include: [global.db.Category],
     build: true,
     addUser: true,
-    order: [global.getOrder('popularity')]
+    order: [global.db.sequelize.fn('RAND')]
   };
 
   var promises = [
