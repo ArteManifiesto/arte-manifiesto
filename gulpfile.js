@@ -8,6 +8,7 @@ var uglify = require('gulp-uglify');
 var stylus = require('gulp-stylus');
 var nib = require('nib');
 var prettify = require('gulp-jsbeautifier');
+var stripDebug = require('gulp-strip-debug');
 
 var paths = {
     jsDir: './app/scripts/src/**/*.js',
@@ -81,6 +82,7 @@ gulp.task('vendor', function () {
 gulp.task('scripts', function () {
     return gulp.src(paths.jsDir)
         .pipe(uglify({compress: true}))
+        .pipe(stripDebug())
         .pipe(concat('app.min.js'))
         .pipe(gulp.dest(paths.publicDir));
 });
