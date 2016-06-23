@@ -12,6 +12,7 @@ APP.BaseNavigation = function() {
   this.listeners();
 
   this.needChangeUrl = false;
+  this.ajax = null;
 };
 
 APP.BaseNavigation.constructor = APP.BaseNavigation;
@@ -42,7 +43,7 @@ APP.BaseNavigation.prototype.gotoPage = function(next, force) {
 
   this.newPageUrl(nextPage);
 
-  Utils.getData({
+  this.ajax = Utils.getData({
     url: DataApp.currentUrl
   }).done(this.afterGetData.bind(this));
 };
@@ -66,6 +67,7 @@ APP.BaseNavigation.prototype.newPageUrl = function(newPage) {
 };
 
 APP.BaseNavigation.prototype.reset = function() {
+  this.ajax.abort();
   this.currentPageData = null;
   this.gotoPage(1, true);
   Utils.changeUrl('', DataApp.currentUrl);
