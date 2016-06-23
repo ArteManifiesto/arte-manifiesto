@@ -82,7 +82,7 @@ APP.CreatorProductItem.prototype.listeners = function() {
     scope.data.subCategories[index].finalPrice = finalprice;
     scope.data.subCategories[index].margen = currentValue;
 
-    $($(this).parent().find('p')[1]).text('S/.' + finalprice);
+      $($(this).parent().find('p')[1]).text('S/.' + percentage);
   });
   this.view.find('.margen-input').keyup();
 };
