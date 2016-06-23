@@ -67,7 +67,9 @@ APP.BaseNavigation.prototype.newPageUrl = function(newPage) {
 };
 
 APP.BaseNavigation.prototype.reset = function() {
-  this.ajax.abort();
+  if(this.ajax) {
+    this.ajax.abort();
+  }
   this.currentPageData = null;
   this.gotoPage(1, true);
   Utils.changeUrl('', DataApp.currentUrl);
