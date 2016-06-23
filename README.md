@@ -22,7 +22,7 @@ ejecutar las tareas de la siguiente manera.
 
 ` node_modules/gulp/bin/gulp.js `
 
-**3. Instalar mysql (versión > 5.7)**
+**3. Instalar mysql (versión > 5.7 sql_mode='')**
 
 Artemanifiesto usa mysql 5.7 para el uso de fulltext search, ir a la siguiente dirección para comenzar a descargar
 
