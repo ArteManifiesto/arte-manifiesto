@@ -60,6 +60,17 @@
 		</gir>
 	</div>
 
+	{% if items.length  < 1 %}
+		<div class="empty-box bare-message">
+				<div class="empty-box-column right">
+					<i class="bi_interface-plus"></i>
+					<p class="title u-margin-top-20">Esta colección esta vacía :(</p>
+					<p class="subtitle u-margin-top-20">pero puedes ver otras colecciones</p>
+					<a href="/collections/category/all/page-1" class="u-margin-top-30 button"><i class="bi_interface-plus"></i>&nbsp;&nbsp;VER MAS COLECCIONES</a>
+				</div>
+			</div>
+	{% endif %}
+
 
 	<div class="discover-content grid-container u-padding-top-10 u-padding-bottom-40">
 		<div class="grid-100 grid-parent">
