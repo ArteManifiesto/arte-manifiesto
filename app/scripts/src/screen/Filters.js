@@ -40,8 +40,14 @@ APP.Filters.prototype.setupUI = function() {
 
   $(rightSelect).click(function() {
     var state = filterRight.attr('data-state')
-    if (state == 'closed') filterRight.attr('data-state', 'open')
-    else filterRight.attr('data-state', 'closed')
+    if (state == 'closed') {
+      filterRight.find('.fa-caret-down').addClass('rotate-down');
+      filterRight.attr('data-state', 'open')
+    } 
+    else {
+      filterRight.find('.fa-caret-down').removeClass('rotate-down');  
+      filterRight.attr('data-state', 'closed')
+    } 
   })
 
   var filterLeft = $('.filter.left')
@@ -51,9 +57,11 @@ APP.Filters.prototype.setupUI = function() {
   $(leftSelect).click(function() {
     var state = filterLeft.attr('data-state')
     if (state == 'closed') {
+      filterLeft.find('.fa-caret-left').removeClass('rotate-left');
       filterLeft.attr('data-state', 'open')
       discoverContent.attr('data-state', 'expand').trigger('resetLayout')
     } else {
+      filterLeft.find('.fa-caret-left').addClass('rotate-left');
       filterLeft.attr('data-state', 'closed')
       discoverContent.attr('data-state', 'reduce').trigger('resetLayout')
     }
