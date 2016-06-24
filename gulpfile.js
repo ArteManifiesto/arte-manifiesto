@@ -82,7 +82,7 @@ gulp.task('vendor', function () {
 gulp.task('scripts', function () {
     return gulp.src(paths.jsDir)
         .pipe(uglify({compress: true}))
-        .pipe(stripDebug())
+        // .pipe(stripDebug())
         .pipe(concat('app.min.js'))
         .pipe(gulp.dest(paths.publicDir));
 });

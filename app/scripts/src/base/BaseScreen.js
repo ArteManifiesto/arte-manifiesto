@@ -15,11 +15,9 @@ APP.BaseScreen.prototype = Object.create(Object.prototype);
 
 APP.BaseScreen.constructor = APP.BaseScreen;
 APP.BaseScreen.prototype.setupUI = function() {
-
 };
 
 APP.BaseScreen.prototype.listeners = function() {
-
 };
 
 APP.BaseScreen.prototype.requestHandler = function(url, payload, next, error, free) {

@@ -1,0 +1,28 @@
+{% extends '../partials/base.html' %}
+
+
+{% block styles %}
+{% endblock %}
+
+{% block elements %}
+
+<ul>
+{% for chapter in chapters %}
+	<li><a href="{{chapter.video}}">{{chapter.video}}</a></li>
+{% endfor %}
+</ul>
+
+<div class="papu">
+	<button data-id="btn_saludar">saludar</button>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+	<script>
+		$(function() {
+			var screen = new APP.TVIndexScreen();
+			screen.saludar();
+		});
+	</script>
+{% endblock %}
