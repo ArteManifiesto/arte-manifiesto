@@ -1,11 +1,7 @@
 var basePath = 'tv/';
 
 exports.index = function(req, res) {
-	global.db.Chapter.findAll().then(function(chapters) {
-		return res.render(basePath + 'index', {
-			chapters: chapters
-		});
-	});
+	return res.render(basePath + 'index');
 };
 
 exports.chapter = function(req, res) {
