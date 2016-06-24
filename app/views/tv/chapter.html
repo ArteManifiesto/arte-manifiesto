@@ -7,11 +7,27 @@
 {% block elements %}
 
 <div class="contenedor">
+	<h2>{{ chapters.titulo}}</h2>
 	<div class="contenedor-video">
-		<iframe class="video-contenedor" src="https://www.youtube.com/embed/-4j7WQ1Sogg" frameborder="0" allowfullscreen></iframe>
+		<iframe src="{{ chapters.video }}" frameborder="0" allowfullscreen></iframe>
 	</div>
-	<button data-id="btn_saludar">saludar</button>
+	<p> {{ chapters.description }}.</p>
+	<p>{{ chapters.createdAt }}</p>
+	<button data-id="btn_saludar">VOTAR</button>
 </div>
+{% for div IN chapters %}
+	{{
+		<div class="contenedor">
+			<div class="contenedor-video">
+				<iframe src="https://www.youtube.com/embed/-4j7WQ1Sogg" frameborder="0" allowfullscreen></iframe>
+			</div>
+			<div class="contenedor-texto">
+				<h2>{{ chapters.titulo}}</h2>
+				<p> {{ chapters.description }}.</p>
+			</div>
+		</div>	
+	}}
+	{%- endfor %}
 
 {% endblock %}
 {% block scripts %}{% endblock %}
