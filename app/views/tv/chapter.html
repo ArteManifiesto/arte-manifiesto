@@ -7,27 +7,21 @@
 {% block elements %}
 
 <div class="contenedor">
-	<h2>{{ chapters.titulo}}</h2>
+	{{ tv }}
+	<h2>{{ chapters[0].id }}</h2>
+
 	<div class="contenedor-video">
-		<iframe src="{{ chapters.video }}" frameborder="0" allowfullscreen></iframe>
+		<!-- <iframe src="{{ item.video }}" frameborder="0" allowfullscreen></iframe> -->
 	</div>
-	<p> {{ chapters.description }}.</p>
-	<p>{{ chapters.createdAt }}</p>
+	<p>.</p>
+	<p></p>
 	<button data-id="btn_saludar">VOTAR</button>
 </div>
-{% for div IN chapters %}
-	{{
-		<div class="contenedor">
-			<div class="contenedor-video">
-				<iframe src="https://www.youtube.com/embed/-4j7WQ1Sogg" frameborder="0" allowfullscreen></iframe>
-			</div>
-			<div class="contenedor-texto">
-				<h2>{{ chapters.titulo}}</h2>
-				<p> {{ chapters.description }}.</p>
-			</div>
-		</div>	
-	}}
-	{%- endfor %}
-
 {% endblock %}
-{% block scripts %}{% endblock %}
+
+{% block scripts %}
+<script>
+var chapters = {{chapters|json|safe}};
+	console.log(chapters);
+</script>
+{% endblock %}

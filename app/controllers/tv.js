@@ -6,8 +6,10 @@ exports.index = function(req, res) {
 
 exports.chapter = function(req, res) {
 	global.db.Chapter.findAll().then(function(chapters) {
+		// return res.json(chapters);
 		return res.render(basePath + 'chapter', {
-			chapters: chapters
+			chapters: chapters,
+			tv: 'am tv'
 		});
 	});
 };
