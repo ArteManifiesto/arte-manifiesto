@@ -3,20 +3,39 @@
 
 {% block styles %}
 {% endblock %}
-
 {% block elements %}
-
-<div class="contenedor">
-	{{ tv }}
-	<h2>{{ chapters[0].id }}</h2>
-
-	<div class="contenedor-video">
-		<!-- <iframe src="{{ item.video }}" frameborder="0" allowfullscreen></iframe> -->
+	<div class="contenedor">
+			<iframe class="contenedor-video" src="{{ chapters[0].video }}" frameborder="0" allowfullscreen></iframe>
 	</div>
-	<p>.</p>
-	<p></p>
-	<button data-id="btn_saludar">VOTAR</button>
-</div>
+	<div class="description">
+		<div class="description-texto">
+			<h3>Episodio 1- hermano de arte</h3>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas suscipit quae optio error eos dolore ipsum sed! Explicabo vitae quos totam commodi recusandae, in, amet iure facilis! Consequatur, ad, dolorem.</p>
+			<span>Lorem ipsum dolor sit amet</span>
+		</div>
+		<div class="description-likes">
+			<div class="description-likes-logos">
+				<i class="fa fa-heart"></i><p>1780</p>
+				<i class="bi_interface-view"></i><p>1780</p>
+			</div>
+			<h3>COMPARTE</h3>
+			<div class="description-likes-redes">
+				<i class="fa fa-facebook"></i>
+				<i class="fa fa-twitter"></i>
+				<i class="fa fa-instagram"></i>
+			</div>
+		</div>
+	</div>
+{% for item in chapters %}
+	<div class="sub-contenedor">
+			<iframe class="sub-contenedor-video" src="{{ item.video }}" frameborder="0" allowfullscreen></iframe>
+	</div>
+	<div class="info">
+		<h3>{{ item.titulo }}</h3>
+		<p>{{ item.descripcion }}</p>
+		<span>{{ item.createdAt }}</span>
+	</div>
+{% endfor %}
 {% endblock %}
 
 {% block scripts %}
