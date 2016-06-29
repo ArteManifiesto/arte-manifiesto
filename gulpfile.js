@@ -88,7 +88,7 @@ gulp.task('scripts', function () {
 });
 
 gulp.task('styles', function () {
-    gulp.src(paths.stylesDir)
+    gulp.src('./app/styles/app.min.styl')
         .pipe(stylus({compress: true, use: [nib()]}))
         .pipe(concat('app.min.css'))
         .pipe(gulp.dest(paths.publicDir));
