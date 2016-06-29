@@ -5,18 +5,53 @@
 {% endblock %}
 
 {% block elements %}
-	<div class="contenedor">
-		<ul class="subBarra">
-			<li class="subBarra-titulo">am tv</li>
-			<li class="subBarra-item">SOBRE AM TV</li>
-			<li class="subBarra-item">ÚLTIMO CAP</li>
-			<li class="subBarra-item concurso">CONCURSO</li>
+	<div class="container">
+		<ul class="subList">
+			<li class="subList-title">am tv</li>
+			<li class="subList-item">SOBRE AM TV</li>
+			<li class="subList-item">ÚLTIMO CAP</li>
+			<li class="subList-item contest">CONCURSO</li>
 		</ul>
 		<video src="" autoplay loop="5"></video>
-		<h3>Que el arte inunde tu vida</h3>
-		<p>El primer programa de TV sobre los procesos de<br>artistas visuales</p>
-		<div class="boton">VER AHORA</div>
+		<div class="container-text">
+			<h3>Que el arte inunde tu vida</h3>
+			<p>El primer programa de TV sobre los procesos de<br>artistas visuales</p>
+			<div class="buttom">VER AHORA</div>
+		</div>
 	</div>
+	<div class="info">
+		<div class="info-text">
+			<h2>Últimos capítulos</h2>
+			<div class="info-text-icon">
+				<h3>SI TE GUSTA COMPARTE</h3>
+				<div class="info-text-icon-social">
+					<i class="fa fa-facebook"></i>
+					<i class="fa fa-twitter"></i>
+					<i class="fa fa-instagram"></i>
+				</div>
+			</div>
+		</div>
+		<hr>
+	{% for item in [0,1,2,3,4,5] %}
+		<div class="info-data">
+			<div class="info-data-text">
+				<img src="kagami.jpg">
+				<h2>Episodio 01 - Hermanos del arte</h2>
+				<p>Felixsantos y Poloverde, por una parte y Ridan y Alzava, por otra, son dos parejas de hermanos unidos por el amor al arte. Ellos muestran cómo conviven estilos como la caricatura y el cómic y el acuarelismo y la ilustración...</p>
+				<p>Por am tv   Emitido el 26 de julio,2016</p>
+				<div class="likes-logo">
+					<i class="fa fa-heart"></i><p>1780</p>
+					<i class="bi_interface-view"></i><p>1780</p>
+				</div>
+			</div>
+	
+			<div class="info-data-baners">
+				<div class="info-data-baners-view"></div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+
 {% endblock %}
 
 {% block scripts %}
