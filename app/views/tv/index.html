@@ -5,22 +5,19 @@
 {% endblock %}
 
 {% block elements %}
-
-<ul>
-{% for chapter in chapters %}
-holi
-	<li><a href="{{chapter.video}}">{{chapter.video}}</a></li>
-{% endfor %}
-</ul>
-
-
+	<div class="contenedor">
+		<ul class="subBarra">
+			<li class="subBarra-titulo">am tv</li>
+			<li class="subBarra-item">SOBRE AM TV</li>
+			<li class="subBarra-item">ÚLTIMO CAP</li>
+			<li class="subBarra-item concurso">CONCURSO</li>
+		</ul>
+		<video src="" autoplay loop="5"></video>
+		<h3>Que el arte inunde tu vida</h3>
+		<p>El primer programa de TV sobre los procesos de<br>artistas visuales</p>
+		<div class="boton">VER AHORA</div>
+	</div>
 {% endblock %}
 
 {% block scripts %}
-	<script>
-		$(function() {
-			var screen = new APP.TVIndexScreen();
-			screen.saludar();
-		});
-	</script>
 {% endblock %}

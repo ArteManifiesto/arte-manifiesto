@@ -9,7 +9,7 @@
 	</div>
 	<div class="description">
 		<div class="description-texto">
-			<h3>Episodio 1- hermano de arte</h3>
+			<h3>Episodio 1- Hermano de Arte</h3>
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas suscipit quae optio error eos dolore ipsum sed! Explicabo vitae quos totam commodi recusandae, in, amet iure facilis! Consequatur, ad, dolorem.</p>
 			<span>Lorem ipsum dolor sit amet</span>
 		</div>
@@ -26,16 +26,29 @@
 			</div>
 		</div>
 	</div>
-{% for item in chapters %}
-	<div class="sub-contenedor">
-			<iframe class="sub-contenedor-video" src="{{ item.video }}" frameborder="0" allowfullscreen></iframe>
+	<div class="informacion">
+		<h2>Más información</h2>
+		<hr>
+		<div class="informacion-division">
+			<div class="informacion-division-texto">
+				<h2>Episodio 01 - Hermanos del arte</h2>
+				<p>Felixsantos y Poloverde, por una parte y Ridan y Alzava, por otra, son dos parejas de hermanos unidos por el amor al arte. Ellos muestran cómo conviven estilos como la caricatura y el cómic y el acuarelismo y la ilustración en dos obras durante un versus amistoso en el que vemos todas sus cualidades para las artes visuales.</p>
+				<p>El encuentro de estas dos parejas de hermanos permite identificar sus afinidades e intereses y nos deja conocer un poco más sobre el colectivo Concept Art Perú.</p><p>Arte Manifiesto® 2016</p>
+				 
+				<h2>Fichas de artistas</h2>
+				<div class="informacion-division-texto-imagen">
+					<img src="http://i.imgur.com/CM9zwAu.jpg" alt="">
+				</div>
+				<div class="informacion-division-texto-imagen">
+					<img src="http://i.imgur.com/s1Qezv7.jpg" alt="">
+				</div>
+			</div>
+			<div class="informacion-division-baners">
+				<div class="informacion-division-baners-cuadros"></div>
+				<div class="informacion-division-baners-cuadros"></div>
+			</div>
+		</div>
 	</div>
-	<div class="info">
-		<h3>{{ item.titulo }}</h3>
-		<p>{{ item.descripcion }}</p>
-		<span>{{ item.createdAt }}</span>
-	</div>
-{% endfor %}
 {% endblock %}
 
 {% block scripts %}
