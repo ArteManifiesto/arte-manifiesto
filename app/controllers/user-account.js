@@ -81,7 +81,7 @@ exports.update = function(req, res) {
   var promises = [];
   var query = {
     where: {
-      id: { in : interestsData
+      id: { in: interestsData
       }
     }
   };

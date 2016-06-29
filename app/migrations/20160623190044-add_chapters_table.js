@@ -9,39 +9,18 @@ module.exports = {
           primaryKey: true,
           autoIncrement: true
         },
-        createdAt: {
-          type: Sequelize.DATE
-        },
-        updatedAt: {
-          type: Sequelize.DATE
-        },
+        name: Sequelize.STRING,
+        nameSlugify: Sequelize.STRING,
+        createdAt: Sequelize.DATE,
+        updatedAt: Sequelize.DATE,
         video: Sequelize.STRING,
-        titulo: Sequelize.STRING,
-        descripcion: Sequelize.STRING
+        title: Sequelize.STRING,
+        description: Sequelize.STRING,
+        views: Sequelize.INTEGER,
+        published: Sequelize.BOOLEAN,
+        releaseDate: Sequelize.DATE
       }
     );
-    queryInterface.bulkInsert('Chapters', [
-      { video: "https://www.youtube.com/embed/-4j7WQ1Sogg", 
-      titulo: "capitulo1", 
-      descripcion: "esta es una descripcion de prueba", 
-      createdAt: Date.now(), 
-      updatedAt: Date.now() },
-      { video: "https://www.youtube.com/embed/-4j7WQ1Sogg", 
-      titulo: "capitulo2", 
-      descripcion: "esta es una descripcion de prueba", 
-      createdAt: Date.now(), 
-      updatedAt: Date.now() },
-      { video: "https://www.youtube.com/embed/-4j7WQ1Sogg", 
-      titulo: "capitulo3", 
-      descripcion: "esta es una descripcion de prueba", 
-      createdAt: Date.now(), 
-      updatedAt: Date.now() },
-      { video: "https://www.youtube.com/embed/-4j7WQ1Sogg", 
-      titulo: "capitulo4", 
-      descripcion: "esta es una descripcion de prueba", 
-      createdAt: Date.now(), 
-      updatedAt: Date.now() }
-    ]);
   },
 
   down: function(queryInterface, Sequelize) {

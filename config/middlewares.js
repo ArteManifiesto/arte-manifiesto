@@ -109,7 +109,15 @@ var entityExists = function (entity, query, req, res, next, method) {
           return res.badRequest(entity + ' no existe');
 
         req.flash('errorMessage', entity + ' no existe');
-        return res.redirect('/user/' + req.params.username);
+
+        if(method)
+          return res.redirect('/user/' + req.params.username);
+        
+        if(entity === 'Post')
+          return res.redirect('/blog'); 
+
+        if(entity === 'Chapter')
+          return res.redirect('/tv');
       }
 
       if(entity === 'Product' && !element.published) {
@@ -125,6 +133,13 @@ var entityExists = function (entity, query, req, res, next, method) {
           if (!req.user && element.nsfw) {
             res.status(401);
             return res.render('errors/nsfw');
+          }
+        }
+      }
+      if(entity === 'Chapter'){
+        if(!element.published){
+          if(!req.user || !req.user.isAdmin){
+            global.goToLogin(req, res, global.lg.isNotAdmin);
           }
         }
       }
@@ -163,8 +178,10 @@ exports.nameSlugify = function (entity) {
       where: {nameSlugify: req.params.nameSlugify},
       viewer: req.viewer, build: true, addUser: true
     };
+   ;
 
-    entityExists(entity, query, req, res, next, entity !== 'Post');
+    var method = (['Post', 'Chapter'].indexOf(entity) === -1)
+    entityExists(entity, query, req, res, next, method);
   }
 };
 

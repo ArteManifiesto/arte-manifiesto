@@ -149,7 +149,10 @@ module.exports = function(sequelize, DataTypes) {
           as: 'ProductBuyers',
           through: 'ProductBuyers'
         });
-
+        User.belongsToMany(models.Chapter, {
+          as: 'UserContestsTv',
+          through: 'UserContestsTv'
+        });
         User.belongsToMany(models.Post, {
           as: 'PostLikes',
           through: 'PostLikes'

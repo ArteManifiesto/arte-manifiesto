@@ -154,7 +154,7 @@ exports.edit = function(req, res) {
 };
 
 exports.sell = function(req, res) {
-  if(!req.user.isSeller)
+  if (!req.user.isSeller)
     return res.redirect('/user/' + req.user.username + '/account/seller');
 
   var query = {

@@ -1,25 +1,14 @@
-{% extends '../partials/base.html' %}
-
-
-{% block styles %}
-{% endblock %}
-
-{% block elements %}
 
 <ul>
-{% for chapter in chapters %}
-	<li><a href="{{chapter.video}}">{{chapter.video}}</a></li>
-{% endfor %}
+	<p>capitulo nuevo</p>
+	<li><a href="/tv/chapter/{{newestChapter.nameSlugify}}">{{newestChapter.name}}</a><a href="/tv/chapter/{{newestChapter.nameSlugify}}/edit">editar</a></li>
+	<p>ultimos capitulos</p>
+	{%for chapter in latestChapters%}
+		<li><a href="/tv/chapter/{{chapter.nameSlugify}}">{{chapter.name}}</a><a href="/tv/chapter/{{chapter.nameSlugify}}/edit">editar</a></li>
+	{%endfor%}
 </ul>
 
 
-{% endblock %}
+<script type="text/javascript">
 
-{% block scripts %}
-	<script>
-		$(function() {
-			var screen = new APP.TVIndexScreen();
-			screen.saludar();
-		});
-	</script>
-{% endblock %}
+</script>

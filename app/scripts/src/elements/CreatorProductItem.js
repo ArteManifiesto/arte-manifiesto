@@ -82,7 +82,7 @@ APP.CreatorProductItem.prototype.listeners = function() {
     scope.data.subCategories[index].finalPrice = finalprice;
     scope.data.subCategories[index].margen = currentValue;
 
-      $($(this).parent().find('p')[1]).text('S/.' + percentage);
+    $($(this).parent().find('p')[1]).text('S/.' + percentage);
   });
   this.view.find('.margen-input').keyup();
 };
@@ -291,7 +291,7 @@ APP.CreatorProductItem.prototype.renderCanvas = function() {
 
   if (this.index === 3) {
     filters += 'w_230/e_distort:-15:90:220:60:215:360:-15:382/c_pad,h_2,w_1.0/' +
-      'l_radial,e_displace,y_-20/e_trim/' + '/l_' + renderName  + '/c_crop,x_90,y_10,w_500,h_500';
+      'l_radial,e_displace,y_-20/e_trim/' + '/l_' + renderName + '/c_crop,x_90,y_10,w_500,h_500';
   }
 
   if (this.index === 4) {

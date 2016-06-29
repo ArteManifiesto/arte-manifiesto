@@ -20,11 +20,9 @@ APP.TVIndexScreen.prototype.listeners = function() {
   this.btnSaludar.click(this.btnSaludarHandler.bind(this));
 };
 
-APP.TVIndexScreen.prototype.btnSaludarHandler = function() {
-};
+APP.TVIndexScreen.prototype.btnSaludarHandler = function() {};
 
 
 APP.TVIndexScreen.prototype.saludar = function() {
-	console.log('saludar');
+  console.log('saludar');
 }
-
