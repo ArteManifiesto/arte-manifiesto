@@ -21,6 +21,7 @@ module.exports = {
         releaseDate: Sequelize.DATE
       }
     );
+  },
   down: function(queryInterface, Sequelize) {
     queryInterface.dropTable('Chapters');
   }
