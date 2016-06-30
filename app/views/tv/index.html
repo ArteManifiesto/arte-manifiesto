@@ -2,49 +2,120 @@
 
 
 {% block styles %}
+<style>
+	.video-container {
+	position:relative;
+	padding-bottom:56.25%;
+	padding-top:30px;
+	height:0;
+	overflow:hidden;
+}
+
+.video-container iframe, .video-container object, .video-container embed {
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+}
+
+</style>
 {% endblock %}
 
 {% block elements %}
 
 {% if user && user.isAdmin %}
 	<div class="grid-container">
-		<div class="grid-100">
-		  <div class="blog-single-trash" style="max-width: initial;border: none;margin-bottom: 0;">
-		      <a href="/tv/creator" class="button following publish-btn publish">Nuevo capítulo</a>
-		      <a href="/tv/draft" class="button following preview-btn">Borradores</a>
-		  </div>
-		</div>
+	<div class="grid-100">
+	  <div class="blog-single-trash" style="max-width: initial;border: none;margin-bottom: 0;">
+	      <a href="/tv/creator" class="button following publish-btn publish">Nuevo capítulo</a>
+	      <a href="/tv/draft" class="button following preview-btn">Borradores</a>
+	  </div>
+	</div>
 	</div>
 {% endif %}
-	<div class="wrapper-tv">
-		<div class="banner-video-tv">
-			<div class="background-video-tv">
-				<div class="container-video-tv">
-					<iframe src="https://www.youtube.com/embed/I2cTpb8-Xmk?autoplay=1&amp;rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-				</div>
-			</div>
-			<div class="shadow-video-tv">
-				<div class="menu-video-tv">
-					<h3>am tv</h3>
-					<a href="#">CONCURSO</a>
-				</div>
-				<div class="text-video-tv">
-					<h3>Que el arte inunde tu vida</h3>
-					<p>El primer programa de TV sobre los procesos de<br>artistas visuales</p>
-					{%if chapters[0]%}
-						<a href="/tv/chapter/{{chapters[0].nameSlugify}}">VER AHORA</a>
-					{%endif%}
-				</div>
-			</div>
-		</div>
-		<div class="chapters-tv">
-			<div class="title-chapters-tv">
-				<h4>Últimos capítulos</h4>
-			</div>
+
+<div class="video-container">
+	<div id="player"></div>
+
+	<div class="shadow">
+		<header>
+			<h1>am tv</h1>
+			<a href="#" class="contest-btn">CONCURSO</a>
+		</header>
+		
+		<div class="info">
+			<h1>Que el arte inunde tu vida</h1>
+			<p>El primer programa de TV sobre los procesos de artistas visuales</p>
+			{% if chapters[0] %}
+			<a href="/tv/chapter/{{chapters[0].nameSlugify}}">VER AHORA</a>
+			{% endif %}
 		</div>
 	</div>
+</div>
+
+<div class="banners-container">
+	
+</div>
+
+
+<div class="latest-chapters">
+<h3>Últimos capítulos</h3>
+<div></div>
+</div>
+
+
+<div class="chapters-container">
+
+	{%  for chapter in chapters %}
+		<div class="chapter">
+			<a href="/tv/chapter/{{chapter.nameSlugify}}"><img src="{{chapter.photo}}"></a>
+			<div class="inner-content">
+				<a href="/tv/chapter/{{chapter.nameSlugify}}">{{ chapter.name }}</a>
+				<p class="description">{{ chapter.description.substring(0,140) }}...</p>
+				
+				<div class="metadata">
+					<p class="date"><i class="bi_interface-clock"></i>{{chapter.releaseDate|date('d/m/Y')}}</p>
+
+					<span class="author">
+		              <p>Por&nbsp;&nbsp;</p>
+		              <img src="{{amUser.photo}}"/>
+		              <span class="uppercase">&nbsp;
+		                {{amUser.fullname}}
+		              </span>
+		            </span>
+				</div>
+			</div>
+		</div>
+	{% endfor %} 
+</div>
 
 {% endblock %}
 
 {% block scripts %}
+<script>
+		var lastChapter = {{chapters|json|safe}}[0];
+      var tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/player_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      var player;
+      function onYouTubePlayerAPIReady() {
+        player = new YT.Player('player', {
+          playerVars: {'controls':0, 'showinfo':0, 'autoplay': 1 },
+          videoId: lastChapter.trailer,
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange' : function(e){
+                if(e.data === YT.PlayerState.ENDED){
+                    player.loadVideoById(lastChapter.trailer);
+                 }
+             }
+          }
+      });
+      function onPlayerReady(event) {
+        event.target.mute();
+      }
+}
+</script>
 {% endblock %}

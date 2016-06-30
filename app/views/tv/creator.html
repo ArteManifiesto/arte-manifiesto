@@ -32,13 +32,13 @@
 			</div>
 
 			<div class="grid-100 mobile-grid-100">
-				<p class="title">Trailer (URL YouTube)</p>
-				<input name='trailer' class="input input-modal" type="text" placeholder="Ingrese la URL del trailer" value="{{chapter.trailer}}"/>
+				<p class="title">Trailer (ID video YouTube)</p>
+				<input name='trailer' class="input input-modal" type="text" placeholder="Ingrese el ID del trailer" value="{{chapter.trailer}}"/>
 			</div>
 
 			<div class="grid-100 mobile-grid-100">
-				<p class="title">Video del capitulo (URL YouTube)</p>
-				<input name='video' class="input input-modal" type="text" placeholder="Ingrese la URL del video" value="{{chapter.video}}"/>
+				<p class="title">Video del capitulo (ID video YouTube)</p>
+				<input name='video' class="input input-modal" type="text" placeholder="Ingrese el ID del video" value="{{chapter.video}}"/>
 			</div>
 
 			<div class="grid-100 mobile-grid-100">
@@ -47,35 +47,29 @@
 			</div>
 
 			<div class="grid-100 mobile-grid-100">
+				<p class="title">Obras participando</p>
+				<input name='works' class="input input-modal" type="text" placeholder="Ingresa el id de las obras ejemplo (1,10)" value="{{works}}"/>
+			</div>
+
+			<div class="grid-100 mobile-grid-100">
 				<p class="title">Descripcion del capitulo</p>
 				<textarea name='description' class='input description' placeholder="Descripcion">{{chapter.description}}</textarea>
 			</div>
 		
 			<input type='hidden' name='idChapter' value='{{chapter.id}}'/>
+			
+			<div class="switch u-margin-top-10">
+				<p class="title">Concurso</p>
+				<span class="value">On</span>
+				<input type="checkbox" name="hasContest" id="hasContest"/>
+				<label for="hasContest">
+					<div class="am-Switch-button">
+						<i class="fa fa-bars"></i>
+					</div>
+				</label>
+			</div>
 
-
-			<div class="grid-100 mobile-grid-100">
-				<div class="separator">
-					<span class="line"></span><span class="text">ACCIONES</span><span class="line"></span>
-				</div>
-
-	    <div class="blog-single-trash">
-			{% if edit %}
-		     	<a class="button following delete-btn trash">ELIMINAR</a>
-		        <div class="hide delete-confirm">
-		          <p style="display: inline-block;">Seguro que desea eliminar el capítulo?</p>
-		          <a class="button following cancel">CANCELAR</a>
-		          <a class="button following trash delete-force">ELIMINAR</a>
-		        </div>
-		    {% endif %}
-
-	        {% if (edit && chapter.published) %}
-	          <a class="button following publish-btn publish">PUBLICADO</a>
-	        {% else %}
-	          <a class="button following publish-btn">PUBLICAR</a>
-	        {% endif %}
-        </div>
-
+			<div class="grid-100 mobile-grid-100">	    
 				{% if edit %}
 					<button class="button u-margin-top-30 send" data-color="blue">ACTUALIZAR CAPITULO</button>
 				{% else %}
@@ -86,60 +80,25 @@
 						<i class="load fa fa-spinner"></i>
 					</button>
 				</div>
+				{% if edit %}
+				<div class="blog-single-trash">
+			     	<a class="button following delete-btn trash">ELIMINAR</a>
+			        <div class="hide delete-confirm">
+			          <p style="display: inline-block;">Seguro que desea eliminar el capítulo?</p>
+			          <a class="button following cancel">CANCELAR</a>
+			          <a class="button following trash delete-force">ELIMINAR</a>
+			        </div>
+				
+			        {% if chapter.published %}
+			          <a class="button following publish-btn publish">PUBLICADO</a>
+			         {% else %}
+			          <a class="button following publish-btn">PUBLICAR</a>
+			        {% endif %}
+        		</div>
+		    {% endif %}
+
 			</div>
 		</form>
-
-		<div class="hide work-published">
-			<div class="grid-100">
-	  		<p class="main-title">TU OBRA SE HA PUBLICADO CON ÉXITO</p>
-	  		<div class="u-separator"></div>
-	  		<div class="work-collection-card u-margin-top-40">
-	  			<div class="work-collection-card-img">
-						<img class="work-photo-published">
-	  			</div>
-	  			<div class="work-collection-card-data">
-	  				<p class="work-collection-card-title work-name-published"></p>
-	  				<p class="work-collection-card-artist work-user-published"></p>
-	  			</div>
-	  		</div>
-	  		<div class="separator u-margin-top-20">
-	  			<span class="line"></span><span class="text">¿QUE QUIERES HACER AHORA?</span><span class="line"></span>
-	  		</div>
-	  	</div>
-	  	<div class="u-padding-top-20" style="oferoverflow: hidden;">
-	  		<div class="grid-50">
-	        <a class='work-view'>
-	          <button class="button inline upload u-margin-top-30 upload_button">
-	            <i class="bi_interface-view"></i>&nbsp;&nbsp;&nbsp;VER OBRA
-	          </button>
-	        </a>
-	  		</div>
-	  		<div class="grid-50">
-	  			<a class="work-edit">
-	          <button class="button inline upload u-margin-top-30 upload_button"><i class="bi_editorial-compose"></i>&nbsp;&nbsp;&nbsp;EDITAR OBRA</button>
-	  			</a>
-	  		</div>
-	  		<div class="grid-50">
-	  			<a class='work-new'>
-	          <button class="button inline upload u-margin-top-30 upload_button"><i class="bi_interface-cloud-upload"></i>&nbsp;&nbsp;&nbsp;SUBIR OTRA OBRA</button>
-	  			</a>
-	  		</div>
-	  		<div class="grid-50">
-	  			<!-- <button class="button inline upload u-margin-top-30 upload_button work-delete" data-color="red">
-	  				<i class="bi_editorial-trash-l"></i>&nbsp;&nbsp;&nbsp;ELIMINAR OBRA
-	  			</button> -->
-	        <button class="button inline upload work-delete trash" style="border: none; box-shadow: none;">
-	          <i class="bi_editorial-trash-l"></i>&nbsp;&nbsp;&nbsp;ELIMINAR
-	        </button>
-					<div class="edit-options work-delete-confirm hide">
-						ELIMINAR? &nbsp;
-						<i class="bi_interface-box-tick work-delete-force save-icon" style="display: inline;"></i>
-						<i class="bi_interface-box-cross work-delete-cancel cancel-icon" style="display: inline;"></i>
-					</div>
-	  		</div>
-	  	</div>
-		</div>
-	</div>
 </div>
 {% endblock %}
 

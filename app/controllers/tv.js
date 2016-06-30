@@ -13,8 +13,16 @@ exports.index = function(req, res) {
   getChapters({
     published: true
   }).then(function(chapters) {
-    return res.render(basePath + 'index', {
-      chapters: chapters
+    var query = {
+      where: {
+        username: 'artemanifiesto'
+      }
+    };
+    global.db.User.find(query).then(function(amUser) {
+      return res.render(basePath + 'index', {
+        chapters: chapters,
+        amUser: amUser
+      });
     });
   });
 };
@@ -29,9 +37,17 @@ exports.creator = function(req, res) {
 exports.draft = function(req, res) {
   getChapters({
     published: false
-  }).then(function(drafts) {
-    res.render(basePath + 'draft', {
-      chapters: drafts
+  }).then(function(chapters) {
+    var query = {
+      where: {
+        username: 'artemanifiesto'
+      }
+    };
+    global.db.User.find(query).then(function(amUser) {
+      return res.render(basePath + 'draft', {
+        chapters: chapters,
+        amUser: amUser
+      });
     });
   });
 };

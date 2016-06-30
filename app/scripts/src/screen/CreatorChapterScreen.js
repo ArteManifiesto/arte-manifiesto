@@ -20,11 +20,11 @@ APP.CreatorChapterScreen.prototype.setupUI = function() {
   this.trailer = $('input[name=trailer]');
   this.video = $('input[name=video]');
   this.releaseDate = $('input[name=releaseDate]');
+  this.works = $('input[name=works]');
   this.description = $('textarea[name=description]');
 
   this.send = $('.send');
   this.sendLoading = $('.send-loading');
-
 
   this.releaseDate.mask("99/99/9999");
 
@@ -34,25 +34,22 @@ APP.CreatorChapterScreen.prototype.setupUI = function() {
   this.cancel = $('.cancel');
   this.publishBtn = $('.publish-btn');
 
-
-  // this.chapterDelete = $('.work-delete');
-  // this.chapterDeleteConfirm = $('.work-delete-confirm');
-  // this.chapterDeleteCancel = $('.work-delete-cancel');
-  // this.chapterDeleteForce = $('.work-delete-force');
-
-  // this.workPhotoPublished = $('.work-photo-published');
-  // this.workNamePublished = $('.work-name-published');
-  // this.workUserPublished = $('.work-user-published');
-  // this.workPublished = $('.work-published');
-  // this.workView = $('.work-view');
-  // this.workNew = $('.work-new');
-  // this.workEdit = $('.work-edit');
+  if (edit) {
+    $('input[name=hasContest]').attr('checked', chapter.hasContest);
+  }
 
   this.uploaderImage = new APP.UploaderImage(this.uploader, this.imgComplete);
   if (edit) {
     this.uploaderImage.photo = chapter.photo;
   }
+
+  $('input[type=checkbox]').change(this.checkHasContestHandler);
+  $('input[type=checkbox]').change();
 };
+
+APP.CreatorChapterScreen.prototype.checkHasContestHandler = function() {
+  $(this).parent().find('.value').text((this.checked ? 'On' : 'Off'));
+}
 
 APP.CreatorChapterScreen.prototype.listeners = function() {
   APP.BaseScreen.prototype.listeners.call(this);
@@ -119,6 +116,7 @@ APP.CreatorChapterScreen.prototype.chapterFormSubmitHandler = function(event) {
   if (Validations.notBlank(this.trailer.val())) errors.push('Ingresa un trailer');
   if (Validations.notBlank(this.video.val())) errors.push('Ingresa un video');
   if (Validations.notBlank(this.releaseDate.val())) errors.push('Ingresa la fecha de emisión');
+  if (Validations.notBlank(this.works.val())) errors.push('Ingresa las obras del capítulo');
   if (Validations.notBlank(this.description.val())) errors.push('Ingrese una descripcion');
 
   if (errors.length > 0) return this.showFlash('error', errors);
@@ -130,6 +128,9 @@ APP.CreatorChapterScreen.prototype.chapterFormSubmitHandler = function(event) {
   $.each(data, function(index, value) {
     if (value.name === 'photo')
       value.value = scope.uploaderImage.photo;
+
+    if (value.name === 'hasContest')
+      value.value = value.value === 'on'
   });
 
   var url = edit ? '/tv/chapter/update' : '/tv/chapter/create';
@@ -138,9 +139,9 @@ APP.CreatorChapterScreen.prototype.chapterFormSubmitHandler = function(event) {
 };
 
 APP.CreatorChapterScreen.prototype.chapterCreatedComplete = function(response) {
-  if(edit) {
+  if (edit) {
     this.showFlash('succes', 'Su capítulo se actualizó exitosamente');
-  }else {
+  } else {
     this.showFlash('succes', 'Su capítulo se subió exitosamente');
   }
 

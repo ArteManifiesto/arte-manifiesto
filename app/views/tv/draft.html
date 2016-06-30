@@ -1,26 +1,29 @@
-{% set pageTitle = "Draft" %}
 {% extends '../partials/base.html' %}
 
 {% block elements %}
-<div class="draft-chapters-container">
-			{% for chapter in chapters %}
-				<div class="info-data">
-					<div class="info-data-text">
-						<a href="/tv/chapter/{{chapter.nameSlugify}}"><img src="{{chapter.photo}}"></a>
-						<h2><a href="/tv/chapter/{{chapter.nameSlugify}}">{{ chapter.name }}</a></h2>
-						<p>{{ chapter.description }}</p>
-						<span>Por am tv  </span>  <span>  Emitido el 26 de julio,2016</span>
-						<div class="likes-logo">
-							<i class="bi_interface-view"></i><p>{{ chapter.views }}</p>
-						</div>
-					</div>
-				</div>
-			{% endfor %}
-		</div>
-{% endblock %}
 
-{% block scripts %}
-<script>
-	console.log({{chapters|json|safe}});
-</script>
+<div class="chapters-container">
+  {%  for chapter in chapters %}
+    <div class="chapter">
+      <a href="/tv/chapter/{{chapter.nameSlugify}}"><img src="{{chapter.photo}}"></a>
+      <div class="inner-content">
+        <a href="/tv/chapter/{{chapter.nameSlugify}}">{{ chapter.name }}</a>
+        <p class="description">{{ chapter.description.substring(0,140) }}...</p>
+        
+        <div class="metadata">
+          <p class="date"><i class="bi_interface-clock"></i>{{chapter.releaseDate|date('d/m/Y')}}</p>
+
+          <span class="author">
+                  <p>Por&nbsp;&nbsp;</p>
+                  <img src="{{amUser.photo}}"/>
+                  <span class="uppercase">&nbsp;
+                    {{amUser.fullname}}
+                  </span>
+                </span>
+        </div>
+      </div>
+    </div>
+  {% endfor %} 
+</div>
+
 {% endblock %}

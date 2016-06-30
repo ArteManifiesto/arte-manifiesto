@@ -17,19 +17,29 @@ exports.chapter = function(req, res) {
       include: [global.db.User]
     }),
     global.db.Chapter.findAll(query),
+    req.chapter.getChapterWorks(),
     req.chapter.view()
   ];
   global.db.Sequelize.Promise.all(promises).then(function(result) {
-    return res.render(basePath + 'chapter', {
-      chapter: req.chapter,
-      reviews: result[0],
-      latestChapters: result[1]
+    var promises = [];
+    var works = result[2];
+    
+    for (var i = 0; i < works.length; i++) {
+      promises.push(works[i].getUser({
+        build: true,
+        viewer: req.viewer
+      }))
+    }
+
+    global.db.Sequelize.Promise.all(promises).then(function(users) {
+      return res.render(basePath + 'chapter', {
+        chapter: req.chapter,
+        reviews: result[0],
+        latestChapters: result[1],
+        users: users,
+        works: result[2]
+      });
     });
-    // return res.json({
-    //   chapter: req.chapter,
-    //   reviews: result[0],
-    //   latestChapters: result[1]
-    // });
   });
 };
 
@@ -37,11 +47,23 @@ exports.chapter = function(req, res) {
  * create a new post
  */
 exports.create = function(req, res) {
-  req.body.releaseDate = moment(req.body.releaseDate, 'DD/MM/YYYY')
+  if (!req.body.hasContest) req.body.hasContest = false;
+
+  req.body.releaseDate = moment(req.body.releaseDate, 'DD/MM/YYYY');
   global.db.Chapter.create(req.body).then(function(chapter) {
-    return res.ok({
-      chapter: chapter
-    }, 'chapter created');
+    global.db.Work.findAll({
+      where: {
+        id: {
+          $in: req.body.works.split(',')
+        }
+      }
+    }).then(function(works) {
+      chapter.setChapterWorks(works).then(function() {
+        return res.ok({
+          chapter: chapter
+        }, 'chapter created');
+      });
+    });
   });
 };
 
@@ -49,11 +71,15 @@ exports.create = function(req, res) {
  * edit post
  */
 exports.edit = function(req, res) {
-  res.render(basePath + 'creator', {
-    chapter: req.chapter,
-    edit: true,
-    cloudinary: global.cl,
-    cloudinayCors: global.cl_cors
+  req.chapter.getChapterWorks().then(function(chapterWorks) {
+    var works = global._.pluck(chapterWorks, 'id');
+    res.render(basePath + 'creator', {
+      chapter: req.chapter,
+      edit: true,
+      works: works,
+      cloudinary: global.cl,
+      cloudinayCors: global.cl_cors
+    });
   });
 };
 
@@ -62,10 +88,21 @@ exports.edit = function(req, res) {
  */
 exports.update = function(req, res) {
   req.body.releaseDate = moment(req.body.releaseDate, 'DD/MM/YYYY')
+  if (!req.body.hasContest) req.body.hasContest = false;
   req.chapter.updateAttributes(req.body).then(function(chapter) {
-    return res.ok({
-      chapter: chapter
-    }, 'chapter Updated');
+    global.db.Work.findAll({
+      where: {
+        id: {
+          $in: req.body.works.split(',')
+        }
+      }
+    }).then(function(works) {
+      req.chapter.setChapterWorks(works).then(function() {
+        return res.ok({
+          chapter: chapter
+        }, 'chapter updated');
+      });
+    });
   });
 };
 
