@@ -1,4 +1,3 @@
-
 /**
  *Author : www.juliocanares.com/cv
  *Email : juliocanares@gmail.com
@@ -16,7 +15,7 @@ APP.CreatorChapterScreen.prototype = Object.create(APP.BaseScreen.prototype);
 APP.CreatorChapterScreen.prototype.setupUI = function() {
   this.chapterForm = $('.chapter-form');
   this.uploader = $('.uploader-chapter');
-  
+
   this.name = $('input[name=name]');
   this.trailer = $('input[name=trailer]');
   this.video = $('input[name=video]');
@@ -28,6 +27,12 @@ APP.CreatorChapterScreen.prototype.setupUI = function() {
 
 
   this.releaseDate.mask("99/99/9999");
+
+  this.delete = $('.delete-btn');
+  this.deleteConfirm = $('.delete-confirm');
+  this.deleteForce = $('.delete-force');
+  this.cancel = $('.cancel');
+  this.publishBtn = $('.publish-btn');
 
 
   // this.chapterDelete = $('.work-delete');
@@ -44,15 +49,65 @@ APP.CreatorChapterScreen.prototype.setupUI = function() {
   // this.workEdit = $('.work-edit');
 
   this.uploaderImage = new APP.UploaderImage(this.uploader, this.imgComplete);
+  if (edit) {
+    this.uploaderImage.photo = chapter.photo;
+  }
 };
 
 APP.CreatorChapterScreen.prototype.listeners = function() {
   APP.BaseScreen.prototype.listeners.call(this);
   this.chapterForm.submit(this.chapterFormSubmitHandler.bind(this));
 
-  // this.chapterDelete.click(this.deleteHandler.bind(this));
-  // this.chapterDeleteForce.click(this.chapterDeleteForceHandler.bind(this));
-  // this.chapterDeleteCancel.click(this.deleteCancel.bind(this));
+  this.delete.click(this.deleteHandler.bind(this));
+  this.cancel.click(this.cancelHandler.bind(this));
+  this.deleteForce.click(this.deleteForceHandler.bind(this));
+
+  this.publishBtn.click(this.publishHandler.bind(this));
+};
+
+APP.CreatorChapterScreen.prototype.publishHandler = function() {
+  var url = '/tv/chapter/' + (chapter.published ? 'unpublish' : 'publish');
+  this.requestHandler(url, {
+    idChapter: chapter.id
+  }, this.publishComplete);
+};
+
+APP.CreatorChapterScreen.prototype.publishComplete = function(response) {
+  chapter = response.data.chapter;
+  if (chapter.published)
+    this.publishBtn.addClass('publish').text('PUBLICADO');
+  else
+    this.publishBtn.removeClass('publish').text('PUBLICAR');
+};
+
+
+APP.CreatorChapterScreen.prototype.deleteHandler = function(event) {
+  event.preventDefault();
+  this.delete.hide();
+  this.publishBtn.hide();
+  this.deleteConfirm.show();
+};
+
+APP.CreatorChapterScreen.prototype.cancelHandler = function(event) {
+  event.preventDefault();
+  this.delete.show();
+  this.publishBtn.show();
+  this.deleteConfirm.hide();
+};
+
+APP.CreatorChapterScreen.prototype.deleteForceHandler = function(event) {
+  event.preventDefault();
+  var url = '/tv/chapter/delete';
+  this.requestHandler(url, {
+    idChapter: chapter.id
+  }, this.deleteForceComplete);
+};
+
+APP.CreatorChapterScreen.prototype.deleteForceComplete = function() {
+  this.showFlash('succes', 'Se elimino el capítulo');
+  setTimeout(function() {
+    window.location.href = '/tv';
+  }, 1000);
 };
 
 APP.CreatorChapterScreen.prototype.chapterFormSubmitHandler = function(event) {
@@ -77,14 +132,20 @@ APP.CreatorChapterScreen.prototype.chapterFormSubmitHandler = function(event) {
       value.value = scope.uploaderImage.photo;
   });
 
-  var url = '/tv/chapter/create';
+  var url = edit ? '/tv/chapter/update' : '/tv/chapter/create';
+
   this.requestHandler(url, data, this.chapterCreatedComplete);
 };
 
 APP.CreatorChapterScreen.prototype.chapterCreatedComplete = function(response) {
-  this.showFlash('succes', 'Su capítulo se subió exitosamente');
+  if(edit) {
+    this.showFlash('succes', 'Su capítulo se actualizó exitosamente');
+  }else {
+    this.showFlash('succes', 'Su capítulo se subió exitosamente');
+  }
+
   this.chapter = response.data.chapter;
-  
+
   setTimeout((function() {
     window.location.href = '/tv/chapter/' + this.chapter.nameSlugify
   }).bind(this), 1000);
@@ -106,10 +167,6 @@ APP.CreatorChapterScreen.prototype.chapterCreatedComplete = function(response) {
   // this.workPublished.show();
 };
 
-APP.CreatorChapterScreen.prototype.deleteHandler = function(event) {
-  this.chapterDelete.hide();
-  this.chapterDeleteConfirm.show();
-};
 
 APP.CreatorChapterScreen.prototype.chapterDeleteForceHandler = function() {
   var url = DataApp.currentUser.url + '/work/delete';

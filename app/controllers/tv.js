@@ -4,9 +4,6 @@ var moment = require('moment');
 
 var getChapters = function(options) {
   var query = {
-    attributes: ['id', 'name', 'nameSlugify', 'video',
-      'description', 'releaseDate', 'views'
-    ],
     order: [global.getOrder('newest')],
     where: options
   };

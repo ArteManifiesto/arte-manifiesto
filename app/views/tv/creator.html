@@ -50,12 +50,37 @@
 				<p class="title">Descripcion del capitulo</p>
 				<textarea name='description' class='input description' placeholder="Descripcion">{{chapter.description}}</textarea>
 			</div>
+		
+			<input type='hidden' name='idChapter' value='{{chapter.id}}'/>
+
 
 			<div class="grid-100 mobile-grid-100">
 				<div class="separator">
 					<span class="line"></span><span class="text">ACCIONES</span><span class="line"></span>
 				</div>
-				<button class="button u-margin-top-30 send" data-color="blue">ENVIAR</button>
+
+	    <div class="blog-single-trash">
+			{% if edit %}
+		     	<a class="button following delete-btn trash">ELIMINAR</a>
+		        <div class="hide delete-confirm">
+		          <p style="display: inline-block;">Seguro que desea eliminar el capítulo?</p>
+		          <a class="button following cancel">CANCELAR</a>
+		          <a class="button following trash delete-force">ELIMINAR</a>
+		        </div>
+		    {% endif %}
+
+	        {% if (edit && chapter.published) %}
+	          <a class="button following publish-btn publish">PUBLICADO</a>
+	        {% else %}
+	          <a class="button following publish-btn">PUBLICAR</a>
+	        {% endif %}
+        </div>
+
+				{% if edit %}
+					<button class="button u-margin-top-30 send" data-color="blue">ACTUALIZAR CAPITULO</button>
+				{% else %}
+					<button class="button u-margin-top-30 send" data-color="blue">CREAR CAPITULO</button>
+				{% endif %}
 				<div class="hide send-loading">
 					<button class="button u-margin-top-30" data-color="blue">
 						<i class="load fa fa-spinner"></i>
@@ -127,7 +152,7 @@
       var chapter = null;
       var edit = {{edit|json|safe}};
       if(edit) {
-        chapter = {{chapter|json|safe}}
+        chapter = {{chapter|json|safe}};
       }
       $(function () {
           new APP.CreatorChapterScreen();

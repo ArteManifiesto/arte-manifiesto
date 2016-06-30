@@ -21,10 +21,10 @@ exports.chapter = function(req, res) {
   ];
   global.db.Sequelize.Promise.all(promises).then(function(result) {
     return res.render(basePath + 'chapter', {
-      chapter:req.chapter,
-      reviews:result[0],
-      latestChapters:result[1]
-     });
+      chapter: req.chapter,
+      reviews: result[0],
+      latestChapters: result[1]
+    });
     // return res.json({
     //   chapter: req.chapter,
     //   reviews: result[0],
@@ -61,6 +61,7 @@ exports.edit = function(req, res) {
  * update post
  */
 exports.update = function(req, res) {
+  req.body.releaseDate = moment(req.body.releaseDate, 'DD/MM/YYYY')
   req.chapter.updateAttributes(req.body).then(function(chapter) {
     return res.ok({
       chapter: chapter

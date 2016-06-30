@@ -1,10 +1,26 @@
-<ul>
-{%for chapter in chapters%}
-	<li><a href="/tv/chapter/{{chapter.nameSlugify}}">{{chapter.name}}</a><a href="/tv/chapter/{{chapter.nameSlugify}}/edit">editar</a></li>
-{%endfor%}
-</ul>
+{% set pageTitle = "Draft" %}
+{% extends '../partials/base.html' %}
 
+{% block elements %}
+<div class="draft-chapters-container">
+			{% for chapter in chapters %}
+				<div class="info-data">
+					<div class="info-data-text">
+						<a href="/tv/chapter/{{chapter.nameSlugify}}"><img src="{{chapter.photo}}"></a>
+						<h2><a href="/tv/chapter/{{chapter.nameSlugify}}">{{ chapter.name }}</a></h2>
+						<p>{{ chapter.description }}</p>
+						<span>Por am tv  </span>  <span>  Emitido el 26 de julio,2016</span>
+						<div class="likes-logo">
+							<i class="bi_interface-view"></i><p>{{ chapter.views }}</p>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+{% endblock %}
 
-<script type="text/javascript">
-
+{% block scripts %}
+<script>
+	console.log({{chapters|json|safe}});
 </script>
+{% endblock %}
