@@ -16,11 +16,8 @@ exports.index = function(req, res) {
   getChapters({
     published: true
   }).then(function(chapters) {
-    var newestChapter = chapters[0];
-    var latestChapters = chapters.splice(1, chapters.length - 1);
     return res.render(basePath + 'index', {
-      newestChapter: newestChapter,
-      latestChapters: latestChapters
+      chapters: chapters
     });
   });
 };

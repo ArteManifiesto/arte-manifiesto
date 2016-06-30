@@ -11,21 +11,23 @@
 			<li class="subList-title">am tv</li>
 			<a href="#"><li class="subList-item contest">CONCURSO</li></a>
 		</ul>
-		<iframe src="https://www.youtube.com/embed/5iFv63DzD7438734784874338?controls=0&showinfo=0&autoplay=1&theme=light&showinfo=0"></iframe>
+
+		<iframe src="http://{{chapters[0].trailer}}?controls=0&showinfo=0&autoplay=1&theme=light&showinfo=0"></iframe>
+
 		<div class="container-text">
 			<h3>Que el arte inunde tu vida</h3>
 			<p>El primer programa de TV sobre los procesos de<br>artistas visuales</p>
-			<a href="/tv/chapter/{{newestChapter.nameSlugify}}"><div class="buttom">VER AHORA</div></a>
+			<a href="/tv/chapter/{{chapters[0].nameSlugify}}"><div class="buttom">VER AHORA</div></a>
 		</div>
 		<div class="shadow"></div>
 	</div>
 	<div class="info">
 		<div class="info-text">
 			<h2>Últimos capítulos</h2>
-		</div><div class="line"></div>
+		</div><div class="subline"></div>
 	<div class="inner-container">
 		<div class="chapters-container">
-			{% for item in latestChapters %}
+			{% for item in chapters %}
 				<div class="info-data">
 					<div class="info-data-text">
 						<a href="/tv/chapter/{{item.nameSlugify}}"><img src="http://i.imgur.com/CM9zwAu.jpg"></a>

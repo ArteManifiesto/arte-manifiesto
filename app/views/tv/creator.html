@@ -1,18 +1,21 @@
 {% extends '../partials/base.html' %}
-{% set pageTitle = 'Agregar Obra' %}
+{% set pageTitle = 'Agregar Capítulo' %}
 
 {% block elements %}
 <div class="am-upload-work">
 	<div class="am-upload-work-box grid-container">
-		<form class="work-form">
+		<form class="chapter-form">
 			<p class="main-title">CREAR NUEVO CAPITULO</p>
 			<div class="grid-100">
 				<div class="separator">
 					<span class="line"></span><span class="text">MINIATURA DEL CAPITULO</span><span class="line"></span>
 				</div>
-				<div class="uploader-work">
+				<div class="uploader-chapter">
 					<div class="profile-imgage">
 						<div class="preview">
+						{% if edit %}
+		              		<img src="{{chapter.photo|addFilter('w_300,c_limit')}}"/>
+						{% endif %}
 						</div>
 					</div>
 					<div class="preload hide"><i class="fa fa-spinner"></i></div>
@@ -25,29 +28,34 @@
 					<span class="line"></span><span class="text">DATOS DEL CAPITULO</span><span class="line"></span>
 				</div>
 				<p class="title">Nombre del capitulo</p>
-				<input name='name' class="input input-modal" type="text" placeholder="Ingrese el nombre"/>
+				<input name='name' class="input input-modal" type="text" placeholder="Ingrese el nombre" value="{{chapter.name}}" />
+			</div>
+
+			<div class="grid-100 mobile-grid-100">
+				<p class="title">Trailer (URL YouTube)</p>
+				<input name='trailer' class="input input-modal" type="text" placeholder="Ingrese la URL del trailer" value="{{chapter.trailer}}"/>
 			</div>
 
 			<div class="grid-100 mobile-grid-100">
 				<p class="title">Video del capitulo (URL YouTube)</p>
-				<input name='video' class="input input-modal" type="text" placeholder="Ingrese la URL del video"/>
+				<input name='video' class="input input-modal" type="text" placeholder="Ingrese la URL del video" value="{{chapter.video}}"/>
 			</div>
 
 			<div class="grid-100 mobile-grid-100">
 				<p class="title">Fecha de emision</p>
-				<input id="date" class="input" type="text" name='birthday' value="" placeholder="dd/mm/yy" maxlength="8">
+				<input class="input" type="text" name='releaseDate' placeholder="dd/mm/yy" maxlength="8" value="{{chapter.releaseDate|date('d/m/Y')}}">
 			</div>
 
 			<div class="grid-100 mobile-grid-100">
 				<p class="title">Descripcion del capitulo</p>
-				<textarea name='description' class='input' placeholder="Descripcion" maxlength='140'></textarea>
+				<textarea name='description' class='input description' placeholder="Descripcion">{{chapter.description}}</textarea>
 			</div>
 
 			<div class="grid-100 mobile-grid-100">
 				<div class="separator">
 					<span class="line"></span><span class="text">ACCIONES</span><span class="line"></span>
 				</div>
-				<button class="button u-margin-top-30 send" data-color="blue">SUBIR OBRA</button>
+				<button class="button u-margin-top-30 send" data-color="blue">ENVIAR</button>
 				<div class="hide send-loading">
 					<button class="button u-margin-top-30" data-color="blue">
 						<i class="load fa fa-spinner"></i>
@@ -116,13 +124,13 @@
     <script src="http://linkesch.com/medium-editor-insert-plugin/bower_components/jquery-sortable/source/js/jquery-sortable-min.js"></script>
     <script>
       $.cloudinary.config({{cloudinary.config()|json|safe}});
-      var post = null;
+      var chapter = null;
       var edit = {{edit|json|safe}};
       if(edit) {
-        post = {{post|json|safe}}
+        chapter = {{chapter|json|safe}}
       }
       $(function () {
-          new APP.CreatorPostScreen();
+          new APP.CreatorChapterScreen();
       });
     </script>
 {% endblock %}

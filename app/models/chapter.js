@@ -1,3 +1,5 @@
+var moment = require('moment');
+
 module.exports = function(sequelize, DataTypes) {
   var Chapter = sequelize.define('Chapter', {
     name: {
@@ -8,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     nameSlugify: DataTypes.STRING,
     video: DataTypes.STRING,
-    thumbnail: DataTypes.STRING,
+    photo: DataTypes.STRING,
     description: DataTypes.TEXT,
     trailer: DataTypes.STRING,
     views: {

@@ -37,6 +37,7 @@ exports.chapter = function(req, res) {
  * create a new post
  */
 exports.create = function(req, res) {
+  req.body.releaseDate = moment(req.body.releaseDate, 'DD/MM/YYYY')
   global.db.Chapter.create(req.body).then(function(chapter) {
     return res.ok({
       chapter: chapter
@@ -48,8 +49,9 @@ exports.create = function(req, res) {
  * edit post
  */
 exports.edit = function(req, res) {
-  res.json({
+  res.render(basePath + 'creator', {
     chapter: req.chapter,
+    edit: true,
     cloudinary: global.cl,
     cloudinayCors: global.cl_cors
   });
