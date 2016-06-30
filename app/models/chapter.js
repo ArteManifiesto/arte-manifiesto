@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     nameSlugify: DataTypes.STRING,
     video: DataTypes.STRING,
-    title: DataTypes.STRING,
+    thumbnail: DataTypes.STRING,
     description: DataTypes.TEXT,
     views: {
       type: DataTypes.INTEGER,

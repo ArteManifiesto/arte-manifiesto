@@ -137,3 +137,9 @@ exports.unPublish = function(req, res) {
     }, 'Chapter unpublished');
   });
 };
+
+exports.addCompetitor = function(req, res) {
+  req.chapter.addUserContestsTv(req.user).then(function(userContestTV) {
+    return res.json(userContestTV);
+  });
+};
