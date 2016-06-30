@@ -5,7 +5,7 @@ module.exports = {
     queryInterface.changeColumn(
       'Chapters',
       'description', {
-        type: Sequelize.TEXT,
+        type: Sequelize.TEXT
       }
     )
   },
@@ -13,7 +13,7 @@ module.exports = {
     queryInterface.changeColumn(
       'Chapters',
       'description', {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       }
     )
   }

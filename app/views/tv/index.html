@@ -16,58 +16,35 @@
 		</div>
 	</div>
 {% endif %}
-
-<div class="wrapper">
-	<div class="container">
-		<ul class="subList">
-			<li class="subList-title">am tv</li>
-			<a href="#" class="contest-btn"><li class="subList-item contest">CONCURSO</li></a>
-		</ul>
-
-		{%if chapters[0] %}
-			{{chapters[0].trailer|safe}}
-		{% endif %}
-
-
-		<div class="container-text">
-			<h3>Que el arte inunde tu vida</h3>
-			<p>El primer programa de TV sobre los procesos de<br>artistas visuales</p>
-			{%if chapters[0]%}
-				<a href="/tv/chapter/{{chapters[0].nameSlugify}}"><div class="buttom">VER AHORA</div></a>
-			{%endif%}
-		</div>
-		<div class="shadow"></div>
-	</div>
-	<div class="info">
-		<div class="info-text">
-			<h2>Últimos capítulos</h2>
-		</div><div class="subline"></div>
-	<div class="inner-container">
-		<div class="chapters-container">
-			{% for item in chapters %}
-				<div class="info-data">
-					<div class="info-data-text">
-						<a href="/tv/chapter/{{item.nameSlugify}}"><img src="{{item.photo|addFilter('w_680,h_400,c_limit')}}"></a>
-						<h2><a href="/tv/chapter/{{item.nameSlugify}}">{{ item.name }}</a></h2>
-						<p>{{ item.description }}</p>
-						<span>Por am tv  </span>  <span>  Emitido el 26 de julio,2016</span>
-						<div class="likes-logo">
-							<i class="bi_interface-view"></i><p>{{ item.views }}</p>
-						</div>
-					</div>
+	<div class="wrapper-tv">
+		<div class="banner-video-tv">
+			<div class="background-video-tv">
+				<div class="container-video-tv">
+					<iframe src="https://www.youtube.com/embed/I2cTpb8-Xmk?autoplay=1&amp;rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
 				</div>
-			{% endfor %}
-		</div>
-			<div class="banners-container">
-				<div class="info-data-baners">
-						<div class="info-data-baners-view"></div>
+			</div>
+			<div class="shadow-video-tv">
+				<div class="menu-video-tv">
+					<h3>am tv</h3>
+					<a href="#">CONCURSO</a>
+				</div>
+				<div class="text-video-tv">
+					<h3>Que el arte inunde tu vida</h3>
+					<p>El primer programa de TV sobre los procesos de<br>artistas visuales</p>
+					{%if chapters[0]%}
+						<a href="/tv/chapter/{{chapters[0].nameSlugify}}">VER AHORA</a>
+					{%endif%}
 				</div>
 			</div>
 		</div>
+		<div class="chapters-tv">
+			<div class="title-chapters-tv">
+				<h4>Últimos capítulos</h4>
+			</div>
+		</div>
 	</div>
-</div>
+
+{% endblock %}
+
 {% block scripts %}
-<script>
-console.log({{chapters|json|safe}});
-</script>
 {% endblock %}
