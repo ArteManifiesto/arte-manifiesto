@@ -10,6 +10,7 @@ module.exports = function(sequelize, DataTypes) {
     video: DataTypes.STRING,
     thumbnail: DataTypes.STRING,
     description: DataTypes.TEXT,
+    trailer: DataTypes.STRING,
     views: {
       type: DataTypes.INTEGER,
       defaultValue: 0
