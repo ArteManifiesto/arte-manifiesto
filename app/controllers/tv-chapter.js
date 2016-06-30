@@ -20,16 +20,16 @@ exports.chapter = function(req, res) {
     req.chapter.view()
   ];
   global.db.Sequelize.Promise.all(promises).then(function(result) {
-    // return res.render(basePath + 'chapter', {
-    //   chapter:req.chapter,
-    //   reviews:result[0],
-    //   latestChapters:result[1]
+    return res.render(basePath + 'chapter', {
+      chapter:req.chapter,
+      reviews:result[0],
+      latestChapters:result[1]
+     });
+    // return res.json({
+    //   chapter: req.chapter,
+    //   reviews: result[0],
+    //   latestChapters: result[1]
     // });
-    return res.json({
-      chapter: req.chapter,
-      reviews: result[0],
-      latestChapters: result[1]
-    });
   });
 };
 
