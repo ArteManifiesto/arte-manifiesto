@@ -17,6 +17,8 @@ router.post('/review/create', global.md.isLogged, controller.review);
 router.post('/publish', global.md.isAdmin, controller.publish);
 router.post('/unpublish', global.md.isAdmin, controller.unPublish);
 
+router.post('/addCompetitor', global.md.isLogged, controller.addCompetitor);
+
 router.post('/delete', global.md.isAdmin, controller.delete);
 router.post('/create', global.md.isAdmin, controller.create);
 router.post('/update', global.md.isAdmin, controller.update);
