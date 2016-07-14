@@ -15220,7 +15220,8 @@ fabric.util.object.extend(fabric.Object.prototype, /** @lends fabric.Object.prot
 
       this.path = fromArray ? path
         // one of commands (m,M,l,L,q,Q,c,C,etc.) followed by non-command characters (i.e. command values)
-        : path.match && path.match(/[mzlhvcsqta][^mzlhvcsqta]*/gi);
+        :
+        path.match && path.match(/[mzlhvcsqta][^mzlhvcsqta]*/gi);
 
       if (!this.path) {
         return;

@@ -7,6 +7,7 @@ function Slider(el, data) {
 
   var hammertime = new Hammer(el);
   var interval = setInterval(next, 10000)
+
   function setup() {
 
     hammertime.on('swipeleft', function() {

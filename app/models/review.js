@@ -16,6 +16,9 @@ module.exports = function(sequelize, DataTypes) {
         Review.belongsTo(models.User, {
           onDelete: 'cascade'
         });
+        Review.belongsTo(models.Chapter, {
+          onDelete: 'cascade'
+        });
       }
     }
   });

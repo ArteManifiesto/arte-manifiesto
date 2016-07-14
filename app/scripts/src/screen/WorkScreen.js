@@ -35,10 +35,10 @@ APP.WorkScreen.prototype.setupUI = function() {
     new APP.Viewer('carrouselItem', $('.' + category.nameSlugify), null, products);
   }
 
-  new APP.Viewer('carrouselItem', $('.more'), null, more,{
+  new APP.Viewer('carrouselItem', $('.more'), null, more, {
     worked: true
   });
-  new APP.Viewer('carrouselItem', $('.similar'), null, similar,{
+  new APP.Viewer('carrouselItem', $('.similar'), null, similar, {
     worked: true
   });
 

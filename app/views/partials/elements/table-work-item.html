@@ -1,5 +1,6 @@
 <script type="text/template" id="template-table-work">
   <tr>
+    <td><%=id%></td>
     <td><img src="<%= addFilter(photo, 'w_35') %>"></td>
     <td><a href="/user/<%=User.username%>/work/<%=nameSlugify%>"><%=name%></a></td>
     <td><%=popularity%></td>

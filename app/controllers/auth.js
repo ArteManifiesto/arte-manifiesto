@@ -90,7 +90,9 @@ exports.forgotPage = function(req, res) {
  * User login
  */
 exports.login = function(req, res) {
+  console.log(req.body);
   passport.authenticate('local', function(err, user, error) {
+    console.log(user);
     if (!user)
       return res.badRequest({
         errors: [error]

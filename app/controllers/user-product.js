@@ -19,7 +19,13 @@ exports.index = function(currentPath, req, res) {
         where: {
           id: req.product.id
         },
-        include: [{model: global.db.Category, include: [{model: global.db.Category, as: 'ParentCategory'}]}],
+        include: [{
+          model: global.db.Category,
+          include: [{
+            model: global.db.Category,
+            as: 'ParentCategory'
+          }]
+        }],
         viewer: req.viewer,
         build: true,
         addUser: true

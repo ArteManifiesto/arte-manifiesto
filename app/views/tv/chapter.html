@@ -1,0 +1,134 @@
+{% set templates = ['user', 'review'] %}
+{% set pageTitle = chapter.name %}
+{% set path = '' %}
+
+{% extends '../partials/base.html' %}
+
+
+{% block styles %}
+<style>
+	.video-container {
+	position:relative;
+	padding-bottom:56.25%;
+	padding-top:30px;
+	height:0;
+	overflow:hidden;
+}
+
+.video-container iframe, .video-container object, .video-container embed {
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+}
+
+</style>
+{% endblock %}
+
+{% block elements %}
+
+{% if user && user.isAdmin %}
+	<div class="grid-container">
+	<div class="grid-100">
+	  <div class="blog-single-trash" style="max-width: initial;border: none;margin-bottom: 0;">
+	      <a href="/tv/chapter/{{ chapter.nameSlugify }}/edit" class="button following publish-btn publish">Editar</a>
+	  </div>
+	</div>
+	</div>
+{% endif %}
+
+<div class="video-container">
+	<div id="player"></div>
+</div>
+
+<!-- 
+<div class="banners-container">
+	
+</div> -->
+
+
+<div class="latest-chapters">
+	<h3>Información</h3>
+	<div></div>
+</div>
+
+
+<div class="chapter-inner-wrapper">
+	<div class="chapter-content">
+		<h1 class="name">{{chapter.name}}</h1>
+		<p class="description">{{chapter.description}}</p>
+		<h1 class="artists">Fichas de artistas</h1>
+		<div class="users-container">
+			
+		</div>		
+	</div>
+</div>
+
+
+
+
+
+<div class="chapters-container">
+
+	{%  for chapter in chapters %}
+		<div class="chapter">
+			<a href="/tv/chapter/{{chapter.nameSlugify}}"><img src="{{chapter.photo}}"></a>
+			<div class="inner-content">
+				<a href="/tv/chapter/{{chapter.nameSlugify}}">{{ chapter.name }}</a>
+				<p class="description">{{ chapter.description.substring(0,140) }}...</p>
+				
+				<div class="metadata">
+					<p class="date"><i class="bi_interface-clock"></i>{{chapter.releaseDate|date('d/m/Y')}}</p>
+
+					<span class="author">
+		              <p>Por&nbsp;&nbsp;</p>
+		              <img src="{{amUser.photo}}"/>
+		              <span class="uppercase">&nbsp;
+		                {{amUser.fullname}}
+		              </span>
+		            </span>
+				</div>
+			</div>
+		</div>
+	{% endfor %} 
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+		var chapter = {{chapter|json|safe}};
+      var tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/player_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      var player;
+      function onYouTubePlayerAPIReady() {
+        player = new YT.Player('player', {
+          playerVars: {'showinfo':0},
+          videoId: chapter.trailer,
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange' : function(e){
+                if(e.data === YT.PlayerState.ENDED){
+                    player.loadVideoById(chapter.trailer);
+                 }
+             }
+          }
+      });
+      function onPlayerReady(event) {
+        event.target.mute();
+      }
+}
+
+ var works = {{works|json|safe}};
+ var users = {{users|json|safe}};
+
+      $(function() {
+		for (var i = 0; i < users.length; i++) {
+    		$('.users-container').append(new APP.User(users[i]).view);
+		}
+      });
+</script>
+{% endblock %}

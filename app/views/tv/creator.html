@@ -1,0 +1,120 @@
+{% extends '../partials/base.html' %}
+{% set pageTitle = 'Agregar Capítulo' %}
+
+{% block elements %}
+<div class="am-upload-work">
+	<div class="am-upload-work-box grid-container">
+		<form class="chapter-form">
+			<p class="main-title">CREAR NUEVO CAPITULO</p>
+			<div class="grid-100">
+				<div class="separator">
+					<span class="line"></span><span class="text">MINIATURA DEL CAPITULO</span><span class="line"></span>
+				</div>
+				<div class="uploader-chapter">
+					<div class="profile-imgage">
+						<div class="preview">
+						{% if edit %}
+		              		<img src="{{chapter.photo|addFilter('w_300,c_limit')}}"/>
+						{% endif %}
+						</div>
+					</div>
+					<div class="preload hide"><i class="fa fa-spinner"></i></div>
+					<button class="button upload u-margin-top-30">BUSCAR ARCHIVO</button>
+				</div>
+				<div class="image-uploader" style="position:relative;">
+					{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:230px;height:55px;top:-70px;left: 105px;" } })}}
+				</div>
+				<div class="separator">
+					<span class="line"></span><span class="text">DATOS DEL CAPITULO</span><span class="line"></span>
+				</div>
+				<p class="title">Nombre del capitulo</p>
+				<input name='name' class="input input-modal" type="text" placeholder="Ingrese el nombre" value="{{chapter.name}}" />
+			</div>
+
+			<div class="grid-100 mobile-grid-100">
+				<p class="title">Trailer (ID video YouTube)</p>
+				<input name='trailer' class="input input-modal" type="text" placeholder="Ingrese el ID del trailer" value="{{chapter.trailer}}"/>
+			</div>
+
+			<div class="grid-100 mobile-grid-100">
+				<p class="title">Video del capitulo (ID video YouTube)</p>
+				<input name='video' class="input input-modal" type="text" placeholder="Ingrese el ID del video" value="{{chapter.video}}"/>
+			</div>
+
+			<div class="grid-100 mobile-grid-100">
+				<p class="title">Fecha de emision</p>
+				<input class="input" type="text" name='releaseDate' placeholder="dd/mm/yy" maxlength="8" value="{{chapter.releaseDate|date('d/m/Y')}}">
+			</div>
+
+			<div class="grid-100 mobile-grid-100">
+				<p class="title">Obras participando</p>
+				<input name='works' class="input input-modal" type="text" placeholder="Ingresa el id de las obras ejemplo (1,10)" value="{{works}}"/>
+			</div>
+
+			<div class="grid-100 mobile-grid-100">
+				<p class="title">Descripcion del capitulo</p>
+				<textarea name='description' class='input description' placeholder="Descripcion">{{chapter.description}}</textarea>
+			</div>
+		
+			<input type='hidden' name='idChapter' value='{{chapter.id}}'/>
+			
+			<div class="switch u-margin-top-10">
+				<p class="title">Concurso</p>
+				<span class="value">On</span>
+				<input type="checkbox" name="hasContest" id="hasContest"/>
+				<label for="hasContest">
+					<div class="am-Switch-button">
+						<i class="fa fa-bars"></i>
+					</div>
+				</label>
+			</div>
+
+			<div class="grid-100 mobile-grid-100">	    
+				{% if edit %}
+					<button class="button u-margin-top-30 send" data-color="blue">ACTUALIZAR CAPITULO</button>
+				{% else %}
+					<button class="button u-margin-top-30 send" data-color="blue">CREAR CAPITULO</button>
+				{% endif %}
+				<div class="hide send-loading">
+					<button class="button u-margin-top-30" data-color="blue">
+						<i class="load fa fa-spinner"></i>
+					</button>
+				</div>
+				{% if edit %}
+				<div class="blog-single-trash">
+			     	<a class="button following delete-btn trash">ELIMINAR</a>
+			        <div class="hide delete-confirm">
+			          <p style="display: inline-block;">Seguro que desea eliminar el capítulo?</p>
+			          <a class="button following cancel">CANCELAR</a>
+			          <a class="button following trash delete-force">ELIMINAR</a>
+			        </div>
+				
+			        {% if chapter.published %}
+			          <a class="button following publish-btn publish">PUBLICADO</a>
+			         {% else %}
+			          <a class="button following publish-btn">PUBLICAR</a>
+			        {% endif %}
+        		</div>
+		    {% endif %}
+
+			</div>
+		</form>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+    <script src="http://linkesch.com/medium-editor-insert-plugin/bower_components/handlebars/handlebars.runtime.min.js"></script>
+    <script src="http://linkesch.com/medium-editor-insert-plugin/bower_components/jquery-sortable/source/js/jquery-sortable-min.js"></script>
+    <script>
+      $.cloudinary.config({{cloudinary.config()|json|safe}});
+      var chapter = null;
+      var edit = {{edit|json|safe}};
+      if(edit) {
+        chapter = {{chapter|json|safe}};
+      }
+      $(function () {
+          new APP.CreatorChapterScreen();
+      });
+    </script>
+{% endblock %}

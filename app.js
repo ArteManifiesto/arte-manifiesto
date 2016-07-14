@@ -33,7 +33,9 @@ require('./config/errors')(app);
 app.set('port', process.env.PORT || cf.port);
 
 global.db.sequelize.sync({force: false}).then(function () {
+  // global.db.Chapter.create({video:'https://vimeo.com/168111128', name:'Tu Mamita es Perra4', description:'esta es una prueba con tu mama'}).then(function(category) {
 
+  // });
   // global.db.Category.create({name:'lel'}).then(function(category) {
   //     global.db.Category.create({name:'lol'}).then(function(category2) {
   //       category2.setParentCategory(category).then(function() {

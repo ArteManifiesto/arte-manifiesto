@@ -43,11 +43,10 @@ APP.Filters.prototype.setupUI = function() {
     if (state == 'closed') {
       filterRight.find('.fa-caret-down').addClass('rotate-down');
       filterRight.attr('data-state', 'open')
-    } 
-    else {
-      filterRight.find('.fa-caret-down').removeClass('rotate-down');  
+    } else {
+      filterRight.find('.fa-caret-down').removeClass('rotate-down');
       filterRight.attr('data-state', 'closed')
-    } 
+    }
   })
 
   var filterLeft = $('.filter.left')

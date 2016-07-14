@@ -8,7 +8,8 @@ global.limits = {
   categoriesHome: 8,
   feed: 10,
   blog: 20,
-  singlePost: 3
+  singlePost: 3,
+  singleChapter: 3
 };
 
 global.cities = [
@@ -99,6 +100,13 @@ global.getStoreCollection = function (user) {
   return user.getCollections(query).then(function (collections) {
     return collections[0];
   });
+};
+
+global.goToLogin = function(req, res, message){
+  var returnTo = req.protocol + '://' + req.get('host') + req.originalUrl;
+  res.cookie('return_to', returnTo, {maxAge: 3600000, domain: '.' + global.cf.app.domain});
+  req.flash('errorMessage', message);
+  return res.redirect('/auth/login');
 };
 
 global.nameSlugify = function (scope, value) {

@@ -1,0 +1,29 @@
+{% extends '../partials/base.html' %}
+
+{% block elements %}
+
+<div class="chapters-container">
+  {%  for chapter in chapters %}
+    <div class="chapter">
+      <a href="/tv/chapter/{{chapter.nameSlugify}}"><img src="{{chapter.photo}}"></a>
+      <div class="inner-content">
+        <a href="/tv/chapter/{{chapter.nameSlugify}}">{{ chapter.name }}</a>
+        <p class="description">{{ chapter.description.substring(0,140) }}...</p>
+        
+        <div class="metadata">
+          <p class="date"><i class="bi_interface-clock"></i>{{chapter.releaseDate|date('d/m/Y')}}</p>
+
+          <span class="author">
+                  <p>Por&nbsp;&nbsp;</p>
+                  <img src="{{amUser.photo}}"/>
+                  <span class="uppercase">&nbsp;
+                    {{amUser.fullname}}
+                  </span>
+                </span>
+        </div>
+      </div>
+    </div>
+  {% endfor %} 
+</div>
+
+{% endblock %}

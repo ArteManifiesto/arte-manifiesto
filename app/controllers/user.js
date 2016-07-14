@@ -81,7 +81,10 @@ exports.products = function(req, res) {
     }
   };
   query.order = [global.getOrder('newest')];
-  query.include = [{model: global.db.Work, attributes: ['photo']}];
+  query.include = [{
+    model: global.db.Work,
+    attributes: ['photo']
+  }];
   return getData(req, res, {
     method: 'getProducts',
     name: 'products',

@@ -24,6 +24,7 @@ passport.deserializeUser(function (id, done) {
  */
 var localStrategyHandler = function (email, password, done) {
     global.db.User.find({where: {email: email}}).then(function (user) {
+        console.log(user);
         if (!user)
             done(null, false,  'Email no encontrado');
         else if (!user.authenticate(password))
