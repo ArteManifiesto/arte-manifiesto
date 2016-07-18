@@ -81,7 +81,8 @@ gulp.task('vendor', function () {
 
 gulp.task('scripts', function () {
     return gulp.src(paths.jsDir)
-        // .pipe(stripDebug())
+        .pipe(uglify({compress: true}))
+        .pipe(stripDebug())
         .pipe(concat('app.min.js'))
         .pipe(gulp.dest(paths.publicDir));
 });
