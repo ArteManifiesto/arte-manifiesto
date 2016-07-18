@@ -1,69 +1,89 @@
-.shadow
+.tv-intro
 	width 100%
-	height 100%
+	height calc(100vh - 64px)
+	overflow hidden
+	position relative
+
+.video
 	position absolute
+	top -20px
 	left 0
-	top 0
-	background-color rgba(0, 0, 0, 0.7)
-	header
-		max-width 1200px
-		margin 0 auto
-		margin-top 30px
-		display flex
-		align-items center
-		padding 0 20px
-		justify-content space-between
-		h1
-			font-family 'Montserrat'
-			font-size 48px
-			line-height 1.2
-			letter-spacing -1.8px
-			color white
-		.contest-btn
-			opacity 0.6
-			border-radius 40px
-			border solid 1px #eeeeee
-			padding 15px 30px
-			font-family 'Montserrat'
-			font-size 11px
-			line-height 1
-			letter-spacing 2px
-			text-align center
-			color white
-	.info
-		display flex
-		flex-direction column
-		align-items center
+	right 0
+	video
+		width 100%
+	.info-container
 		position absolute
-		top 50%
-		left 50%
-		transform translate(-50%, -50%)
-		h1
-			font-family 'Montserrat'
-			font-size 48px
-			line-height 1.2
-			letter-spacing -1.8px
-			text-align center
-			color white
-			margin-bottom 15px
-		p
-			max-width 450px
-			opacity 0.7
-			font-family 'PT Serif'
-			font-size 20px
-			line-height 1.3
-			text-align center
-			color white
-			margin-bottom 20px
-		a
-			padding 10px 20px
-			color white
-			line-height 40px
-			border-radius 2px
-			background-color #fc2015
-			font-family 'Montserrat'
-			font-size 13px
-			line-height 1.8
+		top 0
+		right 0
+		left 0
+		bottom 0
+		header
+			max-width 1180px
+			margin 0 auto
+			margin-top 30px
+			display flex
+			align-items center
+			padding 0 20px
+			justify-content space-between
+			h1
+				font-family 'Montserrat'
+				font-size 48px
+				line-height 1.2
+				font-weight bold
+				letter-spacing -1.8px
+				color white
+			.contest-btn
+				opacity 0.6
+				border-radius 40px
+				border solid 1px #eeeeee
+				padding 15px 30px
+				font-family 'Montserrat'
+				font-size 11px
+				line-height 1
+				letter-spacing 2px
+				text-align center
+				color white
+		.info
+			display flex
+			flex-direction column
+			align-items center
+			position absolute
+			left 50%
+			transform translateX(-50%)
+			bottom 100px
+			h1
+				font-family 'Montserrat'
+				font-size 48px
+				line-height 1.2
+				font-weight bold
+				letter-spacing -1.8px
+				text-align center
+				text-shadow 0 2px 4px rgba(0, 0, 0, 0.5)
+				color white
+				margin-bottom 15px
+			p
+				width 469.3px
+				max-width 450px
+				opacity 0.7
+				font-family 'PT Serif'
+				font-size 20px
+				line-height 1.3
+				text-align center
+				color #ffffff
+				font-weight normal
+				text-shadow 0 2px 4px rgba(0, 0, 0, 0.5)
+				margin-bottom 20px
+				
+			a
+				padding 10px 20px
+				color white
+				line-height 40px
+				border-radius 2px
+				background-color #2e71f0
+				font-family 'Montserrat'
+				font-weight bold
+				font-size 13px
+				line-height 1.8
 
 	
 .banners-container
@@ -72,10 +92,11 @@
 	background-color #efeff0
 
 .latest-chapters
-	max-width 1200px
+	max-width 1180px
 	margin 0 auto
 	margin-top 30px
 	padding 10px 20px
+	
 	h3
 		font-family 'Montserrat'
 		font-size 25px
@@ -88,86 +109,57 @@
 		background-color blue
 
 .chapters-container
-	max-width 1200px
+	max-width 1180px
 	margin 0 auto
-	display flex
-	justify-content space-around
-	flex-wrap wrap
 	margin-top 30px
-
-.chapter
-	max-width 375px
-	display flex
-	flex-direction column
-	margin-bottom 40px
-	box-shadow 0 2px 4px 0 rgba(0,0,0,0.5)
-	.inner-content
-		padding 15px 20px
-		a
-			display block
-			font-family 'Montserrat'
-			font-size 16px
-			color black
-			margin-top 10px
-		.description
-			opacity 0.7
-			font-family 'PT Serif'
-			font-size 14px
-			line-height 1.5
-			color black
-			margin-top 10px
-		.metadata
-			display flex
-			padding-top 15px
-			justify-content space-between
-			align-items center
-			.date
-				font-family: 'PT Serif';
-				font-style: italic;
-				font-size: 12px;
-				color: #333;
-			.author
-				display flex
-				justify-content space-between
-				align-items center
+	padding 0 10px
+	.chapter
+		display flex
+		margin-bottom 20px
+		position relative
+		width 100% 
+		height 450px
+		background-size cover
+		background-position center
+		.overlay
+			left 0
+			right 0
+			top 0
+			bottom 0
+			position absolute
+			.circle
+				position absolute
+				top 50%
+				left 50%
+				width 200px
+				height 200px
+				border 1px solid white
+				border-radius 50%
+				transform translate(-50%, -50%)
+				.arrow
+					top 50%
+					left 50%
+					transform translate(-50%, -50%)
+					width 0px
+					height 0px
+					border-top 40px solid transparent
+					border-bottom 40px solid transparent
+					border-left 60px solid white
+					border-radius 5px
+					position absolute
+			.info
+				left 20px
+				bottom 40px
+				position absolute
 				p
-					font-family 'PT Serif'
-					font-size 12px
-					color #666d70
-					font-style italic
-				img
-					width 30px
-					height auto
-					border-radius 50%
-				span
 					font-family 'Montserrat'
 					font-weight bold
-					font-size 10px
-					color #3c3d41
-					letter-spacing 1px
-@media (max-width:700px)
-	.shadow
-		.info
-			top 65% !important
-			h1
-				font-size 30px !important
-			p
-				font-size 15px !important
-			
-@media (max-width:450px)
-	.shadow
-		.info
-			h1
-				font-size 22px !important
-				margin-bottom 5px !important
-			p
-				font-size 14px !important
-				margin-bottom 10px !important
-			a
-				font-size 9px !important
-		header
-			h1
-				font-size 25px !important
-			a
-				font-size 7px !important
-				padding 12px 26px !important
+					letter-spacing -1px
+					color white
+					text-shadow 0 2px 4px rgba(0, 0, 0, 0.5)
+					
+				p:first-child
+					font-size 24px
+					margin-bottom 3px
+				p:last-child
+					font-size 28px

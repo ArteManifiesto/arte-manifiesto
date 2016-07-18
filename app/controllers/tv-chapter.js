@@ -2,43 +2,19 @@ var basePath = 'tv/';
 var moment = require('moment');
 
 exports.chapter = function(req, res) {
-  var query = {
-    limit: global.limits.singleChapter,
-    where: {
-      published: true,
-      id: {
-        $not: [req.chapter.id]
-      }
-    },
-    order: [global.getOrder('newest')]
-  };
   var promises = [
     req.chapter.getReviews({
       include: [global.db.User]
     }),
-    global.db.Chapter.findAll(query),
-    req.chapter.getChapterWorks(),
     req.chapter.view()
   ];
   global.db.Sequelize.Promise.all(promises).then(function(result) {
-    var promises = [];
-    var works = result[2];
-    
-    for (var i = 0; i < works.length; i++) {
-      promises.push(works[i].getUser({
-        build: true,
-        viewer: req.viewer
-      }))
-    }
+    var chapter = req.chapter.toJSON();
 
-    global.db.Sequelize.Promise.all(promises).then(function(users) {
-      return res.render(basePath + 'chapter', {
-        chapter: req.chapter,
-        reviews: result[0],
-        latestChapters: result[1],
-        users: users,
-        works: result[2]
-      });
+    return res.render(basePath + 'chapter', {
+      chapter: global._.omit(chapter, 'body'),
+      chapterBody: chapter.body,
+      reviews: result[0]
     });
   });
 };
@@ -47,23 +23,12 @@ exports.chapter = function(req, res) {
  * create a new post
  */
 exports.create = function(req, res) {
-  if (!req.body.hasContest) req.body.hasContest = false;
-
   req.body.releaseDate = moment(req.body.releaseDate, 'DD/MM/YYYY');
+
   global.db.Chapter.create(req.body).then(function(chapter) {
-    global.db.Work.findAll({
-      where: {
-        id: {
-          $in: req.body.works.split(',')
-        }
-      }
-    }).then(function(works) {
-      chapter.setChapterWorks(works).then(function() {
-        return res.ok({
-          chapter: chapter
-        }, 'chapter created');
-      });
-    });
+    return res.ok({
+      chapter: chapter
+    }, 'chapter created');
   });
 };
 
@@ -71,15 +36,13 @@ exports.create = function(req, res) {
  * edit post
  */
 exports.edit = function(req, res) {
-  req.chapter.getChapterWorks().then(function(chapterWorks) {
-    var works = global._.pluck(chapterWorks, 'id');
-    res.render(basePath + 'creator', {
-      chapter: req.chapter,
-      edit: true,
-      works: works,
-      cloudinary: global.cl,
-      cloudinayCors: global.cl_cors
-    });
+  var chapter = req.chapter.toJSON();
+  return res.render(basePath + 'creator', {
+    edit: true,
+    chapter: global._.omit(chapter, 'body'),
+    chapterBody: chapter.body,
+    cloudinary: global.cl,
+    cloudinayCors: global.cl_cors
   });
 };
 
@@ -88,21 +51,10 @@ exports.edit = function(req, res) {
  */
 exports.update = function(req, res) {
   req.body.releaseDate = moment(req.body.releaseDate, 'DD/MM/YYYY')
-  if (!req.body.hasContest) req.body.hasContest = false;
   req.chapter.updateAttributes(req.body).then(function(chapter) {
-    global.db.Work.findAll({
-      where: {
-        id: {
-          $in: req.body.works.split(',')
-        }
-      }
-    }).then(function(works) {
-      req.chapter.setChapterWorks(works).then(function() {
-        return res.ok({
-          chapter: chapter
-        }, 'chapter updated');
-      });
-    });
+    return res.ok({
+      chapter: chapter
+    }, 'chapter updated');
   });
 };
 
@@ -123,7 +75,7 @@ exports.delete = function(req, res) {
 exports.review = function(req, res) {
   req.body.ChapterId = parseInt(req.body.idChapter, 10);
   req.body.UserId = parseInt(req.viewer, 10);
-
+  
   global.db.Review.create(req.body).then(function(review) {
     var actionQuery = {
       UserId: req.user.id,

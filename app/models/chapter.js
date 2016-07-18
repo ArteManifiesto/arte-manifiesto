@@ -21,10 +21,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
-    hasContest: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
-    },
+    body: DataTypes.TEXT,
     releaseDate: DataTypes.DATE
   }, {
     classMethods: {
@@ -43,10 +40,30 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     instanceMethods: {
+      buildParts: function(options) {
+        var scope = this;
+        return scope.numOfReviews().then(function(total) {
+          scope.setDataValue('reviews', total);
+        });
+      },
+      numOfReviews: function() {
+        var scope = this,
+          query = {
+            attributes: [
+              [global.db.sequelize.fn('COUNT', global.db.sequelize.col('id')), 'total']
+            ]
+          };
+        return this.getReviews(query).then(function(result) {
+          return result[0].getDataValue('total');
+        });
+      },
       view: function() {
         this.views += 1;
         return this.save();
       }
+    },
+    hooks: {
+      afterFind: global.afterFind
     }
   });
   return Chapter;

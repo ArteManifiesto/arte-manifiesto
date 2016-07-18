@@ -81,7 +81,6 @@ gulp.task('vendor', function () {
 
 gulp.task('scripts', function () {
     return gulp.src(paths.jsDir)
-        .pipe(uglify({compress: true}))
         // .pipe(stripDebug())
         .pipe(concat('app.min.js'))
         .pipe(gulp.dest(paths.publicDir));
@@ -89,8 +88,7 @@ gulp.task('scripts', function () {
 
 gulp.task('styles', function () {
     gulp.src('./app/styles/app.min.styl')
-        .pipe(stylus({compress: true, use: [nib()]}))
-        .pipe(concat('app.min.css'))
+        .pipe(stylus({use: [nib()]}))
         .pipe(gulp.dest(paths.publicDir));
 });
 
