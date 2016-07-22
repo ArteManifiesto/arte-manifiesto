@@ -1298,23 +1298,26 @@ l i,
   overflow: hidden;
   position: relative;
 }
-.video {
+.tv-intro video {
   position: absolute;
-  top: -20px;
-  left: 0;
-  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
-.video video {
-  width: 100%;
-}
-.video .info-container {
+.tv-intro .info-container {
   position: absolute;
   top: 0;
   right: 0;
   left: 0;
   bottom: 0;
 }
-.video .info-container header {
+.tv-intro .info-container header {
   max-width: 1180px;
   margin: 0 auto;
   margin-top: 30px;
@@ -1338,7 +1341,7 @@ l i,
   -webkit-justify-content: space-between;
   justify-content: space-between;
 }
-.video .info-container header h1 {
+.tv-intro .info-container header h1 {
   font-family: 'Montserrat';
   font-size: 48px;
   line-height: 1.2;
@@ -1346,7 +1349,7 @@ l i,
   letter-spacing: -1.8px;
   color: #fff;
 }
-.video .info-container header .contest-btn {
+.tv-intro .info-container header .contest-btn {
   opacity: 0.6;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
   filter: alpha(opacity=60);
@@ -1361,7 +1364,7 @@ l i,
   text-align: center;
   color: #fff;
 }
-.video .info-container .info {
+.tv-intro .info-container .info {
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;
@@ -1382,14 +1385,14 @@ l i,
   align-items: center;
   position: absolute;
   left: 50%;
-  -webkit-transform: translateX(-50%);
-  -moz-transform: translateX(-50%);
-  -o-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  transform: translateX(-50%);
-  bottom: 100px;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
-.video .info-container .info h1 {
+.tv-intro .info-container .info h1 {
   font-family: 'Montserrat';
   font-size: 48px;
   line-height: 1.2;
@@ -1400,7 +1403,7 @@ l i,
   color: #fff;
   margin-bottom: 15px;
 }
-.video .info-container .info p {
+.tv-intro .info-container .info p {
   width: 469.3px;
   max-width: 450px;
   opacity: 0.7;
@@ -1415,7 +1418,7 @@ l i,
   text-shadow: 0 2px 4px rgba(0,0,0,0.5);
   margin-bottom: 20px;
 }
-.video .info-container .info a {
+.tv-intro .info-container .info a {
   padding: 10px 20px;
   color: #fff;
   line-height: 40px;

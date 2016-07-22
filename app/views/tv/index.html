@@ -14,22 +14,20 @@
 {% endif %}
 
 <div class="tv-intro">
-	<div class="video">
-		<video autoplay loop muted>
-		  <source src="http://res.cloudinary.com/arte-manifiesto/video/upload/v1468860976/tv/intro.mp4" type="video/mp4">
-		</video>
-		<div class="info-container">
-			<header>
-				<h1>am tv</h1>
-			</header>
-			<div class="info">
-				<h1>Que el arte inunde tu vida</h1>
-				<p>El primer programa de TV sobre los procesos de artistas visuales</p>
-				{% if chapters[0] %}
-					<a href="/tv/chapter/{{chapters[0].nameSlugify}}">VER AHORA</a>
-				{% endif %}
-			</div>	
-		</div>
+	<video autoplay loop muted>
+	  <source src="http://res.cloudinary.com/arte-manifiesto/video/upload/v1468860976/tv/intro.mp4" type="video/mp4">
+	</video>
+	<div class="info-container">
+		<header>
+			<h1>am tv</h1>
+		</header>
+		<div class="info">
+			<h1>Que el arte inunde tu vida</h1>
+			<p>El primer programa de TV sobre los procesos de artistas visuales</p>
+			{% if chapters[0] %}
+				<a href="/tv/chapter/{{chapters[0].nameSlugify}}">VER AHORA</a>
+			{% endif %}
+		</div>	
 	</div>
 </div>
 
