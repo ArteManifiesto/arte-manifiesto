@@ -1481,19 +1481,7 @@ l i,
   bottom: 0;
   position: absolute;
 }
-.chapters-container .chapter .overlay .circle:hover {
-  -webkit-transform: translate(0, 0) scale(1);
-  -moz-transform: translate(0, 0) scale(1);
-  -o-transform: translate(0, 0) scale(1);
-  -ms-transform: translate(0, 0) scale(1);
-  transform: translate(0, 0) scale(1);
-}
 .chapters-container .chapter .overlay .circle {
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  -ms-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
   position: absolute;
   top: 50%;
   left: 50%;
