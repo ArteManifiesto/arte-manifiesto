@@ -41,7 +41,14 @@ APP.ChapterScreen.prototype.listeners = function() {
 };
 
 APP.ChapterScreen.prototype.shareFBHandler = function() {
-  Utils.shareFBPost(chapter);
+  console.log( DataApp.baseUrl + 'tv/chapter/' + chapter.nameSlugify);
+  Utils.share.facebook({
+      link: DataApp.baseUrl + 'tv/chapter/' + chapter.nameSlugify,
+      picture: Utils.addImageFilter(chapter.photo, 'w_1200,h_630,q_60,c_crop'),
+      name: chapter.name,
+      caption: 'Arte Manifiesto | TV',
+      description: chapter.description
+    });
 };
 
 APP.ChapterScreen.prototype.shareTWHandler = function() {
