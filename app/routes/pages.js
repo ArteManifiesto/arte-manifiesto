@@ -6,6 +6,7 @@ var controller = require(global.cf.controllers + "/pages");
 router.get('/', controller.index);
 router.get('/success', controller.success);
 router.get('/failed', controller.failed);
+router.get('/pp', controller.pp);
 
 router.get('/compra-y-vende-arte-en-internet-latinoamerica', controller.landing);
 

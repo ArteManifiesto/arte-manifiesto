@@ -25,6 +25,10 @@ exports.index = function(req, res) {
   // });
 };
 
+exports.pp = function(req, res) {
+  return res.render(basePath + 'pp');
+};
+
 exports.landing = function(req, res) {
   return res.render(basePath + 'landing');
 };
