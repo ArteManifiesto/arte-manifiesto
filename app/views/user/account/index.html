@@ -101,7 +101,8 @@
 						</div>
 						<div class="grid-50 mobile-grid-100">
 							<p class="title">Fecha de nacimiento</p>
-							<input id="date" class="input" type="text" name='birthday' value="{{profile.birthday|date('d/m/Y')}}" placeholder="dd/mm/yy"/ maxlength="8">
+							<input id="birthday" class="input" type="text" name='birthday'
+							data-value="{{profile.birthday|date('d/m/y')}}" placeholder="Fecha de nacimiento">
 						</div>
 
 						<div class="grid-50 mobile-grid-100">

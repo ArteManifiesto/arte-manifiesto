@@ -43,7 +43,8 @@ var paths = {
       './app/scripts/vendor/handlebars.js',
       './app/scripts/vendor/medium-editor.js',
       './app/scripts/vendor/medium-editor-insert-plugin.js',
-      './app/scripts/vendor/bootstrap-datepicker.js'
+      './app/scripts/vendor/picker.js',
+      './app/scripts/vendor/picker.date.js'
   ],
     stylesDir: './app/styles/**/*.styl',
     publicDir: './public/'

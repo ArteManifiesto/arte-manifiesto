@@ -44,7 +44,20 @@ APP.AccountIndexScreen.prototype.setupUI = function() {
 
   this.typeName.val(DataApp.currentUser.typeName);
 
-  $("#date").mask("99/99/9999");
+  console.log('lekekeke');
+  this.birthday.pickadate({
+    monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Setiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+    today: 'Hoy',
+    clear: 'Borrar',
+    close: 'Cerrar',
+    hiddenName: true,
+    name: 'birthday',
+    formatSubmit: 'dd/mm/yyyy',
+    selectYears: 70,
+    selectMonths: true,
+    max: new Date()
+  });
 }
 
 
