@@ -11,8 +11,6 @@ exports.index = function(req, res) {
   ];
 
   global.db.Sequelize.Promise.all(promises).then(function(result) {
-    var currentDate = new Date();
-    .getFullYear(),
     return res.render(basePath + 'index', {
       profile: req.profile,
       categories: result[0],
