@@ -33,18 +33,17 @@
             <p class="stats"><i class="bi_user-single-a-plus"></i> <%=numOfFollowers%></p>
           </div>
         </div>
-      </a>
       <div class="artist-card-works">
         <% _.each([0,1,2,3], function(i) { %>
           <% if(Works[i] && Works[i].photo) { %>
             <% if (!viewer && Works[i].nsfw) { %>
-              <a href="/user/<%=username%>/work/<%=Works[i].nameSlugify%>" class="artist-card-work" target="_blank">
-                <div style="background-image: url('<%= addFilter(Works[i].photo, 'w_120,h_120,c_fill,e_blur:1500/l_text:Arial_24_bold:+18,co_rgb:ffffff') %>')"></div>
-              </a>
+              <!-- <a href="/user/<%=username%>/work/<%=Works[i].nameSlugify%>" class="artist-card-work" target="_blank"> -->
+                <div style="background-image: url('<%= addFilter(Works[i].photo, 'w_120,h_120,c_fill,e_blur:1500/l_text:Arial_24_bold:+18,co_rgb:ffffff') %>')" class="artist-card-work"></div>
+              <!-- </a> -->
             <% } else { %>
-              <a href="/user/<%=username%>/work/<%=Works[i].nameSlugify%>" class="artist-card-work" target="_blank">
-                <div style="background-image: url('<%= addFilter(Works[i].photo, 'w_120,h_120,c_fill') %>')"></div>
-              </a>
+              <!-- <a href="/user/<%=username%>/work/<%=Works[i].nameSlugify%>" class="artist-card-work" target="_blank"> -->
+                <div style="background-image: url('<%= addFilter(Works[i].photo, 'w_120,h_120,c_fill') %>')" class="artist-card-work"></div>
+              <!-- </a> -->
             <% } %>
           <% } else { %>
             <div class="artist-card-work empty"></div>
@@ -59,5 +58,6 @@
         <% } %>
       </div>
     </div>
+    </a>
   </div>
 </script>
