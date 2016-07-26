@@ -70,6 +70,8 @@ exports.user = function (req, res, next) {
     req.owner = false;
     query.where.username = req.params.username;
   }
+
+  query.attributes = {exclude: ['email', 'hashedPassword', 'salt', 'tokenVerifyEmail', 'tokenResetPassword']};
   global.db.User.find(query).then(function (user) {
     if (!user) {
       if (req.xhr)

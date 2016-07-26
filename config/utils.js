@@ -12,6 +12,10 @@ global.limits = {
   singleChapter: 3
 };
 
+global.attributes = {
+  privateUser: ['id', 'username', 'firstname', 'lastname', 'fullname', 'pseudonimo', 'photo', 'typeName','city', 'country']
+};
+
 global.cities = [
     'Lima',
     'Arequipa',
@@ -263,6 +267,7 @@ global.searchUsers = function (req) {
   var discover = discoverGenerator('User', req);
   discover.query.where.firstname = {ne: null};
   discover.query.where.username = {$not: ['artemanifiesto']};
+  discover.query.attributes = global.attributes.privateUser;
   discover.query.order.push([global.db.sequelize.col('id')]);
   return beforePagination(req, discover);
 };
@@ -424,7 +429,9 @@ global.getOnly = function (entity, items) {
 global.beforeFind = function (options, fn) {
   if (options.addUser) {
     options.include = options.include || [];
-    options.include.push({model: global.db.User});
+    options.include.push({model: global.db.User, 
+      attributes: global.attributes.privateUser
+    });
   }
   fn(null, options);
 };
