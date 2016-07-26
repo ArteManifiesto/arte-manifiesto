@@ -4,6 +4,7 @@ var moment = require('moment');
 exports.chapter = function(req, res) {
   var promises = [
     req.chapter.getReviews({
+      order: [global.getOrder('newest')],
       include: [global.db.User]
     }),
     req.chapter.view()
