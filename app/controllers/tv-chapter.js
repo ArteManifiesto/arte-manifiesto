@@ -5,7 +5,10 @@ exports.chapter = function(req, res) {
   var promises = [
     req.chapter.getReviews({
       order: [global.getOrder('newest')],
-      include: [global.db.User]
+      include: [{
+        model: global.db.User,
+        attributes: {exclude: ['email', 'hashedPassword', 'salt', 'tokenVerifyEmail', 'tokenResetPassword', 'tokenResetPasswordExpires']}
+      }]
     }),
     req.chapter.view()
   ];

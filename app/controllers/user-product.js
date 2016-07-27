@@ -10,7 +10,10 @@ exports.index = function(currentPath, req, res) {
       work.similar(req.viewer),
       work.getTags(),
       req.product.getReviews({
-        include: [global.db.User]
+        include: [{
+          model: global.db.User,
+          attributes: {exclude: ['email', 'hashedPassword', 'salt', 'tokenVerifyEmail', 'tokenResetPassword', 'tokenResetPasswordExpires']}
+        }]
       }),
       req.product.getMoreProducts()
     ];

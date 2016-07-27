@@ -13,7 +13,10 @@ exports.index = function(currentPath, req, res) {
       req.work.similar(req.viewer),
       req.work.getTags(),
       req.work.getReviews({
-        include: [global.db.User]
+        include: [{
+          model: global.db.User,
+          attributes: {exclude: ['email', 'hashedPassword', 'salt', 'tokenVerifyEmail', 'tokenResetPassword', 'tokenResetPasswordExpires']}
+        }]
       }),
       req.work.neighbors({
         idUser: user.id
