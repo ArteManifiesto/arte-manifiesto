@@ -14,6 +14,7 @@ var compression = require('compression');
 var moment = require('moment');
 var minify = require('html-minifier').minify;
 var paypal = require('paypal-rest-sdk');
+var MongoStore = require('connect-mongo')(expressSession);
 
 module.exports = function (app, passport) {
   /**
@@ -69,7 +70,8 @@ module.exports = function (app, passport) {
     resave: false,
     saveUninitialized: false,
     name: 'am-session',
-    cookie: {domain: '.' + global.cf.app.domain}
+    cookie: {domain: '.' + global.cf.app.domain},
+    store: new MongoStore({ url: 'mongodb://localhost:27017/' + process.env.DB_MONGO_NAME })
   }));
 
   app.use(flash());
