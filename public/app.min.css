@@ -1545,6 +1545,31 @@ l i,
 .metadata-chapter textarea {
   height: 100px;
 }
+.chapter-header {
+  position: relative;
+  max-width: 1180px;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.chapter-header h1 {
+  position: absolute;
+  top: 30px;
+  opacity: 0.7;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+  filter: alpha(opacity=70);
+  font-family: 'Montserrat';
+  font-size: 48px;
+  line-height: 1.2;
+  font-weight: bold;
+  letter-spacing: -1.8px;
+  color: #fff;
+}
 .chapter-banner {
   display: none;
   width: 100%;
@@ -1662,6 +1687,22 @@ l i,
 .chapter-details .content .social .share-tw {
   margin-left: 10px;
   background-color: #4daaf7;
+}
+@media (max-width: 768px) {
+  .chapter-details .content {
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -o-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+  .chapter-details .content .info {
+    margin-bottom: 10px;
+  }
+  .chapter-details .content .share {
+    padding: 0;
+  }
 }
 .tv-intro {
   width: 100%;
@@ -1902,6 +1943,17 @@ l i,
 }
 .chapters-container .chapter .overlay .info p:last-child {
   font-size: 28px;
+}
+@media (max-width: 768px) {
+  .tv-intro .info-container .info {
+    width: 90%;
+  }
+  .tv-intro .info-container .info h1 {
+    font-size: 36px;
+  }
+  .tv-intro .info-container .info p {
+    font-size: 18px;
+  }
 }
 *:focus {
   outline: none;
