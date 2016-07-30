@@ -4,15 +4,7 @@
     <td><a href="/user/<%=User.username%>/product/<%=nameSlugify%>"><%=name%></a></td>
     <td><%=popularity%></td>
     <td><%=views%></td>
-    <td><%
-        var d = new Date(createdAt),
-            fragments = [
-                d.getMonth() + 1,
-                d.getDate(),
-                d.getFullYear()
-            ];
-            print(fragments.join('-'));
-        %></td>
+    <td><%=dateToString(createdAt)%></td>
     <td><a target='_blank' href="/user/<%=User.username%>/product/<%=nameSlugify%>/edit" class="btn btn-success">editar</a></td>
     <% if(featured) { %>
       <td><a class="btn featured-btn btn-primary">AM</a></td>

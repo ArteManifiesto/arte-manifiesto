@@ -8,15 +8,7 @@
     <td><% if(isArtist) { %> si <% } else { %> no <% } %></td>
     <td><% if(verified) { %> si <% } else { %> no <% } %></td>
     <td><% if(filled) { %> si <% } else { %> no <% } %></td>
-    <td><%
-        var d = new Date(createdAt),
-            fragments = [
-                d.getMonth() + 1,
-                d.getDate(),
-                d.getFullYear()
-            ];
-            print(fragments.join('-'));
-        %></td>
+    <td><%=dateToString(createdAt)%></td>
     <td><a target='_blank' href="/user/<%=username%>/account" class="btn btn-success">editar</a></td>
     <% if(featured) { %>
       <td><a class="btn featured-btn btn-primary">AM</a></td>

@@ -15,6 +15,9 @@ APP.BaseElement = function(data, id, options) {
     formatDate: function(date) {
       return moment(date).fromNow();
     },
+    dateToString: function(date) {
+      return moment(date).format('lll');
+    },
     viewer: DataApp.currentUser
   };
   _.extend(this.data, this.options);

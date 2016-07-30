@@ -4,15 +4,7 @@
     <td><a href="/user/<%=User.username%>/product/<%=nameSlugify%>"><%=name%></a></td>
     <td><%= finalPrice %></td>
     <td><a href="/user/<%=User.username%>"><%=User.username%></a></td>
-    <td><%
-        var d = new Date(createdAt),
-            fragments = [
-                d.getMonth() + 1,
-                d.getDate(),
-                d.getFullYear()
-            ];
-            print(fragments.join('-'));
-        %></td>
+    <td><%=dateToString(createdAt)%></td>
     <td><a class="btn featured-btn btn-primary" target="_blank" href="/report/products_applying/product/<%=id%>">Revisar</a></td>
   </tr>
 </script>

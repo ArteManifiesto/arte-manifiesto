@@ -1,19 +1,11 @@
 <script type="text/template" id="template-table-work">
   <tr>
     <td><img src="<%= addFilter(photo, 'w_35') %>"></td>
-    <td><a href="/user/<%=User.username%>/work/<%=nameSlugify%>"><%=name%></a></td>
+    <td><a href="/user/<%=User.username%>/work/<%=nameSlugify%>"><%=name.substring(0,50) + '...'%></a></td>
     <td><%=popularity%></td>
     <td><%=views%></td>
     <td><% if(published) { %> si <% } else { %> no <% } %></td>
-    <td><%
-        var d = new Date(createdAt),
-            fragments = [
-                d.getMonth() + 1,
-                d.getDate(),
-                d.getFullYear()
-            ];
-            print(fragments.join('-'));
-        %></td>
+    <td><%=dateToString(createdAt)%></td>
     <td><a target='_blank' href="/blog/post/<%=nameSlugify%>/edit" class="btn btn-success">editar</a></td>
     <% if(featured) { %>
       <td><a class="btn featured-btn btn-primary">AM</a></td>
