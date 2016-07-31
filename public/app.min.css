@@ -149,6 +149,13 @@ p {
 textarea {
   resize: none;
 }
+.vertical-ad {
+  width: 160px;
+  height: 212px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  border: solid 1px #979797;
+}
 .picker {
   font-size: 16px;
   text-align: left;

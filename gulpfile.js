@@ -45,7 +45,8 @@ var paths = {
       './app/scripts/vendor/medium-editor-insert-plugin.js',
       './app/scripts/vendor/picker.js',
       './app/scripts/vendor/picker.date.js',
-      './app/scripts/vendor/bootstrap-datepicker.js'
+      './app/scripts/vendor/bootstrap-datepicker.js',
+      './app/scripts/vendor/vue.js'
   ],
     stylesDir: './app/styles/**/*.styl',
     publicDir: './public/'

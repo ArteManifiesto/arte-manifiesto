@@ -12,7 +12,9 @@ exports.index = function(currentPath, req, res) {
       req.product.getReviews({
         include: [{
           model: global.db.User,
-          attributes: {exclude: ['email', 'hashedPassword', 'salt', 'tokenVerifyEmail', 'tokenResetPassword', 'tokenResetPasswordExpires']}
+          attributes: {
+            exclude: ['email', 'hashedPassword', 'salt', 'tokenVerifyEmail', 'tokenResetPassword', 'tokenResetPasswordExpires']
+          }
         }]
       }),
       req.product.getMoreProducts()

@@ -15,7 +15,9 @@ exports.index = function(currentPath, req, res) {
       req.work.getReviews({
         include: [{
           model: global.db.User,
-          attributes: {exclude: ['email', 'hashedPassword', 'salt', 'tokenVerifyEmail', 'tokenResetPassword', 'tokenResetPasswordExpires']}
+          attributes: {
+            exclude: ['email', 'hashedPassword', 'salt', 'tokenVerifyEmail', 'tokenResetPassword', 'tokenResetPasswordExpires']
+          }
         }]
       }),
       req.work.neighbors({

@@ -7,7 +7,9 @@ exports.chapter = function(req, res) {
       order: [global.getOrder('newest')],
       include: [{
         model: global.db.User,
-        attributes: {exclude: ['email', 'hashedPassword', 'salt', 'tokenVerifyEmail', 'tokenResetPassword', 'tokenResetPasswordExpires']}
+        attributes: {
+          exclude: ['email', 'hashedPassword', 'salt', 'tokenVerifyEmail', 'tokenResetPassword', 'tokenResetPasswordExpires']
+        }
       }]
     }),
     req.chapter.view()
@@ -79,7 +81,7 @@ exports.delete = function(req, res) {
 exports.review = function(req, res) {
   req.body.ChapterId = parseInt(req.body.idChapter, 10);
   req.body.UserId = parseInt(req.viewer, 10);
-  
+
   global.db.Review.create(req.body).then(function(review) {
     var actionQuery = {
       UserId: req.user.id,

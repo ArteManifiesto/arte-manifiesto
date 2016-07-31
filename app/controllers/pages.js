@@ -1,11 +1,11 @@
 var basePath = 'pages/';
 
 exports.index = function(req, res) {
-  if(!req.isAuthenticated())
+  if (!req.isAuthenticated())
     return res.redirect('/compra-y-vende-arte-en-internet-latinoamerica');
 
   return res.redirect('/feed');
-  
+
   // return res.redirect()
   // var promises = [];
   // var query = {

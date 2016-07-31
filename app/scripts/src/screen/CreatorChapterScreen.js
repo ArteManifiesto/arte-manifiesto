@@ -176,7 +176,7 @@ APP.CreatorChapterScreen.prototype.autoSave = function(event, editable) {
     url = '/tv/chapter/update';
     payload.idChapter = chapter.id;
   }
-  
+
   this.requestHandler(url, payload, this.saveRequestComplete);
 };
 
