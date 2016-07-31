@@ -148,7 +148,8 @@ global.discoverGenerator = function (entity, req) {
   var query = {where: {}, build: true};
   query.viewer = req.viewer;
   query.order = [global.getOrder(req.query.order)]
-
+  console.log('col===>');
+  query.order[0][0].col = '`' + entity  +  '`.`' + query.order[0][0].col + '`';
   if (req.query.featured)
     query.where.featured = true;
 
