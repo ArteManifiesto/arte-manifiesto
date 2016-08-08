@@ -72,7 +72,39 @@ APP.WorkScreen.prototype.setupUI = function() {
   new Clipboard('.copy', {
     text: this.copyHandler.bind(this)
   });
-}
+
+
+  this.featuredBtn = $('.featured');
+  this.featuredBtn.click(this.featuredHandler.bind(this));
+};
+
+APP.WorkScreen.prototype.featuredHandler = function() {
+  if(!DataApp.currentUser || !DataApp.currentUser.isAdmin) return;
+  
+  var url, tempId = 'work';
+
+  if (work.featured) {
+    url = '/user/' + work.User.username + '/' + tempId + '/unfeatured';
+  }
+  else {
+    url = '/user/' + work.User.username + '/' + tempId + '/featured';
+  }
+
+  var scope = this,
+    payload = {};
+  payload['id' + Utils.capitalize(tempId)] = work.id;
+  $.post(url, payload, function(response) {
+    console.log(response);
+    if (response.status === 200) {
+      if (response.data[tempId].featured) {
+          scope.featuredBtn.removeClass('disabled');
+      } else {
+          scope.featuredBtn.addClass('disabled');
+      }
+      work.featured = response.data[tempId].featured;
+    }
+  });
+};
 
 APP.WorkScreen.prototype.listeners = function() {
   APP.BaseScreen.prototype.listeners.call(this);
