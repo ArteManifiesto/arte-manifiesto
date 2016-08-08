@@ -63,7 +63,14 @@
 		<div class="grid-100">
 			<div class="single-info">
 				<div class="single-image">
-					<div class="single-image-inner">
+					<div class="single-image-inner" style="position: relative;">
+						{% if user && user.isAdmin %}
+				        <div class="featured {% if  !work.featured %} disabled {% endif %}">DESTACADO</div>
+				        {% else %}
+				        {% if work.featured %}
+				          <div class="featured">DESTACADO</div>
+				        {% endif %}
+				      {% endif %}
 						<div class="work-photo-container">
 							<img src="{{work.photo|addFilter('w_700,h_800,q_80,c_limit')}}" class="work-photo" id="work-image">
 						</div>
