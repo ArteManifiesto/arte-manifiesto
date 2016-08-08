@@ -13,7 +13,7 @@ global.limits = {
 };
 
 global.attributes = {
-  privateUser: ['id', 'username', 'firstname', 'lastname', 'fullname', 'pseudonimo', 'photo', 'typeName','city', 'country']
+  privateUser: ['id', 'username', 'firstname', 'lastname', 'fullname', 'pseudonimo', 'photo', 'typeName','city', 'country', 'featured']
 };
 
 global.countries = [
