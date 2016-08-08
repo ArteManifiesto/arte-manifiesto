@@ -95,7 +95,7 @@ APP.AM.prototype.headerBarsHandler = function(event) {
 };
 APP.AM.prototype.searchBoxHandler = function(event) {
   event.preventDefault();
-  window.location.href = DataApp.discoverWorks + '?term=' + $('.search-box-value').val();
+  window.location.href = DataApp.discoverUsers + '?term=' + $('.search-box-value').val();
 };
 
 APP.AM.prototype.escapeHandler = function(event) {
