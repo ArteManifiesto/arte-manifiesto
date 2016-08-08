@@ -31,12 +31,12 @@ module.exports = function(sequelize, DataTypes) {
     },
 
     school: DataTypes.TEXT,
-
     facebook: DataTypes.STRING,
+    instagram: DataTypes.STRING,
     behance: DataTypes.STRING,
+    dribbble: DataTypes.STRING,
     twitter: DataTypes.STRING,
     tumblr: DataTypes.STRING,
-
     featured: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
