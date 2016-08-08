@@ -40,6 +40,10 @@ APP.BaseElement.prototype.listeners = function() {
 };
 
 APP.BaseElement.prototype.featuredHandler = function() {
+  console.log(DataApp.currentUser, DataApp.currentUser.isAdmin);
+  
+  if(!DataApp.currentUser || !DataApp.currentUser.isAdmin) return;
+
   var url, tempId = this.id;
   if (this.id === 'table-work') tempId = 'work';
   if (this.id === 'table-user') tempId = 'user';

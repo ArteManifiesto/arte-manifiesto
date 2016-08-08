@@ -8,11 +8,11 @@ var isLoggedAdminOrOwner = [global.md.isLogged, global.md.doubleAccess];
 
 router.use(global.md.user);
 
-router.get(['/', '/portfolio'], controller.profile.bind(this, 'portfolio'));
-router.get('/collections', controller.profile.bind(this, 'collections'));
-router.get('/followers', controller.profile.bind(this, 'followers'));
-router.get('/followings', controller.profile.bind(this, 'followings'));
-router.get('/products', controller.profile.bind(this, 'products'));
+router.get(['/:page?', '/portfolio/:page?'], controller.profile.bind(this, 'portfolio'));
+router.get('/collections/:page?', controller.profile.bind(this, 'collections'));
+router.get('/followers/:page?', controller.profile.bind(this, 'followers'));
+router.get('/followings/:page?', controller.profile.bind(this, 'followings'));
+router.get('/products/:page?', controller.profile.bind(this, 'products'));
 
 router.get('/notifications', isLoggedAndOwner, controller.notificationsPage);
 router.post('/notifications/:page', isLoggedAndOwner, controller.notifications);

@@ -46,7 +46,7 @@
 			</div>
 		<div class="grid-container">
 			<div class="grid-100">
-				<div class="am-Profile-avatar">
+				<div class="am-Profile-avatar" style="position:relative;">
 					<div class="img">
 						<img src="{{profile.photo}}">
 					</div>
@@ -62,8 +62,17 @@
 							<button class="am-Follow-button following">Siguiendo</button>
 							{% else %}
 							<button class="am-Follow-button">+Seguir</button>
-							{% endif %}
+							{% endif %}							
 						{% endif %}
+
+
+				      {% if user && user.isAdmin %}
+				        <div class="featured {% if  !profile.featured %} disabled {% endif %}">DESTACADO</div>
+				        {% else %}
+				        {% if profile.featured %}
+				          <div class="featured">DESTACADO</div>
+				        {% endif %}
+				      {% endif %}
 					</div>
 				</div>
 			</div>

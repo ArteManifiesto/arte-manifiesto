@@ -27,6 +27,38 @@ APP.ProfileScreen.prototype.listeners = function() {
   $('.save-icon').click(this.saveClickHandler.bind(this));
 
   $('.am-Profile-menu-item[data-name=' + currentPath + ']').click();
+
+
+  this.featuredBtn = $('.featured');
+  this.featuredBtn.click(this.featuredHandler.bind(this));
+};
+
+APP.ProfileScreen.prototype.featuredHandler = function() {
+  if(!DataApp.currentUser || !DataApp.currentUser.isAdmin) return;
+  
+  var url, tempId = 'user';
+
+  if (profile.featured) {
+    url = '/user/' + profile.username + '/unfeatured';
+  }
+  else {
+    url = '/user/' + profile.username + '/featured';
+  }
+
+  var scope = this,
+    payload = {};
+  payload['id' + Utils.capitalize(tempId)] = profile.id;
+  $.post(url, payload, function(response) {
+    console.log(response);
+    if (response.status === 200) {
+      if (response.data[tempId].featured) {
+          scope.featuredBtn.removeClass('disabled');
+      } else {
+          scope.featuredBtn.addClass('disabled');
+      }
+      profile.featured = response.data[tempId].featured;
+    }
+  });
 };
 
 APP.ProfileScreen.prototype.saveClickHandler = function() {
@@ -65,7 +97,7 @@ APP.ProfileScreen.prototype.menuItemClickHandler = function(event) {
   if (this.paths.indexOf(path) === -1) {
     var template = this.getTemplate(path),
       section = $('.' + path + '-container');
-    this.currentViewer = new APP.Viewer(template, section, 'infinite', null);
+    this.currentViewer = new APP.Viewer(template, section, 'infinite');
     this.currentViewer.navigationManager.navigator.needChangeUrl = true;
     this.viewers.push(this.currentViewer);
     this.paths.push(path);
