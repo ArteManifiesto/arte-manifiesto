@@ -12,6 +12,7 @@ exports.index = function(req, res) {
 
   global.db.Sequelize.Promise.all(promises).then(function(result) {
     return res.render(basePath + 'index', {
+      countries: global.countries,
       profile: req.profile,
       categories: result[0],
       interests: result[1],
