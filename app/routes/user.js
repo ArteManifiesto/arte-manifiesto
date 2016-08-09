@@ -16,14 +16,13 @@ router.use('/collection', require(global.cf.routes + "/user-collection"));
 router.use('/account', isLoggedAdminOrOwner, require(global.cf.routes + "/user-account"));
 
 
+router.get('/notifications/:page?', isLoggedAndOwner, controller.notificationsPage);
 
 router.get(['/:page?', '/portfolio/:page?'], controller.profile.bind(this, 'portfolio'));
 router.get('/collections/:page?', controller.profile.bind(this, 'collections'));
 router.get('/followers/:page?', controller.profile.bind(this, 'followers'));
 router.get('/followings/:page?', controller.profile.bind(this, 'followings'));
 router.get('/products/:page?', controller.profile.bind(this, 'products'));
-
-router.get('/notifications/:page?', isLoggedAndOwner, controller.notificationsPage);
 
 router.post('/isFollowing', isLoggedAndOwner, global.md.userTo, controller.isFollowing);
 router.post('/follow', isLoggedAndOwner, global.md.userTo, controller.follow);
