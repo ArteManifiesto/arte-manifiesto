@@ -14,8 +14,6 @@ router.use('/work', require(global.cf.routes + "/user-work"));
 router.use('/product', require(global.cf.routes + "/user-product"));
 router.use('/collection', require(global.cf.routes + "/user-collection"));
 router.use('/account', isLoggedAdminOrOwner, require(global.cf.routes + "/user-account"));
-
-
 router.get('/notifications/:page?', isLoggedAndOwner, controller.notificationsPage);
 
 router.get(['/:page?', '/portfolio/:page?'], controller.profile.bind(this, 'portfolio'));

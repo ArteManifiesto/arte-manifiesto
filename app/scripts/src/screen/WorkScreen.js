@@ -19,7 +19,6 @@ APP.WorkScreen.constructor = APP.WorkScreen;
 APP.WorkScreen.prototype = Object.create(APP.BaseScreen.prototype);
 
 APP.WorkScreen.prototype.setupUI = function() {
-
   for (var i = 0; i < categories.length; i++) {
     var category = categories[i],
       products = [];
@@ -52,6 +51,7 @@ APP.WorkScreen.prototype.setupUI = function() {
     this.reviewsContainer.append(new APP.Review(reviews[i]).view);
 
   this.shareFb = $('.share-fb');
+  this.shareTw = $('.share-tw');
   this.askBtn = $('.ask-availability');
   this.loginReview = $('.login-review');
   this.askRequester = $('.ask-requester');
@@ -109,6 +109,7 @@ APP.WorkScreen.prototype.featuredHandler = function() {
 APP.WorkScreen.prototype.listeners = function() {
   APP.BaseScreen.prototype.listeners.call(this);
   this.shareFb.click(this.shareFBHandler.bind(this));
+  this.shareTw.click(this.shareTWHandler.bind(this));
 
   $('.menu-item').click(this.menuItemHandler.bind(this));
   $('.menu-item[data-name=' + currentPath + ']').click();
@@ -319,4 +320,8 @@ APP.WorkScreen.prototype.menuItemHandler = function(event) {
 
 APP.WorkScreen.prototype.shareFBHandler = function() {
   Utils.shareFBWork(work);
+};
+
+APP.WorkScreen.prototype.shareTWHandler = function() {
+  Utils.shareTWWork(work);
 };

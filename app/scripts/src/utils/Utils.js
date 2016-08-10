@@ -118,7 +118,7 @@ Utils = {
   },
   shareTWWork: function(work) {
     var link = DataApp.baseUrl + 'user/' + work.User.username + '/work/' + work.nameSlugify;
-    var text = encodeURIComponent(work.name + ' vía (@artemanifiesto)');
+    var text = encodeURIComponent(work.name + ' vía @artemanifiesto');
     var url = "https://twitter.com/intent/tweet?text=" + text;
     url += "&url=" + encodeURIComponent(link);
     window.open(url, "_blank", "height=300,width=550,resizable=1");

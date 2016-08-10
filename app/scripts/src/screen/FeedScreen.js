@@ -24,6 +24,7 @@ APP.FeedScreen.prototype.setupUI = function() {
   this.collectionsContainer = $('.collections');
   this.collectionForm = $('.add-collection-form');
   this.shareFB = $('.share-fb');
+  this.shareTW = $('.share-tw');
 
   this.viewer = new APP.Viewer('action', $('.feed-inner'), 'infinite', actions);
 
@@ -51,6 +52,7 @@ APP.FeedScreen.prototype.listeners = function() {
   Broadcaster.addEventListener(Events.SHARE, feedShareHandler);
 
   this.shareFB.click(this.shareFBHandler.bind(this));
+  this.shareTW.click(this.shareTWHandler.bind(this));
 };
 
 
@@ -68,6 +70,10 @@ APP.FeedScreen.prototype.feedShareHandler = function(event) {
 
 APP.FeedScreen.prototype.shareFBHandler = function() {
   Utils.shareFBWork(this.currentWork);
+};
+
+APP.FeedScreen.prototype.shareTWHandler = function() {
+  Utils.shareTWWork(this.currentWork);
 };
 
 APP.FeedScreen.prototype.collectionFormHandler = function(event) {
