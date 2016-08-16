@@ -63,7 +63,7 @@ APP.BaseNavigation.prototype.newPageUrl = function(newPage) {
   if (DataApp.currentUrl.indexOf('/page-') === -1)
     DataApp.currentUrl += '/page-' + this.currentPage;
   DataApp.currentUrl = DataApp.currentUrl.replace('page-' + this.currentPage, 'page-' + newPage);
-  Utils.changeUrl('', DataApp.currentUrl);
+  // Utils.changeUrl('', DataApp.currentUrl);
 };
 
 APP.BaseNavigation.prototype.reset = function() {
