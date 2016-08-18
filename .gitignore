@@ -17,3 +17,5 @@ Icon?
 Thumbs.db
 dump.rdb
 flightplan.js
+/public/app.min.js
+/public/app.min.css
