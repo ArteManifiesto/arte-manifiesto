@@ -29,14 +29,6 @@ module.exports = function(sequelize, DataTypes) {
         Chapter.hasMany(models.Review, {
           onDelete: 'cascade'
         });
-        // Chapter.belongsToMany(models.Work, {
-        //   as: 'ChapterWorks',
-        //   through: 'ChapterWorks'
-        // });
-        // Chapter.belongsToMany(models.User, {
-        //   as: 'UserContestsTv',
-        //   through: 'UserContestsTv'
-        // });
       }
     },
     instanceMethods: {
