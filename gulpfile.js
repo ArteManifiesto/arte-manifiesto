@@ -45,8 +45,7 @@ var paths = {
       './app/scripts/vendor/medium-editor-insert-plugin.js',
       './app/scripts/vendor/picker.js',
       './app/scripts/vendor/picker.date.js',
-      './app/scripts/vendor/bootstrap-datepicker.js',
-      './app/scripts/vendor/vue.js'
+      './app/scripts/vendor/bootstrap-datepicker.js'
   ],
     stylesDir: './app/styles/**/*.styl',
     publicDir: './public/'
@@ -86,6 +85,7 @@ gulp.task('scripts', function () {
     return gulp.src(paths.jsDir)
         .pipe(uglify({compress: true}))
         .pipe(concat('app.min.js'))
+        .pipe(stripDebug())
         .pipe(gulp.dest(paths.publicDir));
 });
 
