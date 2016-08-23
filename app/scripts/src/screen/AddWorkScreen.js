@@ -18,6 +18,7 @@ APP.AddWorkScreen.prototype.setupUI = function() {
   this.name = $('input[name=name]');
   this.category = $('select[name=category]');
   this.description = $('textarea[name=description]');
+  
   this.tags = $('input[name=tags]');
   this.tags.tagsInput({
     height: '50px',
