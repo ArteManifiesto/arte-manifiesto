@@ -17,7 +17,8 @@ exports.isLogged = function (req, res, next) {
 };
 
 exports.redirect301 = function(newUrl, req, res) {
-  return res.redirect(301, newUrl);
+  res.status(301);
+  return res.redirect(newUrl);
 };
 
 exports.doubleAccess = function(req, res, next) {
