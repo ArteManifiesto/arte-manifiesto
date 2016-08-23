@@ -1133,8 +1133,6 @@ global.discoverGenerator = function (entity, req) {
     query.where.createdAt = {
       $between: [moment().startOf(req.query.time).toDate(), moment().toDate()]
     };
-  console.log('query order =>');
-  console.log(query.order);
   if(req.query.order === 'hottest') {
     query.where.createdAt = {
       $between: [moment().subtract(7, 'd').toDate(), moment().toDate()]
@@ -1189,7 +1187,6 @@ var beforePagination = function (req, discover) {
     }
   }
 
-  console.log('tempmodel:', tempModel, tempEntity);
   return global.db[tempModel].find(query).then(function (model) {
     if (!model)
       return global.getPaginationEntity(discover.options, discover.query, true)
@@ -1198,9 +1195,6 @@ var beforePagination = function (req, discover) {
       return global.db.Category.findAll({where: {
         ParentCategoryId: model.id
       }}).then(function(categories) {
-        console.log('categories');
-        console.log(categories);
-        console.log(_.pluck(categories, 'id'));
         // global.db.Product.findAll({where: {
         //   CategoryId: {$in: _.pluck(categories, 'id')}
         // }});
@@ -1255,8 +1249,6 @@ global.searchCollections = function (req) {
   discover.query.where.meta = 'works';
   discover.query.addUser = true;
   discover.query.order.push([global.db.sequelize.col('id')]);
-  console.log('order ===>');
-  console.log(discover.query.order);
   return beforePagination(req, discover);
 };
 
@@ -1353,9 +1345,6 @@ global.getPaginationEntity = function (options, query, empty) {
 
   var promises = [];
   if (!options.association) {
-    console.log('query====>');
-    console.log(query);
-
     promises = [global.db[options.entity].findAll(query)]
     query = _.omit(query, 'build', 'offset', 'limit', 'addUser', 'group');
     promises.push(global.db[options.entity].count(query));
@@ -1372,7 +1361,6 @@ global.getPaginationEntity = function (options, query, empty) {
   }
 
   return global.db.Sequelize.Promise.all(promises).then(function (data) {
-    console.log(data[1]);
     var total, result = {items: data[0]};
     if (!options.association)
       total = data[1];

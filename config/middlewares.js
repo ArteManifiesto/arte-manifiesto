@@ -1,7 +1,4 @@
 exports.isLogged = function (req, res, next) {
-
-  console.log('is loggeed : ', req.originalUrl, req.isAuthenticated());
-
   if (!req.isAuthenticated()) {
     if (req.xhr)
       return res.badRequest(global.lg.isNotLogged);
@@ -12,7 +9,6 @@ exports.isLogged = function (req, res, next) {
     req.flash('errorMessage', global.lg.isNotLogged);
     return res.redirect('/auth/login');
   }
-  console.log('loggeeeed');
   next();
 };
 
@@ -166,7 +162,6 @@ var entityExists = function (entity, query, req, res, next, method) {
         }
       }
 
-      console.log('llooooll');
       req[entity.toLowerCase()] = element;
       next();
     }
