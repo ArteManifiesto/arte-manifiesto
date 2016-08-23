@@ -16,6 +16,10 @@ exports.isLogged = function (req, res, next) {
   next();
 };
 
+exports.redirect301 = function(newUrl, req, res) {
+  return res.redirect(301, newUrl);
+};
+
 exports.doubleAccess = function(req, res, next) {
   if(req.user.isAdmin) return next();
 
@@ -110,7 +114,10 @@ var entityExists = function (entity, query, req, res, next, method) {
         if (req.xhr)
           return res.badRequest(entity + ' no existe');
 
-        req.flash('errorMessage', entity + ' no existe');
+        res.status(404);
+        return res.render('errors/404');
+        
+        // req.flash('errorMessage', entity + ' no existe');
 
         if(method)
           return res.redirect('/user/' + req.params.username);

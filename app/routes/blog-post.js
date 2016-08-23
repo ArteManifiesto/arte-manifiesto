@@ -9,8 +9,16 @@ var entity = 'Post';
 
 router.use(global.md.entity(entity));
 
+router.get('/art-jam-hotel-room-vol-ii-2016-sbado-27-de-septiembre-270716031839',
+	global.md.redirect301.bind(null, 
+		'/blog/post/art-jam-hotel-room-vol-ii-2016-sbado-3-de-septiembre-270716031839'));
+
+// controller.)
+
 router.get('/:nameSlugify', global.md.nameSlugify(entity), controller.post);
 router.get('/:nameSlugify/edit', global.md.isAdmin, global.md.nameSlugify(entity), controller.edit);
+
+
 
 router.post('/review/create', global.md.isLogged, controller.review);
 router.post('/like', global.md.isLogged, controller.like);

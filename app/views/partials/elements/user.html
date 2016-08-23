@@ -10,7 +10,7 @@
         <% } %>
       <% } %>
 
-      <a href="/user/<%=username%>" target="_blank">
+      <a href="/user/<%=username%>" >
         <div class="artist-card-info">
           <img src="<%=photo%>">
           <div>
@@ -37,11 +37,11 @@
         <% _.each([0,1,2,3], function(i) { %>
           <% if(Works[i] && Works[i].photo) { %>
             <% if (!viewer && Works[i].nsfw) { %>
-              <!-- <a href="/user/<%=username%>/work/<%=Works[i].nameSlugify%>" class="artist-card-work" target="_blank"> -->
+              <!-- <a href="/user/<%=username%>/work/<%=Works[i].nameSlugify%>" class="artist-card-work" > -->
                 <div style="background-image: url('<%= addFilter(Works[i].photo, 'w_120,h_120,c_fill,e_blur:1500/l_text:Arial_24_bold:+18,co_rgb:ffffff') %>')" class="artist-card-work"></div>
               <!-- </a> -->
             <% } else { %>
-              <!-- <a href="/user/<%=username%>/work/<%=Works[i].nameSlugify%>" class="artist-card-work" target="_blank"> -->
+              <!-- <a href="/user/<%=username%>/work/<%=Works[i].nameSlugify%>" class="artist-card-work" > -->
                 <div style="background-image: url('<%= addFilter(Works[i].photo, 'w_120,h_120,c_fill') %>')" class="artist-card-work"></div>
               <!-- </a> -->
             <% } %>
