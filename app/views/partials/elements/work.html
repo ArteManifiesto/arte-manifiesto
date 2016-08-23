@@ -41,11 +41,11 @@
       </div>
       
       <% if(!viewer && nsfw) { %>
-        <a href="/user/<%=User.username%>/work/<%=nameSlugify%>" target="_blank">
+        <a href="/user/<%=User.username%>/work/<%=nameSlugify%>">
           <img src="<%= addFilter(photo, 'w_300,e_blur:1500/l_text:Arial_36_bold:+18,co_rgb:ffffff') %>">
         </a>
       <% } else { %>
-        <a href="/user/<%=User.username%>/work/<%=nameSlugify%>" target="_blank">
+        <a href="/user/<%=User.username%>/work/<%=nameSlugify%>">
           <img src="<%= addFilter(photo, 'w_300') %>">
         </a>
       <% } %>
