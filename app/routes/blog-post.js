@@ -8,8 +8,8 @@ var controller = require(global.cf.controllers + "/blog-post");
 var entity = 'Post';
 
 router.get('/art-jam-hotel-room-vol-ii-2016-sbado-27-de-agosto-270716031839',
-	global.md.redirect301.bind(null, 
-		'/blog/post/art-jam-hotel-room-vol-ii-2016-sbado-3-de-septiembre-270716031839'));
+  global.md.redirect301.bind(null,
+    '/blog/post/art-jam-hotel-room-vol-ii-2016-sbado-3-de-septiembre-270716031839'));
 
 
 router.use(global.md.entity(entity));

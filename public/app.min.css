@@ -143,7 +143,6 @@ textarea,
 button,
 select,
 p {
-  border: none;
   outline: 0;
 }
 textarea {

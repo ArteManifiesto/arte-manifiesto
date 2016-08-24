@@ -78,6 +78,33 @@ exports.works = function(req, res) {
   });
 };
 
+exports.brands = function(req, res) {
+  if (req.params.page !== 'page-1')
+    return res.redirect(req.url.replace(req.params.page, 'page-1'));
+
+  searchData(req, 'Brand').then(function(data) {
+    return res.render(basePath + 'brands', {
+      data: data
+    });
+  });
+};
+
+exports.adCreator = function(req, res) {
+  global.db.Brand.findById(req.params.idBrand).then(function(brand) {
+    global.db.AdPackType.findAll({
+      include: [{
+        model: global.db.AdType,
+        as: 'Types'
+      }]
+    }).then(function(adPackTypes) {
+      return res.render(basePath + 'ad-creator', {
+        brand: brand,
+        adPackTypes: adPackTypes
+      });
+    });
+  });  
+};
+
 exports.products = function(req, res) {
   if (req.params.page !== 'page-1')
     return res.redirect(req.url.replace(req.params.page, 'page-1'));

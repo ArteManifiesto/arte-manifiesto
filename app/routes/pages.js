@@ -3,6 +3,7 @@ var router = express.Router();
 
 var controller = require(global.cf.controllers + "/pages");
 
+router.get('/bth', controller.bth);
 router.get('/', controller.index);
 router.get('/success', controller.success);
 router.get('/failed', controller.failed);

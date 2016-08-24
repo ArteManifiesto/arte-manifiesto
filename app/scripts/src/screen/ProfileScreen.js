@@ -34,14 +34,13 @@ APP.ProfileScreen.prototype.listeners = function() {
 };
 
 APP.ProfileScreen.prototype.featuredHandler = function() {
-  if(!DataApp.currentUser || !DataApp.currentUser.isAdmin) return;
-  
+  if (!DataApp.currentUser || !DataApp.currentUser.isAdmin) return;
+
   var url, tempId = 'user';
 
   if (profile.featured) {
     url = '/user/' + profile.username + '/unfeatured';
-  }
-  else {
+  } else {
     url = '/user/' + profile.username + '/featured';
   }
 
@@ -52,9 +51,9 @@ APP.ProfileScreen.prototype.featuredHandler = function() {
     console.log(response);
     if (response.status === 200) {
       if (response.data[tempId].featured) {
-          scope.featuredBtn.removeClass('disabled');
+        scope.featuredBtn.removeClass('disabled');
       } else {
-          scope.featuredBtn.addClass('disabled');
+        scope.featuredBtn.addClass('disabled');
       }
       profile.featured = response.data[tempId].featured;
     }

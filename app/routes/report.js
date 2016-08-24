@@ -14,6 +14,11 @@ router.post('/works/:page', controller.search.bind(this, 'Work'));
 router.get('/blog/:page', controller.blog);
 router.post('/blog/:page', controller.search.bind(this, 'Post'));
 
+router.get('/brands/:idBrand/ad-creator', controller.adCreator);
+
+router.get('/brands/:page', controller.brands);
+router.post('/brands/:page', controller.search.bind(this, 'Brand'));
+
 router.get('/banners/edit/:idBanner', controller.editBanner);
 router.post('/banners/update', controller.updateBanner);
 

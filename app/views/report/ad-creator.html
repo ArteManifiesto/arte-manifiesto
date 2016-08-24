@@ -1,0 +1,44 @@
+{% set templates = ['ad-creator']%}
+{% set path = "users" %}
+
+{% extends '../partials/report.html' %}
+
+{% block content %}
+  <h2 class="sub-header">Crear anuncio para  {{brand.name}}</h2>
+  
+  <p>Nombre de campaña:</p>
+  <input type="text">
+
+  <p>Inicio de campaña:</p>
+  <input type="date">
+
+  <p>Fin de campaña:</p>
+  <input type="date">
+
+  <p>Tipo de anuncio:</p>
+  {% for adPack in adPackTypes %}
+
+  <div class="image-uploader" style="position:relative;">
+              {{ cloudinary.uploader.image_upload_tag('image', {callback: cloudinary_cors, return_delete_token: true, html: { style: "opacity:1;" } })}}
+            </div>
+
+    <div>
+      <input type="radio" data-index={{loop.index0}} name="adPackType" value="{{adPack.id}}">
+      <span>{{adPack.name}}</span>
+    </div>
+  {% endfor %}
+  <div class="images-links">
+  </div>
+
+  <button data-id="send">crear</button>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    $.cloudinary.config({{cloudinary.config()|json|safe}});
+    var adPackTypes = {{adPackTypes|json|safe}};
+    $(function () {
+      new APP.AdminAdCreator();
+    });
+  </script>
+{% endblock %}

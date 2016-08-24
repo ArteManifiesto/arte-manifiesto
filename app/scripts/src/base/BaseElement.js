@@ -23,8 +23,6 @@ APP.BaseElement = function(data, id, options) {
   _.extend(this.data, this.options);
   _.extend(this.data, viewHelpers);
 
-  console.log(this.data);
-
   this.view = $(this.template(this.data));
   this.rawView = this.view[0];
   this.listeners();
@@ -41,8 +39,8 @@ APP.BaseElement.prototype.listeners = function() {
 
 APP.BaseElement.prototype.featuredHandler = function() {
   console.log(DataApp.currentUser, DataApp.currentUser.isAdmin);
-  
-  if(!DataApp.currentUser || !DataApp.currentUser.isAdmin) return;
+
+  if (!DataApp.currentUser || !DataApp.currentUser.isAdmin) return;
 
   var url, tempId = this.id;
   if (this.id === 'table-work') tempId = 'work';

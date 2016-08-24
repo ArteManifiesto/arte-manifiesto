@@ -29,6 +29,10 @@ exports.index = function(req, res) {
   // });
 };
 
+exports.bth = function(req, res) {
+  return res.redirect('https://kuestionario.typeform.com/to/Ho97sq');
+};
+
 exports.pp = function(req, res) {
   return res.render(basePath + 'pp');
 };
