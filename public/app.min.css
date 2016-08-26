@@ -143,6 +143,7 @@ textarea,
 button,
 select,
 p {
+  border: none;
   outline: 0;
 }
 textarea {
@@ -1775,15 +1776,18 @@ l i,
   flex-wrap: wrap;
   margin-top: 25px;
 }
-.tv-banners img {
+.tv-banners a {
   max-width: 385px;
   margin-top: 5px;
   margin-bottom: 5px;
 }
-.tv-banners img:not(:first-child) {
+.tv-banners a img {
+  width: 100%;
+}
+.tv-banners a:not(:first-child) {
   margin-left: 5px;
 }
-.tv-banners img:not(:last-child) {
+.tv-banners a:not(:last-child) {
   margin-right: 5px;
 }
 .tv-intro {
@@ -2027,12 +2031,12 @@ l i,
   font-size: 28px;
 }
 @media (max-width: 900px) {
-  .tv-banners img {
+  .tv-banners a {
     width: 200px;
   }
 }
 @media (max-width: 400px) {
-  .tv-banners img {
+  .tv-banners a {
     width: 150px;
   }
 }
