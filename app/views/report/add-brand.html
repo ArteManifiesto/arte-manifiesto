@@ -1,0 +1,41 @@
+{% set path = "brand" %}
+
+{% extends '../partials/report.html' %}
+
+{% block content %}
+  {% if edit %}
+  <h2 class="sub-header">Editar {{brand.name}}</h2>
+  {% else %}
+  <h2 class="sub-header">Agregar marca</h2>
+  {% endif %}
+  <form>
+    <input type="text" name="name" placeholder="Nombre" required value="{{brand.name}}">
+      <br><br>
+    {% if edit %}
+    <input type="submit" value="actualizar">
+    {% else %}
+    <input type="submit" value="crear">
+    {% endif %}
+  </form>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+      var edit = {{edit|json|safe}};
+      var brand = {{brand|json|safe}};
+      $(function() {
+        $('form').submit(function(e) {
+          e.preventDefault();
+          var payload = {name: $('input[name=name]').val()};
+          if(edit) {
+            payload.idBrand = brand.id;
+            payload.edit = true;
+          };
+
+          $.post('/report/brands/create', payload).then(function(response) {
+            return location.href = '/report/brands/page-1';
+          });
+        });
+      });
+  </script>
+{% endblock %}

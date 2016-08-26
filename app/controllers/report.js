@@ -216,6 +216,22 @@ exports.blog = function(req, res) {
   });
 };
 
+exports.createBrand = function(req, res) {
+  console.log('create brand');
+  console.log(req.body);
+
+  if(!req.body.edit)
+    global.db.Brand.create(req.body).then(function(brand) {
+      return res.ok({brand: brand}, 'brand created');
+    });
+
+  global.db.Brand.findById(req.body.idBrand).then(function(brand) {
+    brand.updateAttributes(req.body).then(function(){
+      return res.ok({brand: brand}, 'brand updated');
+    })
+  });
+};
+
 exports.productsApplying = function(req, res) {
   if (req.params.page !== 'page-1')
     return res.redirect(req.url.replace(req.params.page, 'page-1'));
@@ -274,6 +290,19 @@ exports.banners = function(req, res) {
   }).then(function(banners) {
     res.render(basePath + 'banners', {
       banners: banners
+    });
+  });
+};
+
+exports.addBrand = function(req, res) {
+  return res.render(basePath + 'add-brand');
+};
+
+exports.editBrand = function(req, res) {
+  global.db.Brand.findById(req.params.idBrand).then(function(brand) {
+    return res.render(basePath + 'add-brand', {
+      edit: true,
+      brand: brand
     });
   });
 };
