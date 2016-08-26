@@ -25,9 +25,21 @@ APP.AdCreator.prototype.clickViewHandler = function() {
 
 
 APP.AdCreator.prototype.getData = function() {
+  var photo = this.view.find('input[name=photo]').val();
+  var description = this.view.find('input[name=description]').val();
+  var link = this.view.find('input[name=link]').val();
+  var errors = [];
+
+  if(Validations.notBlank(photo)) errors.push(1);
+  if(Validations.notBlank(description)) errors.push(1);
+  if(Validations.notBlank(link)) errors.push(1);
+
+  if(errors.length > 0 ) return null;
+  
 	return {
-		photo: this.view.find('input[name=photo]').val(),
-		description: this.view.find('input[name=description]').val(),
-		link: this.view.find('input[name=link]').val()
+    photo: photo,
+    description: description,
+    link: link,
+    AdTypeId: this.data.id
 	};
 };

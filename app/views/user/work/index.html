@@ -62,6 +62,14 @@
 	<div class="grid-container u-margin-top-20">
 		<div class="grid-100">
 			<div class="single-info">
+			<div class="ad" style="display:block;max-width:{{ad.AdType.width}}px;">
+				<a href="{{ad.link}}" target="_blank">
+					<img src="{{ad.photo}}" width="{{ad.AdType.width}}" height="{{ad.AdType.height}}" alt="{{ad.description}}">
+					<p>{{ad.description}}</p>							
+				</a>
+				<a href="/ads">ads via artemanifiesto</a>
+			</div>
+
 				<div class="single-image">
 					<div class="single-image-inner" style="position: relative;">
 						{% if user && user.isAdmin %}
@@ -217,7 +225,10 @@
 						    <td><span class="likes">{{work.likes || 0}}</span></td>
 						  </tr>
 						</table>
-					</div>
+					</div><!-- 
+					<div class="u-center">
+						
+					</div> -->
 				</div>
 			</div>
 		</div>
@@ -522,6 +533,8 @@
 
 {% block scripts %}
 	<script>
+		var ad = {{ad|json|safe}};
+		console.log(ad);
 		var categories = {{categories|json|safe}};
 		var owner = {{owner|json|safe}};
 		var entity = {{entity|json|safe}};

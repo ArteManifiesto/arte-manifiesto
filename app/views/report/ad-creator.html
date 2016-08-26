@@ -4,38 +4,32 @@
 {% extends '../partials/report.html' %}
 
 {% block content %}
-  <h2 class="sub-header">Crear anuncio para  {{brand.name}}</h2>
-  
-  <p>Nombre de campaña:</p>
-  <input type="text">
+  <h2 class="sub-header">Crear campaña para  {{brand.name}}</h2>
+  <form>
+    <input name="nameCampaign" type="text" placeholder="Nombre de campaña" required>
+    <input name="startDate" placeholder="Inicio de campaña" required>
+    <input name="endDate" placeholder="Fin de campaña" required>
+    <br><br>
+    <p>Tipo de anuncio:</p>
 
-  <p>Inicio de campaña:</p>
-  <input type="date">
-
-  <p>Fin de campaña:</p>
-  <input type="date">
-
-  <p>Tipo de anuncio:</p>
-  {% for adPack in adPackTypes %}
-
-  <div class="image-uploader" style="position:relative;">
-              {{ cloudinary.uploader.image_upload_tag('image', {callback: cloudinary_cors, return_delete_token: true, html: { style: "opacity:1;" } })}}
-            </div>
-
-    <div>
-      <input type="radio" data-index={{loop.index0}} name="adPackType" value="{{adPack.id}}">
-      <span>{{adPack.name}}</span>
+    {% for adPack in adPackTypes %}
+      <div>
+        <input type="radio" data-index={{loop.index0}} name="adPackType" value="{{adPack.id}}">
+        <span>{{adPack.name}}</span>
+      </div>
+    {% endfor %}
+    <div class="images-links">
     </div>
-  {% endfor %}
-  <div class="images-links">
-  </div>
-
-  <button data-id="send">crear</button>
+    <br>
+    <input type="submit" value="crear">
+  </form>
 {% endblock %}
 
 {% block scripts %}
   <script>
     $.cloudinary.config({{cloudinary.config()|json|safe}});
+
+    var brand = {{brand|json|safe}};
     var adPackTypes = {{adPackTypes|json|safe}};
     $(function () {
       new APP.AdminAdCreator();

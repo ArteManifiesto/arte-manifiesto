@@ -36,23 +36,37 @@ exports.index = function(currentPath, req, res) {
         addUser: true
       };
       global.db.Work.find(query).then(function(work) {
-        var data = {
-          entity: 'work',
-          owner: req.owner,
-          currentPath: currentPath,
-          work: work,
-          userLikes: result[1],
-          more: result[2],
-          similar: result[3],
-          tags: result[4],
-          reviews: result[5],
-          neighbors: result[6],
-          categories: result[7]
-        };
+        global.db.AdPack.findAll({
+          order: [global.db.sequelize.fn('RAND')],
+          limit: 1,
+          where: {isActive: true},
+          include: [{
+            model: global.db.Ad,
+            include: {
+              model: global.db.AdType,
+              where: {name: 'vertical'}
+            }
+          }]
+        }).then(function(adPacks) {
+          var data = {
+            entity: 'work',
+            owner: req.owner,
+            currentPath: currentPath,
+            work: work,
+            userLikes: result[1],
+            more: result[2],
+            similar: result[3],
+            tags: result[4],
+            reviews: result[5],
+            neighbors: result[6],
+            categories: result[7],
+            ad: adPacks[0].Ads[0]
+          };
 
-        work.view().then(function() {
-          return res.render(basePath + 'index', data);
-        });
+          work.view().then(function() {
+            return res.render(basePath + 'index', data);
+          });
+        });        
       });
     });
   });

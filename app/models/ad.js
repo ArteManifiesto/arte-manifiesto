@@ -4,7 +4,7 @@ module.exports = function(sequelize, DataTypes) {
     clicks: DataTypes.INTEGER,
     photo: DataTypes.STRING,
     description: DataTypes.STRING,
-    click: DataTypes.STRING
+    link: DataTypes.STRING
   }, {
     classMethods: {
       associate: function(models) {

@@ -45,7 +45,6 @@ var searchData = function(req, entity) {
     query.where.applying = true;
   }
 
-
   var page = req.params.page ? req.params.page : 'page-1';
   var options = {
     entity: entity,
@@ -89,6 +88,20 @@ exports.brands = function(req, res) {
   });
 };
 
+exports.brandAds = function(req, res) {
+  global.db.Brand.findById(req.params.idBrand).then(function(brand) {
+    brand.getAdPacks({
+      include:[global.db.AdPackType],
+      order: [global.getOrder('newest')]
+    }).then(function(adPacks) {
+      return res.render(basePath + 'brand-ads', {
+        brand: brand,
+        adPacks: adPacks
+      });
+    });
+  });  
+};
+
 exports.adCreator = function(req, res) {
   global.db.Brand.findById(req.params.idBrand).then(function(brand) {
     global.db.AdPackType.findAll({
@@ -100,6 +113,32 @@ exports.adCreator = function(req, res) {
       return res.render(basePath + 'ad-creator', {
         brand: brand,
         adPackTypes: adPackTypes
+      });
+    });
+  });  
+};
+
+exports.adCreatorPost = function(req, res) {
+  global.db.Brand.findById(req.params.idBrand).then(function(brand) {
+    var ads = JSON.parse(req.body.ads);
+    var promises = [];
+
+    global.db.AdPack.create({
+      name: req.body.name,
+      startDate: moment(req.body.startDate, 'M-D-YYYY').toDate(),
+      endDate: moment(req.body.endDate, 'M-D-YYYY').toDate(),
+      AdPackTypeId: req.body.adPackType,
+      BrandId: req.params.idBrand
+    }).then(function(adPack) {
+      promises = [];
+      global._.map(ads, function(ad) {
+        ad.AdPackId = adPack.id;
+        ad.BrandId = req.params.idBrand;
+        promises.push(global.db.Ad.create(ad));
+      });
+
+      global.db.sequelize.Promise.all(promises).then(function(ads2) {
+        res.ok({ads: ads2}, 'ad created');
       });
     });
   });  

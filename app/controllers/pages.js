@@ -80,6 +80,19 @@ var searchFeed = function(req) {
 };
 
 exports.feedPage = function(req, res) {
+
+  var baseAdQuery = {
+    order: [global.db.sequelize.fn('RAND')],
+    where: {isActive: true},
+    include: [{
+      model: global.db.Ad,
+      include: {
+        model: global.db.AdType,
+        where: {}
+      }
+    }]
+  };
+
   var promises = [
     req.user.numOfFollowers(),
     req.user.numOfWorks(),
@@ -87,10 +100,34 @@ exports.feedPage = function(req, res) {
     searchFeed(req)
   ];
 
+  baseAdQuery.include.limit = 1;
+  baseAdQuery.include[0].include.where.name = 'rect';
+
+  promises.push(global.db.AdPack.findAll(baseAdQuery));
+
+  baseAdQuery.include.limit = 1;
+  baseAdQuery.include[0].include.where.name = 'quad';
+
+  promises.push(global.db.AdPack.findAll(baseAdQuery));
+  
+  baseAdQuery.limit = 3;
+  baseAdQuery.include[0].include.where.name = 'horizontal';
+
+  promises.push(global.db.AdPack.findAll(baseAdQuery));
+
   return global.db.sequelize.Promise.all(promises).then(function(result) {
+    var adPacks = global._.slice(result, 4, 7);
+    var ads = [];
+    global._.map(adPacks, function(adPack) {
+      global._.map(adPack, function(ad) {
+        ads.push(ad.Ads[0]);
+      });
+    });
+    
     return res.render(basePath + 'feed', {
       numbers: global._.slice(result, 0, 3),
-      data: result[3]
+      data: result[3],
+      ads: ads
     });
   });
 };

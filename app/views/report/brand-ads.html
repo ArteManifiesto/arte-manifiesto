@@ -1,0 +1,31 @@
+{% extends '../partials/report.html' %}
+
+{% block content %}
+<h2 class="sub-header">Campañas {{brand.name}}</h2>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>nombre</th>
+        <th>inicio</th>
+        <th>fin</th>
+        <th>plan</th>
+        <th>precio</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody class="container-items">
+      {% for adPack in adPacks %}
+        <tr>
+          <td>{{adPack.name}}</td>
+          <td>{{adPack.startDate|date('d/m/y')}}</td>
+          <td>{{adPack.endDate|date('d/m/y')}}</td>
+          <td>{{adPack.AdPackType.name}}</td>
+          <td>{{adPack.AdPackType.price}}</td>
+          <td><a href="/report/brands/<%=id%>/ad-creator/{{adPack.id}}/edit" class="btn featured-btn btn-success">Editar</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
