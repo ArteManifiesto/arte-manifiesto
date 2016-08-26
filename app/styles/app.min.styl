@@ -3144,9 +3144,21 @@ white = #fff
 	img
 		cursor zoom-in
 
+@media (max-width: 768px)
+	.single-info
+		display flex
+		flex-direction column
+		.single-image
+			order 1
+		.single-data
+			order 2
+		.ad
+			order 3
+			margin-bottom none
 @media (min-width: 768px)
 	.single-info
 		display flex
+		align-items flex-start
 		.single-image
 			flex 2
 			margin-right 10px
@@ -4034,9 +4046,19 @@ white = #fff
 /*------------------------------------*
 	$ FEED
 *------------------------------------*/
-.feed
+
+.feed-container
+	display flex
+	justify-content center
 	background #bac5c7
-	padding 10px 20px 40px 20px
+
+.ads-feed
+	display flex
+	flex-direction column
+	margin-top 20px
+	
+.feed
+	padding 20px 20px 40px 20px
 	min-height 500px
 	.feed-title
 		background white
@@ -4239,6 +4261,11 @@ white = #fff
 			display flex
 			justify-content center
 			padding 30px 20px
+
+@media (max-width: 900px)
+	.ads-feed
+		display none
+
 
 @media (min-width: 900px)
 	.feed

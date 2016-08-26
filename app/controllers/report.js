@@ -45,7 +45,6 @@ var searchData = function(req, entity) {
     query.where.applying = true;
   }
 
-
   var page = req.params.page ? req.params.page : 'page-1';
   var options = {
     entity: entity,
@@ -76,6 +75,123 @@ exports.works = function(req, res) {
       data: data
     });
   });
+};
+
+exports.brands = function(req, res) {
+  if (req.params.page !== 'page-1')
+    return res.redirect(req.url.replace(req.params.page, 'page-1'));
+
+  searchData(req, 'Brand').then(function(data) {
+    return res.render(basePath + 'brands', {
+      data: data
+    });
+  });
+};
+
+exports.brandAds = function(req, res) {
+  global.db.Brand.findById(req.params.idBrand).then(function(brand) {
+    brand.getAdPacks({
+      include:[global.db.AdPackType],
+      order: [global.getOrder('newest')]
+    }).then(function(adPacks) {
+      return res.render(basePath + 'brand-ads', {
+        brand: brand,
+        adPacks: adPacks
+      });
+    });
+  });  
+};
+
+exports.adCreator = function(req, res) {
+  global.db.Brand.findById(req.params.idBrand).then(function(brand) {
+    global.db.AdPackType.findAll({
+      include: [{
+        model: global.db.AdType,
+        as: 'Types'
+      }]
+    }).then(function(adPackTypes) {
+      return res.render(basePath + 'ad-creator', {
+        brand: brand,
+        adPackTypes: adPackTypes
+      });
+    });
+  });  
+};
+
+exports.activateAdPackCreator = function(req, res) {
+  global.db.AdPack.findById(req.params.idAdPack).then(function(adPack) {
+    adPack.isActive = !adPack.isActive;
+    adPack.save().then(function() {
+      return res.ok({adPack: adPack}, 'adPack updated');
+    });
+  });
+};
+
+exports.editAdPackCreator = function(req, res) {
+  global.db.Brand.findById(req.params.idBrand).then(function(brand) {
+    global.db.AdPack.find({
+      where:{id:req.params.idAdPack},
+      include:[global.db.AdPackType, global.db.Ad]
+    }).then(function(adPack) {
+      global.db.AdPackType.findAll({
+        include: [{
+          model: global.db.AdType,
+          as: 'Types'
+        }]
+      }).then(function(adPackTypes) {
+        return res.render(basePath + 'ad-creator', {
+          edit: true,
+          brand: brand,
+          adPack: adPack,
+          adPackTypes: adPackTypes
+        });
+      });
+    });
+  });  
+};
+
+exports.adCreatorPost = function(req, res) {
+  global.db.Brand.findById(req.params.idBrand).then(function(brand) {
+    var ads = JSON.parse(req.body.ads);
+    var promises = [];
+    req.body.startDate = moment(req.body.startDate, 'M-D-YYYY').toDate();
+    req.body.endDate = moment(req.body.endDate, 'M-D-YYYY').toDate();
+
+    if(req.body.edit) {
+      global.db.AdPack.findById(req.body.adPackId).then(function(adPack) {
+        adPack.updateAttributes(req.body).then(function() {
+          var promises = [];
+          adPack.getAds().then(function(adPackAds) {
+            for(var i=0; i< adPackAds.length; i++) {
+              promises.push(adPackAds[i].updateAttributes(ads[i]));
+            }
+            global.db.sequelize.Promise.all(promises).then(function(ads2) {
+              return res.ok({ads: ads2}, 'ad updated');
+            });            
+          });
+        });
+      });
+    } else {
+      global.db.AdPack.create({
+        name: req.body.name,
+        startDate: req.body.startDate,
+        endDate: req.body.endDate,
+        AdPackTypeId: req.body.adPackType,
+        BrandId: req.params.idBrand
+      }).then(function(adPack) {
+        promises = [];
+        global._.map(ads, function(ad) {
+          ad.AdPackId = adPack.id;
+          ad.BrandId = req.params.idBrand;
+          promises.push(global.db.Ad.create(ad));
+        });
+
+        global.db.sequelize.Promise.all(promises).then(function(ads2) {
+          res.ok({ads: ads2}, 'ad created');
+        });
+      });
+    }
+  });  
 };
 
 exports.products = function(req, res) {

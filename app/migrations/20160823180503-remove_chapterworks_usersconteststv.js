@@ -1,11 +1,10 @@
 'use strict';
 
 module.exports = {
-  up: function (queryInterface, Sequelize) {
+  up: function(queryInterface, Sequelize) {
     queryInterface.dropTable('UserContestsTv');
     queryInterface.dropTable('ChapterWorks');
   },
 
-  down: function (queryInterface, Sequelize) {
-  }
+  down: function(queryInterface, Sequelize) {}
 };

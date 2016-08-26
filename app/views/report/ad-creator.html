@@ -1,0 +1,44 @@
+{% set templates = ['ad-creator']%}
+{% set path = "users" %}
+
+{% extends '../partials/report.html' %}
+
+{% block content %}
+  <h2 class="sub-header">Crear campaña para  {{brand.name}}</h2>
+  <form>
+    <input name="nameCampaign" type="text" placeholder="Nombre de campaña" required value="{{adPack.name}}">
+    <input name="startDate" placeholder="Inicio de campaña" {% if adPack %} value="{{adPack.startDate|date('m/d/y')}}" {% endif %} required>
+    <input name="endDate" placeholder="Fin de campaña"{% if adPack %} value="{{adPack.endDate|date('m/d/y')}}" {% endif %} required>
+    <br><br>
+    <p>Tipo de anuncio:</p>
+
+    {% for adPackType in adPackTypes %}
+      <div>
+        {% if adPackType.id === adPack.AdPackType.id %}
+        <input type="radio" data-index={{loop.index0}} name="adPackType" value="{{adPackType.id}}" checked {% if edit %} disabled {% endif %}>
+        {%else %}
+        <input type="radio" data-index={{loop.index0}} name="adPackType" value="{{adPackType.id}}" {% if edit %} disabled {% endif %}>
+        {% endif %}
+        <span>{{adPackType.name}}</span>
+      </div>
+    {% endfor %}
+    <div class="images-links">
+    </div>
+    <br>
+    <input type="submit" value="crear">
+  </form>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    $.cloudinary.config({{cloudinary.config()|json|safe}});
+
+    var brand = {{brand|json|safe}};
+    var edit = {{edit|json|safe}};
+    var adPack = {{adPack|json|safe}};
+    var adPackTypes = {{adPackTypes|json|safe}};
+    $(function () {
+      new APP.AdminAdCreator();
+    });
+  </script>
+{% endblock %}

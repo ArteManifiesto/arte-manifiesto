@@ -1,3 +1,23 @@
+.tv-banners
+	display flex
+	max-width 1180px
+	margin 30px auto
+	align-items center
+	padding 0 10px
+	justify-content center
+	flex-wrap wrap
+	margin-top 25px
+	a
+		max-width 385px
+		margin-top 5px
+		margin-bottom 5px
+		img
+			width 100%
+	
+	a:not(:first-child)
+		margin-left 5px
+	a:not(:last-child)
+		margin-right 5px
 .tv-intro
 	width 100%
 	height calc(100vh - 64px)
@@ -159,6 +179,16 @@
 				p:last-child
 					font-size 28px
 					
+@media (max-width: 900px)
+	.tv-banners
+		a
+			width 200px
+			
+@media (max-width: 400px)
+	.tv-banners
+		a
+			width 150px
+			
 @media (max-width: 768px)
 	.tv-intro
 		.info-container

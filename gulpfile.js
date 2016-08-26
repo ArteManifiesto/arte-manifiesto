@@ -85,7 +85,7 @@ gulp.task('scripts', function () {
     return gulp.src(paths.jsDir)
         .pipe(uglify({compress: true}))
         .pipe(concat('app.min.js'))
-        .pipe(stripDebug())
+        // .pipe(stripDebug())
         .pipe(gulp.dest(paths.publicDir));
 });
 

@@ -79,14 +79,13 @@ APP.WorkScreen.prototype.setupUI = function() {
 };
 
 APP.WorkScreen.prototype.featuredHandler = function() {
-  if(!DataApp.currentUser || !DataApp.currentUser.isAdmin) return;
-  
+  if (!DataApp.currentUser || !DataApp.currentUser.isAdmin) return;
+
   var url, tempId = 'work';
 
   if (work.featured) {
     url = '/user/' + work.User.username + '/' + tempId + '/unfeatured';
-  }
-  else {
+  } else {
     url = '/user/' + work.User.username + '/' + tempId + '/featured';
   }
 
@@ -97,9 +96,9 @@ APP.WorkScreen.prototype.featuredHandler = function() {
     console.log(response);
     if (response.status === 200) {
       if (response.data[tempId].featured) {
-          scope.featuredBtn.removeClass('disabled');
+        scope.featuredBtn.removeClass('disabled');
       } else {
-          scope.featuredBtn.addClass('disabled');
+        scope.featuredBtn.addClass('disabled');
       }
       work.featured = response.data[tempId].featured;
     }
