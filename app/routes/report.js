@@ -17,6 +17,7 @@ router.post('/blog/:page', controller.search.bind(this, 'Post'));
 router.get('/brands/add', controller.addBrand);
 router.get('/brands/:idBrand/edit', controller.editBrand);
 
+router.get('/brands/:idBrand/pack/:idAdPack/ads', controller.brandPackAdsList);
 router.get('/brands/:idBrand/ads', controller.brandAds);
 
 router.get('/brands/:idBrand/ad-creator', controller.adCreator);

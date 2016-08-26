@@ -62,13 +62,16 @@ exports.index = function(currentPath, req, res) {
             categories: result[7]
           };
 
+          promises = [];
           if(adPacks.length > 0) {
             data.ad = adPacks[0].Ads[0];
-          }
-
-          work.view().then(function() {
+            data.ad.views = data.ad.views + 1;
+            promises.push(data.ad.save());
+          } 
+          promises.push(work.view());
+          global.db.sequelize.Promise.all(promises).then(function() {
             return res.render(basePath + 'index', data);
-          });
+          });            
         });
       });
     });

@@ -102,6 +102,20 @@ exports.brandAds = function(req, res) {
   });  
 };
 
+exports.brandPackAdsList = function(req, res) {
+  global.db.AdPack.findById(req.params.idAdPack).then(function(pack) {
+    pack.getAds({
+      include:[global.db.AdType],
+      order: [global.getOrder('newest')]
+    }).then(function(ads) {
+      return res.render(basePath + 'pack-ads', {
+        pack: pack,
+        ads: ads
+      });
+    });
+  });  
+};
+
 exports.adCreator = function(req, res) {
   global.db.Brand.findById(req.params.idBrand).then(function(brand) {
     global.db.AdPackType.findAll({

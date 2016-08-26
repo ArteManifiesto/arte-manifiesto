@@ -33,6 +33,15 @@ exports.bth = function(req, res) {
   return res.redirect('https://kuestionario.typeform.com/to/Ho97sq');
 };
 
+exports.adClick = function(req, res) {
+  global.db.Ad.findById(req.body.adId).then(function(ad) {
+    ad.clicks = ad.clicks + 1;
+    ad.save().then(function() {
+      return res.ok({ad: ad}, 'ad clicked');
+    })
+  });
+};
+
 exports.pp = function(req, res) {
   return res.render(basePath + 'pp');
 };
@@ -124,11 +133,19 @@ exports.feedPage = function(req, res) {
       });
     });
     
-    return res.render(basePath + 'feed', {
-      numbers: global._.slice(result, 0, 3),
-      data: result[3],
-      ads: ads
+    promises = [];
+    global._.map(ads, function(ad) {
+      ad.views = ad.views + 1;
+      promises.push(ad.save());
     });
+
+    return global.db.sequelize.Promise.all(promises).then(function() {
+      return res.render(basePath + 'feed', {
+        numbers: global._.slice(result, 0, 3),
+        data: result[3],
+        ads: ads
+      });
+    });    
   });
 };
 

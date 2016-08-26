@@ -22,6 +22,7 @@
           <td>{{adPack.endDate|date('d/m/y')}}</td>
           <td>{{adPack.AdPackType.name}}</td>
           <td>{{adPack.AdPackType.price}}</td>
+          <td><a href="/report/brands/{{brand.id}}/pack/{{adPack.id}}/ads">ver anuncios</a></td>
           <td><a href="/report/brands/{{brand.id}}/ad-creator/{{adPack.id}}/activate" class="btn activate-btn btn-primary">{% if adPack.isActive %} desactivar {% else %} activar {% endif %}</a></td>
           <td><a href="/report/brands/{{brand.id}}/ad-creator/{{adPack.id}}/edit" class="btn btn-success">Editar</a></td>
         </tr>

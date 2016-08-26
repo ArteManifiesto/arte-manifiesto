@@ -1,0 +1,44 @@
+{% extends '../partials/report.html' %}
+
+{% block content %}
+<h2 class="sub-header">Campaña {{pack.name}}</h2>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>tipo</th>
+        <th>views</th>
+        <th>clicks</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody class="container-items">
+      {% for ad in ads %}
+        <tr>
+          <td>{{ad.AdType.name}}</td>
+          <td>{{ad.views}}</td>
+          <td>{{ad.clicks}}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    $(function() {
+      $('.activate-btn').click(function(e) {
+        e.preventDefault();
+        var me = $(this);
+        $.post(me.attr('href')).then(function(response) {
+          if(response.data.adPack.isActive) {
+            me.text('desactivar');
+          }else {
+            me.text('activar');
+          }
+        });
+      });
+    }); 
+  </script>
+{% endblock %}

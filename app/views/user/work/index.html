@@ -64,7 +64,7 @@
 			<div class="single-info">
 			{% if ad %}
 			<div class="ad" style="display:block;max-width:{{ad.AdType.width}}px;">
-				<a href="{{ad.link}}" target="_blank">
+				<a href="{{ad.link}}" data-id="{{ad.id}}" class="ad-target">
 					<img src="{{ad.photo}}" width="{{ad.AdType.width}}" height="{{ad.AdType.height}}" alt="{{ad.description}}">
 					<p>{{ad.description}}</p>							
 				</a>

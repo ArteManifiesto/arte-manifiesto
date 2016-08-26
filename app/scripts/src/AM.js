@@ -77,6 +77,8 @@ APP.AM.prototype.listeners = function() {
   this.closeModalBtn.click(this.closeModal.bind(this));
   this.searchBox.submit(this.searchBoxHandler.bind(this));
   $(document).keyup(this.escapeHandler.bind(this));
+
+  $('.ad-target').click(this.adClickHandler.bind(this));
 };
 
 APP.AM.prototype.headerCoverHandler = function(event) {
@@ -175,6 +177,18 @@ APP.AM.prototype.searchKeyUpHandler = function(event) {
   this.productsOption.parent().attr('href', '/products/category' + baseUrl);
   this.usersOption.parent().attr('href', '/users/specialty' + baseUrl);
   this.collectionsOption.parent().attr('href', '/collections/category' + baseUrl);
+};
+
+APP.AM.prototype.adClickHandler = function(e) {
+  e.preventDefault();
+  var me = $(e.currentTarget);
+  var id = me.data('id');
+  var link = me.attr('href');
+
+  $.post('/ad/click', {adId: id});
+
+  var win = window.open(link, '_blank');
+  win.focus();
 };
 
 APP.AM.prototype.getBaseUrl = function() {

@@ -16,6 +16,8 @@ router.get('/editor', global.md.isAdmin, controller.editor);
 router.get('/feed', global.md.isLogged, controller.feedPage);
 router.post('/feed/:page', global.md.isLogged, controller.feed);
 
+router.post('/ad/click', controller.adClick);
+
 router.get('/collections/category/:value/:page', controller.collections);
 router.get('/works/category/:value/:page', controller.works);
 
