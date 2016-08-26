@@ -23,6 +23,11 @@ APP.AdCreator.prototype.clickViewHandler = function() {
   // });
 };
 
+APP.AdCreator.prototype.updateData = function(data) {
+  this.view.find('input[name=photo]').val(data.photo);
+  this.view.find('input[name=description]').val(data.description);
+  this.view.find('input[name=link]').val(data.link);
+};
 
 APP.AdCreator.prototype.getData = function() {
   var photo = this.view.find('input[name=photo]').val();

@@ -30,12 +30,21 @@ APP.AdminAdCreator.prototype.setupUI = function() {
 APP.AdminAdCreator.prototype.listeners = function() {
   APP.BaseScreen.prototype.listeners.call(this);
 
-  // this.sendBtn.click(this.sendClickHandler.bind(this));
-
   $('form').submit(this.formSubmit.bind(this));
   this.adPackType.change(this.adPackTypeChange.bind(this));
 
-  $('input[name=adPackType][data-index="0"]').attr('checked', true).change();
+  if(edit) {
+    $('input[name=adPackType][value="'+ adPack.AdPackType.id +'"]').attr('checked', true).change();
+  }else {
+    $('input[name=adPackType][data-index="0"]').attr('checked', true).change();
+  }
+
+  if(edit) {
+    for(var i = 0; i< adPack.Ads.length; i++) {
+      console.log(adPack.Ads[i]);
+      this.ads[i].updateData(adPack.Ads[i]);
+    }
+  }
 };
 
 APP.AdminAdCreator.prototype.formSubmit = function(e) {
@@ -46,7 +55,8 @@ APP.AdminAdCreator.prototype.formSubmit = function(e) {
   var name = this.nameCampaign.val();
   var startDate = this.startDate.val();
   var endDate = this.endDate.val();
-  var adPackType = this.adPackType.val();
+
+  var adPackType = $('input[name=adPackType]:checked').val();
 
   var ads = [];
 
@@ -69,13 +79,26 @@ APP.AdminAdCreator.prototype.formSubmit = function(e) {
     ads: JSON.stringify(ads)
   };
 
+  if(edit)  {
+    payload.adPackId = adPack.id;
+    payload.edit = true;
+  }
 
-  var url = DataApp.baseUrl + 'report/brands/'+brand.id+'/ad-creator';
+  var url = DataApp.baseUrl + 'report/brands/'+ brand.id + '/ad-creator';
   this.requestHandler(url, payload, this.adCreatorComplete);
 };
 
 APP.AdminAdCreator.prototype.adCreatorComplete = function(e) {
-  console.log(e);
+  if(edit) {
+    this.showFlash('succes', 'Campaña actualizada');
+  } else {
+    this.showFlash('succes', 'Campaña creada');
+  }
+
+  var timeout = setTimeout(function() {
+    clearTimeout();
+    return location.href = '/report/brands/' + brand.id + '/ads';
+  }, 1000);
 };
 
 APP.AdminAdCreator.prototype.adPackTypeChange = function(e) {

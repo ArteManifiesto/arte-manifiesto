@@ -59,14 +59,17 @@ exports.index = function(currentPath, req, res) {
             tags: result[4],
             reviews: result[5],
             neighbors: result[6],
-            categories: result[7],
-            ad: adPacks[0].Ads[0]
+            categories: result[7]
           };
+
+          if(adPacks.length > 0) {
+            data.ad = adPacks[0].Ads[0];
+          }
 
           work.view().then(function() {
             return res.render(basePath + 'index', data);
           });
-        });        
+        });
       });
     });
   });
