@@ -14,8 +14,8 @@ exports.send = function(req, locals, view) {
       } else {
         var auth = {
           auth: {
-            api_key: 'key-eacb019dd089815809546b099e8cdb02',
-            domain: 'sandbox2c429af59aac41fb9904a3ff98e08294.mailgun.org'
+            domain: process.env.MAILGUN_DOMAIN,
+            api_key: process.env.MAILGUN_API_KEY
           }
         };
         var transport = nodemailer.createTransport(mg(auth));

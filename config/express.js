@@ -88,6 +88,7 @@ module.exports = function (app, passport) {
 
   app.use(function (req, res, next) {
     req.viewer = req.user ? req.user.id : -1;
+
     res.locals = {
       user: req.user,
       env: process.env.NODE_ENV,
@@ -113,7 +114,20 @@ module.exports = function (app, passport) {
     };
     global.db.Action.count(query).then(function (total) {
       res.locals.numOfNotifications = total;
+
+    var afterGetAlert = function(alert) {
+      res.locals.alert = alert;
       next();
+    };
+
+    console.log('url:', req.url, req.url.indexOf('report'));
+    if(req.url.indexOf('report') !== -1)
+      return next();
+    
+    if(req.user && !req.user.verified)
+      global.db.Alert.find({where:{name: 'confirmation'}}).then(afterGetAlert);
+    else
+      global.db.Alert.find({where:{name: 'general', isActive: true}}).then(afterGetAlert);
     });
   });
 

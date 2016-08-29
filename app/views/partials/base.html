@@ -97,6 +97,25 @@ mixpanel.init("74985840e393343761c1e55c835a01e4");
 	{% endif %}
 </head>
 <body>
+	{% if alert %}
+		<div class="alert" style="background-color: {{alert.background}};">
+			<p style="color: white;">{{alert.text}}</p>
+			{% if alert.name === 'confirmation' %}
+			<button class="alert-btn" data-id="confirmation-btn" style="background-color: {{alert.buttonColor}}; color:white;">{{alert.buttonText}}</button>
+			{% else %}
+			<a class="alert-btn" data-id="confirmation-btn" style="background-color: {{alert.buttonColor}}; color:white;" href="{{alert.buttonLink}}" target="_blank">{{alert.buttonText}}
+			</a>
+			{% endif %}
+		</div> 
+	{% endif %}
+
+	<!-- <div class="extra-content">
+		<div class="close-extra">
+			<p>Cerrar</p>
+		</div>
+		<iframe src="" class="iframe" width="100%" height="100%"></iframe>
+	</div>
+ -->
 	{% if !withoutHeader %}
 		{% include 'header.html' %}
 	{% endif %}
@@ -117,7 +136,6 @@ mixpanel.init("74985840e393343761c1e55c835a01e4");
 		<button class="close-flash">CERRAR</button>
 	</div>
 </div>
-
 	<div class="body">
 		<div class="left-mobile-menu">
 			<table class="options u-margin-top-10">
@@ -193,7 +211,7 @@ mixpanel.init("74985840e393343761c1e55c835a01e4");
 		</div>
 		<div class="body-inner">
 			<div class="cover"></div>
-			{% block elements %} hola {% endblock %}
+			{% block elements %}  {% endblock %}
 		</div>
 	</div>
 

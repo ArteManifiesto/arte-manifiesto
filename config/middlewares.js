@@ -195,9 +195,9 @@ exports.check = function (req, res, next) {
     return next();
   }
 
-  if (!req.user.verified) {
-    return res.render('pages/confirm-email');
-  }
+  // if (!req.user.verified) {
+  //   return res.render('pages/confirm-email');
+  // }
 
   if (!req.user.filled && req.method === 'GET') {
     if (req.url.indexOf('/account/?context=1') === -1) {

@@ -55,6 +55,8 @@ APP.AM.prototype.setupUI = function() {
   this.usersOption = this.generalSearchOptions.find('.users-option');
   this.collectionsOption = this.generalSearchOptions.find('.collections-option');
   this.emailSubscription = this.subscriptionForm.find('input[name=email]');
+
+  this.resend = $('button[data-id=confirmation-btn]');
 };
 
 APP.AM.prototype.listeners = function() {
@@ -79,6 +81,16 @@ APP.AM.prototype.listeners = function() {
   $(document).keyup(this.escapeHandler.bind(this));
 
   $('.ad-target').click(this.adClickHandler.bind(this));
+
+  this.resend.click(this.resendHandler.bind(this));
+};
+
+APP.AM.prototype.resendHandler = function() {
+  $.post('/auth/resend', {}).then(this.resendComplete.bind(this));
+};
+
+APP.AM.prototype.resendComplete = function(response) {
+  APP.BaseScreen.prototype.showFlash.call(this, 'succes', 'Correo de confirmación re-enviado');
 };
 
 APP.AM.prototype.headerCoverHandler = function(event) {

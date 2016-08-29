@@ -20,7 +20,51 @@ APP.Work.prototype.listeners = function() {
   this.view.find('.cancel').click(this.cancelHandler.bind(this));
   this.view.find('.edit').click(this.editHandler.bind(this));
   this.view.find('.settings-btn').click(this.settingsHandler.bind(this));
+  // this.view.click(this.clickViewHandler.bind(this));
+
+  // $('.close-extra').click(function() {
+  //   $('.extra-content').hide();
+
+  //   $('body').css('height', 'auto');
+  //   $('body').css('overflow', 'auto');
+
+  //   $('.extra-content').css({
+  //     width: '100%',
+  //     height: '100%',
+  //     zIndex: 0
+  //   });
+  //   Utils.changeUrl('', lastUrl);
+  // });
 };
+// var lastUrl = '';
+// APP.Work.prototype.clickViewHandler = function(e) {
+//   e.preventDefault();
+//   lastUrl = location.href;
+
+//   var me = $(e.currentTarget);
+//   var url = me.find('a').attr('href');
+
+//   Utils.changeUrl('', url);
+
+//   url = url + '?lite=1';
+
+//   $('.extra-content').css('display', 'block');
+
+//   $('.extra-content .content').empty();
+//   var iframe = $('.iframe');
+
+//   iframe.attr('src', url);
+//   iframe.load(function(data) {
+//     $(data).find('.custon-desktop-header').hide();
+//   });
+
+//   $('.extra-content').css({
+//     zIndex: 99
+//   });
+
+//   $('body').css('height', '100%');
+//   $('body').css('overflow', 'hidden');
+// };
 
 APP.Work.prototype.settingsHandler = function() {
   if (this.view.find('.menu-settings').hasClass('hide')) {

@@ -17,6 +17,7 @@ router.post('/blog/:page', controller.search.bind(this, 'Post'));
 router.get('/brands/add', controller.addBrand);
 router.get('/brands/:idBrand/edit', controller.editBrand);
 
+
 router.get('/brands/:idBrand/pack/:idAdPack/ads', controller.brandPackAdsList);
 router.get('/brands/:idBrand/ads', controller.brandAds);
 
@@ -29,10 +30,17 @@ router.post('/brands/:idBrand/ad-creator', controller.adCreatorPost);
 // router.post('/brands/:idBrand/ad-creator/:idAd', controller.editAd);
 
 router.get('/brands/:page', controller.brands);
+router.get('/alerts', controller.alerts);
+router.get('/alerts/add', controller.alertAdd);
+router.get('/alerts/:idAlert/edit', controller.alertEdit);
+
+router.post('/alerts/add', controller.alertAddPost);
+router.post('/alerts/:idAlert/activate', controller.activateAlert);
+
 
 router.post('/brands/create', controller.createBrand);
-
 router.post('/brands/:page', controller.search.bind(this, 'Brand'));
+
 
 router.get('/banners/edit/:idBanner', controller.editBanner);
 router.post('/banners/update', controller.updateBanner);

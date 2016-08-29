@@ -88,6 +88,51 @@ exports.brands = function(req, res) {
   });
 };
 
+exports.alerts = function(req, res) {
+  global.db.Alert.findAll().then(function(alerts) {
+    return res.render(basePath + 'alerts', {
+      alerts: alerts
+    });
+  });
+};
+
+exports.alertAdd = function(req, res) {
+  return res.render(basePath + 'alert-add');
+};
+
+exports.alertAddPost = function(req, res) {
+  var afterCrud = function(alert) {
+    return res.ok({alert: alert}, 'alert updated');
+  };
+
+  if(req.body.edit)
+    return global.db.Alert.findById(req.body.idAlert).then(function(alert) {
+      alert.updateAttributes(req.body).then(afterCrud);
+    });
+
+  global.db.Alert.create(req.body).then(afterCrud);
+};
+
+exports.alertEdit = function(req, res) {
+  global.db.Alert.findById(req.params.idAlert).then(function(alert) {
+    return res.render(basePath + 'alert-add', {
+      alertToEdit: alert,
+      edit: true
+    });
+  });
+};
+
+exports.activateAlert = function(req, res) {
+  console.log('id alert : ', req.params.idAlert);
+
+  global.db.Alert.findById(req.params.idAlert).then(function(alert) {
+    alert.isActive = !alert.isActive;
+    alert.save().then(function() {
+      return res.ok({alert: alert}, 'alert updated');
+    });
+  });
+};
+
 exports.brandAds = function(req, res) {
   global.db.Brand.findById(req.params.idBrand).then(function(brand) {
     brand.getAdPacks({

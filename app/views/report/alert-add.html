@@ -1,0 +1,27 @@
+{% set templates = ['ad-creator']%}
+{% set path = "users" %}
+
+{% extends '../partials/report.html' %}
+
+{% block content %}
+  <h2 class="sub-header">Crear alerta</h2>
+  <form>
+    <input type="text" name="name" value="{{alertToEdit.name}}" placeholder="Nombre"><br>
+    <input type="text" name="background" value="{{alertToEdit.background}}" placeholder="Color de fondo"><br>
+    <input type="text" name="text" value="{{alertToEdit.text}}" placeholder="Texto principal"><br>
+    <input type="text" name="buttonColor" value="{{alertToEdit.buttonColor}}" placeholder="Color de boton"><br>
+    <input type="text" name="buttonText" value="{{alertToEdit.buttonText}}" placeholder="Texto de boton"><br>
+    <input type="text" name="buttonLink" value="{{alertToEdit.buttonLink}}" placeholder="Link de boton"><br><br>
+    <input type="submit" value="{%if edit %} actualizar {%else%}crear {%endif%}">
+  </form>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    var alertToEdit = {{alertToEdit|json|safe}};
+    var edit = {{edit|json|safe}};
+    $(function () {
+      new APP.AdminAddAlertScreen();
+    });
+  </script>
+{% endblock %}

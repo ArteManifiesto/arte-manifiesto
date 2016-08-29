@@ -1,0 +1,59 @@
+{% extends '../partials/report.html' %}
+
+{% block content %}
+<h2 class="sub-header">Alertas ({{alerts.length}})
+<a href="/report/alerts/add">Agregar alerta</a></h2>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>nombre</th>
+        <th>color de fondo</th>
+        <th>texto principal</th>
+        <th>color de boton</th>
+        <th>texto de boton</th>
+        <th>link de boton</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody class="container-items">
+      {% for alert in alerts %}
+        <tr>
+          <td>{{alert.id}}</td>
+          <td>{{alert.name}}</td>
+          <td> <div style="width:30px; height:20px; background-color:{{alert.background}};"></div><span>{{alert.background}}</span></td>
+          <td>{{alert.text}}</td>
+          <td> <div style="width:30px; height:20px; background-color:{{alert.buttonColor}};"></div><span>{{alert.buttonColor}}</span></td>
+          <td>{{alert.buttonText}}</td>
+          <td>
+            {% if alert.buttonLink %}
+              <a href="{{alert.buttonLink}}" target="_blank">link</a>
+            {% endif %}
+          </td>
+          <td><a href="/report/alerts/{{alert.id}}/activate" class="btn activate-btn btn-primary">{% if alert.isActive %} desactivar {% else %} activar {% endif %}</a></td>
+          <td><a href="/report/alerts/{{alert.id}}/edit" class="btn btn-success">Editar</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    $(function() {
+      $('.activate-btn').click(function(e) {
+        e.preventDefault();
+        var me = $(this);
+        $.post(me.attr('href')).then(function(response) {
+          if(response.data.alert.isActive) {
+            me.text('desactivar');
+          }else {
+            me.text('activar');
+          }
+        });
+      });
+    }); 
+  </script>
+{% endblock %}

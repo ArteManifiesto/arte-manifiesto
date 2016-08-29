@@ -59,7 +59,8 @@ exports.index = function(currentPath, req, res) {
             tags: result[4],
             reviews: result[5],
             neighbors: result[6],
-            categories: result[7]
+            categories: result[7],
+            lite: (req.query.lite === "1")
           };
 
           promises = [];
