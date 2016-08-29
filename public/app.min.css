@@ -10559,7 +10559,11 @@ width
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
 }
+.alert p {
+  line-height: 30px;
+}
 .alert .alert-btn {
+  margin: 10px;
   cursor: pointer;
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
