@@ -73,16 +73,16 @@
 			{% endif %}
 
 				<div class="single-image">
-					<div class="single-image-inner" style="position: relative;">
-						{% if user && user.isAdmin %}
-				        <div class="featured {% if  !work.featured %} disabled {% endif %}">DESTACADO</div>
-				        {% else %}
-				        {% if work.featured %}
-				          <div class="featured">DESTACADO</div>
-				        {% endif %}
-				      {% endif %}
-						<div class="work-photo-container">
+					<div class="single-image-inner">					
+						<div class="work-photo-container" style="position: relative;">
 							<img src="{{work.photo|addFilter('w_700,h_800,q_80,c_limit')}}" class="work-photo" id="work-image">
+							{% if user && user.isAdmin %}
+					        <div class="featured {% if  !work.featured %} disabled {% endif %}">DESTACADO</div>
+					        {% else %}
+						        {% if work.featured %}
+						          <div class="featured">DESTACADO</div>
+						        {% endif %}
+					      	{% endif %}
 						</div>
 							<div class="actions u-padding-top-10">
 								<a class="action {% if work.liked %} active {% endif %}">

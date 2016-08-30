@@ -97,7 +97,20 @@ module.exports = function (app, passport) {
       errorMessage: req.flash('errorMessage')
     };
 
-    if (!req.user) return next();
+
+    var afterGetAlert = function(alert) {
+      res.locals.alert = alert;
+      next();
+    };
+
+    var getAlert = function() {
+      if(req.user && !req.user.verified)
+        return global.db.Alert.find({where:{name: 'confirmation'}}).then(afterGetAlert);
+
+      return global.db.Alert.find({where:{name: 'general', isActive: true}}).then(afterGetAlert);
+    };
+
+    if (!req.user) return getAlert();
 
     var verbs = [
       'like-work', 'follow-user', 'review-work', 'request-work',
@@ -114,20 +127,10 @@ module.exports = function (app, passport) {
     };
     global.db.Action.count(query).then(function (total) {
       res.locals.numOfNotifications = total;
+      if(req.url.indexOf('report') !== -1)
+        return next();
 
-    var afterGetAlert = function(alert) {
-      res.locals.alert = alert;
-      next();
-    };
-
-    console.log('url:', req.url, req.url.indexOf('report'));
-    if(req.url.indexOf('report') !== -1)
-      return next();
-    
-    if(req.user && !req.user.verified)
-      global.db.Alert.find({where:{name: 'confirmation'}}).then(afterGetAlert);
-    else
-      global.db.Alert.find({where:{name: 'general', isActive: true}}).then(afterGetAlert);
+      return getAlert();
     });
   });
 
