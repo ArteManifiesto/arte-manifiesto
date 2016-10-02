@@ -1,12 +1,8 @@
 /.idea
-/.env
-/production
 /node_modules
 /npm-debug.log
 /public/works
 /public/avatars
-/config/config.json
-/config/config-production.json
 */.DS_Store
 .DS_Store
 .DS_Store?
@@ -16,6 +12,5 @@
 Icon?
 Thumbs.db
 dump.rdb
-flightplan.js
 /public/app.min.js
 /public/app.min.css
