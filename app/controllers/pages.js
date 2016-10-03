@@ -267,6 +267,10 @@ exports.landing = function(req, res) {
   return res.render(basePath + 'landing');
 };
 
+exports.lab = function(req, res) {
+  return res.render(basePath + 'lab');
+};
+
 exports.success = function(req, res) {
   return res.json({
     status: 'success'
