@@ -64,15 +64,25 @@ module.exports = function (app, passport) {
   app.use(compression());
   app.use(morgan('dev'));
   app.use(cookieParser('luelennuckyinleDfOfkugGEsErLQQDcS'));
-
-  app.use(expressSession({
-    secret: "2x4Zvgd93yMbP,4NQEj4[Qzjqqrq,;n#PynZMawWc",
-    resave: false,
-    saveUninitialized: false,
-    name: 'am-session',
-    cookie: {domain: '.' + global.cf.app.domain},
-    store: new MongoStore({ url: 'mongodb://localhost:27017/' + process.env.DB_MONGO_NAME })
-  }));
+  if (process.env.NODE_ENV === 'production') {
+    app.use(expressSession({
+      secret: "2x4Zvgd93yMbP,4NQEj4[Qzjqqrq,;n#PynZMawWc",
+      resave: false,
+      saveUninitialized: false,
+      name: 'am-session',
+      cookie: {domain: '.' + global.cf.app.domain},
+      store: new MongoStore({ url: 'mongodb://localhost:27017/' + process.env.DB_MONGO_NAME })
+    }));
+  }
+  else{
+     app.use(expressSession({
+      secret: "2x4Zvgd93yMbP,4NQEj4[Qzjqqrq,;n#PynZMawWc",
+      resave: false,
+      saveUninitialized: false,
+      name: 'am-session',
+      cookie: {domain: '.' + global.cf.app.domain}
+    }));
+  }
 
   app.use(flash());
 
