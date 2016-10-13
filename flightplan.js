@@ -32,10 +32,6 @@ plan.target('production', [
 plan.local(function (local) {
   local.log('Copy files to remote hosts');
   var filesToCopy = local.exec('git ls-files', {silent: true});
-  filesToCopy.stdout += "production\n";
-  filesToCopy.stdout += "config/config-production.json\n";
-  local.log(JSON.stringify(filesToCopy));
-  local.log(tmpDir);
   local.transfer(filesToCopy, '/tmp/' + tmpDir);
 });
 
