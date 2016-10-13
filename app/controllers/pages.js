@@ -271,6 +271,11 @@ exports.lab = function(req, res) {
   return res.render(basePath + 'lab');
 };
 
+exports.labredirect = function(req, res) {
+  return res.redirect('/laboratorio_de_impresion_digital_giclee_arte_y_fotografia');
+};
+
+
 exports.success = function(req, res) {
   return res.json({
     status: 'success'

@@ -11,6 +11,7 @@ router.get('/pp', controller.pp);
 
 router.get('/compra-y-vende-arte-en-internet-latinoamerica', controller.landing);
 
+router.get('/amlab', controller.labredirect);
 router.get('/laboratorio_de_impresion_digital_giclee_arte_y_fotografia', controller.lab);
 
 router.get('/editor', global.md.isAdmin, controller.editor);
