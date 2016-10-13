@@ -12,3 +12,9 @@
 Icon?
 Thumbs.db
 dump.rdb
+
+/.env		
+/production
+/config/config.json		
+/config/config-production.json
+flightplan.js
