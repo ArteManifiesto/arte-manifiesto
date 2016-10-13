@@ -18,7 +18,7 @@
         <div class="edit-options">
           <div class="image-uploader" style="position:relative;">
             {{ cloudinary.uploader.image_upload_tag('cover', {callback: cloudinary_cors,return_delete_token: true, html: {
-            style: "width:50px;height:55px;top:-18px;", class:'editor-cover' } })}}
+            style: "width:50px;height:55px;top:-18px;", class:'editor-cover cloudinary-fileupload' } })}}
           </div>
           <i class="bi_tool-camera-b upload edit-icon"></i>
           <i class="prelaod fa fa-spinner hide preload"></i>
@@ -64,7 +64,7 @@
 
       <div id="container">
           {{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: {
-          style: "width:230px;height:55px;top:-70px;left: 105px;", multiple:1, class:'editor-photos' } })}}
+          style: "width:230px;height:55px;top:-70px;left: 105px;", multiple:1, class:'editor-photos cloudinary-fileupload' } })}}
           <div class="editable">
               {% if post %}
                 {{postBody|safe}}
