@@ -16,7 +16,6 @@ body {
   color: #fff;
   letter-spacing: 2px;
   background-color: #0076ec;
-  -webkit-border-radius: 40px;
   border-radius: 40px;
   padding: 16px 46.6px 16px 46.6px;
   display: inline-block;
@@ -29,7 +28,6 @@ body {
   color: #fff;
   letter-spacing: 2px;
   border: 1px solid rgba(231,231,231,0.3);
-  -webkit-border-radius: 40px;
   border-radius: 40px;
   padding: 16px 19.5px 16px 19.5px;
   display: inline-block;
@@ -42,7 +40,6 @@ body {
   color: #fff;
   letter-spacing: 2px;
   background-color: #393d3f;
-  -webkit-border-radius: 40px;
   border-radius: 40px;
   padding: 16px 29.1px 16px 29.1px;
   display: inline-block;
@@ -419,7 +416,6 @@ textarea {
 .ad-rect img,
 .ad-quad img,
 .ad-horizontal img {
-  -webkit-border-radius: 4px;
   border-radius: 4px;
 }
 .ad-quad,
@@ -429,7 +425,6 @@ textarea {
 .ad {
   margin: 0 auto;
   padding: 15px 15px 5px 15px;
-  -webkit-border-radius: 5px;
   border-radius: 5px;
   margin-bottom: 15px;
   border: solid 1px #979797;
@@ -492,7 +487,6 @@ textarea {
   border: 1px solid #aaa;
   border-top-width: 0;
   border-bottom-width: 0;
-  -webkit-border-radius: 0 0 5px 5px;
   border-radius: 0 0 5px 5px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -1400,7 +1394,6 @@ textarea {
 .am-Signin-button {
   font-family: 'Montserrat', sans-serif;
   background: #3bd64a;
-  -webkit-border-radius: 100px;
   border-radius: 100px;
   letter-spacing: 2px;
   padding: 8px 12px;
@@ -1417,7 +1410,6 @@ textarea {
 .am-Upload-button {
   font-family: 'Montserrat', sans-serif;
   background: #277cea;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   letter-spacing: 2px;
   padding: 8px 10px;
@@ -1427,7 +1419,6 @@ textarea {
 }
 .am-More-button {
   background: #2e71f0;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   color: #fff;
   font-family: 'Montserrat', sans-serif;
@@ -1440,7 +1431,6 @@ textarea {
 }
 .am-Switch-button {
   background: #ccc;
-  -webkit-border-radius: 32px;
   border-radius: 32px;
   width: 38px;
   height: 20px;
@@ -1463,7 +1453,6 @@ textarea {
   width: 17px;
   height: 16.8px;
   background: #fff;
-  -webkit-border-radius: 32px;
   border-radius: 32px;
   font-size: 0.25em;
   color: #ddd;
@@ -1496,7 +1485,6 @@ textarea {
   background: #88d68f;
 }
 .am-Follow-button {
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   border: solid 1px #ddd;
   background: #fff;
@@ -1515,7 +1503,6 @@ textarea {
 }
 .am-View-button {
   background: #2e71f0;
-  -webkit-border-radius: 17px;
   border-radius: 17px;
   padding: 8px 15px;
   letter-spacing: 2px;
@@ -1539,7 +1526,6 @@ textarea {
 	$ INPUTS
 *------------------------------------*/
 .am-Search-input {
-  -webkit-border-radius: 50px;
   border-radius: 50px;
   overflow: hidden;
   display: -webkit-box;
@@ -1577,7 +1563,6 @@ textarea {
   cursor: pointer;
 }
 .am-Search-input2 {
-  -webkit-border-radius: 50px;
   border-radius: 50px;
   overflow: hidden;
   display: -webkit-box;
@@ -1600,7 +1585,6 @@ textarea {
   color: #333;
   font-family: 'Montserrat', sans-serif;
   border: solid 1px #3f3f3f;
-  -webkit-border-radius: 50px 0 0 50px;
   border-radius: 50px 0 0 50px;
   font-size: 12px;
 }
@@ -1611,7 +1595,6 @@ textarea {
   padding: 7px 10px;
 }
 .am-Email-input {
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   overflow: hidden;
   display: -webkit-box;
@@ -1650,7 +1633,6 @@ l,
   border: solid 1px #ddd;
   color: #3c3d41;
   letter-spacing: 2px;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   position: relative;
   text-align: center;
@@ -1665,7 +1647,6 @@ l i,
 }
 .am-Filter {
   border: solid 1px #ddd;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
 }
 .am-Filter-item.selected {
@@ -1842,7 +1823,6 @@ l i,
   font-size: 16px;
   border: 1px solid #ddd;
   margin-bottom: 10px;
-  -webkit-border-radius: 5px;
   border-radius: 5px;
 }
 .metadata-chapter textarea {
@@ -1956,7 +1936,6 @@ l i,
 .chapter-details .content .social .share-tw {
   width: 40px;
   height: 40px;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   display: -webkit-box;
   display: -moz-box;
@@ -2112,7 +2091,6 @@ l i,
   opacity: 0.6;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
   filter: alpha(opacity=60);
-  -webkit-border-radius: 40px;
   border-radius: 40px;
   border: solid 1px #eee;
   padding: 15px 30px;
@@ -2176,7 +2154,6 @@ l i,
   padding: 10px 20px;
   color: #fff;
   line-height: 40px;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
   background-color: #2e71f0;
   font-family: 'Montserrat';
@@ -2247,7 +2224,6 @@ l i,
   width: 200px;
   height: 200px;
   border: 1px solid #fff;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
@@ -2268,7 +2244,6 @@ l i,
   border-top: 40px solid transparent;
   border-bottom: 40px solid transparent;
   border-left: 60px solid #fff;
-  -webkit-border-radius: 5px;
   border-radius: 5px;
   position: absolute;
 }
@@ -2409,7 +2384,6 @@ div.tagsinput div {
 }
 .loader,
 .loader:after {
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   width: 10em;
   height: 10em;
@@ -2531,7 +2505,6 @@ div.tagsinput div {
   color: #fff;
   padding: 3px 6px;
   letter-spacing: 1px;
-  -webkit-border-radius: 3px;
   border-radius: 3px;
 }
 .slider-item-inner {
@@ -2629,7 +2602,6 @@ div.tagsinput div {
   width: 30px;
   height: 30px;
   min-width: 30px;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
 }
 .slider-item .author p:first-child {
@@ -2724,7 +2696,6 @@ div.tagsinput div {
   width: 250px;
   -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
-  -webkit-border-radius: 0 4px 4px 0;
   border-radius: 0 4px 4px 0;
   overflow: hidden;
   z-index: 2;
@@ -2948,7 +2919,6 @@ width
   width: 50px;
   height: 50px;
   min-width: 50px;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
 }
 .am-Avatar i {
@@ -2967,7 +2937,6 @@ width
   width: 218px;
   display: none;
   border: solid 1px #ddd;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
 }
 .user-menu-item {
@@ -2988,7 +2957,6 @@ width
 .am-Header-icon span {
   margin-left: 5px;
   background: #277cea;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
   color: #fff;
   font-family: 'Montserrat', sans-serif;
@@ -3108,7 +3076,6 @@ width
   margin-left: 20px;
 }
 .am-Header-new .socials .upload {
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   background: #277cea;
   font-family: 'Montserrat', sans-serif;
@@ -3137,7 +3104,6 @@ width
   position: relative;
 }
 .am-Header-new .avatar img {
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   margin-right: 2px;
   width: 40px;
@@ -3216,7 +3182,6 @@ width
 .am-header-mobile .avatar img {
   width: 40px;
   height: 40px;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   margin-right: 2px;
 }
@@ -3277,7 +3242,6 @@ width
 }
 .body .left-mobile-menu .options span {
   background: #277cea;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   color: #fff;
   font-size: 10px;
@@ -3325,7 +3289,6 @@ width
 }
 .body .right-mobile-menu .options span {
   background: #277cea;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   color: #fff;
   font-size: 10px;
@@ -3430,7 +3393,6 @@ width
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
 }
 .am-NavigationMenu-section-list {
@@ -3515,7 +3477,6 @@ width
 .artist-card-info img {
   height: 50px;
   width: 50px;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   margin-right: 10px;
   position: absolute;
@@ -3631,7 +3592,6 @@ width
   padding: 8px 40px;
   margin-top: 20px;
   display: inline-block;
-  -webkit-border-radius: 100px;
   border-radius: 100px;
 }
 /*------------------------------------*
@@ -3730,7 +3690,6 @@ width
 .collection-card-artist img {
   height: 30px;
   width: 30px;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
 }
 .collection-card-artist p {
@@ -3834,7 +3793,6 @@ width
   color: #1e1f1e;
   font-size: 12px;
   padding: 10px;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .product-card-zoom {
@@ -3861,7 +3819,6 @@ width
   font-size: 8px;
   color: #fff;
   padding: 4px 11px;
-  -webkit-border-radius: 3px;
   border-radius: 3px;
   cursor: pointer;
   letter-spacing: 0.8px;
@@ -3890,7 +3847,6 @@ width
   right: 5px;
   color: #fff;
   background: rgba(0,0,0,0.5);
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   padding: 5px;
   font-family: 'Montserrat', sans-serif;
@@ -3938,7 +3894,6 @@ width
 .private {
   z-index: 1;
   background-color: #f66;
-  -webkit-border-radius: 3px;
   border-radius: 3px;
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
@@ -3993,7 +3948,6 @@ width
 .cover-work .inner .option i {
   font-size: 1.5em;
   color: #fff;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   border: solid 1px #fff;
   height: 60px;
@@ -4072,7 +4026,6 @@ width
 .single-collection-header img {
   width: 50px;
   height: 50px;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   margin-right: 10px;
 }
@@ -4254,7 +4207,6 @@ width
 .FollowArtist img {
   width: 70px;
   height: 70px;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   margin-right: 20px;
 }
@@ -4317,7 +4269,6 @@ width
   max-height: 580px;
 }
 .am-Category-box {
-  -webkit-border-radius: 3px;
   border-radius: 3px;
   background: #9b9b9b;
   padding: 5px 7px 3px 7px;
@@ -4329,7 +4280,6 @@ width
   display: table;
 }
 .am-Tag-box {
-  -webkit-border-radius: 3px;
   border-radius: 3px;
   background: #ddd;
   font-family: 'Montserrat', sans-serif;
@@ -4380,7 +4330,6 @@ width
 .reviews .title span {
   padding: 4px 10px;
   background: #1f79ed;
-  -webkit-border-radius: 17px;
   border-radius: 17px;
   font-size: 10px;
   color: #fff;
@@ -4405,7 +4354,6 @@ width
   min-width: 50px;
   width: 50px;
   height: 50px;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
 }
 .reviews .review .content {
@@ -4481,7 +4429,6 @@ width
   font-size: 10px;
   letter-spacing: 2px;
   padding: 10px 30px;
-  -webkit-border-radius: 17px;
   border-radius: 17px;
   border: solid 1px #ededed;
   cursor: pointer;
@@ -4531,7 +4478,6 @@ width
 }
 .tags-container .title span {
   background: #1f79ed;
-  -webkit-border-radius: 17px;
   border-radius: 17px;
   padding: 4px 10px;
   font-size: 10px;
@@ -4542,7 +4488,6 @@ width
   margin: 30px auto;
 }
 .tags-container .tags .tag {
-  -webkit-border-radius: 3.6px;
   border-radius: 3.6px;
   background: #ddd;
   font-family: 'Montserrat', sans-serif;
@@ -4561,7 +4506,6 @@ width
   background: #fff;
   margin: 60px auto;
   max-width: 620px;
-  -webkit-border-radius: 3px;
   border-radius: 3px;
 }
 .am-Manifest-title {
@@ -4686,7 +4630,6 @@ width
 .am-Profile-avatar img {
   width: 100px;
   height: 100px;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
 }
 .am-Profile-avatar .name {
@@ -4777,7 +4720,6 @@ width
   padding: 35px 20px 45px 20px;
   text-align: center;
   background: #fff;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   max-width: 600px;
   margin: auto;
@@ -4872,7 +4814,6 @@ width
   font-size: 10px;
   width: 100%;
   letter-spacing: 2px;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   cursor: pointer;
 }
@@ -4933,7 +4874,6 @@ width
 }
 .am-register-box {
   background: #fff;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   max-width: 320px;
   margin: auto;
@@ -4992,7 +4932,6 @@ width
   padding: 0 20px;
 }
 .am-register-box .button {
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   font-weight: bold;
   letter-spacing: 2px;
@@ -5031,7 +4970,6 @@ width
 .am-register-box .input {
   border: solid 1px #979797;
   width: 100%;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   font-family: 'Montserrat', sans-serif;
   padding: 13px 15px;
@@ -5183,7 +5121,6 @@ width
 }
 .am-profile .addresses {
   border: solid 1px #bac5c7;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
 }
 .am-profile .addresses .address {
@@ -5227,7 +5164,6 @@ width
 }
 .am-profile .addresses .address .address-input {
   border: solid 1px #979797;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   width: 100%;
   padding: 13px 15px;
@@ -5277,7 +5213,6 @@ width
   font-size: 18px;
   color: #fff;
   background: #3bd64a;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   padding: 20px 40px;
   display: table;
@@ -5352,7 +5287,6 @@ width
 }
 .am-profile-box .input {
   border: solid 1px #979797;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   width: 100%;
   font-family: 'Montserrat', sans-serif;
@@ -5385,7 +5319,6 @@ width
 .am-profile-box .profile-imgage img {
   width: 180px;
   height: 180px;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   border: solid 3px #979797;
 }
@@ -5403,7 +5336,6 @@ width
   animation: 1.5s load infinite;
 }
 .am-profile-box .button {
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   font-weight: bold;
   width: 100%;
@@ -5573,7 +5505,6 @@ width
   align-items: center;
   padding: 14px 46px;
   border: solid 1px #979797;
-  -webkit-border-radius: 3px;
   border-radius: 3px;
 }
 .am-profile-box .open-seller-box .number {
@@ -5583,7 +5514,6 @@ width
   font-size: 14.4px;
   width: 32px;
   height: 32px;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   border: solid 1px #979797;
   display: -webkit-box;
@@ -5614,7 +5544,6 @@ width
   height: 16px;
   background: #f8f197;
   border: solid 1px #61565a;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   display: -webkit-box;
   display: -moz-box;
@@ -5656,7 +5585,6 @@ width
 }
 .am-profile-box .open-seller-box .seller-button {
   border: solid 1px #333;
-  -webkit-border-radius: 3px;
   border-radius: 3px;
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
@@ -5868,7 +5796,6 @@ width
 }
 .am-upload-work .tagsinput {
   border: solid 1px #979797;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
 }
 .am-upload-work-box {
@@ -5878,7 +5805,6 @@ width
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   padding-top: 40px;
   padding-bottom: 20px;
@@ -5916,7 +5842,6 @@ width
 }
 .am-upload-work-box .input {
   border: solid 1px #979797;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   width: 100%;
   font-family: 'Montserrat', sans-serif;
@@ -5938,7 +5863,6 @@ width
   padding: 12px 15px;
 }
 .am-upload-work-box .button {
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   font-weight: bold;
   letter-spacing: 2px;
@@ -6682,7 +6606,6 @@ width
   }
 }
 .info-box {
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   border: solid 1px #bac5c7;
 }
@@ -6713,7 +6636,6 @@ width
 }
 .info-box .header p.selected {
   background: #4a4a4a;
-  -webkit-border-radius: 40px;
   border-radius: 40px;
   color: #fff;
 }
@@ -6739,7 +6661,6 @@ width
 .info-box .body select {
   background: #eee;
   padding: 8px 15px;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   -webkit-box-shadow: 0 1px 0 0 rgba(0,0,0,0.1);
   box-shadow: 0 1px 0 0 rgba(0,0,0,0.1);
@@ -6949,7 +6870,6 @@ width
 }
 .actions .action .icon {
   cursor: pointer;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   width: 60px;
   height: 60px;
@@ -7008,7 +6928,6 @@ width
 .actions-box {
   border: solid 1px #c2c2c2;
   padding: 20px;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   background: #fff;
   min-width: 250px;
@@ -7054,7 +6973,6 @@ width
   -webkit-justify-content: center;
   justify-content: center;
   cursor: pointer;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
 }
 .actions-box .button .load,
@@ -7124,11 +7042,9 @@ width
   box-sizing: border-box;
   font-family: 'Montserrat', sans-serif;
   font-size: 12px;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
 }
 .actions-box .collections {
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   border: solid 1px #ddd;
 }
@@ -7223,7 +7139,6 @@ width
   -webkit-justify-content: center;
   justify-content: center;
   border: solid 1px #808080;
-  -webkit-border-radius: 5px;
   border-radius: 5px;
   padding: 10px;
 }
@@ -7320,7 +7235,6 @@ width
 }
 .checkout-box {
   background: #fff;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   overflow: hidden;
 }
@@ -7337,7 +7251,6 @@ width
   letter-spacing: 2px;
   margin: 10px;
   cursor: pointer;
-  -webkit-border-radius: 40px;
   border-radius: 40px;
   padding: 5px 10px;
 }
@@ -7368,7 +7281,6 @@ width
 }
 .checkout-box .checkout-content .checkout-info .addresses {
   border: solid 1px #bac5c7;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
 }
 .checkout-box .checkout-content .checkout-info .addresses .address {
@@ -7411,7 +7323,6 @@ width
 }
 .checkout-box .checkout-content .checkout-info .addresses .address .address-input {
   border: solid 1px #979797;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   width: 100%;
   padding: 13px 15px;
@@ -7475,7 +7386,6 @@ width
 }
 .checkout-box .checkout-content .checkout-resume .resume-box {
   border: solid 1px #bac5c7;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   max-width: 310px;
   margin: auto;
@@ -7526,7 +7436,6 @@ width
 .checkout-box .checkout-content .button {
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   letter-spacing: 2px;
   font-size: 10px;
@@ -7615,7 +7524,6 @@ width
   font-weight: bold;
   font-size: 10px;
   padding: 10px 30px;
-  -webkit-border-radius: 40px;
   border-radius: 40px;
   margin-top: 30px;
   display: inline-block;
@@ -7668,7 +7576,6 @@ width
   color: #fff;
   font-size: 10px;
   padding: 7px 60px;
-  -webkit-border-radius: 100px;
   border-radius: 100px;
   display: inline-block;
   font-family: 'Montserrat', sans-serif;
@@ -7805,7 +7712,6 @@ width
   color: #fff;
   font-size: 10px;
   padding: 7px 50px;
-  -webkit-border-radius: 100px;
   border-radius: 100px;
   display: inline-block;
   font-family: 'Montserrat', sans-serif;
@@ -7814,7 +7720,6 @@ width
   margin: 20px 0;
 }
 .empty-box {
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   max-width: 500px;
   margin: auto;
@@ -7828,7 +7733,6 @@ width
 }
 .empty-box-column >i {
   border: solid 2px #000;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   height: 65px;
   width: 65px;
@@ -7897,7 +7801,6 @@ width
   color: #0c0c0c;
   height: 65px;
   width: 65px;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   border: solid 2px #0c0c0c;
   display: -webkit-box;
@@ -7957,7 +7860,6 @@ width
   font-size: 10px;
   color: #fff;
   background: #277cea;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   border: solid 1px #000;
   padding: 8px 15px;
@@ -7982,7 +7884,6 @@ width
   border: solid 1px #fff;
   height: 28px;
   width: 28px;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   display: -webkit-box;
   display: -moz-box;
@@ -8060,7 +7961,6 @@ width
   background: #fff;
   max-width: 540px;
   margin: auto;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
 }
 .feed .feed-title .title {
@@ -8112,7 +8012,6 @@ width
   width: 50px;
   height: 50px;
   min-width: 50px;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   margin-right: 10px;
 }
@@ -8186,7 +8085,6 @@ width
 }
 .feed-card {
   background: #fff;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
 }
 .feed-card-header {
@@ -8228,7 +8126,6 @@ width
   width: 40px;
   min-width: 40px;
   height: 40px;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
 }
 .feed-card-header .user p:first-child {
@@ -8269,7 +8166,6 @@ width
 .feed-card-header .info i {
   color: #fff;
   background: #4000ff;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   width: 45.7px;
   min-width: 45px;
@@ -8336,7 +8232,6 @@ width
   padding: 15px;
 }
 .feed-card-userInfo img {
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   width: 60px;
   height: 60px;
@@ -8405,7 +8300,6 @@ width
   width: 30px;
   height: 30px;
   min-width: 30px;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
 }
 .feed-card-info .info .avatar .name {
@@ -8435,7 +8329,6 @@ width
   width: 30px;
   min-width: 30px;
   height: 30px;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   margin: 3px;
 }
@@ -8489,7 +8382,6 @@ width
 }
 .notifications .inner {
   background: #fff;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   max-width: 540px;
   margin: auto;
@@ -8528,7 +8420,6 @@ width
   width: 30px;
   height: 30px;
   min-width: 30px;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   margin-right: 10px;
 }
@@ -8581,7 +8472,6 @@ width
 .notifications .inner .notification-content img {
   width: 60px;
   height: 60px;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   margin-right: 30px;
 }
@@ -8777,7 +8667,6 @@ width
   color: #fff;
   padding: 3px 5px;
   letter-spacing: 1px;
-  -webkit-border-radius: 3px;
   border-radius: 3px;
   z-index: 1;
 }
@@ -8887,7 +8776,6 @@ width
   width: 30px;
   height: 30px;
   min-width: 30px;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
 }
 .blog-article .footer .author p:first-child {
@@ -9051,7 +8939,6 @@ width
   font-size: 9px;
   color: #fefefe;
   letter-spacing: 1.5px;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   border: solid 1px #ededed;
   padding: 3px 6px;
@@ -9062,7 +8949,6 @@ width
   font-size: 9px;
   color: #fefefe;
   letter-spacing: 1.5px;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   border: solid 1px #ededed;
   padding: 3px 6px;
@@ -9075,7 +8961,6 @@ width
   font-size: 9px;
   color: #333;
   letter-spacing: 1.5px;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   padding: 3px 6px;
 }
@@ -9102,7 +8987,6 @@ width
   font-style: italic;
   padding: 9px 20px;
   border: solid 1px #ededed;
-  -webkit-border-radius: 17px;
   border-radius: 17px;
 }
 .blog-single-socials {
@@ -9130,7 +9014,6 @@ width
   font-size: 9px;
   color: #838d8f;
   padding: 3px 5px 3px 5px;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   border: solid 1px #ededed;
   display: inline-block;
@@ -9155,7 +9038,6 @@ width
   font-weight: bold;
   font-size: 10px;
   padding: 10px 25px;
-  -webkit-border-radius: 17px;
   border-radius: 17px;
   letter-spacing: 2px;
   display: inline-block;
@@ -9171,7 +9053,6 @@ width
 }
 .blog-single-socials .buttons .button.white span {
   background: #b8c6c7;
-  -webkit-border-radius: 17px;
   border-radius: 17px;
   padding: 1px 4px 1px 7px;
   color: #fff;
@@ -9218,7 +9099,6 @@ width
   color: #666;
   letter-spacing: 2px;
   padding: 10px 25px;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   border: solid 1px #ddd;
   margin-left: 20px;
@@ -9263,7 +9143,6 @@ width
   border-bottom: solid 1px #ddd;
 }
 .blog-single-user img {
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   width: 60px;
   min-width: 60px;
@@ -9299,7 +9178,6 @@ width
   color: #666;
   letter-spacing: 2px;
   padding: 10px 25px;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   border: solid 1px #ddd;
   margin-left: 0px;
@@ -9341,7 +9219,6 @@ width
 .blog-single-popular .articles .article {
   background: #fff;
   max-width: 230px;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   margin: 10px;
 }
@@ -9363,7 +9240,6 @@ width
   font-size: 10px;
   letter-spacing: 1px;
   padding: 4px 5px 2px 5px;
-  -webkit-border-radius: 3px;
   border-radius: 3px;
 }
 .blog-single-popular .articles .article .image .tag.orange {
@@ -9486,7 +9362,6 @@ width
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
   background: #276cf2;
-  -webkit-border-radius: 40px;
   border-radius: 40px;
   font-size: 11px;
   color: #fff;
@@ -9713,7 +9588,6 @@ width
 .landing-reviews .review .img {
   width: 212px;
   height: 212px;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   margin-right: 80px;
   margin-bottom: 20px;
@@ -9854,7 +9728,6 @@ width
   letter-spacing: 2px;
   padding: 17px 50px;
   background: #276cf2;
-  -webkit-border-radius: 40px;
   border-radius: 40px;
   display: inline-block;
   margin-top: 20px;
@@ -9922,7 +9795,6 @@ width
   font-weight: bold;
   color: #cbb400;
   background: #f8f197;
-  -webkit-border-radius: 3px;
   border-radius: 3px;
   padding: 3px 8px;
   position: absolute;
@@ -9946,7 +9818,6 @@ width
   font-weight: bold;
   font-size: 10px;
   color: #fff;
-  -webkit-border-radius: 3px;
   border-radius: 3px;
   padding: 10px 8px 8px 8px;
   min-width: 220px;
@@ -10039,7 +9910,6 @@ width
 .sales-right .textarea {
   width: 100%;
   border: solid 1px #979797;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   margin-bottom: 15px;
   padding: 8px 10px;
@@ -10123,7 +9993,6 @@ width
 }
 .sales-right .back-color select {
   border: solid 1px #979797;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   padding: 5px 10px;
   font-family: 'Montserrat', sans-serif;
@@ -10237,7 +10106,6 @@ width
 }
 .sales-right .prints .data input {
   border: solid 1px #979797;
-  -webkit-border-radius: 3px;
   border-radius: 3px;
   width: 40px;
   margin: 0 10px;
@@ -10307,7 +10175,6 @@ width
   font-family: 'PT Serif', serif;
   font-size: 12px;
   color: #333;
-  -webkit-border-radius: 40px;
   border-radius: 40px;
   border: solid 1px #979797;
   display: table;
@@ -10621,7 +10488,6 @@ width
 .contact-form form textarea {
   color: #fff;
   background: rgba(255,255,255,0.15);
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   margin: 5px 0;
   padding: 10px 15px;
@@ -10635,7 +10501,6 @@ width
   font-size: 10px;
   color: #fff;
   background: #276cf2;
-  -webkit-border-radius: 40px;
   border-radius: 40px;
   padding: 15px 20px;
   cursor: pointer;
@@ -10703,7 +10568,6 @@ width
   -webkit-justify-content: center;
   justify-content: center;
   color: rgba(255,255,255,0.7);
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   border: solid 1px rgba(255,255,255,0.5);
   height: 48px;
@@ -10828,10 +10692,27 @@ width
   cursor: pointer;
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
-  -webkit-border-radius: 5px;
   border-radius: 5px;
   padding: 8px 16px;
   margin-left: 10px;
+}
+.am-Profile-menu-item:hover {
+  background: #fff;
+  border-bottom: solid 1px #b8b8b8;
+  border-left: solid 1px #b8b8b8;
+  border-right: solid 1px #b8b8b8;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.selected:hover {
+  background: #fff;
+  border-bottom: solid 2px #4000ff;
+  border-left: solid 1px #b8b8b8;
+  border-right: solid 1px #b8b8b8;
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
 }
 @-moz-keyframes load8 {
   0% {
