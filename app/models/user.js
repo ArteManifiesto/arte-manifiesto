@@ -363,7 +363,7 @@ module.exports = function(sequelize, DataTypes) {
         user.username = 'am' + moment().format('DDMMYYhhmmss') + user.id;
         if (!user.photo)
           user.photo = 'http://res.cloudinary.com/arte-manifiesto/image/upload/w_150,h_150,q_70/am_avatar.jpg';
-        user.cover = 'http://res.cloudinary.com/arte-manifiesto/image/upload/c_limit,w_1600/general/am-cover.jpg';
+        user.cover = 'http://res.cloudinary.com/arte-manifiesto/image/upload/f_auto,q_auto/v1478711029/general/banner-artistas.png';
         user.salt = user.makeSalt();
         user.hashedPassword = user.encryptPassword(options.password, user.salt);
         user.tokenVerifyEmail = uuid.v4();
