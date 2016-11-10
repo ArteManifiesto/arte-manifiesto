@@ -4694,6 +4694,24 @@ width
   border-left: solid 1px #b8b8b8;
   border-right: solid 1px #b8b8b8;
 }
+.am-Profile-menu-item.selected:hover {
+  background: #fff;
+  border-bottom: solid 2px #4000ff;
+  border-left: solid 1px #b8b8b8;
+  border-right: solid 1px #b8b8b8;
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+}
+.am-Profile-menu-item:hover {
+  background: #fff;
+  border-bottom: solid 1px #b8b8b8;
+  border-left: solid 1px #b8b8b8;
+  border-right: solid 1px #b8b8b8;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 /*------------------------------------*
 	$ WELCOME
 *------------------------------------*/
@@ -10695,24 +10713,6 @@ width
   border-radius: 5px;
   padding: 8px 16px;
   margin-left: 10px;
-}
-.am-Profile-menu-item:hover {
-  background: #fff;
-  border-bottom: solid 1px #b8b8b8;
-  border-left: solid 1px #b8b8b8;
-  border-right: solid 1px #b8b8b8;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-.selected:hover {
-  background: #fff;
-  border-bottom: solid 2px #4000ff;
-  border-left: solid 1px #b8b8b8;
-  border-right: solid 1px #b8b8b8;
-  -webkit-box-sizing: inherit;
-  -moz-box-sizing: inherit;
-  box-sizing: inherit;
 }
 @-moz-keyframes load8 {
   0% {
