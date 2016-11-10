@@ -33,6 +33,10 @@ exports.bth = function(req, res) {
   return res.redirect('https://kuestionario.typeform.com/to/Ho97sq');
 };
 
+exports.artjam = function(req, res) {
+  return res.redirect('https://artemanifiesto.typeform.com/to/FelGDk');
+};
+
 exports.adClick = function(req, res) {
   global.db.Ad.findById(req.body.adId).then(function(ad) {
     ad.clicks = ad.clicks + 1;
