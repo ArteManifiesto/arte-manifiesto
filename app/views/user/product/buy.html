@@ -95,9 +95,25 @@
 							</div>
 							<div class="grid-100">
 								<div class="buttons-container">
-									<form method="post" name='buy-form' action="/user/{{product.User.username}}/product/buy">
-										<input type="hidden" value="{{product.id}}" name="idProduct">
-										<button type="submit" class="button btn-pay" data-color="blue">PAGAR CON PAYPAL</button>
+									 <form method="post" action="https://gateway.payulatam.com/ppp-web-gateway/">
+									  <input name="merchantId" type="hidden" value="{{payu.merchant}}">
+									  <input name="accountId" type="hidden" value="{{payu.account}}">
+									  <input name="description" type="hidden" value="{{payu.description}}">
+									  <input name="referenceCode" type="hidden" value="{{payu.reference}}">
+									  <input name="amount" type="hidden" value="{{payu.amount}}">
+									  <input name="tax" type="hidden" value="0">
+									  <input name="taxReturnBase" type="hidden" value="0">
+									  <input name="currency" type="hidden" value="{{payu.currency}}" >
+									  <input name="signature" type="hidden" value="{{payu.signature}}">
+									  <input name="buyerEmail" type="hidden" value="{{user.email}}">
+									  <input name="buyerFullName" type="hidden" value="{{user.firstname}} {{user.lastname}}">
+									  <input name="telephone" type="hidden" value="{{user.phone}}">
+									  <input name="shippingAddress" type="hidden" value="{{user.direction}} | ">
+									  <input name="shippingCity" type="hidden" value="{{user.province}}">
+									  <input name="shippingCountry" type="hidden" value="PE">
+									  <input name="zipCode" type="hidden" value="{{user.zipcode}}">
+									  <input name="test" type="hidden" value="1">
+									  <input type="image" src="http://www.payulatam.com/img-secure-2015/boton_pagar_pequeno.png" border="0">
 									</form>
 								</div>
 							</div>
@@ -113,7 +129,9 @@
 {% block scripts %}
 	<script src='//maps.googleapis.com/maps/api/js?sensor=false&libraries=places'></script>
 	<script>
+		var payu = {{payu|json|safe}};
 		var product = {{product|json|safe}};
+		console.log(product);
 		$(function() {
 			new APP.BuyScreen();
 		});

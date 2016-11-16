@@ -29,6 +29,14 @@
 	<div class="grid-container u-margin-top-20">
 		<div class="grid-100">
 			<div class="single-info">
+				<div class="singleProduct-images">
+					<div class="singleProduct-images-container">
+						<img src="{{product.photo|addFilter('w_120,h_120,q_80,c_scale')}}" data-img="{{product.photo|addFilter('w_700,h_800,q_80,c_limit')}}">
+					</div>
+					<div class="singleProduct-images-container">
+						<img src="{{work.photo|addFilter('w_120,h_120,q_80,c_scale')}}" data-img="{{work.photo|addFilter('w_700,h_800,q_80,c_limit')}}">
+					</div>
+				</div>
 				<div class="single-image">
 					<div class="single-image-inner">
 						<div class="work-photo-container">
@@ -45,14 +53,18 @@
 									<i class="icon bi_web-share share"></i>
 									<p class="text">COMPARTIR</p>
 								</a>
-								{#
+								<a href="/user/{{product.User.username}}/product/{{product.nameSlugify}}/buy" class="action">
+									<i class="icon bi_ecommerce-shopcart-a singleProduct-icon"></i>
+									<p class="text">COMPRAR</p>
+								</a>
+								<!-- {#
 								{% if owner || (user && user.isAdmin)%}
 									<a id="go-share-modal" href="/user/{{product.User.username}}/product/{{product.nameSlugify}}/edit" class="action">
 										<i class="icon bi_editorial-compose"></i>
 										<p class="text">EDITAR</p>
 									</a>
 								{% endif %}
-								#}
+								#} -->
 							</div>
 						<div class="actions-box after-like {% if !product.liked %} hide {% endif %}">
 
@@ -81,59 +93,37 @@
 				<div class="single-data u-padding-bottom-40">
 					<div class="FollowArtist u-padding-bottom-10">
 						<div style="width: 100%;">
-							<a href="/user/{{product.User.username}}">
-								<p class="u-padding-bottom-7 big uppercase"><strong>
+							<p class="u-padding-bottom-7 singleProduct-name">
+								{{product.Category.ParentCategory.name}}
+								{{product.Category.name}} 
+							</p>
+							 
+							<p class="u-padding-bottom-7 singleProduct-by">
+								por <a href="/user/{{product.User.username}}">
 									{% if product.User.typeName === 1 %}
 										{{product.User.fullname}}
 									{% else %}
 										{{product.User.pseudonimo}}
 									{% endif %}
-								</strong></p>
-							</a>
-							<div class="button-container">
-								{% if !owner %}
-									<button class="am-Follow-button">+ SEGUIR</button>
-								{% endif %}
-								{% if owner %}
-								{% endif %}
-							</div>
+								</a>
+							</p>
+							<p class="u-padding-bottom-7">
+								<span class="singleProduct-finalPrice">S/.{{product.finalPrice}}.00</span>
+								<span class="singleProduct-price">S/.{{product.price}}.00</span>
+							</p>
 						</div>
 					</div>
 					<div class="u-separator"></div>
-					<p class="am-Single-title-text u-margin-top-15 work-name" style="font-size: 15px;">{{work.name}}</p>
-					<p class="am-collection-desc u-margin-top-10 work-description">
-						{{product.description}}
-					</p>
-					<div class='work-category'>
-
-						<a href='/products/category/{{product.Category.ParentCategory.nameSlugify}}/page-1/'>
-							<span class="am-Category-box u-margin-top-7 uppercase">{{product.Category.ParentCategory.name}}</span>
-						</a>
-
-					</div>
-					<div class="info-box u-margin-top-25">
-						<div class="header" style="padding: 10px 0;">
-							<p style="color: #333; font-size: 10px;">COMPRAR</p>
+					<div class="info-single singleProduct-info">
+						<i class="bi_editorial-brush singleProduct-info-icon"></i>
+						<p class="u-padding-bottom-7 singleProduct-info-text">Cuando compras acá, compras a un artista</p>
+						<i class="bi_transport-truck singleProduct-info-icon"></i>
+						<p class="u-padding-bottom-7 singleProduct-info-text">Entrega en la puerta de tu casa</p>
+						<div class="u-center">
+							<a href="/user/{{product.User.username}}/product/{{product.nameSlugify}}/buy" class="am-View-button singleProduct-btn expand u-margin-top-20">COMPRAR</a>
 						</div>
-						<div class="body">
-							<p class="title">{{product.Category.name}}</p>
-							<p class="text">Obras originales de nuestros artistas de valor único.</p>
-							<p class="text u-margin-top-10">Tamaño:</p>
-							{% set productConfig = JSON.parse(product.config) %}
-							<p class="text u-margin-top-10">{{productConfig.data.pkgLarge}} cm x
-							{{productConfig.data.pkgWidth}}cm x {{productConfig.data.pkgHeight}}cm</p>
-							<p class="text u-margin-top-10">Peso:</p>
-							{% set productConfig = JSON.parse(product.config) %}
-							<p class="text u-margin-top-10">{{productConfig.data.pkgWeight}} kg </p>
-							<br>
-							<div class="type2">
-								<p class="text">Precio por unidad:</p>
-								<p class="price u-text-center">S/.<strong>{{product.finalPrice}}</strong> PEN</p>
-							</div>
-							<div class="u-center">
-								<a href="/user/{{product.User.username}}/product/{{product.nameSlugify}}/buy" class="am-View-button expand u-margin-top-20">COMPRAR</a>
-							</div>
-						</div>
+						<i class="bi_com-chat singleProduct-info-icon"></i>
+						<p class="u-padding-bottom-7 singleProduct-info-text">7 días para devolver cualquier obra/producto</p>
 					</div>
 					<p class="am-stats-text u-margin-top-40">ESTADÍSTICAS</p>
 					<div class="u-separator"></div>
@@ -151,6 +141,28 @@
 						  </tr>
 						</table>
 					</div>
+				</div>
+			</div>
+			<div class="singleProduct-description">
+				{% set productConfig = JSON.parse(product.config) %}
+				<div class="singleProduct-description-box">
+					<p class="singleProduct-description-box-title">Descripción</p>
+					<p>{{productConfig.datap.description}}</p>
+				</div>
+				<div class="singleProduct-description-box">
+					<p class="singleProduct-description-box-title">Información adicional</p>
+					<p>{{productConfig.datap.by}}</p>
+					<p>Material: {{productConfig.datap.material}}</p>
+					<p>Acabado: {{productConfig.datap.finish}}</p>
+					<p class="singleProduct-description-box-space">Peso: {{productConfig.datap.weight}} grs</p>
+					<p>Diseño por: <a href="/user/{{product.User.username}}">
+										{% if product.User.typeName === 1 %}
+											{{product.User.fullname}}
+										{% else %}
+											{{product.User.pseudonimo}}
+										{% endif %}
+									</a>
+					</p>
 				</div>
 			</div>
 		</div>
@@ -192,10 +204,10 @@
 	                <p>COMENTARIOS</p>
 	                <span>{{reviews.length}}</span>
 	              </div>
-	              <div class="single-tab menu-item" data-name='tags'>
+	              <!-- <div class="single-tab menu-item" data-name='tags'>
 	                <p>TAGS</p>
 	                <i class="bi_editorial-left-align"></i>
-	              </div>
+	              </div> -->
 	            </div>
 	          </div>
 	        </div>
@@ -207,7 +219,7 @@
 			$ PRODUCTS
 		********************************************************************* -->
 
-		<div class="index-container {% if currentPath !== 'index' %} hide {% endif %}">
+		<!-- <div class="index-container {% if currentPath !== 'index' %} hide {% endif %}">
 			{% for cat in categories %}
 				<div class="grid-container u-margin-top-20">
 					<div class="grid-100">
@@ -228,7 +240,7 @@
 					</div>
 				</div>
 			{%endfor%}
-		</div>
+		</div> -->
 
 		<!--=================================================================================
 				=================================================================================
@@ -265,7 +277,7 @@
 			=================================================================================-->
 
 	<!--=========================== WORK-PRODUCT'S TAGS ===========================-->
-  <div class="grid-container tags-container {% if currentPath !== 'tags' %} hide {% endif %}">
+<!--   <div class="grid-container tags-container {% if currentPath !== 'tags' %} hide {% endif %}">
     <div class="grid-100">
       <div class="tags-container">
         <p class="title" style="margin-top: 30px;">Tags&nbsp;&nbsp;<span class="tags-number">{{tags.length}}</span></p>
@@ -285,10 +297,10 @@
       </div>
     </div>
   </div>
-
+ -->
 
 			<!--=========================== WORKS-PRODUCTS'S RELATED AND SIMILAR ===========================-->
-			<div>
+			<div class="index-container {% if currentPath !== 'index' %} hide {% endif %}">
 			  <div class="grid-container u-margin-top-60">
 			    <div class="grid-100">
 						<p class="am-more-text u-text-center u-padding-bottom-10">Otras obras del artista</p>
@@ -340,7 +352,7 @@
 			=================================================================================
 			=================================================================================-->
 
-	{% include '../../partials/inform.html' %}
+	<!-- {% include '../../partials/inform.html' %} -->
 
 	<div id="collection-modal" style="display:none; max-height: 400px; overflow-y: auto; overflow-x: hidden;">
 		<i class="closed-modal fa fa-times"></i>
@@ -456,13 +468,13 @@
 		var categories = {{categories|json|safe}};
 		var owner = {{owner|json|safe}};
 		var entity = {{entity|json|safe}};
+		var work = {{work|json|safe}};
 		var product = {{product|json|safe}};
 		var currentPath = {{currentPath|json|safe}};
 		var reviews = {{reviews|json|safe}};
 		var more = {{more|json|safe}};
 		var products = {{products|json|safe}};
 		var similar = {{similar|json|safe}};
-
 		(function (d, s, id) {
 			var js;
 			var fjs = d.getElementsByTagName(s)[0];
@@ -476,6 +488,11 @@
 			$("#go-collection-modal").leanModal();
 			$("#go-share-modal").leanModal();
 			$("#go-preload-modal").leanModal();
+
+			$(".singleProduct-images-container").click(function(e){
+				var temp = $(this).find("img").data("img");
+				$("#work-image").attr("src", temp);
+			});
 
 			new APP.ProductScreen();
 		});

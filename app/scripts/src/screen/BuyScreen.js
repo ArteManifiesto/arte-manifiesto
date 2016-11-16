@@ -135,10 +135,10 @@ APP.BuyScreen.prototype.cityChangeHandler = function() {
 APP.BuyScreen.prototype.shippingHandler = function(response) {
   var data = response.data.data;
 
-  this.totalShipping = Number(data.monto_total) + (6 / 100 * Number(data.monto_total));
+  this.totalShipping = 5.00;
   this.totalPrice = Number(product.finalPrice) + this.totalShipping;
 
-  $('.subtotal').text(product.finalPrice);
+  $('.subtotal').text(product.finalPrice + ".00");
   $('.baseprice').text(this.totalShipping);
   $('.totallity').text(this.totalPrice);
 };

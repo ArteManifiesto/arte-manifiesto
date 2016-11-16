@@ -2,6 +2,9 @@ var basePath = 'user/product/';
 var paypal = require('paypal-rest-sdk');
 var request = require('request');
 var cheerio = require('cheerio');
+var moment = require('moment');
+var crypto = require('crypto');
+
 
 exports.index = function(currentPath, req, res) {
   req.product.getWork().then(function(work) {
@@ -36,18 +39,21 @@ exports.index = function(currentPath, req, res) {
         addUser: true
       };
       global.db.Product.find(query).then(function(product) {
-        var data = {
-          currentPath: currentPath,
-          entity: 'product',
-          owner: req.owner,
-          product: product,
-          more: result[0],
-          similar: result[1],
-          tags: result[2],
-          reviews: result[3],
-          categories: result[4]
-        };
-        return res.render(basePath + 'index', data);
+         global.db.Work.find({where:{id:product.WorkId}}).then(function(work) {
+          var data = {
+            currentPath: currentPath,
+            entity: 'product',
+            owner: req.owner,
+            work: work,
+            product: product,
+            more: result[0],
+            similar: result[1],
+            tags: result[2],
+            reviews: result[3],
+            categories: result[4]
+          };
+          return res.render(basePath + 'index', data);
+        });
       });
     });
   });
@@ -125,33 +131,48 @@ exports.like = function(req, res) {
     });
   });
 };
-
 exports.buyPage = function(req, res) {
+  var merchantId = "575661";
+  var apiKey = "tUutsCnKZQ0VGwmB9Yq9XnqbO2";
+  var reference = req.product.id + '_' + req.product.UserId + '_' + moment().format('DDMMYYhhmmssSS');
+  var amount = 5 + parseInt(req.product.finalPrice);
+  var currency = "PEN";
+  var signature = apiKey + "~" + merchantId + "~" + reference + "~" + amount + "~" + currency;
+  var payu = {
+    merchant: merchantId,
+    account: "578459",
+    description: req.product.name + ' by ' +req.product.User.fullname,
+    reference: reference,
+    amount: amount,
+    currency: currency,
+    signature: crypto.createHash('md5').update(signature).digest("hex"),
+  }
   return res.render(basePath + 'buy', {
+    payu: payu,
     product: req.product,
     cities: global.cities
   });
 };
 
 exports.successPage = function(req, res) {
-  var orderData = req.cookies.order_data;
-  res.clearCookie('order_data', {
-    domain: '.' + global.cf.app.domain
-  });
+  // var orderData = req.cookies.order_data;
+  // res.clearCookie('order_data', {
+  //   domain: '.' + global.cf.app.domain
+  // });
 
-  if (!orderData) return res.redirect('/');
+  // if (!orderData) return res.redirect('/');
 
-  global.db.Order.create({
-    ProductId: req.product.id,
-    UserId: req.user.id,
-    SellerId: req.product.User.id,
-    status: 'recibido',
-    data: orderData
-  }).then(function(order) {
+  // global.db.Order.create({
+  //   ProductId: req.product.id,
+  //   UserId: req.user.id,
+  //   SellerId: req.product.User.id,
+  //   status: 'recibido',
+  //   data: orderData
+  // }).then(function(order) {
     return res.render(basePath + 'success', {
       product: req.product
     });
-  });
+  // });
 };
 
 exports.canceledPage = function(req, res) {

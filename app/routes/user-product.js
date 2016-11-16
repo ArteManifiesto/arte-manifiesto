@@ -21,7 +21,8 @@ router.get('/:nameSlugify/success', global.md.isLogged, global.md.nameSlugify(en
 router.get('/:nameSlugify/canceled', global.md.isLogged, global.md.nameSlugify(entity), controller.canceledPage);
 
 router.post('/create', isLoggedAndOwner, controller.create);
-router.post('/buy', global.md.isLogged, controller.buy);
+
+// router.post('/buy', global.md.isLogged, controller.buy);
 
 // router.post('/delete', isLoggedAndOwner, controller.delete);
 // router.post('/update', isLoggedAndOwner, controller.update);
