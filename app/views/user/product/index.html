@@ -29,18 +29,18 @@
 	<div class="grid-container u-margin-top-20">
 		<div class="grid-100">
 			<div class="single-info">
-				<div class="singleProduct-images">
-					<div class="singleProduct-images-container">
-						<img src="{{product.photo|addFilter('w_120,h_120,q_80,c_scale')}}" data-img="{{product.photo|addFilter('w_700,h_800,q_80,c_limit')}}">
-					</div>
-					<div class="singleProduct-images-container">
-						<img src="{{work.photo|addFilter('w_120,h_120,q_80,c_scale')}}" data-img="{{work.photo|addFilter('w_700,h_800,q_80,c_limit')}}">
-					</div>
-				</div>
 				<div class="single-image">
+					<div class="singleProduct-images">
+						<div class="singleProduct-images-container">
+							<img src="{{product.photo|addFilter('w_120,h_120,q_80,c_scale')}}" class="work-photo" id="productS-image" data-img="{{product.photo|addFilter('w_700,h_800,q_80,c_limit')}}">
+						</div>
+						<div class="singleProduct-images-container">
+							<img src="{{work.photo|addFilter('w_120,h_120,q_80,c_scale')}}" class="work-photo" id="work-image" data-img="{{work.photo|addFilter('w_700,h_800,q_80,c_limit')}}">
+						</div>
+					</div>
 					<div class="single-image-inner">
 						<div class="work-photo-container">
-							<img src="{{product.photo|addFilter('w_700,h_800,q_80,c_limit')}}" class="work-photo" id="work-image">
+							<img src="{{product.photo|addFilter('w_700,h_800,q_80,c_limit')}}" class="work-photo" id="product-image">
 						</div>
 							<div class="actions u-padding-top-10">
 								<a class="action {% if product.liked %} active {% endif %}">
@@ -99,7 +99,7 @@
 							</p>
 							 
 							<p class="u-padding-bottom-7 singleProduct-by">
-								por <a href="/user/{{product.User.username}}">
+								por <a href="/user/{{product.User.username}}/products">
 									{% if product.User.typeName === 1 %}
 										{{product.User.fullname}}
 									{% else %}
@@ -143,6 +143,62 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+	<div class="am-SingleMenu u-margin-top-20">
+	  <div class="grid-container">
+	    <div class="grid-100">
+	      <div class="single-menu">
+	        <div class="artist">
+	          <div class="FollowArtist">
+	            <a href="/user/{{product.User.username}}">
+	              <img src="{{product.User.photo}}">
+	            </a>
+	            <div>
+								<a href="/user/{{product.User.username}}/products">
+		              <p class="u-padding-bottom-4 uppercase" style="font-weight: bold;">
+										{% if product.User.typeName === 1 %}
+											{{product.User.fullname}}
+										{% else %}
+											{{product.User.pseudonimo}}
+										{% endif %}
+									</p>
+		              <p class="u-padding-bottom-7"> <strong></strong> {{product.User.city}}, {{product.User.country}}</p>
+	            	</a>
+	              {% if !owner %}
+	              <button class="am-Follow-button">+ SEGUIR</button>
+	              {% endif %}
+	            </div>
+	          </div>
+	        </div>
+	        <div class="menu">
+	          <div class="carousel">
+	            <div class="single-tabs">
+	              <div class="single-tab menu-item" data-name='index'>
+					<p>INFO</p>
+					<i class="bi_editorial-left-align"></i>
+	              </div>
+	              <div class="single-tab menu-item" data-name='products'>
+					<p>PRODUCTOS</p>
+					<span>{{more.length}}</span>
+	              </div>
+	              <div class="single-tab menu-item" data-name='reviews'>
+	                <p>COMENTARIOS</p>
+	                <span>{{reviews.length}}</span>
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- ********************************************************************
+			$ PRODUCTS
+		********************************************************************* -->
+
+		<div class="index-container {% if currentPath !== 'index' %} hide {% endif %}">
 			<div class="singleProduct-description">
 				{% set productConfig = JSON.parse(product.config) %}
 				<div class="singleProduct-description-box">
@@ -166,81 +222,35 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="am-SingleMenu u-margin-top-20">
-	  <div class="grid-container">
-	    <div class="grid-100">
-	      <div class="single-menu">
-	        <div class="artist">
-	          <div class="FollowArtist">
-	            <a href="/user/{{product.User.username}}">
-	              <img src="{{product.User.photo}}">
-	            </a>
-	            <div>
-								<a href="/user/{{product.User.username}}">
-		              <p class="u-padding-bottom-4 uppercase" style="font-weight: bold;">
-										{% if product.User.typeName === 1 %}
-											{{product.User.fullname}}
-										{% else %}
-											{{product.User.pseudonimo}}
-										{% endif %}
-									</p>
-		              <p class="u-padding-bottom-7"> <strong></strong> {{product.User.city}}, {{product.User.country}}</p>
-	            	</a>
-	              {% if !owner %}
-	              <button class="am-Follow-button">+ SEGUIR</button>
-	              {% endif %}
-	            </div>
-	          </div>
-	        </div>
-	        <div class="menu">
-	          <div class="carousel">
-	            <div class="single-tabs">
-	              <div class="single-tab menu-item" data-name='index'>
-									<p>+ PRODUCTOS</p>
-									<i class="bi_ecommerce-market"></i>
-	              </div>
-	              <div class="single-tab menu-item" data-name='reviews'>
-	                <p>COMENTARIOS</p>
-	                <span>{{reviews.length}}</span>
-	              </div>
-	              <!-- <div class="single-tab menu-item" data-name='tags'>
-	                <p>TAGS</p>
-	                <i class="bi_editorial-left-align"></i>
-	              </div> -->
-	            </div>
-	          </div>
-	        </div>
-	      </div>
-	    </div>
-	  </div>
-	</div>
+
 	<!-- ********************************************************************
 			$ PRODUCTS
 		********************************************************************* -->
 
-		<!-- <div class="index-container {% if currentPath !== 'index' %} hide {% endif %}">
-			{% for cat in categories %}
-				<div class="grid-container u-margin-top-20">
-					<div class="grid-100">
-						<p class="am-Products-title">{{cat.name}}</p>
-						<div class="u-separator"></div>
-					</div>
-				</div>
+		<div class="products-container {% if currentPath !== 'products' %} hide {% endif %}">
+			<div class="grid-container u-margin-top-60">
+			    <div class="grid-100">
+						<p class="am-more-text u-text-center u-padding-bottom-10">Otras productos disponibles</p>
+			      <div class="u-separator-center"></div>
+			    </div>
+			  </div>
 
-				<div class="grid-container">
-					<div class="grid-100">
-					  <div class="more-carousel js-more-carousel">
-						<p class="empty-profile-text empty-message bare-message hide u-margin-top-30">No hay ningún producto de {{cat.name}}<br><br>
-							<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
-						</p>
-						<div class="more-images {{cat.nameSlugify}}">
-						</div>
-					  </div>
-					</div>
-				</div>
-			{%endfor%}
-		</div> -->
+			  <div class="grid-container">
+			    <div class="grid-100">
+			    	<div class="more-carousel js-more-carousel">
+							<p class="empty-profile-text empty-message bare-message hide u-margin-top-30">El artista no tiene mas obras<br><br>
+								<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
+							</p>
+
+							<button class="nextButton"><i class="bi_interface-right"></i></button>
+							<button class="prevButton"><i class="bi_interface-left"></i></button>
+
+			        <div class="more-images more">
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+		</div>
 
 		<!--=================================================================================
 				=================================================================================
@@ -272,63 +282,15 @@
 	    </div>
 	  </div>
 	</div>
-	<!--=================================================================================
-			=================================================================================
-			=================================================================================-->
-
-	<!--=========================== WORK-PRODUCT'S TAGS ===========================-->
-<!--   <div class="grid-container tags-container {% if currentPath !== 'tags' %} hide {% endif %}">
-    <div class="grid-100">
-      <div class="tags-container">
-        <p class="title" style="margin-top: 30px;">Tags&nbsp;&nbsp;<span class="tags-number">{{tags.length}}</span></p>
-        <div class="u-separator"></div>
-				{% if tags.length > 0 %}
-					<div class="tags work-tags">
-	          {% for tag in tags %}
-	          {% set url = "#" + tag.name %}
-							<div class="tag uppercase"><a href='/works/category/all/page-1/?term={{url|url_encode}}'>{{tag.name}}</a></div>
-	          {% endfor %}
-	        </div>
-				{% else %}
-					<p class="empty-profile-text  empty-message bare-message hide u-margin-top-30" style="display: block;">Esta obra aun no tiene tags<br><br>
-						<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
-					</p>
-				{% endif %}
-      </div>
-    </div>
-  </div>
- -->
 
 			<!--=========================== WORKS-PRODUCTS'S RELATED AND SIMILAR ===========================-->
-			<div class="index-container {% if currentPath !== 'index' %} hide {% endif %}">
-			  <div class="grid-container u-margin-top-60">
-			    <div class="grid-100">
-						<p class="am-more-text u-text-center u-padding-bottom-10">Otras obras del artista</p>
-			      <div class="u-separator-center"></div>
-			    </div>
-			  </div>
-
-			  <div class="grid-container">
-			    <div class="grid-100">
-			    	<div class="more-carousel js-more-carousel">
-							<p class="empty-profile-text empty-message bare-message hide u-margin-top-30">El artista no tiene mas obras<br><br>
-								<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
-							</p>
-
-							<button class="nextButton"><i class="bi_interface-right"></i></button>
-							<button class="prevButton"><i class="bi_interface-left"></i></button>
-
-			        <div class="more-images more">
-			        </div>
-			      </div>
-			    </div>
-			  </div>
+			<div>
 
 				<div class="u-separator u-margin-top-60"></div>
 
 			  <div class="grid-container u-margin-top-60">
 			    <div class="grid-100">
-						<p class="am-more-text u-text-center u-padding-bottom-10">Obras relacionadas</p>
+						<p class="am-more-text u-text-center u-padding-bottom-10">Tambíen te podría interesar</p>
 			      <div class="u-separator-center"></div>
 			    </div>
 			  </div>
@@ -352,7 +314,7 @@
 			=================================================================================
 			=================================================================================-->
 
-	<!-- {% include '../../partials/inform.html' %} -->
+	{% include '../../partials/inform.html' %}
 
 	<div id="collection-modal" style="display:none; max-height: 400px; overflow-y: auto; overflow-x: hidden;">
 		<i class="closed-modal fa fa-times"></i>
@@ -468,7 +430,6 @@
 		var categories = {{categories|json|safe}};
 		var owner = {{owner|json|safe}};
 		var entity = {{entity|json|safe}};
-		var work = {{work|json|safe}};
 		var product = {{product|json|safe}};
 		var currentPath = {{currentPath|json|safe}};
 		var reviews = {{reviews|json|safe}};
@@ -488,14 +449,7 @@
 			$("#go-collection-modal").leanModal();
 			$("#go-share-modal").leanModal();
 			$("#go-preload-modal").leanModal();
-
-			$(".singleProduct-images-container").click(function(e){
-				var temp = $(this).find("img").data("img");
-				$("#work-image").attr("src", temp);
-			});
-
 			new APP.ProductScreen();
 		});
-
 	</script>
 {% endblock %}

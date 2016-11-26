@@ -1,7 +1,9 @@
 module.exports = function(sequelize, DataTypes) {
   var Order = sequelize.define('Order', {
     status: DataTypes.STRING,
-    data: DataTypes.TEXT
+    data: DataTypes.TEXT,
+    signature: DataTypes.STRING,
+    reference: DataTypes.STRING,
   }, {
     classMethods: {
       associate: function(models) {

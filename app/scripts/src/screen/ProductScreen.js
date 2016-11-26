@@ -35,17 +35,15 @@ APP.ProductScreen.prototype.setupUI = function() {
     new APP.Viewer('carrouselItem', $('.' + category.nameSlugify), null, products);
   }
 
-  new APP.Viewer('carrouselItem', $('.more'), null, more, {
-    worked: true
-  });
-  new APP.Viewer('carrouselItem', $('.similar'), null, similar, {
-    worked: true
-  });
+  new APP.Viewer('carrouselItem', $('.more'), null, more);
+  new APP.Viewer('carrouselItem', $('.similar'), null, similar);
 
   new APP.Carrousel($('.js-more-carousel'), $('.more'));
   new APP.Carrousel($('.js-similar-carousel'), $('.similar'));
 
-  new APP.PhotoSwipe('product');
+  new APP.PhotoSwipe('{"tag":"product", "selector":"#productS-image"}');
+  new APP.PhotoSwipe('{"tag":"product", "selector":"#product-image"}');
+  new APP.PhotoSwipe('{"tag":"work", "selector":"#work-image"}');
 
   this.reviewsContainer = $('.reviews-items-container');
   for (var i = 0; i < reviews.length; i++)
@@ -265,7 +263,6 @@ APP.ProductScreen.prototype.menuItemHandler = function(event) {
 
   $('.menu-item').removeClass('selected');
   this.currentItem.addClass('selected');
-
   this.oldSection && this.oldSection.hide();
   this.oldSection = this.currentSection;
   Utils.changeUrl(DataApp.baseTitle + Utils.capitalize(path), url);

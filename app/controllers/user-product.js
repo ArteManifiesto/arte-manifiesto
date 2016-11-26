@@ -1,7 +1,7 @@
 var basePath = 'user/product/';
 var paypal = require('paypal-rest-sdk');
-var request = require('request');
-var cheerio = require('cheerio');
+// var request = require('request');
+// var cheerio = require('cheerio');
 var moment = require('moment');
 var crypto = require('crypto');
 
@@ -9,8 +9,6 @@ var crypto = require('crypto');
 exports.index = function(currentPath, req, res) {
   req.product.getWork().then(function(work) {
     var promises = [
-      work.more(),
-      work.similar(req.viewer),
       work.getTags(),
       req.product.getReviews({
         include: [{
@@ -39,20 +37,46 @@ exports.index = function(currentPath, req, res) {
         addUser: true
       };
       global.db.Product.find(query).then(function(product) {
-         global.db.Work.find({where:{id:product.WorkId}}).then(function(work) {
-          var data = {
-            currentPath: currentPath,
-            entity: 'product',
-            owner: req.owner,
-            work: work,
-            product: product,
-            more: result[0],
-            similar: result[1],
-            tags: result[2],
-            reviews: result[3],
-            categories: result[4]
-          };
-          return res.render(basePath + 'index', data);
+        global.db.Work.find({where:{id:product.WorkId}}).then(function(work) {
+          global.db.Product.findAll({
+            where:{
+              CategoryId:product.CategoryId, 
+              published:true,
+              id:{
+                $notIn: [product.id]
+              }
+            },
+            include: [{
+                model: global.db.User
+              }]
+          }).then(function(similar) {
+            global.db.Product.findAll({
+              where:{
+                WorkId:product.WorkId, 
+                published:true,
+                id:{
+                  $notIn: [product.id]
+                }
+              },
+              include: [{
+                model: global.db.User
+              }]
+            }).then(function(more) {
+              var data = {
+                currentPath: currentPath,
+                entity: 'product',
+                owner: req.owner,
+                work: work,
+                product: product,
+                more: more,
+                similar: similar,
+                tags: result[0],
+                reviews: result[1],
+                categories: result[2]
+              };
+              return res.render(basePath + 'index', data);
+            });
+          });
         });
       });
     });
@@ -181,57 +205,57 @@ exports.canceledPage = function(req, res) {
   });
 };
 
-exports.buy = function(req, res) {
-  var url = 'http://themoneyconverter.com/ES/PEN/USD.aspx';
-  return request.get(url, function(error, response, body) {
-    $ = cheerio.load(body);
+// exports.buy = function(req, res) {
+//   var url = 'http://themoneyconverter.com/ES/PEN/USD.aspx';
+//   return request.get(url, function(error, response, body) {
+//     $ = cheerio.load(body);
 
-    var rate = Number($('.switch-table').find('b').text().replace(',', '.'));
-    var price = Number(req.body.price) * rate;
+//     var rate = Number($('.switch-table').find('b').text().replace(',', '.'));
+//     var price = Number(req.body.price) * rate;
 
-    var payment = {
-      "intent": "sale",
-      "payer": {
-        "payment_method": "paypal"
-      },
-      "redirect_urls": {},
-      "transactions": [{
-        "amount": {
-          "total": Number(price.toString().match(/^\d+(?:\.\d{0,2})?/)),
-          "currency": 'USD'
-        },
-        "description": req.product.description
-      }]
-    };
+//     var payment = {
+//       "intent": "sale",
+//       "payer": {
+//         "payment_method": "paypal"
+//       },
+//       "redirect_urls": {},
+//       "transactions": [{
+//         "amount": {
+//           "total": Number(price.toString().match(/^\d+(?:\.\d{0,2})?/)),
+//           "currency": 'USD'
+//         },
+//         "description": req.product.description
+//       }]
+//     };
 
-    req.product.getUser().then(function(user) {
-      var baseUrl = req.protocol + '://' + req.get('host') + '/user/' +
-        user.username + '/product/' + req.product.nameSlugify;
+//     req.product.getUser().then(function(user) {
+//       var baseUrl = req.protocol + '://' + req.get('host') + '/user/' +
+//         user.username + '/product/' + req.product.nameSlugify;
 
-      payment.redirect_urls.return_url = baseUrl + '/success';
-      payment.redirect_urls.cancel_url = baseUrl + '/canceled';
+//       payment.redirect_urls.return_url = baseUrl + '/success';
+//       payment.redirect_urls.cancel_url = baseUrl + '/canceled';
 
-      paypal.payment.create(payment, function(error, payment) {
-        if (error) {
-          console.log(error);
-        } else {
-          if (payment.payer.payment_method === 'paypal') {
-            req.paymentId = payment.id;
-            var redirectUrl;
-            console.log(payment);
-            for (var i = 0; i < payment.links.length; i++) {
-              var link = payment.links[i];
-              if (link.method === 'REDIRECT') {
-                redirectUrl = link.href;
-              }
-            }
-            res.redirect(redirectUrl);
-          }
-        }
-      });
-    });
-  });
-};
+//       paypal.payment.create(payment, function(error, payment) {
+//         if (error) {
+//           console.log(error);
+//         } else {
+//           if (payment.payer.payment_method === 'paypal') {
+//             req.paymentId = payment.id;
+//             var redirectUrl;
+//             console.log(payment);
+//             for (var i = 0; i < payment.links.length; i++) {
+//               var link = payment.links[i];
+//               if (link.method === 'REDIRECT') {
+//                 redirectUrl = link.href;
+//               }
+//             }
+//             res.redirect(redirectUrl);
+//           }
+//         }
+//       });
+//     });
+//   });
+// };
 
 /**
  * create a review
@@ -318,6 +342,54 @@ exports.shipping = function(req, res) {
   );
 };
 
-exports.removeFromCart = function(req, res) {
+exports.submit = function(req, res) {
+  var data = JSON.parse(req.body.data);
+  global.db.Order.create({
+    ProductId: req.product.id,
+    UserId: req.user.id,
+    SellerId: req.product.User.id,
+    status: 'En Espera',
+    signature: data.signature,
+    reference: data.reference,     
+    data: req.body.data
+  }).then(function(order) {
+    return res.ok({
+      data: order
+    }, 'created');
+  });
+}
 
+exports.removeSubmit = function(req, res) {
+  global.db.Order.destroy({
+    where: {
+      reference: req.cookies.referenceCode,
+      status: 'En Espera'
+    }
+  }).then(function(order) {
+    res.clearCookie('referenceCode', {
+      domain: '.' + global.cf.app.domain
+    });
+    return res.ok({
+      data: order
+    }, 'cleaned');
+  });
+}
+
+exports.payuResponse = function(req, res) {
+  var message = "";
+  if(req.body.state_pol == 4) message = "Aprobado";   
+  if(req.body.state_pol == 5) message = "Expirado";   
+  if(req.body.state_pol == 6) message = "Rechazado";   
+
+  global.db.Order.update({
+      status: message
+    },
+    { where: {
+      reference: req.body.reference_sale
+    }
+    }).then(function(order) {
+      return res.ok({
+        data: order
+      }, 'payu');
+    });
 };

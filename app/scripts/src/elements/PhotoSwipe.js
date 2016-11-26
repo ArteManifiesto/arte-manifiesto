@@ -4,7 +4,15 @@
  */
 var APP = APP || {};
 APP.PhotoSwipe = function(tag) {
-  this.tag = tag;
+  if(tag.indexOf('{') >-1){
+    var temp = JSON.parse(tag);
+    this.tag = temp.tag;
+    this.selector = temp.selector;
+  }
+  else{
+    this.tag = tag;
+  }
+
   this.filter = 'w_1500,h_800,c_limit,q_80';
 
   this.isLoading = false;
@@ -18,7 +26,8 @@ APP.PhotoSwipe = function(tag) {
 APP.PhotoSwipe.constructor = APP.PhotoSwipe;
 
 APP.PhotoSwipe.prototype.setupUI = function() {
-  this.image = $('#work-image');
+  if(typeof selector !== undefined) this.image = $(this.selector);
+  if(typeof selector === undefined) this.image = $('#work-image');
   this.pswp = $('.pswp')[0];
   this.modal = $('#go-preload-modal');
 };

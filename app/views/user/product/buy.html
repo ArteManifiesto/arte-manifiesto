@@ -38,9 +38,7 @@
 												<div class="grid-33 suffix-66">
 													<p class="address-label">Ciudad</p>
 													<select class="address-input" name="city">
-														{%for city in cities %}
-															<option>{{city}}</option>
-														{%endfor%}
+															<option>Lima</option>
 													</select>
 												</div>
 												<div class="grid-33">
@@ -49,7 +47,7 @@
 												</div>
 												<div class="grid-33">
 													<p class="address-label">Código Postal</p>
-													<input class="address-input" placeholder="Nro" value="{{user.zipcode}}" name="zipcode">
+													<input class="address-input" placeholder="Nro" value="{{user.zipcode}}" name="zip">
 												</div>
 												<div class="grid-33 suffix-66">
 													<p class="address-label">País</p>
@@ -95,7 +93,7 @@
 							</div>
 							<div class="grid-100">
 								<div class="buttons-container">
-									 <form method="post" action="https://gateway.payulatam.com/ppp-web-gateway/">
+									 <form method="post" name="buy-form" action="https://gateway.payulatam.com/ppp-web-gateway/">
 									  <input name="merchantId" type="hidden" value="{{payu.merchant}}">
 									  <input name="accountId" type="hidden" value="{{payu.account}}">
 									  <input name="description" type="hidden" value="{{payu.description}}">
@@ -108,12 +106,15 @@
 									  <input name="buyerEmail" type="hidden" value="{{user.email}}">
 									  <input name="buyerFullName" type="hidden" value="{{user.firstname}} {{user.lastname}}">
 									  <input name="telephone" type="hidden" value="{{user.phone}}">
-									  <input name="shippingAddress" type="hidden" value="{{user.direction}} | ">
+									  <input name="shippingAddress" type="hidden" value="{{user.direction}} Int. {{user.departament}}">
+									  <input name="billingAddress" type="hidden" value="{{user.direction}} Int. {{user.departament}}">
 									  <input name="shippingCity" type="hidden" value="{{user.province}}">
+									  <input name="billingCity" type="hidden" value="{{user.province}}">
 									  <input name="shippingCountry" type="hidden" value="PE">
+									  <input name="billingCountry" type="hidden" value="PE">
 									  <input name="zipCode" type="hidden" value="{{user.zipcode}}">
-									  <input name="test" type="hidden" value="1">
-									  <input type="image" src="http://www.payulatam.com/img-secure-2015/boton_pagar_pequeno.png" border="0">
+									  <input name="confirmationUrl" type="hidden" value="">
+									  <input class="btn-pay" type="image" src="http://www.payulatam.com/img-secure-2015/boton_pagar_pequeno.png" border="0">
 									</form>
 								</div>
 							</div>
@@ -131,7 +132,6 @@
 	<script>
 		var payu = {{payu|json|safe}};
 		var product = {{product|json|safe}};
-		console.log(product);
 		$(function() {
 			new APP.BuyScreen();
 		});
