@@ -1,0 +1,152 @@
+{% extends '../../partials/base.html' %}
+{% set pageTitle = 'Agregar Obra' %}
+
+{% block elements %}
+<div class="am-upload-work">
+	<div class="am-upload-work-box grid-container">
+		<form class="work-form">
+			<p class="main-title">SUBIR PRODUCTO EN BASE A LA OBRA</p>
+			<p class="main-title">{{work.name}}</p>
+			<div class="grid-100">
+				<div class="separator">
+					<span class="line"></span><span class="text">IMAGEN DE LA OBRA</span><span class="line"></span>
+				</div>
+				<div class="uploader-work">
+					<div class="profile-imgage">
+						<div style="text-align:center;">
+							<img src="{{work.photo|addFilter('w_300,h_300,c_limit')}}">
+						</div>
+					</div>
+				</div>
+				<div class="separator">
+					<span class="line"></span><span class="text">IMAGEN DEL PRODUCTO</span><span class="line"></span>
+				</div>
+				<div class="uploader-work">
+					<div class="profile-imgage">
+						<div class="preview">
+						</div>
+					</div>
+					<div class="preload hide"><i class="fa fa-spinner"></i></div>
+					<button class="button upload u-margin-top-30">BUSCAR ARCHIVO</button>
+				</div>
+				<div class="image-uploader" style="position:relative;">
+					{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:230px;height:55px;top:-70px;left: 105px;" } })}}
+				</div>
+				<div class="separator">
+					<span class="line"></span><span class="text">DATOS DEL PRODUCTO</span><span class="line"></span>
+				</div>
+				<p class="title">Título del producto</p>
+				<input name='name' class="input input-modal" type="text" placeholder="Ingrese el nombre"/>
+
+				<p class="title">Descripcion corta del producto</p>
+				<input name='name' class="input input-modal" type="text" placeholder="Ingrese la descripcion"/>
+				
+				<p class="title">Peso del producto</p>
+				<input name='name' class="input input-modal" type="text" placeholder="Ingrese el peso"/>
+				
+				<p class="title">Precio del producto</p>
+				<input name='name' class="input input-modal" type="text" placeholder="Ingrese el precio"/>
+
+				<p class="title">Ganancia del artista</p>
+				<input name='name' class="input input-modal" type="text" placeholder="Ingrese la ganacia"/>
+
+				<p class="title">Precio final del producto</p>
+				<input name='name' class="input input-modal" type="text" placeholder="Ingrese el precio final"/>
+			</div>
+
+			<div class="grid-100 mobile-grid-100">
+				<p class="title">Categoría de la obra</p>
+				<select class="input select" name='category'>
+					<option disabled selected>Selecciona una Categoria</option>
+					{% for category in categories %}
+						<option value="{{category.id}}">{{category.name}}</option>
+					{% endfor %}
+				</select>
+			</div>
+
+			<div class="grid-100 mobile-grid-100">
+				<p class="title">Descripcion del producto</p>
+				<textarea name='description' class='input' placeholder="Descripcion" maxlength='140'></textarea>
+			</div>
+
+			<div class="grid-100 mobile-grid-100">
+				<p class="title">Informacion del producto</p>
+				<textarea name='informacion' class='input' placeholder="Descripcion" maxlength='140'></textarea>
+			</div>
+
+			<div class="grid-100 mobile-grid-100">
+				<p class="title">Tags del producto</p>
+				<input name='tags' class="input" type="text"/>
+				<button class="button u-margin-top-30 send" data-color="blue">VENDER</button>
+				<div class="hide send-loading">
+					<button class="button u-margin-top-30" data-color="blue">
+						<i class="load fa fa-spinner"></i>
+					</button>
+				</div>
+			</div>
+		</form>
+
+		<div class="hide work-published">
+			<div class="grid-100">
+	  		<p class="main-title">EL PRODUCTO SE HA PUBLICADO CON ÉXITO</p>
+	  		<div class="u-separator"></div>
+	  		<div class="work-collection-card u-margin-top-40">
+	  			<div class="work-collection-card-img">
+						<img class="work-photo-published">
+	  			</div>
+	  			<div class="work-collection-card-data">
+	  				<p class="work-collection-card-title work-name-published"></p>
+	  				<p class="work-collection-card-artist work-user-published"></p>
+	  			</div>
+	  		</div>
+	  		<div class="separator u-margin-top-20">
+	  			<span class="line"></span><span class="text">¿QUE QUIERES HACER AHORA?</span><span class="line"></span>
+	  		</div>
+	  	</div>
+	  	<div class="u-padding-top-20" style="oferoverflow: hidden;">
+	  		<div class="grid-50">
+	        <a class='work-view'>
+	          <button class="button inline upload u-margin-top-30 upload_button">
+	            <i class="bi_interface-view"></i>&nbsp;&nbsp;&nbsp;VER PRODUCTO
+	          </button>
+	        </a>
+	  		</div>
+	  		<div class="grid-50">
+	  			<a class="work-edit">
+	          <button class="button inline upload u-margin-top-30 upload_button"><i class="bi_editorial-compose"></i>&nbsp;&nbsp;&nbsp;EDITAR OBRA</button>
+	  			</a>
+	  		</div>
+	  		<div class="grid-50">
+	  			<a class='work-new'>
+	          <button class="button inline upload u-margin-top-30 upload_button"><i class="bi_interface-cloud-upload"></i>&nbsp;&nbsp;&nbsp;CREAR OTRO PRODUCTO</button>
+	  			</a>
+	  		</div>
+	  		<div class="grid-50">
+	  			<!-- <button class="button inline upload u-margin-top-30 upload_button work-delete" data-color="red">
+	  				<i class="bi_editorial-trash-l"></i>&nbsp;&nbsp;&nbsp;ELIMINAR OBRA
+	  			</button> -->
+	        <button class="button inline upload work-delete trash" style="border: none; box-shadow: none;">
+	          <i class="bi_editorial-trash-l"></i>&nbsp;&nbsp;&nbsp;ELIMINAR
+	        </button>
+					<div class="edit-options work-delete-confirm hide">
+						ELIMINAR? &nbsp;
+						<i class="bi_interface-box-tick work-delete-force save-icon" style="display: inline;"></i>
+						<i class="bi_interface-box-cross work-delete-cancel cancel-icon" style="display: inline;"></i>
+					</div>
+	  		</div>
+	  	</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+var work = {{work|json|safe}};
+console.log(work);
+$(function() {
+	$.cloudinary.config({{cloudinary.config()|json|safe}});
+	new APP.AddWorkScreen();
+});
+</script>
+{% endblock %}

@@ -20,7 +20,6 @@ router.get('/:nameSlugify/buy', global.md.isLogged, global.md.nameSlugify(entity
 
 router.get('/:nameSlugify/success', global.md.isLogged, global.md.nameSlugify(entity), controller.successPage);
 router.get('/:nameSlugify/canceled', global.md.isLogged, global.md.nameSlugify(entity), controller.canceledPage);
-
 router.post('/create', isLoggedAndOwner, controller.create);
 
 // router.post('/buy', global.md.isLogged, controller.buy);

@@ -98,6 +98,22 @@ exports.add = function(req, res) {
   });
 };
 
+exports.addProduct = function(req, res) {
+  var query = {
+    where: {
+      meta: 8
+    }
+  };
+  global.db.Category.findAll(query).then(function(categories) {
+    return res.render(basePath + 'addProduct', {
+      work: req.work,
+      categories: categories,
+      cloudinary: global.cl,
+      cloudinayCors: global.cl_cors
+    });
+  });
+};
+
 /**
  * create work
  * when a work is created this is added to the current user

@@ -19,7 +19,8 @@ router.get('/:nameSlugify/reviews', global.md.nameSlugify(entity), controller.in
 router.get('/:nameSlugify/tags', global.md.nameSlugify(entity), controller.index.bind(this, 'tags'));
 
 router.get('/:nameSlugify/edit', isLoggedAdminOrOwner, global.md.nameSlugify(entity), controller.edit);
-router.get('/:nameSlugify/sell', isLoggedAdminOrOwner, global.md.nameSlugify(entity), controller.sell);
+// router.get('/:nameSlugify/sell', isLoggedAdminOrOwner, global.md.nameSlugify(entity), controller.sell);
+router.get('/:nameSlugify/add', global.md.isAdmin, global.md.nameSlugify(entity), controller.addProduct);
 
 router.post('/create', isLoggedAndOwner, controller.create);
 router.post('/delete', isLoggedAdminOrOwner, controller.delete);
