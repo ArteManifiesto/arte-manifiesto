@@ -85,33 +85,18 @@ exports.index = function(currentPath, req, res) {
 
 exports.create = function(req, res) {
   req.body.UserId = req.user.id;
-  var products = JSON.parse(req.body.products);
-
-  var promises = [],
-    product;
-
-  var currentProduct = 0;
-  var createProduct = function() {
-    if (currentProduct === products.length) {
-      global.db.Sequelize.Promise.all(promises).then(function(result) {
-        return res.ok({
-          products: result
-        }, 'Producto creado');
-      });
-    }
-    product = products[currentProduct];
-    product.isActive = true;
-    product.UserId = req.user.id;
-    global.cl.uploader.upload(product.photo).then(function(result) {
-      console.log(product.photo);
-      product.photo = result.url;
-      console.log(product.photo);
-      promises.push(global.db.Product.create(product));
-      currentProduct++;
-      createProduct();
+  var product = JSON.parse(req.body.data);
+  product.isActive = true;
+  global.cl.uploader.upload(product.photo).then(function(result) {
+    console.log(product.photo);
+    product.photo = result.url;
+    console.log(product.photo);
+    global.db.Product.create(product).then(function(result) {
+      return res.ok({
+        products: result
+      }, 'Producto creado');
     });
-  };
-  createProduct();
+  });
 };
 
 

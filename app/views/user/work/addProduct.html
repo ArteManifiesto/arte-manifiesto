@@ -1,5 +1,5 @@
 {% extends '../../partials/base.html' %}
-{% set pageTitle = 'Agregar Obra' %}
+{% set pageTitle = 'Agregar Producto' %}
 
 {% block elements %}
 <div class="am-upload-work">
@@ -11,12 +11,8 @@
 				<div class="separator">
 					<span class="line"></span><span class="text">IMAGEN DE LA OBRA</span><span class="line"></span>
 				</div>
-				<div class="uploader-work">
-					<div class="profile-imgage">
-						<div style="text-align:center;">
-							<img src="{{work.photo|addFilter('w_300,h_300,c_limit')}}">
-						</div>
-					</div>
+				<div style="text-align:center;">
+					<img src="{{work.photo|addFilter('w_300,h_300,c_limit')}}">
 				</div>
 				<div class="separator">
 					<span class="line"></span><span class="text">IMAGEN DEL PRODUCTO</span><span class="line"></span>
@@ -39,19 +35,19 @@
 				<input name='name' class="input input-modal" type="text" placeholder="Ingrese el nombre"/>
 
 				<p class="title">Descripcion corta del producto</p>
-				<input name='name' class="input input-modal" type="text" placeholder="Ingrese la descripcion"/>
+				<input name='short' class="input input-modal" type="text" placeholder="Ingrese la descripcion"/>
 				
 				<p class="title">Peso del producto</p>
-				<input name='name' class="input input-modal" type="text" placeholder="Ingrese el peso"/>
+				<input name='weight' class="input input-modal" type="text" placeholder="Ingrese el peso"/>
 				
 				<p class="title">Precio del producto</p>
-				<input name='name' class="input input-modal" type="text" placeholder="Ingrese el precio"/>
+				<input name='price' class="input input-modal" type="text" placeholder="Ingrese el precio"/>
 
 				<p class="title">Ganancia del artista</p>
-				<input name='name' class="input input-modal" type="text" placeholder="Ingrese la ganacia"/>
+				<input name='profit' class="input input-modal" type="text" placeholder="Ingrese la ganacia"/>
 
 				<p class="title">Precio final del producto</p>
-				<input name='name' class="input input-modal" type="text" placeholder="Ingrese el precio final"/>
+				<input name='finalPrice' class="input input-modal" type="text" placeholder="Ingrese el precio final"/>
 			</div>
 
 			<div class="grid-100 mobile-grid-100">
@@ -71,7 +67,7 @@
 
 			<div class="grid-100 mobile-grid-100">
 				<p class="title">Informacion del producto</p>
-				<textarea name='informacion' class='input' placeholder="Descripcion" maxlength='140'></textarea>
+				<textarea name='information' class='input' placeholder="Descripcion" maxlength='140'></textarea>
 			</div>
 
 			<div class="grid-100 mobile-grid-100">
@@ -146,7 +142,7 @@ var work = {{work|json|safe}};
 console.log(work);
 $(function() {
 	$.cloudinary.config({{cloudinary.config()|json|safe}});
-	new APP.AddWorkScreen();
+	new APP.AddProductScreen();
 });
 </script>
 {% endblock %}

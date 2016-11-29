@@ -48,7 +48,6 @@ APP.AddWorkScreen.prototype.setupUI = function() {
 APP.AddWorkScreen.prototype.listeners = function() {
   APP.BaseScreen.prototype.listeners.call(this);
   this.workForm.submit(this.workFormSubmitHandler.bind(this));
-
   this.workDelete.click(this.deleteHandler.bind(this));
   this.workDeleteForce.click(this.workDeleteForceHandler.bind(this));
   this.workDeleteCancel.click(this.deleteCancel.bind(this));
