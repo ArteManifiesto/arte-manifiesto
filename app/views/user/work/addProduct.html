@@ -31,6 +31,15 @@
 				<div class="separator">
 					<span class="line"></span><span class="text">DATOS DEL PRODUCTO</span><span class="line"></span>
 				</div>
+
+				<p class="title">Categoría de la obra</p>
+				<select class="input select" name='category'>
+					<option disabled selected>Selecciona una Categoria</option>
+					{% for category in categories %}
+						<option value="{{category.id}}" data-info="{{loop.index}}">{{category.name}}</option>
+					{% endfor %}
+				</select>
+
 				<p class="title">Título del producto</p>
 				<input name='name' class="input input-modal" type="text" placeholder="Ingrese el nombre"/>
 
@@ -48,16 +57,6 @@
 
 				<p class="title">Precio final del producto</p>
 				<input name='finalPrice' class="input input-modal" type="text" placeholder="Ingrese el precio final"/>
-			</div>
-
-			<div class="grid-100 mobile-grid-100">
-				<p class="title">Categoría de la obra</p>
-				<select class="input select" name='category'>
-					<option disabled selected>Selecciona una Categoria</option>
-					{% for category in categories %}
-						<option value="{{category.id}}">{{category.name}}</option>
-					{% endfor %}
-				</select>
 			</div>
 
 			<div class="grid-100 mobile-grid-100">
@@ -139,7 +138,7 @@
 {% block scripts %}
 <script>
 var work = {{work|json|safe}};
-console.log(work);
+var categories = {{categories|json|safe}};
 $(function() {
 	$.cloudinary.config({{cloudinary.config()|json|safe}});
 	new APP.AddProductScreen();

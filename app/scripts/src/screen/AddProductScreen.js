@@ -41,9 +41,8 @@ APP.AddProductScreen.prototype.setupUI = function() {
 APP.AddProductScreen.prototype.listeners = function() {
   APP.BaseScreen.prototype.listeners.call(this);
   this.workForm.submit(this.workFormSubmitHandler.bind(this));
-  this.profit.on('input change paste',this.priceHandler);
-  this.category.change(this.categoryHandler);
-  this.category.change();
+  this.profit.on('input change paste',this.priceHandler.bind(this));
+  this.category.change(this.categoryHandler.bind(this));
 };
 
 
@@ -115,10 +114,21 @@ APP.AddProductScreen.prototype.workCreatedComplete = function(response) {
   this.workPublished.show();
 };
 
-APP.AddProductScreen.prototype.categoryHandler = function() {
+APP.AddProductScreen.prototype.categoryHandler = function(event) {
+  var i = this.category.find(':selected').data('info')
+  var data = JSON.parse(categories[i-1].data);
+
+  this.description.val(data.description);
+  this.weight.val(data.weight);
+  this.price.val(data.price);
+  for(line in data.info){
+    this.information.append(data.info[line]+'\n');
+  }
+
 };
 
-APP.AddProductScreen.prototype.priceHandler = function() {
+APP.AddProductScreen.prototype.priceHandler = function(event) {
+  this.finalPrice.val(parseInt(this.price.val()) + parseInt(this.profit.val()));
 };
 
 APP.AddProductScreen.prototype.imgComplete = function(idImage) {

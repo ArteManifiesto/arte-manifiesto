@@ -203,14 +203,15 @@
 				{% set productConfig = JSON.parse(product.config) %}
 				<div class="singleProduct-description-box">
 					<p class="singleProduct-description-box-title">Descripción</p>
-					<p>{{productConfig.datap.description}}</p>
+					<p>{{productConfig.description}}</p>
 				</div>
 				<div class="singleProduct-description-box">
 					<p class="singleProduct-description-box-title">Información adicional</p>
-					<p>{{productConfig.datap.by}}</p>
-					<p>Material: {{productConfig.datap.material}}</p>
-					<p>Acabado: {{productConfig.datap.finish}}</p>
-					<p class="singleProduct-description-box-space">Peso: {{productConfig.datap.weight}} grs</p>
+					{% set productInfo = JSON.parse(productConfig.info) %}
+					{% for info in productInfo %}
+					<p>{{info}}</p>
+					{% endfor %}
+					<p class="singleProduct-description-box-space">Peso: {{productConfig.weight}} grs</p>
 					<p>Diseño por: <a href="/user/{{product.User.username}}">
 										{% if product.User.typeName === 1 %}
 											{{product.User.fullname}}
