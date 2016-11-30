@@ -20,21 +20,6 @@ APP.ProductScreen.prototype = Object.create(APP.BaseScreen.prototype);
 
 APP.ProductScreen.prototype.setupUI = function() {
 
-  for (var i = 0; i < categories.length; i++) {
-    var category = categories[i],
-      products = [];
-    for (var j = 0; j < category.subCategories.length; j++) {
-      var subCategory = category.subCategories[j];
-      for (var k = 0; k < subCategory.innerCategories.length; k++) {
-        var innerCategory = subCategory.innerCategories[k];
-        for (var l = 0; l < innerCategory.Products.length; l++) {
-          products.push(innerCategory.Products[l]);
-        }
-      }
-    }
-    new APP.Viewer('carrouselItem', $('.' + category.nameSlugify), null, products);
-  }
-
   new APP.Viewer('carrouselItem', $('.more'), null, more);
   new APP.Viewer('carrouselItem', $('.similar'), null, similar);
 
@@ -50,6 +35,8 @@ APP.ProductScreen.prototype.setupUI = function() {
     this.reviewsContainer.append(new APP.Review(reviews[i]).view);
 
   this.shareFb = $('.share-fb');
+  this.buyBtn = $('.buy-product');
+  this.model = $('select[name=model]');
   this.askBtn = $('.ask-availability');
   this.loginReview = $('.login-review');
   this.askRequester = $('.ask-requester');
@@ -75,6 +62,8 @@ APP.ProductScreen.prototype.setupUI = function() {
 APP.ProductScreen.prototype.listeners = function() {
   APP.BaseScreen.prototype.listeners.call(this);
   this.shareFb.click(this.shareFBHandler.bind(this));
+
+  this.buyBtn.click(this.buyHandler.bind(this));
 
   $('.menu-item').click(this.menuItemHandler.bind(this));
   $('.menu-item[data-name=' + currentPath + ']').click();
@@ -117,6 +106,19 @@ APP.ProductScreen.prototype.copyHandler = function(trigger) {
   $('#lean_overlay').trigger("click");
   this.showFlash('succes', 'Link Copiado');
   return window.location.href;
+};
+
+APP.ProductScreen.prototype.buyHandler = function(event) {
+  var data ={
+    id: this.model.find(':selected').val(),
+    name: this.model.find(':selected').text(),
+    url: window.location.href
+  };
+  Cookies.set('category_data', JSON.stringify(data), {
+    maxAge: 3600000,
+    domain: '.' + document.domain
+  });
+  alert(JSON.stringify(data));
 };
 
 APP.ProductScreen.prototype.reviewFormHandler = function(event) {

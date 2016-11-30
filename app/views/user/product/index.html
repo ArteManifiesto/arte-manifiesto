@@ -53,7 +53,7 @@
 									<i class="icon bi_web-share share"></i>
 									<p class="text">COMPARTIR</p>
 								</a>
-								<a href="/user/{{product.User.username}}/product/{{product.nameSlugify}}/buy" class="action">
+								<a href="/user/{{product.User.username}}/product/{{product.nameSlugify}}/buy" class="action buy-product">
 									<i class="icon bi_ecommerce-shopcart-a singleProduct-icon"></i>
 									<p class="text">COMPRAR</p>
 								</a>
@@ -94,7 +94,6 @@
 					<div class="FollowArtist u-padding-bottom-10">
 						<div style="width: 100%;">
 							<p class="u-padding-bottom-7 singleProduct-name">
-								{{product.Category.ParentCategory.name}}
 								{{product.Category.name}} 
 							</p>
 							 
@@ -113,14 +112,21 @@
 							</p>
 						</div>
 					</div>
-					<div class="u-separator"></div>
+					<div class="singleProduct-dropdown">
+						<select class="input select" name='model'>
+							<option disabled selected>Selecciona una Categoria</option>
+							{% for category in categories %}
+								<option value="{{category.id}}">{{category.name}}</option>
+							{% endfor %}
+						</select>
+					</div>
 					<div class="info-single singleProduct-info">
 						<i class="bi_editorial-brush singleProduct-info-icon"></i>
 						<p class="u-padding-bottom-7 singleProduct-info-text">Cuando compras acá, compras a un artista</p>
 						<i class="bi_transport-truck singleProduct-info-icon"></i>
 						<p class="u-padding-bottom-7 singleProduct-info-text">Entrega en la puerta de tu casa</p>
 						<div class="u-center">
-							<a href="/user/{{product.User.username}}/product/{{product.nameSlugify}}/buy" class="am-View-button singleProduct-btn expand u-margin-top-20">COMPRAR</a>
+							<a href="/user/{{product.User.username}}/product/{{product.nameSlugify}}/buy" class="buy-product am-View-button singleProduct-btn expand u-margin-top-20">COMPRAR</a>
 						</div>
 						<i class="bi_com-chat singleProduct-info-icon"></i>
 						<p class="u-padding-bottom-7 singleProduct-info-text">7 días para devolver cualquier obra/producto</p>
@@ -438,6 +444,7 @@
 		var products = {{products|json|safe}};
 		var similar = {{similar|json|safe}};
 		var work = {{work|json|safe}};
+		console.log(categories);
 		(function (d, s, id) {
 			var js;
 			var fjs = d.getElementsByTagName(s)[0];

@@ -239,7 +239,7 @@ module.exports = function(sequelize, DataTypes) {
         return this.getWork().then(function(work) {
           var query = {
             where: {
-              meta: 5
+              meta: 6
             }
           };
           return global.db.Category.findAll(query)

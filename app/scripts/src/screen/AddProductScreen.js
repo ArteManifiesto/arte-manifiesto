@@ -72,6 +72,7 @@ APP.AddProductScreen.prototype.workFormSubmitHandler = function(event) {
   var config = {
     weight: this.weight.val(),
     description: this.description.val(),
+    profit: this.profit.val(),
     info: JSON.stringify(info)
   }
   var data = {
