@@ -20,7 +20,7 @@ router.get(['/', '/portfolio/'], controller.profile.bind(this, 'portfolio'));
 router.get('/collections/', controller.profile.bind(this, 'collections'));
 router.get('/followers/', controller.profile.bind(this, 'followers'));
 router.get('/followings/', controller.profile.bind(this, 'followings'));
-router.get('/products/', controller.profile.bind(this, 'products'));
+router.get('/products/:value/:page', controller.profile.bind(this, 'products'));
 
 router.post('/isFollowing', isLoggedAndOwner, global.md.userTo, controller.isFollowing);
 router.post('/follow', isLoggedAndOwner, global.md.userTo, controller.follow);

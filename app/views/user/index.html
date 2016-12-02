@@ -356,6 +356,8 @@
 		$.cloudinary.config({{cloudinary.config()|json|safe}});
 		var currentPath = {{currentPath|json|safe}};
 		var profile = {{profile|json|safe}};
+		var discover = {{discoverData|json|safe}};
+		console.log(discover);
 		$(function(){new APP.ProfileScreen();})
 	</script>
 {% endblock %}

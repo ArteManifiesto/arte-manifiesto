@@ -1,5 +1,89 @@
 var basePath = 'user/';
 
+var searchDiscover = function(entity, req) {
+  var config = global.config.search;
+  entity = global.getParameter(config.entities, entity);
+
+  req.query.order = global.getParameter(config.orders[entity], req.query.order);
+
+  if (req.query.time)
+    req.query.time = global.getParameter(config.times, req.query.time);
+
+  var item, currentParams = config.params[entity];
+
+  for (item in req.query)
+    if (currentParams.indexOf(item) == -1)
+      delete req.query[item];
+
+  var searchable = global._.capitalize(entity);
+  var tempValue = req.params.value;
+  return global['search' + searchable](req).then(function(data) {
+    var query = global.encodeToQuery(req.query);
+    data.url = req.protocol + '://' + req.get('host') + req.path + '?' + query;
+    data.url = data.url.replace(tempValue, req.params.value);
+
+    data.filters = {
+      currentCategory: req.params.value,
+      currentOrder: req.query.order
+    };
+    return data;
+  });
+};
+
+var discover = function(req, res, entity) {
+  // if (req.params.page !== 'page-1')
+  //   return res.redirect(req.url.replace(req.params.page, 'page-1'));
+
+  var promises = [searchDiscover(entity, req)];
+  if (entity === 'works' || entity === 'users') {
+    promises.push(global.db.Category.findAll({
+      where: {
+        meta: 0
+      }
+    }));
+  } else if (entity === 'products') {
+    promises.push(global.db.Category.findAll({
+      where: {
+        meta: 3
+      }
+    }));
+  }
+
+  return global.db.Sequelize.Promise.all(promises).then(function(data) {
+    var order = global.config.search.orders[entity];
+
+    order = global._.map(order, function(value, index) {
+      var esName;
+      switch (value) {
+        case 'popularity':
+          esName = 'popularidad';
+          break;
+        case 'hottest':
+          esName = 'caliente';
+          break;
+        case 'newest':
+          esName = 'mas nuevo';
+          break;
+        case 'price_asc':
+          esName = 'precios ↑';
+          break;
+        case 'price_desc':
+          esName = 'precios ↓';
+          break;
+      }
+      return {
+        value: value,
+        name: esName
+      }
+    });
+    data[0].filters.categories = entity !== 'collections' ? data[1] : [];
+    data[0].filters.order = order;
+    return {
+      data: data[0]
+    };
+  });
+};
+
 exports.profile = function(currentPath, req, res) {
   var query = req.owner ? {
     all: true
@@ -23,17 +107,35 @@ exports.profile = function(currentPath, req, res) {
   ];
 
   global.db.sequelize.Promise.all(promises).then(function(numbers) {
-    var data = {
-      currentPath: currentPath,
-      profile: req.profile,
-      numbers: numbers,
-      cloudinary: global.cl,
-      cloudinayCors: global.cl_cors
-    };
+    if(currentPath === 'products'){
+      discover(req, res, currentPath).then(function(discoverData) {
+        var data = {
+          currentPath: currentPath,
+          profile: req.profile,
+          numbers: numbers,
+          discoverData: discoverData,
+          cloudinary: global.cl,
+          cloudinayCors: global.cl_cors
+        };
 
-    req.profile.view().then(function() {
-      return res.render(basePath + 'index', data);
-    });
+        req.profile.view().then(function() {
+          return res.render(basePath + 'index', data);
+        });
+      });
+    }
+    else{
+      var data = {
+        currentPath: currentPath,
+        profile: req.profile,
+        numbers: numbers,
+        cloudinary: global.cl,
+        cloudinayCors: global.cl_cors
+      };
+
+      req.profile.view().then(function() {
+        return res.render(basePath + 'index', data);
+      });
+    }
   });
 };
 

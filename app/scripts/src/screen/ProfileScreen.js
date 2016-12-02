@@ -96,7 +96,12 @@ APP.ProfileScreen.prototype.menuItemClickHandler = function(event) {
   if (this.paths.indexOf(path) === -1) {
     var template = this.getTemplate(path),
       section = $('.' + path + '-container');
-    this.currentViewer = new APP.Viewer(template, section, 'infinite');
+    if(path === 'product'){
+      this.currentViewer = new APP.DiscoverScreen(template, section, 'infinite');
+    }
+    else{
+      this.currentViewer = new APP.Viewer(template, section, 'infinite', data.discoverData);
+    }
     this.currentViewer.navigationManager.navigator.needChangeUrl = true;
     this.viewers.push(this.currentViewer);
     this.paths.push(path);

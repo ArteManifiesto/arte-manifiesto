@@ -146,36 +146,27 @@ exports.like = function(req, res) {
   });
 };
 exports.buyPage = function(req, res) {
-  if(req.cookies.category_data !== undefined) {
-    var categoryData = JSON.parse(req.cookies.category_data);
-    res.clearCookie('category_data', {
-      domain: '.' + global.cf.app.domain
-    });
-    var merchantId = "575661";
-    var apiKey = "tUutsCnKZQ0VGwmB9Yq9XnqbO2";
-    var reference = req.product.id + '_' + req.product.UserId + '_' + categoryData.id + '_' + moment().format('DDMMYYhhmmssSS');
-    var amount = 5 + parseInt(req.product.finalPrice);
-    var currency = "PEN";
-    var signature = apiKey + "~" + merchantId + "~" + reference + "~" + amount + "~" + currency;
-    var payu = {
-      merchant: merchantId,
-      account: "578459",
-      description: req.product.name + ' - ' + categoryData.name + ' by ' +req.product.User.fullname,
-      reference: reference,
-      amount: amount,
-      currency: currency,
-      signature: crypto.createHash('md5').update(signature).digest("hex")
-    }
-    return res.render(basePath + 'buy', {
-      payu: payu,
-      product: req.product,
-      cities: global.cities
-    });
+  var categoryData = JSON.parse(req.cookies.category_data);
+  var merchantId = "575661";
+  var apiKey = "tUutsCnKZQ0VGwmB9Yq9XnqbO2";
+  var reference = req.product.id + '_' + req.product.UserId + '_' + categoryData.id + '_' + moment().format('DDMMYYhhmmssSS');
+  var amount = 5 + parseInt(req.product.finalPrice);
+  var currency = "PEN";
+  var signature = apiKey + "~" + merchantId + "~" + reference + "~" + amount + "~" + currency;
+  var payu = {
+    merchant: merchantId,
+    account: "578459",
+    description: req.product.name + ' - ' + categoryData.name + ' by ' +req.product.User.fullname,
+    reference: reference,
+    amount: amount,
+    currency: currency,
+    signature: crypto.createHash('md5').update(signature).digest("hex")
   }
-  else {
-    return res.redirect('/');
-  }
-  
+  return res.render(basePath + 'buy', {
+    payu: payu,
+    product: req.product,
+    cities: global.cities
+  });
 };
 
 exports.successPage = function(req, res) {
