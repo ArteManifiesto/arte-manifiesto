@@ -1,4 +1,4 @@
-{% set templates = ['work', 'collection', 'user', 'product'] %}
+{% set templates = ['work', 'collection', 'user', 'product', 'filter-item'] %}
 {% set pageTitle = profile.fullname %}
 {% set path = 'profile' %}
 {% set profile = profile.toJSON()%}
@@ -194,6 +194,59 @@
 
 	{% if profile.isSeller %}
 
+
+	<div class="grid-container u-padding-top-20">
+		<div class="grid-100 grid-parent">
+			<div class="discover-menu">
+				<div class="filter left" data-state="open">
+					<div class="am-Select">
+						CATEGORÍAS &nbsp;&nbsp;<i class="fa fa-caret-left"></i>
+					</div>
+					<div class="left-menu u-padding-top-10">
+						<div class="am-Filter filter-category">
+							<div class="am-Filter-item">
+								<header class="am-Filter-header">
+									<i class="fa fa-bars"></i><p>Ver sólo</p>
+								</header>
+							</div>
+							<div class="am-Filter-item">
+								<div class="am-Filter-switch">
+									<input type="checkbox" name="AM" id="AM"/>
+									<label for="AM">
+									  <div class="am-Switch-button">
+									  	<i class="fa fa-bars"></i>
+									  </div>
+									</label>
+									<span>Obras destacadas</span>
+								</div>
+							</div>
+							<div class="am-Filter-item">
+								<header class="am-Filter-header">
+									<i class="fa fa-bars"></i><p>Categorías</p>
+								</header>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="text navigation" style="text-align: center;">
+					<span class="am-navigation-text uppercase category-text" id="category"></span>
+					<span class="am-navigation-text uppercase order-text" id="order"></span>
+					<span class="am-navigation-text uppercase search-text hide" id="term"></span>
+					<span class="am-navigation-text uppercase featured-text hide" id="featured"></span>
+				</div>
+				<div class="filter right" data-state="closed">
+					<div class="am-Select">
+						ORDENAR &nbsp;&nbsp;<i class="fa fa-caret-down"></i>
+					</div>
+					<div class="right-menu u-padding-top-10">
+						<div class="am-Filter filter-order">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="discover-content products-wrapper grid-container u-padding-top-10 u-padding-bottom-70
 		{% if currentPath !== 'products' %} hide {% endif %}">
 		<div class="grid-100 grid-parent">
@@ -227,6 +280,7 @@
 			<div class="loader extra-small gray loading hide" style="border-color: gree;"></div>
 		</div>
 	</div>
+
 	{%endif%}
 
 	<div class="discover-content collections-wrapper grid-container u-padding-top-10 u-padding-bottom-70
@@ -357,7 +411,10 @@
 		var currentPath = {{currentPath|json|safe}};
 		var profile = {{profile|json|safe}};
 		var discover = {{discoverData|json|safe}};
-		console.log(discover);
+		
+		var data = discover.data
+		console.log("data: ", data);
+
 		$(function(){new APP.ProfileScreen();})
 	</script>
 {% endblock %}

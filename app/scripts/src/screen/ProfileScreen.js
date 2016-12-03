@@ -96,8 +96,8 @@ APP.ProfileScreen.prototype.menuItemClickHandler = function(event) {
   if (this.paths.indexOf(path) === -1) {
     var template = this.getTemplate(path),
       section = $('.' + path + '-container');
-    if(path === 'product'){
-      this.currentViewer = new APP.DiscoverScreen(template, section, 'infinite', discover);
+    if(path === 'products'){
+      this.currentViewer = new APP.DiscoverScreen(template, section, 'infinite', data);
     }
     else{
       this.currentViewer = new APP.Viewer(template, section, 'infinite');

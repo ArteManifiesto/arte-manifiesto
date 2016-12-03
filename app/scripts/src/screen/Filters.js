@@ -5,6 +5,9 @@
 var APP = APP || {};
 
 APP.Filters = function(filters) {
+  
+  console.log("Filters!")
+  
   this.filters = filters;
 
   this.oldCategory = this.filters.currentCategory;
@@ -24,6 +27,9 @@ APP.Filters.constructor = APP.Filters;
 
 
 APP.Filters.prototype.setupUI = function() {
+  
+  console.log("Filters.setupUI!")
+
   var filterRight = $('.filter.right');
   var rightSelect = $('.filter.right .am-Select')
 
@@ -65,6 +71,8 @@ APP.Filters.prototype.setupUI = function() {
       discoverContent.attr('data-state', 'reduce').trigger('resetLayout')
     }
   })
+
+  console.log(":)")
 
   var device = new Device({
     toDesktop: function() {
@@ -113,13 +121,18 @@ APP.Filters.prototype.setupUI = function() {
     nameSlugify: 'all'
   });
 
+  console.log(":) :)")
+
   this.itemFilterRenderer(this.filters.categories, 'category');
   this.itemFilterRenderer(this.filters.order, 'order');
+
+  console.log(":) :) :)")
 
   this.featuredBtn = $('.am-Switch-button');
   this.searchInput = $('.am-Search-input input');
   this.searchBtn = $('.search-btn');
   this.closeBtn = $('.close-btn');
+
 
   this.categories = $('[data-meta=category]');
   this.orders = $('[data-meta=order]');
@@ -131,10 +144,18 @@ APP.Filters.prototype.setupUI = function() {
   this.navigation = $('.am-navigation-text');
 
   this.needsToClose = false;
+
+
 };
 
 APP.Filters.prototype.itemFilterRenderer = function(data, meta) {
+  console.log("Filters.itemFilterRenderer!", data, meta)
+
   var item = APP.TemplateManager.instance.getFromDoc('filter-item');
+  // var item = APP.TemplateManager.instance.getFromDoc('product');
+
+  console.log("item: ", item)
+
   $.each(data, function(index, value) {
     value.meta = meta;
     $('.filter-' + meta).append(item(value));
@@ -142,6 +163,9 @@ APP.Filters.prototype.itemFilterRenderer = function(data, meta) {
 };
 
 APP.Filters.prototype.listeners = function() {
+
+  console.log("Filters.listeners!")
+
   this.categories.on('click', this.filterItemHandler.bind(this, 'category'));
   this.orders.on('click', this.filterItemHandler.bind(this, 'order'));
   this.featuredBtn.on('click', this.featuredHandler.bind(this));
@@ -187,6 +211,9 @@ APP.Filters.prototype.navigationClickHandler = function(event) {
 };
 
 APP.Filters.prototype.searchKeyPressHandler = function(event) {
+  
+  console.log("Filters.searchKeyPressHandler!")
+
   if (event.which !== 13) return;
   var value = encodeURIComponent($(event.target).val());
   if (value.length > 0) {
@@ -221,6 +248,9 @@ APP.Filters.prototype.searchHandler = function(event) {
 }
 
 APP.Filters.prototype.featuredHandler = function() {
+
+  console.log("Filters.featuredHandler!")
+
   if (this.isFeatured)
     DataApp.currentUrl = DataApp.currentUrl.replace('&featured=1', '');
   else
@@ -237,6 +267,9 @@ APP.Filters.prototype.start = function() {
 };
 
 APP.Filters.prototype.filterItemHandler = function(meta, event) {
+
+  console.log("Filters.filterItemHandler!")
+  
   var filterCapitalized = Utils.capitalize(meta);
   var oldFilter = 'old' + filterCapitalized;
   var currentFilter = 'current' + filterCapitalized;

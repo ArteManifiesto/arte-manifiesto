@@ -22,7 +22,9 @@ APP.DiscoverScreen.prototype.setupUI = function() {
   this.featuredText = $('.featured-text');
 
   this.viewer = new APP.Viewer(this.id, this.container, this.navigation, this.data);
+  console.log("holi!")
   this.filters = new APP.Filters(this.data.filters);
+  console.log("boli!")
 };
 
 APP.DiscoverScreen.prototype.listeners = function() {
