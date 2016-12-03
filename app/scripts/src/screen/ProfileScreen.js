@@ -97,14 +97,21 @@ APP.ProfileScreen.prototype.menuItemClickHandler = function(event) {
     var template = this.getTemplate(path),
       section = $('.' + path + '-container');
     if(path === 'products'){
-      this.currentViewer = new APP.DiscoverScreen(template, section, 'infinite', data);
+
+      // location.href = "http://am.local:3000/user/juliocanares/products/all/page-1";
+
+      // this.currentViewer = new APP.DiscoverScreen(template, section, 'infinite', data);
+      new APP.DiscoverScreen(template, section, 'infinite', data);
     }
     else{
       this.currentViewer = new APP.Viewer(template, section, 'infinite');
+      this.currentViewer.navigationManager.navigator.needChangeUrl = true;
+      this.viewers.push(this.currentViewer);
+      this.paths.push(path);
     }
-    this.currentViewer.navigationManager.navigator.needChangeUrl = true;
-    this.viewers.push(this.currentViewer);
-    this.paths.push(path);
+    // this.currentViewer.navigationManager.navigator.needChangeUrl = true;
+    // this.viewers.push(this.currentViewer);
+    // this.paths.push(path);
   } else {
     this.currentViewer = this.viewers[this.paths.indexOf(path)]
     this.currentViewer.restart();
