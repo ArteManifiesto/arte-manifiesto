@@ -94,7 +94,11 @@
 					<div class="FollowArtist u-padding-bottom-10">
 						<div style="width: 100%;">
 							<p class="u-padding-bottom-7 singleProduct-name">
+								{{product.Category.ParentCategory.name}}
 								{{product.Category.name}} 
+							</p>
+							<p class="u-padding-bottom-7 singleProduct-name">
+								{{product.name}} 
 							</p>
 							 
 							<p class="u-padding-bottom-7 singleProduct-by">
@@ -114,9 +118,14 @@
 					</div>
 					<div class="singleProduct-dropdown">
 						<select class="input select" name='model'>
-							<option disabled selected>Selecciona una Categoria</option>
-							{% for category in categories %}
-								<option value="{{category.id}}">{{category.name}}</option>
+							{% for productCategory in categories %}
+								{% if productCategory.CategoryId == product.CategoryId %}
+									<option disabled selected value="/user/{{productCategory.User.username}}/product/{{productCategory.nameSlugify}}">{{productCategory.Category.name}}</option>
+								{% else %}
+									{% if productCategory.Category.ParentCategoryId == product.Category.ParentCategoryId%}
+										<option value="/user/{{productCategory.User.username}}/product/{{productCategory.nameSlugify}}">{{productCategory.Category.name}}</option>
+									{%endif%}
+								{%endif%}
 							{% endfor %}
 						</select>
 					</div>
@@ -444,7 +453,6 @@
 		var products = {{products|json|safe}};
 		var similar = {{similar|json|safe}};
 		var work = {{work|json|safe}};
-		console.log(categories);
 		(function (d, s, id) {
 			var js;
 			var fjs = d.getElementsByTagName(s)[0];

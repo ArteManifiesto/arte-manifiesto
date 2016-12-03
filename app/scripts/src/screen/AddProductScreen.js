@@ -129,7 +129,9 @@ APP.AddProductScreen.prototype.categoryHandler = function(event) {
 };
 
 APP.AddProductScreen.prototype.priceHandler = function(event) {
-  this.finalPrice.val(parseInt(this.price.val()) + parseInt(this.profit.val()));
+  var preTax = parseInt(this.price.val()) * ((parseInt(this.profit.val()) / 100) + 1);
+  var tax = 1.18
+  this.finalPrice.val(Math.ceil(preTax * tax));
 };
 
 APP.AddProductScreen.prototype.imgComplete = function(idImage) {

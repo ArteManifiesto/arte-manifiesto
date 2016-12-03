@@ -61,10 +61,17 @@ exports.index = function(currentPath, req, res) {
                 model: global.db.User
               }]
             }).then(function(more) {
-              global.db.Category.findAll({
+              global.db.Product.findAll({
                 where:{
-                  ParentCategoryId:product.CategoryId
-                }
+                  WorkId:product.WorkId
+                },
+                include: [{
+                  model: global.db.Category,
+                  include: [{
+                    model: global.db.Category,
+                    as: 'ParentCategory'
+                  }]
+                }]
               }).then(function(categories) {
                 var data = {
                   currentPath: currentPath,
@@ -146,17 +153,16 @@ exports.like = function(req, res) {
   });
 };
 exports.buyPage = function(req, res) {
-  var categoryData = JSON.parse(req.cookies.category_data);
   var merchantId = "575661";
   var apiKey = "tUutsCnKZQ0VGwmB9Yq9XnqbO2";
-  var reference = req.product.id + '_' + req.product.UserId + '_' + categoryData.id + '_' + moment().format('DDMMYYhhmmssSS');
+  var reference = req.product.id + '_' + req.product.UserId + '_' + moment().format('DDMMYYhhmmssSS');
   var amount = 5 + parseInt(req.product.finalPrice);
   var currency = "PEN";
   var signature = apiKey + "~" + merchantId + "~" + reference + "~" + amount + "~" + currency;
   var payu = {
     merchant: merchantId,
     account: "578459",
-    description: req.product.name + ' - ' + categoryData.name + ' by ' +req.product.User.fullname,
+    description: req.product.name + ' by ' +req.product.User.fullname,
     reference: reference,
     amount: amount,
     currency: currency,

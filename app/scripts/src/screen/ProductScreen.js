@@ -36,7 +36,7 @@ APP.ProductScreen.prototype.setupUI = function() {
 
   this.shareFb = $('.share-fb');
   this.buyBtn = $('.buy-product');
-  this.model = $('select[name=model]');
+  this.category = $('select[name=model]');
   this.askBtn = $('.ask-availability');
   this.loginReview = $('.login-review');
   this.askRequester = $('.ask-requester');
@@ -51,9 +51,6 @@ APP.ProductScreen.prototype.setupUI = function() {
   this.reviewForm = $('.review-form');
   this.reviewContainer = $('.reviews-items-container');
 
-  this.prevBtn = $('.prev-btn');
-  this.nextBtn = $('.next-btn');
-
   new Clipboard('.copy', {
     text: this.copyHandler.bind(this)
   });
@@ -62,8 +59,6 @@ APP.ProductScreen.prototype.setupUI = function() {
 APP.ProductScreen.prototype.listeners = function() {
   APP.BaseScreen.prototype.listeners.call(this);
   this.shareFb.click(this.shareFBHandler.bind(this));
-
-  this.buyBtn.click(this.buyHandler.bind(this));
 
   $('.menu-item').click(this.menuItemHandler.bind(this));
   $('.menu-item[data-name=' + currentPath + ']').click();
@@ -85,22 +80,16 @@ APP.ProductScreen.prototype.listeners = function() {
     }
   }
 
+  this.category.change(this.categoryHandler.bind(this));
+
   this.likeBtn.click(this.likeBtnHandler.bind(this));
 
   this.followBtn.click(this.followHandler.bind(this));
   this.collectionForm.submit(this.collectionFormHandler.bind(this));
   this.reviewForm.submit(this.reviewFormHandler.bind(this));
 
-  $(document).bind('keyup', this.documentKeyupHandler.bind(this));
 };
 
-APP.ProductScreen.prototype.documentKeyupHandler = function(event) {
-  if (event.keyCode === 39 && this.prevBtn.length > 0)
-    window.location.href = this.prevBtn.attr('href');
-
-  if (event.keyCode === 37 && this.nextBtn.length > 0)
-    window.location.href = this.nextBtn.attr('href');
-};
 
 APP.ProductScreen.prototype.copyHandler = function(trigger) {
   $('#lean_overlay').trigger("click");
@@ -108,17 +97,8 @@ APP.ProductScreen.prototype.copyHandler = function(trigger) {
   return window.location.href;
 };
 
-APP.ProductScreen.prototype.buyHandler = function(event) {
-  var data ={
-    id: this.model.find(':selected').val(),
-    name: this.model.find(':selected').text(),
-    url: window.location.href
-  };
-  Cookies.set('category_data', JSON.stringify(data), {
-    maxAge: 3600000,
-    domain: '.' + document.domain
-  });
-  alert(JSON.stringify(data));
+APP.ProductScreen.prototype.categoryHandler = function(event) {
+  window.location.href = this.category.find(':selected').val();
 };
 
 APP.ProductScreen.prototype.reviewFormHandler = function(event) {
