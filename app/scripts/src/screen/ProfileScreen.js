@@ -111,7 +111,8 @@ APP.ProfileScreen.prototype.menuItemClickHandler = function(event) {
         $.post( url, function (res) {
           console.log("res: ", res)
 
-          // new APP.DiscoverScreen(template, section, 'infinite', data);
+          data = res.data
+          new APP.DiscoverScreen(template, section, 'infinite', data);
 
         })
         
