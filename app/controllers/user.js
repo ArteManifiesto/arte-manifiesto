@@ -84,6 +84,12 @@ var discover = function(req, res, entity) {
   });
 };
 
+exports.search = function(entity, req, res) {
+  return searchDiscover(entity, req).then(function(data) {
+    return res.json(data);
+  });
+};
+
 exports.profile = function(currentPath, req, res) {
   var query = req.owner ? {
     all: true
