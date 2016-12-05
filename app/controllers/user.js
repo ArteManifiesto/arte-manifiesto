@@ -19,7 +19,8 @@ var searchDiscover = function(entity, req) {
   var tempValue = req.params.value;
   return global['search' + searchable](req).then(function(data) {
     var query = global.encodeToQuery(req.query);
-    data.url = req.protocol + '://' + req.get('host') + '/user/' + req.profile.username + req.path + '?' + query;
+    var temp = req.protocol + '://' + req.get('host') + '/user/' + req.profile.username + req.path + '?' + query;
+    data.url = temp.replace('/setup', '');
     data.url = data.url.replace(tempValue, req.params.value);
 
     data.filters = {
