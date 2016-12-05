@@ -22,6 +22,7 @@ router.get('/followers/', controller.profile.bind(this, 'followers'));
 router.get('/followings/', controller.profile.bind(this, 'followings'));
 router.get('/products/:value/:page', controller.profile.bind(this, 'products'));
 router.post('/products/:value/:page', controller.search.bind(null, 'products'));
+router.post('/products/setup/:value/:page', controller.setup.bind(null, 'products'));
 
 router.post('/isFollowing', isLoggedAndOwner, global.md.userTo, controller.isFollowing);
 router.post('/follow', isLoggedAndOwner, global.md.userTo, controller.follow);

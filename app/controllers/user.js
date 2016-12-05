@@ -90,6 +90,12 @@ exports.search = function(entity, req, res) {
   });
 };
 
+exports.setup = function(entity, req, res) {
+  return discover(req, res, entity).then(function(discoverData) {
+    return res.json(discoverData);
+  });
+};
+
 exports.profile = function(currentPath, req, res) {
   var query = req.owner ? {
     all: true
