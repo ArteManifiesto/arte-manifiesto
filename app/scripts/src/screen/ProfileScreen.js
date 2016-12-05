@@ -101,6 +101,19 @@ APP.ProfileScreen.prototype.menuItemClickHandler = function(event) {
       // location.href = "http://am.local:3000/user/juliocanares/products/all/page-1";
 
       // this.currentViewer = new APP.DiscoverScreen(template, section, 'infinite', data);
+      console.log("products :)")
+
+      if( !data ) {
+        
+        var url = "http://am.local:3000/user/juliocanares/products/setup/all/page-1/?order=newest"
+        console.log("url: ", url)
+
+        $.post( url, function (res) {
+          console.log("res: ", res)
+        })
+        
+      }
+
       new APP.DiscoverScreen(template, section, 'infinite', data);
     }
     else{
