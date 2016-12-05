@@ -110,11 +110,13 @@ APP.ProfileScreen.prototype.menuItemClickHandler = function(event) {
 
         $.post( url, function (res) {
           console.log("res: ", res)
+
+          // new APP.DiscoverScreen(template, section, 'infinite', data);
+
         })
         
       }
 
-      new APP.DiscoverScreen(template, section, 'infinite', data);
     }
     else{
       this.currentViewer = new APP.Viewer(template, section, 'infinite');
