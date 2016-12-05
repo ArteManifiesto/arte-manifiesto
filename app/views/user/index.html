@@ -416,15 +416,7 @@
 		var discover = {{discoverData|json|safe}};
 		
 		var data = discover.data
-		// console.log("data: ", data);
-
-		var s1 = data.url.substring(0, 21);
-		// console.log("s1: ", s1)
-		
-		var s2 = data.url.substring(21, data.url.length);
-		// console.log("s2: ", s2)
-
-		data.url = s1 + 'user/juliocanares/' + s2
+		console.log("data: ", data);
 
 		$(function(){new APP.ProfileScreen();})
 	</script>
