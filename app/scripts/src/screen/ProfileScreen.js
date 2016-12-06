@@ -103,19 +103,24 @@ APP.ProfileScreen.prototype.menuItemClickHandler = function(event) {
       // this.currentViewer = new APP.DiscoverScreen(template, section, 'infinite', data);
       console.log("products :)")
 
+      var setup = false
+
       if( !data ) {
         
-        var url = "http://am.local:3000/user/juliocanares/products/setup/all/page-1/?order=newest"
-        console.log("url: ", url)
+        var url = "http://am.local:3000/user/" + profile.username + "/products/setup/all/page-1/?order=newest"
 
         $.post( url, function (res) {
-          console.log("res: ", res)
 
           data = res.data
           new APP.DiscoverScreen(template, section, 'infinite', data);
 
         })
         
+      } else {
+        if(!setup) {
+          new APP.DiscoverScreen(template, section, 'infinite', data);
+          setup  = true
+        }
       }
 
     }
