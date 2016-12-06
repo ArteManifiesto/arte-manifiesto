@@ -71,7 +71,8 @@ exports.index = function(currentPath, req, res) {
                     model: global.db.Category,
                     as: 'ParentCategory'
                   }]
-                }]
+                }],
+                addUser: true
               }).then(function(categories) {
                 var data = {
                   currentPath: currentPath,
