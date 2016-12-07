@@ -8,9 +8,10 @@ APP.ProfileScreen = function() {
   this.currentItem, this.oldItem;
   this.currentSection, this.oldSection;
   this.currentViewer, this.oldViewer;
-
+  this.setup = false;
   this.paths = [];
   this.viewers = [];
+  this.filter = '';
   this.uploaderCover = new APP.UploaderImage($('.uploader-cover'), this.uploadComplete);
 
   APP.BaseScreen.call(this, 'profile');
@@ -48,7 +49,6 @@ APP.ProfileScreen.prototype.featuredHandler = function() {
     payload = {};
   payload['id' + Utils.capitalize(tempId)] = profile.id;
   $.post(url, payload, function(response) {
-    console.log(response);
     if (response.status === 200) {
       if (response.data[tempId].featured) {
         scope.featuredBtn.removeClass('disabled');
@@ -78,11 +78,26 @@ APP.ProfileScreen.prototype.followClickHandler = function() {
 };
 
 APP.ProfileScreen.prototype.menuItemClickHandler = function(event) {
+  if(window.location.href.indexOf('/product')>-1){
+    this.filter = window.location.href;
+  }
   this.currentItem = $(event.currentTarget);
   var path = this.currentItem.data('name');
-
-  var url = '/user/' + profile.username + '/' + (path === 'portfolio' ? '' : path)
-  Utils.changeUrl(DataApp.baseTitle + Utils.capitalize(path), url);
+  if(path === 'products'){
+    var arr = this.filter.split('/products');
+    if(arr[1]){
+      this.filter = arr[1];
+    }
+    else{
+      this.filter = '/all/page-1/?order=newest';
+    }
+    var url = '/user/' + profile.username + '/' + path + this.filter;
+    Utils.changeUrl(DataApp.baseTitle + Utils.capitalize(path), url);
+  }
+  else {
+    var url = '/user/' + profile.username + '/' + (path === 'portfolio' ? '' : path)
+    Utils.changeUrl(DataApp.baseTitle + Utils.capitalize(path), url);
+  }
 
   this.currentSection = $('.' + path + '-wrapper');
 
@@ -97,32 +112,18 @@ APP.ProfileScreen.prototype.menuItemClickHandler = function(event) {
     var template = this.getTemplate(path),
       section = $('.' + path + '-container');
     if(path === 'products'){
-
-      // location.href = "http://am.local:3000/user/juliocanares/products/all/page-1";
-
-      // this.currentViewer = new APP.DiscoverScreen(template, section, 'infinite', data);
-      console.log("products :)")
-
-      var setup = false
-
-      if( !data ) {
-        
+      if(!data){
+        this.setup = true;
         var url = "http://am.local:3000/user/" + profile.username + "/products/setup/all/page-1/?order=newest"
-
         $.post( url, function (res) {
-
           data = res.data
           new APP.DiscoverScreen(template, section, 'infinite', data);
-
         })
-        
-      } else {
-        if(!setup) {
-          new APP.DiscoverScreen(template, section, 'infinite', data);
-          setup  = true
-        }
+      } 
+      else if(!this.setup) {
+        new APP.DiscoverScreen(template, section, 'infinite', data);
+        this.setup = true;
       }
-
     }
     else{
       this.currentViewer = new APP.Viewer(template, section, 'infinite');
