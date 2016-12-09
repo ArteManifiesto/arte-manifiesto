@@ -3840,13 +3840,14 @@ width
   -moz-background-size: cover;
   background-size: cover;
   background-position: center center;
-  height: 200px;
+  height: 242px;
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: box;
   display: flex;
+  margin-bottom: 10px;
 }
 .product-card-image img {
   margin: auto;
@@ -3904,15 +3905,28 @@ width
   font-size: 1.25em;
 }
 .product-card-price {
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-  background: rgba(255,255,255,0.9);
-  font-family: 'Montserrat', sans-serif;
-  color: #1e1f1e;
-  font-size: 12px;
-  padding: 10px;
-  border-radius: 2px;
+  font-family: DIN !important;
+  color: #393d3f;
+  font-weight: 500;
+  text-align: center;
+}
+.product-card-price .original {
+  text-decoration: line-through;
+}
+.product-card-title {
+  font-family: OpenSans !important;
+  font-weight: normal;
+  color: #333;
+  margin-bottom: 3px;
+  text-align: center;
+}
+.product-card-subtitle {
+  font-family: OpenSans !important;
+  color: #333;
+  font-weight: normal;
+  font-size: 13px;
+  margin-bottom: 10px;
+  text-align: center;
 }
 .product-card-zoom {
   position: absolute;
@@ -6309,35 +6323,29 @@ width
 .work-layout-discover .grid-item {
   width: 100%;
 }
-@media (min-width: 300px) {
+@media (min-width: 460px) {
   .work-layout-discover .grid-sizer,
   .work-layout-discover .grid-item {
     width: 50%;
   }
 }
-@media (min-width: 460px) {
+@media (min-width: 768px) {
   .work-layout-discover .grid-sizer,
   .work-layout-discover .grid-item {
     width: 33.333%;
   }
 }
-@media (min-width: 768px) {
-  .work-layout-discover .grid-sizer,
-  .work-layout-discover .grid-item {
-    width: 25%;
-  }
-}
 @media (min-width: 1000px) {
   .work-layout-discover .grid-sizer,
   .work-layout-discover .grid-item {
-    width: 20%;
+    width: 25%;
   }
   .discover-content[data-state="expand"] .work-layout-discover {
     margin-left: 20%;
   }
   .discover-content[data-state="expand"] .work-layout-discover .grid-sizer,
   .discover-content[data-state="expand"] .work-layout-discover .grid-item {
-    width: 25%;
+    width: 33.333%;
   }
   .discover-content[data-state="expand"] .am-More-button {
     margin-left: 20%;

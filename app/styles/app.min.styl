@@ -1108,8 +1108,10 @@ white = #fff
 	&-image
 		background-size cover
 		background-position center center
-		height 200px
+		// height 200px
+		height: 242px;
 		display flex
+		margin-bottom 10px
 		img
 			margin auto
 	&-data
@@ -1142,18 +1144,38 @@ white = #fff
 			color #1e1f1e
 			i
 				font-size 1.25em
+	// &-price
+	// 	position absolute
+	// 	// right 0
+	// 	// bottom 0
+	// 	right: 10px;
+	// 	bottom: 10px;
+	// 	background rgba(white, .9)
+	// 	font-family 'Montserrat', sans-serif
+	// 	color #1e1f1e
+	// 	font-size 12px
+	// 	padding 10px
+	// 	border-radius 2px
 	&-price
-		position absolute
-		// right 0
-		// bottom 0
-		right: 10px;
-		bottom: 10px;
-		background rgba(white, .9)
-		font-family 'Montserrat', sans-serif
-		color #1e1f1e
-		font-size 12px
-		padding 10px
-		border-radius 2px
+		font-family: DIN !important;
+		color #393d3f
+		font-weight: 500;
+		text-align center
+		.original
+			text-decoration: line-through;
+	&-title
+		font-family: OpenSans !important;
+		font-weight: normal;
+		color: #333333;
+		margin-bottom: 3px;
+		text-align center
+	&-subtitle
+		font-family: OpenSans !important;
+		color: #333333;
+		font-weight: normal;
+		font-size: 13px;
+		margin-bottom: 10px;
+		text-align center		
 	&-zoom
 		position absolute
 		height 100%
@@ -1164,6 +1186,7 @@ white = #fff
 		display none
 		background-size cover
 		background-position center center
+
 .featured
 	z-index: 1;
 	position absolute
@@ -2932,36 +2955,41 @@ white = #fff
 	.grid-item
 		width 100%
 
-@media (min-width: 300px)
-	.work-layout-discover
-		.grid-sizer
-		.grid-item
-			width 50%
+// @media (min-width: 300px)
+// 	.work-layout-discover
+// 		.grid-sizer
+// 		.grid-item
+// 			width 50%
 
 @media (min-width: 460px)
 	.work-layout-discover
 		.grid-sizer
 		.grid-item
-			width 33.333%
+			// width 33.333%
+			width 50%
 
 @media (min-width: 768px)
 	.work-layout-discover
 		.grid-sizer
 		.grid-item
-			width 25%
+			// width 25%
+			width 33.333%
 
 @media (min-width: 1000px)
 	.work-layout-discover
 		.grid-sizer
 		.grid-item
-			width 20%
+			// width 20%
+			width 25%
+			
 	.discover-content
 		&[data-state="expand"]
 			.work-layout-discover
 				margin-left 20%
 				.grid-sizer
 				.grid-item
-					width 25%
+					// width 25%
+					width 33.333%
 
 			.am-More-button
 				margin-left 20%
@@ -2971,41 +2999,6 @@ white = #fff
 
 			.am-search-result
 				margin-left 20%
-
-
-
-// .work-layout-discover
-// 	.grid-item
-// 		width 100%
-
-// @media (min-width: 300px)
-// 	.work-layout-discover
-// 		.grid-item
-// 			width 50%
-
-// @media (min-width: 460px)
-// 	.work-layout-discover
-// 		.grid-item
-// 			width 33.333%
-
-// @media (min-width: 768px)
-// 	.work-layout-discover
-// 		.grid-item
-// 			width 25%
-
-// @media (min-width: 1000px)
-// 	.work-layout-discover
-// 		.grid-item
-// 			width 20%
-// 	.discover-content
-// 		&[data-state="expand"]
-// 			.work-layout-discover
-// 				margin-left 20%
-// 				.grid-item
-// 					width 25%
-
-// 			.am-More-button
-// 				margin-left 20%
 
 
 .work-layout-discover.home
