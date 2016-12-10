@@ -267,77 +267,65 @@ body {
 	$ SINGLE REDONE
 *------------------------------------*/
 .singleProduct-name {
-  font-family: OpenSans !important;
-  font-size: 20px !important;
-  line-height: 1.01 !important;
-  letter-spacing: -0.2px !important;
+  font-family: OpenSans;
+  font-size: 23px;
+  color: #393d3f;
 }
 .singleProduct-by {
-  font-family: OpenSans !important;
-  font-size: 14px !important;
-  line-height: 1.34 !important;
+  font-family: OpenSans;
+  font-size: 16px;
+  color: #393d3f;
 }
 .singleProduct-by a {
-  text-decoration: underline !important;
-  color: #666 !important;
+  text-decoration: underline;
+  color: #333;
 }
 .singleProduct-finalPrice {
-  font-family: DIN !important;
-  font-size: 20px !important;
-  color: #4000ff !important;
-  font-weight: 500 !important;
-  margin-right: 9%;
+  font-family: DIN;
+  font-size: 23px;
+  color: #4000ff;
 }
 .singleProduct-price {
-  font-family: DIN !important;
-  font-size: 20px !important;
-  text-decoration: line-through !important;
-}
-.singleProduct-info {
-  font-family: OpenSans !important;
-  color: #666 !important;
-  margin-top: 10px;
-}
-.singleProduct-info-text {
-  font-size: 12px;
-  margin-bottom: 4px;
-}
-.singleProduct-info-icon {
-  float: left;
-  margin-right: 17px;
+  font-family: DIN;
+  font-size: 23px;
+  text-decoration: line-through;
+  color: #61565a;
 }
 .singleProduct-btn {
-  background: #4000ff !important;
-  border-radius: 0 !important;
-  padding: 12px 9% !important;
-  margin-bottom: 10px;
-}
-.singleProduct-description {
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: box;
   display: flex;
-  border-top: 1px solid #ddd;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -o-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+.singleProduct-text {
+  color: #838c8e;
   font-family: OpenSans;
+  font-size: 12px;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -o-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
 }
-.singleProduct-description-box {
-  width: 50%;
-  padding: 40px;
-  font-size: 14px;
-  color: #666;
-}
-.singleProduct-description-box-title {
-  font-size: 24px;
-  margin-bottom: 5px;
-}
-.singleProduct-description-box-space {
-  margin-top: 30px;
-}
-.singleProduct-description-box a {
-  text-decoration: underline !important;
-  color: #666 !important;
+.singleProduct-text i {
+  color: #848d8f;
+  margin-right: 10px;
+  font-size: 15px;
 }
 .singleProduct-images {
   margin-right: 20px;
@@ -347,11 +335,6 @@ body {
   padding: 5px;
   margin-bottom: 8px;
   cursor: zoom-in;
-}
-.singleProduct-icon {
-  border-color: #4000ff;
-  background: #4000ff;
-  color: #fff !important;
 }
 @media (max-width: 999px) {
   .singleProduct-images {
@@ -372,14 +355,6 @@ body {
   .singleProduct-images-container {
     margin-bottom: 30px;
     margin-right: 8px;
-  }
-}
-@media (max-width: 768px) {
-  -btn {
-    padding: 12px 25% !important;
-  }
-  -description-box {
-    padding: 25px;
   }
 }
 /*------------------------------------*
@@ -1621,7 +1596,7 @@ textarea {
   font-weight: 500;
 }
 .am-View-button {
-  background: #2e71f0;
+  background: #4000ff;
   border-radius: 17px;
   padding: 8px 15px;
   letter-spacing: 2px;
@@ -1640,6 +1615,13 @@ textarea {
 }
 .am-View-button.green {
   background: #3bd64a;
+}
+.am-View-button.flat {
+  border-radius: 0;
+  width: 100%;
+  text-align: center;
+  padding: 12px;
+  max-width: 350px;
 }
 /*------------------------------------*
 	$ INPUTS
@@ -3840,14 +3822,13 @@ width
   -moz-background-size: cover;
   background-size: cover;
   background-position: center center;
-  height: 242px;
+  height: 250px;
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: box;
   display: flex;
-  margin-bottom: 10px;
 }
 .product-card-image img {
   margin: auto;
@@ -3918,6 +3899,7 @@ width
   font-weight: normal;
   color: #333;
   margin-bottom: 3px;
+  margin-top: 10px;
   text-align: center;
 }
 .product-card-subtitle {
