@@ -26,18 +26,18 @@
 
 {% block elements %}
 {% set product = product.toJSON() %}
-	<div class="grid-container u-margin-top-20">
+	<div class="grid-container u-margin-top-30">
 		<div class="grid-100">
 			<div class="single-info">
 				<div class="single-image">
-					<div class="singleProduct-images">
-						<div class="singleProduct-images-container">
+					<div class="singleProduct-previews">
+						<div class="singleProduct-preview">
 							<!-- <img src="{{product.photo|addFilter('w_120,h_120,q_80,c_scale')}}" class="work-photo" id="productS-image" data-img="{{product.photo|addFilter('w_700,h_800,q_80,c_limit')}}"> -->
-							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_120,h_120,c_limit/v1461609097/iqttbjv41nm9x7wonhps.jpg" data-img="http://res.cloudinary.com/arte-manifiesto/image/upload/w_700,h_800,c_limit/v1461609097/iqttbjv41nm9x7wonhps.jpg">
+							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_100,h_100,c_limit/v1461609097/iqttbjv41nm9x7wonhps.jpg" data-img="http://res.cloudinary.com/arte-manifiesto/image/upload/w_700,h_800,c_limit/v1461609097/iqttbjv41nm9x7wonhps.jpg">
 						</div>
-						<div class="singleProduct-images-container">
+						<div class="singleProduct-preview">
 							<!-- <img src="{{work.photo|addFilter('w_120,h_120,q_80,c_scale')}}" class="work-photo" id="work-image" data-img="{{work.photo|addFilter('w_700,h_800,q_80,c_limit')}}"> -->
-							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_120,h_120,c_limit/v1461608610/d9qlr95thheot0hwyzzd.jpg" data-img="http://res.cloudinary.com/arte-manifiesto/image/upload/w_120,h_120,c_limit/v1461608610/d9qlr95thheot0hwyzzd.jpg">
+							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_100,h_100,c_limit/v1461608610/d9qlr95thheot0hwyzzd.jpg" data-img="http://res.cloudinary.com/arte-manifiesto/image/upload/w_700,h_800,c_limit/v1461608610/d9qlr95thheot0hwyzzd.jpg">
 						</div>
 					</div>
 					<div class="single-image-inner">
@@ -69,7 +69,7 @@
 							{% endif %}
 							#} -->
 						</div>
-						<div class="actions-box after-like {% if !product.liked %} hide {% endif %}">
+						<div class="actions-box after-like {% if !product.liked %} hide {% endif %} u-margin-bottom-20">
 
 							<i class="bi_interface-top arrow" {% if owner %} style="left: 32px;" {% endif %}></i>
 
@@ -90,7 +90,6 @@
 								</button>
 							</div>
 						</div>
-						<div class="u-margin-top-10">&nbsp;</div>
 					</div>
 				</div>
 				<div class="single-data">
@@ -124,6 +123,26 @@
 						</span>
 					</p>
 
+					<div class="singleProduct-selects u-padding-bottom-30">
+						<select class="singleProduct-select">
+							{% for productCategory in categories %}
+								{% if productCategory.CategoryId == product.CategoryId %}
+									<option disabled selected value="/user/{{productCategory.User.username}}/product/{{productCategory.nameSlugify}}">{{productCategory.Category.name}}</option>
+								{% else %}
+									{% if productCategory.Category.ParentCategoryId == product.Category.ParentCategoryId%}
+										<option value="/user/{{productCategory.User.username}}/product/{{productCategory.nameSlugify}}">{{productCategory.Category.name}}</option>
+									{%endif%}
+								{%endif%}
+							{% endfor %}
+						</select>
+
+						<select class="singleProduct-select">
+							<option>1</option>
+							<option>2</option>
+							<option>3</option>
+						</select>	
+					</div>
+					
 
 					<p class="singleProduct-text u-padding-bottom-7">
 						<i class="bi_editorial-brush"></i>
@@ -144,6 +163,7 @@
 						<i class="bi_com-chat"></i>
 						<span>7 días para devolver cualquier obra/producto</span>
 					</p>
+
 
 					<!-- <div class="singleProduct-dropdown">
 						<select class="input select" name='model'>
@@ -171,9 +191,9 @@
 						<p class="u-padding-bottom-7 singleProduct-info-text">7 días para devolver cualquier obra/producto</p>
 					</div> -->
 
-					<!-- <p class="am-stats-text u-margin-top-40">ESTADÍSTICAS</p>
+					<p class="am-stats-text u-margin-top-40">ESTADÍSTICAS</p>
 					<div class="u-separator"></div>
-					<div class="u-center">
+					<div class="u-center u-margin-bottom-20">
 						<table class="am-Single-stats u-margin-top-10">
 						  <tr>
 						    <td><i class="bi_interface-view"></i></td>
@@ -186,7 +206,7 @@
 						    <td><span class="likes">{{product.likes || 0}}</span></td>
 						  </tr>
 						</table>
-					</div> -->
+					</div>
 
 				</div>
 			</div>

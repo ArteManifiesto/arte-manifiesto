@@ -14,6 +14,21 @@
 		font-family DIN
 		font-size 23px
 		color #4000ff
+	
+	&-selects
+		display: flex;
+		justify-content: space-between;
+		max-width 300px
+	&-select
+		appearance: none;
+		border 1px solid #979797
+		font-family: OpenSans;
+		padding 5px 20px
+		background white
+		border-radius 0
+		font-size 14px
+		color #333
+
 	&-price
 		font-family DIN
 		font-size 23px
@@ -32,6 +47,21 @@
 			color #848d8f
 			margin-right 10px
 			font-size 15px
+			
+	&-preview
+		border 1px solid #ddd
+		padding 5px
+		cursor zoom-in
+		display flex
+		justify-content center
+		margin 5px
+
+@media (max-width: 999px)
+	.singleProduct
+		&-previews
+			display flex
+			justify-content center
+
 	// &-info
 	// 	font-family OpenSans !important
 	// 	color #666 !important
@@ -64,27 +94,29 @@
 	// 		a
 	// 			text-decoration underline !important
 	// 			color #666 !important
-	&-images
-		margin-right 20px
-		&-container
-			border 1px solid #ddd
-			padding 5px
-			margin-bottom 8px
-			cursor zoom-in
+	
+		
+	// &-images
+	// 	margin-right 20px
+	// 	&-container
+	// 		border 1px solid #ddd
+	// 		padding 5px
+	// 		margin-bottom 8px
+	// 		cursor zoom-in
 	// &-icon
 	// 	border-color #4000ff
 	// 	background #4000ff
 	// 	color #fff !important
 
-@media (max-width: 999px)
-	.singleProduct
-		&-images
-			display flex
-			justify-content center
-			margin-right 0
-			&-container
-				margin-bottom 30px
-				margin-right 8px
+// @media (max-width: 999px)
+// 	.singleProduct
+// 		&-images
+// 			display flex
+// 			justify-content center
+// 			margin-right 0
+// 			&-container
+// 				margin-bottom 30px
+// 				margin-right 8px
 
 // @media (max-width: 768px)
 // 		&-btn
