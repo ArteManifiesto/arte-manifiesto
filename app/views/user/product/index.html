@@ -262,12 +262,30 @@
 	</div>
 
 	<!-- ********************************************************************
-			$ PRODUCTS
-		********************************************************************* -->
+		$ INFORMATION
+	********************************************************************* -->
 
-		<div class="index-container {% if currentPath !== 'index' %} hide {% endif %}">
-			<div class="singleProduct-description">
-				{% set productConfig = JSON.parse(product.config) %}
+	<div class="index-container {% if currentPath !== 'index' %} hide {% endif %}">
+	  <div class="grid-container u-margin-top-20">
+	    <div class="grid-100">
+
+			<div class="singleProduct-info u-margin-top-20">
+				<div class="left u-padding-bottom-20">
+					<p class="singleProduct-info-title u-padding-bottom-7">Descripción</p>
+					<p class="singleProduct-info-text">El case esta hecho de materiales duraderos a prueba de golpes y de caidas. Colores nítidos permiten hacer de este un producto ideal para tí o un regalo</p>
+				</div>
+				<div class="right">
+					<p class="singleProduct-info-title u-padding-bottom-7">Información adicional</p>
+					<p class="singleProduct-info-text">
+						Case por <a>Arte Manifiesto Lab</a><br>
+						Material: Polímero de alta densidad<br>
+						Acabado: Mate<br><br>
+						Peso: 100 grs.<br>
+						Diseño por: <a>Andre Coronado</a>
+					</p>
+				</div>
+
+				<!-- {% set productConfig = JSON.parse(product.config) %}
 				<div class="singleProduct-description-box">
 					<p class="singleProduct-description-box-title">Descripción</p>
 					<p>{{productConfig.description}}</p>
@@ -287,42 +305,45 @@
 										{% endif %}
 									</a>
 					</p>
-				</div>
+				</div> -->
 			</div>
-		</div>
+
+	    </div>
+	  </div>
+	</div>
 
 	<!-- ********************************************************************
-			$ PRODUCTS
-		********************************************************************* -->
+		$ PRODUCTS
+	********************************************************************* -->
 
-		<div class="products-container {% if currentPath !== 'products' %} hide {% endif %}">
-			<div class="grid-container u-margin-top-60">
-			    <div class="grid-100">
-						<p class="am-more-text u-text-center u-padding-bottom-10">Otras productos disponibles</p>
-			      <div class="u-separator-center"></div>
-			    </div>
-			  </div>
+	<div class="products-container {% if currentPath !== 'products' %} hide {% endif %}">
+	  <div class="grid-container u-margin-top-60">
+	    <div class="grid-100">
+				<p class="am-more-text u-text-center u-padding-bottom-10">Otras productos disponibles</p>
+	      <div class="u-separator-center"></div>
+	    </div>
+	  </div>
 
-			  <div class="grid-container">
-			    <div class="grid-100">
-			    	<div class="more-carousel js-more-carousel">
-							<p class="empty-profile-text empty-message bare-message hide u-margin-top-30">El artista no tiene mas obras<br><br>
-								<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
-							</p>
+	  <div class="grid-container">
+	    <div class="grid-100">
+	    	<div class="more-carousel js-more-carousel">
+					<p class="empty-profile-text empty-message bare-message hide u-margin-top-30">El artista no tiene mas obras<br><br>
+						<a href="/works/category/all/page-1/">Descubre todas las obras de AM</a>
+					</p>
 
-							<button class="nextButton"><i class="bi_interface-right"></i></button>
-							<button class="prevButton"><i class="bi_interface-left"></i></button>
+					<button class="nextButton"><i class="bi_interface-right"></i></button>
+					<button class="prevButton"><i class="bi_interface-left"></i></button>
 
-			        <div class="more-images more">
-			        </div>
-			      </div>
-			    </div>
-			  </div>
-		</div>
+	        <div class="more-images more">
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
-		<!--=================================================================================
-				=================================================================================
-				=================================================================================-->
+	<!--=================================================================================
+			=================================================================================
+			=================================================================================-->
 
 	<!--=========================== WORK'S REVIEWS  ===========================-->
 	<div class="grid-container reviews-container {% if currentPath !== 'reviews' %} hide {% endif %}">

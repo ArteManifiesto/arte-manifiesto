@@ -56,12 +56,47 @@
 		justify-content center
 		margin 5px
 
+	&-info
+		&-title
+			font-family: OpenSans;
+			font-size: 24px;
+			color: #393d3f;
+		&-text
+			font-family: OpenSans;
+			font-size: 14px;
+			color: #393d3f;
+			line-height: 1.75;
+			a
+				text-decoration underline
+
+
 @media (max-width: 999px)
 	.singleProduct
 		&-previews
 			display flex
 			justify-content center
 
+
+
+@media (min-width: 900px)
+	.singleProduct
+		&-info
+			display flex
+			.left
+			.right
+				flex 1
+			.left
+				padding-right 20px
+				
+
+@media (min-width: 1000px)
+	.singleProduct
+		&-info
+			margin-left 120px
+			// .left
+			// 	padding-right 300px
+				
+			
 	// &-info
 	// 	font-family OpenSans !important
 	// 	color #666 !important
