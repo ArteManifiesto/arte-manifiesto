@@ -1259,6 +1259,7 @@ global.searchProducts = function (req) {
   discover.query.addUser = true;
   discover.query.include = discover.query.include || [];
   discover.query.include.push(global.db.Work);
+  discover.query.include.push(global.db.Category);
   discover.query.order.push([global.db.sequelize.col('id')]);
 
   return beforePagination(req, discover);

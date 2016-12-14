@@ -78,7 +78,7 @@ APP.AddProductScreen.prototype.workFormSubmitHandler = function(event) {
   var data = {
     name: this.name.val(),
     description: this.shortDescription.val(),
-    price: (parseInt(this.finalPrice.val()) * 1.2).toString(),
+    price: (Math.round(parseInt(this.finalPrice.val()) * 1.2)).toString(),
     finalPrice: this.finalPrice.val(),
     photo: scope.uploaderImage.photo,
     printPhoto: scope.uploaderImage.photo,
@@ -129,9 +129,10 @@ APP.AddProductScreen.prototype.categoryHandler = function(event) {
 };
 
 APP.AddProductScreen.prototype.priceHandler = function(event) {
-  var preTax = parseInt(this.price.val()) * ((parseInt(this.profit.val()) / 100) + 1);
+  var pro = parseFloat(this.profit.val()) / 100 + 1
+  var preTax = parseFloat(this.price.val()) * pro;
   var tax = 1.18
-  this.finalPrice.val(Math.ceil(preTax * tax));
+  this.finalPrice.val(Math.round(preTax * tax));
 };
 
 APP.AddProductScreen.prototype.imgComplete = function(idImage) {

@@ -45,7 +45,7 @@ var discover = function(req, res, entity) {
   } else if (entity === 'products') {
     promises.push(global.db.Category.findAll({
       where: {
-        meta: 3
+        meta: 7
       }
     }));
   }

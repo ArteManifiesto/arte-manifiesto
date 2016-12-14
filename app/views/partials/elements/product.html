@@ -42,8 +42,8 @@
           <div class="product-card-image">
             <img src="<%= addFilter(photo, 'w_300,h_300,c_limit') %>">
           </div>
-          <div class="product-card-title">Catnip iPhone Case</div>
-          <div class="product-card-subtitle">por Andre Coronado</div>
+          <div class="product-card-title"><%= name %> - <%= Category.name %></div>
+          <div class="product-card-subtitle">por <%= User.fullname %></div>
           <div class="product-card-price">
             <span class="final">S/.<%= finalPrice %>.00</span>&nbsp;&nbsp;
             <span class="original">S/.<%= price %>.00</span>

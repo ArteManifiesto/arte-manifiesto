@@ -32,18 +32,15 @@
 				<div class="single-image">
 					<div class="singleProduct-previews">
 						<div class="singleProduct-preview">
-							<!-- <img src="{{product.photo|addFilter('w_120,h_120,q_80,c_scale')}}" class="work-photo" id="productS-image" data-img="{{product.photo|addFilter('w_700,h_800,q_80,c_limit')}}"> -->
-							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_100,h_100,c_limit/v1461609097/iqttbjv41nm9x7wonhps.jpg" data-img="http://res.cloudinary.com/arte-manifiesto/image/upload/w_700,h_800,c_limit/v1461609097/iqttbjv41nm9x7wonhps.jpg">
+							<img src="{{product.photo|addFilter('w_120,h_120,q_80,c_scale')}}" class="work-photo" id="productS-image" data-img="{{product.photo|addFilter('w_700,h_800,q_80,c_limit')}}">
 						</div>
 						<div class="singleProduct-preview">
-							<!-- <img src="{{work.photo|addFilter('w_120,h_120,q_80,c_scale')}}" class="work-photo" id="work-image" data-img="{{work.photo|addFilter('w_700,h_800,q_80,c_limit')}}"> -->
-							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_100,h_100,c_limit/v1461608610/d9qlr95thheot0hwyzzd.jpg" data-img="http://res.cloudinary.com/arte-manifiesto/image/upload/w_700,h_800,c_limit/v1461608610/d9qlr95thheot0hwyzzd.jpg">
+							<img src="{{work.photo|addFilter('w_120,h_120,q_80,c_scale')}}" class="work-photo" id="work-image" data-img="{{work.photo|addFilter('w_700,h_800,q_80,c_limit')}}">
 						</div>
 					</div>
 					<div class="single-image-inner">
 						<div class="work-photo-container">
-							<!-- <img src="{{product.photo|addFilter('w_700,h_800,q_80,c_limit')}}" class="work-photo" id="product-image"> -->
-							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/w_700,h_700,c_limit/v1461609097/iqttbjv41nm9x7wonhps.jpg" id="product-image">
+							<img src="{{product.photo|addFilter('w_700,h_800,q_80,c_limit')}}" class="work-photo" id="product-image">
 						</div>
 						<div class="actions u-padding-top-10">
 							<a class="action {% if product.liked %} active {% endif %}">
@@ -95,36 +92,34 @@
 				<div class="single-data">
 
 					<p class="u-padding-bottom-7 singleProduct-name">
-						Producto iPhone Case
-						<!-- {{product.Category.ParentCategory.name}}
+						{{product.Category.ParentCategory.name}}
 						{{product.Category.name}}
-						{{product.name}} -->
+					</p>
+					<p class="u-padding-bottom-7 singleProduct-name">
+						{{product.name}}
 					</p>
 
 					<p class="u-padding-bottom-20 singleProduct-by">
-						por&nbsp;&nbsp;<a href="/user/{{product.User.username}}/products">
-							<!-- {% if product.User.typeName === 1 %}
+						por&nbsp;&nbsp;<a href="/user/{{product.User.username}}/products/{{product.Category.ParentCategory.nameSlugify}}/page-1/?order=newest">
+							{% if product.User.typeName === 1 %}
 								{{product.User.fullname}}
 							{% else %}
 								{{product.User.pseudonimo}}
-							{% endif %} -->
-							Andre Coronado
+							{% endif %}
 						</a>
 					</p>
 
 					<p class="u-padding-bottom-30">
 						<span class="singleProduct-finalPrice">
-							S/.425.00
-							<!-- S/.{{product.finalPrice}}.00 -->
+							S/.{{product.finalPrice}}.00
 						</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<span class="singleProduct-price">
-							S/.245.00
-							<!-- S/.{{product.price}}.00 -->
+							S/.{{product.price}}.00
 						</span>
 					</p>
 
 					<div class="singleProduct-selects u-padding-bottom-30">
-						<select class="singleProduct-select">
+						<select class="singleProduct-select" name='model'>
 							{% for productCategory in categories %}
 								{% if productCategory.CategoryId == product.CategoryId %}
 									<option disabled selected value="/user/{{productCategory.User.username}}/product/{{productCategory.nameSlugify}}">{{productCategory.Category.name}}</option>
@@ -136,11 +131,11 @@
 							{% endfor %}
 						</select>
 
-						<select class="singleProduct-select">
+						<!-- <select class="singleProduct-select">
 							<option>1</option>
 							<option>2</option>
 							<option>3</option>
-						</select>	
+						</select>	 -->
 					</div>
 					
 
@@ -154,7 +149,6 @@
 						<span>Entrega en la puerta de tu casa</span>
 					</p>
 
-					<!-- <a href="/user/{{product.User.username}}/product/{{product.nameSlugify}}/buy" class="buy-product am-View-button singleProduct-btn expand u-margin-top-20">COMPRAR</a> -->
 					<div class="singleProduct-btn u-padding-bottom-7">
 						<a href="/user/{{product.User.username}}/product/{{product.nameSlugify}}/buy" class="am-View-button flat">COMPRAR</a>
 					</div>
@@ -222,7 +216,7 @@
 	              <img src="{{product.User.photo}}">
 	            </a>
 	            <div>
-								<a href="/user/{{product.User.username}}/products">
+					<a href="/user/{{product.User.username}}/products/{{product.Category.ParentCategory.nameSlugify}}/page-1/?order=newest">
 		              <p class="u-padding-bottom-4 uppercase" style="font-weight: bold;">
 										{% if product.User.typeName === 1 %}
 											{{product.User.fullname}}
@@ -268,36 +262,27 @@
 	<div class="index-container {% if currentPath !== 'index' %} hide {% endif %}">
 	  <div class="grid-container u-margin-top-20">
 	    <div class="grid-100">
-
+	    	{% set productConfig = JSON.parse(product.config) %}
 			<div class="singleProduct-info u-margin-top-20">
 				<div class="left u-padding-bottom-20">
 					<p class="singleProduct-info-title u-padding-bottom-7">Descripción</p>
-					<p class="singleProduct-info-text">El case esta hecho de materiales duraderos a prueba de golpes y de caidas. Colores nítidos permiten hacer de este un producto ideal para tí o un regalo</p>
+					<p class="singleProduct-info-text">{{productConfig.description}}</p>
 				</div>
 				<div class="right">
 					<p class="singleProduct-info-title u-padding-bottom-7">Información adicional</p>
-					<p class="singleProduct-info-text">
-						Case por <a>Arte Manifiesto Lab</a><br>
-						Material: Polímero de alta densidad<br>
-						Acabado: Mate<br><br>
-						Peso: 100 grs.<br>
-						Diseño por: <a>Andre Coronado</a>
-					</p>
-				</div>
-
-				<!-- {% set productConfig = JSON.parse(product.config) %}
-				<div class="singleProduct-description-box">
-					<p class="singleProduct-description-box-title">Descripción</p>
-					<p>{{productConfig.description}}</p>
-				</div>
-				<div class="singleProduct-description-box">
-					<p class="singleProduct-description-box-title">Información adicional</p>
 					{% set productInfo = JSON.parse(productConfig.info) %}
 					{% for info in productInfo %}
-					<p>{{info}}</p>
+						<p class="singleProduct-info-text">{{info}}</p>
 					{% endfor %}
-					<p class="singleProduct-description-box-space">Peso: {{productConfig.weight}} grs</p>
-					<p>Diseño por: <a href="/user/{{product.User.username}}">
+
+					<p class="singleProduct-info-text">&nbsp;</p>
+
+					<p class="singleProduct-info-text">
+						Peso: {{productConfig.weight}}
+					</p>
+
+					<p class="singleProduct-info-text">
+						Diseño por: <a href="/user/{{product.User.username}}">
 										{% if product.User.typeName === 1 %}
 											{{product.User.fullname}}
 										{% else %}
@@ -305,7 +290,7 @@
 										{% endif %}
 									</a>
 					</p>
-				</div> -->
+				</div>
 			</div>
 
 	    </div>
@@ -517,8 +502,6 @@
 {% block scripts %}
 	<script>
 		var categories = {{categories|json|safe}};
-		console.log("categories: ", categories)
-		
 		var owner = {{owner|json|safe}};
 		var entity = {{entity|json|safe}};
 		var product = {{product|json|safe}};
