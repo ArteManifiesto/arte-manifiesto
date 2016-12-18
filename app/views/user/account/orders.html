@@ -42,8 +42,8 @@
 		var orders = {{orders|json|safe}};
 		$(function() {
 			for (var i = 0; i < orders.length; i++) {
-				orders[0].from = 'orders';
-				$('.requests-container').append(new APP.RequestItem(orders[0]).view);
+				orders[i].from = 'orders';
+				$('.requests-container').append(new APP.RequestItem(orders[i]).view);
 			}
 		});
 	</script>

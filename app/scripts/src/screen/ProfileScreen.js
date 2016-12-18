@@ -30,13 +30,12 @@ APP.ProfileScreen.prototype.listeners = function() {
   $('.am-Profile-menu-item[data-name=' + currentPath + ']').click();
 
 
-  this.featuredBtn = $('.featured');
+  this.featuredBtn = $('.featured.amf');
   this.featuredBtn.click(this.featuredHandler.bind(this));
 };
 
 APP.ProfileScreen.prototype.featuredHandler = function() {
   if (!DataApp.currentUser || !DataApp.currentUser.isAdmin) return;
-
   var url, tempId = 'user';
 
   if (profile.featured) {
@@ -89,7 +88,7 @@ APP.ProfileScreen.prototype.menuItemClickHandler = function(event) {
       this.filter = arr[1];
     }
     else{
-      this.filter = '/all/page-1/?order=newest';
+      this.filter = '/all/page-1/?order=price_asc&featured=1';
     }
     var url = '/user/' + profile.username + '/' + path + this.filter;
     Utils.changeUrl(DataApp.baseTitle + Utils.capitalize(path), url);
@@ -114,7 +113,7 @@ APP.ProfileScreen.prototype.menuItemClickHandler = function(event) {
     if(path === 'products'){
       if(!data){
         this.setup = true;
-        var url = "http://am.local:3000/user/" + profile.username + "/products/setup/all/page-1/?order=newest"
+        var url = "http://am.local:3000/user/" + profile.username + "/products/setup/all/page-1/?order=price_asc&featured=1"
         $.post( url, function (res) {
           data = res.data
           new APP.DiscoverScreen(template, section, 'infinite', data);

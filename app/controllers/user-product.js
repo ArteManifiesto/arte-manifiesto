@@ -10,6 +10,7 @@ exports.index = function(currentPath, req, res) {
   req.product.getWork().then(function(work) {
     var promises = [
       work.getTags(),
+      req.product.view(),
       req.product.getReviews({
         include: [{
           model: global.db.User,
@@ -39,7 +40,8 @@ exports.index = function(currentPath, req, res) {
         global.db.Work.find({where:{id:product.WorkId}}).then(function(work) {
           global.db.Product.findAll({
             where:{
-              CategoryId:product.CategoryId, 
+              CategoryId:product.CategoryId,
+              featured:true,
               published:true,
               id:{
                 $notIn: [product.id]
@@ -51,7 +53,8 @@ exports.index = function(currentPath, req, res) {
           }).then(function(similar) {
             global.db.Product.findAll({
               where:{
-                WorkId:product.WorkId, 
+                WorkId:product.WorkId,
+                featured:true, 
                 published:true,
                 id:{
                   $notIn: [product.id]
@@ -359,19 +362,19 @@ exports.submit = function(req, res) {
 }
 
 exports.removeSubmit = function(req, res) {
-  global.db.Order.destroy({
-    where: {
-      reference: req.cookies.referenceCode,
-      status: 'En Espera'
-    }
-  }).then(function(order) {
-    res.clearCookie('referenceCode', {
-      domain: '.' + global.cf.app.domain
-    });
+  // global.db.Order.destroy({
+  //   where: {
+  //     reference: req.cookies.referenceCode,
+  //     status: 'En Espera'
+  //   }
+  // }).then(function(order) {
+  //   res.clearCookie('referenceCode', {
+  //     domain: '.' + global.cf.app.domain
+  //   });
     return res.ok({
       data: order
     }, 'cleaned');
-  });
+  // });
 }
 
 exports.payuResponse = function(req, res) {

@@ -36,8 +36,8 @@ router.post('/:nameSlugify/payu', global.md.nameSlugify(entity), controller.payu
 
 router.post('/like', isLoggedAndOwner, controller.like);
 router.post('/unlike', isLoggedAndOwner, controller.unLike);
-router.post('/featured', isLoggedAndOwner, controller.featured);
-router.post('/unfeatured', isLoggedAndOwner, controller.unFeatured);
+router.post('/featured', global.md.isAdmin, controller.featured);
+router.post('/unfeatured', global.md.isAdmin, controller.unFeatured);
 
 router.post('/add_to_collection', isLoggedAndOwner, controller.addToCollection);
 router.post('/inside_collection', isLoggedAndOwner, controller.insideCollection);

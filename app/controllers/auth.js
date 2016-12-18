@@ -120,7 +120,8 @@ exports.facebookCallback = function(req, res) {
     options.verified = true;
     global.db.User.create(options).then(function(user) {
       loginUser(req, null, user, function() {
-        return res.redirect('/');
+        var returnTo = req.cookies.return_to || '/';
+        return res.redirect(returnTo);
       });
     });
   })(req, res);

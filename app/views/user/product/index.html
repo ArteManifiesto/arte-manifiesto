@@ -32,10 +32,10 @@
 				<div class="single-image">
 					<div class="singleProduct-previews">
 						<div class="singleProduct-preview">
-							<img src="{{product.photo|addFilter('w_120,h_120,q_80,c_scale')}}" class="work-photo" id="productS-image" data-img="{{product.photo|addFilter('w_700,h_800,q_80,c_limit')}}">
+							<img src="{{product.photo|addFilter('w_120,h_120,q_80,c_fit')}}" class="work-photo" id="productS-image" data-img="{{product.photo|addFilter('w_700,h_800,q_80,c_limit')}}">
 						</div>
 						<div class="singleProduct-preview">
-							<img src="{{work.photo|addFilter('w_120,h_120,q_80,c_scale')}}" class="work-photo" id="work-image" data-img="{{work.photo|addFilter('w_700,h_800,q_80,c_limit')}}">
+							<img src="{{work.photo|addFilter('w_120,h_120,q_80,c_fit')}}" class="work-photo" id="work-image" data-img="{{work.photo|addFilter('w_700,h_800,q_80,c_limit')}}">
 						</div>
 					</div>
 					<div class="single-image-inner">
@@ -100,7 +100,7 @@
 					</p>
 
 					<p class="u-padding-bottom-20 singleProduct-by">
-						por&nbsp;&nbsp;<a href="/user/{{product.User.username}}/products/{{product.Category.ParentCategory.nameSlugify}}/page-1/?order=newest">
+						por&nbsp;&nbsp;<a href="/user/{{product.User.username}}/products/all/page-1/?order=price_asc&featured=1">
 							{% if product.User.typeName === 1 %}
 								{{product.User.fullname}}
 							{% else %}
@@ -216,7 +216,7 @@
 	              <img src="{{product.User.photo}}">
 	            </a>
 	            <div>
-					<a href="/user/{{product.User.username}}/products/{{product.Category.ParentCategory.nameSlugify}}/page-1/?order=newest">
+					<a href="/user/{{product.User.username}}/products/all/page-1/?order=price_asc&featured=1">
 		              <p class="u-padding-bottom-4 uppercase" style="font-weight: bold;">
 										{% if product.User.typeName === 1 %}
 											{{product.User.fullname}}
