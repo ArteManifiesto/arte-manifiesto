@@ -2,7 +2,7 @@ var basePath = 'pages/';
 
 exports.index = function(req, res) {
   if (!req.isAuthenticated())
-    return res.redirect('/works/category/all/page-1/?order=newest&featured=1');
+    return res.redirect('/featured');
 
   return res.redirect('/feed');
 
@@ -34,7 +34,7 @@ exports.bth = function(req, res) {
 };
 
 exports.featured = function(req, res) {
-  return res.render(basePath + 'home');
+  return res.render(basePath + 'featured');
 };
 
 exports.artjam = function(req, res) {
@@ -207,7 +207,7 @@ var discover = function(req, res, entity) {
   } else if (entity === 'products') {
     promises.push(global.db.Category.findAll({
       where: {
-        meta: 8
+        meta: 7
       }
     }));
   }
