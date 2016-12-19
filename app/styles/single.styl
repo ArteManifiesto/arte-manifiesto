@@ -22,13 +22,27 @@
 	&-select
 		appearance: none;
 		border 1px solid #979797
-		font-family: OpenSans;
-		padding 5px 20px
+		font-family OpenSans
+		padding 5px 48px 5px 20px
 		background white
 		border-radius 0
 		font-size 14px
 		color #333
-
+	&-label
+		position relative
+		overflow hidden
+	&-label:after
+		content '>'
+		font-family OpenSans
+		font-size 16px
+		color #333
+		transform rotate(90deg)
+		right -6px
+		top 4px
+		padding 0 22px 6px
+		border-bottom 1px solid #979797
+		position absolute
+		pointer-events none
 	&-price
 		font-family DIN
 		font-size 23px

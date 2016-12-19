@@ -10,6 +10,7 @@ router.get('/failed', controller.failed);
 router.get('/pp', controller.pp);
 
 router.get('/compra-y-vende-arte-en-internet-latinoamerica', controller.landing);
+router.get('/featured', controller.featured);
 
 router.get('/artjam', controller.artjam);
 

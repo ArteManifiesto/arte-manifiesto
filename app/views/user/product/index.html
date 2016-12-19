@@ -119,17 +119,19 @@
 					</p>
 
 					<div class="singleProduct-selects u-padding-bottom-30">
-						<select class="singleProduct-select" name='model'>
-							{% for productCategory in categories %}
-								{% if productCategory.CategoryId == product.CategoryId %}
-									<option disabled selected value="/user/{{productCategory.User.username}}/product/{{productCategory.nameSlugify}}">{{productCategory.Category.name}}</option>
-								{% else %}
-									{% if productCategory.Category.ParentCategoryId == product.Category.ParentCategoryId%}
-										<option value="/user/{{productCategory.User.username}}/product/{{productCategory.nameSlugify}}">{{productCategory.Category.name}}</option>
+						<label class="singleProduct-label">
+							<select class="singleProduct-select" name='model'>
+								{% for productCategory in categories %}
+									{% if productCategory.CategoryId == product.CategoryId %}
+										<option disabled selected value="/user/{{productCategory.User.username}}/product/{{productCategory.nameSlugify}}">{{productCategory.Category.name}}</option>
+									{% else %}
+										{% if productCategory.Category.ParentCategoryId == product.Category.ParentCategoryId%}
+											<option value="/user/{{productCategory.User.username}}/product/{{productCategory.nameSlugify}}">{{productCategory.Category.name}}</option>
+										{%endif%}
 									{%endif%}
-								{%endif%}
-							{% endfor %}
-						</select>
+								{% endfor %}
+							</select>
+						</label>
 
 						<!-- <select class="singleProduct-select">
 							<option>1</option>

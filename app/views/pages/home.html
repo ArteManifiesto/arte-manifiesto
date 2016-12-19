@@ -1,0 +1,77 @@
+{% set pageTitle = 'Arte Manifiesto, Una plataforma para artistas visuales y almas independientes' %}
+{% set path = '' %}
+
+{% extends '../partials/base.html' %}
+{% block elements %}
+	<div class="grid-container">
+		<div class="grid-100">
+			<div class="featured-flex">
+				<div class="featured-h580 featured-w580 featured-left"></div>
+				<div class="featured-c580">
+					<div class="featured-h580 featured-w280"></div>
+					<div class="featured-h580 featured-w280"></div>
+				</div>
+				<div class="featured-c580 featured-left">
+					<div class="featured-h280 featured-w280"></div>
+					<div class="featured-h280 featured-w280"></div>
+				</div>
+				<div class="featured-c580">
+					<div class="featured-h280 featured-w280"></div>
+					<div class="featured-h280 featured-w280"></div>
+				</div>
+				<div class="featured-h580 featured-w580 featured-left"></div>
+				<div class="featured-h580 featured-w580"></div>
+				<div class="featured-h280 featured-w580 featured-left"></div>
+				<div class="featured-h280 featured-w580"></div>
+				<div class="featured-h280 featured-w580 featured-left"></div>
+				<div class="featured-h280 featured-w580"></div>
+			</div>
+		</div>
+	</div>
+<style>
+	.featured-flex{
+		display: flex;
+		margin-top: 20px;
+		margin-bottom: 70px;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+	.featured-w580{
+		width: 580px;
+		background: black;
+	}
+	.featured-h580{
+		height: 580px;
+		margin-bottom: 20px;
+	}
+	.featured-w280{
+		width: 280px;
+		background: black;
+	}
+	.featured-h280{
+		height: 280px;
+		margin-bottom: 20px;
+	}
+	.featured-c580{
+		width: 580px;
+		display: flex;
+		justify-content: space-between;
+	}
+	.featured-left{
+		margin-right: 20px;
+	}
+	@media (max-width: 1236px){
+		.featured-left{
+			margin-right: 0;
+		}
+		.featured-flex{
+			width: 1000px;
+			margin: 20px auto 70px auto;
+		}
+	}
+</style>
+{% endblock %}
+
+
+{% block scripts %}
+{% endblock %}
