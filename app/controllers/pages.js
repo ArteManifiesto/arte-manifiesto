@@ -33,6 +33,10 @@ exports.bth = function(req, res) {
   return res.redirect('https://kuestionario.typeform.com/to/Ho97sq');
 };
 
+exports.featured = function(req, res) {
+  return res.render(basePath + 'home');
+};
+
 exports.artjam = function(req, res) {
   return res.redirect('https://artemanifiesto.typeform.com/to/FelGDk');
 };
@@ -203,7 +207,7 @@ var discover = function(req, res, entity) {
   } else if (entity === 'products') {
     promises.push(global.db.Category.findAll({
       where: {
-        meta: 3
+        meta: 8
       }
     }));
   }

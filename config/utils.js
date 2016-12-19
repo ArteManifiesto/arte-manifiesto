@@ -1255,7 +1255,7 @@ global.searchCollections = function (req) {
 global.searchProducts = function (req) {
   var discover = discoverGenerator('Product', req);
   discover.query.where.published = true;
-  discover.query.where.UserId = req.profile.id;
+  if(req.profile) discover.query.where.UserId = req.profile.id;
   discover.query.addUser = true;
   discover.query.include = discover.query.include || [];
   discover.query.include.push(global.db.Work);
