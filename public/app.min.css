@@ -290,6 +290,12 @@ body {
   -webkit-justify-content: center;
   justify-content: center;
 }
+.featured-border img {
+  border: 1px solid #ddd;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 .featured-w580 {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
@@ -355,7 +361,7 @@ body {
   display: -ms-flexbox;
   display: box;
   display: flex;
-  min-width: 350px;
+  min-width: 370px;
   -webkit-box-pack: justify;
   -moz-box-pack: justify;
   -o-box-pack: justify;

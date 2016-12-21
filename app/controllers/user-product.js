@@ -86,7 +86,7 @@ exports.index = function(currentPath, req, res) {
                   more: more,
                   similar: similar,
                   tags: result[0],
-                  reviews: result[1],
+                  reviews: result[2],
                   categories: categories
                 };
                 return res.render(basePath + 'index', data);
@@ -344,38 +344,38 @@ exports.shipping = function(req, res) {
   );
 };
 
-exports.submit = function(req, res) {
-  var data = JSON.parse(req.body.data);
-  global.db.Order.create({
-    ProductId: req.product.id,
-    UserId: req.user.id,
-    SellerId: req.product.User.id,
-    status: 'Por Aprobar',
-    signature: data.signature,
-    reference: data.reference,     
-    data: req.body.data
-  }).then(function(order) {
-    return res.ok({
-      data: order
-    }, 'created');
-  });
-}
+// exports.submit = function(req, res) {
+//   var data = JSON.parse(req.body.data);
+//   global.db.Order.create({
+//     ProductId: req.product.id,
+//     UserId: req.user.id,
+//     SellerId: req.product.User.id,
+//     status: 'Por Aprobar',
+//     signature: data.signature,
+//     reference: data.reference,     
+//     data: req.body.data
+//   }).then(function(order) {
+//     return res.ok({
+//       data: order
+//     }, 'created');
+//   });
+// }
 
-exports.removeSubmit = function(req, res) {
-  global.db.Order.destroy({
-    where: {
-      reference: req.cookies.referenceCode,
-      status: 'En Espera'
-    }
-  }).then(function(order) {
-    res.clearCookie('referenceCode', {
-      domain: '.' + global.cf.app.domain
-    });
-    return res.ok({
-      data: order
-    }, 'cleaned');
-  });
-}
+// exports.removeSubmit = function(req, res) {
+//   global.db.Order.destroy({
+//     where: {
+//       reference: req.cookies.referenceCode,
+//       status: 'En Espera'
+//     }
+//   }).then(function(order) {
+//     res.clearCookie('referenceCode', {
+//       domain: '.' + global.cf.app.domain
+//     });
+//     return res.ok({
+//       data: order
+//     }, 'cleaned');
+//   });
+// }
 
 exports.payuResponse = function(req, res) {
   var data1 = req.body.extra1;
@@ -406,20 +406,26 @@ exports.payuResponse = function(req, res) {
             where: {
               id: data2.userId
             }
-          }).then(function(user){
-            var params1 = {
-              to: user,
-              product: req.product
-            };
-            var params2 = {
-              to: req.product.User,
-              product: req.product
-            };
-            global.emails.confirm(req, params1).then(function() {
-              global.emails.sell(req, params2).then(function() {
-                return res.ok({
-                  data: order
-                }, 'created');
+          }).then(function(userBuy){
+            global.db.User.find({
+              where: {
+                id: req.product.UserId
+              }
+            }).then(function(userSell){
+              var paramsBuy = {
+                to: userBuy,
+                product: req.product
+              };
+              var paramsSell = {
+                to: userSell,
+                product: req.product
+              };
+              global.emails.confirm(req, paramsBuy).then(function() {
+                global.emails.sell(req, paramsSell).then(function() {
+                  return res.ok({
+                    data: order
+                  }, 'created');
+                });
               });
             });
           });
@@ -444,21 +450,26 @@ exports.payuResponse = function(req, res) {
             where: {
               id: data2.userId
             }
-          }).then(function(user){
-            var params1 = {
-              to: user,
-              seller: req.profile,
-              product: req.product
-            };
-            var params2 = {
-              to: req.profile,
-              product: req.product
-            };
-            global.emails.confirm(req, params1).then(function() {
-              global.emails.sell(req, params2).then(function() {
-                return res.ok({
-                  data: order
-                }, 'created');
+          }).then(function(userBuy){
+            global.db.User.find({
+              where: {
+                id: req.product.UserId
+              }
+            }).then(function(userSell){
+              var paramsBuy = {
+                to: userBuy,
+                product: req.product
+              };
+              var paramsSell = {
+                to: userSell,
+                product: req.product
+              };
+              global.emails.confirm(req, paramsBuy).then(function() {
+                global.emails.sell(req, paramsSell).then(function() {
+                  return res.ok({
+                    data: order
+                  }, 'created');
+                });
               });
             });
           });

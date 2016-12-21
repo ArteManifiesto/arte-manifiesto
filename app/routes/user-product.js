@@ -30,8 +30,8 @@ router.post('/create', isLoggedAndOwner, controller.create);
 router.post('/review/create', isLoggedAndOwner, controller.createReview);
 
 router.post('/shipping', controller.shipping);
-router.post('/:nameSlugify/submit', global.md.nameSlugify(entity), controller.submit);
-router.post('/:nameSlugify/remove', global.md.nameSlugify(entity), controller.removeSubmit);
+// router.post('/:nameSlugify/submit', global.md.nameSlugify(entity), controller.submit);
+// router.post('/:nameSlugify/remove', global.md.nameSlugify(entity), controller.removeSubmit);
 router.post('/:nameSlugify/payu', global.md.nameSlugify(entity), controller.payuResponse);
 
 router.post('/like', isLoggedAndOwner, controller.like);
