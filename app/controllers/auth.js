@@ -121,7 +121,8 @@ exports.facebookCallback = function(req, res) {
     global.db.User.create(options).then(function(user) {
       loginUser(req, null, user, function() {
         var returnTo = req.cookies.return_to || '/';
-        if (returnTo.indexOf('/featured') > -1) returnTo = '/';
+        if(returnTo.indexOf('featured') > -1)
+          returnTo = '/';
         return res.redirect(returnTo);
       });
     });
@@ -147,7 +148,8 @@ var loginUser = function(req, res, user, callback) {
 
     var returnTo = req.cookies.return_to || '/';
 
-    if (returnTo.indexOf('/featured') > -1) returnTo = '/';
+    if (returnTo.indexOf('featured') > -1)
+      returnTo = '/';
 
     if (res) {
       res.cookie('return_to', returnTo, {

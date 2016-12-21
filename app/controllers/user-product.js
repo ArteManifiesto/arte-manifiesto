@@ -350,7 +350,7 @@ exports.submit = function(req, res) {
     ProductId: req.product.id,
     UserId: req.user.id,
     SellerId: req.product.User.id,
-    status: 'En Espera',
+    status: 'Por Aprobar',
     signature: data.signature,
     reference: data.reference,     
     data: req.body.data
@@ -362,36 +362,115 @@ exports.submit = function(req, res) {
 }
 
 exports.removeSubmit = function(req, res) {
-  // global.db.Order.destroy({
-  //   where: {
-  //     reference: req.cookies.referenceCode,
-  //     status: 'En Espera'
-  //   }
-  // }).then(function(order) {
-  //   res.clearCookie('referenceCode', {
-  //     domain: '.' + global.cf.app.domain
-  //   });
+  global.db.Order.destroy({
+    where: {
+      reference: req.cookies.referenceCode,
+      status: 'En Espera'
+    }
+  }).then(function(order) {
+    res.clearCookie('referenceCode', {
+      domain: '.' + global.cf.app.domain
+    });
     return res.ok({
       data: order
     }, 'cleaned');
-  // });
+  });
 }
 
 exports.payuResponse = function(req, res) {
+  var data1 = req.body.extra1;
+  var data2 = JSON.parse(req.body.extra2);
+  var sign = req.body.sign;
+  var reference = req.body.reference_sale
   var message = "";
   if(req.body.state_pol == 4) message = "Aprobado";   
   if(req.body.state_pol == 5) message = "Expirado";   
-  if(req.body.state_pol == 6) message = "Rechazado";   
-
-  global.db.Order.update({
-      status: message
-    },
-    { where: {
-      reference: req.body.reference_sale
+  if(req.body.state_pol == 6) message = "Rechazado";
+  global.db.Order.find({
+    where: {
+      reference: reference
     }
-    }).then(function(order) {
-      return res.ok({
-        data: order
-      }, 'payu');
-    });
+  }).then(function(find){
+    if(!find){
+      global.db.Order.create({
+        ProductId: req.product.id,
+        UserId: data2.userId,
+        SellerId: req.product.User.id,
+        status: message,
+        signature: sign,
+        reference: reference,
+        data: data1
+      }).then(function(order) {
+        if(req.body.state_pol == 4){
+          global.db.User.find({
+            where: {
+              id: data2.userId
+            }
+          }).then(function(user){
+            var params1 = {
+              to: user,
+              seller: req.profile,
+              product: req.product
+            };
+            var params2 = {
+              to: req.profile,
+              product: req.product
+            };
+            global.emails.confirm(req, params1).then(function() {
+              global.emails.sell(req, params2).then(function() {
+                return res.ok({
+                  data: order
+                }, 'created');
+              });
+            });
+          });
+        }
+        else{
+          return res.ok({
+            data: order
+          }, 'created');
+        }
+      });
+    }
+    else{
+      global.db.Order.update({
+          status: message
+        },
+        { where: {
+          reference: reference
+        }
+      }).then(function(order) {
+        if(req.body.state_pol == 4){
+          global.db.User.find({
+            where: {
+              id: data2.userId
+            }
+          }).then(function(user){
+            var params1 = {
+              to: user,
+              seller: req.profile,
+              product: req.product
+            };
+            var params2 = {
+              to: req.profile,
+              product: req.product
+            };
+            global.emails.confirm(req, params1).then(function() {
+              global.emails.sell(req, params2).then(function() {
+                return res.ok({
+                  data: order
+                }, 'created');
+              });
+            });
+          });
+        }
+        else{
+          return res.ok({
+            data: order
+          }, 'created');
+        }
+      });
+    }
+  });
+  
 };

@@ -66,11 +66,11 @@ APP.BuyScreen.prototype.submitHandler = function(e) {
   var city = $('select[name=shippingCity]').val();
   var province = $('input[name=shippingCity]').val();
   var zipcode = $('input[name=zipCode]').val();
+  var price = $('input[name=amount]').val();
   var country = $('select[name=shippingCountry]').val();
   var phone = $('input[name=telephone]').val();
   var email = $('input[name=buyerEmail]').val();
   var signature = $('input[name=signature]').val();
-  var reference = $('input[name=referenceCode]').val();
   var errors = [];
 
   if (Validations.notBlank($('input[name=firstname]').val())) errors.push('Ingrese un nombre');
@@ -86,31 +86,28 @@ APP.BuyScreen.prototype.submitHandler = function(e) {
     return false;
   } 
 
-  var url = '/user/' + product.User.username + '/product/' + product.nameSlugify + '/submit';
-  var data = {
+  var url = '/user/' + product.User.username + '/product/' + product.nameSlugify;
+
+  var data1 = {
     name: name,
     direction: direction,
     city: city,
+    price: price,
     province: province,
     zipcode: zipcode,
     country: country,
     phone: phone,
-    email: email,
-    signature: signature,
-    reference: reference
+    email: email
   }
 
-  data.shipping = this.totalShipping;
-  data.price = this.price;
-
-  Cookies.set('referenceCode', reference, {
-    maxAge: 3600000,
-    domain: '.' + document.domain
-  });
-
-  this.requestHandler(url, {
-    data: JSON.stringify(data)
-  });
+  var data2 = {
+    userId: user.id,
+    url: url,
+    signature: signature
+  }
+  
+  $('input[name=extra1]').val(JSON.stringify(data1));
+  $('input[name=extra2]').val(JSON.stringify(data2));
 };
 
 // APP.BuyScreen.prototype.cityChangeHandler = function() {

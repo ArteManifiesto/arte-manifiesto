@@ -96,7 +96,6 @@ Utils = {
           maxAge: 3600000,
           domain: '.' + document.domain
         });
-
       window.location.href = DataApp.loginUrl;
     }
   },

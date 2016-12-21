@@ -1328,6 +1328,18 @@ global.emails = {
   availability: function (req, options) {
     options.subject = 'Arte Manifiesto - Disponibilidad de Obra'
     return email.send(req, options, 'availability').then();
+  },
+  confirm: function (req, options) {
+    options.subject = 'Arte Manifiesto - Confirmación de pedido'
+    return email.send(req, options, 'confirm').then();
+  },
+  sell: function (req, options) {
+    options.subject = 'Arte Manifiesto - Producto Vendido'
+    return email.send(req, options, 'sell').then();
+  },
+  reject: function (req, options) {
+    options.subject = 'Arte Manifiesto - Pedido rechazado'
+    return email.send(req, options, 'reject').then();
   }
 };
 

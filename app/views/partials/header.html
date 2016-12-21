@@ -58,6 +58,12 @@
 									<div class="u-separator"></div>
 									<a href="/user/{{user.username}}/account" class="user-menu-item">ADMINISTRAR CUENTA</a>
 									<div class="u-separator"></div>
+									<!-- <a href="/user/{{user.username}}/account/orders" class="user-menu-item">MIS COMPRAS</a>
+									<div class="u-separator"></div>
+									{% if user.isSeller %}
+										<a href="/user/{{user.username}}/account/requests" class="user-menu-item">MIS VENTAS</a>
+										<div class="u-separator"></div>
+									{% endif %} -->
 									<a href="/auth/logout" class="user-menu-item">SALIR</a>
 								</div>
 							</div>
