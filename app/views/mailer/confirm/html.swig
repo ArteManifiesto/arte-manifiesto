@@ -33,11 +33,11 @@
                                 </tr>
                                 <tr>
                                     <td class="content-block">
-                                        Los detalles de tu orden:
+                                        Los detalles de tu orden:<br>
                                         <a href="{{baseUrl}}/user/{{product.User.username}}/product/{{product.nameSlugify}}">
                                           <img src="{{product.photo|addFilter('w_300,q_80,c_limit')}}">
-                                        </a>
-                                        {{product.name}}
+                                        </a><br>
+                                        {{product.name}}<br>
                                         por {{product.User.fullname}}
                                     </td>
                                 </tr>
@@ -48,8 +48,8 @@
                                 </tr>
                                 <tr>
                                     <td class="content-block">
-                                        Si deseas conocer mas del artista has click aquí
-                                        <a href="{{baseUrl}}/user/{{to.username}}/work/{{work.nameSlugify}}">
+                                        Si deseas conocer mas del artista has click aquí<br>
+                                        <a href="{{baseUrl}}/user/{{product.User.username}}/">
                                             {{product.User.fullname}}
                                         </a>
                                     </td>

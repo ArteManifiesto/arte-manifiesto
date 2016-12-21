@@ -4,72 +4,92 @@
 {% extends '../partials/base.html' %}
 {% block elements %}
 	<div class="grid-container">
-		<div class="grid-100">
+		<div class="grid-100 featured-container">
 			<div class="featured-flex">
-				<div class="featured-h580 featured-w580 featured-left"></div>
 				<div class="featured-c580">
-					<div class="featured-h580 featured-w280"></div>
-					<div class="featured-h580 featured-w280"></div>
-				</div>
-				<div class="featured-c580 featured-left">
-					<div class="featured-h280 featured-w280"></div>
-					<div class="featured-h280 featured-w280"></div>
+					<div class="featured-w580">
+						<a href="/products/category/all/page-1/?order=newest&featured=1">
+							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/f_auto,q_auto/v1482255850/featured/Banner-principal_hz3vur.jpg">
+						</a>
+					</div>
 				</div>
 				<div class="featured-c580">
-					<div class="featured-h280 featured-w280"></div>
-					<div class="featured-h280 featured-w280"></div>
+					<div class="featured-w280">
+						<a href="/user/cristhianhova/">
+							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/f_auto,q_auto/v1482255850/featured/Hova-tienda_cdsqff">
+						</a>
+					</div>
+					<div class="featured-w280">
+						<a href="#">
+							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/f_auto,q_auto/v1482255850/featured/Grolsch-tienda_s7dshb">
+						</a>
+					</div>
 				</div>
-				<div class="featured-h580 featured-w580 featured-left"></div>
-				<div class="featured-h580 featured-w580"></div>
-				<div class="featured-h280 featured-w580 featured-left"></div>
-				<div class="featured-h280 featured-w580"></div>
-				<div class="featured-h280 featured-w580 featured-left"></div>
-				<div class="featured-h280 featured-w580"></div>
+			</div>
+			<div class="featured-flex">
+				<div class="featured-c580">
+					<div class="featured-w280 featured-border">
+						<a href="/products/category/iphone-case/page-1/?order=newest&featured=1">
+							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/f_auto,q_auto/v1482255850/featured/iphone-cases_kvoptr.jpg">
+						</a>
+					</div>
+					<div class="featured-w280 featured-border">
+						<a href="/products/category/galaxy-case/page-1/?order=newest&featured=1">
+							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/f_auto,q_auto/v1482255850/featured/galaxy-cases_qroa3a.jpg">
+						</a>
+					</div>
+				</div>
+				<div class="featured-c580">
+					<div class="featured-w280 featured-border">
+						<a href="/products/category/taza/page-1/?order=newest&featured=1">
+							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/f_auto,q_auto/v1482255850/featured/tazas-mug_czzzfx.jpg">
+						</a>
+					</div>
+					<div class="featured-w280 featured-border">
+						<a href="/products/category/print/page-1/?order=newest&featured=1">
+							<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/f_auto,q_auto/v1482255850/featured/productos-categorias-prints_edijjg">
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="featured-flex">
+				<div class="featured-w580">
+					<a href="/works/category/all/page-1/?order=newest&featured=1">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/f_auto,q_auto/v1482255848/featured/descubre-obras_og6zir.jpg">
+					</a>
+				</div>
+				<div class="featured-w580">
+					<a href="/user/sipion/">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/f_auto,q_auto/v1482255850/featured/artista-destacado_sajfxk.jpg">
+					</a>
+				</div>
+			</div>
+			<div class="featured-flex">
+				<div class="featured-w580">
+					<a href="/compra-y-vende-arte-en-internet-latinoamerica">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/f_auto,q_auto/v1482255850/featured/landing-artistas_fwlifo">
+					</a>
+				</div>
+				<div class="featured-w580">
+					<a href="/blog">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/f_auto,q_auto/v1482255850/featured/BLOG_snjk5p.jpg">
+					</a>
+				</div>
+			</div>
+			<div class="featured-flex">
+				<div class="featured-w580">
+					<a href="/tv">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/f_auto,q_auto/v1482255850/featured/AM-TV_qswkkr.jpg">
+					</a>
+				</div>
+				<div class="featured-w580">
+					<a href="/users/specialty/all/page-1/?order=newest&featured=1">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/f_auto,q_auto/v1482255850/featured/DESCUBRE-ARTISTAS_fvtess.jpg">
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>
-<style>
-	.featured-flex{
-		display: flex;
-		margin-top: 20px;
-		margin-bottom: 70px;
-		flex-wrap: wrap;
-		justify-content: center;
-	}
-	.featured-w580{
-		width: 580px;
-		background: black;
-	}
-	.featured-h580{
-		height: 580px;
-		margin-bottom: 20px;
-	}
-	.featured-w280{
-		width: 280px;
-		background: black;
-	}
-	.featured-h280{
-		height: 280px;
-		margin-bottom: 20px;
-	}
-	.featured-c580{
-		width: 580px;
-		display: flex;
-		justify-content: space-between;
-	}
-	.featured-left{
-		margin-right: 20px;
-	}
-	@media (max-width: 1236px){
-		.featured-left{
-			margin-right: 0;
-		}
-		.featured-flex{
-			width: 1000px;
-			margin: 20px auto 70px auto;
-		}
-	}
-</style>
 {% endblock %}
 
 

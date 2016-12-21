@@ -409,11 +409,10 @@ exports.payuResponse = function(req, res) {
           }).then(function(user){
             var params1 = {
               to: user,
-              seller: req.profile,
               product: req.product
             };
             var params2 = {
-              to: req.profile,
+              to: req.product.User,
               product: req.product
             };
             global.emails.confirm(req, params1).then(function() {

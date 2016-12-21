@@ -33,10 +33,10 @@
                                 </tr>
                                 <tr>
                                     <td class="content-block">
-                                        datos del producto:
+                                        datos del producto:<br>
                                         <a href="{{baseUrl}}/user/{{product.User.username}}/product/{{product.nameSlugify}}">
                                           <img src="{{product.photo|addFilter('w_300,q_80,c_limit')}}">
-                                        </a>
+                                        </a><br>
                                         {{product.name}}
                                     </td>
                                 </tr>
