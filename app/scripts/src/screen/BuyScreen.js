@@ -39,7 +39,6 @@ APP.BuyScreen.prototype = Object.create(APP.BaseScreen.prototype);
 APP.BuyScreen.prototype.setupUI = function() {
   this.payBtn = $('.btn-pay');
   this.form = $('form[name=buy-form]');
-  this.removeHandler();
 };
 
 APP.BuyScreen.prototype.listeners = function() {
@@ -143,13 +142,4 @@ APP.BuyScreen.prototype.shippingHandler = function() {
   $('.subtotal').text(product.finalPrice);
   $('.baseprice').text(this.totalShipping);
   $('.totallity').text(this.totalPrice);
-};
-
-APP.BuyScreen.prototype.removeHandler = function() {
-  var url = '/user/' + product.User.username + '/product/' + product.nameSlugify + '/remove';
-  if(Cookies.get("referenceCode") !== undefined){
-    this.requestHandler(url, {
-      reference: Cookies.get("referenceCode")
-    });
-  }
 };
