@@ -2,7 +2,7 @@ var basePath = 'pages/';
 
 exports.index = function(req, res) {
   if (!req.isAuthenticated())
-    return res.redirect('/works/category/all/page-1/?order=newest&featured=1');
+    return res.redirect('/featured');
 
   return res.redirect('/feed');
 

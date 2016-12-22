@@ -113,7 +113,7 @@ APP.ProfileScreen.prototype.menuItemClickHandler = function(event) {
     if(path === 'products'){
       if(!data){
         this.setup = true;
-        var url = "http://am.local:3000/user/" + profile.username + "/products/setup/all/page-1/?order=price_asc&featured=1"
+        var url = "/user/" + profile.username + "/products/setup/all/page-1/?order=price_asc&featured=1"
         $.post( url, function (res) {
           data = res.data
           new APP.DiscoverScreen(template, section, 'infinite', data);

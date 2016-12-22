@@ -14,3 +14,7 @@ INSERT INTO am.Categories (name, nameSlugify, meta, createdAt, updatedAt, Parent
 ('Tazas', 'tazas', 7, NOW(), NOW(), 44);
 
 INSERT INTO am.Categories (name, nameSlugify, meta, createdAt, updatedAt) values ('Producto AM', 'producto-am', 6, NOW(), NOW());
+
+
+
+INSERT INTO am.Categories (name, nameSlugify, meta, data, createdAt, updatedAt, ParentCategoryId) values ('Mini Print', 'mini-print', 8, '{"info":["Mini Print por Arte Manifiesto Lab","Tintas Originales","Material: Vinilo sobre celtex ","Acabado: Mate"],"weight":"100 grs","Personaliza tu espacio con un print de vinilo sobre celtex de alta calidad y de acabado mate. Incluye un marco personalizado de Grolsch #PaintProyect.","price":20,19}', NOW(), NOW(), 47);

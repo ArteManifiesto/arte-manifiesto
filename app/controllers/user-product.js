@@ -171,7 +171,8 @@ exports.buyPage = function(req, res) {
     amount: amount,
     currency: currency,
     signature: crypto.createHash('md5').update(signature).digest("hex"),
-    confirmation: req.protocol + '://' + req.get('host') + '/user/' + req.profile.username + '/product/' + req.product.nameSlugify + '/payu'
+    confirmation: req.protocol + '://' + req.get('host') + '/user/' + req.profile.username + '/product/' + req.product.nameSlugify + '/payu',
+    response: req.protocol + '://' + req.get('host') + '/user/' + req.profile.username + '/product/' + req.product.nameSlugify
   }
   return res.render(basePath + 'buy', {
     payu: payu,

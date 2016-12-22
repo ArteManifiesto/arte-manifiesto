@@ -89,7 +89,7 @@
 							<p>{{numbers[0]}}</p>
 						</div>
 						
-						{% if numbers[1] == -1 %}
+						{% if numbers[1] !=0 %}
 							<div class="am-Profile-menu-item products" data-name='products'>
 								<p>TIENDA</p>
 								<p>{{numbers[1]}}</p>
@@ -192,9 +192,6 @@
 		</div>
 	</div>
 
-	{% if profile.isSeller %}
-
-
 	<div class="products-wrapper {% if currentPath !== 'products' %} hide {% endif %}">
 		
 		<div class="grid-container u-padding-top-20">
@@ -283,8 +280,6 @@
 		</div>
 
 	</div>
-
-	{%endif%}
 
 	<div class="discover-content collections-wrapper grid-container u-padding-top-10 u-padding-bottom-70
 		{% if currentPath !== 'collections' %} hide {% endif %}">
