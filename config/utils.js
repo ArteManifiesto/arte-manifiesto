@@ -1337,9 +1337,9 @@ global.emails = {
     options.subject = 'Arte Manifiesto - Producto Vendido'
     return email.send(req, options, 'sell').then();
   },
-  reject: function (req, options) {
-    options.subject = 'Arte Manifiesto - Pedido rechazado'
-    return email.send(req, options, 'reject').then();
+  am: function (req, options) {
+    options.subject = 'Arte Manifiesto - Producto Vendido'
+    return email.send(req, options, 'am').then();
   }
 };
 

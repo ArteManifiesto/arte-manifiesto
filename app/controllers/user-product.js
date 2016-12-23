@@ -421,11 +421,23 @@ exports.payuResponse = function(req, res) {
                 to: userSell,
                 product: req.product
               };
+              var paramsAMC = {
+                to: {email:"contacto@artemanifiesto.com"},
+                product: req.product
+              };
+              var paramsAMA = {
+                to: {email:"andre.burzzio@artemanifiesto.com"},
+                product: req.product
+              };
               global.emails.confirm(req, paramsBuy).then(function() {
                 global.emails.sell(req, paramsSell).then(function() {
-                  return res.ok({
-                    data: order
-                  }, 'created');
+                  global.emails.am(req, paramsAMC).then(function() {
+                    global.emails.am(req, paramsAMA).then(function() {
+                      return res.ok({
+                        data: order
+                      }, 'created');
+                    });
+                  });
                 });
               });
             });
@@ -434,7 +446,7 @@ exports.payuResponse = function(req, res) {
         else{
           return res.ok({
             data: order
-          }, 'created');
+          }, 'created rejected');
         }
       });
     }
@@ -465,11 +477,23 @@ exports.payuResponse = function(req, res) {
                 to: userSell,
                 product: req.product
               };
+              var paramsAMC = {
+                to: {email:"contacto@artemanifiesto.com"},
+                product: req.product
+              };
+              var paramsAMA = {
+                to: {email:"andre.burzzio@artemanifiesto.com"},
+                product: req.product
+              };
               global.emails.confirm(req, paramsBuy).then(function() {
                 global.emails.sell(req, paramsSell).then(function() {
-                  return res.ok({
-                    data: order
-                  }, 'created');
+                  global.emails.am(req, paramsAMC).then(function() {
+                    global.emails.am(req, paramsAMA).then(function() {
+                      return res.ok({
+                        data: order
+                      }, 'updated');
+                    });
+                  });
                 });
               });
             });
@@ -478,7 +502,7 @@ exports.payuResponse = function(req, res) {
         else{
           return res.ok({
             data: order
-          }, 'created');
+          }, 'updated rejected');
         }
       });
     }
