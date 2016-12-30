@@ -33,7 +33,19 @@
                                           <img src="{{product.photo|addFilter('w_300,q_80,c_limit')}}">
                                         </a><br>
                                         {{product.name}}<br>
-                                        por {{product.User.fullname}}
+                                        por: {{product.User.fullname}}<br>
+                                        precio: S/{{address.price}}.00
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="content-block">
+                                        Informacion del:<br>
+                                        nombre: {{address.name}}<br>
+                                        direccion: {{address.direction}}<br>
+                                        provincia: {{address.province}}<br>
+                                        zipcode: {{address.zipcode}}<br>
+                                        telefono: {{address.phone}}<br>
+                                        email: {{address.email}}
                                     </td>
                                 </tr>
                                 <tr>

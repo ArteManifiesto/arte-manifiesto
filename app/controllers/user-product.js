@@ -423,11 +423,13 @@ exports.payuResponse = function(req, res) {
               };
               var paramsAMC = {
                 to: {email:"contacto@artemanifiesto.com"},
-                product: req.product
+                product: req.product,
+                address: JSON.parse(req.body.extra1)
               };
               var paramsAMA = {
                 to: {email:"andre.burzzio@artemanifiesto.com"},
-                product: req.product
+                product: req.product,
+                address: JSON.parse(req.body.extra1)
               };
               global.emails.confirm(req, paramsBuy).then(function() {
                 global.emails.sell(req, paramsSell).then(function() {
@@ -479,11 +481,13 @@ exports.payuResponse = function(req, res) {
               };
               var paramsAMC = {
                 to: {email:"contacto@artemanifiesto.com"},
-                product: req.product
+                product: req.product,
+                address: JSON.parse(req.body.extra1)
               };
               var paramsAMA = {
                 to: {email:"andre.burzzio@artemanifiesto.com"},
-                product: req.product
+                product: req.product,
+                address: JSON.parse(req.body.extra1)
               };
               global.emails.confirm(req, paramsBuy).then(function() {
                 global.emails.sell(req, paramsSell).then(function() {
