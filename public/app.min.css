@@ -301,9 +301,9 @@ body {
   -moz-box-flex: 1;
   -o-box-flex: 1;
   box-flex: 1;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
+  -webkit-flex: 1 1 350px;
+  -ms-flex: 1 1 350px;
+  flex: 1 1 350px;
   border: 10px solid #fff;
   min-width: 350px;
 }
@@ -327,9 +327,9 @@ body {
   -moz-box-flex: 1;
   -o-box-flex: 1;
   box-flex: 1;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
   border: 10px solid #fff;
 }
 .featured-w280 img {
@@ -352,9 +352,9 @@ body {
   -moz-box-flex: 1;
   -o-box-flex: 1;
   box-flex: 1;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
+  -webkit-flex: 1 1 370px;
+  -ms-flex: 1 1 370px;
+  flex: 1 1 370px;
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;

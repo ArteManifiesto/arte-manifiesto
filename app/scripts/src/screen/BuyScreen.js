@@ -50,6 +50,13 @@ APP.BuyScreen.prototype.listeners = function() {
 };
 
 APP.BuyScreen.prototype.submitHandler = function(e) {
+  $('input[name=buyerEmail]').val($('input[name=email]').val());
+  $('input[name=buyerFullName]').val($('input[name=firstname]').val() + ' ' + $('input[name=lastname]').val());
+  $('input[name=telephone]').val($('input[name=phone]').val());
+  $('input[name=shippingAddress], input[name=billingAddress]').val($('input[name=direction]').val() + ' Int. ' + $('input[name=departament]').val());
+  $('input[name=shippingCity], input[name=billingCity]').val($('input[name=province]').val());
+  $('input[name=zipCode]').val($('input[name=zip]').val());
+  
   var name = $('input[name=buyerFullName]').val();
   var direction = $('input[name=shippingAddress]').val();
   var city = $('select[name=shippingCity]').val();
@@ -95,12 +102,6 @@ APP.BuyScreen.prototype.submitHandler = function(e) {
     signature: signature
   }
 
-  $('input[name=buyerEmail]').val($('input[name=email]').val());
-  $('input[name=buyerFullName]').val($('input[name=firstname]').val() + ' ' + $('input[name=lastname]').val());
-  $('input[name=telephone]').val($('input[name=phone]').val());
-  $('input[name=shippingAddress], input[name=billingAddress]').val($('input[name=direction]').val() + ' Int. ' + $('input[name=departament]').val());
-  $('input[name=shippingCity], input[name=billingCity]').val($('input[name=province]').val());
-  $('input[name=zipCode]').val($('input[name=zip]').val());
   $('input[name=extra1]').val(JSON.stringify(data1));
   $('input[name=extra2]').val(JSON.stringify(data2));
 };
