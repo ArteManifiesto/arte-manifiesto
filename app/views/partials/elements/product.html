@@ -41,6 +41,7 @@
         <a href="/user/<%=User.username%>/product/<%=nameSlugify%>">
           <div class="product-card-image">
             <img src="<%= addFilter(photo, 'w_300,h_300,c_limit') %>">
+            <div class="product-card-zoom" style="background-image: url('<%= addFilter(Work.photo,'h_300,c_fit') %>')"></div>
           </div>
           <div class="product-card-title"><%= name %></div>
           <div class="product-card-subtitle"><%= Category.name %></div>
@@ -50,7 +51,6 @@
             <span class="final">S/.<%= finalPrice %>.00</span>&nbsp;&nbsp;
             <span class="original">S/.<%= price %>.00</span>
           </div>
-          <!-- <div class="product-card-zoom" style="background-image: url('<%= addFilter(Work.photo,'h_300,c_limit') %>')"></div> -->
         </a>
 
       </div>

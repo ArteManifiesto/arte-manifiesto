@@ -4029,6 +4029,7 @@ width
   display: -ms-flexbox;
   display: box;
   display: flex;
+  position: relative;
 }
 .product-card-image img {
   margin: auto;

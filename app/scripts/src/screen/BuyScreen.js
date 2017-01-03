@@ -50,6 +50,21 @@ APP.BuyScreen.prototype.listeners = function() {
 };
 
 APP.BuyScreen.prototype.submitHandler = function(e) {
+  var errors = [];
+
+  if (Validations.notBlank($('input[name=firstname]').val())) errors.push('Ingrese un nombre');
+  if (Validations.notBlank($('input[name=lastname]').val())) errors.push('Ingrese tus apellidos');
+  if (Validations.notBlank($('input[name=direction]').val())) errors.push('Ingrese una dirección');
+  if (Validations.notBlank($('input[name=province]').val())) errors.push('Ingrese tú provincia');
+  if (Validations.notBlank($('input[name=zip]').val())) errors.push('Ingrese el código postal');
+  if (Validations.notBlank($('input[name=phone]').val())) errors.push('Ingrese tú telefono');
+  if (Validations.notBlank($('input[name=email]').val())) errors.push('Ingrese tú correo');
+
+  if (errors.length > 0){
+    this.showFlash('error', errors);
+    return false;
+  }
+
   $('input[name=buyerEmail]').val($('input[name=email]').val());
   $('input[name=buyerFullName]').val($('input[name=firstname]').val() + ' ' + $('input[name=lastname]').val());
   $('input[name=telephone]').val($('input[name=phone]').val());
@@ -67,20 +82,6 @@ APP.BuyScreen.prototype.submitHandler = function(e) {
   var phone = $('input[name=telephone]').val();
   var email = $('input[name=buyerEmail]').val();
   var signature = $('input[name=signature]').val();
-  var errors = [];
-
-  if (Validations.notBlank($('input[name=firstname]').val())) errors.push('Ingrese un nombre');
-  if (Validations.notBlank($('input[name=lastname]').val())) errors.push('Ingrese tus apellidos');
-  if (Validations.notBlank($('input[name=direction]').val())) errors.push('Ingrese una dirección');
-  if (Validations.notBlank($('input[name=province]').val())) errors.push('Ingrese tú provincia');
-  if (Validations.notBlank($('input[name=zip]').val())) errors.push('Ingrese el código postal');
-  if (Validations.notBlank($('input[name=phone]').val())) errors.push('Ingrese tú telefono');
-  if (Validations.notBlank($('input[name=email]').val())) errors.push('Ingrese tú correo');
-
-  if (errors.length > 0){
-    this.showFlash('error', errors);
-    return false;
-  } 
 
   var url = '/user/' + product.User.username + '/product/' + product.nameSlugify;
 
