@@ -4477,6 +4477,9 @@ width
   font-size: 1em;
   padding-right: 10px !important;
 }
+.am-Footer-list a {
+  color: #fff;
+}
 .am-Copy-text {
   color: rgba(255,255,255,0.42);
   font-size: 11px;
@@ -10643,8 +10646,8 @@ width
 }
 #back-to-top {
   position: fixed;
-  bottom: 80px;
-  right: 40px;
+  bottom: 110px;
+  right: 42px;
   z-index: 1;
   width: 42px;
   height: 42px;
