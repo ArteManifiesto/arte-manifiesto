@@ -44,7 +44,7 @@ APP.WorkScreen.prototype.setupUI = function() {
   new APP.Carrousel($('.js-more-carousel'), $('.more'));
   new APP.Carrousel($('.js-similar-carousel'), $('.similar'));
 
-  new APP.PhotoSwipe('work');
+  new APP.PhotoSwipe('{"tag":"work", "selector":"#work-image"}');
 
   this.reviewsContainer = $('.reviews-items-container');
   for (var i = 0; i < reviews.length; i++)
