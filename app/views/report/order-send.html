@@ -1,0 +1,36 @@
+{% set path = "orders" %}
+
+{% extends '../partials/report.html' %}
+
+{% block content %}
+  <h2 class="sub-header">{{order.data.name}}</h2>
+  <h2 class="sub-header">{{order.data.direction}}</h2>
+  <h2 class="sub-header">{{order.data.phone}}</h2>
+  <div>
+    <img src="{{order.Product.photo|addFilter('w_300,q_80,c_limit')}}">
+  </div>
+  {% if order.shipping === 1 %}
+    <button class="btn btn-info btn-created">Producido</button>
+  {% endif %}
+  {% if order.shipping === 1 || order.shipping === 2 %}
+    <button class="btn btn-danger btn-sended">Enviado a Courrier</button>
+  {% endif %}
+  {% if order.shipping === 1 || order.shipping === 2 || order.shipping === 3  %}
+    <button class="btn btn-success btn-delivered">Entregado a Cliente</button>
+  {% endif %}
+  {% if order.shipping === 4 %}
+    <a class="btn btn-primary" href="/report/orders/page-1">Regresar</a>
+  {% endif %}
+  </br>
+  </br>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    $.cloudinary.config({{cloudinary.config()|json|safe}});
+    var order = {{order|json|safe}};
+    $(function () {
+      new APP.AdminOrderSendScreen();
+    });
+  </script>
+{% endblock %}

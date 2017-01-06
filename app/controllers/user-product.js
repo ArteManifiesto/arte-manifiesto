@@ -400,7 +400,8 @@ exports.payuResponse = function(req, res) {
         status: message,
         signature: sign,
         reference: reference,
-        data: data1
+        data: data1,
+        shipping: 1
       }).then(function(order) {
         if(req.body.state_pol == 4){
           global.db.User.find({

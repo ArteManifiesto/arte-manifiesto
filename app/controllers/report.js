@@ -8,7 +8,8 @@ exports.index = function(req, res) {
 var searchData = function(req, entity) {
   var query = {
     order: [global.getOrder('newest')],
-    where: {}
+    where: {},
+    include: []
   };
   if (entity === 'Work' || entity === 'Post' || entity === 'Product' || entity === 'ProductApplying') {
     query.addUser = true;
@@ -38,6 +39,21 @@ var searchData = function(req, entity) {
 
   if (entity === 'Product') {
     query.where.published = true;
+  }
+
+  if (entity === 'Order') {
+    query.where.status = 'Aprobado'
+    query.include.push({
+      model: global.db.Product,
+      include: [{
+        model: global.db.User,
+        as: 'User'
+      }]
+    },
+    {
+      model: global.db.User
+    });
+
   }
 
   if (entity === 'ProductApplying') {
@@ -264,6 +280,17 @@ exports.products = function(req, res) {
   });
 };
 
+exports.orders = function(req, res) {
+  if (req.params.page !== 'page-1')
+    return res.redirect(req.url.replace(req.params.page, 'page-1'));
+
+  searchData(req, 'Order').then(function(data) {
+    return res.render(basePath + 'orders', {
+      data: data
+    });
+  });
+};
+
 exports.blog = function(req, res) {
   if (req.params.page !== 'page-1')
     return res.redirect(req.url.replace(req.params.page, 'page-1'));
@@ -394,6 +421,33 @@ exports.productRevision = function(req, res) {
   });
 };
 
+exports.sendOrder = function(req, res) {
+  var query = {
+    where: {
+      id: req.params.idOrder
+    },
+    include: [{
+      model: global.db.Product,
+      include: [{
+        model: global.db.User,
+        as: 'User'
+      }]
+    },
+    {
+      model: global.db.User
+    }]
+  };
+  global.db.Order.find(query).then(function(order) {
+    if (!order) {
+      return res.status(404).render('errors/404');
+    }
+    order.data = JSON.parse(order.data);
+    return res.render(basePath + 'order-send', {
+      order: order
+    });
+  });
+};
+
 exports.updateBanner = function(req, res) {
   global.db.Banner.findById(req.body.idBanner).then(function(banner) {
     banner.updateAttributes(req.body).then(function() {
@@ -402,6 +456,20 @@ exports.updateBanner = function(req, res) {
       }, 'Banner updated')
     });
   })
+};
+
+exports.updateOrder = function(req, res) {
+  global.db.Order.update({
+      shipping: req.body.shipping
+    },
+    { where: {
+      id: req.body.idOrder
+    }
+  }).then(function(order) {
+    return res.ok({
+      order: order
+    }, 'Order updated')
+  });
 };
 
 exports.updateProduct = function(req, res) {

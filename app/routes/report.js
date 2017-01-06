@@ -49,13 +49,18 @@ router.get('/general', controller.general);
 router.get('/banners', controller.banners);
 
 router.get('/products_applying/product/:idProduct', controller.productRevision);
+router.post('/orders/update', controller.updateOrder);
 router.post('/products/update', controller.updateProduct);
-
 
 router.get('/products/:page', controller.products);
 router.post('/products/:page', controller.search.bind(this, 'Product'));
 
 router.get('/products_applying/:page', controller.productsApplying);
 router.post('/products_applying/:page', controller.search.bind(this, 'Product'));
+
+router.get('/orders/:page', controller.orders);
+router.post('/orders/:page', controller.search.bind(this, 'Order'));
+
+router.get('/orders/order/:idOrder', controller.sendOrder);
 
 module.exports = router;

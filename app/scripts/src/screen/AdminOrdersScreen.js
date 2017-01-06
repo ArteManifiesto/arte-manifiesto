@@ -4,14 +4,14 @@
  */
 var APP = APP || {};
 
-APP.AdminProductsScreen = function() {
-  APP.BaseScreen.call(this, 'adminProducts');
+APP.AdminOrdersScreen = function() {
+  APP.BaseScreen.call(this, 'adminOrders');
 };
 
-APP.AdminProductsScreen.constructor = APP.AdminProductsScreen;
-APP.AdminProductsScreen.prototype = Object.create(APP.BaseScreen.prototype);
+APP.AdminOrdersScreen.constructor = APP.AdminOrdersScreen;
+APP.AdminOrdersScreen.prototype = Object.create(APP.BaseScreen.prototype);
 
-APP.AdminProductsScreen.prototype.setupUI = function() {
+APP.AdminOrdersScreen.prototype.setupUI = function() {
   this.searchBtn = $('.search-btn');
   this.start = $('.start');
   this.end = $('.end');
@@ -33,6 +33,24 @@ APP.AdminProductsScreen.prototype.setupUI = function() {
     this.end.find('input').val(endParam.replace(/-/gi, '/'));
   }
 
+  for(i in data.items){
+    data.items[i].data = JSON.parse(data.items[i].data);
+    switch (data.items[i].shipping) {
+      case 1:
+        data.items[i].shipping = '(1) Recibido';
+        break;
+      case 2:
+        data.items[i].shipping = '(2) Producido';
+        break;
+      case 3:
+        data.items[i].shipping = '(3) Enviado a courrier';
+        break;
+      case 4:
+        data.items[i].shipping = '(4) Entregado a cliente';
+        break;
+    }
+  }
+
   this.viewer = new APP.Viewer('tableProduct', $('.container-items'), 'infinite', data, {
     getTotal: function(total) {
       $('.total').text('(' + total + ')');
@@ -42,7 +60,7 @@ APP.AdminProductsScreen.prototype.setupUI = function() {
   this.searchBox = $('.search-box');
 };
 
-APP.AdminProductsScreen.prototype.listeners = function() {
+APP.AdminOrdersScreen.prototype.listeners = function() {
   APP.BaseScreen.prototype.listeners.call(this);
 
   this.start.datepicker().on('changeDate', this.startDateChange.bind(this));
@@ -61,30 +79,27 @@ APP.AdminProductsScreen.prototype.listeners = function() {
   }
 };
 
-APP.AdminProductsScreen.prototype.startDateChange = function(event) {
+APP.AdminOrdersScreen.prototype.startDateChange = function(event) {
   this.startValue = event.date;
 };
 
-APP.AdminProductsScreen.prototype.endDateChange = function(event) {
+APP.AdminOrdersScreen.prototype.endDateChange = function(event) {
   this.endValue = event.date;
 };
 
-APP.AdminProductsScreen.prototype.dropdownChange = function(event) {
+APP.AdminOrdersScreen.prototype.dropdownChange = function(event) {
   var text = $(event.target).text();
 
   $(".btn-drop .property").text(text);
   $(".btn-drop .property").val(text);
 
   switch (text) {
-    case 'nombre':
-      this.term = 'name';
-      break;
-    case 'recomendado':
-      this.term = 'featured';
+    case 'estado':
+      this.term = 'shipping';
       break;
   }
 };
-APP.AdminProductsScreen.prototype.searchHander = function() {
+APP.AdminOrdersScreen.prototype.searchHander = function() {
   var termValue = this.searchBox.val().trim();
 
   if (this.term && this.term.trim().length > 0) {
@@ -139,5 +154,6 @@ APP.AdminProductsScreen.prototype.searchHander = function() {
   if (DataApp.currentUrl === window.location.href) return;
 
   Utils.changeUrl(this.id, DataApp.currentUrl);
+  
   location.reload();
 };
