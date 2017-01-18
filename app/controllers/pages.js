@@ -28,6 +28,9 @@ exports.index = function(req, res) {
   //   });
   // });
 };
+exports.sell = function(req, res) {
+  return res.redirect('/user/' + req.user.username + '/account/seller');
+};
 
 exports.bth = function(req, res) {
   return res.redirect('https://kuestionario.typeform.com/to/Ho97sq');

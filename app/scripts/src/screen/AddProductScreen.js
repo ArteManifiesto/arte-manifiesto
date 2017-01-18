@@ -52,7 +52,6 @@ APP.AddProductScreen.prototype.workFormSubmitHandler = function(event) {
     scope = this;
   if (!this.uploaderImage.photo) errors.push('Ingrese una foto');
   if (Validations.notBlank(this.name.val())) errors.push('Ingrese un nombre');
-  if (Validations.notBlank(this.shortDescription.val())) errors.push('Ingrese una descripcion corta');
   if (Validations.notBlank(this.weight.val())) errors.push('Ingrese un peso');
   if (Validations.notBlank(this.price.val())) errors.push('Ingrese un precio');
   if (Validations.notBlank(this.profit.val())) errors.push('Ingrese una ganancia de artista');
@@ -75,9 +74,14 @@ APP.AddProductScreen.prototype.workFormSubmitHandler = function(event) {
     profit: this.profit.val(),
     info: JSON.stringify(info)
   }
+
+  var descriptionTemp = null;
+
+  if(this.shortDescription.val()) descriptionTemp = this.shortDescription.val();
+
   var data = {
     name: this.name.val(),
-    description: this.shortDescription.val(),
+    description: descriptionTemp,
     price: (Math.round(parseInt(this.finalPrice.val()) * 1.2)).toString(),
     finalPrice: this.finalPrice.val(),
     photo: scope.uploaderImage.photo,
@@ -122,10 +126,15 @@ APP.AddProductScreen.prototype.categoryHandler = function(event) {
   this.description.val(data.description);
   this.weight.val(data.weight);
   this.price.val(data.price);
+  var temp = data.info.length-1;
   for(line in data.info){
-    this.information.append(data.info[line]+'\n');
+    if(line == temp){
+      this.information.append(data.info[line]);
+    }
+    else{
+      this.information.append(data.info[line]+'\n');
+    }
   }
-
 };
 
 APP.AddProductScreen.prototype.priceHandler = function(event) {

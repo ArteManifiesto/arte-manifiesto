@@ -14,6 +14,8 @@ router.get('/featured', controller.featured);
 
 router.get('/artjam', controller.artjam);
 
+router.get('/sell', global.md.isLogged, controller.sell);
+
 router.get('/amlab', controller.labredirect);
 router.get('/laboratorio_de_impresion_digital_giclee_arte_y_fotografia', controller.lab);
 

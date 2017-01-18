@@ -38,11 +38,13 @@
 				</a>
 				<div>
 					<p class="am-navigation-text">
-						{% if collection.User.typeName === 1 %}
-							{{collection.User.fullname}}
-						{% else %}
-							{{collection.User.pseudonimo}}
-						{% endif %}
+						<a href="/user/{{collection.User.username}}">
+							{% if collection.User.typeName === 1 %}
+								{{collection.User.fullname}}
+							{% else %}
+								{{collection.User.pseudonimo}}
+							{% endif %}
+						</a>
 					</p>
 					<p class="am-collection-text"><span>Coleccion ></span>&nbsp;&nbsp;<span class="collection-name">{{collection.name}}</span></p>
 				</div>
@@ -145,6 +147,7 @@
 	<script type="text/javascript">
 	var items = {{items|safe|json}};
 	var collection = {{collection|safe|json}};
+	console.log(items);
 	$(function() {
 		new APP.CollectionScreen();
 	});

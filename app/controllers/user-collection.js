@@ -23,7 +23,7 @@ exports.index = function(req, res) {
     query.order = [
       [global.db.sequelize.col('CollectionProduct.createdAt'), 'DESC']
     ];
-    query.include = [global.db.Work];
+    query.include = [global.db.Work, global.db.Category];
     req.collection.getProducts(query).then(afterGet);
   }
 }

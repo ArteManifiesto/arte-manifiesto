@@ -1609,6 +1609,9 @@ textarea {
   font-size: 18px;
   color: #666;
 }
+.am-navigation-text a {
+  color: #333;
+}
 .am-collection-text {
   font-family: 'Montserrat', sans-serif;
   color: #808080;
