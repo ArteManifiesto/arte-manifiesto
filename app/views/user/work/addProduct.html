@@ -139,6 +139,8 @@
 <script>
 var work = {{work|json|safe}};
 var categories = {{categories|json|safe}};
+var tags = {{tags|json|safe}};
+console.log(tags);
 $(function() {
 	$.cloudinary.config({{cloudinary.config()|json|safe}});
 	new APP.AddProductScreen();

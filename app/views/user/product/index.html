@@ -249,6 +249,10 @@
 	                <p>COMENTARIOS</p>
 	                <span>{{reviews.length}}</span>
 	              </div>
+	               <div class="single-tab menu-item" data-name='tags'>
+	                <p>TAGS</p>
+	                <span>{{tags.length}}</span>
+	              </div>
 	            </div>
 	          </div>
 	        </div>
@@ -327,7 +331,32 @@
 	    </div>
 	  </div>
 	</div>
+	<!--=================================================================================
+			=================================================================================
+			=================================================================================-->
 
+	<!--=========================== WORK-PRODUCT'S TAGS ===========================-->
+  <div class="grid-container tags-container {% if currentPath !== 'tags' %} hide {% endif %}">
+    <div class="grid-100">
+      <div class="tags-container">
+        <p class="title" style="margin-top: 30px;">Tags&nbsp;&nbsp;<span class="tags-number">{{tags.length}}</span></p>
+        <div class="u-separator"></div>
+				{% if tags.length > 0 %}
+					<div class="tags work-tags">
+	          {% for tag in tags %}
+	          {% set url = "#" + tag.name %}
+							<div class="tag uppercase"><a href='/products/category/all/page-1/?term={{url|url_encode}}'>{{tag.name}}</a></div>
+	          {% endfor %}
+	        </div>
+				{% else %}
+					<p class="empty-profile-text  empty-message bare-message hide u-margin-top-30" style="display: block;">Este producto aun no tiene tags<br><br>
+						<a href="/products/category/all/page-1/?order=newest&featured=1">Descubre todos los productos de AM</a>
+					</p>
+				{% endif %}
+      </div>
+    </div>
+  </div>
+  
 	<!--=================================================================================
 			=================================================================================
 			=================================================================================-->
@@ -508,6 +537,7 @@
 		var entity = {{entity|json|safe}};
 		var product = {{product|json|safe}};
 		var currentPath = {{currentPath|json|safe}};
+		var tags = {{tags|json|safe}};
 		var reviews = {{reviews|json|safe}};
 		var more = {{more|json|safe}};
 		var products = {{products|json|safe}};

@@ -105,11 +105,14 @@ exports.addProduct = function(req, res) {
     }
   };
   global.db.Category.findAll(query).then(function(categories) {
-    return res.render(basePath + 'addProduct', {
-      work: req.work,
-      categories: categories,
-      cloudinary: global.cl,
-      cloudinayCors: global.cl_cors
+    req.work.getTags().then(function(tags){
+      return res.render(basePath + 'addProduct', {
+        work: req.work,
+        categories: categories,
+        tags: tags,
+        cloudinary: global.cl,
+        cloudinayCors: global.cl_cors
+      });
     });
   });
 };

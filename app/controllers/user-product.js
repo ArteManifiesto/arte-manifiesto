@@ -9,7 +9,7 @@ var crypto = require('crypto');
 exports.index = function(currentPath, req, res) {
   req.product.getWork().then(function(work) {
     var promises = [
-      work.getTags(),
+      req.product.getTags(),
       req.product.view(),
       req.product.getReviews({
         include: [{
@@ -101,16 +101,34 @@ exports.index = function(currentPath, req, res) {
 
 exports.create = function(req, res) {
   req.body.UserId = req.user.id;
-  var product = JSON.parse(req.body.data);
+  var data = JSON.parse(req.body.data);
+  var product = data.product;
+  var tags = data.tags;
+  var tagResults = [];
+  var promises = [];
   product.isActive = true;
   global.cl.uploader.upload(product.photo).then(function(result) {
     console.log(product.photo);
     product.photo = result.url;
     console.log(product.photo);
-    global.db.Product.create(product).then(function(result) {
-      return res.ok({
-        products: result
-      }, 'Producto creado');
+    global.db.Product.create(product).then(function(product) {
+      for (var i = 0; i < tags.length; i++) {
+        var query = {
+          where: {
+            name: tags[i]
+          }
+        };
+        promises.push(global.db.Tag.findOrCreate(query));
+      }
+      global.db.Sequelize.Promise.all(promises).then(function(tags) {
+        for (var i = 0; i < tags.length; i++){
+          tagResults.push(tags[i][0]);
+        }
+        product.setTags(tagResults);
+        return res.ok({
+          products: product
+        }, 'Producto creado');
+      });
     });
   });
 };
@@ -123,6 +141,33 @@ exports.featured = function(req, res) {
     return res.ok({
       product: req.product
     }, 'Product featured');
+  });
+};
+
+var getTags = function(product) {
+  return global.db.Work.find({where:{id:product.WorkId}}).then(function(work){
+    return work.getTags();
+  });
+}
+
+var addTagsToProduct = function(currentIndex, products, res) {
+  if(currentIndex < products.length - 1) {
+    var product = products[currentIndex];
+    getTags(product).then(function(tags) {
+      product.setTags(tags).then(function() {
+        ++currentIndex;
+        addTagsToProduct(currentIndex, products, res);
+      });
+    });
+  } else {
+      return res.ok('Product tags reseted');
+  }
+}
+
+exports.resetTags = function(req, res) {
+  global.db.Product.findAll().then(function(products){
+    var currentIndex = 0;
+    addTagsToProduct(currentIndex, products, res);
   });
 };
 

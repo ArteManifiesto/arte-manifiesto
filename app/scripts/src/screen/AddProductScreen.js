@@ -32,6 +32,10 @@ APP.AddProductScreen.prototype.setupUI = function() {
     defaultText: '+Etiqueta'
   });
 
+  for(i in tags){
+    this.tags.addTag(tags[i].name);
+  }
+  
   this.send = $('.send');
   this.sendLoading = $('.send-loading');
 
@@ -80,16 +84,19 @@ APP.AddProductScreen.prototype.workFormSubmitHandler = function(event) {
   if(this.shortDescription.val()) descriptionTemp = this.shortDescription.val();
 
   var data = {
-    name: this.name.val(),
-    description: descriptionTemp,
-    price: (Math.round(parseInt(this.finalPrice.val()) * 1.2)).toString(),
-    finalPrice: this.finalPrice.val(),
-    photo: scope.uploaderImage.photo,
-    printPhoto: scope.uploaderImage.photo,
-    config: JSON.stringify(config),
-    UserId: work.UserId,
-    WorkId: work.id,
-    CategoryId: this.category.val()
+    product:{
+      name: this.name.val(),
+      description: descriptionTemp,
+      price: (Math.round(parseInt(this.finalPrice.val()) * 1.2)).toString(),
+      finalPrice: this.finalPrice.val(),
+      photo: scope.uploaderImage.photo,
+      printPhoto: scope.uploaderImage.photo,
+      config: JSON.stringify(config),
+      UserId: work.UserId,
+      WorkId: work.id,
+      CategoryId: this.category.val()
+    },
+    tags: this.tags.val().split(',')
   };
 
   var url = DataApp.currentUser.url + '/product/create';
