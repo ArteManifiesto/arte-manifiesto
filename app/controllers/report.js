@@ -37,6 +37,10 @@ var searchData = function(req, entity) {
     };
   }
 
+  if (entity === 'Work'){
+    query.where.visible = true;
+  }
+
   if (entity === 'Product') {
     query.where.published = true;
   }

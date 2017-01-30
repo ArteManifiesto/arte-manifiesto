@@ -115,6 +115,16 @@ Utils = {
       description: work.description
     });
   },
+  shareFBProduct: function(product) {
+    $('#lean_overlay').trigger("click");
+    Utils.share.facebook({
+      link: DataApp.baseUrl + 'user/' + product.User.username + '/product/' + product.nameSlugify,
+      picture: Utils.addImageFilter(product.photo, 'w_1200,h_630,q_60,c_crop'),
+      name: product.name,
+      caption: 'Arte Manifiesto',
+      description: product.description
+    });
+  },
   shareTWWork: function(work) {
     var link = DataApp.baseUrl + 'user/' + work.User.username + '/work/' + work.nameSlugify;
     var text = encodeURIComponent(work.name + ' vía @artemanifiesto');

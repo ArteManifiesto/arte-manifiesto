@@ -46,7 +46,11 @@
           <div class="product-card-title"><%= name %></div>
           <div class="product-card-subtitle"><%= Category.name %></div>
 
-          <div class="product-card-subtitle">por <%= User.username %></div>
+          <% if (User.typeName === 1) { %>
+            <div class="product-card-subtitle">por <%= User.fullname %></div>
+          <% } else { %>
+            <div class="product-card-subtitle">por <%= User.pseudonimo %></div>
+          <% } %>
           <div class="product-card-price">
             <span class="final">S/.<%= finalPrice %>.00</span>&nbsp;&nbsp;
             <span class="original">S/.<%= price %>.00</span>

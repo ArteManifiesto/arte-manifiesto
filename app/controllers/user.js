@@ -105,9 +105,16 @@ exports.profile = function(currentPath, req, res) {
       public: true
     }
   };
-
+  var querywork = req.owner ? {
+    visible: true
+  } : {
+    where: {
+      public: true,
+      visible: true
+    }
+  };
   var promises = [
-    req.profile.numOfWorks(query),
+    req.profile.numOfWorks(querywork),
     req.profile.numOfProducts({
       where: {
         published: true

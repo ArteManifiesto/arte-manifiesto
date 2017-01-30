@@ -99,8 +99,23 @@ exports.index = function(currentPath, req, res) {
   });
 };
 
+exports.add = function(req, res) {
+  var query = {
+    where: {
+      meta: 8
+    }
+  };
+  global.db.Category.findAll(query).then(function(categories) {
+    return res.render(basePath + 'add', {
+      categories: categories,
+      responseUrl: '/user/' + req.profile.username,
+      cloudinary: global.cl,
+      cloudinayCors: global.cl_cors
+    });
+  });
+};
+
 exports.create = function(req, res) {
-  req.body.UserId = req.user.id;
   var data = JSON.parse(req.body.data);
   var product = data.product;
   var tags = data.tags;
@@ -133,6 +148,46 @@ exports.create = function(req, res) {
   });
 };
 
+exports.createUnique = function(req, res) {
+  var data = JSON.parse(req.body.data);
+  var product = data.product;
+  var work = data.work;
+  work.UserId = req.profile.id;
+  work.CategoryId = 19;
+  product.UserId = req.profile.id;
+  var tags = data.tags;
+  var tagResults = [];
+  var promises = [];
+  product.isActive = true;
+  global.cl.uploader.upload(work.photo).then(function(resultw) {
+    work.photo = resultw.url;
+    global.db.Work.create(work).then(function(work) {
+      product.WorkId = work.id;
+      global.cl.uploader.upload(product.photo).then(function(resultp) {
+        product.photo = resultp.url;
+        global.db.Product.create(product).then(function(product) {
+          for (var i = 0; i < tags.length; i++) {
+            var query = {
+              where: {
+                name: tags[i]
+              }
+            };
+            promises.push(global.db.Tag.findOrCreate(query));
+          }
+          global.db.Sequelize.Promise.all(promises).then(function(tags) {
+            for (var i = 0; i < tags.length; i++){
+              tagResults.push(tags[i][0]);
+            }
+            product.setTags(tagResults);
+            return res.ok({
+              products: product
+            }, 'Producto creado');
+          });
+        });
+      });
+    });
+  });
+};
 
 exports.featured = function(req, res) {
   req.product.updateAttributes({
@@ -151,7 +206,7 @@ var getTags = function(product) {
 }
 
 var addTagsToProduct = function(currentIndex, products, res) {
-  if(currentIndex < products.length - 1) {
+  if(currentIndex < products.length) {
     var product = products[currentIndex];
     getTags(product).then(function(tags) {
       product.setTags(tags).then(function() {

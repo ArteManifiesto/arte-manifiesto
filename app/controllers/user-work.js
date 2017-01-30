@@ -127,6 +127,7 @@ exports.create = function(req, res) {
   var tags = req.body.tags.split(',');
   if (!req.body.public) req.body.public = false;
   if (!req.body.nswf) req.body.nswf = false;
+  if (!req.body.visible) req.body.visible = true;
 
   for (var i = 0; i < tags.length; i++) {
     var query = {

@@ -251,5 +251,5 @@ APP.ProductScreen.prototype.menuItemHandler = function(event) {
 };
 
 APP.ProductScreen.prototype.shareFBHandler = function() {
-  Utils.shareFBWork(product);
+  Utils.shareFBProduct(product);
 };
