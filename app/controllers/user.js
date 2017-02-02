@@ -106,7 +106,9 @@ exports.profile = function(currentPath, req, res) {
     }
   };
   var querywork = req.owner ? {
-    visible: true
+    where: {
+      visible: true
+    }
   } : {
     where: {
       public: true,
@@ -179,11 +181,15 @@ var getData = function(req, res, options, query) {
 
 exports.portfolio = function(req, res) {
   var query = req.owner ? {
-    addUser: true
+    addUser: true,
+    where: {
+      visible: true
+    }
   } : {
     addUser: true,
     where: {
-      public: true
+      public: true,
+      visible: true
     }
   };
   query.order = [global.getOrder('newest')];

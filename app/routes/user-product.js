@@ -19,21 +19,17 @@ router.get('/:nameSlugify/buy', global.md.isLogged, global.md.nameSlugify(entity
 
 router.get('/:nameSlugify/success', global.md.isLogged, global.md.nameSlugify(entity), controller.successPage);
 router.get('/:nameSlugify/canceled', global.md.isLogged, global.md.nameSlugify(entity), controller.canceledPage);
-
 router.post('/create', isLoggedAndOwner, controller.create);
 router.post('/createunique', global.md.isAdmin, controller.createUnique);
 router.post('/reset', controller.resetTags);
 
 // router.post('/buy', global.md.isLogged, controller.buy);
-
-// router.post('/delete', isLoggedAndOwner, controller.delete);
-// router.post('/update', isLoggedAndOwner, controller.update);
+router.post('/delete', global.md.isAdmin, controller.delete);
+// router.post('/update', global.md.isAdmin, controller.update);
 
 router.post('/review/create', isLoggedAndOwner, controller.createReview);
 
 router.post('/shipping', controller.shipping);
-// router.post('/:nameSlugify/submit', global.md.nameSlugify(entity), controller.submit);
-// router.post('/:nameSlugify/remove', global.md.nameSlugify(entity), controller.removeSubmit);
 router.post('/:nameSlugify/payu', global.md.nameSlugify(entity), controller.payuResponse);
 
 router.post('/like', isLoggedAndOwner, controller.like);

@@ -26,6 +26,18 @@ APP.AddUniqueProductScreen.prototype.setupUI = function() {
   this.description = $('textarea[name=description]');
   this.information = $('textarea[name=information]');
 
+  this.workPhotoPublished = $('.work-photo-published');
+  this.workNamePublished = $('.work-name-published');
+  this.workUserPublished = $('.work-user-published');
+  this.workPublished = $('.work-published');
+  this.workView = $('.work-view');
+  this.workNew = $('.work-new');
+
+  this.workDelete = $('.work-delete');
+  this.workDeleteConfirm = $('.work-delete-confirm');
+  this.workDeleteCancel = $('.work-delete-cancel');
+  this.workDeleteForce = $('.work-delete-force');
+
   this.tags = $('input[name=tags]');
   this.tags.tagsInput({
     height: '50px',
@@ -43,6 +55,9 @@ APP.AddUniqueProductScreen.prototype.setupUI = function() {
 APP.AddUniqueProductScreen.prototype.listeners = function() {
   APP.BaseScreen.prototype.listeners.call(this);
   this.workForm.submit(this.workFormSubmitHandler.bind(this));
+  this.workDelete.click(this.deleteHandler.bind(this));
+  this.workDeleteForce.click(this.workDeleteForceHandler.bind(this));
+  this.workDeleteCancel.click(this.deleteCancel.bind(this));
   this.price.on('input change paste',this.priceHandler.bind(this));
   this.finalPrice.on('input change paste',this.finalPriceHandler.bind(this));
   this.category.change(this.categoryHandler.bind(this));
@@ -113,23 +128,45 @@ APP.AddUniqueProductScreen.prototype.workFormSubmitHandler = function(event) {
 
 APP.AddUniqueProductScreen.prototype.workCreatedComplete = function(response) {
   this.showFlash('succes', 'El producto se subió exitosamente')
-  this.work = response.data.work;
+  this.work = response.data.product;
 
   this.workForm.hide();
 
   this.sendLoading.hide();
   this.send.show();
 
-  var url = DataApp.currentUser.url + '/work/' + this.work.nameSlugify
+  var url = '/report/products_applying/page-1'
   var photo = Utils.addImageFilter(this.work.photo, 'w_300,c_limit');
 
   this.workView.attr('href', url);
-  this.workNew.attr('href', DataApp.currentUser.url + '/work/add');
-  this.workEdit.attr('href', url + '/edit');
+  this.workNew.attr('href', responseUrl + '/product/add');
   this.workPhotoPublished.attr('src', photo);
   this.workNamePublished.text(this.work.name);
-  this.workUserPublished.text(DataApp.currentUser.fullname);
   this.workPublished.show();
+};
+
+APP.AddUniqueProductScreen.prototype.deleteHandler = function(event) {
+  this.workDelete.hide();
+  this.workDeleteConfirm.show();
+};
+
+APP.AddUniqueProductScreen.prototype.workDeleteForceHandler = function() {
+  var url = responseUrl + '/product/delete';
+  this.requestHandler(url, {
+    id: this.work.id
+  }, this.forceComplete);
+};
+
+APP.AddUniqueProductScreen.prototype.forceComplete = function() {
+  this.showFlash('succes', 'Se elimino el product');
+  setTimeout(function() {
+    window.location.href = responseUrl;
+  }, 1000);
+};
+
+APP.AddUniqueProductScreen.prototype.deleteCancel = function(response) {
+  this.workDelete.show();
+  this.workDeleteConfirm.hide();
 };
 
 APP.AddUniqueProductScreen.prototype.categoryHandler = function(event) {
@@ -151,18 +188,17 @@ APP.AddUniqueProductScreen.prototype.categoryHandler = function(event) {
 };
 
 APP.AddUniqueProductScreen.prototype.priceHandler = function(event) {
-  var pro = parseFloat(this.profit.val()) / 100 + 1
-  var preTax = parseFloat(this.price.val()) * pro;
+  var percentage = 100 - parseFloat(this.profit.val());
+  var preTax = (100 * parseFloat(this.price.val())) / percentage;
   var tax = 1.18
   this.finalPrice.val(Math.round(preTax * tax));
 };
 
 APP.AddUniqueProductScreen.prototype.finalPriceHandler = function(event) {
   var tax = 1.18
+  var percentage = 100 - parseFloat(this.profit.val());
   var preTax = parseFloat(this.finalPrice.val()) / tax;
-  var pro = parseFloat(this.profit.val()) / 100;
-  var amProfit = preTax * pro;
-  this.price.val(Math.round(preTax - amProfit));
+  this.price.val(Math.round((preTax * percentage) / 100));
 };
 
 APP.AddUniqueProductScreen.prototype.imgComplete = function(idImage) {

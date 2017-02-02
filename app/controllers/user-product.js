@@ -141,7 +141,7 @@ exports.create = function(req, res) {
         }
         product.setTags(tagResults);
         return res.ok({
-          products: product
+          product: product
         }, 'Producto creado');
       });
     });
@@ -180,11 +180,30 @@ exports.createUnique = function(req, res) {
             }
             product.setTags(tagResults);
             return res.ok({
-              products: product
+              product: product
             }, 'Producto creado');
           });
         });
       });
+    });
+  });
+};
+
+exports.delete = function(req, res) {
+    global.db.Product.update({
+      published: true,
+      applying: false
+    },
+    { where: {
+      id: req.body.id
+    }
+  }).then(function(product) {
+     global.db.Product.destroy({ 
+      where: {
+        id: req.body.id
+      }
+    }).then(function() {
+      return res.ok('producto eliminado');
     });
   });
 };
