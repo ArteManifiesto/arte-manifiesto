@@ -106,11 +106,11 @@
 	          </button>
 	        </a>
 	  		</div>
-	  		<div class="grid-50">
+	  		<!-- <div class="grid-50">
 	  			<a class="work-edit">
 	          <button class="button inline upload u-margin-top-30 upload_button"><i class="bi_editorial-compose"></i>&nbsp;&nbsp;&nbsp;EDITAR OBRA</button>
 	  			</a>
-	  		</div>
+	  		</div> -->
 	  		<div class="grid-50">
 	  			<a class='work-new'>
 	          <button class="button inline upload u-margin-top-30 upload_button"><i class="bi_interface-cloud-upload"></i>&nbsp;&nbsp;&nbsp;CREAR OTRO PRODUCTO</button>
@@ -140,6 +140,7 @@
 var work = {{work|json|safe}};
 var categories = {{categories|json|safe}};
 var tags = {{tags|json|safe}};
+var responseUrl = {{responseUrl|json|safe}};
 console.log(tags);
 $(function() {
 	$.cloudinary.config({{cloudinary.config()|json|safe}});

@@ -110,6 +110,7 @@ exports.addProduct = function(req, res) {
         work: req.work,
         categories: categories,
         tags: tags,
+        responseUrl: '/user/' + req.profile.username,
         cloudinary: global.cl,
         cloudinayCors: global.cl_cors
       });

@@ -25,6 +25,18 @@ APP.AddProductScreen.prototype.setupUI = function() {
   this.description = $('textarea[name=description]');
   this.information = $('textarea[name=information]');
 
+  this.workPhotoPublished = $('.work-photo-published');
+  this.workNamePublished = $('.work-name-published');
+  this.workUserPublished = $('.work-user-published');
+  this.workPublished = $('.work-published');
+  this.workView = $('.work-view');
+  this.workNew = $('.work-new');
+
+  this.workDelete = $('.work-delete');
+  this.workDeleteConfirm = $('.work-delete-confirm');
+  this.workDeleteCancel = $('.work-delete-cancel');
+  this.workDeleteForce = $('.work-delete-force');
+
   this.tags = $('input[name=tags]');
   this.tags.tagsInput({
     height: '50px',
@@ -45,6 +57,9 @@ APP.AddProductScreen.prototype.setupUI = function() {
 APP.AddProductScreen.prototype.listeners = function() {
   APP.BaseScreen.prototype.listeners.call(this);
   this.workForm.submit(this.workFormSubmitHandler.bind(this));
+  this.workDelete.click(this.deleteHandler.bind(this));
+  this.workDeleteForce.click(this.workDeleteForceHandler.bind(this));
+  this.workDeleteCancel.click(this.deleteCancel.bind(this));
   this.profit.on('input change paste',this.priceHandler.bind(this));
   this.category.change(this.categoryHandler.bind(this));
 };
@@ -107,23 +122,45 @@ APP.AddProductScreen.prototype.workFormSubmitHandler = function(event) {
 
 APP.AddProductScreen.prototype.workCreatedComplete = function(response) {
   this.showFlash('succes', 'El producto se subió exitosamente')
-  this.work = response.data.work;
+  this.work = response.data.product;
 
   this.workForm.hide();
 
   this.sendLoading.hide();
   this.send.show();
 
-  var url = DataApp.currentUser.url + '/work/' + this.work.nameSlugify
+  var url = '/report/products_applying/page-1'
   var photo = Utils.addImageFilter(this.work.photo, 'w_300,c_limit');
 
   this.workView.attr('href', url);
-  this.workNew.attr('href', DataApp.currentUser.url + '/work/add');
-  this.workEdit.attr('href', url + '/edit');
+  this.workNew.attr('href', responseUrl + '/work/' + work.nameSlugify + '/add');
   this.workPhotoPublished.attr('src', photo);
   this.workNamePublished.text(this.work.name);
-  this.workUserPublished.text(DataApp.currentUser.fullname);
   this.workPublished.show();
+};
+
+APP.AddProductScreen.prototype.deleteHandler = function(event) {
+  this.workDelete.hide();
+  this.workDeleteConfirm.show();
+};
+
+APP.AddProductScreen.prototype.workDeleteForceHandler = function() {
+  var url = responseUrl + '/product/delete';
+  this.requestHandler(url, {
+    id: this.work.id
+  }, this.forceComplete);
+};
+
+APP.AddProductScreen.prototype.forceComplete = function() {
+  this.showFlash('succes', 'Se elimino el product');
+  setTimeout(function() {
+    window.location.href = responseUrl;
+  }, 1000);
+};
+
+APP.AddProductScreen.prototype.deleteCancel = function(response) {
+  this.workDelete.show();
+  this.workDeleteConfirm.hide();
 };
 
 APP.AddProductScreen.prototype.categoryHandler = function(event) {
