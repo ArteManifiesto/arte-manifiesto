@@ -21,6 +21,7 @@ APP.AddUniqueProductScreen.prototype.setupUI = function() {
   this.weight = $('input[name=weight]');
   this.price = $('input[name=price]');
   this.profit = $('input[name=profit]');
+  this.profit.val('30');
   this.finalPrice = $('input[name=finalPrice]');
   this.category = $('select[name=category]');
   this.description = $('textarea[name=description]');
@@ -60,7 +61,6 @@ APP.AddUniqueProductScreen.prototype.listeners = function() {
   this.workDeleteCancel.click(this.deleteCancel.bind(this));
   this.price.on('input change paste',this.priceHandler.bind(this));
   this.finalPrice.on('input change paste',this.finalPriceHandler.bind(this));
-  this.category.change(this.categoryHandler.bind(this));
 };
 
 
@@ -167,24 +167,6 @@ APP.AddUniqueProductScreen.prototype.forceComplete = function() {
 APP.AddUniqueProductScreen.prototype.deleteCancel = function(response) {
   this.workDelete.show();
   this.workDeleteConfirm.hide();
-};
-
-APP.AddUniqueProductScreen.prototype.categoryHandler = function(event) {
-  var i = this.category.find(':selected').data('info')
-  var data = JSON.parse(categories[i-1].data);
-
-  this.description.val(data.description);
-  this.weight.val(data.weight);
-  this.profit.val(data.price);
-  var temp = data.info.length-1;
-  for(line in data.info){
-    if(line == temp){
-      this.information.append(data.info[line]);
-    }
-    else{
-      this.information.append(data.info[line]+'\n');
-    }
-  }
 };
 
 APP.AddUniqueProductScreen.prototype.priceHandler = function(event) {
