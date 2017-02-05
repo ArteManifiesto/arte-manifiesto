@@ -102,7 +102,7 @@ exports.index = function(currentPath, req, res) {
 exports.add = function(req, res) {
   var query = {
     where: {
-      meta: 8
+      meta: 9
     }
   };
   global.db.Category.findAll(query).then(function(categories) {

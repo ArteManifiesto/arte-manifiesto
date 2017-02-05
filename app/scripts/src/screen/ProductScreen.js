@@ -98,7 +98,15 @@ APP.ProductScreen.prototype.copyHandler = function(trigger) {
 };
 
 APP.ProductScreen.prototype.categoryHandler = function(event) {
-  window.location.href = this.category.find(':selected').val();
+  if($.isNumeric(this.category.find(':selected').val())){
+    Cookies.set('size_product', this.category.find(':selected').text(), {
+      maxAge: 3600000,
+      domain: '.' + document.domain
+    });
+  }
+  else {
+    window.location.href = this.category.find(':selected').val();
+  }
 };
 
 APP.ProductScreen.prototype.reviewFormHandler = function(event) {

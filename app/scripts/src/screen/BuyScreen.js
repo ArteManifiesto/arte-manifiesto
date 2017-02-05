@@ -97,6 +97,13 @@ APP.BuyScreen.prototype.submitHandler = function(e) {
     email: email
   }
 
+  if (Cookies.get('size_product')){
+    data1.size = Cookies.get(size_product);
+    Cookies.remove('size_product', {
+      domain: '.' + document.domain
+    });
+  }
+
   var data2 = {
     userId: user.id,
     url: url,
