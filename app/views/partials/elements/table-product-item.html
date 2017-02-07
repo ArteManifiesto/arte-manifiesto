@@ -5,7 +5,8 @@
     <td><%=popularity%></td>
     <td><%=views%></td>
     <td><%=dateToString(createdAt)%></td>
-    <td><a target='_blank' href="/user/<%=User.username%>/product/<%=nameSlugify%>/edit" class="btn btn-success">editar</a></td>
+    <!-- <td><a target='_blank' href="/user/<%=User.username%>/product/<%=nameSlugify%>/edit" class="btn btn-success">editar</a></td> -->
+    <td><a data-id="<%=id%>" data-user="<%=User.username%>" class="delete-product btn btn-success">borrar</a></td>
     <% if(featured) { %>
       <td><a class="btn featured-btn btn-primary">AM</a></td>
     <% } else { %>

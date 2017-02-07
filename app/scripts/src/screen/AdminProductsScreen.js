@@ -48,6 +48,7 @@ APP.AdminProductsScreen.prototype.listeners = function() {
   this.start.datepicker().on('changeDate', this.startDateChange.bind(this));
   this.end.datepicker().on('changeDate', this.endDateChange.bind(this));
   this.searchBtn.click(this.searchHander.bind(this));
+  $('.delete-product').click(this.deleteHandler);
 
   $(".dropdown-menu li a").click(this.dropdownChange.bind(this));
 
@@ -63,6 +64,19 @@ APP.AdminProductsScreen.prototype.listeners = function() {
 
 APP.AdminProductsScreen.prototype.startDateChange = function(event) {
   this.startValue = event.date;
+};
+
+APP.AdminProductsScreen.prototype.deleteHandler = function() {
+  var url = '/user/' + $(this).data('user') + '/product/delete';
+  var flash = new APP.BaseScreen('1');
+  $.post(url, {
+    id: $(this).data('id')
+  }, function(){
+    flash.showFlash('succes', 'Se elimino el producto');
+    setTimeout(function() {
+      location.reload();
+    }, 1000);
+  });
 };
 
 APP.AdminProductsScreen.prototype.endDateChange = function(event) {
