@@ -101,7 +101,9 @@ exports.add = function(req, res) {
 exports.addProduct = function(req, res) {
   var query = {
     where: {
-      meta: 8
+      meta: {
+        in: [8, 9]
+      }
     }
   };
   global.db.Category.findAll(query).then(function(categories) {
