@@ -31,7 +31,7 @@ var searchDiscover = function(entity, req) {
   });
 };
 
-var discover = function(req, res, entity) {
+var discover = function(req, res, entity, categories) {
   // if (req.params.page !== 'page-1')
   //   return res.redirect(req.url.replace(req.params.page, 'page-1'));
 
@@ -45,7 +45,7 @@ var discover = function(req, res, entity) {
   } else if (entity === 'products') {
     promises.push(global.db.Category.findAll({
       where: {
-        meta: 7
+        id: categories
       }
     }));
   }
@@ -92,8 +92,25 @@ exports.search = function(entity, req, res) {
 };
 
 exports.setup = function(entity, req, res) {
-  return discover(req, res, entity).then(function(discoverData) {
-    return res.json(discoverData);
+  var categories = [];
+  global.db.Product.findAll({
+    where:{
+      published: true
+    },
+    include: [{
+      model: global.db.Category,
+      include: [{
+        model: global.db.Category,
+        as: 'ParentCategory'
+      }]
+    }]
+  }).then(function(data){
+    for(i in data){
+      if(categories.indexOf(data[i].Category.ParentCategory.id) == -1) categories.push(data[i].Category.ParentCategory.id);
+    }
+    return discover(req, res, entity, categories).then(function(discoverData) {
+      return res.json(discoverData);
+    });
   });
 };
 
@@ -130,19 +147,36 @@ exports.profile = function(currentPath, req, res) {
 
   global.db.sequelize.Promise.all(promises).then(function(numbers) {
     if(currentPath === 'products'){
-      discover(req, res, currentPath).then(function(discoverData) {
-        var data = {
-          currentPath: currentPath,
-          profile: req.profile,
-          numbers: numbers,
-          discoverData: discoverData,
-          cloudinary: global.cl,
-          cloudinayCors: global.cl_cors
-        };
+      var categories = [];
+      global.db.Product.findAll({
+        where:{
+          published: true
+        },
+        include: [{
+          model: global.db.Category,
+          include: [{
+            model: global.db.Category,
+            as: 'ParentCategory'
+          }]
+        }]
+      }).then(function(data){
+        for(i in data){
+          if(categories.indexOf(data[i].Category.ParentCategory.id) == -1) categories.push(data[i].Category.ParentCategory.id);
+        }
+        discover(req, res, currentPath, categories).then(function(discoverData) {
+          var data = {
+            currentPath: currentPath,
+            profile: req.profile,
+            numbers: numbers,
+            discoverData: discoverData,
+            cloudinary: global.cl,
+            cloudinayCors: global.cl_cors
+          };
 
-        req.profile.view().then(function() {
-          return res.render(basePath + 'index', data);
-        });
+          req.profile.view().then(function() {
+            return res.render(basePath + 'index', data);
+          });
+        });  
       });
     }
     else{
