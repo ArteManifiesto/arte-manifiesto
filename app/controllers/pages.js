@@ -196,7 +196,7 @@ var searchDiscover = function(entity, req) {
   });
 };
 
-var discover = function(req, res, entity) {
+var discover = function(req, res, entity, categories) {
   // if (req.params.page !== 'page-1')
   //   return res.redirect(req.url.replace(req.params.page, 'page-1'));
 
@@ -210,7 +210,7 @@ var discover = function(req, res, entity) {
   } else if (entity === 'products') {
     promises.push(global.db.Category.findAll({
       where: {
-        meta: 7
+        id: categories
       }
     }));
   }
@@ -269,8 +269,25 @@ exports.collections = function(req, res) {
 };
 
 exports.products = function(req, res) {
-  discover(req, res, 'products').then(function(data) {
-    return res.render(basePath + 'products', data);
+  var categories = [];
+  global.db.Product.findAll({
+    where:{
+      published: true
+    },
+    include: [{
+      model: global.db.Category,
+      include: [{
+        model: global.db.Category,
+        as: 'ParentCategory'
+      }]
+    }]
+  }).then(function(data){
+    for(i in data){
+      if(categories.indexOf(data[i].Category.ParentCategory.id) == -1) categories.push(data[i].Category.ParentCategory.id);
+    }
+    discover(req, res, 'products', categories).then(function(data) {
+      return res.render(basePath + 'products', data);
+    });
   });
 };
 
