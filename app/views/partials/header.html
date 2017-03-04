@@ -11,20 +11,6 @@
 						<a href="/">
 							<img class="logo" src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065551/general/logo.png">
 						</a>
-						<div class="search">
-	            <form class="search-box">
-	  						<div class="am-Search-input2">
-	  							<input type="text" class='search-box-value general-search' placeholder="Busca artistas"/>
-	  							<i class="bi_interface-search search-btn search-general-btn"></i>
-	  						</div>
-	  						<!-- <ul class="search-options hide general-search-options">
-	  							<li class="search-option"><a>Buscar en obras <strong class="works-option"></strong></a></li>
-	  							<li class="search-option"><a>Buscar en artistas <strong class="users-option"></strong></a></li>
-	                <li class="search-option"><a>Buscar en colecciones <strong class="collections-option"></strong></a></li>
-	                <li class="search-option"><a>Buscar en productos <strong class="products-option"></strong></a></li>
-	  						</ul> -->
-	            </form>
-						</div>
 					</div>
 
 					<div class="am-Header-new-right">
@@ -32,12 +18,11 @@
 				              {% if user %}
 				                <a href="/feed" class="feed-menu">INICIO<span></span></a>
 				              {% endif %}
-				              	<a href="/products/category/all/page-1/?order=popularity&featured=1" class="market-menu">MARKET<span></span></a>
-								<a class="works-menu js-menu-discover">DESCUBRE<span></span></a>
-								<!-- <a href="/works/category/all/page-1/?order=newest&featured=1" class="works-menu">OBRAS<span></span></a> -->
-								<!-- <a href="/products/category/all/page-1" class="market-menu">TIENDA<span></span></a> -->
+				              	<a href="/works/category/all/page-1/?order=newest&featured=1" class="works-menu">OBRAS<span></span></a>
+								<a href="/users/specialty/all/page-1/?order=newest&featured=1" class="users-menu">ARTISTAS<span></span></a>
+				              	<a href="/products/category/all/page-1/?order=popularity&featured=1" class="collections-menu">MARKET<sup> NEW</sup><span></span></a>
         						<a href="/blog" class="blog-menu">BLOG<span></span></a>
-        						<a href="/tv" class="tv-menu">TV<span></span></a>
+        						<a href="/tv" class="tv-menu">AM_TV<span></span></a>
 							</ul>
 						{% if user %}
 							<ul class="socials">

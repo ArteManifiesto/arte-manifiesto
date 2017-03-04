@@ -3344,9 +3344,17 @@ width
 }
 .am-Header-new .options {
   font-family: 'Montserrat', sans-serif;
-  font-weight: bold;
+  font-weight: lighter;
   font-size: 13px;
   letter-spacing: 1px;
+}
+.am-Header-new .options sup {
+  font-size: 7px;
+  color: #40f;
+  vertical-align: super;
+}
+.am-Header-new .options a:hover span {
+  display: block;
 }
 .am-Header-new .options a {
   color: #3c3d41;
@@ -3358,7 +3366,7 @@ width
   background: #000;
   position: absolute;
   height: 3px;
-  width: 40px;
+  width: 100%;
   bottom: -10px;
   left: 50%;
   -webkit-transform: translate(-50%, 0);
@@ -5176,7 +5184,7 @@ width
 .am-register {
   height: 800px;
   padding: 100px 20px;
-  background-image: url("http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065543/general/background.jpg");
+  background-image: url("http://res.cloudinary.com/arte-manifiesto/image/upload/f_auto,q_auto/v1488585503/general/00-FONDO-AM.jpg");
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
