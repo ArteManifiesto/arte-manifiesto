@@ -1043,9 +1043,8 @@ global.cities = [
 global.feedVerbs = ['like-work', 'follow-user', 'create-work'];
 
 global.fbPermissions = [
-  'email'     , 'user_about_me',
-  'user_birthday', 'user_friends',
-  'user_website'
+  'email'     ,
+  'user_friends'
 ];
 
 global.lift = function (app) {
