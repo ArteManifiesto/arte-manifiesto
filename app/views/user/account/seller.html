@@ -21,13 +21,13 @@
 							<div class="invitation-cover" style="background-image: url('http://res.cloudinary.com/arte-manifiesto/image/upload/v1458957539/general/vende_en_internet.png');">
 							</div>
 
-							<p class="invitation-title">Crea tu tienda en línea en 3 pasos</p>
+							<p class="invitation-title">Crea tu tienda</p>
 
 							<p class="invitation-subTitle">Ahora hacemos muy fácil el que puedas vender tu arte por internet</p>
 
 							<a class="invitation-button create-store-btn" href="">CREAR TIENDA</a>
 
-							<p class="invitation-subTitle underline">¿Cómo funciona la tienda?</p>
+							<!-- <p class="invitation-subTitle underline">¿Cómo funciona la tienda?</p> -->
 					</div>
 				</div>
 			</div>
@@ -59,7 +59,7 @@
 								<p class="title">País</p>
 								<select class="input select" name='country'>
 									<option disabled selected>Seleccionar País</option>
-									<option>Argentina</option>
+								<!-- 	<option>Argentina</option>
 									<option>Bolivia</option>
 									<option>Brasil</option>
 									<option>Chile</option>
@@ -68,10 +68,10 @@
 									<option>España</option>
 									<option>Estados Unidos</option>
 									<option>Mexico</option>
-									<option>Paraguay</option>
+									<option>Paraguay</option> -->
 									<option>Peru</option>
-									<option>Uruguay</option>
-									<option>Venezuela</option>
+									<!-- <option>Uruguay</option>
+									<option>Venezuela</option> -->
 								</select>
 							</div>
 							<div class="grid-50 mobile-grid-100">
@@ -124,7 +124,7 @@
 									<input class="input" type="text" value="{{user.businessName}}" name='businessName' placeholder="Ingresa un documento válido"/>
 									<p class="title">Banco</p>
 									<input class="input" type="text" value="{{user.bank}}" name='bank' placeholder="Ingresa el nombre de tu banco"/>
-									<p class="title">Número de cuenta con código Interbancario CCI</p>
+									<p class="title">Número de cuenta</p>
 									<input class="input" type="text" value="{{user.cci}}" name='cci' placeholder="Ingresa tu número de cuenta"/>
 								</div>
 							</div>
@@ -137,16 +137,19 @@
 							<table class="u-margin-top-20">
 								<tr>
 									<td><input type="checkbox" name="terms" value=""></td>
-									<td class="check-title">Acepto los <a href="#">términos y condiciones para vendedores</a> en la plataforma.</td>
+									<td class="check-title">Acepto los <a href="https://docs.google.com/presentation/d/1Q8K0uhedd0f62YfK5TjgBFRrM2K6FpqF6od6NHq6ZO8/edit#slide=id.p">términos y condiciones para vendedores</a> en la plataforma.</td>
 								</tr>
 							</table>
 							{%endif%}
-							<div class="grid-100 mobile-grid-100">
+							<!-- <div class="grid-100 mobile-grid-100">
 								<button class="button upload green u-margin-top-40" data-color="green">GUARDAR CAMBIOS</button>
-							</div>
+							</div> -->
 							{% if user.isSeller %}
-								<div class="grid-100 mobile-grid-100">
+								<!-- <div class="grid-100 mobile-grid-100">
 									<a class="button upload red u-margin-top-40 delete-store" data-color="green">DESACTIVAR TIENDA</a>
+								</div> -->
+								<div class="grid-100 mobile-grid-100">
+									<button class="button upload green u-margin-top-40" data-color="green">GUARDAR CAMBIOS</button>
 								</div>
 							{%endif%}
 
@@ -179,13 +182,13 @@
 							</div>
 
 							<div class="grid-100 mobile-grid-100">
-								<p class="title comfirm">Ya estas listo para vender tu trabajo al mundo
+								<p class="title comfirm">Ya estas listo para vender tu trabajo al mundo.
 									<br><br>
-									Anda a tu portafolio y edita que obras quieres vender.
+										Contactate con nosotros para conocer los siguientes pasos.
 									<br><br>
-										Asegúrate de revistar nuestras guía para vendedor
+										contacto@artemanifiesto.com
 									<br><br><br>
-									<a href="#">
+									<a href="https://docs.google.com/presentation/d/1Q8K0uhedd0f62YfK5TjgBFRrM2K6FpqF6od6NHq6ZO8/edit#slide=id.p">
 										Guía para vendedores
 									</a>
 								</p>
