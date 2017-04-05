@@ -19,6 +19,8 @@ router.get('/sell', global.md.isLogged, controller.sell);
 router.get('/amlab', controller.labredirect);
 router.get('/laboratorio_de_impresion_digital_giclee_arte_y_fotografia', controller.lab);
 
+router.get('/market', controller.marketredirect);
+
 router.get('/editor', global.md.isAdmin, controller.editor);
 
 router.get('/feed', global.md.isLogged, controller.feedPage);

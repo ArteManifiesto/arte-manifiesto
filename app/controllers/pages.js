@@ -303,6 +303,10 @@ exports.labredirect = function(req, res) {
   return res.redirect('/laboratorio_de_impresion_digital_giclee_arte_y_fotografia');
 };
 
+exports.marketredirect = function(req, res) {
+  return res.redirect('/products/category/all/page-1/?order=newest&featured=1');
+};
+
 
 exports.success = function(req, res) {
   return res.json({
