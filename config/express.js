@@ -116,6 +116,8 @@ module.exports = function (app, passport) {
     var getAlert = function() {
       if(req.user && !req.user.verified)
         return global.db.Alert.find({where:{name: 'confirmation'}}).then(afterGetAlert);
+      else if(req.user && !req.user.filled && req.url.indexOf('/account/?context=1') === -1)
+        return global.db.Alert.find({where:{name: 'complete'}}).then(afterGetAlert);
 
       return global.db.Alert.find({where:{name: 'general', isActive: true}}).then(afterGetAlert);
     };

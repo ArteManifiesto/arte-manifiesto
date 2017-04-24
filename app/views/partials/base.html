@@ -152,8 +152,12 @@ src="https://www.facebook.com/tr?id=1546995582278131&ev=PageView&noscript=1"
 			{% if alert.name === 'confirmation' %}
 			<button class="alert-btn" data-id="confirmation-btn" style="background-color: {{alert.buttonColor}}; color:white;">{{alert.buttonText}}</button>
 			{% else %}
-			<a class="alert-btn" data-id="confirmation-btn" style="background-color: {{alert.buttonColor}}; color:white;" href="{{alert.buttonLink}}" target="_blank">{{alert.buttonText}}
-			</a>
+				{% if alert.name === 'complete' %}
+				<button class="alert-btn" data-id="complete-btn" style="background-color: {{alert.buttonColor}}; color:white;">{{alert.buttonText}}</button>
+				{% else %}
+				<a class="alert-btn" data-id="confirmation-btn" style="background-color: {{alert.buttonColor}}; color:white;" href="{{alert.buttonLink}}" target="_blank">{{alert.buttonText}}
+				</a>
+				{% endif %}
 			{% endif %}
 		</div> 
 	{% endif %}

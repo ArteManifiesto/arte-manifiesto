@@ -57,6 +57,7 @@ APP.AM.prototype.setupUI = function() {
   this.emailSubscription = this.subscriptionForm.find('input[name=email]');
 
   this.resend = $('button[data-id=confirmation-btn]');
+  this.complete = $('button[data-id=complete-btn]');
 };
 
 APP.AM.prototype.listeners = function() {
@@ -83,10 +84,15 @@ APP.AM.prototype.listeners = function() {
   $('.ad-target').click(this.adClickHandler.bind(this));
 
   this.resend.click(this.resendHandler.bind(this));
+  this.complete.click(this.completeHandler.bind(this));
 };
 
 APP.AM.prototype.resendHandler = function() {
   $.post('/auth/resend', {}).then(this.resendComplete.bind(this));
+};
+
+APP.AM.prototype.completeHandler = function() {
+  window.location.href = location.protocol + '//' + location.host + '/user/' + user.username + '/account/?context=1';
 };
 
 APP.AM.prototype.resendComplete = function(response) {

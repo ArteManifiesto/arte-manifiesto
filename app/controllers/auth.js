@@ -18,7 +18,7 @@ exports.signupPage = function(req, res) {
  */
 exports.signup = function(req, res) {
   console.log(req.body);
-  req.body.isArtist = req.body.isArtist === 'on';
+  req.body.isArtist = false;
   global.db.User.find({
     where: {
       email: req.body.email
