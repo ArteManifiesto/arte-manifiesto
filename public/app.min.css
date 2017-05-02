@@ -4113,6 +4113,7 @@ width
   margin-bottom: 3px;
   margin-top: 10px;
   text-align: center;
+  height: 32px;
 }
 .product-card-subtitle {
   font-family: OpenSans !important;

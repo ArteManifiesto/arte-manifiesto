@@ -551,13 +551,20 @@ exports.payuResponse = function(req, res) {
                 product: req.product,
                 address: JSON.parse(req.body.extra1)
               };
+              var paramsGMA = {
+                to: {email:"gonzalo.maranon@artemanifiesto.com"},
+                product: req.product,
+                address: JSON.parse(req.body.extra1)
+              };
               global.emails.confirm(req, paramsBuy).then(function() {
                 global.emails.sell(req, paramsSell).then(function() {
                   global.emails.am(req, paramsAMC).then(function() {
                     global.emails.am(req, paramsAMA).then(function() {
-                      return res.ok({
-                        data: order
-                      }, 'created');
+                      global.emails.am(req, paramsGMA).then(function() {
+                        return res.ok({
+                          data: order
+                        }, 'created');
+                      });
                     });
                   });
                 });
@@ -609,13 +616,20 @@ exports.payuResponse = function(req, res) {
                 product: req.product,
                 address: JSON.parse(req.body.extra1)
               };
+              var paramsGMA = {
+                to: {email:"gonzalo.maranon@artemanifiesto.com"},
+                product: req.product,
+                address: JSON.parse(req.body.extra1)
+              };
               global.emails.confirm(req, paramsBuy).then(function() {
                 global.emails.sell(req, paramsSell).then(function() {
                   global.emails.am(req, paramsAMC).then(function() {
                     global.emails.am(req, paramsAMA).then(function() {
-                      return res.ok({
-                        data: order
-                      }, 'updated');
+                      global.emails.am(req, paramsGMA).then(function() {
+                        return res.ok({
+                          data: order
+                        }, 'updated');
+                      });
                     });
                   });
                 });

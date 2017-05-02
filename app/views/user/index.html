@@ -52,7 +52,11 @@
 					</div>
 					<div>
 						{% if profile.typeName === 1 %}
-						<p class="name">{{profile.fullname}}</p>
+							{% if profile.firstname !== undefined %}
+							<p class="name">{{profile.fullname}}</p>
+							{% else %}
+							<p class="name">Sin Nombre</p>
+							{% endif %}
 						{% else %}
 						<p class="name">{{profile.pseudonimo}}</p>
 						{% endif %}
