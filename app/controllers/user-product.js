@@ -238,10 +238,43 @@ var addTagsToProduct = function(currentIndex, products, res) {
   }
 }
 
+var updateValues = function(currentIndex, products, res) {
+  if(currentIndex < products.length) {
+    var product = products[currentIndex];
+    var config = JSON.parse(product.config);
+    var type = (product.Category.ParentCategory.ParentCategoryId == 44) ? 1 : 2;
+    product.updateAttributes({
+      profit: config.profit,
+      profitType: type
+    }).then(function() {
+      ++currentIndex;
+      updateValues(currentIndex, products, res);
+    });
+  } else {
+      return res.ok('Product values updated');
+  }
+}
+
 exports.resetTags = function(req, res) {
   global.db.Product.findAll().then(function(products){
     var currentIndex = 0;
     addTagsToProduct(currentIndex, products, res);
+  });
+};
+
+exports.updateProduct = function(req, res) {
+  query = {
+    include: [{
+      model: global.db.Category,
+      include: [{
+        model: global.db.Category,
+        as: 'ParentCategory'
+      }]
+    }]
+  };
+  global.db.Product.findAll(query).then(function(products){
+    var currentIndex = 0;
+    updateValues(currentIndex, products, res);
   });
 };
 

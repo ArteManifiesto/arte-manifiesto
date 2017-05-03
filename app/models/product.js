@@ -38,7 +38,9 @@ module.exports = function(sequelize, DataTypes) {
     isActive: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
-    }
+    },
+    profit: DataTypes.FLOAT,
+    profitType: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function(models) {
