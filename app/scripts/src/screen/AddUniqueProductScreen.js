@@ -73,8 +73,11 @@ APP.AddUniqueProductScreen.prototype.workFormSubmitHandler = function(event) {
   if (Validations.notBlank(this.name.val())) errors.push('Ingrese un nombre');
   if (Validations.notBlank(this.weight.val())) errors.push('Ingrese un peso');
   if (Validations.notBlank(this.price.val())) errors.push('Ingrese un precio de proveedor');
+  if (isNaN(this.price.val())) errors.push('El precio no es un numero correcto');
   if (Validations.notBlank(this.profit.val())) errors.push('Ingrese una ganancia de AM');
+  if (isNaN(this.profit.val())) errors.push('La ganancia del artista no es un numero correcto');
   if (Validations.notBlank(this.finalPrice.val())) errors.push('Ingrese el precio final');
+  if (isNaN(this.finalPrice.val())) errors.push('El precio final no es un numero correcto');
   if (Validations.notBlank(this.category.val())) errors.push('Ingrese una categoria');
   if (Validations.notBlank(this.description.val())) errors.push('Ingrese una descripcion');
   if (Validations.notBlank(this.information.val())) errors.push('Ingrese informacion del producto');
@@ -107,7 +110,9 @@ APP.AddUniqueProductScreen.prototype.workFormSubmitHandler = function(event) {
       photo: scope.uploaderImage.photo,
       printPhoto: scope.uploaderImage.photo,
       config: JSON.stringify(config),
-      CategoryId: this.category.val()
+      CategoryId: this.category.val(),
+      profit: parseFloat(this.profit.val()),
+      profitType: 2
     },
     work:{
       name: this.name.val(),
