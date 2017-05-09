@@ -7,7 +7,7 @@
 {% extends '../../partials/base.html' %}
 
 {% block head %}
-<meta description="{{config.description}}"/>
+	<meta description="{{config.description}}"/>
 	<meta property="og:site_name" content="Arte Manifiesto" />
 	<meta property="og:site" content="artemanifiesto.com" />
 	<meta property="og:title" content="{{product.Category.ParentCategory.name|capitalize}} {{product.Category.name|capitalize}} {{product.name|capitalize}} por {{product.User.firstname|capitalize}} {{product.User.lastname|capitalize}} en Arte Manifiesto" />
