@@ -35,6 +35,8 @@ APP.AdminOrdersScreen.prototype.setupUI = function() {
 
   for(i in data.items){
     data.items[i].data = JSON.parse(data.items[i].data);
+    var temp = data.items[i].reference.split('_');
+    data.items[i].reference = temp[2];
     switch (data.items[i].shipping) {
       case 1:
         data.items[i].shipping = '(1) Recibido';
