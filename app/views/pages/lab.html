@@ -1,7 +1,26 @@
-{% set pageTitle = 'Arte Manifiesto, Laboratorio de impresion digital giclee, arte y fotografia' %}
+{% set pageTitle = 'Laboratorio de impresion digital giclee para arte y fotografía' %}
+{% set pageSufix = 'Arte Manifiesto LAB' %}
 {% set path = '' %}
 
+{% block head %}
+	<meta description="Somos un laboratorio de impresión profesional de alta fidelidad. Especialistas en impresión de ilustraciones, arte y fotografía."/>
+	<meta property="og:site_name" content="Arte Manifiesto" />
+	<meta property="og:site" content="artemanifiesto.com" />
+	<meta property="og:title" content="Laboratorio de impresion digital giclee para arte y fotografía | Arte Manifiesto LAB" />
+	<meta property="og:description" content="Somos un laboratorio de impresión profesional de alta fidelidad. Especialistas en impresión de ilustraciones, arte y fotografía." />
+	<meta property="og:image" content="http://res.cloudinary.com/arte-manifiesto/image/upload/q_auto,f_auto/v1475516596/banner-principal_ilrnuk.jpg" />
+	<meta property="og:url" content="http://artemanifiesto.com/amlab" />
+	<meta property="og:type" content="website" />
+	<meta name='twitter:card' content='summary_large_image' />
+	<meta name='twitter:image:src' content="http://res.cloudinary.com/arte-manifiesto/image/upload/q_auto,f_auto/v1475516596/banner-principal_ilrnuk.jpg" />
+	<meta name='twitter:site' content='@artemanifiesto' />
+	<meta name='twitter:url' content='http://artemanifiesto.com/amlab' />
+	<meta name='twitter:description' content='Somos un laboratorio de impresión profesional de alta fidelidad. Especialistas en impresión de ilustraciones, arte y fotografía.' />
+	<meta name='twitter:title' content='Laboratorio de impresion digital giclee para arte y fotografía | Arte Manifiesto LAB' />
+{% endblock %}
+
 {% extends '../partials/base.html' %}
+
 {% block elements %}
 
 	<div class="amlab-wrapper">

@@ -1,7 +1,25 @@
-{% set pageTitle = 'Arte Manifiesto, Una plataforma para artistas visuales y almas independientes' %}
+{% set pageTitle = 'Red social y tienda en línea de arte y diseño' %}
 {% set path = '' %}
 
+{% block head %}
+	<meta description="Crea tu portafolio, abre tu tienda y encuentra miles de productos con diseños únicos de Latinoamérica"/>
+	<meta property="og:site_name" content="Arte Manifiesto" />
+	<meta property="og:site" content="artemanifiesto.com" />
+	<meta property="og:title" content="Red social y tienda en línea de arte y diseño | Arte Manifiesto" />
+	<meta property="og:description" content="Crea tu portafolio, abre tu tienda y encuentra miles de productos con diseños únicos de Latinoamérica" />
+	<meta property="og:image" content="http://res.cloudinary.com/arte-manifiesto/image/upload/v1454618424/general/am-op-graph_eqzlok.jpg" />
+	<meta property="og:url" content="http://artemanifiesto.com" />
+	<meta property="og:type" content="website" />
+	<meta name='twitter:card' content='summary_large_image' />
+	<meta name='twitter:image:src' content="http://res.cloudinary.com/arte-manifiesto/image/upload/v1454618424/general/am-op-graph_eqzlok.jpg" />
+	<meta name='twitter:site' content='@artemanifiesto' />
+	<meta name='twitter:url' content='http://artemanifiesto.com' />
+	<meta name='twitter:description' content='Crea tu portafolio, abre tu tienda y encuentra miles de productos con diseños únicos de Latinoamérica' />
+	<meta name='twitter:title' content='Red social y tienda en línea de arte y diseño | Arte Manifiesto' />
+{% endblock %}
+
 {% extends '../partials/base.html' %}
+
 {% block elements %}
 	<div class="grid-container">
 		<div class="grid-100 featured-container">

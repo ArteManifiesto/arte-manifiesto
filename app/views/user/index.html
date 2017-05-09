@@ -1,21 +1,23 @@
 {% set templates = ['work', 'collection', 'user', 'product', 'filter-item'] %}
-{% set pageTitle = profile.fullname %}
-{% set path = 'profile' %}
 {% set profile = profile.toJSON()%}
+{% set pageTitle = profile.firstname|capitalize + ' ' + profile.lastname|capitalize %}
+{% set pageSufix = 'Descubre sus obras y productos en su portafolio en Arte Manifiesto' %}
+{% set path = 'profile' %}
 
 {% block head %}
+	<meta description="Descubre el portafolio de {{profile.firstname|capitalize}} {{profile.lastname|capitalize}} Artista de Arte Manifiesto. {{numbers[0]}} Obras, {{numbers[1]}} Productos."/>
 	<meta property="og:site_name" content="Arte Manifiesto" />
 	<meta property="og:site" content="artemanifiesto.com" />
-	<meta property="og:title" content="Visita el portafolio de {{profile.firstname|capitalize}} {{profile.lastname|capitalize}} en Arte Manifiesto" />
-	<meta property="og:description" content="{{profile.biography}}" />
+	<meta property="og:title" content="{{profile.firstname|capitalize}} {{profile.lastname|capitalize}} | Descubre sus obras y productos en su portafolio en Arte Manifiesto" />
+	<meta property="og:description" content="Descubre el portafolio de {{profile.firstname|capitalize}} {{profile.lastname|capitalize}} Artista de Arte Manifiesto. {{numbers[0]}} Obras, {{numbers[1]}} Productos." />
 	<meta property="og:image" content="{{profile.cover}}" />
 	<meta property="og:url" content="http://artemanifiesto.com/user/{{profile.username}}" />
 	<meta property="og:type" content="article" />
 	<meta name='twitter:card' content='summary_large_image' />
 	<meta name='twitter:image:src' content="{{profile.cover}}" />
 	<meta name='twitter:url' content='http://artemanifiesto.com/user/{{profile.username}}' />
-	<meta name='twitter:description' content='{{profile.biography}}' />
-	<meta name='twitter:title' content='Visita el portafolio de {{profile.fullname|upper}} en Arte Manifiesto' />
+	<meta name='twitter:description' content='Descubre el portafolio de {{profile.firstname|capitalize}} {{profile.lastname|capitalize}} Artista de Arte Manifiesto. {{numbers[0]}} Obras, {{numbers[1]}} Productos.' />
+	<meta name='twitter:title' content='{{profile.firstname|capitalize}} {{profile.lastname|capitalize}} | Descubre sus obras y productos en su portafolio en Arte Manifiesto' />
 {% endblock %}
 
 {% extends '../partials/base.html' %}

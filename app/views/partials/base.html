@@ -2,19 +2,23 @@
 <html>
 <head>
 	<meta charset="utf-8" />
-	<meta description="Unete a la primera red social de artistas emergentes y almas independientes en Latinoamérica"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 
 	{% if pageTitle %}
+		{% if pageSufix %}
+		<title>{{pageTitle}} | {{pageSufix}}</title>
+		{% else %}
 		<title>{{pageTitle}} | Arte Manifiesto</title>
+		{% endif %}
 	{% else %}
 		<title>Arte Manifiesto</title>
 	{% endif %}
 	{% block head %}
+		<meta description="Crea tu portafolio, abre tu tienda y encuentra miles de productos con diseños únicos de Latinoamérica"/>
 		<meta property="og:site_name" content="Arte Manifiesto" />
 		<meta property="og:site" content="artemanifiesto.com" />
-		<meta property="og:title" content="Unete a la primera red social de artistas emergentes y almas independientes en Latinoamérica" />
-		<meta property="og:description" content="La primera red social de artistas visuales y creadores de latinoamerica" />
+		<meta property="og:title" content="Red social y tienda en línea de arte y diseño | Arte Manifiesto" />
+		<meta property="og:description" content="Crea tu portafolio, abre tu tienda y encuentra miles de productos con diseños únicos de Latinoamérica" />
 		<meta property="og:image" content="http://res.cloudinary.com/arte-manifiesto/image/upload/v1454618424/general/am-op-graph_eqzlok.jpg" />
 		<meta property="og:url" content="http://artemanifiesto.com" />
 		<meta property="og:type" content="website" />
@@ -22,12 +26,12 @@
 		<meta name='twitter:image:src' content="http://res.cloudinary.com/arte-manifiesto/image/upload/v1454618424/general/am-op-graph_eqzlok.jpg" />
 		<meta name='twitter:site' content='@artemanifiesto' />
 		<meta name='twitter:url' content='http://artemanifiesto.com' />
-		<meta name='twitter:description' content='La primera red social de artistas visuales y creadores de latinoamerica' />
-		<meta name='twitter:title' content='Unete a la primera red social de artistas emergentes y almas independientes en Latinoamérica' />
+		<meta name='twitter:description' content='Crea tu portafolio, abre tu tienda y encuentra miles de productos con diseños únicos de Latinoamérica' />
+		<meta name='twitter:title' content='Red social y tienda en línea de arte y diseño | Arte Manifiesto' />
 	{% endblock %}
 
 
-	{% if env === 'production' %}
+	{% if env !== 'production' %}
 
 	<!-- Google Analytics Code -->
 	<script>

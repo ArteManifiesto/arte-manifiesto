@@ -4020,7 +4020,7 @@ width
   position: relative;
   max-width: 250px;
   margin: auto;
-  padding: 20px;
+  padding: 10px;
 }
 .product-card:hover .product-card-zoom {
   display: block;
@@ -4135,6 +4135,22 @@ width
   -moz-background-size: cover;
   background-size: cover;
   background-position: center center;
+}
+@media (max-width: 450px) {
+  .product-card-image {
+    height: 150px;
+    max-width: 150px;
+  }
+  .product-card-title {
+    font-size: 14px;
+    height: 28px;
+  }
+  .product-card-subtitle {
+    font-size: 11px;
+  }
+  .product-card-price {
+    font-size: 14px;
+  }
 }
 .featured {
   z-index: 1;
@@ -6522,7 +6538,7 @@ width
 .work-layout-discover .grid-item {
   width: 100%;
 }
-@media (min-width: 460px) {
+@media (min-width: 300px) {
   .work-layout-discover .grid-sizer,
   .work-layout-discover .grid-item {
     width: 50%;

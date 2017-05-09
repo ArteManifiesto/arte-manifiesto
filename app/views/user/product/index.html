@@ -1,22 +1,26 @@
 {% set templates = ['collection-item', 'carrousel-item', 'review']%}
-{% set pageTitle = product.name %}
+{% set product = product.toJSON() %}
+{% set config = JSON.parse(product.config)%}
+{% set pageTitle = product.Category.ParentCategory.name|capitalize + ' ' + product.Category.name|capitalize %}
+{% set pageSufix = product.name|capitalize + ' por ' + product.User.firstname|capitalize + ' ' + product.User.lastname|capitalize + ' en Arte Manifiesto' %}
 
 {% extends '../../partials/base.html' %}
 
 {% block head %}
+<meta description="{{config.description}}"/>
 	<meta property="og:site_name" content="Arte Manifiesto" />
 	<meta property="og:site" content="artemanifiesto.com" />
-	<meta property="og:title" content="{{work.name}}" />
-	<meta property="og:description" content="{{work.description}}" />
-	<meta property="og:image" content="{{work.photo|addFilter('w_1200,h_630,q_60,c_crop')}}" />
-	<meta property="og:url" content="http://artemanifiesto.com/user/{{work.User.username}}/work/{{work.nameSlugify}}" />
+	<meta property="og:title" content="{{product.Category.ParentCategory.name|capitalize}} {{product.Category.name|capitalize}} {{product.name|capitalize}} por {{product.User.firstname|capitalize}} {{product.User.lastname|capitalize}} en Arte Manifiesto" />
+	<meta property="og:description" content="{{config.description}}" />
+	<meta property="og:image" content="{{product.photo|addFilter('w_1200,h_630,q_60,c_crop')}}" />
+	<meta property="og:url" content="http://artemanifiesto.com/user/{{product.User.username}}/product/{{product.nameSlugify}}" />
 	<meta property="og:type" content="article" />
 	<meta name='twitter:card' content='summary_large_image' />
-	<meta name='twitter:image:src' content="{{work.photo|addFilter('w_1200,h_630,q_60,c_crop')}}" />
+	<meta name='twitter:image:src' content="{{product.photo|addFilter('w_1200,h_630,q_60,c_crop')}}" />
 	<meta name='twitter:site' content='@artemanifiesto' />
-	<meta name='twitter:url' content='http://artemanifiesto.com/user/{{work.User.username}}/work/{{work.nameSlugify}}' />
-	<meta name='twitter:description' content='{{work.description}}' />
-	<meta name='twitter:title' content='{{work.name}}' />
+	<meta name='twitter:url' content='http://artemanifiesto.com/user/{{product.User.username}}/product/{{product.nameSlugify}}' />
+	<meta name='twitter:description' content='{{config.description}}' />
+	<meta name='twitter:title' content='{{product.Category.ParentCategory.name|capitalize}} {{product.Category.name|capitalize}} {{product.name|capitalize}} por {{product.User.firstname|capitalize}} {{product.User.lastname|capitalize}} en Arte Manifiesto' />
 {% endblock %}
 
 {% block styles %}
@@ -25,7 +29,6 @@
 {% endblock %}
 
 {% block elements %}
-{% set product = product.toJSON() %}
 	<div class="grid-container u-margin-top-30">
 		<div class="grid-100">
 			<div class="single-info">

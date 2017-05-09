@@ -1,13 +1,15 @@
 {% set templates = ['collection-item', 'carrousel-item', 'review']%}
+{% set work = work.toJSON() %}
 {% set pageTitle = work.name %}
+{% set pageSufix = work.User.firstname|capitalize + ' ' + work.User.lastname|capitalize + ' en Arte Manifiesto' %}
 {% set withoutHeader = lite %}
 {% extends '../../partials/base.html' %}
 
 {% block head %}
 	<meta property="og:site_name" content="Arte Manifiesto" />
 	<meta property="og:site" content="artemanifiesto.com" />
-	<meta property="og:title" content="{{work.name}}" />
-	<meta property="og:description" content="{{work.description}}" />
+	<meta property="og:title" content="{{work.name}} | {{work.User.firstname|capitalize}} {{work.User.lastname|capitalize}} en Arte Manifiesto" />
+	<meta property="og:description" content="Descubre el portafolio de {{work.User.firstname|capitalize}} {{work.User.lastname|capitalize}} en Arte Manifiesto" />
 	<meta property="og:image" content="{{work.photo|addFilter('w_1200,h_630,q_60,c_crop')}}" />
 	<meta property="og:url" content="http://artemanifiesto.com/user/{{work.User.username}}/work/{{work.nameSlugify}}" />
 	<meta property="og:type" content="article" />
@@ -15,8 +17,8 @@
 	<meta name='twitter:image:src' content="{{work.photo|addFilter('w_1200,h_630,q_60,c_crop')}}" />
 	<meta name='twitter:site' content='@artemanifiesto' />
 	<meta name='twitter:url' content='http://artemanifiesto.com/user/{{work.User.username}}/work/{{work.nameSlugify}}' />
-	<meta name='twitter:description' content='{{work.description}}' />
-	<meta name='twitter:title' content='{{work.name}}' />
+	<meta name='twitter:description' content='Descubre el portafolio de {{work.User.firstname|capitalize}} {{work.User.lastname|capitalize}} en Arte Manifiesto' />
+	<meta name='twitter:title' content='{{work.name}} | {{work.User.firstname|capitalize}} {{work.User.lastname|capitalize}} en Arte Manifiesto' />
 {% endblock %}
 
 {% block styles %}
@@ -25,7 +27,6 @@
 {% endblock %}
 
 {% block elements %}
-{% set work = work.toJSON() %}
 	<div class="grid-container u-margin-top-15 u-margin-bottom-15">
 		<div class="grid-100">
 			<div class="works-nav">
