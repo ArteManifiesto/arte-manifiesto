@@ -858,11 +858,25 @@ white = #fff
 .custon-desktop-header
 	display none
 
+.costom-mobile-header
+	position fixed
+	z-index 3
+	background-color #fff
+	width 100%
+.body-inner
+	margin-top 50px
+
 @media (min-width: 1135px)
 	.costom-mobile-header
 		display none
 	.custon-desktop-header
 		display block
+		position fixed
+		z-index 3
+		background-color #fff
+		width 100%
+	.body-inner
+		margin-top 60px
 
 
 /*------------------------------------*
@@ -1869,11 +1883,13 @@ white = #fff
 		font-weight bold
 		color white
 		text-transform: uppercase;
+		text-shadow 1px 1px rgba(0,0,0,0.5)
 	.city
 		font-family 'Montserrat', sans-serif
 		font-size 18px
 		margin: 10px 0 12px 0;
 		color white
+		text-shadow 1px 1px rgba(0,0,0,0.5)
 	.social-networks
 		a
 			margin-right .5em
