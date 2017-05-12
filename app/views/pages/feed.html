@@ -102,11 +102,13 @@
 			<div class="loader extra-small gray hide loading"></div>
 		</div>
 		<div class="ads-feed">
-			{% for ad in ads %}				
-				<a data-id="{{ad.id}}" class="ad-{{ad.AdType.name}} ad-target" href="{{ad.link}}">
-					<img src="{{ad.photo}}" alt="{{ad.description}}">
-				</a>
-			{% endfor %}
+			<div class="ads-feed-fixed">
+				{% for ad in ads %}				
+					<a data-id="{{ad.id}}" class="ad-{{ad.AdType.name}} ad-target" href="{{ad.link}}">
+						<img src="{{ad.photo}}" alt="{{ad.description}}">
+					</a>
+				{% endfor %}
+			</div>
 		</div>
 	</div>
 

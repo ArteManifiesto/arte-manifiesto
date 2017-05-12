@@ -8332,6 +8332,10 @@ width
   -ms-flex-direction: column;
   flex-direction: column;
   margin-top: 20px;
+  width: 300px;
+}
+.ads-feed-fixed {
+  position: fixed;
 }
 .feed {
   padding: 20px 20px 40px 20px;
