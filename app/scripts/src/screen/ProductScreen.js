@@ -42,6 +42,7 @@ APP.ProductScreen.prototype.setupUI = function() {
   this.askRequester = $('.ask-requester');
   this.thanksRequester = $('.thanks-requester');
   this.likeBtn = $('.like-btn');
+  this.flavor = Utils.getUrlParameter('size');
   this.afterLike = $('.after-like');
   this.saveBtn = $('.save-collections');
   this.saveBtnLoading = $('.save-collections-loading');
@@ -54,6 +55,10 @@ APP.ProductScreen.prototype.setupUI = function() {
   new Clipboard('.copy', {
     text: this.copyHandler.bind(this)
   });
+
+  if (this.flavor !== undefined){
+    this.category.find('option[value="' + this.flavor + '"]').prop("selected", "selected");
+  }
 }
 
 APP.ProductScreen.prototype.listeners = function() {
@@ -65,7 +70,6 @@ APP.ProductScreen.prototype.listeners = function() {
 
   this.loginReview.click(this.loginReviewHandler.bind(this));
   this.saveBtn.click(this.saveClickHandler.bind(this));
-
   if (DataApp.currentUser) {
     var collectionsUrl = DataApp.currentUser.url + '/collection/all';
     this.requestHandler(collectionsUrl, {

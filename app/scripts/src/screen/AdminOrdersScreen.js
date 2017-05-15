@@ -37,6 +37,24 @@ APP.AdminOrdersScreen.prototype.setupUI = function() {
     data.items[i].data = JSON.parse(data.items[i].data);
     var temp = data.items[i].reference.split('_');
     data.items[i].reference = temp[2];
+    switch (data.items[i].data.size) {
+      case 'S':
+        data.items[i].data.size = '?size=1';
+        break;
+      case 'M':
+        data.items[i].data.size = '?size=2';
+        break;
+      case 'L':
+        data.items[i].data.size = '?size=3';
+        break;
+      case 'XL':
+        data.items[i].data.size = '?size=4';
+        break;
+      default:
+        data.items[i].data.size = '';
+        break;
+    }
+
     switch (data.items[i].shipping) {
       case 1:
         data.items[i].shipping = '(1) Recibido';

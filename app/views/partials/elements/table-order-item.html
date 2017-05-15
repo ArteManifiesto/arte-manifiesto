@@ -1,11 +1,12 @@
 <script type="text/template" id="template-table-product">
   <tr>
     <td><img src="<%= addFilter(Product.photo, 'w_35') %>"></td>
-    <td><a href="/user/<%=Product.User.username%>/product/<%=Product.nameSlugify%>"><%=Product.name%></a></td>
+    <td><a href="/user/<%=Product.User.username%>/product/<%=Product.nameSlugify%>/<%=data.size%>"><%=Product.name%></a></td>
     <td><a href="/user/<%=User.username%>"><%=data.name%></a></td>
     <td><%=data.direction%></td>
     <td><%=data.phone%></td>
     <td><%=data.email%></td>
+    <td><%=data.size%></td>
     <td><%=reference%></td>
     <td><%=dateToString(createdAt)%></td>
     <td><%=shipping%></td>
