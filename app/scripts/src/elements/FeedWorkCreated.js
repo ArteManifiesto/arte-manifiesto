@@ -37,27 +37,39 @@ APP.FeedWorkCreated.prototype.addCollectionHandler = function() {
 };
 
 APP.FeedWorkCreated.prototype.likeHandler = function() {
-  if (!this.likeBtn.hasClass('active')) {
-    var url = DataApp.currentUser.url + '/work/like';
-    var scope = this;
-    $.post(url, {
-      idWork: this.data.element.id
-    }, function(response) {
-      if (response.status === 200) {
-        scope.likeBtn.addClass('active');
-        scope.afterLike.show();
-      }
-    });
+  if(DataApp.currentUser){
+    if (!this.likeBtn.hasClass('active')) {
+      var url = DataApp.currentUser.url + '/work/like';
+      var scope = this;
+      $.post(url, {
+        idWork: this.data.element.id
+      }, function(response) {
+        if (response.status === 200) {
+          scope.likeBtn.addClass('active');
+          scope.afterLike.show();
+        }
+      });
+    }
+  }
+  else{
+      event.preventDefault();
+      Utils.checkAuthentication();
   }
 };
 
 APP.FeedWorkCreated.prototype.shareHandler = function() {
-  $('#go-share-modal').click();
-  Broadcaster.dispatchEvent(Events.SHARE, {
-    data: {
-      work: this.data.element
-    }
-  });
+  if(DataApp.currentUser){
+    $('#go-share-modal').click();
+    Broadcaster.dispatchEvent(Events.SHARE, {
+      data: {
+        work: this.data.element
+      }
+    });
+  }
+  else{
+      event.preventDefault();
+      Utils.checkAuthentication();
+  }
 };
 
 APP.FeedWorkCreated.prototype.followHandler = function() {

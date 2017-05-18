@@ -1,33 +1,5 @@
 var basePath = 'pages/';
 
-exports.index = function(req, res) {
-  if (!req.isAuthenticated())
-    return res.redirect('/featured');
-
-  return res.redirect('/feed');
-
-  // return res.redirect()
-  // var promises = [];
-  // var query = {
-  //   where: {
-  //     meta: 3
-  //   }
-  // };
-  // promises.push(global.db.Category.findAll(query));
-  // var bannersQuery = {
-  //   order: [
-  //     ['name', 'ASC']
-  //   ]
-  // };
-  // promises.push(global.db.Banner.findAll(bannersQuery));
-
-  // global.db.Sequelize.Promise.all(promises).then(function(result) {
-  //   return res.render(basePath + 'new-landing', {
-  //     categories: result[0],
-  //     banners: result[1]
-  //   });
-  // });
-};
 exports.sell = function(req, res) {
   return res.redirect('/user/' + req.user.username + '/account/seller');
 };
@@ -100,69 +72,79 @@ var searchFeed = function(req) {
 };
 
 exports.feedPage = function(req, res) {
+  var flag = false;
+  global.db.User.findById("1").then(function(am) {
+    if(!req.user) {
+      req.user = am;
+      flag = true;
+    }
+    var baseAdQuery = {
+      order: [global.db.sequelize.fn('RAND')],
+      where: {isActive: true},
+      include: [{
+        model: global.db.Ad,
+        include: {
+          model: global.db.AdType,
+          where: {}
+        }
+      }]
+    };
 
-  var baseAdQuery = {
-    order: [global.db.sequelize.fn('RAND')],
-    where: {isActive: true},
-    include: [{
-      model: global.db.Ad,
-      include: {
-        model: global.db.AdType,
-        where: {}
-      }
-    }]
-  };
+    var promises = [
+      req.user.numOfFollowers(),
+      req.user.numOfWorks(),
+      req.user.numOfFollowings(),
+      searchFeed(req)
+    ];
 
-  var promises = [
-    req.user.numOfFollowers(),
-    req.user.numOfWorks(),
-    req.user.numOfFollowings(),
-    searchFeed(req)
-  ];
+    baseAdQuery.include.limit = 1;
+    baseAdQuery.include[0].include.where.name = 'rect';
 
-  baseAdQuery.include.limit = 1;
-  baseAdQuery.include[0].include.where.name = 'rect';
+    promises.push(global.db.AdPack.findAll(baseAdQuery));
 
-  promises.push(global.db.AdPack.findAll(baseAdQuery));
+    baseAdQuery.include.limit = 1;
+    baseAdQuery.include[0].include.where.name = 'quad';
 
-  baseAdQuery.include.limit = 1;
-  baseAdQuery.include[0].include.where.name = 'quad';
-
-  promises.push(global.db.AdPack.findAll(baseAdQuery));
-  
-  baseAdQuery.limit = 3;
-  baseAdQuery.include[0].include.where.name = 'horizontal';
-
-  promises.push(global.db.AdPack.findAll(baseAdQuery));
-
-  return global.db.sequelize.Promise.all(promises).then(function(result) {
-    var adPacks = global._.slice(result, 4, 7);
-    var ads = [];
-    global._.map(adPacks, function(adPack) {
-      global._.map(adPack, function(ad) {
-        ads.push(ad.Ads[0]);
-      });
-    });
+    promises.push(global.db.AdPack.findAll(baseAdQuery));
     
-    promises = [];
-    global._.map(ads, function(ad) {
-      ad.views = ad.views + 1;
-      promises.push(ad.save());
-    });
+    baseAdQuery.limit = 3;
+    baseAdQuery.include[0].include.where.name = 'horizontal';
 
-    return global.db.sequelize.Promise.all(promises).then(function() {
-      return res.render(basePath + 'feed', {
-        numbers: global._.slice(result, 0, 3),
-        data: result[3],
-        ads: ads
+    promises.push(global.db.AdPack.findAll(baseAdQuery));
+
+    return global.db.sequelize.Promise.all(promises).then(function(result) {
+      var adPacks = global._.slice(result, 4, 7);
+      var ads = [];
+      global._.map(adPacks, function(adPack) {
+        global._.map(adPack, function(ad) {
+          ads.push(ad.Ads[0]);
+        });
       });
-    });    
+      
+      promises = [];
+      global._.map(ads, function(ad) {
+        ad.views = ad.views + 1;
+        promises.push(ad.save());
+      });
+
+      return global.db.sequelize.Promise.all(promises).then(function() {
+        return res.render(basePath + 'feed', {
+          numbers: global._.slice(result, 0, 3),
+          data: result[3],
+          ads: ads,
+          flag: flag
+        });
+      });    
+    });
   });
 };
 
 exports.feed = function(req, res) {
-  searchFeed(req).then(function(data) {
-    return res.json(data);
+  global.db.User.findById("1").then(function(am) {
+    if(!req.user) req.user = am;
+    searchFeed(req).then(function(data) {
+      return res.json(data);
+    });
   });
 };
 

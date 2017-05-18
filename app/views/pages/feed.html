@@ -65,6 +65,25 @@
 	<div class="feed-container">
 		<div class="feed">
 			<div class="feed-title">
+				{% if flag %}
+				<i class="icon bi_web-rss"></i>
+				<div class="title">BIENVENIDO A ARTE MANIFIESTO</div>
+				<div class="u-separator" style="background: #e7e7e7;"></div>
+				<div class="feed-intro">
+					<div class="feed-intro-image">
+						<img src="http://res.cloudinary.com/arte-manifiesto/image/upload/v1495068891/general/Userpic.png">
+					</div>
+					<div class="feed-intro-container">
+						<p class="feed-intro-text">Somos una red social de portafolios de artistas y creadores de latinoamérica. Inspirate con las mejores obras de la plataforma.</p>
+						&nbsp;
+						<p class="feed-intro-text">Crea tu cuenta y personaliza tu experiencia.</p>
+					
+						<div class="feed-intro-button-container">
+							<a class="feed-intro-button">REGISTRARME</a>
+						</div>
+					</div>
+				</div>
+				{% else %}
 				<div class="title">ART FEED</div>
 				<div class="u-separator" style="background: #eee;"></div>
 				<div class="user-info">
@@ -80,7 +99,7 @@
 							<p class="city u-margin-top-5">{{user.city}}, {{user.country}}</p>
 						</div>
 					</div>
-					<div class="stats">
+					<div class="stats {% if flag %} hide {% endif %}">
 						<a href="/user/{{user.username}}/followers">
 							<div class="stat">
 								<p>{{numbers[0]}}</p>
@@ -100,7 +119,8 @@
 							</div>
 						</a>
 					</div>
-				</div>
+				</div> 
+				{% endif %}	
 			</div>
 			<!-- <div class="feed-title" style="margin-top: 20px;">
 				<div class="title">Todavía no sigues a nadie, pero te sugerimos a los últimos artistas destacados de AM</div>

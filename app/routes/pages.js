@@ -4,7 +4,7 @@ var router = express.Router();
 var controller = require(global.cf.controllers + "/pages");
 
 router.get('/bth', controller.bth);
-router.get('/', controller.index);
+router.get('/', controller.feedPage);
 router.get('/success', controller.success);
 router.get('/failed', controller.failed);
 router.get('/pp', controller.pp);
@@ -23,8 +23,7 @@ router.get('/market', controller.marketredirect);
 
 router.get('/editor', global.md.isAdmin, controller.editor);
 
-router.get('/feed', global.md.isLogged, controller.feedPage);
-router.post('/feed/:page', global.md.isLogged, controller.feed);
+router.post('/:page', controller.feed);
 
 router.post('/ad/click', controller.adClick);
 

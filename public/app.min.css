@@ -8349,12 +8349,18 @@ width
 }
 .feed .feed-title .title {
   text-align: center;
-  padding: 20px;
+  padding: 20px 0;
   font-weight: bold;
-  letter-spacing: 2px;
+  letter-spacing: 3.3px;
   font-size: 18px;
   color: #3c3d41;
   font-family: 'Montserrat', sans-serif;
+}
+.feed .feed-title .icon {
+  font-size: 25px;
+  float: left;
+  padding: 17px;
+  border-right: 1px solid #e7e7e7;
 }
 .feed .feed-title .user-info {
   display: -webkit-box;
@@ -8462,6 +8468,55 @@ width
   font-size: 12px;
   color: #838d8f;
   font-style: italic;
+}
+.feed-intro {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+}
+.feed-intro-text {
+  font-family: OpenSans;
+  font-size: 18px;
+  color: #333;
+}
+.feed-intro-container {
+  padding-right: 20px;
+  padding-top: 20px;
+}
+.feed-intro-image {
+  padding: 20px 15px;
+}
+.feed-intro-image img {
+  width: 50px;
+  min-width: 50px;
+}
+.feed-intro-button {
+  border: 1px solid #979797;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 25px 0;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-family: montserrat;
+  color: #333;
+  text-decoration: none;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -o-transition: 0.2s;
+  -ms-transition: 0.2s;
+  transition: 0.2s;
+}
+.feed-intro-button-container {
+  margin: 25px 0;
+}
+.feed-intro-button:hover {
+  color: #fff;
+  border-color: #40f;
+  background-color: #40f;
 }
 .feed-inner {
   max-width: 540px;

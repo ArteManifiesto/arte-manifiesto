@@ -38,10 +38,13 @@ APP.FeedScreen.prototype.listeners = function() {
 
   this.saveBtn.click(this.saveClickHandler.bind(this));
 
-  var collectionsUrl = DataApp.currentUser.url + '/collection/all';
-  this.requestHandler(collectionsUrl, {
-    meta: 'works'
-  }, this.collectionsHandlerComplete);
+  if(DataApp.currentUser){
+    var collectionsUrl = DataApp.currentUser.url + '/collection/all';
+    this.requestHandler(collectionsUrl, {
+      meta: 'works'
+    }, this.collectionsHandlerComplete);
+  }
+  
 
   this.collectionForm.submit(this.collectionFormHandler.bind(this));
 
