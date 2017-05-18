@@ -24,27 +24,32 @@ APP.FeedUserFollow.prototype.listeners = function() {
 }
 
 APP.FeedUserFollow.prototype.followClickHandler = function() {
-  var scope = this;
-  if (this.data.element.following) {
-    var url = DataApp.currentUser.url + '/unfollow/';
-    $.post(url, {
-      idUser: this.data.element.id
-    }, function(response) {
-      if (response.status === 200) {
-        scope.data.element.following = false;
-        $('.am-Follow-button').removeClass('following').text('+Seguir');
-      }
-    });
-  } else {
-    var url = DataApp.currentUser.url + '/follow/';
-    $.post(url, {
-      idUser: this.data.element.id
-    }, function(response) {
-      if (response.status === 200) {
-        scope.data.element.following = true;
-        $('.am-Follow-button').addClass('following').text('Siguiendo');
-      }
-    });
+  if(DataApp.currentUser){
+    var scope = this;
+    if (this.data.element.following) {
+      var url = DataApp.currentUser.url + '/unfollow/';
+      $.post(url, {
+        idUser: this.data.element.id
+      }, function(response) {
+        if (response.status === 200) {
+          scope.data.element.following = false;
+          $('.am-Follow-button').removeClass('following').text('+Seguir');
+        }
+      });
+    } else {
+      var url = DataApp.currentUser.url + '/follow/';
+      $.post(url, {
+        idUser: this.data.element.id
+      }, function(response) {
+        if (response.status === 200) {
+          scope.data.element.following = true;
+          $('.am-Follow-button').addClass('following').text('Siguiendo');
+        }
+      });
+    }
   }
-  console.log('following');
+  else{
+      event.preventDefault();
+      Utils.checkAuthentication();
+  }
 }

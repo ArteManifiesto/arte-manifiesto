@@ -8352,14 +8352,14 @@ width
   padding: 20px 0;
   font-weight: bold;
   letter-spacing: 3.3px;
-  font-size: 18px;
+  font-size: 16px;
   color: #3c3d41;
   font-family: 'Montserrat', sans-serif;
 }
 .feed .feed-title .icon {
   font-size: 25px;
   float: left;
-  padding: 17px;
+  padding: 16px;
   border-right: 1px solid #e7e7e7;
 }
 .feed .feed-title .user-info {
@@ -8501,6 +8501,7 @@ width
   font-size: 10px;
   font-weight: bold;
   letter-spacing: 2px;
+  cursor: pointer;
   font-family: montserrat;
   color: #333;
   text-decoration: none;

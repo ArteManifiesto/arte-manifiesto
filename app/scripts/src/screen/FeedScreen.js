@@ -25,6 +25,7 @@ APP.FeedScreen.prototype.setupUI = function() {
   this.collectionForm = $('.add-collection-form');
   this.shareFB = $('.share-fb');
   this.shareTW = $('.share-tw');
+  this.registerBtn = $('#register');
 
   this.viewer = new APP.Viewer('action', $('.feed-inner'), 'infinite', actions);
 
@@ -37,6 +38,8 @@ APP.FeedScreen.prototype.listeners = function() {
   APP.BaseScreen.prototype.listeners.call(this);
 
   this.saveBtn.click(this.saveClickHandler.bind(this));
+
+  this.registerBtn.click(this.registerHandler.bind(this));
 
   if(DataApp.currentUser){
     var collectionsUrl = DataApp.currentUser.url + '/collection/all';
@@ -66,6 +69,11 @@ APP.FeedScreen.prototype.copyHandler = function(trigger) {
     '/work/' + this.currentWork.nameSlugify;
 };
 
+
+APP.FeedScreen.prototype.registerHandler = function(event) {
+  event.preventDefault();
+  Utils.checkAuthentication();
+};
 
 APP.FeedScreen.prototype.feedShareHandler = function(event) {
   this.currentWork = event.data.work;
