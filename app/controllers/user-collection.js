@@ -11,7 +11,9 @@ exports.index = function(req, res) {
     return res.render(basePath + 'index', {
       collection: req.collection,
       items: items,
-      owner: req.owner
+      owner: req.owner,
+      cloudinary: global.cl,
+      cloudinayCors: global.cl_cors
     });
   }
   if (req.collection.meta === 'works') {
@@ -54,6 +56,7 @@ exports.all = function(req, res) {
 exports.create = function(req, res) {
   req.body.UserId = req.user.id;
   req.body.description = 'Coleccion curada por ' + req.user.fullname;
+  req.body.cover = 'http://res.cloudinary.com/arte-manifiesto/image/upload/v1496794106/general/collection-banner.jpg'
   global.db.Collection.create(req.body).then(function(collection) {
     if (req.xhr)
       return res.ok({
@@ -68,11 +71,26 @@ exports.create = function(req, res) {
  * update collection
  */
 exports.update = function(req, res) {
-  req.collection.updateAttributes(req.body).then(function() {
-    return res.ok({
-      collection: req.collection
-    }, 'Coleccion actualizada');
-  });
+  if(req.body.cover){
+    global.cl.uploader.upload(req.body.cover).then(function(result) {
+      console.log(req.body.cover);
+      req.body.cover = result.url;
+      console.log(req.body.cover);
+      req.collection.updateAttributes(req.body).then(function() {
+        return res.ok({
+          collection: req.collection
+        }, 'Coleccion actualizada');
+      });
+    });
+  }
+  else{
+    req.collection.updateAttributes(req.body).then(function() {
+      return res.ok({
+        collection: req.collection
+      }, 'Coleccion actualizada');
+    });
+  }
+  
 };
 
 /**

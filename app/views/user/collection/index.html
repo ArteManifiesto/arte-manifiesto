@@ -24,43 +24,38 @@
 {% endblock %}
 
 {% block elements %}
-
-	<div class="grid-container u-padding-top-40 u-padding-bottom-20" style="position: relative;">
+	<div class="single-collection-banner">
+		<img class="single-collection-banner-img" src="{{collection.cover}}">
 		{% if owner %}
 		<span class="edit-collection">
 			<a id="go-collection-modal" href="#edit-modal"><i class="bi_editorial-compose"></i></a>
 		</span>
 		{% endif %}
-		<div class="grid-100">
-			<div class="single-collection-header">
-				<a href="/user/{{collection.User.username}}">
-					<img src="{{collection.User.photo}}">
-				</a>
-				<div>
-					<p class="am-navigation-text">
-						<a href="/user/{{collection.User.username}}">
-							{% if collection.User.typeName === 1 %}
-								{{collection.User.fullname}}
-							{% else %}
-								{{collection.User.pseudonimo}}
-							{% endif %}
-						</a>
-					</p>
-					<p class="am-collection-text"><span>Coleccion ></span>&nbsp;&nbsp;<span class="collection-name">{{collection.name}}</span></p>
+		<div class="single-collection-container">
+			<div class="single-collection-info">
+				<p class="title">Colección {{collection.name}}</p>
+				<div class="author u-margin-top-30">
+					<p>Por &nbsp;&nbsp;</p>
+					<a href="/user/{{collection.User.username}}">
+						<img src="{{collection.User.photo}}">
+					</a>
+					<a href="/user/{{collection.User.username}}" class="name uppercase">
+						&nbsp;&nbsp; 
+					    {% if collection.User.typeName === 1 %}
+							{{collection.User.fullname}}
+						{% else %}
+							{{collection.User.pseudonimo}}
+						{% endif %}
+					</a>
 				</div>
-			</div>
-		</div>
-
-		<div class="grid-100 u-margin-top-30">
-			<p class="am-collection-desc collection-description">{{collection.description}}</p>
+			</div>	
 		</div>
 	</div>
-
-	<div class="grid-container">
-		<gir class="grid-100">
-			<div class="u-separator" style="margin: 0 10px"></div>
-		</gir>
+	<div class="collection-description">
+		<p class="title">Sobre la colección</p>
+		<p class="description">{{collection.description}}</p>
 	</div>
+
 
 	{% if items.length  < 1 %}
 		<div class="empty-box bare-message">
@@ -89,6 +84,21 @@
 		<div class="am-upload-work-box grid-container">
 			<p class="main-title">EDITAR COLECCION</p>
 			<form class="add-work collection-form">
+				<div class="separator">
+					<span class="line"></span><span class="text">IMAGEN DE COVER(1180x436)</span><span class="line"></span>
+				</div>
+				<div class="uploader-work">
+					<div class="profile-image">
+						<div class="preview">
+							<img src="{{collection.cover|addFilter('w_300,c_limit')}}">
+						</div>
+					</div>
+					<div class="preload hide"><i class="fa fa-spinner"></i></div>
+					<button class="button upload u-margin-top-30">BUSCAR ARCHIVO</button>
+					<div class="image-uploader" style="position:relative;">
+						{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:230px;height:55px;top:-70px;left: 105px;" } })}}
+					</div>
+				</div>
 				<div class="grid-100">
 					<div class="separator">
 						<span class="line"></span><span class="line"></span>
@@ -148,6 +158,7 @@
 	var items = {{items|safe|json}};
 	var collection = {{collection|safe|json}};
 	$(function() {
+		$.cloudinary.config({{cloudinary.config()|json|safe}});
 		new APP.CollectionScreen();
 	});
 	</script>

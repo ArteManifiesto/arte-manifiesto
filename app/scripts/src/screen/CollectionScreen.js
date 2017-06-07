@@ -27,12 +27,14 @@ APP.CollectionScreen.prototype.setupUI = function() {
   this.workDeleteConfirm = $('.work-delete-confirm');
   this.workDeleteCancel = $('.work-delete-cancel');
   this.workDeleteForce = $('.work-delete-force');
+  this.uploader = $('.uploader-work');
   this.collectionForm = $('.collection-form');
   this.collectionName = $('.collection-name');
   this.collectionDescription = $('.collection-description');
   this.save = $('.save');
   this.saveLoading = $('.save-loading');
   this.public = $('input[name=public]');
+  this.uploaderImage = new APP.UploaderImage(this.uploader, this.imgComplete, {uploader:$('*[data-cloudinary-field="photo"]')});
   $('#go-collection-modal').leanModal();
 };
 
@@ -52,6 +54,16 @@ APP.CollectionScreen.prototype.saveHandler = function() {
   this.collectionForm.submit();
 };
 
+APP.CollectionScreen.prototype.imgComplete = function(idImage) {
+  this.$view.find('.upload').show();
+  $('.cloudinary-fileupload').show();
+  var filters = {
+    width: 300,
+    crop: 'limit'
+  };
+  $.cloudinary.image(idImage, filters).appendTo(this.$view.find('.preview'));
+};
+
 APP.CollectionScreen.prototype.publicChangeHandler = function() {
   $(this).parent().find('.value').text((this.checked ? 'On' : 'Off'));
 }
@@ -68,6 +80,9 @@ APP.CollectionScreen.prototype.collectionFormHandler = function(event) {
     public: $('input[name=public]:checked').val() !== undefined,
     idCollection: collection.id
   }
+  if(this.uploaderImage.photo){
+    payload.cover = this.uploaderImage.photo;
+  }
   this.requestHandler(url, payload, this.collectionUpdateComplete);
 };
 
@@ -77,11 +92,12 @@ APP.CollectionScreen.prototype.collectionUpdateComplete = function(response) {
 
   var newCollection = response.data.collection;
   var newUrl = '/user/' + collection.User.username + '/collection/' + newCollection.nameSlugify;
-  this.collectionName.text(newCollection.name);
-  this.collectionDescription.text(newCollection.description);
-  $('#lean_overlay').trigger('click');
   this.showFlash('succes', 'Se actualizo tu coleccion');
-  Utils.changeUrl(collection.name, newUrl);
+  setTimeout(function() {
+    Utils.changeUrl(collection.name, newUrl);
+    location.reload();
+  }, 1000);
+  
 }
 
 APP.CollectionScreen.prototype.workDeleteCancelHandler = function() {

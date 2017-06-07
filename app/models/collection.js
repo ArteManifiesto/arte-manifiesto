@@ -16,7 +16,8 @@ module.exports = function(sequelize, DataTypes) {
     featured: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
-    }
+    },
+    cover: DataTypes.STRING
   }, {
     classMethods: {
       associate: function(models) {
