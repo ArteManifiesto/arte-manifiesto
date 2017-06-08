@@ -382,18 +382,21 @@ module.exports = function(sequelize, DataTypes) {
               name: 'Deseos',
               description: 'Cosas que me encataria tener un dia.',
               meta: 'product',
+              cover: 'http://res.cloudinary.com/arte-manifiesto/image/upload/v1496794106/general/collection-banner.jpg',
               public: false
             }),
             global.db.Collection.create({
               name: 'Regalos',
               description: 'Buenas ideas para regalos.',
               meta: 'product',
+              cover: 'http://res.cloudinary.com/arte-manifiesto/image/upload/v1496794106/general/collection-banner.jpg',
               public: false
             }),
             global.db.Collection.create({
               name: 'Obras favoritas',
               description: 'Obras que me encantan',
               meta: 'work',
+              cover: 'http://res.cloudinary.com/arte-manifiesto/image/upload/v1496794106/general/collection-banner.jpg',
               public: false
             })
           ];
