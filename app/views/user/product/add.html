@@ -21,7 +21,7 @@
 						{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:230px;height:55px;top:-70px;left: 105px;" } })}}
 					</div>
 				</div>
-				
+
 				<div class="separator">
 					<span class="line"></span><span class="text">IMAGEN SECUNDARIA</span><span class="line"></span>
 				</div>
@@ -36,7 +36,7 @@
 						{{ cloudinary.uploader.image_upload_tag('photo2', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:230px;height:55px;top:-70px;left: 105px;" } })}}
 					</div>
 				</div>
-				
+
 				<div class="separator">
 					<span class="line"></span><span class="text">DATOS DEL PRODUCTO</span><span class="line"></span>
 				</div>
@@ -54,10 +54,10 @@
 
 				<p class="title">Descripcion corta del producto</p>
 				<input name='short' class="input input-modal" type="text" placeholder="Ingrese la descripcion"/>
-				
+
 				<p class="title">Peso del producto</p>
 				<input name='weight' class="input input-modal" type="text" placeholder="Ingrese el peso"/>
-				
+
 				<p class="title">Precio de proveedor</p>
 				<input name='price' class="input input-modal" type="text" placeholder="Ingrese el precio"/>
 
@@ -142,7 +142,6 @@
 <script>
 var categories = {{categories|json|safe}};
 var responseUrl = {{responseUrl|json|safe}};
-console.log(responseUrl);
 $(function() {
 	$.cloudinary.config({{cloudinary.config()|json|safe}});
 	new APP.AddUniqueProductScreen();
