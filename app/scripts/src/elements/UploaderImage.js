@@ -4,6 +4,10 @@
  */
 var APP = APP || {};
 
+//var AWS = require('aws-sdk');
+//var s3 = new global.aws.S3();
+
+
 APP.UploaderImage = function (view, onComplete, options) {
     this.$view = view;
     this.photo = null;
@@ -17,8 +21,10 @@ APP.UploaderImage = function (view, onComplete, options) {
 
 APP.UploaderImage.constructor = APP.UploaderImage;
 
+// JCC
 APP.UploaderImage.prototype.listeners = function () {
     var scope = this;
+
     this.uploader.fileupload({
         start: function (e) {
             scope.$view.find('.upload').hide();
@@ -33,6 +39,10 @@ APP.UploaderImage.prototype.listeners = function () {
         }
     })
         .off('cloudinarydone').on('cloudinarydone', function (e, data) {
+        console.log(data)
+        s3.listBuckets(function (err, data) {
+            console.log(err, data);
+        });
         scope.$view.find('.preload').hide();
         scope.$view.find('.preview').html('');
         scope.photo = data.result.url;
