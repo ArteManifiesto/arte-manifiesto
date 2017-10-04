@@ -8,9 +8,9 @@ var APP = APP || {};
  init s3
  */
 
-var albumBucketName = 'am-original';
-var bucketRegion = 'US East (Ohio)';
-var IdentityPoolId = 'us-east-1_z9ezNHfEv';
+var albumBucketName = 'am-images-original';
+var bucketRegion = 'us-east-1';
+var IdentityPoolId = 'us-east-1:345514fa-cde0-4cb5-ab22-8f8a60522cf4';
 
 AWS.config.update({
     region: bucketRegion,
@@ -72,13 +72,12 @@ APP.UploaderImage.prototype.listeners = function () {
                 crop: "thumb"
             };
             $.cloudinary.image(data.result.public_id, filters).appendTo(scope.$view.find('.preview'));
+
         } else {
             scope.onComplete(data.result.public_id);
         }
 
-        console.log(scope.uploader[0].files[0])
-        console.log(listAlbums())
-
+        //upload image in s3
         addPhoto(scope.uploader[0].files)
 
 
@@ -122,10 +121,38 @@ function addPhoto(file) {
         Body: file,
         ACL: 'public-read'
     }, function (err, data) {
+        console.log(err)
+        console.log(data)
         if (err) {
             return alert('There was an error uploading your photo: ', err.message);
         }
         alert('Successfully uploaded photo.');
         viewAlbum(albumBucketName);
+    });
+}
+
+function createAlbum(albumName) {
+    albumName = albumName.trim();
+    if (!albumName) {
+        return alert('Album names must contain at least one non-space character.');
+    }
+    if (albumName.indexOf('/') !== -1) {
+        return alert('Album names cannot contain slashes.');
+    }
+    var albumKey = encodeURIComponent(albumName) + '/';
+    s3.headObject({Key: albumKey}, function (err, data) {
+        if (!err) {
+            return alert('Album already exists.');
+        }
+        if (err.code !== 'NotFound') {
+            return alert('There was an error creating your album: ' + err.message);
+        }
+        s3.putObject({Key: albumKey}, function (err, data) {
+            if (err) {
+                return alert('There was an error creating your album: ' + err.message);
+            }
+            alert('Successfully created album.');
+            viewAlbum(albumName);
+        });
     });
 }
