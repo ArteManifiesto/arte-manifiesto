@@ -279,8 +279,10 @@
 	  };
 	</script>
 
+	<script src='https://sdk.amazonaws.com/js/aws-sdk-2.126.0.min.js'></script>
 	<script src='/vendor.min.js'></script>
 	<script src='/app.min.js'></script>
+
 	{% for template in templates %}
 		{% set name =  'elements/' + template + '.html' %}
 		{% include name %}

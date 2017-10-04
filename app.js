@@ -15,6 +15,7 @@ global.md = require('./config/middlewares');
 global.db = require('./config/sequelize');
 
 global.cl = require('cloudinary').v2;
+//global.aws = require('aws-sdk');
 global.cl.config(process.env.CLOUDINARY_URL);
 global.cl_cors = '/cloudinary_cors.html';
 
