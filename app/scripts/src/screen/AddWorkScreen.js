@@ -41,8 +41,12 @@ APP.AddWorkScreen.prototype.setupUI = function () {
     this.workView = $('.work-view');
     this.workNew = $('.work-new');
     this.workEdit = $('.work-edit');
+    this.imagePreview = $('#image-preview');
+    this.imageUpload = $('#image-upload');
 
-    this.uploaderImage = new APP.UploaderImage(this.uploader, this.imgComplete);
+
+    //this.uploaderImage = new APP.UploaderImage(this.uploader, this.imgComplete);
+    //this.uploaderImage = new APP.UploaderImageV2(this.imageUpload, this.imagePreview);
 };
 
 APP.AddWorkScreen.prototype.listeners = function () {
@@ -51,8 +55,23 @@ APP.AddWorkScreen.prototype.listeners = function () {
     this.workDelete.click(this.deleteHandler.bind(this));
     this.workDeleteForce.click(this.workDeleteForceHandler.bind(this));
     this.workDeleteCancel.click(this.deleteCancel.bind(this));
+    this.imageUpload.change(this.previewImage.bind(this));
     $('input[type=checkbox]').change(this.publicHandler);
 };
+
+APP.AddWorkScreen.prototype.previewImage = function (e) {
+    var preview = this.imagePreview
+    var reader = new FileReader();
+
+    reader.onerror = function (ev) {
+        errors.push('Error al mostrar la foto');
+    }
+    reader.onload = function (ev) {
+        preview.html("<img src='" + ev.target.result + "' style='width:300px;'>")
+    };
+    reader.readAsDataURL(e.target.files[0]);
+}
+
 
 APP.AddWorkScreen.prototype.publicHandler = function () {
     $(this).parent().find('.value').text((this.checked ? 'On' : 'Off'));
@@ -63,8 +82,8 @@ APP.AddWorkScreen.prototype.workFormSubmitHandler = function (event) {
     var errors = [],
         scope = this;
 
-    console.log('okkk');
-    if (!this.uploaderImage.photo) errors.push('Ingrese una foto');
+    //if (!this.uploaderImage.photo) errors.push('Ingrese una foto');
+    if (scope.imageUpload[0].files.length == 0) errors.push('Ingrese una foto');
     if (Validations.notBlank(this.name.val())) errors.push('Ingrese un nombre');
     if (Validations.notBlank(this.category.val())) errors.push('Ingrese una categoria');
     if (Validations.notBlank(this.description.val())) errors.push('Ingrese una descripcion');
@@ -76,17 +95,19 @@ APP.AddWorkScreen.prototype.workFormSubmitHandler = function (event) {
     this.send.hide();
 
     var data = this.workForm.serializeArray();
-    $.each(data, function (index, value) {
-        if (value.name === 'photo')
-            value.value = scope.uploaderImage.photo;
+    /*
+     $.each(data, function (index, value) {
+     if (value.name === 'photo')
+     value.value = scope.uploaderImage.photo;
 
-        if (value.name === 'nsfw' || value.name === 'public')
-            value.value = (value.value === 'on');
-    });
+     if (value.name === 'nsfw' || value.name === 'public')
+     value.value = (value.value === 'on');
+     });*/
 
     var url = DataApp.currentUser.url + '/work/create';
     console.log(url)
     this.requestHandler(url, data, this.workCreatedComplete);
+
 };
 
 APP.AddWorkScreen.prototype.workCreatedComplete = function (response) {

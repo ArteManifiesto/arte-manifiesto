@@ -3,132 +3,144 @@
 
 {% block elements %}
 <div class="am-upload-work">
-	<div class="am-upload-work-box grid-container">
-		<form class="work-form">
-			<p class="main-title">SUBIR NUEVA OBRA A MI PORTAFOLIO</p>
-			<div class="grid-100">
-				<div class="separator">
-					<span class="line"></span><span class="text">IMAGEN DE LA OBRA</span><span class="line"></span>
-				</div>
-				<div class="uploader-work">
-					<div class="profile-imgage">
-						<div class="preview">
-						</div>
-					</div>
-					<div class="preload hide"><i class="fa fa-spinner"></i></div>
-					<button class="button upload u-margin-top-30">BUSCAR ARCHIVO</button>
-				</div>
-				<div class="image-uploader" style="position:relative;">
-					{{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token: true, html: { style: "width:230px;height:55px;top:-70px;left: 105px;" } })}}
-				</div>
-				<div class="separator">
-					<span class="line"></span><span class="text">DATOS DE LA OBRA</span><span class="line"></span>
-				</div>
-				<p class="title">Título de la obra</p>
-				<input name='name' class="input input-modal" type="text" placeholder="Ingrese el nombre"/>
-			</div>
+    <div class="am-upload-work-box grid-container">
+        <form class="work-form" enctype="multipart/form-data">
+            <p class="main-title">SUBIR NUEVA OBRA A MI PORTAFOLIO</p>
+            <div class="grid-100">
+                <div class="separator">
+                    <span class="line"></span><span class="text">IMAGEN DE LA OBRA</span><span class="line"></span>
+                </div>
+                <div class="block-image">
+                    <div id="image-preview"></div>
+                    <label id="label-image-upload" class="button u-margin-top-30" for="image-upload">BUSCAR ARCHIVO</label>
+                    <input type="file" id="image-upload" class="hidden" name="image_work">
+                </div>
+                <!--div class="uploader-work">
+                    <div class="profile-imgage">
+                        <div class="preview">
+                        </div>
+                    </div>
+                    <div class="preload hide"><i class="fa fa-spinner"></i></div>
+                    <button class="button upload u-margin-top-30">BUSCAR ARCHIVO</button>
+                </div>
 
-			<div class="grid-100 mobile-grid-100">
-				<p class="title">Categoría de la obra</p>
-				<select class="input select" name='category'>
-					<option disabled selected>Selecciona una Categoria</option>
-					{% for category in categories %}
-						<option value="{{category.id}}">{{category.name}}</option>
-					{% endfor %}
-				</select>
-			</div>
+                <div class="image-uploader" style="position:relative;">
+                    {{ cloudinary.uploader.image_upload_tag('photo', {callback: cloudinary_cors, return_delete_token:
+                    true, html: { style: "width:230px;height:55px;top:-70px;left: 105px;" } })}}
+                </div-->
+                <div class="separator">
+                    <span class="line"></span><span class="text">DATOS DE LA OBRA</span><span class="line"></span>
+                </div>
+                <p class="title">Título de la obra</p>
+                <input name='name' class="input input-modal" type="text" placeholder="Ingrese el nombre"/>
+            </div>
 
-			<div class="grid-100 mobile-grid-100">
-				<p class="title">Descripcion de la obra</p>
-				<textarea name='description' class='input' placeholder="Descripcion" maxlength='140'></textarea>
-			</div>
+            <div class="grid-100 mobile-grid-100">
+                <p class="title">Categoría de la obra</p>
+                <select class="input select" name='category'>
+                    <option disabled selected>Selecciona una Categoria</option>
+                    {% for category in categories %}
+                    <option value="{{category.id}}">{{category.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-			<div class="grid-100 mobile-grid-100">
-				<p class="title">Tags de la obra</p>
-				<input name='tags' class="input" type="text"/>
-				<div class="separator">
-					<span class="line"></span><span class="text">CARACTERÍSTICAS</span><span class="line"></span>
-				</div>
-				<div class="switch u-margin-top-10">
-					<p class="title">Público</p>
-					<span class="value">On</span>
-					<input type="checkbox" name="public" id="public" checked/>
-					<label for="public">
-						<div class="am-Switch-button">
-							<i class="fa fa-bars"></i>
-						</div>
-					</label>
-				</div>
-				<div class="switch u-margin-top-10">
-					<p class="title">+18</p>
-					<span class="value">Off</span>
-					<input type="checkbox" name="nsfw" id="nsfw"/>
-					<label for="nsfw">
-						<div class="am-Switch-button">
-							<i class="fa fa-bars"></i>
-						</div>
-					</label>
-				</div>
-				<button class="button u-margin-top-30 send" data-color="blue">SUBIR OBRA</button>
-				<div class="hide send-loading">
-					<button class="button u-margin-top-30" data-color="blue">
-						<i class="load fa fa-spinner"></i>
-					</button>
-				</div>
-			</div>
-		</form>
+            <div class="grid-100 mobile-grid-100">
+                <p class="title">Descripcion de la obra</p>
+                <textarea name='description' class='input' placeholder="Descripcion" maxlength='140'></textarea>
+            </div>
 
-		<div class="hide work-published">
-			<div class="grid-100">
-	  		<p class="main-title">TU OBRA SE HA PUBLICADO CON ÉXITO</p>
-	  		<div class="u-separator"></div>
-	  		<div class="work-collection-card u-margin-top-40">
-	  			<div class="work-collection-card-img">
-						<img class="work-photo-published">
-	  			</div>
-	  			<div class="work-collection-card-data">
-	  				<p class="work-collection-card-title work-name-published"></p>
-	  				<p class="work-collection-card-artist work-user-published"></p>
-	  			</div>
-	  		</div>
-	  		<div class="separator u-margin-top-20">
-	  			<span class="line"></span><span class="text">¿QUE QUIERES HACER AHORA?</span><span class="line"></span>
-	  		</div>
-	  	</div>
-	  	<div class="u-padding-top-20" style="oferoverflow: hidden;">
-	  		<div class="grid-50">
-	        <a class='work-view'>
-	          <button class="button inline upload u-margin-top-30 upload_button">
-	            <i class="bi_interface-view"></i>&nbsp;&nbsp;&nbsp;VER OBRA
-	          </button>
-	        </a>
-	  		</div>
-	  		<div class="grid-50">
-	  			<a class="work-edit">
-	          <button class="button inline upload u-margin-top-30 upload_button"><i class="bi_editorial-compose"></i>&nbsp;&nbsp;&nbsp;EDITAR OBRA</button>
-	  			</a>
-	  		</div>
-	  		<div class="grid-50">
-	  			<a class='work-new'>
-	          <button class="button inline upload u-margin-top-30 upload_button"><i class="bi_interface-cloud-upload"></i>&nbsp;&nbsp;&nbsp;SUBIR OTRA OBRA</button>
-	  			</a>
-	  		</div>
-	  		<div class="grid-50">
-	  			<!-- <button class="button inline upload u-margin-top-30 upload_button work-delete" data-color="red">
-	  				<i class="bi_editorial-trash-l"></i>&nbsp;&nbsp;&nbsp;ELIMINAR OBRA
-	  			</button> -->
-	        <button class="button inline upload work-delete trash" style="border: none; box-shadow: none;">
-	          <i class="bi_editorial-trash-l"></i>&nbsp;&nbsp;&nbsp;ELIMINAR
-	        </button>
-					<div class="edit-options work-delete-confirm hide">
-						ELIMINAR? &nbsp;
-						<i class="bi_interface-box-tick work-delete-force save-icon" style="display: inline;"></i>
-						<i class="bi_interface-box-cross work-delete-cancel cancel-icon" style="display: inline;"></i>
-					</div>
-	  		</div>
-	  	</div>
-		</div>
-	</div>
+            <div class="grid-100 mobile-grid-100">
+                <p class="title">Tags de la obra</p>
+                <input name='tags' class="input" type="text"/>
+                <div class="separator">
+                    <span class="line"></span><span class="text">CARACTERÍSTICAS</span><span class="line"></span>
+                </div>
+                <div class="switch u-margin-top-10">
+                    <p class="title">Público</p>
+                    <span class="value">On</span>
+                    <input type="checkbox" name="public" id="public" checked/>
+                    <label for="public">
+                        <div class="am-Switch-button">
+                            <i class="fa fa-bars"></i>
+                        </div>
+                    </label>
+                </div>
+                <div class="switch u-margin-top-10">
+                    <p class="title">+18</p>
+                    <span class="value">Off</span>
+                    <input type="checkbox" name="nsfw" id="nsfw"/>
+                    <label for="nsfw">
+                        <div class="am-Switch-button">
+                            <i class="fa fa-bars"></i>
+                        </div>
+                    </label>
+                </div>
+                <button class="button u-margin-top-30 send" data-color="blue">SUBIR OBRA</button>
+                <div class="hide send-loading">
+                    <button class="button u-margin-top-30" data-color="blue">
+                        <i class="load fa fa-spinner"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <div class="hide work-published">
+            <div class="grid-100">
+                <p class="main-title">TU OBRA SE HA PUBLICADO CON ÉXITO</p>
+                <div class="u-separator"></div>
+                <div class="work-collection-card u-margin-top-40">
+                    <div class="work-collection-card-img">
+                        <img class="work-photo-published">
+                    </div>
+                    <div class="work-collection-card-data">
+                        <p class="work-collection-card-title work-name-published"></p>
+                        <p class="work-collection-card-artist work-user-published"></p>
+                    </div>
+                </div>
+                <div class="separator u-margin-top-20">
+                    <span class="line"></span><span class="text">¿QUE QUIERES HACER AHORA?</span><span
+                        class="line"></span>
+                </div>
+            </div>
+            <div class="u-padding-top-20" style="oferoverflow: hidden;">
+                <div class="grid-50">
+                    <a class='work-view'>
+                        <button class="button inline upload u-margin-top-30 upload_button">
+                            <i class="bi_interface-view"></i>&nbsp;&nbsp;&nbsp;VER OBRA
+                        </button>
+                    </a>
+                </div>
+                <div class="grid-50">
+                    <a class="work-edit">
+                        <button class="button inline upload u-margin-top-30 upload_button"><i
+                                class="bi_editorial-compose"></i>&nbsp;&nbsp;&nbsp;EDITAR OBRA
+                        </button>
+                    </a>
+                </div>
+                <div class="grid-50">
+                    <a class='work-new'>
+                        <button class="button inline upload u-margin-top-30 upload_button"><i
+                                class="bi_interface-cloud-upload"></i>&nbsp;&nbsp;&nbsp;SUBIR OTRA OBRA
+                        </button>
+                    </a>
+                </div>
+                <div class="grid-50">
+                    <!-- <button class="button inline upload u-margin-top-30 upload_button work-delete" data-color="red">
+                        <i class="bi_editorial-trash-l"></i>&nbsp;&nbsp;&nbsp;ELIMINAR OBRA
+                    </button> -->
+                    <button class="button inline upload work-delete trash" style="border: none; box-shadow: none;">
+                        <i class="bi_editorial-trash-l"></i>&nbsp;&nbsp;&nbsp;ELIMINAR
+                    </button>
+                    <div class="edit-options work-delete-confirm hide">
+                        ELIMINAR? &nbsp;
+                        <i class="bi_interface-box-tick work-delete-force save-icon" style="display: inline;"></i>
+                        <i class="bi_interface-box-cross work-delete-cancel cancel-icon" style="display: inline;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
 
