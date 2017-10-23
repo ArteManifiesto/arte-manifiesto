@@ -6,6 +6,8 @@ var basePath = 'user/work/';
  */
 var http = require('http');
 var formidable = require('formidable');
+var AWS = require('aws-sdk');
+var env = process.env
 
 
 exports.index = function (currentPath, req, res) {
@@ -142,6 +144,8 @@ exports.create = function (req, res) {
     var promises = [];
     var form = new formidable.IncomingForm();
 
+    console.log(req);
+
     form.parse(req, function (err, fields, files) {
         if (err != null)
             return res.json(error)
@@ -201,8 +205,29 @@ exports.create = function (req, res) {
     })
 };
 
-exports.uploadImage = function(file) {
-    return "http://res.cloudinary.com/arte-manifiesto/image/upload/v1450065551/general/logo.png"
+exports.uploadImage = function (file) {
+    //AWS.config.update({ accessKeyId: 'key', secretAccessKey: 'secret' });
+    AWS.config.loadFromPath({
+        "accessKeyId": env.S3_KEY,
+        "secretAccessKey": env.S3_SECRET,
+        "region": "us-east-1"
+    });
+
+    var fileBuffer = fs.readFileSync(file);
+    var metaData = getContentTypeByFile(file);
+
+    s3.putObject({
+        ACL: 'public-read',
+        Bucket: env.S3_BUCKET,
+        Key: file.name,
+        Body: fileBuffer,
+        ContentType: metaData
+    }, function (error, response) {
+        console.log(response);
+        console.log(error);
+        console.log('uploaded file[' + fileName + '] to [' + remoteFilename + '] as [' + metaData + ']');
+        console.log(arguments);
+    });
 }
 
 

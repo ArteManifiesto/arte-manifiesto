@@ -88,6 +88,7 @@ APP.AddWorkScreen.prototype.workFormSubmitHandlerV2 = function (event) {
     if (Validations.notBlank(this.description.val())) errors.push('Ingrese una descripcion');
     if (this.tags.val().split(',')[0].length < 1) errors.push('Ingrese etiquetas');
 
+    console.log(scope);
     if (errors.length > 0) return this.showFlash('error', errors);
 
     this.sendLoading.show();
@@ -95,6 +96,8 @@ APP.AddWorkScreen.prototype.workFormSubmitHandlerV2 = function (event) {
     var data = new FormData(this.workForm[0]);
 
     var url = DataApp.currentUser.url + '/work/create';
+    console.log(url);
+    debugger;
     this.requestHandlerImage(url, data, this.workCreatedCompleteV2);
 };
 
